@@ -191,7 +191,7 @@
   <div class="hero">
     <div class="heroTop">
       <div><h1>Sensum OSRS Progression Dashboard</h1><div class="sub">Open this, see what matters, play the game.</div></div>
-      <div class="version">V1.15 · Trust the Numbers</div>
+      <div class="version">V1.15.1 · Trust the Numbers</div>
     </div>
     <div class="controls">
       <div class="label">Goal Target</div><select id="goal" onchange="changeGoal()"></select>
@@ -771,7 +771,8 @@ function changeDepth(){busy(true);google.script.run.withSuccessHandler(render).w
 load();
 </script>
 <style id="v115styles">
-.v115Report{background:#f0b83d;color:#321b0c;border:0;border-radius:9px;padding:9px 12px;font-weight:900;cursor:pointer}
+.v115Report{display:flex;align-items:center;justify-content:center;gap:7px;width:100%;margin-top:7px;background:#f0b83d;color:#321b0c;border:1px solid #d99b29;border-radius:8px;padding:6px 8px;font-size:10px;font-weight:900;cursor:pointer}
+.v115Report img{width:22px;height:23px;image-rendering:auto;flex:0 0 auto}
 .v115Banner{position:fixed;z-index:9998;top:-220px;left:50%;transform:translateX(-50%);width:min(720px,calc(100% - 30px));background:#fff7df;color:#25180e;border:3px solid #d99b29;border-radius:0 0 14px 14px;box-shadow:0 12px 35px rgba(0,0,0,.38);padding:14px 16px;transition:top .45s ease}
 .v115Banner.show{top:0}.v115Banner b{font-size:15px}.v115BannerActions{margin-top:9px;display:flex;gap:8px}
 .v115Modal{position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.68);display:none;align-items:center;justify-content:center;padding:20px}
@@ -798,7 +799,25 @@ function renderV115Quests(){if(!v115State)return;const f=(document.getElementByI
 function toggleV115(q,on){on?v115Selected.add(q):v115Selected.delete(q);renderV115Quests()}
 function updateV115Selected(){if(!v115State)return;const rows=v115State.incomplete.filter(q=>v115Selected.has(q.quest));const qp=rows.reduce((a,b)=>a+(Number(b.qp)||0),0);let t=`Selected: ${rows.length} quest${rows.length===1?'':'s'} - ${qp} QP`;if(v115State.detectedGain)t+=qp===v115State.detectedGain?' - Matches detected change':` - Detected +${v115State.detectedGain}`;document.getElementById('v115Selected').textContent=t}
 function confirmV115Quests(){if(!v115Selected.size)return alert('Select at least one quest.');const names=[...v115Selected];if(!confirm(`Mark these quests complete?\n\n${names.join('\n')}`))return;google.script.run.withFailureHandler(e=>alert('Quest update failed: '+e.message)).withSuccessHandler(r=>{v115LastTx=r.transactionId;v115State=r.state;closeV115QuestModal();hideV115Banner();alert(`${r.changed.length} quest${r.changed.length===1?'':'s'} marked complete.`);location.reload()}).completeV115Quests(names,v115Source)}
-document.addEventListener('DOMContentLoaded',()=>{const controls=document.querySelector('.controls');if(controls&&!document.getElementById('v115Report')){const b=document.createElement('button');b.id='v115Report';b.className='v115Report';b.textContent='Report Completed Quest';b.onclick=()=>openV115QuestModal('Dashboard Manual');controls.appendChild(b)}loadV115()});
+document.addEventListener('DOMContentLoaded',()=>{
+  if(!document.getElementById('v115Report')){
+    const metric=[...document.querySelectorAll('.metric')].find(m=>{
+      const k=m.querySelector('.k');
+      return k && String(k.textContent||'').trim().toUpperCase()==='QUEST POINTS';
+    });
+    if(metric){
+      const b=document.createElement('button');
+      b.id='v115Report';
+      b.className='v115Report';
+      b.title='Report Completed Quest';
+      b.setAttribute('aria-label','Report Completed Quest');
+      b.innerHTML='<img src="https://oldschool.runescape.wiki/images/Quest_point_icon.png" alt=""> <span>Report Quest</span>';
+      b.onclick=()=>openV115QuestModal('Dashboard Manual');
+      metric.appendChild(b);
+    }
+  }
+  loadV115();
+});
 </script>
 
 </body>
