@@ -72,6 +72,23 @@
     details.section{margin-top:14px}.section summary{cursor:pointer;list-style:none}.section summary::-webkit-details-marker{display:none}
     .section summary .head:after{content:'▾';margin-left:auto;color:#ffd98b}.section[open] summary .head:after{content:'▴'}
     .compactNote{padding:8px 12px;color:#685744;font-size:11px;background:#f9f2e7;border-bottom:1px solid #dfd1b9}
+
+    .dataHealthBar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:9px 22px 11px;border-top:1px solid #5a3216;background:#170c06}
+    .dataHealthStatus{display:flex;align-items:center;gap:7px;white-space:nowrap}
+    .healthDot{width:10px;height:10px;border-radius:50%;background:#888;box-shadow:0 0 0 2px rgba(255,255,255,.08)}
+    .healthTitle{font-size:10px;text-transform:uppercase;letter-spacing:.7px;font-weight:900;color:#ccb797}
+    .healthState{font-size:11px;font-weight:900;text-transform:uppercase}
+    .healthFacts{display:flex;gap:14px;flex-wrap:wrap;justify-content:flex-end;font-size:10px;color:#bfa98a}
+    .healthFacts b{color:#fff3d3}
+    .dataHealthBar.healthHealthy .healthDot{background:#6fb673}
+    .dataHealthBar.healthHealthy .healthState{color:#8bd18f}
+    .dataHealthBar.healthAttention .healthDot{background:#d4a33c}
+    .dataHealthBar.healthAttention .healthState{color:#e5bc61}
+    .dataHealthBar.healthStale .healthDot{background:#d06b56}
+    .dataHealthBar.healthStale .healthState{color:#ef8e77}
+    .dataHealthBar.healthError .healthDot{background:#d9443a}
+    .dataHealthBar.healthError .healthState{color:#ff766d}
+
     .blockerLegend{display:flex;gap:8px;flex-wrap:wrap;padding:10px 12px;background:#f7efe2;border-bottom:1px solid #d9c7aa}
     .legendBadge,.timeBadge{display:inline-flex;align-items:center;justify-content:center;gap:5px;border-radius:999px;font-size:10px;font-weight:900;text-align:center;border:2px solid;letter-spacing:.2px}
     .legendBadge{padding:6px 9px}.timeBadge{min-width:104px;padding:6px 9px}
@@ -145,7 +162,7 @@
     .hidden{display:none}.error{background:#5c1712;border:1px solid #aa4238;border-radius:10px;padding:10px;margin-top:14px}
 
     @media(max-width:1100px){.grid,.prepGrid{grid-template-columns:1fr}.metrics{grid-template-columns:repeat(3,1fr)}.skills{grid-template-columns:repeat(6,1fr)}.actionBody{grid-template-columns:1fr}.actionSteps{grid-template-columns:1fr 1fr 1fr}}
-    @media(max-width:680px){.shell{padding:8px}.controls{grid-template-columns:1fr}.metrics{grid-template-columns:repeat(2,1fr);padding:10px}.heroTop{padding:15px 13px}.skills{grid-template-columns:repeat(3,1fr)}.summaryGrid{grid-template-columns:1fr}.summaryBox.full{grid-column:auto}.actionSteps{grid-template-columns:1fr}.actionStep.prep{grid-column:auto}.version{display:none}.qpStrip{display:block}}
+    @media(max-width:680px){.dataHealthBar{align-items:flex-start;flex-direction:column}.healthFacts{justify-content:flex-start;gap:9px}.shell{padding:8px}.controls{grid-template-columns:1fr}.metrics{grid-template-columns:repeat(2,1fr);padding:10px}.heroTop{padding:15px 13px}.skills{grid-template-columns:repeat(3,1fr)}.summaryGrid{grid-template-columns:1fr}.summaryBox.full{grid-column:auto}.actionSteps{grid-template-columns:1fr}.actionStep.prep{grid-column:auto}.version{display:none}.qpStrip{display:block}}
   </style>
 </head>
 <body>
@@ -154,7 +171,7 @@
   <div class="hero">
     <div class="heroTop">
       <div><h1>Sensum OSRS Progression Dashboard</h1><div class="sub">Open this, see what matters, play the game.</div></div>
-      <div class="version">V1.10 · Goal Clarity</div>
+      <div class="version">V1.11 · Data Health</div>
     </div>
     <div class="controls">
       <div class="label">Goal Target</div><select id="goal" onchange="changeGoal()"></select>
@@ -166,6 +183,19 @@
       <div class="metric"><div class="k">Quest Points</div><div class="v" id="qp">—</div></div>
       <div class="metric"><div class="k">WOM Snapshot</div><div class="v" id="wom" style="font-size:12px">—</div></div>
       <div class="metric"><div class="k">Sheet Sync</div><div class="v" id="sync" style="font-size:12px">—</div></div>
+    </div>
+    <div class="dataHealthBar" id="dataHealthBar">
+      <div class="dataHealthStatus">
+        <span class="healthDot" id="healthDot"></span>
+        <span class="healthTitle">Data Health</span>
+        <span class="healthState" id="healthState">Checking…</span>
+      </div>
+      <div class="healthFacts">
+        <span>WOM <b id="healthWom">—</b></span>
+        <span>Wiki <b id="healthWiki">—</b></span>
+        <span>Sheet <b id="healthSheet">—</b></span>
+        <span>Reviews <b id="healthReviews">—</b></span>
+      </div>
     </div>
   </div>
 
@@ -431,9 +461,61 @@ function inferTarget(skill,s){
   return defaults[name]||null;
 }
 
+
+function parseDashboardDate(v){
+  if(!v)return null;
+  const raw=String(v).trim();
+  const d=new Date(raw);
+  if(!isNaN(d.getTime()))return d;
+  const m=raw.match(/(\d{1,2})\/(\d{1,2})\/(\d{4})\s+(\d{1,2}):(\d{2})(?::(\d{2}))?\s*(AM|PM)?/i);
+  if(!m)return null;
+  let hour=Number(m[4]), ampm=(m[7]||'').toUpperCase();
+  if(ampm==='PM' && hour<12)hour+=12;
+  if(ampm==='AM' && hour===12)hour=0;
+  return new Date(Number(m[3]),Number(m[1])-1,Number(m[2]),hour,Number(m[5]),Number(m[6]||0));
+}
+function ageMinutes(v){
+  const d=parseDashboardDate(v);
+  if(!d)return null;
+  return Math.max(0,Math.round((Date.now()-d.getTime())/60000));
+}
+function ageLabel(v){
+  const mins=ageMinutes(v);
+  if(mins===null)return 'unknown';
+  if(mins<60)return `${mins}m ago`;
+  const hrs=mins/60;
+  if(hrs<24)return `${Math.round(hrs*10)/10}h ago`;
+  return `${Math.round(hrs/24)}d ago`;
+}
+function dataHealth(s){
+  const wom=ageMinutes(s.lastWomSnapshot);
+  const sheet=ageMinutes(s.lastSheetSync);
+  const h=s.wikiHealth||{};
+  const wiki=ageMinutes(h.lastCheck);
+  const reviews=Number(h.review||0), missing=Number(h.missing||0);
+
+  let state='HEALTHY', cls='healthHealthy';
+  if(wom===null || wiki===null || sheet===null || missing>0){
+    state='ERROR'; cls='healthError';
+  }else if(wom>180 || sheet>180 || wiki>2880){
+    state='STALE'; cls='healthStale';
+  }else if(wom>90 || sheet>90 || wiki>1440 || reviews>0){
+    state='ATTENTION'; cls='healthAttention';
+  }
+
+  const bar=$('dataHealthBar');
+  bar.className='dataHealthBar '+cls;
+  $('healthState').textContent=state;
+  $('healthWom').textContent=ageLabel(s.lastWomSnapshot);
+  $('healthWiki').textContent=ageLabel(h.lastCheck);
+  $('healthSheet').textContent=ageLabel(s.lastSheetSync);
+  $('healthReviews').textContent=String(reviews);
+}
+
 function render(s){
   window.__sensumState=s;
   busy(false);$('err').classList.add('hidden');
+  dataHealth(s);
   $('user').textContent=s.username||'Sensum';$('combat').textContent=s.combatLevel||'—';$('qp').textContent=s.questPoints||'—';
   $('wom').textContent=s.lastWomSnapshot||'—';$('sync').textContent=s.lastSheetSync||'—';
   $('goal').innerHTML=(s.goals||[]).map(g=>`<option value="${esc(g.name)}">${esc(g.name)}</option>`).join('');
