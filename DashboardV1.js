@@ -1,6 +1,7 @@
 const V1_TRACKER_ID = '18cUN2RTytdinH9kpgqQhz9OZsKRpHrVAB2hiUotznKU';
 
 function getV1DashboardState() {
+  if (typeof qhMaybeSyncRoute_ === 'function') qhMaybeSyncRoute_();
   const ss = SpreadsheetApp.openById(V1_TRACKER_ID);
   const dash = ss.getSheetByName('Dashboard');
   const statsSheet = ss.getSheetByName('Your Stats');
