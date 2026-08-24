@@ -104,6 +104,20 @@
     .checkRow:last-child{border-bottom:0}.checkRow.done{opacity:.58}.checkRow.done .itemName{text-decoration:line-through}
     .checkRow input{width:17px;height:17px;accent-color:#4c7a45;cursor:pointer}.itemName{font-weight:900}.questTag{color:#6d5b47}
     .saveState{font-size:9px;color:#7e6a54;font-weight:700}.obtainList{display:flex;gap:5px;flex-wrap:wrap;padding:8px 2px}
+
+    .shopProgressBar{height:7px;background:#dfd1b9;border-radius:999px;overflow:hidden;margin:8px 2px 12px}
+    .shopProgressFill{height:100%;background:#4c7a45;border-radius:999px;transition:width .2s}
+    .questShopGroup{border:1px solid #d7c4a5;border-radius:10px;margin-bottom:9px;background:#fffaf1;overflow:hidden}
+    .questShopGroup.complete{opacity:.62}
+    .questShopHead{display:flex;align-items:center;gap:8px;padding:8px 10px;background:#eadcc4;border-bottom:1px solid #d4c09e}
+    .questShopGroup.complete .questShopHead{background:#dfe9dc}
+    .questShopTitle{font-weight:900;font-size:12px}.questStep{background:#5d3518;color:#ffd878;border-radius:999px;padding:3px 6px;font-size:9px;font-weight:900;text-transform:uppercase}
+    .questDone{margin-left:auto;font-size:9px;font-weight:900;color:#4c7a45;text-transform:uppercase}
+    .questShopRows{padding:0 8px}.alsoNeeded{display:block;font-size:9px;color:#8b7359;font-weight:600;margin-top:2px}
+    .balancedGrid{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:7px}
+    .balancedMini{background:#fffaf1;border:1px solid #d8c6a8;border-radius:8px;padding:8px}
+    .balancedMini b{display:block;font-size:9px;text-transform:uppercase;color:#82623d;margin-bottom:3px}.balancedMini span{font-size:12px;font-weight:900}
+
     .targetLine{font-size:9px;color:#8a6a3d;font-weight:800;margin-top:3px}
 
     .loading{position:fixed;inset:0;background:rgba(11,6,3,.82);display:flex;align-items:center;justify-content:center;z-index:10}.loading>div{background:#2c180a;border:1px solid #996128;border-radius:12px;padding:18px 22px;color:#ffe2a4;font-weight:900}
@@ -119,7 +133,7 @@
   <div class="hero">
     <div class="heroTop">
       <div><h1>Sensum OSRS Progression Dashboard</h1><div class="sub">Open this, see what matters, play the game.</div></div>
-      <div class="version">V1.5 · Play Session UI</div>
+      <div class="version">V1.6 · Route Prep</div>
     </div>
     <div class="controls">
       <div class="label">Goal Target</div><select id="goal" onchange="changeGoal()"></select>
@@ -191,7 +205,7 @@
   </details>
 
   <div class="prepGrid">
-    <div class="card"><div class="head">🛒 Route Shopping Checklist <span class="sectionNote">checked items stay checked on this browser</span></div><div id="shopping" class="shop"></div></div>
+    <div class="card"><div class="head">🛒 Route Shopping Checklist <span class="sectionNote" id="shopProgress">route-order prep</span></div><div id="shopping" class="shop"></div></div>
     <div class="card"><div class="head">🎒 Prep Guidance</div><div class="prepTips">
       <div class="prepTip"><b>Bring / Buy</b><span>Use the checklist as you bank/shop. Checked rows strike through and persist on this browser.</span></div>
       <div class="prepTip"><b>Obtainable</b><span>Can be acquired during the quest and does not automatically become a shopping requirement.</span></div>
@@ -272,7 +286,61 @@ function toggleShop(cb,key){
   try{localStorage.setItem(key,cb.checked?'1':'0')}catch(e){}
   const row=cb.closest('.checkRow'); if(row)row.classList.toggle('done',cb.checked);
 }
-function shoppingHtml(rows){
+
+function routeStepMap(s){
+  const m=new Map();
+  (s.route||[]).forEach(r=>m.set(String(r.quest||'').trim().toLowerCase(),Number(r.step||999)));
+  return m;
+}
+function splitQuests(v){return String(v||'').split(',').map(x=>x.trim()).filter(Boolean)}
+function routeShoppingHtml(s){
+  const rows=s.shopping||[], steps=routeStepMap(s), groups=new Map(), seen=new Map(), obtain=[], alt=[];
+  rows.forEach(i=>{
+    const a=String(i.acquisition||'').toLowerCase(),t=String(i.type||'').toLowerCase();
+    if(t.includes('choice')||t.includes('alternative')){alt.push(i);return}
+    if(a.includes('obtain')){obtain.push(i);return}
+    const quests=splitQuests(i.quests);
+    const ordered=(quests.length?quests:['Other']).sort((a,b)=>(steps.get(a.toLowerCase())||999)-(steps.get(b.toLowerCase())||999));
+    const primary=ordered[0]||'Other', itemKey=String(i.item||'').trim().toLowerCase();
+    if(seen.has(itemKey)){
+      const prev=seen.get(itemKey);
+      prev.also=[...new Set([...(prev.also||[]),...ordered.filter(q=>q!==prev.quest)])];
+      prev.qty=Math.max(Number(prev.qty||1),Number(i.qty||1));
+      return;
+    }
+    const obj={...i,quest:primary,also:ordered.slice(1)};
+    seen.set(itemKey,obj);
+    if(!groups.has(primary))groups.set(primary,[]);
+    groups.get(primary).push(obj);
+  });
+  const orderedGroups=[...groups.entries()].sort((a,b)=>{
+    const sa=steps.get(a[0].toLowerCase())||999,sb=steps.get(b[0].toLowerCase())||999;
+    return sa-sb || a[0].localeCompare(b[0]);
+  });
+  let total=0,done=0;
+  orderedGroups.forEach(([,items])=>items.forEach(i=>{total++;if(isChecked(i))done++}));
+  const pct=total?Math.round(done/total*100):100;
+  $('shopProgress').textContent=`${done} / ${total} acquired · ${pct}%`;
+  let html=`<div class="shopProgressBar"><div class="shopProgressFill" style="width:${pct}%"></div></div>`;
+  orderedGroups.forEach(([quest,items])=>{
+    const qDone=items.filter(isChecked).length, complete=items.length&&qDone===items.length, step=steps.get(quest.toLowerCase());
+    html+=`<div class="questShopGroup ${complete?'complete':''}"><div class="questShopHead">${step?`<span class="questStep">Step ${step}</span>`:''}<span class="questShopTitle">${esc(quest)}</span><span class="questDone">${complete?'✓ Ready':`${qDone}/${items.length}`}</span></div><div class="questShopRows">`;
+    items.forEach(i=>{
+      const key=checklistKey(i),checked=isChecked(i);
+      html+=`<label class="checkRow ${checked?'done':''}"><input type="checkbox" ${checked?'checked':''} onchange="toggleShopV16(this,'${esc(key)}')"><span class="itemName">${esc(i.item)}${i.also&&i.also.length?`<span class="alsoNeeded">Also needed: ${esc(i.also.join(', '))}</span>`:''}</span><span>×${esc(i.qty||1)}</span><span class="questTag">${checked?'Acquired':'Need'}</span></label>`;
+    });
+    html+='</div></div>';
+  });
+  if(obtain.length)html+=`<div class="shopGroup"><div class="shopGroupTitle"><span>✓ Obtain During Quest</span><span class="shopCount">${obtain.length}</span></div><div class="obtainList">${obtain.map(i=>chipHtml({name:i.item,qty:i.qty},'obtain')).join('')}</div></div>`;
+  if(alt.length)html+=`<div class="shopGroup"><div class="shopGroupTitle"><span>↔ Choice / Alternative</span><span class="shopCount">${alt.length}</span></div><div class="obtainList">${alt.map(i=>chipHtml({name:i.item,qty:i.qty},'alt')).join('')}</div></div>`;
+  return html;
+}
+function toggleShopV16(cb,key){
+  try{localStorage.setItem(key,cb.checked?'1':'0')}catch(e){}
+  if(window.__sensumState) $('shopping').innerHTML=routeShoppingHtml(window.__sensumState);
+}
+
+function shoppingHtmlLegacy(rows){
   const required=[],obtain=[],alt=[];
   (rows||[]).forEach(i=>{
     const a=String(i.acquisition||'').toLowerCase(),t=String(i.type||'').toLowerCase();
@@ -303,6 +371,7 @@ function inferTarget(skill,s){
 }
 
 function render(s){
+  window.__sensumState=s;
   busy(false);$('err').classList.add('hidden');
   $('user').textContent=s.username||'Sensum';$('combat').textContent=s.combatLevel||'—';$('qp').textContent=s.questPoints||'—';
   $('wom').textContent=s.lastWomSnapshot||'—';$('sync').textContent=s.lastSheetSync||'—';
@@ -310,8 +379,21 @@ function render(s){
   $('goal').value=s.goal;$('depth').value=String(s.routeDepth||10);
 
   const g=s.goalSummary||{};
-  $('objective').textContent=g.objective||'—';$('status').textContent=g.status||'—';$('missing').textContent=g.missingSkills||'None';
-  $('prereq').textContent=g.prerequisites||'None';$('effect').textContent=g.effect||'—';
+  const balanced=/balanced/i.test(String(s.goal||''));
+  if(balanced){
+    const ready=(s.route||[]).filter(r=>Number(r.afterHours||0)<=0).length;
+    const blockers=(s.route||[]).filter(r=>Number(r.afterHours||0)>0).sort((a,b)=>Number(a.afterHours)-Number(b.afterHours));
+    const quick=blockers[0];
+    const start=Number(s.questPoints||0), end=(s.route||[]).length?Number((s.route||[])[s.route.length-1].projectedQp||start):start;
+    $('objective').textContent='Balanced Account Progression';
+    $('status').textContent=`${ready} route quests ready now`;
+    $('missing').innerHTML=`<div class="balancedGrid"><div class="balancedMini"><b>Quickest blocker</b><span>${quick?esc(quick.quest)+' · '+esc(friendlyHours(quick.afterHours)):'None'}</span></div><div class="balancedMini"><b>Displayed QP gain</b><span>+${Math.max(0,end-start)} QP</span></div></div>`;
+    $('prereq').textContent=quick?`${quick.blocker||'Training'} is the nearest interruption in the displayed route.`:'Displayed route has no training blocker.';
+    $('effect').textContent='Prioritizes ready quests, downstream unlocks, quest points, and short training detours instead of tunneling on one end-game target.';
+  }else{
+    $('objective').textContent=g.objective||'—';$('status').textContent=g.status||'—';$('missing').textContent=g.missingSkills||'None';
+    $('prereq').textContent=g.prerequisites||'None';$('effect').textContent=g.effect||'—';
+  }
 
   $('top').innerHTML=(s.topQuests||[]).map(q=>`<tr><td class="num"><span class="rank">${esc(q.rank)}</span></td><td><b>${esc(q.quest)}</b></td><td class="num">${esc(q.score)}</td><td class="num"><span class="tier">${esc(q.tier)}</span></td><td class="num">${esc(q.downstream)}</td><td class="why">${esc(q.why)}</td></tr>`).join('');
 
@@ -347,7 +429,7 @@ function render(s){
   $('blocked').innerHTML=(s.blockedQuests||[]).map(q=>`<tr><td><b>${esc(q.quest)}</b></td><td class="num">${esc(q.score)}</td><td class="num">${esc(q.downstream)}</td><td>${esc(q.blockedBy)}</td><td class="${q.missingSkills&&q.missingSkills!=='None'?'danger':'good'}">${esc(q.missingSkills||'None')}</td><td class="num">${timeBadge(q.hours)}</td></tr>`).join('');
   $('grinds').innerHTML=(s.skillGrinds||[]).map(q=>`<tr><td><b>${esc(q.quest)}</b></td><td>${esc(q.missingSkills)}</td><td class="num">${timeBadge(q.value)}</td><td class="num">${esc(q.efficiency)}</td></tr>`).join('');
 
-  $('shopping').innerHTML=shoppingHtml(s.shopping||[]);
+  $('shopping').innerHTML=routeShoppingHtml(s);
 
   const focus=goalSkills(s);
   $('skills').innerHTML=(s.stats||[]).map(x=>{const relevant=focus.has(String(x.skill||'').toLowerCase()),target=relevant?inferTarget(x,s):null,gap=target?Math.max(0,target-Number(x.level||0)):0;return `<div class="skill ${relevant?'goalSkill':''}"><div class="name">${esc(x.skill)}</div><div class="lvl">${esc(x.level)}</div><div style="font-size:9px;color:#85735f">${Number(x.xp||0).toLocaleString()} XP</div>${target?`<div class="targetLine">Target ${target}${gap?` · +${gap}`:' · met'}</div>`:''}</div>`}).join('');
