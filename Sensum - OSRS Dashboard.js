@@ -9,10 +9,13 @@ const CONFIG = {
   WIKI_USER_AGENT: 'SensumOSRSDashboard/0.8 - private personal account progression tool'
 };
 
-function doGet() {
-  return HtmlService.createTemplateFromFile('Index')
+function doGet(e) {
+  const useV1 = e && e.parameter && String(e.parameter.v || '') === '1';
+  const template = useV1 ? 'V1' : 'Index';
+
+  return HtmlService.createTemplateFromFile(template)
     .evaluate()
-    .setTitle('Sensum OSRS Dashboard');
+    .setTitle(useV1 ? 'Sensum OSRS Progression Dashboard' : 'Sensum OSRS Dashboard');
 }
 
 function getDashboardState() {
@@ -1239,7 +1242,7 @@ function calculateMethodHours_(current,target,xpHr) {
   const fast=xp/rate.high, slow=xp/rate.low;
   if(!isFinite(fast)||!isFinite(slow))return '';
   if(Math.abs(slow-fast)<0.15)return '~'+slow.toFixed(1)+'h';
-  return '~'+fast.toFixed(1)+'–'+slow.toFixed(1)+'h';
+  return '~'+fast.toFixed(1)+'â€“'+slow.toFixed(1)+'h';
 }
 
 function methodTitleFromDescription_(description,label,skill,current,target) {
@@ -1280,8 +1283,8 @@ function actionableInstructions_(skill, methodTitle, description, current, targe
 
   if(m.includes('sand crab')){
     return {goTo:'Sand Crabs in Hosidius / Crabclaw area',
-      bring:'Your best fast Ranged weapon, cheap ammunition, and Ava’s device once unlocked.',
-      doThis:'Use Rapid. Find a 2–3 crab spot, turn Auto Retaliate on, and let the crabs attack you. When they stop being aggressive, run far enough away to reset aggression and return.',
+      bring:'Your best fast Ranged weapon, cheap ammunition, and Avaâ€™s device once unlocked.',
+      doThis:'Use Rapid. Find a 2â€“3 crab spot, turn Auto Retaliate on, and let the crabs attack you. When they stop being aggressive, run far enough away to reset aggression and return.',
       stopAt:'Ranged '+target};
   }
   if(m.includes('chaos altar')){
@@ -1560,12 +1563,12 @@ function verifiedTrainingProfile_(skill,current,target,stats,questStatus) {
         'Attack normally while the cannon adds extra damage and Ranged XP. Move to a better method when your next weapon/training unlock arrives.',
         target>45?'Ranged 45, then reassess the fastest 45+ method':'Ranged '+target,
         'OSRS Wiki: multicannon is fastest early Ranged training up to about 45; exact XP/hr depends heavily on placement.'),
-      recommended:M('Sand Crabs — fast weapon progression','RECOMMENDED',
-        'DPS/gear dependent','Low–moderate ammo cost',current,target,
+      recommended:M('Sand Crabs â€” fast weapon progression','RECOMMENDED',
+        'DPS/gear dependent','Lowâ€“moderate ammo cost',current,target,
         access('Sand Crabs, Hosidius / Crabclaw area',[],'No quest prerequisite.'),
         'Sand Crabs in Hosidius / Crabclaw area.',
-        'Adamant darts are usable at 30 Ranged. At 40, rune darts and yew shortbow + rune arrows become available. Ava’s device is strongly useful after Animal Magnetism.',
-        'Use Rapid and Auto Retaliate. Hold a 2–3 crab spot and reset aggression when needed. Upgrade your fast weapon at level 40.',
+        'Adamant darts are usable at 30 Ranged. At 40, rune darts and yew shortbow + rune arrows become available. Avaâ€™s device is strongly useful after Animal Magnetism.',
+        'Use Rapid and Auto Retaliate. Hold a 2â€“3 crab spot and reset aggression when needed. Upgrade your fast weapon at level 40.',
         'Ranged '+target,
         'OSRS Wiki: fast weapons and low-defence crabs are reliable ordinary Ranged training; weapon unlocks are level-gated.'),
       lowCost:M('Dorgeshuun crossbow + bone bolts','LOW-COST / EFFICIENT',
@@ -1579,7 +1582,7 @@ function verifiedTrainingProfile_(skill,current,target,stats,questStatus) {
     };
     p.futureUnlocks=[
       {level:40,text:'Rune darts and yew shortbow + rune arrows unlock.'},
-      {level:45,text:'Chinchompas become wieldable. Maniacal-monkey chinning additionally needs Monkey Madness II/Kruk’s Dungeon progression and 43 Prayer.',locked:!(mm2&&prayer>=43),missing:[].concat(mm2?[]:['Monkey Madness II progression'],prayer>=43?[]:['Prayer 43'])},
+      {level:45,text:'Chinchompas become wieldable. Maniacal-monkey chinning additionally needs Monkey Madness II/Krukâ€™s Dungeon progression and 43 Prayer.',locked:!(mm2&&prayer>=43),missing:[].concat(mm2?[]:['Monkey Madness II progression'],prayer>=43?[]:['Prayer 43'])},
       {level:50,text:'Magic shortbow / magic shortbow (i) becomes available.'}
     ];
   }
@@ -1588,7 +1591,7 @@ function verifiedTrainingProfile_(skill,current,target,stats,questStatus) {
     p={
       fastest:M('Gilded altar + best affordable bones','FASTEST / HIGH-COST',
         'Up to ~642k/hr with dragon bones at 2,550 bones/hr','High; bone-price dependent',current,target,
-        access('Hosted player-owned house gilded altar',[],'You do not need 75 Construction if using another player’s hosted altar.'),
+        access('Hosted player-owned house gilded altar',[],'You do not need 75 Construction if using another playerâ€™s hosted altar.'),
         'Use a hosted POH world and enter a house with a lit gilded altar.',
         'The best bones you are comfortable paying for plus a fast bank/house route.',
         'Manually use bones on the altar for maximum speed. Both incense burners must be lit for 350% bone XP.',
@@ -1604,7 +1607,7 @@ function verifiedTrainingProfile_(skill,current,target,stats,questStatus) {
         'OSRS Wiki: Chaos altar is only slightly slower than a gilded altar and effectively doubles experience per bone.'),
       lowCost:M('Quest XP first, then Ectofuntus / passive Prayer','LOW-COST / EFFICIENT',
         'Slow; quest/passive method','Low',current,target,
-        access('Quest route / Ectofuntus',[],'Holy Grail is particularly valuable after Merlin’s Crystal because it awards 11,000 Prayer XP.'),
+        access('Quest route / Ectofuntus',[],'Holy Grail is particularly valuable after Merlinâ€™s Crystal because it awards 11,000 Prayer XP.'),
         'Complete efficient Prayer-XP quests before buying a large bone stack.',
         'Quest shopping supplies; use Ectofuntus/passive bonecrusher methods only if saving GP matters more than time.',
         'Take free quest XP first. Finish the remaining gap with a low-cost bone method.',
@@ -1617,15 +1620,15 @@ function verifiedTrainingProfile_(skill,current,target,stats,questStatus) {
     const gemstoneMissing=qdone('Children of the Sun')?[]:['Children of the Sun'];
     const statName=title_(skill);
     p={
-      fastest:M('Quest XP → highest-DPS crab / Gemstone Crab','FASTEST / HIGH-COST',
-        'DPS-dependent','Low–moderate supply cost',current,target,
+      fastest:M('Quest XP â†’ highest-DPS crab / Gemstone Crab','FASTEST / HIGH-COST',
+        'DPS-dependent','Lowâ€“moderate supply cost',current,target,
         access('Crab training; Gemstone Crab in Tlati when unlocked',[], 'Waterfall Quest is the key early Attack/Strength skip.',[]),
         current<30?'Complete high-value combat XP quests first.':'Use a high-HP, low-defence crab target.',
         'Best weapon for your Attack level, strength-boosting gear, and optional combat potions.',
         (skill==='defence'?'Use the defensive melee style only when Defence is the specific target. ':'Use the style that trains '+statName+'. ')+'Prioritise damage output.',
         statName+' '+target,
-        'OSRS Wiki: Waterfall Quest skips early Attack/Strength; levels 30–50 are commonly trained on crabs.'),
-      recommended:M('Crabs now → Slayer/NMZ later','RECOMMENDED',
+        'OSRS Wiki: Waterfall Quest skips early Attack/Strength; levels 30â€“50 are commonly trained on crabs.'),
+      recommended:M('Crabs now â†’ Slayer/NMZ later','RECOMMENDED',
         'DPS-dependent','Low',current,target,
         access('Sand Crabs now; Ammonite Crabs after Bone Voyage',[],'Ammonite Crabs require Bone Voyage.'),
         'Use Sand Crabs until a better account-efficient combat activity is unlocked.',
@@ -1676,7 +1679,7 @@ function verifiedTrainingProfile_(skill,current,target,stats,questStatus) {
   if(skill==='magic'){
     p={
       fastest:M(current<55?'Elemental weakness / jewellery enchanting':'Burst or barrage multi-target monsters','FASTEST / HIGH-COST',
-        current<55?'~50k–200k+/hr depending spell/enchant':'High; target/gear dependent','High rune cost',current,target,
+        current<55?'~50kâ€“200k+/hr depending spell/enchant':'High; target/gear dependent','High rune cost',current,target,
         access(current<55?'Appropriate weakness target / GE enchanting':'Multi-target burst/barrage area',[],current<55?'Elemental weaknesses can greatly increase cheap spell damage.':'Ancient Magicks requires Desert Treasure I for burst/barrage spells.'),
         current<55?'Use an accessible monster with a strong elemental weakness or enchant jewellery at your current spell tier.':'Use a legal stacked multi-target location after unlocking Ancient Magicks.',
         'Runes and a staff matching your chosen spell.',
@@ -1741,7 +1744,7 @@ function verifiedTrainingProfile_(skill,current,target,stats,questStatus) {
         'Run laps cleanly; move courses when the next course materially improves XP/hr.',
         'Agility '+target,
         'Current OSRS Agility progression is course-bracket based; exact rates depend on failures and course.'),
-      recommended:M(current<10?'Gnome Stronghold → Draynor Rooftop':'Rooftop courses for Marks of grace','RECOMMENDED',
+      recommended:M(current<10?'Gnome Stronghold â†’ Draynor Rooftop':'Rooftop courses for Marks of grace','RECOMMENDED',
         'Course/level dependent','Near-zero',current,target,
         access(current<10?'Gnome Stronghold':'Current rooftop course',[],'Draynor rooftop unlocks at 10 Agility.'),
         current<10?'Gnome Stronghold until 10, then Draynor rooftop.':'Use your best sensible rooftop course.',
@@ -1750,7 +1753,7 @@ function verifiedTrainingProfile_(skill,current,target,stats,questStatus) {
         'Agility '+target,
         'Rooftops provide useful Marks of grace while training.'),
       lowCost:M('Rooftop / low-input course','LOW-COST / EFFICIENT',
-        'Lower–moderate','~0 GP',current,target,
+        'Lowerâ€“moderate','~0 GP',current,target,
         access('Best easy course for your level',[],'Choose consistency over tick-perfect methods.'),
         'Your easiest unlocked rooftop/course.',
         'Minimal equipment.',
@@ -1763,9 +1766,9 @@ function verifiedTrainingProfile_(skill,current,target,stats,questStatus) {
   if(skill==='construction'){
     const daddy=qdone("Daddy's Home");
     p={
-      fastest:M(current<33?'Quest/Daddy’s Home → best furniture':'Oak larders / higher-tier furniture','FASTEST / HIGH-COST',
+      fastest:M(current<33?'Quest/Daddyâ€™s Home â†’ best furniture':'Oak larders / higher-tier furniture','FASTEST / HIGH-COST',
         'Furniture-dependent','High plank cost',current,target,
-        access('Player-owned house',[],'Buy a house from an estate agent; Daddy’s Home is valuable early Construction XP.'),
+        access('Player-owned house',[],'Buy a house from an estate agent; Daddyâ€™s Home is valuable early Construction XP.'),
         'Your POH in building mode.',
         'Planks, nails when needed, hammer/saw; use a servant at higher levels for faster banking.',
         'Build and remove the highest practical fast furniture repeatedly.',
@@ -1779,10 +1782,10 @@ function verifiedTrainingProfile_(skill,current,target,stats,questStatus) {
         'Complete contracts, repair/build the marked furniture, then take the next contract.',
         'Construction '+target,
         'Mahogany Homes is the standard cost-effective Construction alternative.'),
-      lowCost:M('Daddy’s Home / Mahogany Homes with cheaper planks','LOW-COST / EFFICIENT',
-        'Lower','Low–moderate',current,target,
-        access('Varrock / Mahogany Homes',[],daddy?'Daddy’s Home already complete or available as prior XP.':'Daddy’s Home provides early Construction XP and should be completed.'),
-        current<10?'Complete Daddy’s Home, then transition to cheap contracts.':'Use lower-cost Mahogany Homes contracts.',
+      lowCost:M('Daddyâ€™s Home / Mahogany Homes with cheaper planks','LOW-COST / EFFICIENT',
+        'Lower','Lowâ€“moderate',current,target,
+        access('Varrock / Mahogany Homes',[],daddy?'Daddyâ€™s Home already complete or available as prior XP.':'Daddyâ€™s Home provides early Construction XP and should be completed.'),
+        current<10?'Complete Daddyâ€™s Home, then transition to cheap contracts.':'Use lower-cost Mahogany Homes contracts.',
         'Cheap planks and quest/contract supplies.',
         'Prioritise XP-per-GP rather than maximum clicks/hour.',
         'Construction '+target,
@@ -1800,8 +1803,8 @@ function verifiedTrainingProfile_(skill,current,target,stats,questStatus) {
         'Process items continuously and sell outputs.',
         'Crafting '+target,
         'Crafting fastest methods change by level and GE price; do not lock a stale universal GP/hr.'),
-      recommended:M('Molten glass → glassblowing progression','RECOMMENDED',
-        'Product/level dependent','Low–moderate',current,target,
+      recommended:M('Molten glass â†’ glassblowing progression','RECOMMENDED',
+        'Product/level dependent','Lowâ€“moderate',current,target,
         access('Bank',[],'Glassblowing is available from low levels and scales through multiple products.'),
         'Any bank.',
         'Molten glass and a glassblowing pipe.',
@@ -1858,8 +1861,8 @@ function verifiedTrainingProfile_(skill,current,target,stats,questStatus) {
         'Best pickaxe available.',
         'Drop ores instead of banking when pure XP is the goal.',
         'Mining '+target,
-        'OSRS Wiki: Doric’s Quest, Dig Site, Plague City, Giant Dwarf, Lost Tribe and Another Slice can bring a new account to ~37; power-mining is fastest active style.'),
-      recommended:M(current<30?'Iron ore → Motherlode Mine at 30':'Motherlode Mine / useful unlock progression','RECOMMENDED',
+        'OSRS Wiki: Doricâ€™s Quest, Dig Site, Plague City, Giant Dwarf, Lost Tribe and Another Slice can bring a new account to ~37; power-mining is fastest active style.'),
+      recommended:M(current<30?'Iron ore â†’ Motherlode Mine at 30':'Motherlode Mine / useful unlock progression','RECOMMENDED',
         'Level-dependent','Can profit',current,target,
         access(current<30?'Iron rocks':'Motherlode Mine',[],'Motherlode Mine unlocks at 30 Mining.'),
         current<30?'Power-mine iron until 30.':'Motherlode Mine.',
@@ -1868,7 +1871,7 @@ function verifiedTrainingProfile_(skill,current,target,stats,questStatus) {
         'Mining '+target,
         'Balanced route values ores/unlocks rather than maximum XP only.'),
       lowCost:M('Shooting Stars / relaxed mining','LOW-COST / EFFICIENT',
-        'Low–moderate','~0 / some rewards',current,target,
+        'Lowâ€“moderate','~0 / some rewards',current,target,
         access('Active Shooting Star',[],'Very low attention compared with power-mining.'),
         'Find an active Shooting Star.',
         'Best pickaxe.',
@@ -1881,7 +1884,7 @@ function verifiedTrainingProfile_(skill,current,target,stats,questStatus) {
   if(skill==='smithing'){
     const gf=qdone('Sleeping Giants');
     p={
-      fastest:M(current<40?'Best platebody / fast anvil item → Blast Furnace gold at 40':'Blast Furnace gold bars','FASTEST / HIGH-COST',
+      fastest:M(current<40?'Best platebody / fast anvil item â†’ Blast Furnace gold at 40':'Blast Furnace gold bars','FASTEST / HIGH-COST',
         current<40?'Anvil/item dependent':'Very high; level/efficiency dependent','High gold ore cost',current,target,
         access(current<40?'Anvil':'Blast Furnace, Keldagrim',current<40?[]:[],'Goldsmith gauntlets require Family Crest; Keldagrim access comes from starting The Giant Dwarf.'),
         current<40?'Use an anvil near a bank until 40.':'Blast Furnace in Keldagrim.',
@@ -1918,7 +1921,7 @@ function verifiedTrainingProfile_(skill,current,target,stats,questStatus) {
         current<24?'Take the large free XP rewards instead of catching low-level fish.':'Fish actively and drop/bank based on the method.',
         'Fishing '+target,
         'OSRS Wiki: Sea Slug alone takes level 1 to 24; several early quests reach ~27/33.'),
-      recommended:M(current<48?'Quest XP → fly/Barbarian fishing':'Barbarian Fishing / appropriate fast method','RECOMMENDED',
+      recommended:M(current<48?'Quest XP â†’ fly/Barbarian fishing':'Barbarian Fishing / appropriate fast method','RECOMMENDED',
         'Level-dependent','Very low',current,target,
         access('River fishing / Barbarian Training when unlocked',[],'Barbarian Fishing also gives passive Agility/Strength XP.'),
         current<20?'Take quest XP, then use fly fishing once available.':'Use Barbarian Fishing when requirements are met.',
@@ -1939,7 +1942,7 @@ function verifiedTrainingProfile_(skill,current,target,stats,questStatus) {
 
   if(skill==='thieving'){
     p={
-      fastest:M(current<5?'Men/women → cake stalls':'Best active pickpocket/stall bracket','FASTEST / HIGH-COST',
+      fastest:M(current<5?'Men/women â†’ cake stalls':'Best active pickpocket/stall bracket','FASTEST / HIGH-COST',
         'Level-dependent','~0; food may cost',current,target,
         access(current<5?'Lumbridge/any city':'Current best Thieving target',[],'Blackjacking becomes a later high-click option after relevant quest access.'),
         current<5?'Pickpocket men/women until 5, then move to cake stalls.':'Use the best fast active target for your level.',
@@ -1947,7 +1950,7 @@ function verifiedTrainingProfile_(skill,current,target,stats,questStatus) {
         'Click continuously and change method at major unlocks.',
         'Thieving '+target,
         'Thieving is strongly level-bracketed; early stalls avoid unnecessary cost.'),
-      recommended:M(current<25?'Cake stalls → fruit stalls at 25':'Low-risk stall/pickpocket progression','RECOMMENDED',
+      recommended:M(current<25?'Cake stalls â†’ fruit stalls at 25':'Low-risk stall/pickpocket progression','RECOMMENDED',
         'Level-dependent','Low / some profit',current,target,
         access(current<25?'Ardougne bakery stall':'Best accessible stall/pickpocket',[],'Fruit stalls unlock at 25 Thieving.'),
         current<25?'Use cake stalls until 25.':'Use a low-risk method appropriate to the bracket.',
@@ -1969,15 +1972,15 @@ function verifiedTrainingProfile_(skill,current,target,stats,questStatus) {
   if(skill==='firemaking'){
     const shades=qdone("Shades of Mort'ton");
     p={
-      fastest:M(current<30?'Pyre logs if Shades of Mort’ton is unlocked; otherwise highest logs':'Highest-tier fast log burning','FASTEST / HIGH-COST',
+      fastest:M(current<30?'Pyre logs if Shades of Mortâ€™ton is unlocked; otherwise highest logs':'Highest-tier fast log burning','FASTEST / HIGH-COST',
         'Log/tick dependent','Log-price dependent',current,target,
-        access(shades?'Any suitable bank/fire line':'Normal firemaking route',[],'Pyre-log fastest early method requires Shades of Mort’ton.'),
+        access(shades?'Any suitable bank/fire line':'Normal firemaking route',[],'Pyre-log fastest early method requires Shades of Mortâ€™ton.'),
         'Grand Exchange/Varrock fire line or another long clear path.',
         'Tinderbox and highest-tier efficient logs.',
         'Light logs continuously; upgrade log tier as levels permit.',
         'Firemaking '+target,
-        'OSRS Wiki: pyre logs are fastest 1–30 if quest-unlocked; ordinary fastest training burns the highest practical log.'),
-      recommended:M(current<50?'Normal logs progression → Wintertodt at 50':'Wintertodt','RECOMMENDED',
+        'OSRS Wiki: pyre logs are fastest 1â€“30 if quest-unlocked; ordinary fastest training burns the highest practical log.'),
+      recommended:M(current<50?'Normal logs progression â†’ Wintertodt at 50':'Wintertodt','RECOMMENDED',
         'Level/activity dependent','Low / rewards',current,target,
         access(current<50?'Normal fire line':'Wintertodt Camp',[],current<50?'Wintertodt requires 50 Firemaking.':'50 Firemaking required.'),
         current<50?'Burn the highest sensible logs until 50.':'Wintertodt Camp.',
@@ -1986,7 +1989,7 @@ function verifiedTrainingProfile_(skill,current,target,stats,questStatus) {
         'Firemaking '+target,
         'Wintertodt is a practical reward-bearing route after 50.'),
       lowCost:M('Cheap logs / Wintertodt rewards','LOW-COST / EFFICIENT',
-        'Lower–moderate','Low',current,target,
+        'Lowerâ€“moderate','Low',current,target,
         access(current<50?'Normal fire line':'Wintertodt Camp',[],'Choose cheaper logs before 50.'),
         current<50?'Varrock/GE fire line.':'Wintertodt.',
         'Cheap logs or Wintertodt supplies.',
@@ -1998,7 +2001,7 @@ function verifiedTrainingProfile_(skill,current,target,stats,questStatus) {
 
   if(skill==='fletching'){
     p={
-      fastest:M(current<10?'Arrow shafts/headless arrows → fast bows/darts':'Fast darts / high-XP fletching item','FASTEST / HIGH-COST',
+      fastest:M(current<10?'Arrow shafts/headless arrows â†’ fast bows/darts':'Fast darts / high-XP fletching item','FASTEST / HIGH-COST',
         'Item/level dependent','Can be high',current,target,
         access('Bank/Grand Exchange',[],'Fletching methods are heavily GE-sensitive.'),
         'Grand Exchange or bank.',
@@ -2035,7 +2038,7 @@ function verifiedTrainingProfile_(skill,current,target,stats,questStatus) {
         'Plant, protect/compost, return when grown, check health, replant.',
         'Farming '+target,
         'Farming is timer-based; one continuous XP/hr number is misleading.'),
-      recommended:M(current<15?'Allotments + quest XP → tree runs':'Tree runs + herb runs','RECOMMENDED',
+      recommended:M(current<15?'Allotments + quest XP â†’ tree runs':'Tree runs + herb runs','RECOMMENDED',
         'Run-based','Herbs can offset tree cost',current,target,
         access('Farming patches',[],'Herb runs add profit while trees provide large XP drops.'),
         'Use an efficient patch circuit.',
@@ -2065,7 +2068,7 @@ function verifiedTrainingProfile_(skill,current,target,stats,questStatus) {
         'Required trap/noose/butterfly equipment.',
         'Keep all available traps active and move at bracket unlocks.',
         'Hunter '+target,
-        'OSRS Wiki: Natural History Quiz gets 1→9, then active route begins with kebbits at 9.'),
+        'OSRS Wiki: Natural History Quiz gets 1â†’9, then active route begins with kebbits at 9.'),
       recommended:M('Birdhouse runs + active Hunter between runs','RECOMMENDED',
         'Run-based + active method','Low / profitable',current,target,
         access('Fossil Island',bone?[]:['Bone Voyage'],'Birdhouse trapping starts at 9 Hunter and each house matures after 50 minutes.'),
@@ -2089,14 +2092,14 @@ function verifiedTrainingProfile_(skill,current,target,stats,questStatus) {
     const eye=qdone('Temple of the Eye');
     p={
       fastest:M(current<50?'Talisman tiaras':'Lava runes','FASTEST / HIGH-COST',
-        current<50?'~36k–58k/hr depending tiara':'High; setup dependent','Can be very high',current,target,
+        current<50?'~36kâ€“58k/hr depending tiara':'High; setup dependent','Can be very high',current,target,
         access(current<50?'Elemental altar + bank route':'Fire Altar',[],'Lava runes are effective earlier but tiaras are listed as fastest up to 50 in current Wiki guidance.'),
         current<50?'Use the elemental altar with the best practical tiara route.':'Craft lava runes at the Fire Altar.',
         current<50?'Tiaras, talismans, fast teleports.':'Pure essence, earth runes/talismans or Magic Imbue, binding necklaces, pouches as unlocked.',
         current<50?'Make tiaras continuously.':'Craft lava runes; repair pouches as needed.',
         'Runecraft '+target,
         'OSRS Wiki: talisman tiaras are among the fastest up to 50; lava runes dominate high-speed training later.'),
-      recommended:M(current<27?'Quest XP / ordinary runes → Guardians of the Rift at 27':'Guardians of the Rift','RECOMMENDED',
+      recommended:M(current<27?'Quest XP / ordinary runes â†’ Guardians of the Rift at 27':'Guardians of the Rift','RECOMMENDED',
         'Activity/level dependent','Low / rewards',current,target,
         access(current<27?'Normal altars':'Guardians of the Rift',current<27?[]:(eye?[]:['Temple of the Eye']),current<27?'Temple of the Eye/GotR becomes relevant at 27.':'Requires Temple of the Eye.'),
         current<27?'Use quests/normal runes until 27.':'Guardians of the Rift.',
@@ -2122,12 +2125,12 @@ function verifiedTrainingProfile_(skill,current,target,stats,questStatus) {
         current>=35?'~93k/hr at 35 scaling much higher with level/technique':'Level-dependent','~0',current,target,
         access(current>=35?'Teak tree location':'Best unlocked trees',[],'Tick manipulation is click-intensive.'),
         current>=35?'Use a teak location suitable for 1.5t/2t technique.':'Use the fastest tree for the current bracket.',
-        'Best axe available; forester’s rations/felling axe when appropriate.',
+        'Best axe available; foresterâ€™s rations/felling axe when appropriate.',
         current>=35?'Perform tick-manipulated teak cutting and drop logs.':'Cut and drop logs.',
         'Woodcutting '+target,
         'OSRS Wiki: teaks are fastest from 35 with tick manipulation; rates scale strongly with level/axe.'),
       recommended:M(current<65?'Non-tick teaks + Forestry events':'Sulliusceps / Forestry-aware route','RECOMMENDED',
-        current<65?'~34k–65k+/hr depending level/axe':'Level-dependent','Low',current,target,
+        current<65?'~34kâ€“65k+/hr depending level/axe':'Level-dependent','Low',current,target,
         access(current<65?'Teak trees':'Fossil Island sulliuscep area',current<65?[]:(bone?[]:['Bone Voyage']),current<65?'Forestry events can add meaningful XP.':'Sulliusceps require Fossil Island access.'),
         current<65?'Cut teaks normally and participate in useful Forestry events.':'Cut sulliusceps on Fossil Island.',
         'Best axe, Forestry kit if participating in Forestry.',
@@ -2150,7 +2153,7 @@ function verifiedTrainingProfile_(skill,current,target,stats,questStatus) {
     p={
       fastest:M('1-tick karambwan','FASTEST / HIGH-COST',
         current>=70?'~742k/hr around level 70 (Wiki table)':'Level-dependent','Usually low loss/profit varies',current,target,
-        access('Rogues’ Den / other bank-adjacent fire',[],'Poison karambwan can be used for early 1-tick training; normal cooked karambwan has quest context.'),
+        access('Roguesâ€™ Den / other bank-adjacent fire',[],'Poison karambwan can be used for early 1-tick training; normal cooked karambwan has quest context.'),
         'Use a bank-adjacent fire/range suited to 1-ticking.',
         'Raw karambwan and banking supplies.',
         'Use raw karambwan on the fire/range with 1-tick timing.',
@@ -2179,7 +2182,7 @@ function verifiedTrainingProfile_(skill,current,target,stats,questStatus) {
     const pand=qdone('Pandemonium');
     p={
       fastest:M('Port Tasks / best currently unlocked active Sailing method','FASTEST / HIGH-COST',
-        'Update-sensitive — do not freeze a rate','Activity-dependent',current,target,
+        'Update-sensitive â€” do not freeze a rate','Activity-dependent',current,target,
         access('Port Sarim / unlocked ports',pand?[]:['Pandemonium'],'Pandemonium is required to begin training Sailing.'),
         'Start at Port Sarim after Pandemonium.',
         'Your current boat plus repair/route supplies appropriate to unlocked content.',
@@ -2187,7 +2190,7 @@ function verifiedTrainingProfile_(skill,current,target,stats,questStatus) {
         'Sailing '+target,
         'Sailing released in 2025 and is actively changing; the Wiki itself warns parts of its training guide can become outdated.'),
       recommended:M('Port Tasks + Sea Charting / Salvaging as unlocked','RECOMMENDED',
-        'Update-sensitive','Low–moderate',current,target,
+        'Update-sensitive','Lowâ€“moderate',current,target,
         access('Unlocked Sailing ports/sea',pand?[]:['Pandemonium'],'Port Tasks are the stable early-game foundation.'),
         'Use the notice boards at unlocked ports.',
         'Current boat and task/salvage facilities.',
@@ -2249,14 +2252,14 @@ function validateGuideMethodForBracket_(m,current,target) {
     verified:covers,
     verificationWarning:covers ? '' :
       (overlaps
-        ? 'This method only applies to part of your current target range ('+range.low+' → '+range.high+').'
+        ? 'This method only applies to part of your current target range ('+range.low+' â†’ '+range.high+').'
         : 'This method does not apply to your current target range.')
   });
 }
 
 function parseLevelRangeNumbers_(s) {
-  const text=String(s||'').replace(/[–—]/g,'→');
-  let m=text.match(/(\d+)\s*→\s*(\d+)/);
+  const text=String(s||'').replace(/[â€“â€”]/g,'â†’');
+  let m=text.match(/(\d+)\s*â†’\s*(\d+)/);
   if(!m) m=text.match(/(\d+)\s*-\s*(\d+)/);
   if(!m) return null;
   return {low:Number(m[1]),high:Number(m[2])};
@@ -2300,7 +2303,7 @@ function buildLevelingLibrary_(ss, roadmap, questIntel) {
         accountHours:calculateMethodHours_(current,nextTarget,m.xpHr),
         accountStart:current,
         accountTarget:nextTarget,
-        accountRange:(nextTarget && nextTarget>current) ? (current+' → '+nextTarget) : ''
+        accountRange:(nextTarget && nextTarget>current) ? (current+' â†’ '+nextTarget) : ''
       });
     };
     if(verifiedProfile){
@@ -2344,12 +2347,12 @@ function buildLevelingLibrary_(ss, roadmap, questIntel) {
 
 function inferGuideTarget_(text, skill, current) {
   const heading=title_(skill).toUpperCase();
-  let start=text.indexOf(heading+' —');
+  let start=text.indexOf(heading+' â€”');
   if(start<0) start=text.indexOf(heading+'\n');
   if(start<0) return null;
   const chunk=text.substring(start,Math.min(text.length,start+2200));
   const nums=[];
-  const re=/(\d+)\s*[→-]\s*(\d+)/g;
+  const re=/(\d+)\s*[â†’-]\s*(\d+)/g;
   let m;
   while((m=re.exec(chunk))!==null){
     const hi=Number(m[2]);
@@ -2657,7 +2660,7 @@ function buildRoadmapState_(ss) {
   let phase = '';
 
   lines.forEach(line => {
-    if (/^PHASE \d+ — /i.test(line)) {
+    if (/^PHASE \d+ â€” /i.test(line)) {
       phase = line;
       return;
     }
@@ -2685,7 +2688,7 @@ function buildRoadmapState_(ss) {
   const phaseItems = milestones.filter(x=>x.phase===currentPhase);
   const phaseComplete = phaseItems.filter(x=>x.status==='COMPLETE').length;
 
-  const fireCapeItems = milestones.filter(x => /PHASE [1-4] — /i.test(x.phase));
+  const fireCapeItems = milestones.filter(x => /PHASE [1-4] â€” /i.test(x.phase));
   const fireCapeAuto = fireCapeItems.filter(x=>x.status==='COMPLETE').length;
 
   return {
@@ -2715,9 +2718,9 @@ function evaluateRoadmapTask_(task, stats, quests) {
     }
   }
 
-  m = task.match(/^Complete\s+(.+?)(?:\s+—.*)?$/i);
+  m = task.match(/^Complete\s+(.+?)(?:\s+â€”.*)?$/i);
   if (m) {
-    const q = normalizeName_(m[1].replace(/[⭐🔥🏆]/g,'').trim());
+    const q = normalizeName_(m[1].replace(/[â­ðŸ”¥ðŸ†]/g,'').trim());
     const st = quests[q] || '';
     const done = st === 'FINISHED' || st === 'COMPLETE';
     return {type:'quest',key:q,target:1,status:done?'COMPLETE':'OPEN',progress:done?'Complete':(st==='IN_PROGRESS'?'In progress':'Not complete')};
@@ -2729,7 +2732,7 @@ function evaluateRoadmapTask_(task, stats, quests) {
 function normalizeName_(s) {
   return String(s||'')
     .toLowerCase()
-    .replace(/[’']/g,"'")
+    .replace(/[â€™']/g,"'")
     .replace(/\s+/g,' ')
     .trim();
 }
@@ -2773,7 +2776,7 @@ function buildTodayCommand_(ss, roadmap, shopping, questIntel) {
       eyebrow:'DO THIS BEFORE GRINDING',
       reason:efficientQuest.reason,
       progress:'Quest XP shortcut',
-      source:'Master Checklist — Quest Efficiency Rules'
+      source:'Master Checklist â€” Quest Efficiency Rules'
     };
   } else if (current) {
     primary = roadmapTaskCard_(current, docs.skills, stats);
@@ -2864,7 +2867,7 @@ function roadmapTaskCard_(item, skillText, stats) {
     const bracket = scanBracketForSkill_(skillText, skill, cur);
     return {
       kind:'skill',
-      title:title_(skill)+' '+cur+' → '+item.target,
+      title:title_(skill)+' '+cur+' â†’ '+item.target,
       rawTask:item.task,
       eyebrow:'TRAINING',
       progress:item.progress,
@@ -2881,7 +2884,7 @@ function roadmapTaskCard_(item, skillText, stats) {
       kind:'quest',
       title:item.task.replace(/^Complete\s+/i,''),
       rawTask:item.task,
-      eyebrow:item.progress==='In progress'?'QUEST — IN PROGRESS':'QUEST',
+      eyebrow:item.progress==='In progress'?'QUEST â€” IN PROGRESS':'QUEST',
       progress:item.progress,
       reason:'Next quest in the sequential Master Progression Checklist.',
       source:'Master Progression Checklist'
@@ -2919,18 +2922,18 @@ function pickEfficientQuest_(quests, stats) {
 
 function scanBracketForSkill_(text, skill, current) {
   const heading = title_(skill).toUpperCase();
-  const start = text.indexOf(heading + ' —');
+  const start = text.indexOf(heading + ' â€”');
   if (start < 0) return '';
   const chunk = text.substring(start, Math.min(text.length, start+1800));
   const lines = chunk.split(/\r?\n/).map(x=>x.trim()).filter(Boolean);
 
   for (let i=0;i<lines.length;i++) {
-    const m = lines[i].match(/^(\d+)\s*[→-]\s*(\d+)[^:]*:\s*(.+)$/);
+    const m = lines[i].match(/^(\d+)\s*[â†’-]\s*(\d+)[^:]*:\s*(.+)$/);
     if (m) {
       const lo=Number(m[1]), hi=Number(m[2]);
       if (current>=lo && current<hi) return m[3];
     }
-    const m2 = lines[i].match(/^Current\s*[→-]\s*(\d+):\s*(.+)$/i);
+    const m2 = lines[i].match(/^Current\s*[â†’-]\s*(\d+):\s*(.+)$/i);
     if (m2 && current<Number(m2[1])) return m2[2];
   }
   return '';
@@ -3141,7 +3144,7 @@ function generateDailyPlan_(ss) {
   if (!statRows.length) {
     return [[
       'Main Goals',
-      'Stats unavailable — retry Refresh Now',
+      'Stats unavailable â€” retry Refresh Now',
       'No successful stat snapshot yet',
       'The dashboard will not guess your levels.',
       'HIGH'
@@ -3198,3 +3201,4 @@ function upsert_(sh,key,val) {
 function title_(s) {
   return String(s).replace(/_/g,' ').replace(/\b\w/g,c=>c.toUpperCase());
 }
+
