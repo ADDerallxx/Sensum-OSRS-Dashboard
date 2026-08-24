@@ -1,0 +1,304 @@
+warning: in the working copy of 'V1.html', LF will be replaced by CRLF the next time Git touches it
+[1mdiff --git a/V1.html b/V1.html[m
+[1mindex 306829f..befd3b5 100644[m
+[1m--- a/V1.html[m
+[1m+++ b/V1.html[m
+[36m@@ -64,13 +64,13 @@[m
+ [m
+     .route{margin-top:14px}.routeGrid{display:flex;gap:0;padding:18px 16px 16px;overflow-x:auto}[m
+     .step{position:relative;flex:1 0 135px;max-width:190px;background:#fffaf1;border:1px solid #d4c2a4;border-radius:10px;padding:12px 10px;min-height:126px;margin-right:16px}[m
+[31m-    .step:not(:last-child):after{content:'â€º';position:absolute;right:-14px;top:44px;font-size:28px;font-weight:900;color:#a67a42}[m
+[32m+[m[32m    .step:not(:last-child):after{content:'›';position:absolute;right:-14px;top:44px;font-size:28px;font-weight:900;color:#a67a42}[m
+     .stepNo{font-size:9px;text-transform:uppercase;color:#8a755e;font-weight:900}.stepQuest{font-weight:900;margin:6px 0;font-size:14px;line-height:1.2}[m
+     .stepMeta{font-size:10px;color:#756452;line-height:1.45}.readyState{color:var(--green);font-weight:900}[m
+     .stepScore{display:inline-block;margin-top:6px;padding:3px 6px;border-radius:999px;background:#eadcc3;font-weight:800}[m
+ [m
+     details.section{margin-top:14px}.section summary{cursor:pointer;list-style:none}.section summary::-webkit-details-marker{display:none}[m
+[31m-    .section summary .head:after{content:'â–¾';margin-left:auto;color:#ffd98b}.section[open] summary .head:after{content:'â–´'}[m
+[32m+[m[32m    .section summary .head:after{content:'▾';margin-left:auto;color:#ffd98b}.section[open] summary .head:after{content:'▴'}[m
+     .compactNote{padding:8px 12px;color:#685744;font-size:11px;background:#f9f2e7;border-bottom:1px solid #dfd1b9}[m
+ [m
+     .dataHealthBar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:9px 22px 11px;border-top:1px solid #5a3216;background:#170c06}[m
+[36m@@ -166,35 +166,35 @@[m
+   </style>[m
+ </head>[m
+ <body>[m
+[31m-<div id="loading" class="loading"><div>Loading Sensum progression engineâ€¦</div></div>[m
+[32m+[m[32m<div id="loading" class="loading"><div>Loading Sensum progression engine…</div></div>[m
+ <div class="shell">[m
+   <div class="hero">[m
+     <div class="heroTop">[m
+       <div><h1>Sensum OSRS Progression Dashboard</h1><div class="sub">Open this, see what matters, play the game.</div></div>[m
+[31m-      <div class="version">V1.12 Â· Trust the Numbers</div>[m
+[32m+[m[32m      <div class="version">V1.12 · Trust the Numbers</div>[m
+     </div>[m
+     <div class="controls">[m
+       <div class="label">Goal Target</div><select id="goal" onchange="changeGoal()"></select>[m
+       <div class="label">Route Depth</div><select id="depth" onchange="changeDepth()"><option value="3">3 steps</option><option value="5">5 steps</option><option value="10">10 steps</option></select>[m
+     </div>[m
+     <div class="metrics">[m
+[31m-      <div class="metric"><div class="k">Username</div><div class="v" id="user">â€”</div></div>[m
+[31m-      <div class="metric"><div class="k">Combat Level</div><div class="v" id="combat">â€”</div></div>[m
+[31m-      <div class="metric"><div class="k">Quest Points</div><div class="v" id="qp">â€”</div></div>[m
+[31m-      <div class="metric"><div class="k">WOM Snapshot</div><div class="v" id="wom" style="font-size:12px">â€”</div></div>[m
+[31m-      <div class="metric"><div class="k">Sheet Sync</div><div class="v" id="sync" style="font-size:12px">â€”</div></div>[m
+[32m+[m[32m      <div class="metric"><div class="k">Username</div><div class="v" id="user">—</div></div>[m
+[32m+[m[32m      <div class="metric"><div class="k">Combat Level</div><div class="v" id="combat">—</div></div>[m
+[32m+[m[32m      <div class="metric"><div class="k">Quest Points</div><div class="v" id="qp">—</div></div>[m
+[32m+[m[32m      <div class="metric"><div class="k">WOM Snapshot</div><div class="v" id="wom" style="font-size:12px">—</div></div>[m
+[32m+[m[32m      <div class="metric"><div class="k">Sheet Sync</div><div class="v" id="sync" style="font-size:12px">—</div></div>[m
+     </div>[m
+     <div class="dataHealthBar" id="dataHealthBar">[m
+       <div class="dataHealthStatus">[m
+         <span class="healthDot" id="healthDot"></span>[m
+         <span class="healthTitle">Data Health</span>[m
+[31m-        <span class="healthState" id="healthState">Checkingâ€¦</span>[m
+[32m+[m[32m        <span class="healthState" id="healthState">Checking…</span>[m
+       </div>[m
+       <div class="healthFacts">[m
+[31m-        <span>WOM <b id="healthWom">â€”</b></span>[m
+[31m-        <span>Wiki <b id="healthWiki">â€”</b></span>[m
+[31m-        <span>Sheet <b id="healthSheet">â€”</b></span>[m
+[31m-        <span>Reviews <b id="healthReviews">â€”</b></span>[m
+[32m+[m[32m        <span>WOM <b id="healthWom">—</b></span>[m
+[32m+[m[32m        <span>Wiki <b id="healthWiki">—</b></span>[m
+[32m+[m[32m        <span>Sheet <b id="healthSheet">—</b></span>[m
+[32m+[m[32m        <span>Reviews <b id="healthReviews">—</b></span>[m
+       </div>[m
+     </div>[m
+   </div>[m
+[36m@@ -203,11 +203,11 @@[m
+ [m
+   <div class="grid">[m
+     <div class="card">[m
+[31m-      <div class="head">ðŸ† Top 5 Smartest Quests To Do Now</div>[m
+[32m+[m[32m      <div class="head">🏆 Top 5 Smartest Quests To Do Now</div>[m
+       <div class="tableWrap"><table class="table"><thead><tr><th class="num">Rank</th><th>Quest</th><th class="num">Score</th><th class="num">Tier</th><th class="num">Downstream</th><th>Why</th></tr></thead><tbody id="top"></tbody></table></div>[m
+     </div>[m
+     <div class="card">[m
+[31m-      <div class="head">ðŸŽ¯ Goal Target Summary</div>[m
+[32m+[m[32m      <div class="head">🎯 Goal Target Summary</div>[m
+       <div class="summary">[m
+         <div class="summaryHero"><div class="eyebrow">Anchor / Objective</div><div id="objective" class="objective"></div><div id="status" class="statusChip"></div></div>[m
+         <div class="summaryGrid">[m
+[36m@@ -220,39 +220,39 @@[m
+   </div>[m
+ [m
+   <div class="card actionCard">[m
+[31m-    <div class="head">â–¶ Next Session Plan</div>[m
+[32m+[m[32m    <div class="head">▶ Next Session Plan</div>[m
+     <div class="actionBody">[m
+       <div class="actionHero">[m
+         <div class="actionEyebrow">Recommended next quest</div>[m
+[31m-        <div id="nextQuest" class="actionQuest">â€”</div>[m
+[31m-        <div id="nextWhy" class="actionWhy">â€”</div>[m
+[32m+[m[32m        <div id="nextQuest" class="actionQuest">—</div>[m
+[32m+[m[32m        <div id="nextWhy" class="actionWhy">—</div>[m
+       </div>[m
+       <div class="actionSteps">[m
+         <div class="actionStep"><div class="n">Before you start</div><div id="nextGrind" class="v">None</div></div>[m
+[31m-        <div class="actionStep"><div class="n">Expected result</div><div id="nextResult" class="v">â€”</div></div>[m
+[31m-        <div class="actionStep"><div class="n">Route impact</div><div id="nextImpact" class="v">â€”</div></div>[m
+[32m+[m[32m        <div class="actionStep"><div class="n">Expected result</div><div id="nextResult" class="v">—</div></div>[m
+[32m+[m[32m        <div class="actionStep"><div class="n">Route impact</div><div id="nextImpact" class="v">—</div></div>[m
+         <div class="actionStep prep"><div class="n">Quest prep</div><div id="nextPrepStructured" class="prepGroups"></div></div>[m
+         <div class="qpStrip">[m
+[31m-          <span><b>Current QP:</b> <span id="nextCurrentQp">â€”</span></span>[m
+[31m-          <span><b>Projected route QP:</b> <span id="nextProjectedQp">â€”</span></span>[m
+[31m-          <span><b>Milestones:</b> <span id="nextMilestones">â€”</span></span>[m
+[32m+[m[32m          <span><b>Current QP:</b> <span id="nextCurrentQp">—</span></span>[m
+[32m+[m[32m          <span><b>Projected route QP:</b> <span id="nextProjectedQp">—</span></span>[m
+[32m+[m[32m          <span><b>Milestones:</b> <span id="nextMilestones">—</span></span>[m
+         </div>[m
+       </div>[m
+     </div>[m
+   </div>[m
+ [m
+   <div class="card route">[m
+[31m-    <div class="head">ðŸ§­ Simulated Progression Route</div>[m
+[32m+[m[32m    <div class="head">🧭 Simulated Progression Route</div>[m
+     <div id="route" class="routeGrid"></div>[m
+   </div>[m
+ [m
+   <details class="card section">[m
+[31m-    <summary><div class="head">âš  Immediate Blockers & Skill Grinds</div></summary>[m
+[32m+[m[32m    <summary><div class="head">⚠ Immediate Blockers & Skill Grinds</div></summary>[m
+     [m
+     <div class="blockerLegend">[m
+[31m-      <span class="legendBadge quick">âœ“ QUICK Â· under 30 min</span>[m
+[31m-      <span class="legendBadge mid">! MEDIUM Â· 30 minâ€“3 hr</span>[m
+[31m-      <span class="legendBadge long">â–² LONG Â· over 3 hr</span>[m
+[32m+[m[32m      <span class="legendBadge quick">✓ QUICK · under 30 min</span>[m
+[32m+[m[32m      <span class="legendBadge mid">! MEDIUM · 30 min–3 hr</span>[m
+[32m+[m[32m      <span class="legendBadge long">▲ LONG · over 3 hr</span>[m
+     </div>[m
+     <div class="grid" style="margin:0;padding:14px">[m
+       <div>[m
+[36m@@ -267,12 +267,12 @@[m
+   </details>[m
+ [m
+   <div class="card" style="margin-top:14px">[m
+[31m-    <div class="head">ðŸ›’ Route Prep Checklist <span id="shopProgress" style="margin-left:auto;font-size:10px;font-weight:800;color:#d2b989"></span></div>[m
+[32m+[m[32m    <div class="head">🛒 Route Prep Checklist <span id="shopProgress" style="margin-left:auto;font-size:10px;font-weight:800;color:#d2b989"></span></div>[m
+     <div id="shopping" class="shop"></div>[m
+   </div>[m
+ [m
+   <details class="card section">[m
+[31m-    <summary><div class="head">ðŸ“Š Current Stats & Data Health</div></summary>[m
+[32m+[m[32m    <summary><div class="head">📊 Current Stats & Data Health</div></summary>[m
+     <div id="skills" class="skills"></div><div id="health" class="health"></div>[m
+   </details>[m
+ </div>[m
+[36m@@ -300,8 +300,8 @@[m [mfunction timeClass(v){[m
+   return 'long';[m
+ }[m
+ function timeBadge(v){[m
+[31m-  const cls=timeClass(v), label=cls==='quick'?'QUICK':cls==='mid'?'MEDIUM':'LONG', icon=cls==='quick'?'âœ“':cls==='mid'?'!':'â–²';[m
+[31m-  return `<span class="timeBadge ${cls}"><span>${icon}</span><span class="riskWord">${label}</span><span>Â· ${esc(friendlyHours(v))}</span></span>`;[m
+[32m+[m[32m  const cls=timeClass(v), label=cls==='quick'?'QUICK':cls==='mid'?'MEDIUM':'LONG', icon=cls==='quick'?'✓':cls==='mid'?'!':'▲';[m
+[32m+[m[32m  return `<span class="timeBadge ${cls}"><span>${icon}</span><span class="riskWord">${label}</span><span>· ${esc(friendlyHours(v))}</span></span>`;[m
+ }[m
+ function prepForQuest(s,quest){[m
+   const rows=(s.shopping||[]).filter(i=>String(i.quests||'').toLowerCase().split(',').map(x=>x.trim()).includes(String(quest||'').toLowerCase()));[m
+[36m@@ -316,7 +316,7 @@[m [mfunction prepForQuest(s,quest){[m
+ }[m
+ function chipHtml(item,cls){[m
+   const q=Number(item.qty||0);[m
+[31m-  return `<span class="chip ${cls}">${esc(item.name)}${q>1?` <span class="qtyText">Ã—${esc(q)}</span>`:''}</span>`;[m
+[32m+[m[32m  return `<span class="chip ${cls}">${esc(item.name)}${q>1?` <span class="qtyText">×${esc(q)}</span>`:''}</span>`;[m
+ }[m
+ function prepGroupHtml(label,items,cls){[m
+   if(!items.length)return '';[m
+[36m@@ -401,28 +401,28 @@[m [mfunction routeShoppingHtml(s){[m
+   let total=0,done=0;[m
+   orderedGroups.forEach(([,items])=>items.forEach(i=>{total++;if(isChecked(i))done++}));[m
+   const pct=total?Math.round(done/total*100):100;[m
+[31m-  $('shopProgress').textContent=`${done} / ${total} complete Â· ${pct}%`;[m
+[32m+[m[32m  $('shopProgress').textContent=`${done} / ${total} complete · ${pct}%`;[m
+ [m
+   let html=`<div class="shopProgressBar"><div class="shopProgressFill" style="width:${pct}%"></div></div>[m
+     <div class="obtainNote">* Obtain during quest.</div>`;[m
+ [m
+   orderedGroups.forEach(([quest,items])=>{[m
+     const qDone=items.filter(isChecked).length, complete=items.length&&qDone===items.length, step=steps.get(quest.toLowerCase());[m
+[31m-    html+=`<div class="questShopGroup ${complete?'complete':''}"><div class="questShopHead">${step?`<span class="questStep">Step ${step}</span>`:''}<span class="questShopTitle">${esc(quest)}</span><span class="questDone">${complete?'âœ“ Ready':`${qDone}/${items.length}`}</span></div><div class="questShopRows">`;[m
+[32m+[m[32m    html+=`<div class="questShopGroup ${complete?'complete':''}"><div class="questShopHead">${step?`<span class="questStep">Step ${step}</span>`:''}<span class="questShopTitle">${esc(quest)}</span><span class="questDone">${complete?'✓ Ready':`${qDone}/${items.length}`}</span></div><div class="questShopRows">`;[m
+     items.forEach(i=>{[m
+       const key=checklistKey(i),checked=isChecked(i);[m
+       html+=`<label class="checkRow ${checked?'done':''} ${i.obtain?'obtainRow':''}">[m
+         <input type="checkbox" ${checked?'checked':''} onchange="toggleShopV18(this,'${esc(key)}')">[m
+         <span class="itemName">${esc(i.item)}${i.also&&i.also.length?`<span class="alsoNeeded">Also needed: ${esc(i.also.join(', '))}</span>`:''}${i.obtain?`<span class="obtainMeta">* Obtain during quest</span>`:''}</span>[m
+[31m-        <span>Ã—${esc(i.qty||1)}</span>[m
+[31m-        <span>${checked?'<span class="prepBadge obtain">âœ“ Done</span>':(i.obtain?'<span class="prepBadge obtain">Obtain</span>':'<span class="prepBadge bring">Bring</span>')}</span>[m
+[32m+[m[32m        <span>×${esc(i.qty||1)}</span>[m
+[32m+[m[32m        <span>${checked?'<span class="prepBadge obtain">✓ Done</span>':(i.obtain?'<span class="prepBadge obtain">Obtain</span>':'<span class="prepBadge bring">Bring</span>')}</span>[m
+       </label>`;[m
+     });[m
+     html+='</div></div>';[m
+   });[m
+ [m
+   if(alt.length){[m
+[31m-    html+=`<div class="shopGroup"><div class="shopGroupTitle"><span>â†” Choice / Alternative</span><span class="shopCount">${alt.length}</span></div><div class="obtainList">${alt.map(i=>chipHtml({name:i.item,qty:i.qty},'alt')).join('')}</div></div>`;[m
+[32m+[m[32m    html+=`<div class="shopGroup"><div class="shopGroupTitle"><span>↔ Choice / Alternative</span><span class="shopCount">${alt.length}</span></div><div class="obtainList">${alt.map(i=>chipHtml({name:i.item,qty:i.qty},'alt')).join('')}</div></div>`;[m
+   }[m
+   return html;[m
+ }[m
+[36m@@ -441,18 +441,18 @@[m [mfunction shoppingHtmlLegacy(rows){[m
+   });[m
+   const reqRows=required.map(i=>{[m
+     const key=checklistKey(i),checked=isChecked(i);[m
+[31m-    return `<label class="checkRow ${checked?'done':''}"><input type="checkbox" ${checked?'checked':''} onchange="toggleShop(this,'${esc(key)}')"><span class="itemName">${esc(i.item)}</span><span>Ã—${esc(i.qty||1)}</span><span class="questTag">${esc(i.quests||'')}</span></label>`;[m
+[32m+[m[32m    return `<label class="checkRow ${checked?'done':''}"><input type="checkbox" ${checked?'checked':''} onchange="toggleShop(this,'${esc(key)}')"><span class="itemName">${esc(i.item)}</span><span>×${esc(i.qty||1)}</span><span class="questTag">${esc(i.quests||'')}</span></label>`;[m
+   }).join('');[m
+[31m-  const obtainable=obtain.map(i=>`<span class="chip obtain">${esc(i.item)}${Number(i.qty||0)>1?` <span class="qtyText">Ã—${esc(i.qty)}</span>`:''}</span>`).join('');[m
+[31m-  const alternatives=alt.map(i=>`<span class="chip alt">${esc(i.item)}${Number(i.qty||0)>1?` <span class="qtyText">Ã—${esc(i.qty)}</span>`:''}</span>`).join('');[m
+[31m-  return `<div class="shopGroup"><div class="shopGroupTitle"><span>â˜ Bring / Buy</span><span class="shopCount">${required.length} items</span></div>${reqRows||'<div class="emptyPrep" style="padding:8px 2px">Nothing to buy for the displayed route.</div>'}</div>`[m
+[31m-    +(obtain.length?`<div class="shopGroup"><div class="shopGroupTitle"><span>âœ“ Obtain During Quest</span><span class="shopCount">${obtain.length}</span></div><div class="obtainList">${obtainable}</div></div>`:'')[m
+[31m-    +(alt.length?`<div class="shopGroup"><div class="shopGroupTitle"><span>â†” Choice / Alternative</span><span class="shopCount">${alt.length}</span></div><div class="obtainList">${alternatives}</div></div>`:'');[m
+[32m+[m[32m  const obtainable=obtain.map(i=>`<span class="chip obtain">${esc(i.item)}${Number(i.qty||0)>1?` <span class="qtyText">×${esc(i.qty)}</span>`:''}</span>`).join('');[m
+[32m+[m[32m  const alternatives=alt.map(i=>`<span class="chip alt">${esc(i.item)}${Number(i.qty||0)>1?` <span class="qtyText">×${esc(i.qty)}</span>`:''}</span>`).join('');[m
+[32m+[m[32m  return `<div class="shopGroup"><div class="shopGroupTitle"><span>☐ Bring / Buy</span><span class="shopCount">${required.length} items</span></div>${reqRows||'<div class="emptyPrep" style="padding:8px 2px">Nothing to buy for the displayed route.</div>'}</div>`[m
+[32m+[m[32m    +(obtain.length?`<div class="shopGroup"><div class="shopGroupTitle"><span>✓ Obtain During Quest</span><span class="shopCount">${obtain.length}</span></div><div class="obtainList">${obtainable}</div></div>`:'')[m
+[32m+[m[32m    +(alt.length?`<div class="shopGroup"><div class="shopGroupTitle"><span>↔ Choice / Alternative</span><span class="shopCount">${alt.length}</span></div><div class="obtainList">${alternatives}</div></div>`:'');[m
+ }[m
+ function inferTarget(skill,s){[m
+   const name=String(skill.skill||'').toLowerCase();[m
+   const missing=String(s.goalSummary?.missingSkills||'');[m
+[31m-  const rx=new RegExp(name+'\\\\s*(?:to|â†’|:)?\\\\s*(\\\\d+)','i');[m
+[32m+[m[32m  const rx=new RegExp(name+'\\\\s*(?:to|→|:)?\\\\s*(\\\\d+)','i');[m
+   const m=missing.match(rx);[m
+   if(m)return Number(m[1]);[m
+   const goal=String(s.goal||'').toLowerCase();[m
+[36m@@ -516,8 +516,8 @@[m [mfunction render(s){[m
+   window.__sensumState=s;[m
+   busy(false);$('err').classList.add('hidden');[m
+   dataHealth(s);[m
+[31m-  $('user').textContent=s.username||'Sensum';$('combat').textContent=s.combatLevel||'â€”';$('qp').textContent=s.questPoints||'â€”';[m
+[31m-  $('wom').textContent=s.lastWomSnapshot||'â€”';$('sync').textContent=s.lastSheetSync||'â€”';[m
+[32m+[m[32m  $('user').textContent=s.username||'Sensum';$('combat').textContent=s.combatLevel||'—';$('qp').textContent=s.questPoints||'—';[m
+[32m+[m[32m  $('wom').textContent=s.lastWomSnapshot||'—';$('sync').textContent=s.lastSheetSync||'—';[m
+   $('goal').innerHTML=(s.goals||[]).map(g=>`<option value="${esc(g.name)}">${esc(g.name)}</option>`).join('');[m
+   $('goal').value=s.goal;$('depth').value=String(s.routeDepth||10);[m
+ [m
+[36m@@ -531,13 +531,13 @@[m [mfunction render(s){[m
+     $('objective').textContent='Balanced Account Progression';[m
+     $('status').textContent=ready?`${ready} route quests ready now`:'Training required before the next route quest';[m
+     $('missing').innerHTML=quick[m
+[31m-      ? `<div><b>Next training detour:</b> ${esc(quick.blocker||quick.quest)} Â· ${esc(friendlyHours(quick.afterHours))}</div><div style="margin-top:5px"><b>Displayed route:</b> +${Math.max(0,end-start)} QP</div>`[m
+[32m+[m[32m      ? `<div><b>Next training detour:</b> ${esc(quick.blocker||quick.quest)} · ${esc(friendlyHours(quick.afterHours))}</div><div style="margin-top:5px"><b>Displayed route:</b> +${Math.max(0,end-start)} QP</div>`[m
+       : `<span class="good"><b>Route ready</b></span>`;[m
+     $('prereq').textContent=quick?`${quick.quest} is the nearest training interruption.`:'No training blocker in the displayed route.';[m
+     $('effect').textContent='Balances quest points, unlocks, downstream progression, and short training detours.';[m
+   }else{[m
+[31m-    $('objective').textContent=g.objective||s.goal||'â€”';[m
+[31m-    $('status').textContent=g.status||'â€”';[m
+[32m+[m[32m    $('objective').textContent=g.objective||s.goal||'—';[m
+[32m+[m[32m    $('status').textContent=g.status||'—';[m
+     const req=String(g.missingSkills||'').trim();[m
+     $('missing').textContent=(!req || /^(none|n\/a|na)$/i.test(req))?'Skills ready':req;[m
+     const pre=String(g.prerequisites||'').trim();[m
+[36m@@ -555,15 +555,15 @@[m [mfunction render(s){[m
+   const qpGain=Math.max(0,projectedFirst-currentQp);[m
+ [m
+   $('nextQuest').textContent=quest||'No quest selected';[m
+[31m-  $('nextWhy').textContent=n['Why This Quest']||'â€”';[m
+[32m+[m[32m  $('nextWhy').textContent=n['Why This Quest']||'—';[m
+   const grind=n['Skill Grind Before It']||'None';[m
+[31m-  const ready=/^(none|ready|none\s*[â€”-]\s*ready now)$/i.test(String(grind).trim()) || /ready now/i.test(String(grind));[m
+[31m-  $('nextGrind').innerHTML=ready?'<span class="readyBadge">âœ“ Ready now</span>':esc(grind);[m
+[31m-  $('nextResult').textContent=quest ? `Complete ${quest}${qpGain?` Â· +${qpGain} QP`:''}` : 'Advance the selected goal';[m
+[31m-  $('nextImpact').textContent=top ? `${top.downstream||0} downstream quests Â· score ${top.score||'â€”'} Â· ${top.tier||'â€”'} tier` : (route?`Route step ${route.step||1} Â· projected QP ${route.projectedQp||'â€”'}`:'Advance route');[m
+[31m-  $('nextCurrentQp').textContent=n['Current Quest Points']||s.questPoints||'â€”';[m
+[31m-  $('nextProjectedQp').textContent=n['Projected QP After Displayed Route']||'â€”';[m
+[31m-  $('nextMilestones').textContent=n['QP Milestones']||'â€”';[m
+[32m+[m[32m  const ready=/^(none|ready|none\s*[—-]\s*ready now)$/i.test(String(grind).trim()) || /ready now/i.test(String(grind));[m
+[32m+[m[32m  $('nextGrind').innerHTML=ready?'<span class="readyBadge">✓ Ready now</span>':esc(grind);[m
+[32m+[m[32m  $('nextResult').textContent=quest ? `Complete ${quest}${qpGain?` · +${qpGain} QP`:''}` : 'Advance the selected goal';[m
+[32m+[m[32m  $('nextImpact').textContent=top ? `${top.downstream||0} downstream quests · score ${top.score||'—'} · ${top.tier||'—'} tier` : (route?`Route step ${route.step||1} · projected QP ${route.projectedQp||'—'}`:'Advance route');[m
+[32m+[m[32m  $('nextCurrentQp').textContent=n['Current Quest Points']||s.questPoints||'—';[m
+[32m+[m[32m  $('nextProjectedQp').textContent=n['Projected QP After Displayed Route']||'—';[m
+[32m+[m[32m  $('nextMilestones').textContent=n['QP Milestones']||'—';[m
+ [m
+   const pg=prepForQuest(s,quest);[m
+   const prepHtml=prepGroupHtml('Bring / Buy',pg.buy,'buy')+prepGroupHtml('Obtainable during quest',pg.obtain,'obtain')+prepGroupHtml('Choice / Alternative',pg.alt,'alt');[m
+[36m@@ -573,7 +573,7 @@[m [mfunction render(s){[m
+     const hrs=Number(r.afterHours||0);[m
+     const state=hrs<=0?`<span class="readyState">Ready</span>`:`${esc(friendlyHours(hrs))} after XP chain`;[m
+     const blocked=hrs>0 || (r.blocker && !/ready/i.test(String(r.blocker)));[m
+[31m-    return `<div class="step ${blocked?'blockedStep':''}"><div class="stepNo">Step ${esc(r.step)} Â· projected QP ${esc(r.projectedQp)}</div><div class="stepQuest">${esc(r.quest)}</div><div class="stepMeta">${esc(r.blocker)}<br>${state}</div>${blocked?'<span class="blockedFlag">Training needed</span>':''}<span class="stepScore">Score ${esc(r.score)}</span></div>`;[m
+[32m+[m[32m    return `<div class="step ${blocked?'blockedStep':''}"><div class="stepNo">Step ${esc(r.step)} · projected QP ${esc(r.projectedQp)}</div><div class="stepQuest">${esc(r.quest)}</div><div class="stepMeta">${esc(r.blocker)}<br>${state}</div>${blocked?'<span class="blockedFlag">Training needed</span>':''}<span class="stepScore">Score ${esc(r.score)}</span></div>`;[m
+   }).join('');[m
+ [m
+   $('blocked').innerHTML=(s.blockedQuests||[]).map(q=>{const c=timeClass(q.hours);return `<tr class="blockerRow ${c}Row"><td><b>${esc(q.quest)}</b></td><td class="num">${esc(q.score)}</td><td class="num">${esc(q.downstream)}</td><td>${esc(q.blockedBy)}</td><td class="${q.missingSkills&&q.missingSkills!=='None'?'danger':'good'}">${esc(q.missingSkills||'None')}</td><td class="num">${timeBadge(q.hours)}</td></tr>`}).join('');[m
+[36m@@ -582,9 +582,9 @@[m [mfunction render(s){[m
+   $('shopping').innerHTML=routeShoppingHtml(s);[m
+ [m
+   const focus=goalSkills(s);[m
+[31m-  $('skills').innerHTML=(s.stats||[]).map(x=>{const relevant=focus.has(String(x.skill||'').toLowerCase()),target=relevant?inferTarget(x,s):null,gap=target?Math.max(0,target-Number(x.level||0)):0;return `<div class="skill ${relevant?'goalSkill':''}"><div class="name">${esc(x.skill)}</div><div class="lvl">${esc(x.level)}</div><div style="font-size:9px;color:#85735f">${Number(x.xp||0).toLocaleString()} XP</div>${target?`<div class="targetLine">Target ${target}${gap?` Â· +${gap}`:' Â· met'}</div>`:''}</div>`}).join('');[m
+[32m+[m[32m  $('skills').innerHTML=(s.stats||[]).map(x=>{const relevant=focus.has(String(x.skill||'').toLowerCase()),target=relevant?inferTarget(x,s):null,gap=target?Math.max(0,target-Number(x.level||0)):0;return `<div class="skill ${relevant?'goalSkill':''}"><div class="name">${esc(x.skill)}</div><div class="lvl">${esc(x.level)}</div><div style="font-size:9px;color:#85735f">${Number(x.xp||0).toLocaleString()} XP</div>${target?`<div class="targetLine">Target ${target}${gap?` · +${gap}`:' · met'}</div>`:''}</div>`}).join('');[m
+   const h=s.wikiHealth||{};[m
+[31m-  $('health').innerHTML=`<span class="pill good">Wiki OK: ${esc(h.ok||0)}</span><span class="pill">Review: ${esc(h.review||0)}</span><span class="pill">Missing: ${esc(h.missing||0)}</span><span class="pill">Last check: ${esc(h.lastCheck||'â€”')}</span>`;[m
+[32m+[m[32m  $('health').innerHTML=`<span class="pill good">Wiki OK: ${esc(h.ok||0)}</span><span class="pill">Review: ${esc(h.review||0)}</span><span class="pill">Missing: ${esc(h.missing||0)}</span><span class="pill">Last check: ${esc(h.lastCheck||'—')}</span>`;[m
+ }[m
+ function changeGoal(){busy(true);google.script.run.withSuccessHandler(render).withFailureHandler(fail).setV1Goal($('goal').value)}[m
+ function changeDepth(){busy(true);google.script.run.withSuccessHandler(render).withFailureHandler(fail).setV1RouteDepth(Number($('depth').value))}[m
