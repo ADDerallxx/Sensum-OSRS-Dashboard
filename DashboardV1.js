@@ -49,12 +49,20 @@ function getV1DashboardState() {
     nextSession,
     stats: statsRows.map(r => ({skill:r[0],level:r[1],xp:r[7],nextXp:r[5]})),
     shopping: readV1Shopping_(shoppingSheet),
-    wikiHealth: {
-      ok: dash.getRange('B51').getDisplayValue(),
-      review: dash.getRange('B52').getDisplayValue(),
-      missing: dash.getRange('B53').getDisplayValue(),
-      lastCheck: dash.getRange('B54').getDisplayValue()
-    }
+    wikiHealth: readV1WikiHealth_(dash)
+  };
+}
+
+function readV1WikiHealth_(dash) {
+  function valueNextTo_(label) {
+    const found = dash.createTextFinder(label).matchEntireCell(true).findNext();
+    return found ? found.offset(0, 1).getDisplayValue() : '';
+  }
+  return {
+    ok: valueNextTo_('OK'),
+    review: valueNextTo_('Needs Review'),
+    missing: valueNextTo_('No Cache / Incomplete'),
+    lastCheck: valueNextTo_('Last Wiki Check')
   };
 }
 
@@ -87,14 +95,74 @@ function getRouteDepthValue_(dash) {
 }
 
 function readV1Shopping_(sheet) {
-  const values = sheet.getRange(1,1,Math.min(sheet.getLastRow(),250),6).getDisplayValues();
+  const lastRow = Math.min(sheet.getLastRow(), 500);
+
+  // Authoritative top-level, normalized/deduplicated route requirements.
+  const values = sheet.getRange(1, 1, Math.min(lastRow, 250), 6).getDisplayValues();
   const headerIndex = values.findIndex(r => r[0] === 'Item' && r[1] === 'Min Qty');
   if (headerIndex < 0) return [];
+
   const out = [];
   for (let i = headerIndex + 1; i < values.length; i++) {
     const r = values[i];
     if (!r[0]) break;
-    out.push({item:r[0],qty:r[1],quests:r[2],acquisition:r[3],type:r[4]});
+    out.push({
+      item: r[0],
+      qty: r[1],
+      quests: r[2],
+      acquisition: r[3],
+      type: r[4]
+    });
   }
+
+  // Preserve nested Wiki hierarchy as alternative/component detail.
+  // H:O = combined line, quest, raw line, depth, item, qty, acquisition, type.
+  if (lastRow >= 5) {
+    const detail = sheet.getRange(5, 8, lastRow - 4, 8).getDisplayValues();
+    const stacks = {};
+
+    detail.forEach(r => {
+      const quest = r[1];
+      const raw = r[2];
+      const depth = Number(r[3] || 0);
+      const item = r[4];
+      const qty = r[5] || '1';
+      const acquisition = r[6] || 'Bring / Buy';
+
+      if (!quest || !raw || !depth) return;
+      if (!stacks[quest]) stacks[quest] = {};
+      const stack = stacks[quest];
+
+      if (depth === 1) {
+        if (item) stack[1] = item;
+        Object.keys(stack).forEach(k => { if (Number(k) > 1) delete stack[k]; });
+        return;
+      }
+
+      // Skill-template lines can contain a [[boostable]] link but are not items.
+      if (!item || (raw.indexOf('{{SCP') >= 0 && String(item).toLowerCase() === 'boostable')) {
+        return;
+      }
+
+      const root = stack[1] || '';
+      const parent = stack[depth - 1] || root;
+
+      stack[depth] = item;
+      Object.keys(stack).forEach(k => { if (Number(k) > depth) delete stack[k]; });
+
+      out.push({
+        item: item,
+        qty: qty,
+        quests: quest,
+        acquisition: acquisition,
+        type: 'Alternative / Component',
+        alternativeOf: root,
+        componentOf: parent,
+        depth: depth,
+        raw: raw
+      });
+    });
+  }
+
   return out;
 }

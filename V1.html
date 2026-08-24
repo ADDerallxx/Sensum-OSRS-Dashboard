@@ -171,7 +171,7 @@
   <div class="hero">
     <div class="heroTop">
       <div><h1>Sensum OSRS Progression Dashboard</h1><div class="sub">Open this, see what matters, play the game.</div></div>
-      <div class="version">V1.12 · Trust the Numbers</div>
+      <div class="version">V1.13 · Trust the Numbers</div>
     </div>
     <div class="controls">
       <div class="label">Goal Target</div><select id="goal" onchange="changeGoal()"></select>
@@ -307,7 +307,9 @@ function prepForQuest(s,quest){
   const rows=(s.shopping||[]).filter(i=>String(i.quests||'').toLowerCase().split(',').map(x=>x.trim()).includes(String(quest||'').toLowerCase()));
   const groups={buy:[],obtain:[],alt:[]};
   rows.forEach(i=>{
-    const acq=String(i.acquisition||'').toLowerCase(),type=String(i.type||'').toLowerCase(),item={name:i.item,qty:i.qty};
+    const acq=String(i.acquisition||'').toLowerCase(),type=String(i.type||'').toLowerCase();
+    const componentLabel=i.componentOf||i.alternativeOf||'';
+    const item={name:i.item+(componentLabel?' (for '+componentLabel+')':''),qty:i.qty};
     if(type.includes('choice')||type.includes('alternative'))groups.alt.push(item);
     else if(acq.includes('obtain'))groups.obtain.push(item);
     else groups.buy.push(item);
@@ -351,6 +353,10 @@ function routeStepMap(s){
   return m;
 }
 function splitQuests(v){return String(v||'').split(',').map(x=>x.trim()).filter(Boolean)}
+function altDisplayName(i){
+  const parent=i.componentOf||i.alternativeOf||'';
+  return parent ? i.item+' (for '+parent+')' : i.item;
+}
 
 const REUSABLE_PREP_ITEMS = new Set([
   'spade','rope','bucket','knife','hammer','chisel','tinderbox','pickaxe','axe',
@@ -422,7 +428,7 @@ function routeShoppingHtml(s){
   });
 
   if(alt.length){
-    html+=`<div class="shopGroup"><div class="shopGroupTitle"><span>↔ Choice / Alternative</span><span class="shopCount">${alt.length}</span></div><div class="obtainList">${alt.map(i=>chipHtml({name:i.item,qty:i.qty},'alt')).join('')}</div></div>`;
+    html+=`<div class="shopGroup"><div class="shopGroupTitle"><span>↔ Choice / Alternative</span><span class="shopCount">${alt.length}</span></div><div class="obtainList">${alt.map(i=>chipHtml({name:altDisplayName(i),qty:i.qty},'alt')).join('')}</div></div>`;
   }
   return html;
 }
