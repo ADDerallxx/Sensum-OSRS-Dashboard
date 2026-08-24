@@ -191,7 +191,7 @@
   <div class="hero">
     <div class="heroTop">
       <div><h1>Sensum OSRS Progression Dashboard</h1><div class="sub">Open this, see what matters, play the game.</div></div>
-      <div class="version">V1.15.1 · Trust the Numbers</div>
+      <div class="version">V1.15.2b · Trust the Numbers</div>
     </div>
     <div class="controls">
       <div class="label">Goal Target</div><select id="goal" onchange="changeGoal()"></select>
@@ -200,7 +200,7 @@
     <div class="metrics">
       <div class="metric"><div class="k">Username</div><div class="v" id="user">—</div></div>
       <div class="metric"><div class="k">Combat Level</div><div class="v" id="combat">—</div></div>
-      <div class="metric"><div class="k">Quest Points</div><div class="v" id="qp">—</div></div>
+      <div class="metric"><div class="k">Quest Points</div><div class="v" id="qp">—</div><button id="v115Report" class="v115Report" title="Report Completed Quest" aria-label="Report Completed Quest" onclick="openV115QuestModal('Dashboard Manual')"><img src="https://oldschool.runescape.wiki/images/Quest_point_icon.png" alt=""><span>Report Quest</span></button></div>
       <div class="metric"><div class="k">WOM Snapshot</div><div class="v" id="wom" style="font-size:12px">—</div></div>
       <div class="metric"><div class="k">Sheet Sync</div><div class="v" id="sync" style="font-size:12px">—</div></div>
     </div>
@@ -799,12 +799,7 @@ function renderV115Quests(){if(!v115State)return;const f=(document.getElementByI
 function toggleV115(q,on){on?v115Selected.add(q):v115Selected.delete(q);renderV115Quests()}
 function updateV115Selected(){if(!v115State)return;const rows=v115State.incomplete.filter(q=>v115Selected.has(q.quest));const qp=rows.reduce((a,b)=>a+(Number(b.qp)||0),0);let t=`Selected: ${rows.length} quest${rows.length===1?'':'s'} - ${qp} QP`;if(v115State.detectedGain)t+=qp===v115State.detectedGain?' - Matches detected change':` - Detected +${v115State.detectedGain}`;document.getElementById('v115Selected').textContent=t}
 function confirmV115Quests(){if(!v115Selected.size)return alert('Select at least one quest.');const names=[...v115Selected];if(!confirm(`Mark these quests complete?\n\n${names.join('\n')}`))return;google.script.run.withFailureHandler(e=>alert('Quest update failed: '+e.message)).withSuccessHandler(r=>{v115LastTx=r.transactionId;v115State=r.state;closeV115QuestModal();hideV115Banner();alert(`${r.changed.length} quest${r.changed.length===1?'':'s'} marked complete.`);location.reload()}).completeV115Quests(names,v115Source)}
-document.addEventListener('DOMContentLoaded',()=>{
-  if(!document.getElementById('v115Report')){
-    const metric=[...document.querySelectorAll('.metric')].find(m=>{
-      const k=m.querySelector('.k');
-      return k && String(k.textContent||'').trim().toUpperCase()==='QUEST POINTS';
-    });
+document.addEventListener('DOMContentLoaded',()=>{loadV115();});
     if(metric){
       const b=document.createElement('button');
       b.id='v115Report';
