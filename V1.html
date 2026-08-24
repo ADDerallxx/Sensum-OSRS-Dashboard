@@ -191,7 +191,7 @@
   <div class="hero">
     <div class="heroTop">
       <div><h1>Sensum OSRS Progression Dashboard</h1><div class="sub">Open this, see what matters, play the game.</div></div>
-      <div class="version">V1.14.3 · Trust the Numbers</div>
+      <div class="version">V1.14.4 · Trust the Numbers</div>
     </div>
     <div class="controls">
       <div class="label">Goal Target</div><select id="goal" onchange="changeGoal()"></select>
@@ -326,14 +326,34 @@ function timeBadge(v){
 function prepForQuest(s,quest){
   const rows=(s.shopping||[]).filter(i=>String(i.quests||'').toLowerCase().split(',').map(x=>x.trim()).includes(String(quest||'').toLowerCase()));
   const groups={buy:[],obtain:[],alt:[]};
+  const choiceModel=(typeof prepChoiceModelV1143==='function') ? prepChoiceModelV1143(quest,rows) : {used:new Set(),choices:[]};
+
   rows.forEach(i=>{
-    const acq=String(i.acquisition||'').toLowerCase(),type=String(i.type||'').toLowerCase();
-    const componentLabel=i.componentOf||i.alternativeOf||'';
-    const item={name:i.item+(componentLabel?' (for '+componentLabel+')':''),qty:i.qty};
-    if(type.includes('choice')||type.includes('alternative'))groups.alt.push(item);
-    else if(acq.includes('obtain'))groups.obtain.push(item);
+    if(choiceModel.used && choiceModel.used.has(i)) return;
+    const c=(typeof classifyPrepItemV1142==='function') ? classifyPrepItemV1142(i) : null;
+    const item={name:i.item,qty:i.qty};
+
+    if(c){
+      if(c.recommended) return;
+      if(c.obtain||c.created) groups.obtain.push(item);
+      else groups.buy.push(item);
+      return;
+    }
+
+    const acq=String(i.acquisition||'').toLowerCase();
+    if(acq.includes('obtain')||acq.includes('created'))groups.obtain.push(item);
     else groups.buy.push(item);
   });
+
+  if(choiceModel.choices){
+    choiceModel.choices.forEach(ch=>{
+      groups.alt.push({
+        name:ch.finished.item+' OR '+ch.components.map(x=>x.item).join(' + '),
+        qty:1
+      });
+    });
+  }
+
   return groups;
 }
 function chipHtml(item,cls){

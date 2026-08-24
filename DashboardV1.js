@@ -105,7 +105,8 @@ function normalizeV1PrepItem_(name) {
     "premade blurb' sp.": "Premade blurb' special",
     "bread (unnoted)": "Bread",
     "trout (unnoted)": "Trout",
-    "rope, multiple in case you fail an agility check": "Rope"
+    "rope, multiple in case you fail an agility check": "Rope",
+    "torch": "Lit torch or candle"
   };
   const raw = String(name || '').trim();
   return aliases[raw.toLowerCase()] || raw;
@@ -133,17 +134,16 @@ function readV1Shopping_(wikiSheet, reconciledSheet) {
     const b = Number(row.qty || 0);
     if (b > a) prev.qty = row.qty;
 
-    if (/obtain/i.test(String(row.acquisition || '')) &&
-        !/obtain/i.test(String(prev.acquisition || ''))) {
-      if (!prev.mandatory || prev.qhStatus !== 'REQUIRED') {
-        prev.acquisition = row.acquisition;
-      }
-    }
-
     if (row.source && String(prev.source || '').indexOf(row.source) < 0) {
       prev.source = [prev.source, row.source].filter(Boolean).join(' + ');
     }
     if (!prev.notes && row.notes) prev.notes = row.notes;
+
+    if (/obtain/i.test(String(row.acquisition || '')) &&
+        /created/i.test(String(prev.acquisition || ''))) {
+      prev.acquisition = 'Obtain During Quest';
+      prev.prepClass = 'Obtain During Quest';
+    }
   }
 
   if (reconciledSheet && reconciledSheet.getLastRow() > 1) {
@@ -159,7 +159,7 @@ function readV1Shopping_(wikiSheet, reconciledSheet) {
       const mandatory = String(r[5]).toUpperCase() === 'TRUE';
       const reusable = String(r[6]).toUpperCase() === 'TRUE';
       const qhStatus = r[7];
-      const wikiType = r[10];
+      const wikiAcquisition = r[9];
       const sourceAgreement = r[11];
       const notes = r[12];
 
@@ -172,63 +172,50 @@ function readV1Shopping_(wikiSheet, reconciledSheet) {
       if (!(mandatory || qhStatus === 'RECOMMENDED' || wikiConfirmedMidQuest)) return;
 
       let acquisition = 'Bring / Buy';
-      if (/Created/i.test(prepClass)) acquisition = 'Created During Quest';
-      else if (/Obtain/i.test(prepClass)) acquisition = 'Obtain During Quest';
-      else if (/Recommended/i.test(prepClass)) acquisition = prepClass;
-
-      let type = mandatory ? 'Direct' : (wikiType || qhStatus || 'Direct');
-      if (qhStatus === 'RECOMMENDED') type = 'Recommended';
-      if (wikiConfirmedMidQuest) type = 'Quest Progress Item';
+      if (/obtain/i.test(wikiAcquisition) && /Created \/ Obtained/i.test(prepClass)) {
+        acquisition = 'Obtain During Quest';
+      } else if (/Created/i.test(prepClass)) {
+        acquisition = 'Created During Quest';
+      } else if (/Obtain/i.test(prepClass)) {
+        acquisition = 'Obtain During Quest';
+      } else if (/Recommended/i.test(prepClass)) {
+        acquisition = prepClass;
+      }
 
       addOrMerge_({
-        item,
-        qty,
-        quests: quest,
-        acquisition,
-        type,
-        notes,
-        source: sourceAgreement || 'Quest Helper',
-        prepClass,
-        mandatory,
-        reusable,
-        qhStatus
+        item, qty, quests: quest, acquisition,
+        type: qhStatus === 'RECOMMENDED' ? 'Recommended' :
+              (wikiConfirmedMidQuest ? 'Quest Progress Item' : 'Direct'),
+        notes, source: sourceAgreement || 'Quest Helper',
+        prepClass, mandatory, reusable, qhStatus
       });
     });
   }
 
-  if (wikiSheet) {
+  if (wikiSheet && wikiSheet.getLastRow() >= 5) {
     const lastRow = Math.min(wikiSheet.getLastRow(), 500);
-    const values = wikiSheet.getRange(1, 1, Math.min(lastRow, 250), 6).getDisplayValues();
-    const headerIndex = values.findIndex(r => r[0] === 'Item' && r[1] === 'Min Qty');
+    const detail = wikiSheet.getRange(5, 8, lastRow - 4, 8).getDisplayValues();
 
-    if (headerIndex >= 0) {
-      for (let i = headerIndex + 1; i < values.length; i++) {
-        const r = values[i];
-        if (!r[0]) break;
+    detail.forEach(r => {
+      const quest = String(r[1] || '').trim();
+      const depth = Number(r[3] || 0);
+      const item = normalizeV1PrepItem_(r[4]);
+      const qty = r[5] || '1';
+      const acquisition = r[6] || 'Bring / Buy';
+      const type = r[7] || 'Direct';
 
-        const item = normalizeV1PrepItem_(r[0]);
-        const quests = String(r[2] || '').split(',').map(x => x.trim()).filter(Boolean);
-        const acquisition = r[3] || 'Bring / Buy';
-        const type = r[4] || 'Direct';
+      if (!quest || !item) return;
+      if (depth !== 1) return;
+      if (/choice|alternative|component/i.test(type)) return;
 
-        if (/choice|alternative|component/i.test(type)) continue;
-
-        quests.forEach(quest => {
-          addOrMerge_({
-            item,
-            qty: r[1] || '1',
-            quests: quest,
-            acquisition: /obtain/i.test(acquisition) ? 'Obtain During Quest' : acquisition,
-            type: 'Direct',
-            source: 'Wiki direct fallback',
-            prepClass: /obtain/i.test(acquisition) ? 'Obtain During Quest' : 'Bring / Buy',
-            mandatory: true,
-            reusable: false,
-            qhStatus: 'WIKI'
-          });
-        });
-      }
-    }
+      addOrMerge_({
+        item, qty, quests: quest,
+        acquisition: /obtain/i.test(acquisition) ? 'Obtain During Quest' : acquisition,
+        type: 'Direct', source: 'Wiki direct fallback',
+        prepClass: /obtain/i.test(acquisition) ? 'Obtain During Quest' : 'Bring / Buy',
+        mandatory: true, reusable: false, qhStatus: 'WIKI'
+      });
+    });
   }
 
   return out;
