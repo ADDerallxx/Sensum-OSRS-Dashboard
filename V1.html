@@ -7,9 +7,10 @@
   <title>Sensum OSRS Progression Dashboard</title>
   <style>
     :root{
-      --bg:#120a04;--panel:#f5efe4;--panel2:#fffaf1;--brown:#321b0c;--brown2:#5a3217;
+      --panel:#f5efe4;--panel2:#fffaf1;--brown:#321b0c;--brown2:#5a3217;
       --gold:#f0b83d;--gold2:#d99b29;--ink:#25180e;--muted:#786653;--line:#dbc9aa;
-      --green:#34713c;--red:#a62a21;--amber:#a76516;--blue:#426b86;--shadow:0 10px 28px rgba(0,0,0,.22)
+      --green:#34713c;--greenBg:#e2efe1;--red:#a62a21;--redBg:#f2dddd;
+      --amber:#a76516;--amberBg:#f4e6c8;--shadow:0 10px 28px rgba(0,0,0,.22)
     }
     *{box-sizing:border-box}
     body{margin:0;font-family:Arial,sans-serif;background:radial-gradient(circle at 50% -20%,#3b200c 0,#1b0e06 42%,#100803 100%);color:#fff;min-height:100vh}
@@ -32,9 +33,8 @@
     .sectionNote{font-size:10px;color:#d2b989;margin-left:auto;font-weight:400}
     .tableWrap{overflow:auto}.table{width:100%;border-collapse:collapse}
     .table th{background:#3c220f;color:#ffe2a1;text-align:left;padding:8px 9px;font-size:11px;white-space:nowrap}
-    .table td{padding:9px;border-bottom:1px solid #dfd1b9;font-size:12px;vertical-align:top}
-    .table tr:last-child td{border-bottom:0}.num{text-align:center!important;white-space:nowrap}
-    .rank{display:inline-flex;width:26px;height:26px;border-radius:7px;align-items:center;justify-content:center;background:#5d3518;color:#ffd878;font-weight:900}
+    .table td{padding:9px;border-bottom:1px solid #dfd1b9;font-size:12px;vertical-align:top}.table tr:last-child td{border-bottom:0}
+    .num{text-align:center!important;white-space:nowrap}.rank{display:inline-flex;width:26px;height:26px;border-radius:7px;align-items:center;justify-content:center;background:#5d3518;color:#ffd878;font-weight:900}
     .tier{padding:4px 7px;border-radius:6px;background:#e5d8c0;font-weight:900}.why{color:#5f5143;line-height:1.35}
     .danger{color:var(--red);font-weight:700}.good{color:var(--green)}
 
@@ -49,43 +49,50 @@
     .skey{font-size:9px;text-transform:uppercase;font-weight:900;color:#846b4f;margin-bottom:5px}.sval{font-size:12px;line-height:1.35}
 
     .actionCard{margin-top:14px;background:linear-gradient(135deg,#fffaf1,#f0e2ca)}
-    .actionBody{display:grid;grid-template-columns:minmax(260px,.86fr) minmax(0,1.44fr);gap:14px;padding:14px}
-    .actionHero{background:#301a0c;color:#fff3d4;border:1px solid #8e5b2b;border-radius:12px;padding:14px}
+    .actionBody{display:grid;grid-template-columns:minmax(250px,.72fr) minmax(0,1.58fr);gap:12px;padding:12px}
+    .actionHero{background:#301a0c;color:#fff3d4;border:1px solid #8e5b2b;border-radius:12px;padding:13px;align-self:start}
     .actionEyebrow{font-size:9px;text-transform:uppercase;font-weight:900;color:#e8c273;letter-spacing:.8px}
-    .actionQuest{font-size:25px;font-weight:900;margin:5px 0 9px}.actionWhy{font-size:12px;line-height:1.4;color:#e8d8bc}
-    .actionSteps{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
-    .actionStep{background:#fffaf1;border:1px solid var(--line);border-radius:10px;padding:10px}
-    .actionStep.wide{grid-column:1/-1}.actionStep .n{font-size:9px;text-transform:uppercase;font-weight:900;color:#8b6b45}.actionStep .v{font-size:12px;line-height:1.35;margin-top:4px;font-weight:700}
-    .prepGroups{display:grid;gap:8px;margin-top:6px}.prepGroup{border-top:1px solid #eadcc4;padding-top:7px}.prepGroup:first-child{border-top:0;padding-top:0}
-    .prepLabel{font-size:9px;font-weight:900;text-transform:uppercase;letter-spacing:.5px;color:#7c6448;margin-bottom:5px}
+    .actionQuest{font-size:23px;font-weight:900;margin:5px 0 8px}.actionWhy{font-size:11px;line-height:1.38;color:#e8d8bc}
+    .actionSteps{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;align-content:start}
+    .actionStep{background:#fffaf1;border:1px solid var(--line);border-radius:10px;padding:9px;min-height:72px}
+    .actionStep.prep{grid-column:1/-1;min-height:auto}.actionStep .n{font-size:9px;text-transform:uppercase;font-weight:900;color:#8b6b45}.actionStep .v{font-size:12px;line-height:1.35;margin-top:4px;font-weight:700}
+    .prepGroups{display:grid;gap:7px;margin-top:5px}.prepGroup{border-top:1px solid #eadcc4;padding-top:6px}.prepGroup:first-child{border-top:0;padding-top:0}
+    .prepLabel{font-size:9px;font-weight:900;text-transform:uppercase;letter-spacing:.5px;color:#7c6448;margin-bottom:4px}
     .chips{display:flex;gap:5px;flex-wrap:wrap}.chip{display:inline-flex;align-items:center;gap:4px;padding:5px 7px;border-radius:999px;font-size:10px;font-weight:800;border:1px solid}
-    .chip.buy{background:#f4dfba;border-color:#d3a65e;color:#653f12}.chip.obtain{background:#dcebdc;border-color:#94b697;color:#275c2d}
-    .chip.alt{background:#dce7ed;border-color:#96afbd;color:#2f596e}.chip.qty:before{content:'×';font-weight:400}
-    .emptyPrep{font-size:11px;color:#776553;font-style:italic}
-    .qpStrip{grid-column:1/-1;background:#eadcc2;border:1px solid #cdb78f;border-radius:9px;padding:9px 11px;font-size:11px;display:flex;gap:16px;flex-wrap:wrap}.qpStrip b{color:#5b3818}
+    .chip.buy{background:#f4dfba;border-color:#d3a65e;color:#653f12}.chip.obtain{background:#dcebdc;border-color:#94b697;color:#275c2d}.chip.alt{background:#dce7ed;border-color:#96afbd;color:#2f596e}
+    .qtyText{opacity:.75;font-weight:700}.emptyPrep{font-size:11px;color:#776553;font-style:italic}
+    .qpStrip{grid-column:1/-1;background:#eadcc2;border:1px solid #cdb78f;border-radius:9px;padding:8px 10px;font-size:11px;display:flex;gap:16px;flex-wrap:wrap}.qpStrip b{color:#5b3818}
 
     .route{margin-top:14px}.routeGrid{display:flex;gap:0;padding:18px 16px 16px;overflow-x:auto}
     .step{position:relative;flex:1 0 135px;max-width:190px;background:#fffaf1;border:1px solid #d4c2a4;border-radius:10px;padding:12px 10px;min-height:126px;margin-right:16px}
     .step:not(:last-child):after{content:'›';position:absolute;right:-14px;top:44px;font-size:28px;font-weight:900;color:#a67a42}
     .stepNo{font-size:9px;text-transform:uppercase;color:#8a755e;font-weight:900}.stepQuest{font-weight:900;margin:6px 0;font-size:14px;line-height:1.2}
-    .stepMeta{font-size:10px;color:#756452;line-height:1.45}.stepScore{display:inline-block;margin-top:6px;padding:3px 6px;border-radius:999px;background:#eadcc3;font-weight:800}
+    .stepMeta{font-size:10px;color:#756452;line-height:1.45}.readyState{color:var(--green);font-weight:900}
+    .stepScore{display:inline-block;margin-top:6px;padding:3px 6px;border-radius:999px;background:#eadcc3;font-weight:800}
 
     details.section{margin-top:14px}.section summary{cursor:pointer;list-style:none}.section summary::-webkit-details-marker{display:none}
     .section summary .head:after{content:'▾';margin-left:auto;color:#ffd98b}.section[open] summary .head:after{content:'▴'}
     .compactNote{padding:8px 12px;color:#685744;font-size:11px;background:#f9f2e7;border-bottom:1px solid #dfd1b9}
+    .timeBadge{display:inline-block;min-width:58px;padding:4px 7px;border-radius:999px;font-size:10px;font-weight:900;text-align:center}
+    .timeBadge.quick{background:var(--greenBg);color:var(--green)}.timeBadge.mid{background:var(--amberBg);color:var(--amber)}.timeBadge.long{background:var(--redBg);color:var(--red)}
+
     .prepGrid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
     .shop{padding:7px 13px 13px;max-height:340px;overflow:auto}.shoprow{display:grid;grid-template-columns:1.1fr 55px 1.25fr 1fr;gap:9px;padding:7px 0;border-bottom:1px solid #ded0b9;font-size:11px}
     .shoprow.header{position:sticky;top:0;background:var(--panel);font-weight:900;color:#5b4632}
     .prepTips{padding:13px;display:grid;gap:8px}.prepTip{background:#fffaf1;border:1px solid #dbc9aa;border-radius:9px;padding:10px}
     .prepTip b{display:block;font-size:10px;text-transform:uppercase;color:#7d5c34;margin-bottom:4px}.prepTip span{font-size:12px;line-height:1.35}
-    .skills{display:grid;grid-template-columns:repeat(12,1fr);gap:7px;padding:12px}.skill{background:#fffaf2;border:1px solid #d5c3a6;border-radius:9px;padding:8px 5px;text-align:center}
-    .skill .name{font-size:9px;color:#786753;text-transform:uppercase;font-weight:900}.skill .lvl{font-size:18px;font-weight:900;margin:2px 0}
+
+    .skills{display:grid;grid-template-columns:repeat(12,1fr);gap:7px;padding:12px}
+    .skill{background:#fffaf2;border:1px solid #d5c3a6;border-radius:9px;padding:8px 5px;text-align:center;transition:.15s}
+    .skill.goalSkill{border-color:#c18b2b;background:#fff1cf;box-shadow:inset 0 0 0 1px #e1bd72}
+    .skill.goalSkill .name{color:#775012}.skill .name{font-size:9px;color:#786753;text-transform:uppercase;font-weight:900}.skill .lvl{font-size:18px;font-weight:900;margin:2px 0}
     .health{display:flex;gap:7px;flex-wrap:wrap;padding:0 12px 12px}.pill{background:#e8dcc7;border-radius:999px;padding:5px 8px;font-size:10px;font-weight:800}
+
     .loading{position:fixed;inset:0;background:rgba(11,6,3,.82);display:flex;align-items:center;justify-content:center;z-index:10}.loading>div{background:#2c180a;border:1px solid #996128;border-radius:12px;padding:18px 22px;color:#ffe2a4;font-weight:900}
     .hidden{display:none}.error{background:#5c1712;border:1px solid #aa4238;border-radius:10px;padding:10px;margin-top:14px}
 
-    @media(max-width:1100px){.grid,.prepGrid{grid-template-columns:1fr}.metrics{grid-template-columns:repeat(3,1fr)}.skills{grid-template-columns:repeat(6,1fr)}.actionBody{grid-template-columns:1fr}}
-    @media(max-width:680px){.shell{padding:8px}.controls{grid-template-columns:1fr}.metrics{grid-template-columns:repeat(2,1fr);padding:10px}.heroTop{padding:15px 13px}.skills{grid-template-columns:repeat(3,1fr)}.summaryGrid{grid-template-columns:1fr}.summaryBox.full{grid-column:auto}.actionSteps{grid-template-columns:1fr}.actionStep.wide{grid-column:auto}.version{display:none}.qpStrip{display:block}}
+    @media(max-width:1100px){.grid,.prepGrid{grid-template-columns:1fr}.metrics{grid-template-columns:repeat(3,1fr)}.skills{grid-template-columns:repeat(6,1fr)}.actionBody{grid-template-columns:1fr}.actionSteps{grid-template-columns:1fr 1fr 1fr}}
+    @media(max-width:680px){.shell{padding:8px}.controls{grid-template-columns:1fr}.metrics{grid-template-columns:repeat(2,1fr);padding:10px}.heroTop{padding:15px 13px}.skills{grid-template-columns:repeat(3,1fr)}.summaryGrid{grid-template-columns:1fr}.summaryBox.full{grid-column:auto}.actionSteps{grid-template-columns:1fr}.actionStep.prep{grid-column:auto}.version{display:none}.qpStrip{display:block}}
   </style>
 </head>
 <body>
@@ -94,7 +101,7 @@
   <div class="hero">
     <div class="heroTop">
       <div><h1>Sensum OSRS Progression Dashboard</h1><div class="sub">Open this, see what matters, play the game.</div></div>
-      <div class="version">V1.3 · Actionable Prep</div>
+      <div class="version">V1.4 · Smart Polish</div>
     </div>
     <div class="controls">
       <div class="label">Goal Target</div><select id="goal" onchange="changeGoal()"></select>
@@ -108,6 +115,7 @@
       <div class="metric"><div class="k">Sheet Sync</div><div class="v" id="sync" style="font-size:12px">—</div></div>
     </div>
   </div>
+
   <div id="err" class="error hidden"></div>
 
   <div class="grid">
@@ -129,7 +137,7 @@
   </div>
 
   <div class="card actionCard">
-    <div class="head">▶ Next Session Plan <span class="sectionNote">the one thing to do next</span></div>
+    <div class="head">▶ Next Session Plan <span class="sectionNote">compact, actionable, goal-aware</span></div>
     <div class="actionBody">
       <div class="actionHero">
         <div class="actionEyebrow">Recommended next quest</div>
@@ -137,9 +145,10 @@
         <div id="nextWhy" class="actionWhy">—</div>
       </div>
       <div class="actionSteps">
-        <div class="actionStep"><div class="n">1 · Before you start</div><div id="nextGrind" class="v">None</div></div>
-        <div class="actionStep"><div class="n">2 · Expected result</div><div id="nextResult" class="v">Advance the selected goal</div></div>
-        <div class="actionStep wide"><div class="n">3 · Quest prep</div><div id="nextPrepStructured" class="prepGroups"></div></div>
+        <div class="actionStep"><div class="n">Before you start</div><div id="nextGrind" class="v">None</div></div>
+        <div class="actionStep"><div class="n">Expected result</div><div id="nextResult" class="v">—</div></div>
+        <div class="actionStep"><div class="n">Route impact</div><div id="nextImpact" class="v">—</div></div>
+        <div class="actionStep prep"><div class="n">Quest prep</div><div id="nextPrepStructured" class="prepGroups"></div></div>
         <div class="qpStrip">
           <span><b>Current QP:</b> <span id="nextCurrentQp">—</span></span>
           <span><b>Projected route QP:</b> <span id="nextProjectedQp">—</span></span>
@@ -150,13 +159,13 @@
   </div>
 
   <div class="card route">
-    <div class="head">🧭 Simulated Progression Route <span class="sectionNote">time estimates shown in useful units</span></div>
+    <div class="head">🧭 Simulated Progression Route <span class="sectionNote">ready quests stay clean; training time appears only when needed</span></div>
     <div id="route" class="routeGrid"></div>
   </div>
 
   <details class="card section">
-    <summary><div class="head">⚠ Immediate Blockers & Skill Grinds <span class="sectionNote">expand for optimization detail</span></div></summary>
-    <div class="compactNote">Training estimates are converted from raw decimal hours into minutes/hours so you can actually use them.</div>
+    <summary><div class="head">⚠ Immediate Blockers & Skill Grinds <span class="sectionNote">green = quick win · amber = medium · red = long grind</span></div></summary>
+    <div class="compactNote">The same planner data, now visually weighted by how painful the training requirement actually is.</div>
     <div class="grid" style="margin:0;padding:14px">
       <div><div class="tableWrap"><table class="table"><thead><tr><th>Quest</th><th class="num">Score</th><th class="num">Downstream</th><th>Blocked By</th><th>Missing Skills</th><th class="num">Best Value</th></tr></thead><tbody id="blocked"></tbody></table></div></div>
       <div><div class="tableWrap"><table class="table"><thead><tr><th>Quest</th><th>Missing Skills</th><th class="num">Best Value</th><th class="num">Efficiency</th></tr></thead><tbody id="grinds"></tbody></table></div></div>
@@ -166,15 +175,15 @@
   <div class="prepGrid">
     <div class="card"><div class="head">🛒 Consolidated Route Prep <span class="sectionNote">deduplicated required items</span></div><div id="shopping" class="shop"></div></div>
     <div class="card"><div class="head">🎒 Prep Guidance</div><div class="prepTips">
-      <div class="prepTip"><b>Bring / Buy</b><span>Acquire these before starting if you want a smooth quest run.</span></div>
-      <div class="prepTip"><b>Obtainable</b><span>The Wiki says these can be acquired during the quest, so they do not automatically become shopping requirements.</span></div>
-      <div class="prepTip"><b>Choice / Alternative</b><span>The planner shows the selected/minimum branch without adding every possible alternative together.</span></div>
-      <div class="prepTip"><b>Conservative estimates</b><span>Boosts and optional supplies are not assumed unless supported by the tracker data.</span></div>
+      <div class="prepTip"><b>Bring / Buy</b><span>Acquire before starting if you want the smoothest quest run.</span></div>
+      <div class="prepTip"><b>Obtainable</b><span>Can be acquired during the quest and does not automatically become a shopping requirement.</span></div>
+      <div class="prepTip"><b>Choice / Alternative</b><span>Alternatives stay separate instead of being falsely added together.</span></div>
+      <div class="prepTip"><b>Conservative planner</b><span>Boosts and optional supplies are not assumed unless supported by source data.</span></div>
     </div></div>
   </div>
 
   <details class="card section">
-    <summary><div class="head">📊 Current Stats & Data Health <span class="sectionNote">expand for full account detail</span></div></summary>
+    <summary><div class="head">📊 Current Stats & Data Health <span class="sectionNote">goal-relevant skills are highlighted</span></div></summary>
     <div id="skills" class="skills"></div><div id="health" class="health"></div>
   </details>
 </div>
@@ -188,39 +197,52 @@ function load(){google.script.run.withSuccessHandler(render).withFailureHandler(
 
 function friendlyHours(v){
   const n=Number(v);
-  if(!isFinite(n)||n<=0)return '0 min';
+  if(!isFinite(n)||n<=0)return 'Ready';
   const mins=Math.round(n*60);
   if(mins<60)return mins+' min';
   const hrs=mins/60;
   if(hrs<10)return (Math.round(hrs*10)/10)+' hr';
   return Math.round(hrs)+' hr';
 }
-
-function prepForQuest(s, quest){
-  const rows=(s.shopping||[]).filter(i=>{
-    const qs=String(i.quests||'').toLowerCase();
-    return quest && qs.split(',').map(x=>x.trim()).includes(String(quest).toLowerCase());
-  });
+function timeClass(v){
+  const n=Number(v);
+  if(!isFinite(n)||n<=0.5)return 'quick';
+  if(n<=3)return 'mid';
+  return 'long';
+}
+function timeBadge(v){
+  return `<span class="timeBadge ${timeClass(v)}">${esc(friendlyHours(v))}</span>`;
+}
+function prepForQuest(s,quest){
+  const rows=(s.shopping||[]).filter(i=>String(i.quests||'').toLowerCase().split(',').map(x=>x.trim()).includes(String(quest||'').toLowerCase()));
   const groups={buy:[],obtain:[],alt:[]};
   rows.forEach(i=>{
-    const acq=String(i.acquisition||'').toLowerCase();
-    const type=String(i.type||'').toLowerCase();
-    const item={name:i.item,qty:i.qty};
+    const acq=String(i.acquisition||'').toLowerCase(),type=String(i.type||'').toLowerCase(),item={name:i.item,qty:i.qty};
     if(type.includes('choice')||type.includes('alternative'))groups.alt.push(item);
     else if(acq.includes('obtain'))groups.obtain.push(item);
     else groups.buy.push(item);
   });
   return groups;
 }
-
 function chipHtml(item,cls){
   const q=Number(item.qty||0);
-  return `<span class="chip ${cls}">${esc(item.name)}${q>1?` <span class="chip qty">${esc(q)}</span>`:''}</span>`;
+  return `<span class="chip ${cls}">${esc(item.name)}${q>1?` <span class="qtyText">×${esc(q)}</span>`:''}</span>`;
 }
-
 function prepGroupHtml(label,items,cls){
   if(!items.length)return '';
   return `<div class="prepGroup"><div class="prepLabel">${label}</div><div class="chips">${items.map(i=>chipHtml(i,cls)).join('')}</div></div>`;
+}
+function goalSkills(s){
+  const set=new Set();
+  const missing=String(s.goalSummary?.missingSkills||'').toLowerCase();
+  (s.stats||[]).forEach(x=>{ if(missing.includes(String(x.skill||'').toLowerCase()))set.add(String(x.skill||'').toLowerCase()) });
+  const goal=String(s.goal||'').toLowerCase();
+  const add=a=>a.forEach(x=>set.add(x));
+  if(goal.includes('inferno'))add(['ranged','prayer','defence','hitpoints','magic']);
+  else if(goal.includes('fire cape'))add(['ranged','prayer','defence','hitpoints']);
+  else if(goal.includes('combat'))add(['attack','strength','defence','hitpoints','ranged','prayer','magic']);
+  else if(goal.includes('ancient'))add(['magic','prayer']);
+  return set;
 }
 
 function render(s){
@@ -237,30 +259,39 @@ function render(s){
   $('top').innerHTML=(s.topQuests||[]).map(q=>`<tr><td class="num"><span class="rank">${esc(q.rank)}</span></td><td><b>${esc(q.quest)}</b></td><td class="num">${esc(q.score)}</td><td class="num"><span class="tier">${esc(q.tier)}</span></td><td class="num">${esc(q.downstream)}</td><td class="why">${esc(q.why)}</td></tr>`).join('');
 
   const n=s.nextSession||{},quest=n['Next Quest']||'';
+  const top=(s.topQuests||[]).find(q=>q.quest===quest)||null;
+  const route=(s.route||[]).find(r=>r.quest===quest)||((s.route||[])[0]||null);
+  const currentQp=Number(n['Current Quest Points']||s.questPoints||0);
+  const projectedFirst=route?Number(route.projectedQp||currentQp):currentQp;
+  const qpGain=Math.max(0,projectedFirst-currentQp);
+
   $('nextQuest').textContent=quest||'No quest selected';
   $('nextWhy').textContent=n['Why This Quest']||'—';
   $('nextGrind').textContent=n['Skill Grind Before It']||'None';
-  $('nextResult').textContent=(n['Why This Quest']||'Advance the selected goal').split('•')[0].trim()||'Advance the selected goal';
+  $('nextResult').textContent=quest ? `Complete ${quest}${qpGain?` · +${qpGain} QP`:''}` : 'Advance the selected goal';
+  $('nextImpact').textContent=top ? `${top.downstream||0} downstream quests · score ${top.score||'—'} · ${top.tier||'—'} tier` : (route?`Route step ${route.step||1} · projected QP ${route.projectedQp||'—'}`:'Advance route');
   $('nextCurrentQp').textContent=n['Current Quest Points']||s.questPoints||'—';
   $('nextProjectedQp').textContent=n['Projected QP After Displayed Route']||'—';
   $('nextMilestones').textContent=n['QP Milestones']||'—';
 
   const pg=prepForQuest(s,quest);
-  const prepHtml=
-    prepGroupHtml('Bring / Buy',pg.buy,'buy')+
-    prepGroupHtml('Obtainable during quest',pg.obtain,'obtain')+
-    prepGroupHtml('Choice / Alternative',pg.alt,'alt');
+  const prepHtml=prepGroupHtml('Bring / Buy',pg.buy,'buy')+prepGroupHtml('Obtainable during quest',pg.obtain,'obtain')+prepGroupHtml('Choice / Alternative',pg.alt,'alt');
   $('nextPrepStructured').innerHTML=prepHtml||`<div class="emptyPrep">${esc(n['Prep / Required Items']||'No structured prep lines found for this quest.')}</div>`;
 
-  $('route').innerHTML=(s.route||[]).map(r=>`<div class="step"><div class="stepNo">Step ${esc(r.step)} · projected QP ${esc(r.projectedQp)}</div><div class="stepQuest">${esc(r.quest)}</div><div class="stepMeta">${esc(r.blocker)}<br>${friendlyHours(r.afterHours)} after XP chain</div><span class="stepScore">Score ${esc(r.score)}</span></div>`).join('');
+  $('route').innerHTML=(s.route||[]).map(r=>{
+    const hrs=Number(r.afterHours||0);
+    const state=hrs<=0?`<span class="readyState">Ready</span>`:`${esc(friendlyHours(hrs))} after XP chain`;
+    return `<div class="step"><div class="stepNo">Step ${esc(r.step)} · projected QP ${esc(r.projectedQp)}</div><div class="stepQuest">${esc(r.quest)}</div><div class="stepMeta">${esc(r.blocker)}<br>${state}</div><span class="stepScore">Score ${esc(r.score)}</span></div>`;
+  }).join('');
 
-  $('blocked').innerHTML=(s.blockedQuests||[]).map(q=>`<tr><td><b>${esc(q.quest)}</b></td><td class="num">${esc(q.score)}</td><td class="num">${esc(q.downstream)}</td><td>${esc(q.blockedBy)}</td><td class="${q.missingSkills&&q.missingSkills!=='None'?'danger':'good'}">${esc(q.missingSkills||'None')}</td><td class="num">${friendlyHours(q.hours)}</td></tr>`).join('');
-  $('grinds').innerHTML=(s.skillGrinds||[]).map(q=>`<tr><td><b>${esc(q.quest)}</b></td><td>${esc(q.missingSkills)}</td><td class="num">${friendlyHours(q.value)}</td><td class="num">${esc(q.efficiency)}</td></tr>`).join('');
+  $('blocked').innerHTML=(s.blockedQuests||[]).map(q=>`<tr><td><b>${esc(q.quest)}</b></td><td class="num">${esc(q.score)}</td><td class="num">${esc(q.downstream)}</td><td>${esc(q.blockedBy)}</td><td class="${q.missingSkills&&q.missingSkills!=='None'?'danger':'good'}">${esc(q.missingSkills||'None')}</td><td class="num">${timeBadge(q.hours)}</td></tr>`).join('');
+  $('grinds').innerHTML=(s.skillGrinds||[]).map(q=>`<tr><td><b>${esc(q.quest)}</b></td><td>${esc(q.missingSkills)}</td><td class="num">${timeBadge(q.value)}</td><td class="num">${esc(q.efficiency)}</td></tr>`).join('');
 
   $('shopping').innerHTML=`<div class="shoprow header"><div>Item</div><div>Qty</div><div>Needed For</div><div>Acquisition</div></div>`+
     (s.shopping||[]).map(i=>`<div class="shoprow"><div><b>${esc(i.item)}</b></div><div>${esc(i.qty)}</div><div>${esc(i.quests)}</div><div>${esc(i.acquisition)}</div></div>`).join('');
 
-  $('skills').innerHTML=(s.stats||[]).map(x=>`<div class="skill"><div class="name">${esc(x.skill)}</div><div class="lvl">${esc(x.level)}</div><div style="font-size:9px;color:#85735f">${Number(x.xp||0).toLocaleString()} XP</div></div>`).join('');
+  const focus=goalSkills(s);
+  $('skills').innerHTML=(s.stats||[]).map(x=>`<div class="skill ${focus.has(String(x.skill||'').toLowerCase())?'goalSkill':''}"><div class="name">${esc(x.skill)}</div><div class="lvl">${esc(x.level)}</div><div style="font-size:9px;color:#85735f">${Number(x.xp||0).toLocaleString()} XP</div></div>`).join('');
   const h=s.wikiHealth||{};
   $('health').innerHTML=`<span class="pill good">Wiki OK: ${esc(h.ok||0)}</span><span class="pill">Review: ${esc(h.review||0)}</span><span class="pill">Missing: ${esc(h.missing||0)}</span><span class="pill">Last check: ${esc(h.lastCheck||'—')}</span>`;
 }
