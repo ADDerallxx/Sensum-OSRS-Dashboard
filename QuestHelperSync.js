@@ -43,14 +43,15 @@ function syncQuestHelperRouteRequirements() {
   const routeQuests = dash.getRange('B60:B69').getDisplayValues()
     .flat().map(String).map(s => s.trim()).filter(Boolean);
 
-  const treeInfo = qhGetTree_();
-  const commit = treeInfo.sha || '';
-  const paths = treeInfo.paths || [];
+  // Apps Script receives HTTP 403 from api.github.com in this environment.
+  // Bypass the GitHub REST API entirely and fetch known quest source files
+  // directly from raw.githubusercontent.com.
+  const commit = 'master-direct';
   const now = new Date();
   const rows = [];
 
   routeQuests.forEach(quest => {
-    const resolved = qhResolveQuestSource_(quest, paths);
+    const resolved = qhDirectQuestPath_(quest);
     if (!resolved) {
       rows.push([quest,'','','','',false,false,'','',commit,now,'','NO SOURCE','No matching Quest Helper source file found']);
       return;
@@ -233,6 +234,34 @@ function qhPrepSort_(s) {
   if (s.indexOf('Recommended') === 0) return 3;
   if (s === 'Created / Obtained During Quest') return 4;
   return 9;
+}
+
+function qhDirectQuestPath_(quest) {
+  const overrides = {
+    'plaguecity': 'src/main/java/com/questhelper/helpers/quests/plaguecity/PlagueCity.java',
+    'biohazard': 'src/main/java/com/questhelper/helpers/quests/biohazard/Biohazard.java',
+    'undergroundpass': 'src/main/java/com/questhelper/helpers/quests/undergroundpass/UndergroundPass.java',
+    'junglepotion': 'src/main/java/com/questhelper/helpers/quests/junglepotion/JunglePotion.java',
+    'shilovillage': 'src/main/java/com/questhelper/helpers/quests/shilovillage/ShiloVillage.java',
+    'thefremenniktrials': 'src/main/java/com/questhelper/helpers/quests/thefremenniktrials/TheFremennikTrials.java',
+    'clientofkourend': 'src/main/java/com/questhelper/helpers/quests/clientofkourend/ClientOfKourend.java',
+    'childrenofthesun': 'src/main/java/com/questhelper/helpers/quests/childrenofthesun/ChildrenOfTheSun.java',
+    'deathplateau': 'src/main/java/com/questhelper/helpers/quests/deathplateau/DeathPlateau.java',
+    'trollstronghold': 'src/main/java/com/questhelper/helpers/quests/trollstronghold/TrollStronghold.java'
+  };
+
+  const slug = qhNorm_(quest);
+  if (overrides[slug]) return overrides[slug];
+
+  const className = String(quest || '')
+    .replace(/[^A-Za-z0-9]+/g, ' ')
+    .trim()
+    .split(/\s+/)
+    .filter(Boolean)
+    .map(w => w.charAt(0).toUpperCase() + w.slice(1))
+    .join('');
+
+  return 'src/main/java/com/questhelper/helpers/quests/' + slug + '/' + className + '.java';
 }
 
 function qhGetTree_() {
