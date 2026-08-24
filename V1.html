@@ -181,7 +181,7 @@
   <div class="hero">
     <div class="heroTop">
       <div><h1>Sensum OSRS Progression Dashboard</h1><div class="sub">Open this, see what matters, play the game.</div></div>
-      <div class="version">V1.14.1 · Trust the Numbers</div>
+      <div class="version">V1.14.2 · Trust the Numbers</div>
     </div>
     <div class="controls">
       <div class="label">Goal Target</div><select id="goal" onchange="changeGoal()"></select>
@@ -387,6 +387,23 @@ function mergePrepQty(prevQty,newQty,item){
   return isReusablePrepItem(item)?Math.max(a,b):a+b;
 }
 
+function classifyPrepItemV1142(i){
+  const acq=String(i.acquisition||'').toLowerCase();
+  const prep=String(i.prepClass||'').toLowerCase();
+  const status=String(i.qhStatus||'').toUpperCase();
+  const mandatory=i.mandatory===true || String(i.mandatory).toUpperCase()==='TRUE';
+  const created=acq.includes('created') || prep.includes('created');
+  const obtain=!created && (acq.includes('obtain') || prep.includes('obtain'));
+  const recommended=status==='RECOMMENDED' || prep.includes('recommended') || String(i.type||'').toLowerCase()==='recommended';
+  const blocksReady=mandatory && !obtain && !created && !recommended;
+  return {created,obtain,recommended,blocksReady,mandatory};
+}
+
+function prepForQuestV1142(s,quest){
+  const q=String(quest||'').toLowerCase();
+  return (s.shopping||[]).filter(i=>splitQuests(i.quests).some(x=>x.toLowerCase()===q));
+}
+
 function routeShoppingHtml(s){
   const rows=s.shopping||[], steps=routeStepMap(s), groups=new Map();
 
@@ -402,15 +419,7 @@ function routeShoppingHtml(s){
     const ordered=(quests.length?quests:['Other']).sort((a,b)=>(steps.get(a.toLowerCase())||999)-(steps.get(b.toLowerCase())||999));
     ordered.forEach(quest=>{
       if(!groups.has(quest))groups.set(quest,[]);
-      const acq=String(i.acquisition||'').toLowerCase();
-      const prep=String(i.prepClass||'').toLowerCase();
-      const status=String(i.qhStatus||'').toUpperCase();
-      const mandatory=i.mandatory===true || String(i.mandatory).toUpperCase()==='TRUE';
-
-      const created=acq.includes('created');
-      const obtain=!created && acq.includes('obtain');
-      const recommended=status==='RECOMMENDED' || prep.includes('recommended') || String(i.type||'').toLowerCase()==='recommended';
-      const blocksReady=mandatory && !obtain && !created && !recommended;
+      const {created,obtain,recommended,blocksReady,mandatory}=classifyPrepItemV1142(i);
 
       const allUses=[...new Set(itemQuestMap.get(normalizedItemName(i.item))||[])];
       const also=allUses.filter(q=>q.toLowerCase()!==quest.toLowerCase());
@@ -431,8 +440,7 @@ function routeShoppingHtml(s){
   const pct=total?Math.round(done/total*100):100;
   $('shopProgress').textContent=`${done} / ${total} pre-quest items · ${pct}%`;
 
-  let html=`<div class="shopProgressBar"><div class="shopProgressFill" style="width:${pct}%"></div></div>
-    <div class="obtainNote">Bring/Buy items determine readiness. Obtain, create, and recommended items remain in the checklist for quest tracking.</div>`;
+  let html=`<div class="shopProgressBar"><div class="shopProgressFill" style="width:${pct}%"></div></div>`;
 
   orderedGroups.forEach(([quest,items])=>{
     items.sort((a,b)=>{
