@@ -118,7 +118,33 @@ function v1PrepKey_(quest, item) {
 
 function readV1Shopping_(wikiSheet, reconciledSheet) {
   const out = [];
-  const seen = new Set();
+  const byKey = new Map();
+
+  function addOrMerge_(row) {
+    const key = v1PrepKey_(row.quests, row.item);
+    if (!byKey.has(key)) {
+      byKey.set(key, row);
+      out.push(row);
+      return;
+    }
+
+    const prev = byKey.get(key);
+    const a = Number(prev.qty || 0);
+    const b = Number(row.qty || 0);
+    if (b > a) prev.qty = row.qty;
+
+    if (/obtain/i.test(String(row.acquisition || '')) &&
+        !/obtain/i.test(String(prev.acquisition || ''))) {
+      if (!prev.mandatory || prev.qhStatus !== 'REQUIRED') {
+        prev.acquisition = row.acquisition;
+      }
+    }
+
+    if (row.source && String(prev.source || '').indexOf(row.source) < 0) {
+      prev.source = [prev.source, row.source].filter(Boolean).join(' + ');
+    }
+    if (!prev.notes && row.notes) prev.notes = row.notes;
+  }
 
   if (reconciledSheet && reconciledSheet.getLastRow() > 1) {
     const rows = reconciledSheet
@@ -131,6 +157,7 @@ function readV1Shopping_(wikiSheet, reconciledSheet) {
       const qty = r[3] || '1';
       const prepClass = r[4];
       const mandatory = String(r[5]).toUpperCase() === 'TRUE';
+      const reusable = String(r[6]).toUpperCase() === 'TRUE';
       const qhStatus = r[7];
       const wikiType = r[10];
       const sourceAgreement = r[11];
@@ -145,23 +172,26 @@ function readV1Shopping_(wikiSheet, reconciledSheet) {
       if (!(mandatory || qhStatus === 'RECOMMENDED' || wikiConfirmedMidQuest)) return;
 
       let acquisition = 'Bring / Buy';
-      if (/Obtain/i.test(prepClass)) acquisition = 'Obtainable';
-      if (/Recommended/i.test(prepClass)) acquisition = prepClass;
+      if (/Created/i.test(prepClass)) acquisition = 'Created During Quest';
+      else if (/Obtain/i.test(prepClass)) acquisition = 'Obtain During Quest';
+      else if (/Recommended/i.test(prepClass)) acquisition = prepClass;
 
       let type = mandatory ? 'Direct' : (wikiType || qhStatus || 'Direct');
       if (qhStatus === 'RECOMMENDED') type = 'Recommended';
-      if (wikiConfirmedMidQuest) type = 'Obtain During Quest';
+      if (wikiConfirmedMidQuest) type = 'Quest Progress Item';
 
-      const key = v1PrepKey_(quest, item);
-      seen.add(key);
-      out.push({
+      addOrMerge_({
         item,
         qty,
         quests: quest,
         acquisition,
         type,
         notes,
-        source: sourceAgreement || 'Quest Helper'
+        source: sourceAgreement || 'Quest Helper',
+        prepClass,
+        mandatory,
+        reusable,
+        qhStatus
       });
     });
   }
@@ -184,17 +214,17 @@ function readV1Shopping_(wikiSheet, reconciledSheet) {
         if (/choice|alternative|component/i.test(type)) continue;
 
         quests.forEach(quest => {
-          const key = v1PrepKey_(quest, item);
-          if (seen.has(key)) return;
-
-          seen.add(key);
-          out.push({
+          addOrMerge_({
             item,
             qty: r[1] || '1',
             quests: quest,
-            acquisition,
+            acquisition: /obtain/i.test(acquisition) ? 'Obtain During Quest' : acquisition,
             type: 'Direct',
-            source: 'Wiki fallback'
+            source: 'Wiki direct fallback',
+            prepClass: /obtain/i.test(acquisition) ? 'Obtain During Quest' : 'Bring / Buy',
+            mandatory: true,
+            reusable: false,
+            qhStatus: 'WIKI'
           });
         });
       }
@@ -203,3 +233,4 @@ function readV1Shopping_(wikiSheet, reconciledSheet) {
 
   return out;
 }
+
