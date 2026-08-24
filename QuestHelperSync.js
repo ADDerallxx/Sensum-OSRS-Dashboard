@@ -6,7 +6,7 @@ const QH_RECON_SHEET = 'Quest Prep Reconciled';
 
 function qhMaybeSyncRoute_() {
   const props = PropertiesService.getScriptProperties();
-  const last = Number(props.getProperty('QH_ROUTE_SYNC_MS') || 0);
+  const last = Number(props.getProperty('QH_ROUTE_SYNC_MS_V2') || 0);
   const maxAgeMs = 6 * 60 * 60 * 1000;
   if (Date.now() - last < maxAgeMs) return;
   try {
@@ -76,7 +76,7 @@ function syncQuestHelperRouteRequirements() {
 
   qhBuildReconciledPrep_(ss, rows, now, commit);
 
-  PropertiesService.getScriptProperties().setProperty('QH_ROUTE_SYNC_MS', String(Date.now()));
+  PropertiesService.getScriptProperties().setProperty('QH_ROUTE_SYNC_MS_V2', String(Date.now()));
   return {ok:true, quests:routeQuests.length, rows:rows.length, commit:commit, syncedAt:now.toISOString()};
 }
 
@@ -424,3 +424,4 @@ function qhRegexEscape_(s){return String(s).replace(/[.*+?^${}()|[\]\\]/g,'\\$&'
 function qhUnescapeJava_(s){
   return String(s||'').replace(/\\"/g,'"').replace(/\\n/g,' ').replace(/\\t/g,' ').replace(/\\\\/g,'\\');
 }
+
