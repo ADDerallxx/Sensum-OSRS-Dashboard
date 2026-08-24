@@ -88,6 +88,24 @@
     .skill.goalSkill .name{color:#775012}.skill .name{font-size:9px;color:#786753;text-transform:uppercase;font-weight:900}.skill .lvl{font-size:18px;font-weight:900;margin:2px 0}
     .health{display:flex;gap:7px;flex-wrap:wrap;padding:0 12px 12px}.pill{background:#e8dcc7;border-radius:999px;padding:5px 8px;font-size:10px;font-weight:800}
 
+
+    /* V1.5 play-session UI */
+    .actionBody{grid-template-columns:minmax(230px,.64fr) minmax(0,1.7fr);padding:10px}
+    .actionHero{padding:11px}.actionQuest{font-size:21px;margin:4px 0 6px}
+    .actionStep{min-height:64px;padding:8px}
+    .readyBadge{display:inline-flex;align-items:center;gap:5px;background:var(--greenBg);color:var(--green);border:1px solid #9cbea0;border-radius:999px;padding:5px 8px;font-size:10px;font-weight:900;text-transform:uppercase}
+    .step.blockedStep{border-color:#c89034;background:#fff0cf;box-shadow:inset 0 0 0 1px #e3bd74}
+    .step.blockedStep .stepMeta{color:#7b4b12}.blockedFlag{display:inline-block;margin-top:4px;background:#f1d49b;color:#74460d;border-radius:999px;padding:3px 6px;font-size:9px;font-weight:900;text-transform:uppercase}
+    .shop{max-height:430px;padding:10px 13px 13px}
+    .shopGroup{margin-bottom:13px}.shopGroup:last-child{margin-bottom:0}
+    .shopGroupTitle{display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #d8c5a6;padding:5px 2px 7px;font-size:10px;text-transform:uppercase;font-weight:900;color:#76542d}
+    .shopCount{font-weight:700;color:#8b755d}
+    .checkRow{display:grid;grid-template-columns:26px minmax(120px,1fr) 52px minmax(150px,1.25fr);gap:8px;align-items:center;padding:8px 3px;border-bottom:1px solid #e5d9c5;font-size:11px}
+    .checkRow:last-child{border-bottom:0}.checkRow.done{opacity:.58}.checkRow.done .itemName{text-decoration:line-through}
+    .checkRow input{width:17px;height:17px;accent-color:#4c7a45;cursor:pointer}.itemName{font-weight:900}.questTag{color:#6d5b47}
+    .saveState{font-size:9px;color:#7e6a54;font-weight:700}.obtainList{display:flex;gap:5px;flex-wrap:wrap;padding:8px 2px}
+    .targetLine{font-size:9px;color:#8a6a3d;font-weight:800;margin-top:3px}
+
     .loading{position:fixed;inset:0;background:rgba(11,6,3,.82);display:flex;align-items:center;justify-content:center;z-index:10}.loading>div{background:#2c180a;border:1px solid #996128;border-radius:12px;padding:18px 22px;color:#ffe2a4;font-weight:900}
     .hidden{display:none}.error{background:#5c1712;border:1px solid #aa4238;border-radius:10px;padding:10px;margin-top:14px}
 
@@ -101,7 +119,7 @@
   <div class="hero">
     <div class="heroTop">
       <div><h1>Sensum OSRS Progression Dashboard</h1><div class="sub">Open this, see what matters, play the game.</div></div>
-      <div class="version">V1.4 · Smart Polish</div>
+      <div class="version">V1.5 · Play Session UI</div>
     </div>
     <div class="controls">
       <div class="label">Goal Target</div><select id="goal" onchange="changeGoal()"></select>
@@ -137,7 +155,7 @@
   </div>
 
   <div class="card actionCard">
-    <div class="head">▶ Next Session Plan <span class="sectionNote">compact, actionable, goal-aware</span></div>
+    <div class="head">▶ Next Session Plan <span class="sectionNote">log in and know exactly what to do</span></div>
     <div class="actionBody">
       <div class="actionHero">
         <div class="actionEyebrow">Recommended next quest</div>
@@ -173,9 +191,9 @@
   </details>
 
   <div class="prepGrid">
-    <div class="card"><div class="head">🛒 Consolidated Route Prep <span class="sectionNote">deduplicated required items</span></div><div id="shopping" class="shop"></div></div>
+    <div class="card"><div class="head">🛒 Route Shopping Checklist <span class="sectionNote">checked items stay checked on this browser</span></div><div id="shopping" class="shop"></div></div>
     <div class="card"><div class="head">🎒 Prep Guidance</div><div class="prepTips">
-      <div class="prepTip"><b>Bring / Buy</b><span>Acquire before starting if you want the smoothest quest run.</span></div>
+      <div class="prepTip"><b>Bring / Buy</b><span>Use the checklist as you bank/shop. Checked rows strike through and persist on this browser.</span></div>
       <div class="prepTip"><b>Obtainable</b><span>Can be acquired during the quest and does not automatically become a shopping requirement.</span></div>
       <div class="prepTip"><b>Choice / Alternative</b><span>Alternatives stay separate instead of being falsely added together.</span></div>
       <div class="prepTip"><b>Conservative planner</b><span>Boosts and optional supplies are not assumed unless supported by source data.</span></div>
@@ -245,6 +263,45 @@ function goalSkills(s){
   return set;
 }
 
+
+function checklistKey(item){
+  return 'sensum-v15-shop:'+String(item.item||'').trim().toLowerCase()+'|'+String(item.quests||'').trim().toLowerCase();
+}
+function isChecked(item){ try{return localStorage.getItem(checklistKey(item))==='1'}catch(e){return false} }
+function toggleShop(cb,key){
+  try{localStorage.setItem(key,cb.checked?'1':'0')}catch(e){}
+  const row=cb.closest('.checkRow'); if(row)row.classList.toggle('done',cb.checked);
+}
+function shoppingHtml(rows){
+  const required=[],obtain=[],alt=[];
+  (rows||[]).forEach(i=>{
+    const a=String(i.acquisition||'').toLowerCase(),t=String(i.type||'').toLowerCase();
+    if(t.includes('choice')||t.includes('alternative')) alt.push(i);
+    else if(a.includes('obtain')) obtain.push(i);
+    else required.push(i);
+  });
+  const reqRows=required.map(i=>{
+    const key=checklistKey(i),checked=isChecked(i);
+    return `<label class="checkRow ${checked?'done':''}"><input type="checkbox" ${checked?'checked':''} onchange="toggleShop(this,'${esc(key)}')"><span class="itemName">${esc(i.item)}</span><span>×${esc(i.qty||1)}</span><span class="questTag">${esc(i.quests||'')}</span></label>`;
+  }).join('');
+  const obtainable=obtain.map(i=>`<span class="chip obtain">${esc(i.item)}${Number(i.qty||0)>1?` <span class="qtyText">×${esc(i.qty)}</span>`:''}</span>`).join('');
+  const alternatives=alt.map(i=>`<span class="chip alt">${esc(i.item)}${Number(i.qty||0)>1?` <span class="qtyText">×${esc(i.qty)}</span>`:''}</span>`).join('');
+  return `<div class="shopGroup"><div class="shopGroupTitle"><span>☐ Bring / Buy</span><span class="shopCount">${required.length} items</span></div>${reqRows||'<div class="emptyPrep" style="padding:8px 2px">Nothing to buy for the displayed route.</div>'}</div>`
+    +(obtain.length?`<div class="shopGroup"><div class="shopGroupTitle"><span>✓ Obtain During Quest</span><span class="shopCount">${obtain.length}</span></div><div class="obtainList">${obtainable}</div></div>`:'')
+    +(alt.length?`<div class="shopGroup"><div class="shopGroupTitle"><span>↔ Choice / Alternative</span><span class="shopCount">${alt.length}</span></div><div class="obtainList">${alternatives}</div></div>`:'');
+}
+function inferTarget(skill,s){
+  const name=String(skill.skill||'').toLowerCase();
+  const missing=String(s.goalSummary?.missingSkills||'');
+  const rx=new RegExp(name+'\\\\s*(?:to|→|:)?\\\\s*(\\\\d+)','i');
+  const m=missing.match(rx);
+  if(m)return Number(m[1]);
+  const goal=String(s.goal||'').toLowerCase();
+  const defaults=goal.includes('inferno')?{ranged:90,prayer:77,defence:70,hitpoints:85,magic:94}:
+    goal.includes('fire cape')?{ranged:70,prayer:43,defence:40,hitpoints:60}:{};
+  return defaults[name]||null;
+}
+
 function render(s){
   busy(false);$('err').classList.add('hidden');
   $('user').textContent=s.username||'Sensum';$('combat').textContent=s.combatLevel||'—';$('qp').textContent=s.questPoints||'—';
@@ -267,7 +324,9 @@ function render(s){
 
   $('nextQuest').textContent=quest||'No quest selected';
   $('nextWhy').textContent=n['Why This Quest']||'—';
-  $('nextGrind').textContent=n['Skill Grind Before It']||'None';
+  const grind=n['Skill Grind Before It']||'None';
+  const ready=/^(none|ready|none\s*[—-]\s*ready now)$/i.test(String(grind).trim()) || /ready now/i.test(String(grind));
+  $('nextGrind').innerHTML=ready?'<span class="readyBadge">✓ Ready now</span>':esc(grind);
   $('nextResult').textContent=quest ? `Complete ${quest}${qpGain?` · +${qpGain} QP`:''}` : 'Advance the selected goal';
   $('nextImpact').textContent=top ? `${top.downstream||0} downstream quests · score ${top.score||'—'} · ${top.tier||'—'} tier` : (route?`Route step ${route.step||1} · projected QP ${route.projectedQp||'—'}`:'Advance route');
   $('nextCurrentQp').textContent=n['Current Quest Points']||s.questPoints||'—';
@@ -281,17 +340,17 @@ function render(s){
   $('route').innerHTML=(s.route||[]).map(r=>{
     const hrs=Number(r.afterHours||0);
     const state=hrs<=0?`<span class="readyState">Ready</span>`:`${esc(friendlyHours(hrs))} after XP chain`;
-    return `<div class="step"><div class="stepNo">Step ${esc(r.step)} · projected QP ${esc(r.projectedQp)}</div><div class="stepQuest">${esc(r.quest)}</div><div class="stepMeta">${esc(r.blocker)}<br>${state}</div><span class="stepScore">Score ${esc(r.score)}</span></div>`;
+    const blocked=hrs>0 || (r.blocker && !/ready/i.test(String(r.blocker)));
+    return `<div class="step ${blocked?'blockedStep':''}"><div class="stepNo">Step ${esc(r.step)} · projected QP ${esc(r.projectedQp)}</div><div class="stepQuest">${esc(r.quest)}</div><div class="stepMeta">${esc(r.blocker)}<br>${state}</div>${blocked?'<span class="blockedFlag">Training needed</span>':''}<span class="stepScore">Score ${esc(r.score)}</span></div>`;
   }).join('');
 
   $('blocked').innerHTML=(s.blockedQuests||[]).map(q=>`<tr><td><b>${esc(q.quest)}</b></td><td class="num">${esc(q.score)}</td><td class="num">${esc(q.downstream)}</td><td>${esc(q.blockedBy)}</td><td class="${q.missingSkills&&q.missingSkills!=='None'?'danger':'good'}">${esc(q.missingSkills||'None')}</td><td class="num">${timeBadge(q.hours)}</td></tr>`).join('');
   $('grinds').innerHTML=(s.skillGrinds||[]).map(q=>`<tr><td><b>${esc(q.quest)}</b></td><td>${esc(q.missingSkills)}</td><td class="num">${timeBadge(q.value)}</td><td class="num">${esc(q.efficiency)}</td></tr>`).join('');
 
-  $('shopping').innerHTML=`<div class="shoprow header"><div>Item</div><div>Qty</div><div>Needed For</div><div>Acquisition</div></div>`+
-    (s.shopping||[]).map(i=>`<div class="shoprow"><div><b>${esc(i.item)}</b></div><div>${esc(i.qty)}</div><div>${esc(i.quests)}</div><div>${esc(i.acquisition)}</div></div>`).join('');
+  $('shopping').innerHTML=shoppingHtml(s.shopping||[]);
 
   const focus=goalSkills(s);
-  $('skills').innerHTML=(s.stats||[]).map(x=>`<div class="skill ${focus.has(String(x.skill||'').toLowerCase())?'goalSkill':''}"><div class="name">${esc(x.skill)}</div><div class="lvl">${esc(x.level)}</div><div style="font-size:9px;color:#85735f">${Number(x.xp||0).toLocaleString()} XP</div></div>`).join('');
+  $('skills').innerHTML=(s.stats||[]).map(x=>{const relevant=focus.has(String(x.skill||'').toLowerCase()),target=relevant?inferTarget(x,s):null,gap=target?Math.max(0,target-Number(x.level||0)):0;return `<div class="skill ${relevant?'goalSkill':''}"><div class="name">${esc(x.skill)}</div><div class="lvl">${esc(x.level)}</div><div style="font-size:9px;color:#85735f">${Number(x.xp||0).toLocaleString()} XP</div>${target?`<div class="targetLine">Target ${target}${gap?` · +${gap}`:' · met'}</div>`:''}</div>`}).join('');
   const h=s.wikiHealth||{};
   $('health').innerHTML=`<span class="pill good">Wiki OK: ${esc(h.ok||0)}</span><span class="pill">Review: ${esc(h.review||0)}</span><span class="pill">Missing: ${esc(h.missing||0)}</span><span class="pill">Last check: ${esc(h.lastCheck||'—')}</span>`;
 }
