@@ -73,8 +73,19 @@
     details.section{margin-top:14px}.section summary{cursor:pointer;list-style:none}.section summary::-webkit-details-marker{display:none}
     .section summary .head:after{content:'▾';margin-left:auto;color:#ffd98b}.section[open] summary .head:after{content:'▴'}
     .compactNote{padding:8px 12px;color:#685744;font-size:11px;background:#f9f2e7;border-bottom:1px solid #dfd1b9}
-    .timeBadge{display:inline-block;min-width:58px;padding:4px 7px;border-radius:999px;font-size:10px;font-weight:900;text-align:center}
-    .timeBadge.quick{background:var(--greenBg);color:var(--green)}.timeBadge.mid{background:var(--amberBg);color:var(--amber)}.timeBadge.long{background:var(--redBg);color:var(--red)}
+    .blockerLegend{display:flex;gap:8px;flex-wrap:wrap;padding:10px 12px;background:#f7efe2;border-bottom:1px solid #d9c7aa}
+    .legendBadge,.timeBadge{display:inline-flex;align-items:center;justify-content:center;gap:5px;border-radius:999px;font-size:10px;font-weight:900;text-align:center;border:2px solid;letter-spacing:.2px}
+    .legendBadge{padding:6px 9px}.timeBadge{min-width:104px;padding:6px 9px}
+    .legendBadge.quick,.timeBadge.quick{background:#d9ead6;color:#1f5427;border-color:#3d7345}
+    .legendBadge.mid,.timeBadge.mid{background:#ffe3a9;color:#68420b;border-color:#9b6816}
+    .legendBadge.long,.timeBadge.long{background:#f6c9c4;color:#681810;border-color:#9c2d24}
+    .blockerRow.quickRow{background:linear-gradient(90deg,#e8f3e6 0,#f8f4ec 23%)}
+    .blockerRow.midRow{background:linear-gradient(90deg,#fff0c8 0,#f8f4ec 23%)}
+    .blockerRow.longRow{background:linear-gradient(90deg,#f6d8d4 0,#f8f4ec 23%)}
+    .blockerRow.quickRow td:first-child{border-left:7px solid #3d7345}
+    .blockerRow.midRow td:first-child{border-left:7px solid #9b6816}
+    .blockerRow.longRow td:first-child{border-left:7px solid #9c2d24}
+    .riskWord{font-size:9px;text-transform:uppercase;letter-spacing:.5px}
 
     .prepGrid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
     .shop{padding:7px 13px 13px;max-height:340px;overflow:auto}.shoprow{display:grid;grid-template-columns:1.1fr 55px 1.25fr 1fr;gap:9px;padding:7px 0;border-bottom:1px solid #ded0b9;font-size:11px}
@@ -133,7 +144,7 @@
   <div class="hero">
     <div class="heroTop">
       <div><h1>Sensum OSRS Progression Dashboard</h1><div class="sub">Open this, see what matters, play the game.</div></div>
-      <div class="version">V1.6 · Route Prep</div>
+      <div class="version">V1.7 · Accessible Blockers</div>
     </div>
     <div class="controls">
       <div class="label">Goal Target</div><select id="goal" onchange="changeGoal()"></select>
@@ -196,8 +207,13 @@
   </div>
 
   <details class="card section">
-    <summary><div class="head">⚠ Immediate Blockers & Skill Grinds <span class="sectionNote">green = quick win · amber = medium · red = long grind</span></div></summary>
+    <summary><div class="head">⚠ Immediate Blockers & Skill Grinds <span class="sectionNote">icon + label + color — no color guessing required</span></div></summary>
     <div class="compactNote">The same planner data, now visually weighted by how painful the training requirement actually is.</div>
+    <div class="blockerLegend">
+      <span class="legendBadge quick">✓ QUICK · under 30 min</span>
+      <span class="legendBadge mid">! MEDIUM · 30 min–3 hr</span>
+      <span class="legendBadge long">▲ LONG · over 3 hr</span>
+    </div>
     <div class="grid" style="margin:0;padding:14px">
       <div><div class="tableWrap"><table class="table"><thead><tr><th>Quest</th><th class="num">Score</th><th class="num">Downstream</th><th>Blocked By</th><th>Missing Skills</th><th class="num">Best Value</th></tr></thead><tbody id="blocked"></tbody></table></div></div>
       <div><div class="tableWrap"><table class="table"><thead><tr><th>Quest</th><th>Missing Skills</th><th class="num">Best Value</th><th class="num">Efficiency</th></tr></thead><tbody id="grinds"></tbody></table></div></div>
@@ -243,7 +259,8 @@ function timeClass(v){
   return 'long';
 }
 function timeBadge(v){
-  return `<span class="timeBadge ${timeClass(v)}">${esc(friendlyHours(v))}</span>`;
+  const cls=timeClass(v), label=cls==='quick'?'QUICK':cls==='mid'?'MEDIUM':'LONG', icon=cls==='quick'?'✓':cls==='mid'?'!':'▲';
+  return `<span class="timeBadge ${cls}"><span>${icon}</span><span class="riskWord">${label}</span><span>· ${esc(friendlyHours(v))}</span></span>`;
 }
 function prepForQuest(s,quest){
   const rows=(s.shopping||[]).filter(i=>String(i.quests||'').toLowerCase().split(',').map(x=>x.trim()).includes(String(quest||'').toLowerCase()));
@@ -426,8 +443,8 @@ function render(s){
     return `<div class="step ${blocked?'blockedStep':''}"><div class="stepNo">Step ${esc(r.step)} · projected QP ${esc(r.projectedQp)}</div><div class="stepQuest">${esc(r.quest)}</div><div class="stepMeta">${esc(r.blocker)}<br>${state}</div>${blocked?'<span class="blockedFlag">Training needed</span>':''}<span class="stepScore">Score ${esc(r.score)}</span></div>`;
   }).join('');
 
-  $('blocked').innerHTML=(s.blockedQuests||[]).map(q=>`<tr><td><b>${esc(q.quest)}</b></td><td class="num">${esc(q.score)}</td><td class="num">${esc(q.downstream)}</td><td>${esc(q.blockedBy)}</td><td class="${q.missingSkills&&q.missingSkills!=='None'?'danger':'good'}">${esc(q.missingSkills||'None')}</td><td class="num">${timeBadge(q.hours)}</td></tr>`).join('');
-  $('grinds').innerHTML=(s.skillGrinds||[]).map(q=>`<tr><td><b>${esc(q.quest)}</b></td><td>${esc(q.missingSkills)}</td><td class="num">${timeBadge(q.value)}</td><td class="num">${esc(q.efficiency)}</td></tr>`).join('');
+  $('blocked').innerHTML=(s.blockedQuests||[]).map(q=>{const c=timeClass(q.hours);return `<tr class="blockerRow ${c}Row"><td><b>${esc(q.quest)}</b></td><td class="num">${esc(q.score)}</td><td class="num">${esc(q.downstream)}</td><td>${esc(q.blockedBy)}</td><td class="${q.missingSkills&&q.missingSkills!=='None'?'danger':'good'}">${esc(q.missingSkills||'None')}</td><td class="num">${timeBadge(q.hours)}</td></tr>`}).join('');
+  $('grinds').innerHTML=(s.skillGrinds||[]).map(q=>{const c=timeClass(q.value);return `<tr class="blockerRow ${c}Row"><td><b>${esc(q.quest)}</b></td><td>${esc(q.missingSkills)}</td><td class="num">${timeBadge(q.value)}</td><td class="num">${esc(q.efficiency)}</td></tr>`}).join('');
 
   $('shopping').innerHTML=routeShoppingHtml(s);
 
