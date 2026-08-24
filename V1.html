@@ -92,6 +92,13 @@
     .itemSource{font-size:9px;font-weight:800;color:#3d7345}
     .obtainNote{padding:8px 10px;background:#edf4ec;border:1px solid #b6cfb9;border-radius:8px;font-size:10px;color:#2f5b34;font-weight:800;margin-bottom:10px}
 
+    .prepBadge{display:inline-flex;align-items:center;justify-content:center;border-radius:999px;padding:4px 7px;font-size:9px;font-weight:900;text-transform:uppercase;letter-spacing:.45px;border:1px solid;white-space:nowrap}
+    .prepBadge.bring{background:#f2e4ca;color:#6b4318;border-color:#b98b4c}
+    .prepBadge.obtain{background:#dcebd9;color:#285b30;border-color:#65936b}
+    .obtainMeta{display:block;margin-top:4px}
+    .checkRow.obtainRow .itemName:after{content:''}
+
+
 
     .prepGrid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
     .shop{padding:7px 13px 13px;max-height:340px;overflow:auto}.shoprow{display:grid;grid-template-columns:1.1fr 55px 1.25fr 1fr;gap:9px;padding:7px 0;border-bottom:1px solid #ded0b9;font-size:11px}
@@ -150,7 +157,7 @@
   <div class="hero">
     <div class="heroTop">
       <div><h1>Sensum OSRS Progression Dashboard</h1><div class="sub">Open this, see what matters, play the game.</div></div>
-      <div class="version">V1.8 · Quest Prep</div>
+      <div class="version">V1.9 · Trusted Prep</div>
     </div>
     <div class="controls">
       <div class="label">Goal Target</div><select id="goal" onchange="changeGoal()"></select>
@@ -317,6 +324,26 @@ function routeStepMap(s){
   return m;
 }
 function splitQuests(v){return String(v||'').split(',').map(x=>x.trim()).filter(Boolean)}
+
+const REUSABLE_PREP_ITEMS = new Set([
+  'spade','rope','bucket','knife','hammer','chisel','tinderbox','pickaxe','axe',
+  'bow','crossbow','weapon','amulet','necklace','ring','cape','gloves','boots',
+  'mould','saw','pestle and mortar','sextant','watch','chart','compass'
+]);
+function normalizedItemName(v){
+  return String(v||'').toLowerCase().replace(/\([^)]*\)/g,'').replace(/\s+/g,' ').trim();
+}
+function isReusablePrepItem(item){
+  const n=normalizedItemName(item);
+  if(REUSABLE_PREP_ITEMS.has(n))return true;
+  for(const k of REUSABLE_PREP_ITEMS) if(n===k || n.endsWith(' '+k)) return true;
+  return false;
+}
+function mergePrepQty(prevQty,newQty,item){
+  const a=Math.max(1,Number(prevQty||1)), b=Math.max(1,Number(newQty||1));
+  return isReusablePrepItem(item)?Math.max(a,b):a+b;
+}
+
 function routeShoppingHtml(s){
   const rows=s.shopping||[], steps=routeStepMap(s), groups=new Map(), seen=new Map(), alt=[];
   rows.forEach(i=>{
@@ -329,7 +356,7 @@ function routeShoppingHtml(s){
     if(seen.has(itemKey)){
       const prev=seen.get(itemKey);
       prev.also=[...new Set([...(prev.also||[]),...ordered.filter(q=>q!==prev.quest)])];
-      prev.qty=Math.max(Number(prev.qty||1),Number(i.qty||1));
+      prev.qty=mergePrepQty(prev.qty,i.qty,prev.item);
       prev.obtain=prev.obtain && obtain;
       return;
     }
@@ -350,7 +377,7 @@ function routeShoppingHtml(s){
   $('shopProgress').textContent=`${done} / ${total} complete · ${pct}%`;
 
   let html=`<div class="shopProgressBar"><div class="shopProgressFill" style="width:${pct}%"></div></div>
-    <div class="obtainNote">* Obtain during quest — still tracked here so nothing gets forgotten.</div>`;
+    <div class="obtainNote">* Obtain during quest.</div>`;
 
   orderedGroups.forEach(([quest,items])=>{
     const qDone=items.filter(isChecked).length, complete=items.length&&qDone===items.length, step=steps.get(quest.toLowerCase());
@@ -359,9 +386,9 @@ function routeShoppingHtml(s){
       const key=checklistKey(i),checked=isChecked(i);
       html+=`<label class="checkRow ${checked?'done':''} ${i.obtain?'obtainRow':''}">
         <input type="checkbox" ${checked?'checked':''} onchange="toggleShopV18(this,'${esc(key)}')">
-        <span class="itemName">${esc(i.item)}${i.also&&i.also.length?`<span class="alsoNeeded">Also needed: ${esc(i.also.join(', '))}</span>`:''}${i.obtain?`<span class="itemSource">Obtain during quest</span>`:''}</span>
+        <span class="itemName">${esc(i.item)}${i.also&&i.also.length?`<span class="alsoNeeded">Also needed: ${esc(i.also.join(', '))}</span>`:''}${i.obtain?`<span class="obtainMeta">* Obtain during quest</span>`:''}</span>
         <span>×${esc(i.qty||1)}</span>
-        <span class="questTag">${checked?'Complete':(i.obtain?'Obtain':'Need')}</span>
+        <span>${checked?'<span class="prepBadge obtain">✓ Done</span>':(i.obtain?'<span class="prepBadge obtain">Obtain</span>':'<span class="prepBadge bring">Bring</span>')}</span>
       </label>`;
     });
     html+='</div></div>';
