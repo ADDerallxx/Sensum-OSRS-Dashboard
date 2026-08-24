@@ -30,8 +30,7 @@
     .grid{display:grid;grid-template-columns:minmax(0,1.72fr) minmax(350px,.78fr);gap:14px;margin-top:14px}
     .card{background:var(--panel);color:var(--ink);border-radius:14px;overflow:hidden}
     .head{background:linear-gradient(90deg,var(--brown),var(--brown2));color:#ffe2a1;padding:10px 14px;font-weight:900;font-size:15px;display:flex;align-items:center;gap:7px}
-    .sectionNote{font-size:10px;color:#d2b989;margin-left:auto;font-weight:400}
-    .tableWrap{overflow:auto}.table{width:100%;border-collapse:collapse}
+        .tableWrap{overflow:auto}.table{width:100%;border-collapse:collapse}
     .table th{background:#3c220f;color:#ffe2a1;text-align:left;padding:8px 9px;font-size:11px;white-space:nowrap}
     .table td{padding:9px;border-bottom:1px solid #dfd1b9;font-size:12px;vertical-align:top}.table tr:last-child td{border-bottom:0}
     .num{text-align:center!important;white-space:nowrap}.rank{display:inline-flex;width:26px;height:26px;border-radius:7px;align-items:center;justify-content:center;background:#5d3518;color:#ffd878;font-weight:900}
@@ -86,6 +85,13 @@
     .blockerRow.midRow td:first-child{border-left:7px solid #9b6816}
     .blockerRow.longRow td:first-child{border-left:7px solid #9c2d24}
     .riskWord{font-size:9px;text-transform:uppercase;letter-spacing:.5px}
+
+    .subHead{background:#eadcc4;color:#5d3b18;border:1px solid #d0b991;border-bottom:0;border-radius:9px 9px 0 0;padding:8px 10px;font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.5px}
+    .checkRow.obtainRow{background:#edf4ec}
+    .checkRow.obtainRow .itemName:after{content:' *';font-weight:900;color:#3d7345}
+    .itemSource{font-size:9px;font-weight:800;color:#3d7345}
+    .obtainNote{padding:8px 10px;background:#edf4ec;border:1px solid #b6cfb9;border-radius:8px;font-size:10px;color:#2f5b34;font-weight:800;margin-bottom:10px}
+
 
     .prepGrid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
     .shop{padding:7px 13px 13px;max-height:340px;overflow:auto}.shoprow{display:grid;grid-template-columns:1.1fr 55px 1.25fr 1fr;gap:9px;padding:7px 0;border-bottom:1px solid #ded0b9;font-size:11px}
@@ -144,7 +150,7 @@
   <div class="hero">
     <div class="heroTop">
       <div><h1>Sensum OSRS Progression Dashboard</h1><div class="sub">Open this, see what matters, play the game.</div></div>
-      <div class="version">V1.7 · Accessible Blockers</div>
+      <div class="version">V1.8 · Quest Prep</div>
     </div>
     <div class="controls">
       <div class="label">Goal Target</div><select id="goal" onchange="changeGoal()"></select>
@@ -163,7 +169,7 @@
 
   <div class="grid">
     <div class="card">
-      <div class="head">🏆 Top 5 Smartest Quests To Do Now <span class="sectionNote">ranked for the selected goal</span></div>
+      <div class="head">🏆 Top 5 Smartest Quests To Do Now</div>
       <div class="tableWrap"><table class="table"><thead><tr><th class="num">Rank</th><th>Quest</th><th class="num">Score</th><th class="num">Tier</th><th class="num">Downstream</th><th>Why</th></tr></thead><tbody id="top"></tbody></table></div>
     </div>
     <div class="card">
@@ -180,7 +186,7 @@
   </div>
 
   <div class="card actionCard">
-    <div class="head">▶ Next Session Plan <span class="sectionNote">log in and know exactly what to do</span></div>
+    <div class="head">▶ Next Session Plan</div>
     <div class="actionBody">
       <div class="actionHero">
         <div class="actionEyebrow">Recommended next quest</div>
@@ -202,36 +208,37 @@
   </div>
 
   <div class="card route">
-    <div class="head">🧭 Simulated Progression Route <span class="sectionNote">ready quests stay clean; training time appears only when needed</span></div>
+    <div class="head">🧭 Simulated Progression Route</div>
     <div id="route" class="routeGrid"></div>
   </div>
 
   <details class="card section">
-    <summary><div class="head">⚠ Immediate Blockers & Skill Grinds <span class="sectionNote">icon + label + color — no color guessing required</span></div></summary>
-    <div class="compactNote">The same planner data, now visually weighted by how painful the training requirement actually is.</div>
+    <summary><div class="head">⚠ Immediate Blockers & Skill Grinds</div></summary>
+    
     <div class="blockerLegend">
       <span class="legendBadge quick">✓ QUICK · under 30 min</span>
       <span class="legendBadge mid">! MEDIUM · 30 min–3 hr</span>
       <span class="legendBadge long">▲ LONG · over 3 hr</span>
     </div>
     <div class="grid" style="margin:0;padding:14px">
-      <div><div class="tableWrap"><table class="table"><thead><tr><th>Quest</th><th class="num">Score</th><th class="num">Downstream</th><th>Blocked By</th><th>Missing Skills</th><th class="num">Best Value</th></tr></thead><tbody id="blocked"></tbody></table></div></div>
-      <div><div class="tableWrap"><table class="table"><thead><tr><th>Quest</th><th>Missing Skills</th><th class="num">Best Value</th><th class="num">Efficiency</th></tr></thead><tbody id="grinds"></tbody></table></div></div>
+      <div>
+        <div class="subHead">Blocked Quests</div>
+        <div class="tableWrap"><table class="table"><thead><tr><th>Quest</th><th class="num">Score</th><th class="num">Downstream</th><th>Blocked By</th><th>Missing Skills</th><th class="num">Best Value</th></tr></thead><tbody id="blocked"></tbody></table></div>
+      </div>
+      <div>
+        <div class="subHead">Best Training Detours</div>
+        <div class="tableWrap"><table class="table"><thead><tr><th>Unlocks Quest</th><th>Train</th><th class="num">Time</th><th class="num">Efficiency</th></tr></thead><tbody id="grinds"></tbody></table></div>
+      </div>
     </div>
   </details>
 
-  <div class="prepGrid">
-    <div class="card"><div class="head">🛒 Route Shopping Checklist <span class="sectionNote" id="shopProgress">route-order prep</span></div><div id="shopping" class="shop"></div></div>
-    <div class="card"><div class="head">🎒 Prep Guidance</div><div class="prepTips">
-      <div class="prepTip"><b>Bring / Buy</b><span>Use the checklist as you bank/shop. Checked rows strike through and persist on this browser.</span></div>
-      <div class="prepTip"><b>Obtainable</b><span>Can be acquired during the quest and does not automatically become a shopping requirement.</span></div>
-      <div class="prepTip"><b>Choice / Alternative</b><span>Alternatives stay separate instead of being falsely added together.</span></div>
-      <div class="prepTip"><b>Conservative planner</b><span>Boosts and optional supplies are not assumed unless supported by source data.</span></div>
-    </div></div>
+  <div class="card" style="margin-top:14px">
+    <div class="head">🛒 Route Prep Checklist <span id="shopProgress" style="margin-left:auto;font-size:10px;font-weight:800;color:#d2b989"></span></div>
+    <div id="shopping" class="shop"></div>
   </div>
 
   <details class="card section">
-    <summary><div class="head">📊 Current Stats & Data Health <span class="sectionNote">goal-relevant skills are highlighted</span></div></summary>
+    <summary><div class="head">📊 Current Stats & Data Health</div></summary>
     <div id="skills" class="skills"></div><div id="health" class="health"></div>
   </details>
 </div>
@@ -311,48 +318,61 @@ function routeStepMap(s){
 }
 function splitQuests(v){return String(v||'').split(',').map(x=>x.trim()).filter(Boolean)}
 function routeShoppingHtml(s){
-  const rows=s.shopping||[], steps=routeStepMap(s), groups=new Map(), seen=new Map(), obtain=[], alt=[];
+  const rows=s.shopping||[], steps=routeStepMap(s), groups=new Map(), seen=new Map(), alt=[];
   rows.forEach(i=>{
     const a=String(i.acquisition||'').toLowerCase(),t=String(i.type||'').toLowerCase();
     if(t.includes('choice')||t.includes('alternative')){alt.push(i);return}
-    if(a.includes('obtain')){obtain.push(i);return}
     const quests=splitQuests(i.quests);
     const ordered=(quests.length?quests:['Other']).sort((a,b)=>(steps.get(a.toLowerCase())||999)-(steps.get(b.toLowerCase())||999));
     const primary=ordered[0]||'Other', itemKey=String(i.item||'').trim().toLowerCase();
+    const obtain=a.includes('obtain');
     if(seen.has(itemKey)){
       const prev=seen.get(itemKey);
       prev.also=[...new Set([...(prev.also||[]),...ordered.filter(q=>q!==prev.quest)])];
       prev.qty=Math.max(Number(prev.qty||1),Number(i.qty||1));
+      prev.obtain=prev.obtain && obtain;
       return;
     }
-    const obj={...i,quest:primary,also:ordered.slice(1)};
+    const obj={...i,quest:primary,also:ordered.slice(1),obtain};
     seen.set(itemKey,obj);
     if(!groups.has(primary))groups.set(primary,[]);
     groups.get(primary).push(obj);
   });
+
   const orderedGroups=[...groups.entries()].sort((a,b)=>{
     const sa=steps.get(a[0].toLowerCase())||999,sb=steps.get(b[0].toLowerCase())||999;
     return sa-sb || a[0].localeCompare(b[0]);
   });
+
   let total=0,done=0;
   orderedGroups.forEach(([,items])=>items.forEach(i=>{total++;if(isChecked(i))done++}));
   const pct=total?Math.round(done/total*100):100;
-  $('shopProgress').textContent=`${done} / ${total} acquired · ${pct}%`;
-  let html=`<div class="shopProgressBar"><div class="shopProgressFill" style="width:${pct}%"></div></div>`;
+  $('shopProgress').textContent=`${done} / ${total} complete · ${pct}%`;
+
+  let html=`<div class="shopProgressBar"><div class="shopProgressFill" style="width:${pct}%"></div></div>
+    <div class="obtainNote">* Obtain during quest — still tracked here so nothing gets forgotten.</div>`;
+
   orderedGroups.forEach(([quest,items])=>{
     const qDone=items.filter(isChecked).length, complete=items.length&&qDone===items.length, step=steps.get(quest.toLowerCase());
     html+=`<div class="questShopGroup ${complete?'complete':''}"><div class="questShopHead">${step?`<span class="questStep">Step ${step}</span>`:''}<span class="questShopTitle">${esc(quest)}</span><span class="questDone">${complete?'✓ Ready':`${qDone}/${items.length}`}</span></div><div class="questShopRows">`;
     items.forEach(i=>{
       const key=checklistKey(i),checked=isChecked(i);
-      html+=`<label class="checkRow ${checked?'done':''}"><input type="checkbox" ${checked?'checked':''} onchange="toggleShopV16(this,'${esc(key)}')"><span class="itemName">${esc(i.item)}${i.also&&i.also.length?`<span class="alsoNeeded">Also needed: ${esc(i.also.join(', '))}</span>`:''}</span><span>×${esc(i.qty||1)}</span><span class="questTag">${checked?'Acquired':'Need'}</span></label>`;
+      html+=`<label class="checkRow ${checked?'done':''} ${i.obtain?'obtainRow':''}">
+        <input type="checkbox" ${checked?'checked':''} onchange="toggleShopV18(this,'${esc(key)}')">
+        <span class="itemName">${esc(i.item)}${i.also&&i.also.length?`<span class="alsoNeeded">Also needed: ${esc(i.also.join(', '))}</span>`:''}${i.obtain?`<span class="itemSource">Obtain during quest</span>`:''}</span>
+        <span>×${esc(i.qty||1)}</span>
+        <span class="questTag">${checked?'Complete':(i.obtain?'Obtain':'Need')}</span>
+      </label>`;
     });
     html+='</div></div>';
   });
-  if(obtain.length)html+=`<div class="shopGroup"><div class="shopGroupTitle"><span>✓ Obtain During Quest</span><span class="shopCount">${obtain.length}</span></div><div class="obtainList">${obtain.map(i=>chipHtml({name:i.item,qty:i.qty},'obtain')).join('')}</div></div>`;
-  if(alt.length)html+=`<div class="shopGroup"><div class="shopGroupTitle"><span>↔ Choice / Alternative</span><span class="shopCount">${alt.length}</span></div><div class="obtainList">${alt.map(i=>chipHtml({name:i.item,qty:i.qty},'alt')).join('')}</div></div>`;
+
+  if(alt.length){
+    html+=`<div class="shopGroup"><div class="shopGroupTitle"><span>↔ Choice / Alternative</span><span class="shopCount">${alt.length}</span></div><div class="obtainList">${alt.map(i=>chipHtml({name:i.item,qty:i.qty},'alt')).join('')}</div></div>`;
+  }
   return html;
 }
-function toggleShopV16(cb,key){
+function toggleShopV18(cb,key){
   try{localStorage.setItem(key,cb.checked?'1':'0')}catch(e){}
   if(window.__sensumState) $('shopping').innerHTML=routeShoppingHtml(window.__sensumState);
 }
