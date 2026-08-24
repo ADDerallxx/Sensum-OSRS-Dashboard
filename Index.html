@@ -1,0 +1,793 @@
+<!doctype html>
+<html>
+<head>
+<base target="_top">
+<meta charset="utf-8">
+<style>
+:root{--bg:#10151d;--panel:#1a2230;--line:#344256;--gold:#d7b35c;--text:#f3ead8;--muted:#afa995;--green:#76d39b;--red:#ef7f7f}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:Arial,sans-serif}
+.shell{max-width:1280px;margin:auto;padding:24px}header{display:flex;justify-content:space-between;align-items:center;gap:20px}
+h1{margin:0;color:var(--gold)}.sub,.muted{color:var(--muted)}button{background:var(--gold);border:0;border-radius:10px;padding:12px 18px;font-weight:800;cursor:pointer}
+.tabs{display:flex;gap:8px;margin:22px 0}.tab{padding:10px 16px;border-radius:10px;background:#212c3b;color:var(--muted);cursor:pointer}.tab.active{background:var(--gold);color:#201707;font-weight:800}
+.metrics{display:grid;grid-template-columns:repeat(6,1fr);gap:10px}.metric,.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:15px}
+.metric .k{font-size:11px;color:var(--muted);text-transform:uppercase}.metric .v{font-size:20px;font-weight:800;margin-top:5px}
+.grid{display:grid;grid-template-columns:1.15fr .85fr;gap:16px;margin-top:16px}h2{color:var(--gold);font-size:19px;margin-top:0}
+.task{background:#141c28;border-left:4px solid var(--gold);border-radius:10px;padding:12px;margin-bottom:9px}.goal,.source{padding:9px 0;border-bottom:1px solid #2b3748}
+.ok{color:var(--green)}.bad{color:var(--red)}.hidden{display:none}
+
+    .heroGoal{background:linear-gradient(135deg,#202a39,#151d29);border:1px solid rgba(215,179,92,.55);border-radius:16px;padding:18px;margin-bottom:14px}
+    .eyebrow{font-size:11px;text-transform:uppercase;letter-spacing:1px;color:var(--gold);font-weight:800}
+    .heroTitle{font-size:24px;font-weight:900;margin:6px 0}
+    .reason{color:#ded4bf;line-height:1.45}
+    .progressTrack{height:9px;background:#101722;border-radius:999px;overflow:hidden;margin:9px 0}
+    .progressFill{height:100%;background:var(--gold);border-radius:999px}
+    .methodGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px}
+    .methodCard{background:#141c28;border:1px solid #334154;border-radius:11px;padding:11px}
+    .methodCard.recommended{border-color:rgba(118,211,155,.65)}
+    .methodLabel{font-size:11px;font-weight:800;color:var(--muted);text-transform:uppercase}
+    .methodValue{font-weight:800;margin:5px 0}
+    .methodMeta{font-size:12px;color:var(--muted);line-height:1.4}
+    .miniTask{display:flex;gap:12px;align-items:flex-start;padding:12px 0;border-bottom:1px solid #2b3748}
+    .miniTask:last-child{border-bottom:none}
+    .taskNum{min-width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:#2a3546;color:var(--gold);font-weight:900}
+    .phaseBar{background:#141c28;border-radius:12px;padding:12px;margin-bottom:12px}
+    details{margin-top:10px}
+    summary{cursor:pointer;color:var(--gold);font-weight:700}
+    @media(max-width:1000px){.methodGrid{grid-template-columns:1fr}}
+
+
+    .questPrep{background:#141c28;border:1px solid #334154;border-radius:13px;padding:13px;margin-bottom:10px}
+    .questPrep.current{border-color:rgba(215,179,92,.7)}
+    .prepTop{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
+    .readyBadge{font-size:12px;font-weight:800;border-radius:999px;padding:5px 9px;background:#1d2938;white-space:nowrap}
+    .readyBadge.good{color:#76d39b}
+    .readyBadge.warn{color:#f1c969}
+    .shopItem{display:grid;grid-template-columns:26px 1fr auto;gap:8px;padding:7px 0;border-bottom:1px solid #273344;align-items:center}
+    .shopItem:last-child{border-bottom:none}
+    .shopIcon{font-weight:900;text-align:center}
+    .owned{color:#76d39b}.missing{color:#ff8585}.variable{color:#d9b95f}
+    .shoppingMini{margin-top:10px;padding:10px;border-radius:10px;background:#111925}
+
+
+    .prepMiniList{margin-top:9px;border-top:1px solid #2b3748;padding-top:7px}
+    .prepMiniRow{display:grid;grid-template-columns:20px 1fr auto;gap:7px;align-items:center;padding:5px 0}
+    .prepMiniRow .reqName{font-size:13px}
+    .prepMiniRow .reqQty{font-size:12px;color:var(--muted);white-space:nowrap}
+    .prepMiniMore{margin-top:6px;font-size:12px;color:var(--muted)}
+    .questTabHero{background:linear-gradient(135deg,#202a39,#151d29);border:1px solid rgba(215,179,92,.55);border-radius:16px;padding:16px;margin-bottom:14px}
+
+
+    .toolbar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+    .filterInput,.filterSelect{background:#111925;border:1px solid #334154;border-radius:9px;color:#fff;padding:9px 11px;font:inherit}
+    .filterInput{min-width:240px;flex:1}
+    .shoppingSummary{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}
+    .summaryTile{background:#141c28;border:1px solid #334154;border-radius:12px;padding:12px}
+    .summaryTile .big{font-size:21px;font-weight:900;margin-top:3px}
+    .fullQuest{background:#141c28;border:1px solid #334154;border-radius:13px;margin-bottom:10px;overflow:hidden}
+    .fullQuestHead{padding:13px;display:flex;justify-content:space-between;gap:12px;align-items:center;cursor:pointer}
+    .fullQuestBody{padding:0 13px 13px}
+    .livePrice{font-size:12px;color:var(--muted);white-space:nowrap}
+    .costStrong{font-weight:800;color:#f1c969}
+    .levelSkill{background:#141c28;border:1px solid #334154;border-radius:14px;margin-bottom:12px;padding:14px}
+    .levelSkill.current{border-color:rgba(215,179,92,.75);box-shadow:0 0 0 1px rgba(215,179,92,.1)}
+    .skillHead{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;margin-bottom:8px}
+    .levelPill{background:#202b3a;border-radius:999px;padding:5px 9px;font-size:12px;color:#ded4bf;white-space:nowrap}
+    .levelMethodsGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:10px}
+    .levelMethod{background:#101722;border:1px solid #2d394b;border-radius:11px;padding:11px}
+    .levelMethod.rec{border-color:rgba(118,211,155,.55)}
+    .methodStat{font-size:12px;color:var(--muted);margin-top:4px}
+    @media(max-width:1050px){.shoppingSummary,.levelMethodsGrid{grid-template-columns:1fr}}
+
+
+    .tabs{display:flex;gap:8px;flex-wrap:wrap}
+
+
+.methodCard,.levelMethod{padding:14px!important}
+.methodHeadline{font-size:18px;font-weight:900;margin:5px 0}
+.methodTopline{display:flex;justify-content:space-between;gap:8px;align-items:flex-start}
+.accessBadge{font-size:11px;font-weight:900;padding:4px 7px;border-radius:999px;white-space:nowrap}
+.accessBadge.available{background:rgba(118,211,155,.12);color:#76d39b}
+.accessBadge.locked{background:rgba(255,133,133,.12);color:#ff8585}
+.accessBadge.conditional{background:rgba(241,201,105,.12);color:#f1c969}
+.methodNumbers{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin:10px 0}
+.methodNumber{background:#0d141e;border-radius:8px;padding:8px}
+.methodNumber .n{font-size:14px;font-weight:900}
+.methodNumber .k{font-size:10px;color:var(--muted);text-transform:uppercase}
+.trainSteps{display:grid;gap:8px;margin-top:10px}
+.trainStep{background:#0f1722;border-left:3px solid #d7b35c;border-radius:7px;padding:9px 10px}
+.trainStep b{display:block;font-size:11px;color:#d7b35c;text-transform:uppercase;margin-bottom:3px}
+.rewardStrip{margin-top:10px;background:#111925;border:1px solid #334154;border-radius:10px;padding:10px}
+.rewardChips{display:flex;gap:6px;flex-wrap:wrap;margin-top:7px}
+.rewardChip{background:#202b3a;border-radius:999px;padding:5px 8px;font-size:12px}
+.questIntelGrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:1000px){.questIntelGrid{grid-template-columns:1fr}.methodNumbers{grid-template-columns:1fr 1fr}}
+
+
+/* v0.8.2 fixed dashboard chrome */
+html,body{height:100%;overflow:hidden}
+body{min-height:100vh}
+.shell{height:100vh;max-width:1280px;margin:0 auto;padding:0 24px;display:flex;flex-direction:column;overflow:hidden}
+.appHeader{flex:0 0 auto;background:var(--bg);padding:20px 0 14px;position:relative;z-index:20;border-bottom:1px solid rgba(52,66,86,.55)}
+.appHeader .tabs{margin:18px 0 14px}
+.appHeader .metrics{margin:0}
+.contentScroll{flex:1 1 auto;min-height:0;overflow-y:auto;overflow-x:hidden;padding:16px 0 36px;scrollbar-gutter:stable}
+.contentScroll>section:first-child>.grid,.contentScroll>section>.grid{margin-top:0}
+.contentScroll>section>.card{margin-top:0}
+.contentScroll>.card{margin-top:16px}
+#questIntelTab .grid{margin-top:0}
+@media(max-width:800px){.shell{padding:0 12px}.appHeader{padding-top:12px}.metrics{grid-template-columns:repeat(3,1fr)}}
+
+
+    .levelMethodsGrid{
+      display:flex!important;
+      flex-direction:column;
+      gap:10px;
+      margin-top:12px
+    }
+    .levelMethod{
+      display:block;
+      background:#101722!important;
+      border:1px solid #2d394b!important;
+      border-radius:12px!important;
+      padding:14px 16px!important;
+    }
+    .levelMethod.rec{
+      border-color:rgba(118,211,155,.65)!important;
+      background:linear-gradient(90deg,rgba(118,211,155,.045),#101722 28%)!important;
+    }
+    .levelMethod.lockedMethod{
+      opacity:.92;
+    }
+    .levelMethodHeader{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+      gap:12px;
+      margin-bottom:8px
+    }
+    .levelMethodTitle{
+      font-size:18px;
+      font-weight:900;
+      line-height:1.15
+    }
+    .levelMethodKind{
+      font-size:10px;
+      text-transform:uppercase;
+      letter-spacing:.8px;
+      color:var(--gold);
+      font-weight:800;
+      margin-bottom:4px
+    }
+    .methodBullets{
+      margin:8px 0 0 18px;
+      padding:0;
+      color:#ded4bf;
+      line-height:1.48
+    }
+    .methodBullets li{
+      margin:3px 0;
+      padding-left:2px
+    }
+    .methodBullets b{
+      color:#fff
+    }
+    .unlockLine{
+      color:#ff8585!important
+    }
+    .trainDetails{
+      margin-top:10px;
+      border-top:1px solid #283447;
+      padding-top:9px
+    }
+    .trainDetails summary{
+      font-size:13px;
+      font-weight:800
+    }
+    .trainSteps{
+      margin-top:9px
+    }
+    .skillHead{
+      border-bottom:1px solid #2b3748;
+      padding-bottom:10px;
+      margin-bottom:8px
+    }
+    .levelSkill{
+      padding:16px!important
+    }
+
+
+    #levelSkillSelect{min-width:185px}
+    #levelFilter{min-width:165px}
+    
+    .levelPill b{color:var(--gold);font-size:10px;letter-spacing:.6px}
+    .methodBullets li:first-child{color:#f1c969}
+    
+    .verificationBar{margin:8px 0 10px;padding:9px 11px;border-radius:9px;font-size:12px}
+    .verificationBar.verified{background:rgba(118,211,155,.08);border:1px solid rgba(118,211,155,.35);color:#9ee0b8}
+    .verificationBar.reference{background:rgba(241,201,105,.08);border:1px solid rgba(241,201,105,.35);color:#e6cd8e}
+    .futureUnlocks{margin-top:10px;background:#101722;border:1px solid #2b3748;border-radius:10px;padding:10px 12px}
+    .futureUnlocks ul{margin:6px 0 0 18px;padding:0}
+    .futureUnlocks li{margin:4px 0}
+    .methodWarning{margin-top:8px;color:#f1c969;font-size:12px}
+
+
+.levelMethod{padding:0!important;overflow:hidden}
+.levelMethod>summary{list-style:none;cursor:pointer;padding:13px 15px}
+.levelMethod>summary::-webkit-details-marker{display:none}
+.levelMethod>summary:hover{background:rgba(255,255,255,.025)}
+.levelMethodSummary{display:flex;justify-content:space-between;gap:12px;align-items:center}
+.levelMethodSummaryLeft{min-width:0}
+.levelMethodSummaryTitle{font-size:16px;font-weight:900}
+.levelMethodSummaryMeta{font-size:11px;color:var(--muted);margin-top:3px}
+.levelMethodBody{padding:0 16px 15px;border-top:1px solid #283447}
+.levelMethodBody .methodBullets{margin-top:11px}
+.levelMethod.rec>summary{background:linear-gradient(90deg,rgba(118,211,155,.055),transparent 35%)}
+.collapseHint{font-size:11px;color:var(--gold);font-weight:800;white-space:nowrap}
+
+</style>
+</head>
+<body>
+<div class="shell">
+  <div class="appHeader">
+<header>
+<div><h1>Sensum OSRS Dashboard</h1><div class="sub">Open this, see what matters, play the game.</div></div>
+<div><button id="refreshBtn" onclick="refreshNow()">Refresh Now</button><div id="refreshStatus" class="muted">Loading…</div></div>
+</header>
+
+<div class="tabs">
+<div class="tab active" data-tab="goals" onclick="switchTab('goals')">Main Goals</div>
+<div class="tab" data-tab="gold" onclick="switchTab('gold')">Gold / Farming</div>
+<div class="tab" data-tab="shopping" onclick="switchTab('shopping')">Quest Prep</div>
+<div class="tab" data-tab="fullShopping" onclick="switchTab('fullShopping')">Shopping List</div>
+<div class="tab" data-tab="leveling" onclick="switchTab('leveling')">Leveling Methods</div>
+<div class="tab" data-tab="questIntel" onclick="switchTab('questIntel')">Quest Intel</div>
+</div>
+
+<div id="metrics" class="metrics"></div>
+  </div>
+  <div class="contentScroll" id="contentScroll">
+<section id="goalsTab">
+    <div class="grid">
+      <div class="card">
+        <h2>Today</h2>
+        <div id="todayCommand"><div class="empty">Building your current action plan…</div></div>
+      </div>
+      <div class="card">
+        <h2>Roadmap</h2>
+        <div id="roadmap"><div class="empty">Loading sequential roadmap…</div></div>
+      </div>
+    </div>
+  </section>
+
+<section id="goldTab" class="hidden">
+<div class="grid">
+<div class="card"><h2>Gold Plan</h2><div id="goldPlan"><div class="muted">Loading your gold plan…</div></div></div>
+<div class="card"><h2>Available Money Methods</h2><div id="moneyMethods"></div></div>
+</div>
+</section>
+
+<section id="shoppingTab" class="hidden">
+    <div class="grid">
+      <div class="card">
+        <h2>Next Quest Shopping</h2>
+        <div id="questShopping"><div class="empty">Comparing quest requirements with RuneLite items…</div></div>
+      </div>
+      <div class="card">
+        <h2>Shared Questing Kit</h2>
+        <div id="sharedKit"><div class="empty">Checking your reusable quest kit…</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="fullShoppingTab" class="hidden">
+    <div class="card">
+      <h2>Full Quest Shopping List</h2>
+      <div class="muted" style="margin-bottom:12px">Every quest in the roadmap, compared against your live RuneLite items and current GE buy prices.</div>
+      <div id="fullShopping"><div class="empty">Building live shopping list…</div></div>
+    </div>
+  </section>
+
+  <section id="levelingTab" class="hidden">
+    <div class="card">
+      <h2>Leveling Methods</h2>
+      <div class="muted" style="margin-bottom:12px">The full Skill Leveling Guide, condensed into current-level training cards.</div>
+      <div id="levelingMethods"><div class="empty">Loading training library…</div></div>
+    </div>
+  </section>
+
+<section id="questIntelTab" class="hidden">
+  <div class="grid">
+    <div class="card">
+      <h2>Quest Knowledge</h2>
+      <div id="questIntelCurrent"><div class="empty">Loading quest dependencies and rewards…</div></div>
+    </div>
+    <div class="card">
+      <h2>Quest Catalog Watcher</h2>
+      <div id="questWatcher"><div class="empty">Checking catalog status…</div></div>
+    </div>
+  </div>
+</section>
+
+<div class="card" style="margin-top:16px"><h2>Refresh Sources</h2><div id="sources" class="muted">No refresh run yet.</div></div>
+  </div>
+</div>
+
+<script>
+function switchTab(tab){
+ const map={
+   goals:'goalsTab',
+   gold:'goldTab',
+   shopping:'shoppingTab',
+   fullShopping:'fullShoppingTab',
+   leveling:'levelingTab',
+   questIntel:'questIntelTab'
+ };
+ Object.keys(map).forEach(k=>{
+   const el=document.getElementById(map[k]);
+   if(el) el.classList.toggle('hidden',k!==tab);
+ });
+ document.querySelectorAll('.tab').forEach(x=>x.classList.toggle('active',x.dataset.tab===tab));
+ const sc=document.getElementById('contentScroll'); if(sc) sc.scrollTo({top:0,behavior:'smooth'});
+}
+function refreshNow(){
+ setBusy(true,'Refreshing…');
+ google.script.run.withSuccessHandler(r=>{
+   renderSources(r); setBusy(false,r.ok?'Updated just now':'Updated with warnings'); loadState();
+ }).withFailureHandler(e=>setBusy(false,'Refresh failed: '+err(e))).refreshNow();
+}
+function loadState(){
+ google.script.run.withSuccessHandler(renderState).withFailureHandler(e=>{
+   document.getElementById('refreshStatus').textContent='Load failed: '+err(e);
+ }).getDashboardState();
+}
+function renderState(s){
+ const a=s.account||{}, stats=s.stats||[];
+ const level=n=>{const x=stats.find(v=>String(v.Skill||'').toLowerCase()===n);return x?x.Level:'—';};
+ const m=[
+ ['Username',a.username||'Sensum'],
+ ['Combat',a.combatLevel||'—'],
+ ['Ranged',level('ranged')],
+ ['Prayer',level('prayer')],
+ ['Wealth',fmtGp(a.totalVisibleWealth)],
+ ['Liquid GP',fmtGp(a.cashGp)]
+ ];
+ document.getElementById('metrics').innerHTML=m.map(x=>`<div class="metric"><div class="k">${esc(x[0])}</div><div class="v">${esc(x[1])}</div></div>`).join('');
+ renderTodayCommand(s.todayCommand||{});
+ renderRoadmap(s.roadmap||{});
+ renderQuestShopping(s.shopping||{});
+ renderFullShopping(s.shoppingLibrary||{});
+ renderLevelingMethods(s.levelingLibrary||{});
+ renderQuestIntel(s.questIntel||{});
+ const gp=s.goldPlan||{};
+ document.getElementById('goldPlan').innerHTML=renderGoldPlan(gp);
+ const available=gp.available||[];
+ document.getElementById('moneyMethods').innerHTML=available.length?available.map((m,i)=>`
+   <div class="goal">
+     <b>${i===0?'⭐ ':''}${esc(m.method||'')}</b>
+     <div class="muted">${fmtGp(m.gpHr)}/hr · ${esc(m.attention||'')} attention${m.marketSensitive?' · ⚠ market-sensitive':''}</div>
+     <div class="muted">${m.hoursToGoal==null?'':('~'+m.hoursToGoal.toFixed(1)+'h to '+fmtGp(gp.nextBankGoal))}</div>
+   </div>`).join(''):'<div class="muted">No eligible methods loaded yet.</div>';
+ document.getElementById('refreshStatus').textContent=a.lastRefresh?'Last sync: '+a.lastRefresh:'Last sync: not yet refreshed';
+}
+
+function renderTodayCommand(tc){
+ const root=document.getElementById('todayCommand');
+ if(!root)return;
+ const p=tc.primary;
+ if(!p){root.innerHTML='<div class="empty">No active roadmap task found.</div>';return;}
+ let methods='';
+ if(p.kind==='skill' && (p.recommended||p.fastest||p.lowCost)){
+   methods='<div class="methodGrid">'+
+     methodCard('⚡ Fastest',p.fastest,false)+
+     methodCard('⭐ Recommended',p.recommended,true)+
+     methodCard('💰 Low-cost',p.lowCost,false)+
+   '</div>';
+ }
+ root.innerHTML=`
+   <div class="heroGoal">
+     <div class="eyebrow">${esc(p.eyebrow||'TODAY')}</div>
+     <div class="heroTitle">${esc(p.title||'')}</div>
+     <div class="muted">${esc(p.progress||'')}</div>
+     <div class="reason">${esc(p.reason||'')}</div>
+     ${methods}
+     ${p.shopping ? renderPrepMini(p.shopping) : ''}
+     ${p.questIntel ? renderQuestRewardMini(p.questIntel) : ''}
+     ${p.kind==='item' && p.instructions ? `<div class="rewardStrip"><div class="eyebrow">DO THIS FIRST</div><div style="margin-top:6px">${esc(p.instructions)}</div></div>` : ''}
+     <details><summary>Why this is showing</summary><div class="muted" style="margin-top:8px">${esc(p.source||'')}</div></details>
+   </div>
+   <h2 style="font-size:15px;margin-top:16px">After that</h2>
+   ${(tc.secondary||[]).map((x,i)=>`
+      <div class="miniTask">
+        <div class="taskNum">${i+2}</div>
+        <div><b>${esc(x.title||'')}</b><div class="muted">${esc(x.reason||'')}</div></div>
+      </div>`).join('')}
+ `;
+}
+function methodCard(label,m,recommended){
+ if(!m)return '<div class="methodCard"><div class="methodLabel">'+esc(label)+'</div><div class="muted">No parsed method for this skill.</div></div>';
+ return `<div class="methodCard ${recommended?'recommended':''}">
+   <div class="methodLabel">${esc(label)}</div>
+   <div class="methodValue">${esc(m.xpHr||'Rate varies')}</div>
+   <div class="methodMeta"><b>Hours:</b> ${esc(m.hours||'—')}<br><b>GP/hr:</b> ${esc(m.gpHr||'—')}</div>
+   <details><summary>Method</summary><div class="methodMeta" style="margin-top:7px">${esc(m.description||'')}</div></details>
+ </div>`;
+}
+function renderRoadmap(r){
+ const root=document.getElementById('roadmap');
+ if(!root)return;
+ const fp=Number(r.fireCapePercent||0);
+ root.innerHTML=`
+   <div class="phaseBar">
+     <div class="eyebrow">🔥 FIRE CAPE CAMPAIGN</div>
+     <div style="display:flex;justify-content:space-between;margin-top:6px"><b>${fp}%</b><span class="muted">${r.fireCapeComplete||0}/${r.fireCapeTotal||0} auto-confirmed milestones</span></div>
+     <div class="progressTrack"><div class="progressFill" style="width:${Math.min(100,fp)}%"></div></div>
+   </div>
+   <div class="phaseBar">
+     <div class="eyebrow">CURRENT PHASE</div>
+     <b>${esc(r.currentPhase||'')}</b>
+     <div class="muted">${r.currentPhaseComplete||0}/${r.currentPhaseTotal||0} automatically confirmed</div>
+   </div>
+   ${(r.next||[]).map(x=>`
+     <div class="miniTask">
+       <div class="taskNum">${esc(x.order)}</div>
+       <div style="flex:1"><b>${esc(x.task)}</b><div class="muted">${esc(x.progress||'')}</div></div>
+     </div>`).join('')}
+   <details><summary>Account-wide progress</summary><div class="muted" style="margin-top:8px">${r.complete||0}/${r.total||0} master milestones automatically confirmed (${r.percent||0}%). Manual milestones stay open until we add explicit completion controls.</div></details>
+ `;
+}
+
+function renderPrepMini(q){
+ const exact=q.exactTotal||0, ready=q.exactReady||0, missing=q.missingCount||0;
+ const items=q.items||[];
+ const visible=items.slice(0,6);
+ const extra=Math.max(0,items.length-visible.length);
+
+ return `<div class="shoppingMini">
+   <div class="eyebrow">QUEST PREP — REQUIRED ITEMS</div>
+   <div style="display:flex;justify-content:space-between;gap:10px;align-items:center;margin-top:4px">
+     <b>${missing===0?'Exact requirements ready':'Still need '+missing+' exact item'+(missing===1?'':'s')}</b>
+     <span class="muted">${ready}/${exact} exact ready</span>
+   </div>
+   <div class="prepMiniList">
+     ${visible.map(it=>prepMiniRow(it)).join('')}
+   </div>
+   ${extra?`<div class="prepMiniMore">+ ${extra} more requirement${extra===1?'':'s'} in the Quest Prep tab</div>`:''}
+   ${q.subtotal?`<div class="muted" style="margin-top:8px">${esc(q.subtotal)}</div>`:''}
+ </div>`;
+}
+function prepMiniRow(it){
+ const st=it.status||'VARIABLE';
+ const cls=st==='OWNED'?'owned':(st==='MISSING'?'missing':'variable');
+ const icon=st==='OWNED'?'✓':(st==='MISSING'?'!':'•');
+ let qty='';
+ if(st==='OWNED') qty=it.required?`${it.owned||0}/${it.required}`:`Owned ${it.owned||0}`;
+ else if(st==='MISSING') qty=`Need ${it.missing||0}`;
+ else qty='Variable';
+ return `<div class="prepMiniRow">
+   <div class="shopIcon ${cls}">${icon}</div>
+   <div class="reqName">${esc(it.raw||it.name||'')}</div>
+   <div class="reqQty">${esc(qty)}</div>
+ </div>`;
+}
+function renderQuestShopping(s){
+ const qroot=document.getElementById('questShopping');
+ const kroot=document.getElementById('sharedKit');
+ if(!qroot||!kroot)return;
+
+ const qs=s.upcoming||[];
+ const current=qs[0]||null;
+ const hero=current?`
+   <div class="questTabHero">
+     <div class="eyebrow">CURRENT QUEST PREP</div>
+     <div class="heroTitle" style="font-size:21px">${esc(current.quest||'')}</div>
+     <div class="muted">${current.exactReady||0}/${current.exactTotal||0} exact requirements ready · ${current.variableCount||0} variable supply lines</div>
+     ${current.subtotal?`<div class="reason" style="margin-top:6px">${esc(current.subtotal)}</div>`:''}
+   </div>`:'';
+ qroot.innerHTML=qs.length?hero+qs.map((q,i)=>`
+   <div class="questPrep ${i===0?'current':''}">
+     <div class="prepTop">
+       <div><div class="eyebrow">${i===0?'FULL REQUIREMENTS':'UPCOMING QUEST PREP'}</div><b>${esc(q.quest||'')}</b><div class="muted">${esc(q.subtotal||'')}</div></div>
+       <div class="readyBadge ${(q.missingCount||0)===0?'good':'warn'}">${q.exactReady||0}/${q.exactTotal||0} exact ready</div>
+     </div>
+     <details ${i===0?'open':''}><summary>${(q.missingCount||0)===0?'Review supplies':'See what you still need'}</summary>
+       <div style="margin-top:8px">
+       ${(q.items||[]).map(it=>shopItemHtml(it)).join('')}
+       </div>
+     </details>
+   </div>`).join(''):'<div class="empty">No upcoming shopping-list quests found.</div>';
+
+ const kit=s.sharedKit||[];
+ const exactKit=kit.filter(x=>x.status!=='VARIABLE');
+ const ready=exactKit.filter(x=>x.status==='OWNED').length;
+ kroot.innerHTML=`
+   <div class="phaseBar">
+     <div class="eyebrow">BANK-VERIFIED KIT</div>
+     <b>${ready}/${exactKit.length} exact reusable items ready</b>
+     <div class="muted">Variable reserves stay yellow until we add configurable target quantities.</div>
+   </div>
+   ${kit.map(it=>shopItemHtml(it)).join('')}
+ `;
+}
+function shopItemHtml(it){
+ const st=it.status||'VARIABLE';
+ const cls=st==='OWNED'?'owned':(st==='MISSING'?'missing':'variable');
+ const icon=st==='OWNED'?'✓':(st==='MISSING'?'!':'•');
+ let detail='';
+ if(st==='OWNED') detail=`Owned ${it.owned||0}${it.required?(' / need '+it.required):''}`;
+ else if(st==='MISSING') detail=`Need ${it.missing||0} more · owned ${it.owned||0}`;
+ else detail='Variable / conditional';
+ return `<div class="shopItem"><div class="shopIcon ${cls}">${icon}</div><div>${esc(it.raw||it.name||'')}</div><div class="muted">${esc(detail)}</div></div>`;
+}
+
+let fullShoppingState=null;
+let levelingState=null;
+
+function renderFullShopping(s){
+ fullShoppingState=s||{};
+ const root=document.getElementById('fullShopping');
+ if(!root)return;
+ const quests=s.quests||[];
+
+ root.innerHTML=`
+   <div class="shoppingSummary">
+     <div class="summaryTile"><div class="eyebrow">EXACT LINES READY</div><div class="big">${s.exactReady||0}/${s.exactTotal||0}</div></div>
+     <div class="summaryTile"><div class="eyebrow">LIVE SHORTAGE COST</div><div class="big">${fmtGp(s.totalMissingCost||0)}</div></div>
+     <div class="summaryTile"><div class="eyebrow">QUESTS TRACKED</div><div class="big">${s.totalQuests||quests.length}</div></div>
+   </div>
+   <div class="toolbar">
+     <input id="shopSearch" class="filterInput" placeholder="Search quest or item…" oninput="filterFullShopping()">
+     <select id="shopFilter" class="filterSelect" onchange="filterFullShopping()">
+       <option value="all">All quests</option>
+       <option value="missing">Needs items</option>
+       <option value="ready">Exact items ready</option>
+       <option value="complete">Completed quests</option>
+     </select>
+   </div>
+   <div class="muted" style="margin-bottom:10px">Live prices use the latest observed instant-buy/high price when available. Variable supplies are intentionally not priced automatically.</div>
+   <div id="fullShoppingRows">${renderFullShoppingRows(quests)}</div>
+ `;
+}
+function filterFullShopping(){
+ if(!fullShoppingState)return;
+ const q=(document.getElementById('shopSearch')?.value||'').toLowerCase().trim();
+ const f=document.getElementById('shopFilter')?.value||'all';
+ let rows=(fullShoppingState.quests||[]).filter(x=>{
+   if(f==='missing' && !(x.missingCount>0 && !x.completed))return false;
+   if(f==='ready' && !(x.missingCount===0 && !x.completed))return false;
+   if(f==='complete' && !x.completed)return false;
+   if(q){
+     const hay=(x.quest+' '+(x.items||[]).map(i=>i.raw||i.name||'').join(' ')).toLowerCase();
+     if(!hay.includes(q))return false;
+   }
+   return true;
+ });
+ document.getElementById('fullShoppingRows').innerHTML=renderFullShoppingRows(rows);
+}
+function renderFullShoppingRows(quests){
+ if(!quests.length)return '<div class="empty">No shopping entries match that filter.</div>';
+ return quests.map((q,i)=>`
+   <details class="fullQuest" ${i===0&&!q.completed?'open':''}>
+     <summary class="fullQuestHead">
+       <div>
+         <b>${q.completed?'✓ ':''}${esc(q.quest||'')}</b>
+         <div class="muted">${q.exactReady||0}/${q.exactTotal||0} exact ready · ${q.variableCount||0} variable</div>
+       </div>
+       <div style="text-align:right">
+         <div class="${q.liveMissingCost>0?'costStrong':'owned'}">${q.completed?'Complete':(q.liveMissingCost>0?fmtGp(q.liveMissingCost)+' to fill':'Exact items ready')}</div>
+         <div class="livePrice">${esc(q.subtotal||'')}</div>
+       </div>
+     </summary>
+     <div class="fullQuestBody">
+       ${(q.items||[]).map(it=>fullShopItem(it)).join('')}
+     </div>
+   </details>`).join('');
+}
+function fullShopItem(it){
+ const st=it.status||'VARIABLE';
+ const cls=st==='OWNED'?'owned':(st==='MISSING'?'missing':'variable');
+ const icon=st==='OWNED'?'✓':(st==='MISSING'?'!':'•');
+ let state='';
+ if(st==='OWNED') state=`Owned ${it.owned||0} / ${it.required||0}`;
+ else if(st==='MISSING') state=`Need ${it.missing||0} more`;
+ else state='Variable / conditional';
+ let price='';
+ if(it.trackable && it.unitPrice) price=`${fmtGp(it.unitPrice)} ea${it.missingCost?` · ${fmtGp(it.missingCost)} missing cost`:''}`;
+ return `<div class="shopItem">
+   <div class="shopIcon ${cls}">${icon}</div>
+   <div><div>${esc(it.raw||it.name||'')}</div><div class="muted">${esc(state)}</div></div>
+   <div class="livePrice">${price}</div>
+ </div>`;
+}
+
+function renderLevelingMethods(s){
+ levelingState=s||{};
+ const root=document.getElementById('levelingMethods');
+ if(!root)return;
+ const skills=s.skills||[];
+ root.innerHTML=`
+   <div class="toolbar">
+     <input id="levelSearch" class="filterInput" placeholder="Search a skill…" oninput="filterLeveling()">
+     <select id="levelSkillSelect" class="filterSelect" onchange="filterLeveling()">
+       <option value="all">Select skill: All</option>
+       ${skills.map(x=>`<option value="${esc(String(x.skill||'').toLowerCase())}">${esc(x.display||'')}</option>`).join('')}
+     </select>
+     <select id="levelFilter" class="filterSelect" onchange="filterLeveling()">
+       <option value="all">All statuses</option>
+       <option value="roadmap">Current roadmap skill</option>
+       <option value="needs">Has next target</option>
+     </select>
+   </div>
+   <div id="levelRows">${renderLevelRows(skills)}</div>
+ `;
+}
+function filterLeveling(){
+ if(!levelingState)return;
+ const q=(document.getElementById('levelSearch')?.value||'').toLowerCase().trim();
+ const selected=(document.getElementById('levelSkillSelect')?.value||'all').toLowerCase();
+ const f=document.getElementById('levelFilter')?.value||'all';
+ const rows=(levelingState.skills||[]).filter(x=>{
+   if(selected!=='all' && String(x.skill||'').toLowerCase()!==selected)return false;
+   if(f==='roadmap'&&!x.isCurrentRoadmap)return false;
+   if(f==='needs'&&!x.nextTarget)return false;
+   if(q&&!String(x.display||'').toLowerCase().includes(q))return false;
+   return true;
+ });
+ document.getElementById('levelRows').innerHTML=renderLevelRows(rows);
+}
+function renderLevelRows(skills){
+ if(!skills.length)return '<div class="empty">No skills match that filter.</div>';
+ return skills.map(x=>`
+   <div class="levelSkill ${x.isCurrentRoadmap?'current':''}">
+     <div class="skillHead">
+       <div>
+         <div class="eyebrow">${x.isCurrentRoadmap?'CURRENT ROADMAP SKILL':'TRAINING GUIDE'}</div>
+         <div class="heroTitle" style="font-size:20px">${esc(x.display||'')}</div>
+         <div class="muted" style="margin-top:3px">Current account target: Lv ${x.current||1} → ${x.nextTarget||'—'}.</div>
+       </div>
+       <div class="levelPill"><b>TARGET</b>&nbsp; Lv ${x.current||1}${x.nextTarget?' → '+x.nextTarget:''}</div>
+     </div>
+     <div class="verificationBar ${x.verified?'verified':'reference'}">${x.verified?'✓ VERIFIED BASELINE FOR THIS SKILL':'⚠ NO VERIFIED PROFILE'} · ${esc(x.verificationNote||'')}</div>
+     ${x.futureUnlocks&&x.futureUnlocks.length?`<div class="futureUnlocks"><div class="eyebrow">UPCOMING METHOD UNLOCKS</div><ul>${x.futureUnlocks.map(u=>`<li class="${u.locked?'missing':''}"><b>Lv ${u.level}:</b> ${esc(u.text)}${u.missing&&u.missing.length?` <b>Missing:</b> ${esc(u.missing.join(', '))}`:''}</li>`).join('')}</ul></div>`:''}
+     <div class="levelMethodsGrid">
+       ${levelMethodCard('⚡ Fastest / High-cost',x.fastest,false)}
+       ${levelMethodCard('⭐ Recommended',x.recommended,true)}
+       ${levelMethodCard('💰 Low-cost / Efficient',x.lowCost,false)}
+     </div>
+   </div>`).join('');
+}
+function levelMethodCard(label,m,rec){
+ if(!m){
+   return `<details class="levelMethod ${rec?'rec':''}">
+     <summary><div class="levelMethodSummary"><div><div class="levelMethodKind">${esc(label)}</div><div class="levelMethodSummaryTitle">No verified method loaded</div></div><div class="collapseHint">Expand ▾</div></div></summary>
+     <div class="levelMethodBody"><div class="methodWarning">No authoritative recommendation is available for this method yet.</div></div>
+   </details>`;
+ }
+ const a=m.access||{};
+ const status=a.status||'AVAILABLE';
+ const aclass=status==='LOCKED'?'locked':(status==='CONDITIONAL'?'conditional':'available');
+ const badge=status==='LOCKED'?'🔒 LOCKED':(status==='CONDITIONAL'?'⚠ CHECK ACCESS':'✓ ACCESSIBLE');
+ const hours=m.accountHours||m.hours||'Varies';
+ const ins=m.instructions||{};
+ const stop=ins.stopAt||'Next roadmap target';
+ const range=(m.appliesFrom!=null&&m.appliesTo!=null)?(m.appliesFrom+' → '+m.appliesTo):(m.accountRange||'current → target');
+
+ let bullets=[
+   `<li><b>Use this for:</b> Lv ${esc(range)}</li>`,
+   `<li><b>XP/hr:</b> ${esc(m.xpHr||'Varies')}</li>`,
+   `<li><b>Estimated time for your target:</b> ${esc(hours)}</li>`,
+   `<li><b>GP/hr / cost:</b> ${esc(m.gpHr||'Varies')}</li>`
+ ];
+ if(a.location) bullets.push(`<li><b>Location:</b> ${esc(a.location)}</li>`);
+ bullets.push(`<li><b>Stop at:</b> ${esc(stop)}</li>`);
+ if(a.missing&&a.missing.length) bullets.push(`<li class="unlockLine"><b>Unlock first:</b> ${esc(a.missing.join(', '))}</li>`);
+ else if(a.note) bullets.push(`<li><b>Access:</b> ${esc(a.note)}</li>`);
+
+ return `<details class="levelMethod ${rec?'rec':''} ${status==='LOCKED'?'lockedMethod':''}">
+   <summary>
+     <div class="levelMethodSummary">
+       <div class="levelMethodSummaryLeft">
+         <div class="levelMethodKind">${esc(label)}</div>
+         <div class="levelMethodSummaryTitle">${esc(m.methodTitle||'Training Method')}</div>
+         <div class="levelMethodSummaryMeta">Lv ${esc(range)} · ${esc(m.xpHr||'Rate varies')}</div>
+       </div>
+       <div style="display:flex;gap:9px;align-items:center">
+         <div class="accessBadge ${aclass}">${badge}</div>
+         <div class="collapseHint">Expand ▾</div>
+       </div>
+     </div>
+   </summary>
+   <div class="levelMethodBody">
+     <ul class="methodBullets">${bullets.join('')}</ul>
+     ${m.sourceNote?`<div class="muted" style="margin-top:8px"><b>Why this is here:</b> ${esc(m.sourceNote)}</div>`:''}
+     <details class="trainDetails">
+       <summary>Step-by-step instructions</summary>
+       <div class="trainSteps">
+         <div class="trainStep"><b>1 · Go to</b>${esc(ins.goTo||a.location||'See method location')}</div>
+         <div class="trainStep"><b>2 · Bring</b>${esc(ins.bring||'Appropriate gear and supplies')}</div>
+         <div class="trainStep"><b>3 · Do this</b>${esc(ins.doThis||'Follow the verified method instructions.')}</div>
+         <div class="trainStep"><b>4 · Stop at</b>${esc(stop)}</div>
+       </div>
+     </details>
+   </div>
+ </details>`;
+}
+
+function renderQuestRewardMini(q){
+ const prereqs=q.prerequisiteQuests||[];
+ const rewards=q.rewards||{};
+ const rewardSections=[
+   ['🎁 Item rewards',rewards.items||q.rewardItems||[]],
+   ['✨ XP rewards',rewards.xp||q.xpRewards||[]],
+   ['🗺 Area unlocks',rewards.areas||q.areaUnlocks||[]],
+   ['🧭 Travel / transport',rewards.transport||q.transportUnlocks||[]],
+   ['🔓 Other unlocks',rewards.other||[]]
+ ].filter(x=>x[1]&&x[1].length);
+
+ return `<div class="rewardStrip">
+   <div class="eyebrow">QUEST REQUIREMENTS & REWARDS</div>
+   ${prereqs.length?`<div style="margin-top:7px"><b>Prerequisite quests</b><div class="rewardChips">${prereqs.map(x=>`<span class="rewardChip">${x.complete?'✓':'🔒'} ${esc(x.quest)}</span>`).join('')}</div></div>`:''}
+   ${q.requiredItems&&q.requiredItems.length?`<div style="margin-top:8px"><b>Required items</b><div class="rewardChips">${q.requiredItems.map(x=>`<span class="rewardChip">${esc(x)}</span>`).join('')}</div></div>`:''}
+   ${rewardSections.length?`<div style="margin-top:10px"><div class="eyebrow">REWARDS</div>${rewardSections.map(sec=>`
+      <div style="margin-top:7px"><b>${sec[0]}</b><div class="rewardChips">${sec[1].map(x=>`<span class="rewardChip">${esc(x)}</span>`).join('')}</div></div>`).join('')}</div>`:''}
+   ${q.notes?`<div class="muted" style="margin-top:9px">${esc(q.notes)}</div>`:''}
+ </div>`;
+}
+function renderQuestIntel(qi){
+ const root=document.getElementById('questIntelCurrent');
+ const watcher=document.getElementById('questWatcher');
+ if(!root||!watcher)return;
+ const q=qi.currentQuest;
+ root.innerHTML=q?`
+   <div class="questTabHero">
+     <div class="eyebrow">CURRENT RECOMMENDED QUEST</div>
+     <div class="heroTitle">${esc(q.quest||'')}</div>
+     ${renderQuestRewardMini(q)}
+   </div>`:`<div class="empty">${qi.currentQuestName?('Quest knowledge is still being ingested for '+esc(qi.currentQuestName)+'.'): 'No quest is currently being recommended.'}</div>`;
+
+ const newest=qi.newQuests||[];
+ watcher.innerHTML=`
+   <div class="shoppingSummary">
+     <div class="summaryTile"><div class="eyebrow">CATALOG</div><div class="big">${qi.catalogCount||0}</div><div class="muted">quests discovered</div></div>
+     <div class="summaryTile"><div class="eyebrow">NEW</div><div class="big">${qi.newQuestCount||0}</div><div class="muted">awaiting/just ingested</div></div>
+     <div class="summaryTile"><div class="eyebrow">LAST CHECK</div><div class="big" style="font-size:13px">${esc(qi.lastCatalogCheck||'Not checked yet')}</div></div>
+   </div>
+   ${qi.catalogError?`<div class="rewardStrip missing"><b>Catalog check needs attention</b><div class="muted" style="margin-top:5px">${esc(qi.catalogError)}</div></div>`:''}
+   ${newest.length?`<div class="rewardStrip"><b>New quest detection</b><div class="rewardChips">${newest.map(x=>`<span class="rewardChip">${esc(x.Quest||'')}</span>`).join('')}</div></div>`:''}
+   <div class="muted" style="margin-top:10px">The catalog initializes automatically. Run <b>setupQuestCatalogWatcher()</b> once if you also want the scheduled daily check when the dashboard is closed.</div>
+ `;
+}
+function renderSources(r){
+ const s=(r&&r.sources)||{}, labels={stats:'Stats',quests:'Quests',wealth:'Wealth',recommendations:"Today's Plan"};
+ document.getElementById('sources').innerHTML=Object.keys(labels).map(k=>{const x=s[k]||{ok:false,message:'Not run'};return `<div class="source"><b>${labels[k]}</b> — <span class="${x.ok?'ok':'bad'}">${x.ok?'OK':'Needs attention'}</span><div class="muted">${esc(x.message||'')}</div></div>`;}).join('');
+}
+function setBusy(b,t){document.getElementById('refreshBtn').disabled=b;document.getElementById('refreshStatus').textContent=t;}
+function renderGoldPlan(g){
+ if(!g||!g.nextBankGoal)return '<div class="muted">Open your bank in RuneLite, allow a sync, then refresh.</div>';
+ const rec=g.recommended, pure=g.pureGp, low=g.lowAttention, stable=g.stable;
+ function card(label,m){
+   if(!m)return '';
+   return `<div class="task"><b>${label}: ${esc(m.method)}</b><div class="muted">${fmtGp(m.gpHr)}/hr · ${esc(m.attention)} attention</div><div>${esc(m.notes||'')}</div></div>`;
+ }
+ return `
+   <div class="metric" style="margin-bottom:10px"><div class="k">NEXT BANK GOAL</div><div class="v">${fmtGp(g.nextBankGoal)}</div><div class="muted">${fmtGp(g.remaining)} remaining</div></div>
+   ${card('⭐ Best fit',rec)}
+   ${card('💰 Best pure GP',pure)}
+   ${card('😌 Best low-attention',low)}
+   ${card('🛡 Best stable',stable)}
+ `;
+}
+function fmtGp(v){
+ const n=Number(v||0);
+ if(!n)return '—';
+ if(n>=1e9)return (n/1e9).toFixed(2)+'B';
+ if(n>=1e6)return (n/1e6).toFixed(2)+'M';
+ if(n>=1e3)return (n/1e3).toFixed(0)+'K';
+ return String(n);
+}
+function err(e){return e&&e.message?e.message:String(e||'Unknown error');}
+function esc(v){return String(v==null?'':v).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+loadState();
+</script>
+
+</body>
+</html>
