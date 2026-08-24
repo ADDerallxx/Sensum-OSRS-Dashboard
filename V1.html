@@ -64,13 +64,13 @@
 
     .route{margin-top:14px}.routeGrid{display:flex;gap:0;padding:18px 16px 16px;overflow-x:auto}
     .step{position:relative;flex:1 0 135px;max-width:190px;background:#fffaf1;border:1px solid #d4c2a4;border-radius:10px;padding:12px 10px;min-height:126px;margin-right:16px}
-    .step:not(:last-child):after{content:'›';position:absolute;right:-14px;top:44px;font-size:28px;font-weight:900;color:#a67a42}
+    .step:not(:last-child):after{content:'â€º';position:absolute;right:-14px;top:44px;font-size:28px;font-weight:900;color:#a67a42}
     .stepNo{font-size:9px;text-transform:uppercase;color:#8a755e;font-weight:900}.stepQuest{font-weight:900;margin:6px 0;font-size:14px;line-height:1.2}
     .stepMeta{font-size:10px;color:#756452;line-height:1.45}.readyState{color:var(--green);font-weight:900}
     .stepScore{display:inline-block;margin-top:6px;padding:3px 6px;border-radius:999px;background:#eadcc3;font-weight:800}
 
     details.section{margin-top:14px}.section summary{cursor:pointer;list-style:none}.section summary::-webkit-details-marker{display:none}
-    .section summary .head:after{content:'▾';margin-left:auto;color:#ffd98b}.section[open] summary .head:after{content:'▴'}
+    .section summary .head:after{content:'â–¾';margin-left:auto;color:#ffd98b}.section[open] summary .head:after{content:'â–´'}
     .compactNote{padding:8px 12px;color:#685744;font-size:11px;background:#f9f2e7;border-bottom:1px solid #dfd1b9}
 
     .dataHealthBar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:9px 22px 11px;border-top:1px solid #5a3216;background:#170c06}
@@ -166,35 +166,35 @@
   </style>
 </head>
 <body>
-<div id="loading" class="loading"><div>Loading Sensum progression engine…</div></div>
+<div id="loading" class="loading"><div>Loading Sensum progression engineâ€¦</div></div>
 <div class="shell">
   <div class="hero">
     <div class="heroTop">
       <div><h1>Sensum OSRS Progression Dashboard</h1><div class="sub">Open this, see what matters, play the game.</div></div>
-      <div class="version">V1.11 · Data Health</div>
+      <div class="version">V1.12 Â· Trust the Numbers</div>
     </div>
     <div class="controls">
       <div class="label">Goal Target</div><select id="goal" onchange="changeGoal()"></select>
       <div class="label">Route Depth</div><select id="depth" onchange="changeDepth()"><option value="3">3 steps</option><option value="5">5 steps</option><option value="10">10 steps</option></select>
     </div>
     <div class="metrics">
-      <div class="metric"><div class="k">Username</div><div class="v" id="user">—</div></div>
-      <div class="metric"><div class="k">Combat Level</div><div class="v" id="combat">—</div></div>
-      <div class="metric"><div class="k">Quest Points</div><div class="v" id="qp">—</div></div>
-      <div class="metric"><div class="k">WOM Snapshot</div><div class="v" id="wom" style="font-size:12px">—</div></div>
-      <div class="metric"><div class="k">Sheet Sync</div><div class="v" id="sync" style="font-size:12px">—</div></div>
+      <div class="metric"><div class="k">Username</div><div class="v" id="user">â€”</div></div>
+      <div class="metric"><div class="k">Combat Level</div><div class="v" id="combat">â€”</div></div>
+      <div class="metric"><div class="k">Quest Points</div><div class="v" id="qp">â€”</div></div>
+      <div class="metric"><div class="k">WOM Snapshot</div><div class="v" id="wom" style="font-size:12px">â€”</div></div>
+      <div class="metric"><div class="k">Sheet Sync</div><div class="v" id="sync" style="font-size:12px">â€”</div></div>
     </div>
     <div class="dataHealthBar" id="dataHealthBar">
       <div class="dataHealthStatus">
         <span class="healthDot" id="healthDot"></span>
         <span class="healthTitle">Data Health</span>
-        <span class="healthState" id="healthState">Checking…</span>
+        <span class="healthState" id="healthState">Checkingâ€¦</span>
       </div>
       <div class="healthFacts">
-        <span>WOM <b id="healthWom">—</b></span>
-        <span>Wiki <b id="healthWiki">—</b></span>
-        <span>Sheet <b id="healthSheet">—</b></span>
-        <span>Reviews <b id="healthReviews">—</b></span>
+        <span>WOM <b id="healthWom">â€”</b></span>
+        <span>Wiki <b id="healthWiki">â€”</b></span>
+        <span>Sheet <b id="healthSheet">â€”</b></span>
+        <span>Reviews <b id="healthReviews">â€”</b></span>
       </div>
     </div>
   </div>
@@ -203,11 +203,11 @@
 
   <div class="grid">
     <div class="card">
-      <div class="head">🏆 Top 5 Smartest Quests To Do Now</div>
+      <div class="head">ðŸ† Top 5 Smartest Quests To Do Now</div>
       <div class="tableWrap"><table class="table"><thead><tr><th class="num">Rank</th><th>Quest</th><th class="num">Score</th><th class="num">Tier</th><th class="num">Downstream</th><th>Why</th></tr></thead><tbody id="top"></tbody></table></div>
     </div>
     <div class="card">
-      <div class="head">🎯 Goal Target Summary</div>
+      <div class="head">ðŸŽ¯ Goal Target Summary</div>
       <div class="summary">
         <div class="summaryHero"><div class="eyebrow">Anchor / Objective</div><div id="objective" class="objective"></div><div id="status" class="statusChip"></div></div>
         <div class="summaryGrid">
@@ -220,39 +220,39 @@
   </div>
 
   <div class="card actionCard">
-    <div class="head">▶ Next Session Plan</div>
+    <div class="head">â–¶ Next Session Plan</div>
     <div class="actionBody">
       <div class="actionHero">
         <div class="actionEyebrow">Recommended next quest</div>
-        <div id="nextQuest" class="actionQuest">—</div>
-        <div id="nextWhy" class="actionWhy">—</div>
+        <div id="nextQuest" class="actionQuest">â€”</div>
+        <div id="nextWhy" class="actionWhy">â€”</div>
       </div>
       <div class="actionSteps">
         <div class="actionStep"><div class="n">Before you start</div><div id="nextGrind" class="v">None</div></div>
-        <div class="actionStep"><div class="n">Expected result</div><div id="nextResult" class="v">—</div></div>
-        <div class="actionStep"><div class="n">Route impact</div><div id="nextImpact" class="v">—</div></div>
+        <div class="actionStep"><div class="n">Expected result</div><div id="nextResult" class="v">â€”</div></div>
+        <div class="actionStep"><div class="n">Route impact</div><div id="nextImpact" class="v">â€”</div></div>
         <div class="actionStep prep"><div class="n">Quest prep</div><div id="nextPrepStructured" class="prepGroups"></div></div>
         <div class="qpStrip">
-          <span><b>Current QP:</b> <span id="nextCurrentQp">—</span></span>
-          <span><b>Projected route QP:</b> <span id="nextProjectedQp">—</span></span>
-          <span><b>Milestones:</b> <span id="nextMilestones">—</span></span>
+          <span><b>Current QP:</b> <span id="nextCurrentQp">â€”</span></span>
+          <span><b>Projected route QP:</b> <span id="nextProjectedQp">â€”</span></span>
+          <span><b>Milestones:</b> <span id="nextMilestones">â€”</span></span>
         </div>
       </div>
     </div>
   </div>
 
   <div class="card route">
-    <div class="head">🧭 Simulated Progression Route</div>
+    <div class="head">ðŸ§­ Simulated Progression Route</div>
     <div id="route" class="routeGrid"></div>
   </div>
 
   <details class="card section">
-    <summary><div class="head">⚠ Immediate Blockers & Skill Grinds</div></summary>
+    <summary><div class="head">âš  Immediate Blockers & Skill Grinds</div></summary>
     
     <div class="blockerLegend">
-      <span class="legendBadge quick">✓ QUICK · under 30 min</span>
-      <span class="legendBadge mid">! MEDIUM · 30 min–3 hr</span>
-      <span class="legendBadge long">▲ LONG · over 3 hr</span>
+      <span class="legendBadge quick">âœ“ QUICK Â· under 30 min</span>
+      <span class="legendBadge mid">! MEDIUM Â· 30 minâ€“3 hr</span>
+      <span class="legendBadge long">â–² LONG Â· over 3 hr</span>
     </div>
     <div class="grid" style="margin:0;padding:14px">
       <div>
@@ -267,12 +267,12 @@
   </details>
 
   <div class="card" style="margin-top:14px">
-    <div class="head">🛒 Route Prep Checklist <span id="shopProgress" style="margin-left:auto;font-size:10px;font-weight:800;color:#d2b989"></span></div>
+    <div class="head">ðŸ›’ Route Prep Checklist <span id="shopProgress" style="margin-left:auto;font-size:10px;font-weight:800;color:#d2b989"></span></div>
     <div id="shopping" class="shop"></div>
   </div>
 
   <details class="card section">
-    <summary><div class="head">📊 Current Stats & Data Health</div></summary>
+    <summary><div class="head">ðŸ“Š Current Stats & Data Health</div></summary>
     <div id="skills" class="skills"></div><div id="health" class="health"></div>
   </details>
 </div>
@@ -300,8 +300,8 @@ function timeClass(v){
   return 'long';
 }
 function timeBadge(v){
-  const cls=timeClass(v), label=cls==='quick'?'QUICK':cls==='mid'?'MEDIUM':'LONG', icon=cls==='quick'?'✓':cls==='mid'?'!':'▲';
-  return `<span class="timeBadge ${cls}"><span>${icon}</span><span class="riskWord">${label}</span><span>· ${esc(friendlyHours(v))}</span></span>`;
+  const cls=timeClass(v), label=cls==='quick'?'QUICK':cls==='mid'?'MEDIUM':'LONG', icon=cls==='quick'?'âœ“':cls==='mid'?'!':'â–²';
+  return `<span class="timeBadge ${cls}"><span>${icon}</span><span class="riskWord">${label}</span><span>Â· ${esc(friendlyHours(v))}</span></span>`;
 }
 function prepForQuest(s,quest){
   const rows=(s.shopping||[]).filter(i=>String(i.quests||'').toLowerCase().split(',').map(x=>x.trim()).includes(String(quest||'').toLowerCase()));
@@ -316,7 +316,7 @@ function prepForQuest(s,quest){
 }
 function chipHtml(item,cls){
   const q=Number(item.qty||0);
-  return `<span class="chip ${cls}">${esc(item.name)}${q>1?` <span class="qtyText">×${esc(q)}</span>`:''}</span>`;
+  return `<span class="chip ${cls}">${esc(item.name)}${q>1?` <span class="qtyText">Ã—${esc(q)}</span>`:''}</span>`;
 }
 function prepGroupHtml(label,items,cls){
   if(!items.length)return '';
@@ -383,7 +383,7 @@ function routeShoppingHtml(s){
     if(seen.has(itemKey)){
       const prev=seen.get(itemKey);
       prev.also=[...new Set([...(prev.also||[]),...ordered.filter(q=>q!==prev.quest)])];
-      prev.qty=mergePrepQty(prev.qty,i.qty,prev.item);
+      prev.qty=Math.max(Number(prev.qty||1),Number(i.qty||1));
       prev.obtain=prev.obtain && obtain;
       return;
     }
@@ -401,28 +401,28 @@ function routeShoppingHtml(s){
   let total=0,done=0;
   orderedGroups.forEach(([,items])=>items.forEach(i=>{total++;if(isChecked(i))done++}));
   const pct=total?Math.round(done/total*100):100;
-  $('shopProgress').textContent=`${done} / ${total} complete · ${pct}%`;
+  $('shopProgress').textContent=`${done} / ${total} complete Â· ${pct}%`;
 
   let html=`<div class="shopProgressBar"><div class="shopProgressFill" style="width:${pct}%"></div></div>
     <div class="obtainNote">* Obtain during quest.</div>`;
 
   orderedGroups.forEach(([quest,items])=>{
     const qDone=items.filter(isChecked).length, complete=items.length&&qDone===items.length, step=steps.get(quest.toLowerCase());
-    html+=`<div class="questShopGroup ${complete?'complete':''}"><div class="questShopHead">${step?`<span class="questStep">Step ${step}</span>`:''}<span class="questShopTitle">${esc(quest)}</span><span class="questDone">${complete?'✓ Ready':`${qDone}/${items.length}`}</span></div><div class="questShopRows">`;
+    html+=`<div class="questShopGroup ${complete?'complete':''}"><div class="questShopHead">${step?`<span class="questStep">Step ${step}</span>`:''}<span class="questShopTitle">${esc(quest)}</span><span class="questDone">${complete?'âœ“ Ready':`${qDone}/${items.length}`}</span></div><div class="questShopRows">`;
     items.forEach(i=>{
       const key=checklistKey(i),checked=isChecked(i);
       html+=`<label class="checkRow ${checked?'done':''} ${i.obtain?'obtainRow':''}">
         <input type="checkbox" ${checked?'checked':''} onchange="toggleShopV18(this,'${esc(key)}')">
         <span class="itemName">${esc(i.item)}${i.also&&i.also.length?`<span class="alsoNeeded">Also needed: ${esc(i.also.join(', '))}</span>`:''}${i.obtain?`<span class="obtainMeta">* Obtain during quest</span>`:''}</span>
-        <span>×${esc(i.qty||1)}</span>
-        <span>${checked?'<span class="prepBadge obtain">✓ Done</span>':(i.obtain?'<span class="prepBadge obtain">Obtain</span>':'<span class="prepBadge bring">Bring</span>')}</span>
+        <span>Ã—${esc(i.qty||1)}</span>
+        <span>${checked?'<span class="prepBadge obtain">âœ“ Done</span>':(i.obtain?'<span class="prepBadge obtain">Obtain</span>':'<span class="prepBadge bring">Bring</span>')}</span>
       </label>`;
     });
     html+='</div></div>';
   });
 
   if(alt.length){
-    html+=`<div class="shopGroup"><div class="shopGroupTitle"><span>↔ Choice / Alternative</span><span class="shopCount">${alt.length}</span></div><div class="obtainList">${alt.map(i=>chipHtml({name:i.item,qty:i.qty},'alt')).join('')}</div></div>`;
+    html+=`<div class="shopGroup"><div class="shopGroupTitle"><span>â†” Choice / Alternative</span><span class="shopCount">${alt.length}</span></div><div class="obtainList">${alt.map(i=>chipHtml({name:i.item,qty:i.qty},'alt')).join('')}</div></div>`;
   }
   return html;
 }
@@ -441,18 +441,18 @@ function shoppingHtmlLegacy(rows){
   });
   const reqRows=required.map(i=>{
     const key=checklistKey(i),checked=isChecked(i);
-    return `<label class="checkRow ${checked?'done':''}"><input type="checkbox" ${checked?'checked':''} onchange="toggleShop(this,'${esc(key)}')"><span class="itemName">${esc(i.item)}</span><span>×${esc(i.qty||1)}</span><span class="questTag">${esc(i.quests||'')}</span></label>`;
+    return `<label class="checkRow ${checked?'done':''}"><input type="checkbox" ${checked?'checked':''} onchange="toggleShop(this,'${esc(key)}')"><span class="itemName">${esc(i.item)}</span><span>Ã—${esc(i.qty||1)}</span><span class="questTag">${esc(i.quests||'')}</span></label>`;
   }).join('');
-  const obtainable=obtain.map(i=>`<span class="chip obtain">${esc(i.item)}${Number(i.qty||0)>1?` <span class="qtyText">×${esc(i.qty)}</span>`:''}</span>`).join('');
-  const alternatives=alt.map(i=>`<span class="chip alt">${esc(i.item)}${Number(i.qty||0)>1?` <span class="qtyText">×${esc(i.qty)}</span>`:''}</span>`).join('');
-  return `<div class="shopGroup"><div class="shopGroupTitle"><span>☐ Bring / Buy</span><span class="shopCount">${required.length} items</span></div>${reqRows||'<div class="emptyPrep" style="padding:8px 2px">Nothing to buy for the displayed route.</div>'}</div>`
-    +(obtain.length?`<div class="shopGroup"><div class="shopGroupTitle"><span>✓ Obtain During Quest</span><span class="shopCount">${obtain.length}</span></div><div class="obtainList">${obtainable}</div></div>`:'')
-    +(alt.length?`<div class="shopGroup"><div class="shopGroupTitle"><span>↔ Choice / Alternative</span><span class="shopCount">${alt.length}</span></div><div class="obtainList">${alternatives}</div></div>`:'');
+  const obtainable=obtain.map(i=>`<span class="chip obtain">${esc(i.item)}${Number(i.qty||0)>1?` <span class="qtyText">Ã—${esc(i.qty)}</span>`:''}</span>`).join('');
+  const alternatives=alt.map(i=>`<span class="chip alt">${esc(i.item)}${Number(i.qty||0)>1?` <span class="qtyText">Ã—${esc(i.qty)}</span>`:''}</span>`).join('');
+  return `<div class="shopGroup"><div class="shopGroupTitle"><span>â˜ Bring / Buy</span><span class="shopCount">${required.length} items</span></div>${reqRows||'<div class="emptyPrep" style="padding:8px 2px">Nothing to buy for the displayed route.</div>'}</div>`
+    +(obtain.length?`<div class="shopGroup"><div class="shopGroupTitle"><span>âœ“ Obtain During Quest</span><span class="shopCount">${obtain.length}</span></div><div class="obtainList">${obtainable}</div></div>`:'')
+    +(alt.length?`<div class="shopGroup"><div class="shopGroupTitle"><span>â†” Choice / Alternative</span><span class="shopCount">${alt.length}</span></div><div class="obtainList">${alternatives}</div></div>`:'');
 }
 function inferTarget(skill,s){
   const name=String(skill.skill||'').toLowerCase();
   const missing=String(s.goalSummary?.missingSkills||'');
-  const rx=new RegExp(name+'\\\\s*(?:to|→|:)?\\\\s*(\\\\d+)','i');
+  const rx=new RegExp(name+'\\\\s*(?:to|â†’|:)?\\\\s*(\\\\d+)','i');
   const m=missing.match(rx);
   if(m)return Number(m[1]);
   const goal=String(s.goal||'').toLowerCase();
@@ -497,9 +497,9 @@ function dataHealth(s){
   let state='HEALTHY', cls='healthHealthy';
   if(wom===null || wiki===null || sheet===null || missing>0){
     state='ERROR'; cls='healthError';
-  }else if(wom>180 || sheet>180 || wiki>2880){
+  }else if(wom>240 || sheet>240 || wiki>2880){
     state='STALE'; cls='healthStale';
-  }else if(wom>90 || sheet>90 || wiki>1440 || reviews>0){
+  }else if(wom>120 || sheet>120 || wiki>1440 || reviews>0){
     state='ATTENTION'; cls='healthAttention';
   }
 
@@ -516,8 +516,8 @@ function render(s){
   window.__sensumState=s;
   busy(false);$('err').classList.add('hidden');
   dataHealth(s);
-  $('user').textContent=s.username||'Sensum';$('combat').textContent=s.combatLevel||'—';$('qp').textContent=s.questPoints||'—';
-  $('wom').textContent=s.lastWomSnapshot||'—';$('sync').textContent=s.lastSheetSync||'—';
+  $('user').textContent=s.username||'Sensum';$('combat').textContent=s.combatLevel||'â€”';$('qp').textContent=s.questPoints||'â€”';
+  $('wom').textContent=s.lastWomSnapshot||'â€”';$('sync').textContent=s.lastSheetSync||'â€”';
   $('goal').innerHTML=(s.goals||[]).map(g=>`<option value="${esc(g.name)}">${esc(g.name)}</option>`).join('');
   $('goal').value=s.goal;$('depth').value=String(s.routeDepth||10);
 
@@ -531,13 +531,13 @@ function render(s){
     $('objective').textContent='Balanced Account Progression';
     $('status').textContent=ready?`${ready} route quests ready now`:'Training required before the next route quest';
     $('missing').innerHTML=quick
-      ? `<div><b>Next training detour:</b> ${esc(quick.blocker||quick.quest)} · ${esc(friendlyHours(quick.afterHours))}</div><div style="margin-top:5px"><b>Displayed route:</b> +${Math.max(0,end-start)} QP</div>`
+      ? `<div><b>Next training detour:</b> ${esc(quick.blocker||quick.quest)} Â· ${esc(friendlyHours(quick.afterHours))}</div><div style="margin-top:5px"><b>Displayed route:</b> +${Math.max(0,end-start)} QP</div>`
       : `<span class="good"><b>Route ready</b></span>`;
     $('prereq').textContent=quick?`${quick.quest} is the nearest training interruption.`:'No training blocker in the displayed route.';
     $('effect').textContent='Balances quest points, unlocks, downstream progression, and short training detours.';
   }else{
-    $('objective').textContent=g.objective||s.goal||'—';
-    $('status').textContent=g.status||'—';
+    $('objective').textContent=g.objective||s.goal||'â€”';
+    $('status').textContent=g.status||'â€”';
     const req=String(g.missingSkills||'').trim();
     $('missing').textContent=(!req || /^(none|n\/a|na)$/i.test(req))?'Skills ready':req;
     const pre=String(g.prerequisites||'').trim();
@@ -555,15 +555,15 @@ function render(s){
   const qpGain=Math.max(0,projectedFirst-currentQp);
 
   $('nextQuest').textContent=quest||'No quest selected';
-  $('nextWhy').textContent=n['Why This Quest']||'—';
+  $('nextWhy').textContent=n['Why This Quest']||'â€”';
   const grind=n['Skill Grind Before It']||'None';
-  const ready=/^(none|ready|none\s*[—-]\s*ready now)$/i.test(String(grind).trim()) || /ready now/i.test(String(grind));
-  $('nextGrind').innerHTML=ready?'<span class="readyBadge">✓ Ready now</span>':esc(grind);
-  $('nextResult').textContent=quest ? `Complete ${quest}${qpGain?` · +${qpGain} QP`:''}` : 'Advance the selected goal';
-  $('nextImpact').textContent=top ? `${top.downstream||0} downstream quests · score ${top.score||'—'} · ${top.tier||'—'} tier` : (route?`Route step ${route.step||1} · projected QP ${route.projectedQp||'—'}`:'Advance route');
-  $('nextCurrentQp').textContent=n['Current Quest Points']||s.questPoints||'—';
-  $('nextProjectedQp').textContent=n['Projected QP After Displayed Route']||'—';
-  $('nextMilestones').textContent=n['QP Milestones']||'—';
+  const ready=/^(none|ready|none\s*[â€”-]\s*ready now)$/i.test(String(grind).trim()) || /ready now/i.test(String(grind));
+  $('nextGrind').innerHTML=ready?'<span class="readyBadge">âœ“ Ready now</span>':esc(grind);
+  $('nextResult').textContent=quest ? `Complete ${quest}${qpGain?` Â· +${qpGain} QP`:''}` : 'Advance the selected goal';
+  $('nextImpact').textContent=top ? `${top.downstream||0} downstream quests Â· score ${top.score||'â€”'} Â· ${top.tier||'â€”'} tier` : (route?`Route step ${route.step||1} Â· projected QP ${route.projectedQp||'â€”'}`:'Advance route');
+  $('nextCurrentQp').textContent=n['Current Quest Points']||s.questPoints||'â€”';
+  $('nextProjectedQp').textContent=n['Projected QP After Displayed Route']||'â€”';
+  $('nextMilestones').textContent=n['QP Milestones']||'â€”';
 
   const pg=prepForQuest(s,quest);
   const prepHtml=prepGroupHtml('Bring / Buy',pg.buy,'buy')+prepGroupHtml('Obtainable during quest',pg.obtain,'obtain')+prepGroupHtml('Choice / Alternative',pg.alt,'alt');
@@ -573,7 +573,7 @@ function render(s){
     const hrs=Number(r.afterHours||0);
     const state=hrs<=0?`<span class="readyState">Ready</span>`:`${esc(friendlyHours(hrs))} after XP chain`;
     const blocked=hrs>0 || (r.blocker && !/ready/i.test(String(r.blocker)));
-    return `<div class="step ${blocked?'blockedStep':''}"><div class="stepNo">Step ${esc(r.step)} · projected QP ${esc(r.projectedQp)}</div><div class="stepQuest">${esc(r.quest)}</div><div class="stepMeta">${esc(r.blocker)}<br>${state}</div>${blocked?'<span class="blockedFlag">Training needed</span>':''}<span class="stepScore">Score ${esc(r.score)}</span></div>`;
+    return `<div class="step ${blocked?'blockedStep':''}"><div class="stepNo">Step ${esc(r.step)} Â· projected QP ${esc(r.projectedQp)}</div><div class="stepQuest">${esc(r.quest)}</div><div class="stepMeta">${esc(r.blocker)}<br>${state}</div>${blocked?'<span class="blockedFlag">Training needed</span>':''}<span class="stepScore">Score ${esc(r.score)}</span></div>`;
   }).join('');
 
   $('blocked').innerHTML=(s.blockedQuests||[]).map(q=>{const c=timeClass(q.hours);return `<tr class="blockerRow ${c}Row"><td><b>${esc(q.quest)}</b></td><td class="num">${esc(q.score)}</td><td class="num">${esc(q.downstream)}</td><td>${esc(q.blockedBy)}</td><td class="${q.missingSkills&&q.missingSkills!=='None'?'danger':'good'}">${esc(q.missingSkills||'None')}</td><td class="num">${timeBadge(q.hours)}</td></tr>`}).join('');
@@ -582,9 +582,9 @@ function render(s){
   $('shopping').innerHTML=routeShoppingHtml(s);
 
   const focus=goalSkills(s);
-  $('skills').innerHTML=(s.stats||[]).map(x=>{const relevant=focus.has(String(x.skill||'').toLowerCase()),target=relevant?inferTarget(x,s):null,gap=target?Math.max(0,target-Number(x.level||0)):0;return `<div class="skill ${relevant?'goalSkill':''}"><div class="name">${esc(x.skill)}</div><div class="lvl">${esc(x.level)}</div><div style="font-size:9px;color:#85735f">${Number(x.xp||0).toLocaleString()} XP</div>${target?`<div class="targetLine">Target ${target}${gap?` · +${gap}`:' · met'}</div>`:''}</div>`}).join('');
+  $('skills').innerHTML=(s.stats||[]).map(x=>{const relevant=focus.has(String(x.skill||'').toLowerCase()),target=relevant?inferTarget(x,s):null,gap=target?Math.max(0,target-Number(x.level||0)):0;return `<div class="skill ${relevant?'goalSkill':''}"><div class="name">${esc(x.skill)}</div><div class="lvl">${esc(x.level)}</div><div style="font-size:9px;color:#85735f">${Number(x.xp||0).toLocaleString()} XP</div>${target?`<div class="targetLine">Target ${target}${gap?` Â· +${gap}`:' Â· met'}</div>`:''}</div>`}).join('');
   const h=s.wikiHealth||{};
-  $('health').innerHTML=`<span class="pill good">Wiki OK: ${esc(h.ok||0)}</span><span class="pill">Review: ${esc(h.review||0)}</span><span class="pill">Missing: ${esc(h.missing||0)}</span><span class="pill">Last check: ${esc(h.lastCheck||'—')}</span>`;
+  $('health').innerHTML=`<span class="pill good">Wiki OK: ${esc(h.ok||0)}</span><span class="pill">Review: ${esc(h.review||0)}</span><span class="pill">Missing: ${esc(h.missing||0)}</span><span class="pill">Last check: ${esc(h.lastCheck||'â€”')}</span>`;
 }
 function changeGoal(){busy(true);google.script.run.withSuccessHandler(render).withFailureHandler(fail).setV1Goal($('goal').value)}
 function changeDepth(){busy(true);google.script.run.withSuccessHandler(render).withFailureHandler(fail).setV1RouteDepth(Number($('depth').value))}

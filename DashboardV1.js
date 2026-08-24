@@ -50,10 +50,10 @@ function getV1DashboardState() {
     stats: statsRows.map(r => ({skill:r[0],level:r[1],xp:r[7],nextXp:r[5]})),
     shopping: readV1Shopping_(shoppingSheet),
     wikiHealth: {
-      ok: dash.getRange('B50').getDisplayValue(),
-      review: dash.getRange('B51').getDisplayValue(),
-      missing: dash.getRange('B52').getDisplayValue(),
-      lastCheck: dash.getRange('B53').getDisplayValue()
+      ok: dash.getRange('B51').getDisplayValue(),
+      review: dash.getRange('B52').getDisplayValue(),
+      missing: dash.getRange('B53').getDisplayValue(),
+      lastCheck: dash.getRange('B54').getDisplayValue()
     }
   };
 }
