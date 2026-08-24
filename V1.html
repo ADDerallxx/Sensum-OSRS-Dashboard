@@ -191,7 +191,7 @@
   <div class="hero">
     <div class="heroTop">
       <div><h1>Sensum OSRS Progression Dashboard</h1><div class="sub">Open this, see what matters, play the game.</div></div>
-      <div class="version">V1.15.3 · Trust the Numbers</div>
+      <div class="version">V1.15.4 · Trust the Numbers</div>
     </div>
     <div class="controls">
       <div class="label">Goal Target</div><select id="goal" onchange="changeGoal()"></select>
@@ -783,9 +783,29 @@ load();
 .v115Quest small{display:block;color:#756452;margin-top:2px}.v115Section{font-size:11px;font-weight:900;text-transform:uppercase;color:#6d4b24;margin:12px 0 5px}
 .v115All summary{cursor:pointer;font-weight:900;padding:10px 0}.v115Foot{position:sticky;bottom:0;background:#eee1ca;border-top:1px solid #c9b28d;padding:11px 14px;display:flex;justify-content:space-between;gap:10px;align-items:center}
 .v115Btn{border:1px solid #8c5b2b;background:#fffaf1;color:#321b0c;border-radius:8px;padding:8px 11px;font-weight:900;cursor:pointer}.v115Btn.primary{background:#5a3217;color:#fff3d4}
+.v115Busy{position:fixed;inset:0;z-index:10020;background:rgba(16,8,3,.62);display:none;align-items:center;justify-content:center;padding:20px}
+.v115Busy.show{display:flex}
+.v115BusyBox{min-width:280px;max-width:440px;background:#fff7df;color:#25180e;border:2px solid #d99b29;border-radius:14px;box-shadow:0 16px 45px rgba(0,0,0,.45);padding:18px 20px;text-align:center}
+.v115Spinner{width:32px;height:32px;border:4px solid #e5c985;border-top-color:#5a3217;border-radius:50%;margin:0 auto 11px;animation:v115spin .8s linear infinite}
+.v115BusyTitle{font-size:15px;font-weight:900;margin-bottom:4px}
+.v115BusyText{font-size:11px;color:#6f5b43}
+@keyframes v115spin{to{transform:rotate(360deg)}}
+.v115Toast{position:fixed;z-index:10030;top:18px;left:50%;transform:translate(-50%,-140%);min-width:300px;max-width:min(620px,calc(100% - 30px));background:#e2efe1;color:#214e28;border:2px solid #4d8154;border-radius:12px;box-shadow:0 12px 30px rgba(0,0,0,.35);padding:12px 16px;font-size:12px;font-weight:800;transition:transform .35s ease}
+.v115Toast.show{transform:translate(-50%,0)}
+.v115Toast.error{background:#f2dddd;color:#761d17;border-color:#a62a21}
+
 </style>
 <div id="v115Banner" class="v115Banner"><b>Quest Points increased</b><div id="v115BannerText"></div><div class="v115BannerActions"><button class="v115Btn primary" onclick="openV115QuestModal('QP Reconciliation')">Review completed quests</button><button class="v115Btn" onclick="hideV115Banner()">Dismiss</button></div></div>
 <div id="v115Modal" class="v115Modal"><div class="v115Box"><div class="v115Head"><b>Report Completed Quest</b><button class="v115Btn" onclick="closeV115QuestModal()">Close</button></div><div class="v115Body"><div id="v115Qp"></div><input id="v115Search" class="v115Search" placeholder="Search incomplete quests..." oninput="renderV115Quests()"><div class="v115Section">Likely completed</div><div id="v115Likely"></div><details class="v115All" open><summary>All incomplete quests (A-Z)</summary><div id="v115All"></div></details></div><div class="v115Foot"><span id="v115Selected">Selected: 0 quests</span><button class="v115Btn primary" onclick="confirmV115Quests()">Confirm completions</button></div></div></div>
+<div id="v115Busy" class="v115Busy" aria-live="polite" aria-busy="true">
+  <div class="v115BusyBox">
+    <div class="v115Spinner"></div>
+    <div id="v115BusyTitle" class="v115BusyTitle">Updating quest progress...</div>
+    <div id="v115BusyText" class="v115BusyText">Saving completion and recalculating the dashboard.</div>
+  </div>
+</div>
+<div id="v115Toast" class="v115Toast" aria-live="polite"></div>
+
 <script>
 let v115State=null,v115Selected=new Set(),v115Source='Dashboard Manual',v115LastTx='';
 function loadV115(){
@@ -811,11 +831,67 @@ function openV115QuestModal(src){
     .getV115QuestCompletionState();
 }
 function closeV115QuestModal(){document.getElementById('v115Modal').classList.remove('show')}
+function showV115Busy(title,text){
+  const box=document.getElementById('v115Busy');
+  document.getElementById('v115BusyTitle').textContent=title||'Updating quest progress...';
+  document.getElementById('v115BusyText').textContent=text||'Saving completion and recalculating the dashboard.';
+  box.classList.add('show');
+}
+function hideV115Busy(){document.getElementById('v115Busy').classList.remove('show')}
+let v115ToastTimer=null;
+function showV115Toast(message,isError){
+  const t=document.getElementById('v115Toast');
+  if(v115ToastTimer)clearTimeout(v115ToastTimer);
+  t.textContent=message;
+  t.className='v115Toast'+(isError?' error':'');
+  requestAnimationFrame(()=>t.classList.add('show'));
+  v115ToastTimer=setTimeout(()=>t.classList.remove('show'),4200);
+}
+
 function v115Row(q){const checked=v115Selected.has(q.quest);return `<label class="v115Quest"><input type="checkbox" ${checked?'checked':''} onchange="toggleV115('${String(q.quest).replace(/'/g,"\\'")}',this.checked)"><span><b>${q.quest}</b>${q.reasons&&q.reasons.length?`<small>${q.reasons.join(' - ')}</small>`:''}</span><span>${q.qp||0} QP</span></label>`}
 function renderV115Quests(){if(!v115State)return;const f=(document.getElementById('v115Search').value||'').toLowerCase();document.getElementById('v115Qp').textContent=v115State.detectedGain?`Detected QP gain: +${v115State.detectedGain}`:'No unresolved QP increase.';document.getElementById('v115Likely').innerHTML=(v115State.likely||[]).filter(q=>q.quest.toLowerCase().includes(f)).map(v115Row).join('')||'<small>No likely matches.</small>';document.getElementById('v115All').innerHTML=(v115State.incomplete||[]).filter(q=>q.quest.toLowerCase().includes(f)).map(v115Row).join('');updateV115Selected()}
 function toggleV115(q,on){on?v115Selected.add(q):v115Selected.delete(q);renderV115Quests()}
 function updateV115Selected(){if(!v115State)return;const rows=v115State.incomplete.filter(q=>v115Selected.has(q.quest));const qp=rows.reduce((a,b)=>a+(Number(b.qp)||0),0);let t=`Selected: ${rows.length} quest${rows.length===1?'':'s'} - ${qp} QP`;if(v115State.detectedGain)t+=qp===v115State.detectedGain?' - Matches detected change':` - Detected +${v115State.detectedGain}`;document.getElementById('v115Selected').textContent=t}
-function confirmV115Quests(){if(!v115Selected.size)return alert('Select at least one quest.');const names=[...v115Selected];if(!confirm(`Mark these quests complete?\n\n${names.join('\n')}`))return;google.script.run.withFailureHandler(e=>alert('Quest update failed: '+e.message)).withSuccessHandler(r=>{v115LastTx=r.transactionId;v115State=r.state;closeV115QuestModal();hideV115Banner();alert(`${r.changed.length} quest${r.changed.length===1?'':'s'} marked complete.`);location.reload()}).completeV115Quests(names,v115Source)}
+function confirmV115Quests(){
+  if(!v115Selected.size)return alert('Select at least one quest.');
+  const names=[...v115Selected];
+  if(!confirm(`Mark these quests complete?\n\n${names.join('\n')}`))return;
+
+  closeV115QuestModal();
+  showV115Busy(
+    names.length===1?'Updating quest progress...':`Updating ${names.length} quests...`,
+    'Saving completion and recalculating goals, route, blockers, and quest prep.'
+  );
+
+  google.script.run
+    .withFailureHandler(e=>{
+      hideV115Busy();
+      const msg=(e&&e.message)?e.message:String(e||'Unknown error');
+      showV115Toast('Quest update failed: '+msg,true);
+    })
+    .withSuccessHandler(r=>{
+      v115LastTx=r.transactionId;
+      v115State=r.state;
+      hideV115Banner();
+
+      google.script.run
+        .withFailureHandler(e=>{
+          hideV115Busy();
+          const count=(r.changed||[]).length;
+          showV115Toast(`${count} quest${count===1?'':'s'} saved, but dashboard refresh failed. Use browser refresh once.`,true);
+        })
+        .withSuccessHandler(fresh=>{
+          render(fresh);
+          window.__sensumState=fresh;
+          hideV115Busy();
+          const changed=r.changed||[];
+          const label=changed.length===1?changed[0]:`${changed.length} quests`;
+          showV115Toast(`${label} marked complete. Dashboard updated.`);
+        })
+        .getV1DashboardState();
+    })
+    .completeV115Quests(names,v115Source);
+}
 document.addEventListener('DOMContentLoaded',()=>{loadV115();});
 </script>
 
