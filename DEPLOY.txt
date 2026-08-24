@@ -1,14 +1,17 @@
-Sensum OSRS Dashboard V1.1
+Sensum OSRS Dashboard V1.2
 
-Files:
-- V1.html                -> replace the existing V1.html in the repo
-- DashboardV1.js         -> backend included for completeness; unchanged from V1
-- DEPLOY.txt             -> quick deploy instructions
+1. Extract this ZIP into:
+   C:\Users\d3adl\Documents\Sensum-OSRS-Dashboard
 
-Deploy from a fresh PowerShell:
+2. Allow V1.html to replace the existing V1.html.
+   DashboardV1.js is included for completeness.
+
+3. From a fresh PowerShell:
+
 cd $HOME\Documents\Sensum-OSRS-Dashboard
-.\deploy.ps1 -Message "Polish V1.1 progression dashboard"
+.\deploy.ps1 -Message "V1.2 action-first dashboard"
 
-Then open your existing Apps Script /dev preview URL with ?v=1.
+4. Reload the same Apps Script development preview:
+   .../dev?v=1
 
-This does NOT redeploy the public /exec deployment.
+This updates source only. It does NOT redeploy the public /exec web app.
