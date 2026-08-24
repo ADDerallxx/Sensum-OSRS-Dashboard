@@ -117,6 +117,16 @@
     .prepBadge.recommendBadge{background:#e9e3d5;color:#67573d;border-color:#afa086}
     .checkRow.createRow{background:#f3eef7}
     .checkRow.recommendRow{background:#f5f2ea}
+    #shopping.shop{max-height:none!important;overflow:visible!important}
+    .choiceBlock{border-top:1px solid #cab692;background:#f4eee5;padding:8px 10px 10px}
+    .choiceTitle{font-size:9px;font-weight:900;text-transform:uppercase;letter-spacing:.55px;color:#76572e;margin-bottom:6px}
+    .choiceSummary{font-size:10px;color:#675846;margin-bottom:7px}
+    .choiceOptions{display:grid;gap:6px}
+    .choiceOption{background:#fffaf1;border:1px solid #d9c7a9;border-radius:8px;padding:7px 9px}
+    .choiceOr{text-align:center;font-size:9px;font-weight:900;color:#8c6a3b;text-transform:uppercase}
+    .optionalPrep{border-top:1px dashed #cbbda5;background:#f7f4ed}
+    .optionalPrep summary{cursor:pointer;padding:8px 10px;font-size:9px;font-weight:900;text-transform:uppercase;letter-spacing:.5px;color:#6d614e}
+    .optionalPrepRows{border-top:1px solid #ded5c6}
     .nonBlockingMeta{display:block;margin-top:4px;font-size:9px;color:#796b58;font-weight:800}
     .questAltBlock{border-top:1px dashed #c7b496;background:#f7f1e8}
     .questAltTitle{padding:8px 10px 5px;font-size:9px;font-weight:900;text-transform:uppercase;letter-spacing:.5px;color:#607989}
@@ -181,7 +191,7 @@
   <div class="hero">
     <div class="heroTop">
       <div><h1>Sensum OSRS Progression Dashboard</h1><div class="sub">Open this, see what matters, play the game.</div></div>
-      <div class="version">V1.14.2 · Trust the Numbers</div>
+      <div class="version">V1.14.3 · Trust the Numbers</div>
     </div>
     <div class="controls">
       <div class="label">Goal Target</div><select id="goal" onchange="changeGoal()"></select>
@@ -404,6 +414,44 @@ function prepForQuestV1142(s,quest){
   return (s.shopping||[]).filter(i=>splitQuests(i.quests).some(x=>x.toLowerCase()===q));
 }
 
+const PREP_CHOICE_RULES_V1143 = {
+  'plague city': [{
+    label:'Hangover cure',
+    finished:'hangover cure',
+    components:['bucket of milk','chocolate dust','snape grass']
+  }]
+};
+
+function prepChoiceModelV1143(quest,items){
+  const rules=PREP_CHOICE_RULES_V1143[String(quest||'').toLowerCase()]||[];
+  const used=new Set(),choices=[];
+  rules.forEach(rule=>{
+    const finished=items.find(i=>normalizedItemName(i.item)===rule.finished);
+    const components=rule.components
+      .map(n=>items.find(i=>normalizedItemName(i.item)===n))
+      .filter(Boolean);
+    if(finished && components.length===rule.components.length){
+      used.add(finished);
+      components.forEach(i=>used.add(i));
+      choices.push({rule,finished,components});
+    }
+  });
+  return {used,choices};
+}
+
+function completedPrepBadgeV1143(i,checked){
+  if(!checked){
+    if(i.created)return '<span class="prepBadge createBadge">Create</span>';
+    if(i.obtain)return '<span class="prepBadge obtain">Obtain</span>';
+    if(i.recommended)return '<span class="prepBadge recommendBadge">Recommended</span>';
+    return '<span class="prepBadge bring">Bring</span>';
+  }
+  if(i.created)return '<span class="prepBadge createBadge">Created</span>';
+  if(i.obtain)return '<span class="prepBadge obtain">Obtained</span>';
+  if(i.recommended)return '<span class="prepBadge recommendBadge">Done</span>';
+  return '<span class="prepBadge bring">Packed</span>';
+}
+
 function routeShoppingHtml(s){
   const rows=s.shopping||[], steps=routeStepMap(s), groups=new Map();
 
@@ -419,12 +467,10 @@ function routeShoppingHtml(s){
     const ordered=(quests.length?quests:['Other']).sort((a,b)=>(steps.get(a.toLowerCase())||999)-(steps.get(b.toLowerCase())||999));
     ordered.forEach(quest=>{
       if(!groups.has(quest))groups.set(quest,[]);
-      const {created,obtain,recommended,blocksReady,mandatory}=classifyPrepItemV1142(i);
-
+      const c=classifyPrepItemV1142(i);
       const allUses=[...new Set(itemQuestMap.get(normalizedItemName(i.item))||[])];
       const also=allUses.filter(q=>q.toLowerCase()!==quest.toLowerCase());
-
-      groups.get(quest).push({...i,quest,also,obtain,created,recommended,blocksReady,mandatory});
+      groups.get(quest).push({...i,quest,also,...c});
     });
   });
 
@@ -433,56 +479,107 @@ function routeShoppingHtml(s){
     return sa-sb || a[0].localeCompare(b[0]);
   });
 
-  const blockingRows=[];
-  orderedGroups.forEach(([,items])=>items.forEach(i=>{if(i.blocksReady)blockingRows.push(i)}));
-  const total=blockingRows.length;
-  const done=blockingRows.filter(isChecked).length;
+  let total=0,done=0;
+  orderedGroups.forEach(([quest,items])=>{
+    const model=prepChoiceModelV1143(quest,items);
+    const normal=items.filter(i=>!model.used.has(i) && i.blocksReady);
+    total+=normal.length;
+    done+=normal.filter(isChecked).length;
+    model.choices.forEach(ch=>{
+      total++;
+      if(isChecked(ch.finished)||ch.components.every(isChecked))done++;
+    });
+  });
+
   const pct=total?Math.round(done/total*100):100;
-  $('shopProgress').textContent=`${done} / ${total} pre-quest items · ${pct}%`;
+  $('shopProgress').textContent=`${done} / ${total} pre-quest prep - ${pct}%`;
 
   let html=`<div class="shopProgressBar"><div class="shopProgressFill" style="width:${pct}%"></div></div>`;
 
   orderedGroups.forEach(([quest,items])=>{
-    items.sort((a,b)=>{
-      const rank=x=>x.blocksReady?1:x.obtain?2:x.created?3:x.recommended?4:5;
-      return rank(a)-rank(b) || String(a.item).localeCompare(String(b.item));
-    });
+    const model=prepChoiceModelV1143(quest,items);
+    const mainItems=items.filter(i=>!model.used.has(i) && !i.recommended);
+    const optionalItems=items.filter(i=>!model.used.has(i) && i.recommended);
 
-    const required=items.filter(i=>i.blocksReady);
-    const qDone=required.filter(isChecked).length;
-    const complete=!required.length || qDone===required.length;
+    const blocking=mainItems.filter(i=>i.blocksReady);
+    let qTotal=blocking.length+model.choices.length;
+    let qDone=blocking.filter(isChecked).length;
+    model.choices.forEach(ch=>{
+      if(isChecked(ch.finished)||ch.components.every(isChecked))qDone++;
+    });
+    const complete=!qTotal || qDone===qTotal;
     const step=steps.get(quest.toLowerCase());
 
-    html+=`<div class="questShopGroup ${complete?'complete':''}"><div class="questShopHead">${step?`<span class="questStep">Step ${step}</span>`:''}<span class="questShopTitle">${esc(quest)}</span><span class="questDone">${complete?'✓ Prep ready':`${qDone}/${required.length} prep`}</span></div><div class="questShopRows">`;
+    const sortRank=x=>x.blocksReady?1:x.obtain?2:x.created?3:5;
+    mainItems.sort((a,b)=>sortRank(a)-sortRank(b)||String(a.item).localeCompare(String(b.item)));
 
-    items.forEach(i=>{
+    html+=`<div class="questShopGroup ${complete?'complete':''}">
+      <div class="questShopHead">${step?`<span class="questStep">Step ${step}</span>`:''}
+        <span class="questShopTitle">${esc(quest)}</span>
+        <span class="questDone">${complete?'Prep ready':`${qDone}/${qTotal} prep`}</span>
+      </div><div class="questShopRows">`;
+
+    mainItems.forEach(i=>{
       const key=checklistKey(i),checked=isChecked(i);
-      let rowCls='',badge='',meta='';
-      if(i.created){
-        rowCls='createRow';
-        badge='<span class="prepBadge createBadge">Create</span>';
-        meta='<span class="nonBlockingMeta">Created during quest · does not block starting prep</span>';
-      }else if(i.obtain){
-        rowCls='obtainRow';
-        badge='<span class="prepBadge obtain">Obtain</span>';
-        meta='<span class="nonBlockingMeta">Obtain during quest · does not block starting prep</span>';
-      }else if(i.recommended){
-        rowCls='recommendRow';
-        badge='<span class="prepBadge recommendBadge">Recommended</span>';
-        meta='<span class="nonBlockingMeta">Optional/recommended · does not block starting prep</span>';
-      }else{
-        badge='<span class="prepBadge bring">Bring</span>';
-      }
-
-      if(checked)badge='<span class="prepBadge obtain">✓ Done</span>';
+      let rowCls=i.created?'createRow':i.obtain?'obtainRow':'';
+      let meta='';
+      if(i.created)meta='<span class="nonBlockingMeta">Created during quest</span>';
+      else if(i.obtain)meta='<span class="nonBlockingMeta">Obtain during quest</span>';
 
       html+=`<label class="checkRow ${rowCls} ${checked?'done':''}">
         <input type="checkbox" ${checked?'checked':''} onchange="toggleShopV18(this,'${esc(key)}')">
         <span class="itemName">${esc(i.item)}${i.also&&i.also.length?`<span class="alsoNeeded">Also used: ${esc(i.also.join(', '))}</span>`:''}${meta}</span>
-        <span>×${esc(i.qty||1)}</span>
-        <span>${badge}</span>
+        <span>x${esc(i.qty||1)}</span>
+        <span>${completedPrepBadgeV1143(i,checked)}</span>
       </label>`;
     });
+
+    model.choices.forEach(ch=>{
+      const f=ch.finished, fChecked=isChecked(f);
+      const compsChecked=ch.components.every(isChecked);
+      html+=`<div class="choiceBlock">
+        <div class="choiceTitle">Choose one prep path - ${esc(ch.rule.label)}</div>
+        <div class="choiceSummary">${fChecked?'Finished item packed':compsChecked?'Ingredients packed':'Either bring the finished item or bring all ingredients below.'}</div>
+        <div class="choiceOptions">
+          <div class="choiceOption">
+            <label class="checkRow ${fChecked?'done':''}">
+              <input type="checkbox" ${fChecked?'checked':''} onchange="toggleShopV18(this,'${esc(checklistKey(f))}')">
+              <span class="itemName">${esc(f.item)}</span>
+              <span>x${esc(f.qty||1)}</span>
+              <span>${completedPrepBadgeV1143({...f,blocksReady:true},fChecked)}</span>
+            </label>
+          </div>
+          <div class="choiceOr">OR</div>
+          <div class="choiceOption">
+            ${ch.components.map(i=>{
+              const checked=isChecked(i);
+              return `<label class="checkRow ${checked?'done':''}">
+                <input type="checkbox" ${checked?'checked':''} onchange="toggleShopV18(this,'${esc(checklistKey(i))}')">
+                <span class="itemName">${esc(i.item)}</span>
+                <span>x${esc(i.qty||1)}</span>
+                <span>${completedPrepBadgeV1143({...i,blocksReady:true},checked)}</span>
+              </label>`;
+            }).join('')}
+          </div>
+        </div>
+      </div>`;
+    });
+
+    if(optionalItems.length){
+      html+=`<details class="optionalPrep">
+        <summary>Optional / convenience - ${optionalItems.length}</summary>
+        <div class="optionalPrepRows">`;
+      optionalItems.forEach(i=>{
+        const checked=isChecked(i);
+        html+=`<label class="checkRow recommendRow ${checked?'done':''}">
+          <input type="checkbox" ${checked?'checked':''} onchange="toggleShopV18(this,'${esc(checklistKey(i))}')">
+          <span class="itemName">${esc(i.item)}<span class="nonBlockingMeta">Recommended, not required</span></span>
+          <span>x${esc(i.qty||1)}</span>
+          <span>${completedPrepBadgeV1143(i,checked)}</span>
+        </label>`;
+      });
+      html+='</div></details>';
+    }
 
     html+='</div></div>';
   });
