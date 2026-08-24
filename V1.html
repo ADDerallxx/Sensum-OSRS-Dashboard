@@ -191,7 +191,7 @@
   <div class="hero">
     <div class="heroTop">
       <div><h1>Sensum OSRS Progression Dashboard</h1><div class="sub">Open this, see what matters, play the game.</div></div>
-      <div class="version">V1.14.4 · Trust the Numbers</div>
+      <div class="version">V1.15 · Trust the Numbers</div>
     </div>
     <div class="controls">
       <div class="label">Goal Target</div><select id="goal" onchange="changeGoal()"></select>
@@ -770,5 +770,36 @@ function changeGoal(){busy(true);google.script.run.withSuccessHandler(render).wi
 function changeDepth(){busy(true);google.script.run.withSuccessHandler(render).withFailureHandler(fail).setV1RouteDepth(Number($('depth').value))}
 load();
 </script>
+<style id="v115styles">
+.v115Report{background:#f0b83d;color:#321b0c;border:0;border-radius:9px;padding:9px 12px;font-weight:900;cursor:pointer}
+.v115Banner{position:fixed;z-index:9998;top:-220px;left:50%;transform:translateX(-50%);width:min(720px,calc(100% - 30px));background:#fff7df;color:#25180e;border:3px solid #d99b29;border-radius:0 0 14px 14px;box-shadow:0 12px 35px rgba(0,0,0,.38);padding:14px 16px;transition:top .45s ease}
+.v115Banner.show{top:0}.v115Banner b{font-size:15px}.v115BannerActions{margin-top:9px;display:flex;gap:8px}
+.v115Modal{position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.68);display:none;align-items:center;justify-content:center;padding:20px}
+.v115Modal.show{display:flex}.v115Box{width:min(760px,100%);max-height:88vh;overflow:auto;background:#f5efe4;color:#25180e;border:2px solid #8c5b2b;border-radius:14px;box-shadow:0 18px 50px rgba(0,0,0,.45)}
+.v115Head{position:sticky;top:0;background:#321b0c;color:#ffe2a1;padding:13px 15px;display:flex;justify-content:space-between;z-index:2}
+.v115Body{padding:14px}.v115Search{width:100%;padding:10px;border:1px solid #b79b74;border-radius:8px;margin:8px 0 12px}
+.v115Quest{display:grid;grid-template-columns:24px 1fr auto;gap:8px;padding:8px;border-bottom:1px solid #ded1bb;align-items:center}
+.v115Quest small{display:block;color:#756452;margin-top:2px}.v115Section{font-size:11px;font-weight:900;text-transform:uppercase;color:#6d4b24;margin:12px 0 5px}
+.v115All summary{cursor:pointer;font-weight:900;padding:10px 0}.v115Foot{position:sticky;bottom:0;background:#eee1ca;border-top:1px solid #c9b28d;padding:11px 14px;display:flex;justify-content:space-between;gap:10px;align-items:center}
+.v115Btn{border:1px solid #8c5b2b;background:#fffaf1;color:#321b0c;border-radius:8px;padding:8px 11px;font-weight:900;cursor:pointer}.v115Btn.primary{background:#5a3217;color:#fff3d4}
+</style>
+<div id="v115Banner" class="v115Banner"><b>Quest Points increased</b><div id="v115BannerText"></div><div class="v115BannerActions"><button class="v115Btn primary" onclick="openV115QuestModal('QP Reconciliation')">Review completed quests</button><button class="v115Btn" onclick="hideV115Banner()">Dismiss</button></div></div>
+<div id="v115Modal" class="v115Modal"><div class="v115Box"><div class="v115Head"><b>Report Completed Quest</b><button class="v115Btn" onclick="closeV115QuestModal()">Close</button></div><div class="v115Body"><div id="v115Qp"></div><input id="v115Search" class="v115Search" placeholder="Search incomplete quests..." oninput="renderV115Quests()"><div class="v115Section">Likely completed</div><div id="v115Likely"></div><details class="v115All" open><summary>All incomplete quests (A-Z)</summary><div id="v115All"></div></details></div><div class="v115Foot"><span id="v115Selected">Selected: 0 quests</span><button class="v115Btn primary" onclick="confirmV115Quests()">Confirm completions</button></div></div></div>
+<script>
+let v115State=null,v115Selected=new Set(),v115Source='Dashboard Manual',v115LastTx='';
+function loadV115(){
+ google.script.run.withSuccessHandler(s=>{v115State=s;if(s.detectedGain>0){document.getElementById('v115BannerText').textContent=`Detected +${s.detectedGain} QP (${s.previousQp} to ${s.currentQp}).`;setTimeout(()=>document.getElementById('v115Banner').classList.add('show'),250)}}).getV115QuestCompletionState();
+}
+function hideV115Banner(){document.getElementById('v115Banner').classList.remove('show')}
+function openV115QuestModal(src){v115Source=src||'Dashboard Manual';v115Selected.clear();document.getElementById('v115Modal').classList.add('show');google.script.run.withSuccessHandler(s=>{v115State=s;renderV115Quests()}).getV115QuestCompletionState()}
+function closeV115QuestModal(){document.getElementById('v115Modal').classList.remove('show')}
+function v115Row(q){const checked=v115Selected.has(q.quest);return `<label class="v115Quest"><input type="checkbox" ${checked?'checked':''} onchange="toggleV115('${String(q.quest).replace(/'/g,"\\'")}',this.checked)"><span><b>${q.quest}</b>${q.reasons&&q.reasons.length?`<small>${q.reasons.join(' - ')}</small>`:''}</span><span>${q.qp||0} QP</span></label>`}
+function renderV115Quests(){if(!v115State)return;const f=(document.getElementById('v115Search').value||'').toLowerCase();document.getElementById('v115Qp').textContent=v115State.detectedGain?`Detected QP gain: +${v115State.detectedGain}`:'No unresolved QP increase.';document.getElementById('v115Likely').innerHTML=(v115State.likely||[]).filter(q=>q.quest.toLowerCase().includes(f)).map(v115Row).join('')||'<small>No likely matches.</small>';document.getElementById('v115All').innerHTML=(v115State.incomplete||[]).filter(q=>q.quest.toLowerCase().includes(f)).map(v115Row).join('');updateV115Selected()}
+function toggleV115(q,on){on?v115Selected.add(q):v115Selected.delete(q);renderV115Quests()}
+function updateV115Selected(){if(!v115State)return;const rows=v115State.incomplete.filter(q=>v115Selected.has(q.quest));const qp=rows.reduce((a,b)=>a+(Number(b.qp)||0),0);let t=`Selected: ${rows.length} quest${rows.length===1?'':'s'} - ${qp} QP`;if(v115State.detectedGain)t+=qp===v115State.detectedGain?' - Matches detected change':` - Detected +${v115State.detectedGain}`;document.getElementById('v115Selected').textContent=t}
+function confirmV115Quests(){if(!v115Selected.size)return alert('Select at least one quest.');const names=[...v115Selected];if(!confirm(`Mark these quests complete?\n\n${names.join('\n')}`))return;google.script.run.withFailureHandler(e=>alert('Quest update failed: '+e.message)).withSuccessHandler(r=>{v115LastTx=r.transactionId;v115State=r.state;closeV115QuestModal();hideV115Banner();alert(`${r.changed.length} quest${r.changed.length===1?'':'s'} marked complete.`);location.reload()}).completeV115Quests(names,v115Source)}
+document.addEventListener('DOMContentLoaded',()=>{const controls=document.querySelector('.controls');if(controls&&!document.getElementById('v115Report')){const b=document.createElement('button');b.id='v115Report';b.className='v115Report';b.textContent='Report Completed Quest';b.onclick=()=>openV115QuestModal('Dashboard Manual');controls.appendChild(b)}loadV115()});
+</script>
+
 </body>
 </html>

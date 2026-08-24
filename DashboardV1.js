@@ -221,3 +221,92 @@ function readV1Shopping_(wikiSheet, reconciledSheet) {
   return out;
 }
 
+
+
+// V1.15 quest completion reporting
+function getV115QuestCompletionState_() {
+  const ss=SpreadsheetApp.openById(V1_TRACKER_ID);
+  const sh=ss.getSheetByName('Quest Dependency');
+  if(!sh) throw new Error('Quest Dependency sheet not found.');
+  const vals=sh.getDataRange().getDisplayValues();
+  const headers=vals[0].map(String);
+  const qCol=headers.findIndex(x=>/quest name/i.test(x));
+  const cCol=headers.findIndex(x=>/^completed$/i.test(x.trim()));
+  const qpCol=headers.findIndex(x=>/quest points|qp reward/i.test(x));
+  if(qCol<0||cCol<0) throw new Error('Quest Dependency needs Quest Name and Completed columns.');
+
+  const incomplete=[];
+  vals.slice(1).forEach((r,i)=>{
+    const quest=String(r[qCol]||'').trim();
+    if(!quest)return;
+    const done=/^(yes|true|complete|completed)$/i.test(String(r[cCol]||'').trim());
+    if(!done) incomplete.push({quest,qp:qpCol>=0?Number(r[qpCol]||0):0,row:i+2});
+  });
+  incomplete.sort((a,b)=>a.quest.localeCompare(b.quest));
+
+  const props=PropertiesService.getScriptProperties();
+  const current=Number((ss.getSheetByName('Your Stats').getRange('B34').getValue())||0);
+  let previous=Number(props.getProperty('V115_LAST_RECONCILED_QP')||current);
+  if(!props.getProperty('V115_LAST_RECONCILED_QP')) props.setProperty('V115_LAST_RECONCILED_QP',String(current));
+  const gain=Math.max(0,current-previous);
+
+  const dash=ss.getSheetByName('Dashboard');
+  const route=dash.getRange('A60:B69').getDisplayValues().map(r=>r[1]).filter(Boolean);
+  const next=dash.getRange('A73:B80').getDisplayValues();
+  const nextObj={}; next.forEach(r=>{if(r[0])nextObj[r[0]]=r[1]});
+  const nextQuest=nextObj['Quest']||nextObj['Next Quest']||'';
+
+  const likely=incomplete.map(q=>{
+    let score=0,reasons=[];
+    if(String(q.quest).toLowerCase()===String(nextQuest).toLowerCase()){score+=100;reasons.push('Next Session');}
+    const ri=route.findIndex(x=>String(x).toLowerCase()===q.quest.toLowerCase());
+    if(ri>=0){score+=50-ri;reasons.push('Current route');}
+    if(gain>0&&q.qp===gain){score+=80;reasons.push('Exact QP match');}
+    else if(gain>0&&q.qp>0&&q.qp<=gain){score+=20;reasons.push('Fits QP gain');}
+    return {...q,score,reasons};
+  }).filter(q=>q.score>0).sort((a,b)=>b.score-a.score||a.quest.localeCompare(b.quest));
+
+  return {currentQp:current,previousQp:previous,detectedGain:gain,incomplete,likely};
+}
+
+function getV115QuestCompletionState(){return getV115QuestCompletionState_();}
+
+function completeV115Quests(quests,source){
+  if(!Array.isArray(quests)||!quests.length)throw new Error('Select at least one quest.');
+  const ss=SpreadsheetApp.openById(V1_TRACKER_ID),sh=ss.getSheetByName('Quest Dependency');
+  const vals=sh.getDataRange().getDisplayValues(),headers=vals[0].map(String);
+  const qCol=headers.findIndex(x=>/quest name/i.test(x)),cCol=headers.findIndex(x=>/^completed$/i.test(x.trim()));
+  if(qCol<0||cCol<0)throw new Error('Quest Dependency columns not found.');
+  const wanted=new Set(quests.map(x=>String(x).toLowerCase()));
+  const changed=[];
+  vals.slice(1).forEach((r,i)=>{
+    if(wanted.has(String(r[qCol]||'').trim().toLowerCase())&&!/^(yes|true|complete|completed)$/i.test(String(r[cCol]||''))){
+      sh.getRange(i+2,cCol+1).setValue('Yes'); changed.push(String(r[qCol]).trim());
+    }
+  });
+  if(!changed.length)throw new Error('No incomplete quests matched the selection.');
+
+  let log=ss.getSheetByName('Quest Completion Log');
+  if(!log){log=ss.insertSheet('Quest Completion Log');log.appendRow(['Timestamp','Quest','Previous Status','New Status','Source','Transaction ID']);}
+  const tx=Utilities.getUuid(),now=new Date(),src=source||'Dashboard Manual';
+  changed.forEach(q=>log.appendRow([now,q,'No','Yes',src,tx]));
+  PropertiesService.getScriptProperties().setProperty('V115_LAST_RECONCILED_QP',
+    String(Number(ss.getSheetByName('Your Stats').getRange('B34').getValue())||0));
+  SpreadsheetApp.flush();
+  return {ok:true,changed,transactionId:tx,state:getV115QuestCompletionState_()};
+}
+
+function undoV115QuestCompletion(transactionId){
+  const ss=SpreadsheetApp.openById(V1_TRACKER_ID),log=ss.getSheetByName('Quest Completion Log');
+  if(!log)throw new Error('No quest completion log exists.');
+  const lv=log.getDataRange().getDisplayValues(),quests=lv.slice(1).filter(r=>r[5]===transactionId).map(r=>r[1]);
+  if(!quests.length)throw new Error('Transaction not found.');
+  const sh=ss.getSheetByName('Quest Dependency'),vals=sh.getDataRange().getDisplayValues(),headers=vals[0].map(String);
+  const qCol=headers.findIndex(x=>/quest name/i.test(x)),cCol=headers.findIndex(x=>/^completed$/i.test(x.trim()));
+  const set=new Set(quests.map(x=>x.toLowerCase()));
+  vals.slice(1).forEach((r,i)=>{if(set.has(String(r[qCol]).toLowerCase()))sh.getRange(i+2,cCol+1).setValue('No')});
+  const tx=Utilities.getUuid(),now=new Date();
+  quests.forEach(q=>log.appendRow([now,q,'Yes','No','Dashboard Undo',tx]));
+  SpreadsheetApp.flush();
+  return {ok:true,changed:quests,state:getV115QuestCompletionState_()};
+}
