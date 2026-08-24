@@ -112,6 +112,11 @@
     .prepBadge{display:inline-flex;align-items:center;justify-content:center;border-radius:999px;padding:4px 7px;font-size:9px;font-weight:900;text-transform:uppercase;letter-spacing:.45px;border:1px solid;white-space:nowrap}
     .prepBadge.bring{background:#f2e4ca;color:#6b4318;border-color:#b98b4c}
     .prepBadge.obtain{background:#dcebd9;color:#285b30;border-color:#65936b}
+    .prepBadge.altBadge{background:#dce7ed;color:#2f596e;border-color:#96afbd}
+    .questAltBlock{border-top:1px dashed #c7b496;background:#f7f1e8}
+    .questAltTitle{padding:8px 10px 5px;font-size:9px;font-weight:900;text-transform:uppercase;letter-spacing:.5px;color:#607989}
+    .checkRow.altRow{background:#edf3f6}
+    .checkRow.altRow .itemName{color:#294e61}
     .obtainMeta{display:block;margin-top:4px}
     .checkRow.obtainRow .itemName:after{content:''}
 
@@ -171,7 +176,7 @@
   <div class="hero">
     <div class="heroTop">
       <div><h1>Sensum OSRS Progression Dashboard</h1><div class="sub">Open this, see what matters, play the game.</div></div>
-      <div class="version">V1.13 · Trust the Numbers</div>
+      <div class="version">V1.13.2 · Trust the Numbers</div>
     </div>
     <div class="controls">
       <div class="label">Goal Target</div><select id="goal" onchange="changeGoal()"></select>
@@ -378,10 +383,18 @@ function mergePrepQty(prevQty,newQty,item){
 }
 
 function routeShoppingHtml(s){
-  const rows=s.shopping||[], steps=routeStepMap(s), groups=new Map(), seen=new Map(), alt=[];
+  const rows=s.shopping||[], steps=routeStepMap(s), groups=new Map(), seen=new Map(), altGroups=new Map();
   rows.forEach(i=>{
     const a=String(i.acquisition||'').toLowerCase(),t=String(i.type||'').toLowerCase();
-    if(t.includes('choice')||t.includes('alternative')){alt.push(i);return}
+    if(t.includes('choice')||t.includes('alternative')){
+      const altQuests=splitQuests(i.quests);
+      const altOrdered=(altQuests.length?altQuests:['Other']).sort((a,b)=>(steps.get(a.toLowerCase())||999)-(steps.get(b.toLowerCase())||999));
+      const altPrimary=altOrdered[0]||'Other';
+      if(!altGroups.has(altPrimary))altGroups.set(altPrimary,[]);
+      altGroups.get(altPrimary).push({...i,quest:altPrimary});
+      if(!groups.has(altPrimary))groups.set(altPrimary,[]);
+      return;
+    }
     const quests=splitQuests(i.quests);
     const ordered=(quests.length?quests:['Other']).sort((a,b)=>(steps.get(a.toLowerCase())||999)-(steps.get(b.toLowerCase())||999));
     const primary=ordered[0]||'Other', itemKey=String(i.item||'').trim().toLowerCase();
@@ -424,12 +437,23 @@ function routeShoppingHtml(s){
         <span>${checked?'<span class="prepBadge obtain">✓ Done</span>':(i.obtain?'<span class="prepBadge obtain">Obtain</span>':'<span class="prepBadge bring">Bring</span>')}</span>
       </label>`;
     });
+    const questAlt=altGroups.get(quest)||[];
+    if(questAlt.length){
+      html+=`<div class="questAltBlock"><div class="questAltTitle">Alternative / recipe options</div>`;
+      questAlt.forEach(i=>{
+        const key=checklistKey(i),checked=isChecked(i);
+        html+=`<label class="checkRow altRow ${checked?'done':''}">
+          <input type="checkbox" ${checked?'checked':''} onchange="toggleShopV18(this,'${esc(key)}')">
+          <span class="itemName">${esc(altDisplayName(i))}<span class="alsoNeeded">Optional path - not counted in route completion</span></span>
+          <span>×${esc(i.qty||1)}</span>
+          <span>${checked?'<span class="prepBadge obtain">✓ Done</span>':'<span class="prepBadge altBadge">Option</span>'}</span>
+        </label>`;
+      });
+      html+='</div>';
+    }
     html+='</div></div>';
   });
 
-  if(alt.length){
-    html+=`<div class="shopGroup"><div class="shopGroupTitle"><span>↔ Choice / Alternative</span><span class="shopCount">${alt.length}</span></div><div class="obtainList">${alt.map(i=>chipHtml({name:altDisplayName(i),qty:i.qty},'alt')).join('')}</div></div>`;
-  }
   return html;
 }
 function toggleShopV18(cb,key){
