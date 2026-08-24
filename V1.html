@@ -138,9 +138,6 @@
     .questShopTitle{font-weight:900;font-size:12px}.questStep{background:#5d3518;color:#ffd878;border-radius:999px;padding:3px 6px;font-size:9px;font-weight:900;text-transform:uppercase}
     .questDone{margin-left:auto;font-size:9px;font-weight:900;color:#4c7a45;text-transform:uppercase}
     .questShopRows{padding:0 8px}.alsoNeeded{display:block;font-size:9px;color:#8b7359;font-weight:600;margin-top:2px}
-    .balancedGrid{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:7px}
-    .balancedMini{background:#fffaf1;border:1px solid #d8c6a8;border-radius:8px;padding:8px}
-    .balancedMini b{display:block;font-size:9px;text-transform:uppercase;color:#82623d;margin-bottom:3px}.balancedMini span{font-size:12px;font-weight:900}
 
     .targetLine{font-size:9px;color:#8a6a3d;font-weight:800;margin-top:3px}
 
@@ -157,7 +154,7 @@
   <div class="hero">
     <div class="heroTop">
       <div><h1>Sensum OSRS Progression Dashboard</h1><div class="sub">Open this, see what matters, play the game.</div></div>
-      <div class="version">V1.9 · Trusted Prep</div>
+      <div class="version">V1.10 · Goal Clarity</div>
     </div>
     <div class="controls">
       <div class="label">Goal Target</div><select id="goal" onchange="changeGoal()"></select>
@@ -184,9 +181,9 @@
       <div class="summary">
         <div class="summaryHero"><div class="eyebrow">Anchor / Objective</div><div id="objective" class="objective"></div><div id="status" class="statusChip"></div></div>
         <div class="summaryGrid">
-          <div class="summaryBox"><div class="skey">Missing Skills</div><div id="missing" class="sval"></div></div>
-          <div class="summaryBox"><div class="skey">Direct Prereqs</div><div id="prereq" class="sval"></div></div>
-          <div class="summaryBox full"><div class="skey">Goal Effect</div><div id="effect" class="sval"></div></div>
+          <div class="summaryBox"><div class="skey">Next Requirements</div><div id="missing" class="sval"></div></div>
+          <div class="summaryBox"><div class="skey">Key Blocker</div><div id="prereq" class="sval"></div></div>
+          <div class="summaryBox full"><div class="skey">Why This Goal</div><div id="effect" class="sval"></div></div>
         </div>
       </div>
     </div>
@@ -230,7 +227,7 @@
     <div class="grid" style="margin:0;padding:14px">
       <div>
         <div class="subHead">Blocked Quests</div>
-        <div class="tableWrap"><table class="table"><thead><tr><th>Quest</th><th class="num">Score</th><th class="num">Downstream</th><th>Blocked By</th><th>Missing Skills</th><th class="num">Best Value</th></tr></thead><tbody id="blocked"></tbody></table></div>
+        <div class="tableWrap"><table class="table"><thead><tr><th>Quest</th><th class="num">Score</th><th class="num">Downstream</th><th>Blocked By</th><th>Next Requirements</th><th class="num">Best Value</th></tr></thead><tbody id="blocked"></tbody></table></div>
       </div>
       <div>
         <div class="subHead">Best Training Detours</div>
@@ -450,13 +447,20 @@ function render(s){
     const quick=blockers[0];
     const start=Number(s.questPoints||0), end=(s.route||[]).length?Number((s.route||[])[s.route.length-1].projectedQp||start):start;
     $('objective').textContent='Balanced Account Progression';
-    $('status').textContent=`${ready} route quests ready now`;
-    $('missing').innerHTML=`<div class="balancedGrid"><div class="balancedMini"><b>Quickest blocker</b><span>${quick?esc(quick.quest)+' · '+esc(friendlyHours(quick.afterHours)):'None'}</span></div><div class="balancedMini"><b>Displayed QP gain</b><span>+${Math.max(0,end-start)} QP</span></div></div>`;
-    $('prereq').textContent=quick?`${quick.blocker||'Training'} is the nearest interruption in the displayed route.`:'Displayed route has no training blocker.';
-    $('effect').textContent='Prioritizes ready quests, downstream unlocks, quest points, and short training detours instead of tunneling on one end-game target.';
+    $('status').textContent=ready?`${ready} route quests ready now`:'Training required before the next route quest';
+    $('missing').innerHTML=quick
+      ? `<div><b>Next training detour:</b> ${esc(quick.blocker||quick.quest)} · ${esc(friendlyHours(quick.afterHours))}</div><div style="margin-top:5px"><b>Displayed route:</b> +${Math.max(0,end-start)} QP</div>`
+      : `<span class="good"><b>Route ready</b></span>`;
+    $('prereq').textContent=quick?`${quick.quest} is the nearest training interruption.`:'No training blocker in the displayed route.';
+    $('effect').textContent='Balances quest points, unlocks, downstream progression, and short training detours.';
   }else{
-    $('objective').textContent=g.objective||'—';$('status').textContent=g.status||'—';$('missing').textContent=g.missingSkills||'None';
-    $('prereq').textContent=g.prerequisites||'None';$('effect').textContent=g.effect||'—';
+    $('objective').textContent=g.objective||s.goal||'—';
+    $('status').textContent=g.status||'—';
+    const req=String(g.missingSkills||'').trim();
+    $('missing').textContent=(!req || /^(none|n\/a|na)$/i.test(req))?'Skills ready':req;
+    const pre=String(g.prerequisites||'').trim();
+    $('prereq').textContent=(!pre || /^(none|n\/a|na)$/i.test(pre))?'No direct blocker':pre;
+    $('effect').textContent=g.effect||'Supports the selected progression goal.';
   }
 
   $('top').innerHTML=(s.topQuests||[]).map(q=>`<tr><td class="num"><span class="rank">${esc(q.rank)}</span></td><td><b>${esc(q.quest)}</b></td><td class="num">${esc(q.score)}</td><td class="num"><span class="tier">${esc(q.tier)}</span></td><td class="num">${esc(q.downstream)}</td><td class="why">${esc(q.why)}</td></tr>`).join('');
