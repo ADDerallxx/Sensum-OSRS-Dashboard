@@ -55,3 +55,7 @@ function qhV118AuditBatch_(start,size){
 }
 function qhV118ContinueAudit_(){const p=PropertiesService.getScriptProperties();return qhV118AuditBatch_(Number(p.getProperty('QH_V118_AUDIT_CURSOR')||0),20)}
 function qhInstallV118TrustLayer_(){qhV118FixFremennik_();return qhV118AuditBatch_(0,20);}
+
+function qhInstallV118TrustLayer() {
+  return qhInstallV118TrustLayer_();
+}
