@@ -78,10 +78,10 @@ try {
   }
 
   $changed = @()
-  $changed += @(& git diff --name-only --diff-filter=ACMRTUXB)
+  $changed += @(& git diff --name-only --diff-filter=ACDMRTUXB)
   if ($LASTEXITCODE -ne 0) { Fail "Could not list modified files." }
 
-  $changed += @(& git diff --cached --name-only --diff-filter=ACMRTUXB)
+  $changed += @(& git diff --cached --name-only --diff-filter=ACDMRTUXB)
   if ($LASTEXITCODE -ne 0) { Fail "Could not list staged files." }
 
   $changed += @(& git ls-files --others --exclude-standard)
