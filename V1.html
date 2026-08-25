@@ -254,7 +254,7 @@
   <div class="hero">
     <div class="heroTop">
       <div><h1>Sensum OSRS Progression Dashboard</h1><div class="sub">Open this, see what matters, play the game.</div></div>
-      <div class="version">V1.24a · Quest Corrections</div>
+      <div class="version">V1.24b · Instant Quest Menu</div>
     </div>
     <div class="controls">
       <div class="label">Goal Target</div><select id="goal" onchange="changeGoal()"></select>
@@ -1108,22 +1108,36 @@ function openV115QuestModal(src){
   v115Selected.clear();
   document.querySelectorAll('#v115Modal details.v115All,#v115Modal details.v124Manage').forEach(x=>x.removeAttribute('open'));
   modal.classList.add('show');
-  likely.innerHTML='<small>Loading quests...</small>';
-  all.innerHTML='<small>Loading quests...</small>';
+  const refreshStatus=document.getElementById('v124RefreshStatus');
+  const hasCachedState=!!v115State;
+  if(hasCachedState){
+    renderV115Quests();
+    refreshStatus.textContent='Refreshing…';
+  }else{
+    likely.innerHTML='<small>Loading quests...</small>';
+    all.innerHTML='<small>Loading quests...</small>';
+    refreshStatus.textContent='Loading current quest data…';
+  }
 
   if(!window.google || !google.script || !google.script.run){
-    likely.innerHTML='<div style="padding:10px;border:1px solid #9c2d24;background:#f6d8d4;color:#681810;border-radius:8px;font-weight:800">Quest reporter cannot reach Apps Script. Refresh the dashboard and try again.</div>';
-    all.innerHTML='';
+    refreshStatus.textContent='Could not refresh';
+    if(!hasCachedState){
+      likely.innerHTML='<div style="padding:10px;border:1px solid #9c2d24;background:#f6d8d4;color:#681810;border-radius:8px;font-weight:800">Quest reporter cannot reach Apps Script. Refresh the dashboard and try again.</div>';
+      all.innerHTML='';
+    }
     return;
   }
 
   google.script.run
     .withFailureHandler(e=>{
       const msg=(e&&e.message)?e.message:String(e||'Unknown Apps Script error');
-      document.getElementById('v115Likely').innerHTML='<div style="padding:10px;border:1px solid #9c2d24;background:#f6d8d4;color:#681810;border-radius:8px;font-weight:800">Quest list failed to load: '+esc(msg)+'</div>';
-      document.getElementById('v115All').innerHTML='';
+      refreshStatus.textContent=hasCachedState?'Refresh failed · showing last loaded list':'Load failed';
+      if(!hasCachedState){
+        document.getElementById('v115Likely').innerHTML='<div style="padding:10px;border:1px solid #9c2d24;background:#f6d8d4;color:#681810;border-radius:8px;font-weight:800">Quest list failed to load: '+esc(msg)+'</div>';
+        document.getElementById('v115All').innerHTML='';
+      }
     })
-    .withSuccessHandler(s=>{v115State=s;renderV115Quests()})
+    .withSuccessHandler(s=>{v115State=s;renderV115Quests();refreshStatus.textContent='Current'})
     .getV115QuestCompletionState();
 }
 function closeV115QuestModal(){document.getElementById('v115Modal').classList.remove('show')}
@@ -1270,11 +1284,12 @@ load();
 .v124CompletedQuest{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:9px 2px;border-bottom:1px solid #ded1bb}
 .v124CompletedQuest:last-child{border-bottom:0}.v124CompletedQuest small{display:block;color:#756452;margin-top:2px}
 .v115Btn.danger{background:#fff3f1;color:#8b241d;border-color:#b95d54;padding:6px 9px}
+.v124QuestStatus{display:flex;align-items:center;justify-content:space-between;gap:10px}.v124QuestStatus span{font-size:9px;font-weight:900;color:#756452;text-transform:uppercase;white-space:nowrap}
 .v124Manage{margin-top:12px;border-top:1px solid #c9b28d;padding-top:4px}.v124Manage summary{cursor:pointer;font-weight:900;padding:10px 0;color:#6d4b24}
 
 </style>
 <div id="v115Banner" class="v115Banner"><b>Quest Points increased</b><div id="v115BannerText"></div><div class="v115BannerActions"><button class="v115Btn primary" onclick="openV115QuestModal('QP Reconciliation')">Review completed quests</button><button class="v115Btn" onclick="hideV115Banner()">Dismiss</button></div></div>
-<div id="v115Modal" class="v115Modal"><div class="v115Box"><div class="v115Head"><b>Report or Correct Quests</b><button type="button" class="v115Btn" onclick="closeV115QuestModal()">Close</button></div><div class="v115Body"><div id="v115Qp"></div><input id="v115Search" class="v115Search" placeholder="Search quests..." oninput="renderV115Quests()"><div class="v115Section">Likely completed</div><div id="v115Likely"></div><details class="v115All"><summary>All incomplete quests (A-Z)</summary><div id="v115All"></div></details><details class="v124Manage"><summary>Manage completed quests (<span id="v124CompletedCount">0</span>)</summary><div class="muted" style="margin-bottom:6px">Marked one by mistake? Restore it to incomplete and the dashboard will recalculate.</div><div id="v124Completed"></div></details></div><div class="v115Foot"><span id="v115Selected">Selected: 0 quests</span><button type="button" class="v115Btn primary" onclick="confirmV115Quests()">Confirm completions</button></div></div></div>
+<div id="v115Modal" class="v115Modal"><div class="v115Box"><div class="v115Head"><b>Report or Correct Quests</b><button type="button" class="v115Btn" onclick="closeV115QuestModal()">Close</button></div><div class="v115Body"><div class="v124QuestStatus"><div id="v115Qp"></div><span id="v124RefreshStatus"></span></div><input id="v115Search" class="v115Search" placeholder="Search quests..." oninput="renderV115Quests()"><div class="v115Section">Likely completed</div><div id="v115Likely"></div><details class="v115All"><summary>All incomplete quests (A-Z)</summary><div id="v115All"></div></details><details class="v124Manage"><summary>Manage completed quests (<span id="v124CompletedCount">0</span>)</summary><div class="muted" style="margin-bottom:6px">Marked one by mistake? Restore it to incomplete and the dashboard will recalculate.</div><div id="v124Completed"></div></details></div><div class="v115Foot"><span id="v115Selected">Selected: 0 quests</span><button type="button" class="v115Btn primary" onclick="confirmV115Quests()">Confirm completions</button></div></div></div>
 <div id="v115Busy" class="v115Busy" aria-live="polite" aria-busy="true">
   <div class="v115BusyBox">
     <div class="v115Spinner"></div>
