@@ -224,6 +224,29 @@
 .v115Report:disabled{opacity:.65;cursor:wait}
 </style>
 
+
+<style id="v123RequirementPolish">
+.reqIntel.compact{display:block;margin-top:5px}
+.reqCompactBar{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:9px 11px;border:1px solid #b9cfb6;background:#edf5eb;border-radius:9px;color:#315b35;font-size:10px;font-weight:850}
+.reqCompactBar .reqModePill{margin-right:2px}
+.reqCard.met{background:#f0f6ed;border-color:#b8cfb3}
+.reqCard.met .reqBadge{background:#dcebd7;color:#285b30}
+.reqCard.met .reqMeta{color:#315b35}
+.routeReqSummary{display:flex;align-items:center;gap:5px;flex-wrap:wrap;margin-top:5px;font-size:9px;font-weight:850}
+.routeReqOk{color:#397441}
+.routeReqTrain{color:#9a2e25}
+.routeReqBoost{display:inline-flex;align-items:center;border-radius:999px;padding:2px 5px;background:#f4dda5;color:#6a470e;border:1px solid #d4b264}
+.routeIntel{margin-top:5px;border-top:1px dashed #c8b99f;padding-top:4px}
+.routeIntel summary{cursor:pointer;list-style:none;color:#416778;font-size:9px;font-weight:900;line-height:1.25}
+.routeIntel summary::-webkit-details-marker{display:none}
+.routeIntel summary:before{content:'ⓘ ';font-weight:900}
+.routeIntel[open] summary{color:#2f596e}
+.routeIntelBody{margin-top:4px;padding:6px 7px;background:#edf3f6;border:1px solid #b5c9d2;border-radius:7px;color:#4a5960;font-size:9px;line-height:1.35}
+.routeIntelItem+.routeIntelItem{margin-top:5px;padding-top:5px;border-top:1px solid #cfdee4}
+.routeIntelType{display:inline-block;margin-bottom:2px;padding:2px 4px;border-radius:999px;background:#d9e9f0;color:#31596b;text-transform:uppercase;font-size:7px;font-weight:950;letter-spacing:.35px}
+.routeBaseNote{display:block;margin-top:3px;color:#796b59;font-size:8px;font-weight:750}
+</style>
+
 </head>
 <body>
 <div id="loading" class="loading"><div>Loading Sensum progression engine…</div></div>
@@ -231,7 +254,7 @@
   <div class="hero">
     <div class="heroTop">
       <div><h1>Sensum OSRS Progression Dashboard</h1><div class="sub">Open this, see what matters, play the game.</div></div>
-      <div class="version">V1.22a · Know What Is Optional</div>
+      <div class="version">V1.23b · Decision-Ready Requirements</div>
     </div>
     <div class="controls">
       <div class="label">Goal Target</div><select id="goal" onchange="changeGoal()"></select>
@@ -240,7 +263,7 @@
     <div class="metrics">
       <div class="metric"><div class="k">Username</div><div class="v" id="user">—</div></div>
       <div class="metric"><div class="k">Combat Level</div><div class="v" id="combat">—</div></div>
-      <div class="metric"><div class="k">Quest Points</div><div class="v" id="qp">—</div><button id="v115Report" class="v115Report" title="Report Completed Quest" aria-label="Report Completed Quest" onclick="openV115QuestModal('Dashboard Manual')"><img src="https://oldschool.runescape.wiki/images/Quest_point_icon.png" alt=""><span>Report Quest</span></button></div>
+      <div class="metric"><div class="k">Quest Points</div><div class="v" id="qp">—</div><button id="v115Report" class="v115Report" title="Report Completed Quest" aria-label="Report Completed Quest" onclick="openV115QuestModal('Dashboard Manual')" type="button"><img src="https://oldschool.runescape.wiki/images/Quest_point_icon.png" alt=""><span>Report Quest</span></button></div>
       <div class="metric"><div class="k">WOM Snapshot</div><div class="v" id="wom" style="font-size:12px">—</div></div>
       <div class="metric"><div class="k">Sheet Sync</div><div class="v" id="sync" style="font-size:12px">—</div></div>
     </div>
@@ -885,14 +908,31 @@ function requirementIntelHtmlV122(s,quest){
   if(!intel)return '<div class="reqClear">No requirement intelligence cached for this quest.</div>';
 
   const required=intel.requiredSkills||[], optional=intel.optionalSkills||[];
-  let html='<div class="reqMode"><span class="reqModePill">Base levels only</span><span><b>Planning rule:</b> boosts are shown as an option, but the dashboard trains to the real level by default.</span></div>';
+  const optionalText=String(intel.optionalText||'').trim();
+
+  // V1.23: when there is genuinely nothing to decide, keep this section tiny.
+  if(!required.length && !optional.length && !optionalText){
+    return '<div class="reqIntel compact"><div class="reqCompactBar"><span class="reqModePill">Base levels only</span><span>✓ No skill requirements for this quest.</span></div></div>';
+  }
+
+  let html='<div class="reqMode"><span class="reqModePill">Base levels only</span><span><b>Planning rule:</b> boosts are informational only; readiness is based on your real levels.</span></div>';
 
   if(required.length){
     html+='<div class="reqSection"><div class="reqSectionTitle">Hard skill requirements</div><div class="reqCards">';
     required.forEach(x=>{
-      const current=statLevelV122(s,x.skill),met=current>=Number(x.level||0);
-      const boost=!!x.boostable;
-      html+=`<div class="reqCard ${boost?'boostable':''}"><div class="reqTop"><span class="reqSkill">${esc(x.skill)} ${esc(x.level)}</span><span class="reqBadge">${boost?'Required · Boostable':'Required'}</span></div><div class="reqMeta">Your level: ${esc(current)} · ${met?'Base level met':`Train to ${esc(x.level)}`}</div>${boost?'<div class="reqWhy">A boost can satisfy this requirement, but V1.22 does not assume you want to boost.</div>':''}</div>`;
+      const current=statLevelV122(s,x.skill);
+      const target=Number(x.level||0);
+      const met=current>=target;
+      const boostAvailable=!!x.boostable && !met;
+
+      html+=`<div class="reqCard ${met?'met':boostAvailable?'boostable':''}">
+        <div class="reqTop">
+          <span class="reqSkill">${esc(x.skill)} ${esc(x.level)}</span>
+          <span class="reqBadge">${met?'✓ Base level met':boostAvailable?'Required · Boostable':'Required'}</span>
+        </div>
+        <div class="reqMeta">Your level: ${esc(current)} · ${met?'No action needed':`Train to ${esc(x.level)}`}</div>
+        ${boostAvailable?'<div class="reqWhy">A boost can satisfy this requirement if you choose, but the dashboard still plans for the base level.</div>':''}
+      </div>`;
     });
     html+='</div></div>';
   }else{
@@ -903,22 +943,68 @@ function requirementIntelHtmlV122(s,quest){
     html+='<div class="reqSection"><div class="reqSectionTitle">Optional / alternative skills — do not block the quest</div><div class="reqCards">';
     optional.forEach(x=>{
       const rec=/recommended/i.test(String(x.kind||''));
-      html+=`<div class="reqCard ${rec?'recommended':'optional'}"><div class="reqTop"><span class="reqSkill">${esc(x.skill)} ${esc(x.level)}</span><span class="reqBadge">${esc(x.kind||'Optional')}</span></div><div class="reqWhy"><b>Why optional:</b> ${esc(x.why||intel.optionalText||'Alternative route; not required to finish the quest.')}</div></div>`;
+      html+=`<div class="reqCard ${rec?'recommended':'optional'}">
+        <div class="reqTop">
+          <span class="reqSkill">${esc(x.skill)} ${esc(x.level)}</span>
+          <span class="reqBadge">${esc(x.kind||'Optional')}</span>
+        </div>
+        <div class="reqWhy"><b>Why optional:</b> ${esc(x.why||optionalText||'Alternative route; not required to finish the quest.')}</div>
+      </div>`;
     });
     html+='</div></div>';
-  }else if(String(intel.optionalText||'').trim()){
-    html+=`<div class="reqSection"><div class="reqSectionTitle">Optional route note</div><div class="reqCard optional"><div class="reqWhy">${esc(intel.optionalText)}</div></div></div>`;
+  }else if(optionalText){
+    html+=`<div class="reqSection"><div class="reqSectionTitle">Optional route note</div><div class="reqCard optional"><div class="reqWhy">${esc(optionalText)}</div></div></div>`;
   }
 
   return html;
 }
+
 function routeRequirementHintV122(s,quest){
   const intel=requirementIntelForV122(s,quest);
   if(!intel)return '';
-  const optional=(intel.optionalSkills||[]).map(x=>`${x.skill} ${x.level} (${x.kind||'optional'})`);
-  const boost=(intel.requiredSkills||[]).filter(x=>x.boostable).map(x=>`${x.skill} ${x.level} boostable`);
-  const parts=[...optional,...boost];
-  return parts.length?`<span class="routeReqHint">${esc(parts.join(' · '))}</span>`:'';
+
+  const required=intel.requiredSkills||[];
+  const optional=intel.optionalSkills||[];
+  const optionalText=String(intel.optionalText||'').trim();
+
+  const unmet=required.filter(x=>statLevelV122(s,x.skill)<Number(x.level||0));
+  const allMet=required.length>0 && unmet.length===0;
+
+  let html='<span class="routeReqSummary">';
+
+  if(allMet){
+    html+='<span class="routeReqOk">✓ Skills met</span>';
+  }else if(unmet.length){
+    html+=`<span class="routeReqTrain">${esc(unmet.map(x=>`${x.skill} ${x.level}`).join(' · '))}</span>`;
+    unmet.filter(x=>x.boostable).forEach(x=>{
+      html+=`<span class="routeReqBoost">${esc(x.skill)} boost available</span>`;
+    });
+    html+='<span class="routeBaseNote">Base-level planning</span>';
+  }
+
+  html+='</span>';
+
+  // Optional information is expandable instead of permanently occupying route-card space.
+  if(optional.length || optionalText){
+    let body='';
+    if(optional.length){
+      body=optional.map(x=>`
+        <div class="routeIntelItem">
+          <span class="routeIntelType">${esc(x.kind||'Optional')}</span><br>
+          <b>${esc(x.skill)} ${esc(x.level)}</b><br>
+          ${esc(x.why||optionalText||'This route is optional and does not block quest completion.')}
+        </div>`).join('');
+    }else{
+      body=`<div class="routeIntelItem">${esc(optionalText)}</div>`;
+    }
+
+    html+=`<details class="routeIntel">
+      <summary>Optional route${optional.length===1?'':'s'} available</summary>
+      <div class="routeIntelBody">${body}</div>
+    </details>`;
+  }
+
+  return html;
 }
 
 function render(s){
@@ -999,45 +1085,8 @@ function render(s){
 }
 function changeGoal(){busy(true);google.script.run.withSuccessHandler(render).withFailureHandler(fail).setV1Goal($('goal').value)}
 function changeDepth(){busy(true);google.script.run.withSuccessHandler(render).withFailureHandler(fail).setV1RouteDepth(Number($('depth').value))}
-load();
-</script>
-<style id="v115styles">
-.v115Report{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;margin-top:7px;background:#f0b83d;color:#321b0c;border:1px solid #d99b29;border-radius:8px;padding:8px 10px;font-size:13px;font-weight:900;cursor:pointer}
-.v115Report img{width:24px;height:24px;object-fit:contain;flex:0 0 auto}
-.v115Banner{position:fixed;z-index:9998;top:-220px;left:50%;transform:translateX(-50%);width:min(720px,calc(100% - 30px));background:#fff7df;color:#25180e;border:3px solid #d99b29;border-radius:0 0 14px 14px;box-shadow:0 12px 35px rgba(0,0,0,.38);padding:14px 16px;transition:top .45s ease}
-.v115Banner.show{top:0}.v115Banner b{font-size:15px}.v115BannerActions{margin-top:9px;display:flex;gap:8px}
-.v115Modal{position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.68);display:none;align-items:center;justify-content:center;padding:20px}
-.v115Modal.show{display:flex}.v115Box{width:min(760px,100%);max-height:88vh;overflow:auto;background:#f5efe4;color:#25180e;border:2px solid #8c5b2b;border-radius:14px;box-shadow:0 18px 50px rgba(0,0,0,.45)}
-.v115Head{position:sticky;top:0;background:#321b0c;color:#ffe2a1;padding:13px 15px;display:flex;justify-content:space-between;z-index:2}
-.v115Body{padding:14px}.v115Search{width:100%;padding:10px;border:1px solid #b79b74;border-radius:8px;margin:8px 0 12px}
-.v115Quest{display:grid;grid-template-columns:24px 1fr auto;gap:8px;padding:8px;border-bottom:1px solid #ded1bb;align-items:center}
-.v115Quest small{display:block;color:#756452;margin-top:2px}.v115Section{font-size:11px;font-weight:900;text-transform:uppercase;color:#6d4b24;margin:12px 0 5px}
-.v115All summary{cursor:pointer;font-weight:900;padding:10px 0}.v115Foot{position:sticky;bottom:0;background:#eee1ca;border-top:1px solid #c9b28d;padding:11px 14px;display:flex;justify-content:space-between;gap:10px;align-items:center}
-.v115Btn{border:1px solid #8c5b2b;background:#fffaf1;color:#321b0c;border-radius:8px;padding:8px 11px;font-weight:900;cursor:pointer}.v115Btn.primary{background:#5a3217;color:#fff3d4}
-.v115Busy{position:fixed;inset:0;z-index:10020;background:rgba(16,8,3,.62);display:none;align-items:center;justify-content:center;padding:20px}
-.v115Busy.show{display:flex}
-.v115BusyBox{min-width:280px;max-width:440px;background:#fff7df;color:#25180e;border:2px solid #d99b29;border-radius:14px;box-shadow:0 16px 45px rgba(0,0,0,.45);padding:18px 20px;text-align:center}
-.v115Spinner{width:32px;height:32px;border:4px solid #e5c985;border-top-color:#5a3217;border-radius:50%;margin:0 auto 11px;animation:v115spin .8s linear infinite}
-.v115BusyTitle{font-size:15px;font-weight:900;margin-bottom:4px}
-.v115BusyText{font-size:11px;color:#6f5b43}
-@keyframes v115spin{to{transform:rotate(360deg)}}
-.v115Toast{position:fixed;z-index:10030;top:18px;left:50%;transform:translate(-50%,-140%);min-width:300px;max-width:min(620px,calc(100% - 30px));background:#e2efe1;color:#214e28;border:2px solid #4d8154;border-radius:12px;box-shadow:0 12px 30px rgba(0,0,0,.35);padding:12px 16px;font-size:12px;font-weight:800;transition:transform .35s ease}
-.v115Toast.show{transform:translate(-50%,0)}
-.v115Toast.error{background:#f2dddd;color:#761d17;border-color:#a62a21}
 
-</style>
-<div id="v115Banner" class="v115Banner"><b>Quest Points increased</b><div id="v115BannerText"></div><div class="v115BannerActions"><button class="v115Btn primary" onclick="openV115QuestModal('QP Reconciliation')">Review completed quests</button><button class="v115Btn" onclick="hideV115Banner()">Dismiss</button></div></div>
-<div id="v115Modal" class="v115Modal"><div class="v115Box"><div class="v115Head"><b>Report Completed Quest</b><button class="v115Btn" onclick="closeV115QuestModal()">Close</button></div><div class="v115Body"><div id="v115Qp"></div><input id="v115Search" class="v115Search" placeholder="Search incomplete quests..." oninput="renderV115Quests()"><div class="v115Section">Likely completed</div><div id="v115Likely"></div><details class="v115All" open><summary>All incomplete quests (A-Z)</summary><div id="v115All"></div></details></div><div class="v115Foot"><span id="v115Selected">Selected: 0 quests</span><button class="v115Btn primary" onclick="confirmV115Quests()">Confirm completions</button></div></div></div>
-<div id="v115Busy" class="v115Busy" aria-live="polite" aria-busy="true">
-  <div class="v115BusyBox">
-    <div class="v115Spinner"></div>
-    <div id="v115BusyTitle" class="v115BusyTitle">Updating quest progress...</div>
-    <div id="v115BusyText" class="v115BusyText">Saving completion and recalculating the dashboard.</div>
-  </div>
-</div>
-<div id="v115Toast" class="v115Toast" aria-live="polite"></div>
-
-<script>
+// V1.23b quest reporter - initialized in the main dashboard script.
 let v115State=null,v115Selected=new Set(),v115Source='Dashboard Manual',v115LastTx='';
 function loadV115(){
  google.script.run
@@ -1047,11 +1096,26 @@ function loadV115(){
 }
 function hideV115Banner(){document.getElementById('v115Banner').classList.remove('show')}
 function openV115QuestModal(src){
+  const modal=document.getElementById('v115Modal');
+  const likely=document.getElementById('v115Likely');
+  const all=document.getElementById('v115All');
+  if(!modal||!likely||!all){
+    alert('Quest reporter did not initialize correctly. Refresh the dashboard and try again.');
+    return;
+  }
+
   v115Source=src||'Dashboard Manual';
   v115Selected.clear();
-  document.getElementById('v115Modal').classList.add('show');
-  document.getElementById('v115Likely').innerHTML='<small>Loading quests...</small>';
-  document.getElementById('v115All').innerHTML='<small>Loading quests...</small>';
+  modal.classList.add('show');
+  likely.innerHTML='<small>Loading quests...</small>';
+  all.innerHTML='<small>Loading quests...</small>';
+
+  if(!window.google || !google.script || !google.script.run){
+    likely.innerHTML='<div style="padding:10px;border:1px solid #9c2d24;background:#f6d8d4;color:#681810;border-radius:8px;font-weight:800">Quest reporter cannot reach Apps Script. Refresh the dashboard and try again.</div>';
+    all.innerHTML='';
+    return;
+  }
+
   google.script.run
     .withFailureHandler(e=>{
       const msg=(e&&e.message)?e.message:String(e||'Unknown Apps Script error');
@@ -1098,8 +1162,7 @@ function confirmV115Quests(){
   const names=[...v115Selected];
   if(!confirm(`Mark these quests complete?
 
-${names.join('
-')}`))return;
+${names.join('\n')}`))return;
 
   closeV115QuestModal();
   setV122Saving(true);
@@ -1135,8 +1198,51 @@ ${names.join('
     })
     .completeV122QuestsFast(names,v115Source);
 }
-document.addEventListener('DOMContentLoaded',()=>{loadV115();});
+function v123QuestReporterSelfTest(){
+  const b=document.getElementById('v115Report');
+  if(!b)return;
+  b.dataset.reporterReady=(typeof openV115QuestModal==='function')?'1':'0';
+}
+document.addEventListener('DOMContentLoaded',()=>{v123QuestReporterSelfTest();loadV115();});
+load();
 </script>
+<style id="v115styles">
+.v115Report{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;margin-top:7px;background:#f0b83d;color:#321b0c;border:1px solid #d99b29;border-radius:8px;padding:8px 10px;font-size:13px;font-weight:900;cursor:pointer}
+.v115Report img{width:24px;height:24px;object-fit:contain;flex:0 0 auto}
+.v115Banner{position:fixed;z-index:9998;top:-220px;left:50%;transform:translateX(-50%);width:min(720px,calc(100% - 30px));background:#fff7df;color:#25180e;border:3px solid #d99b29;border-radius:0 0 14px 14px;box-shadow:0 12px 35px rgba(0,0,0,.38);padding:14px 16px;transition:top .45s ease}
+.v115Banner.show{top:0}.v115Banner b{font-size:15px}.v115BannerActions{margin-top:9px;display:flex;gap:8px}
+.v115Modal{position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.68);display:none;align-items:center;justify-content:center;padding:20px}
+.v115Modal.show{display:flex}.v115Box{width:min(760px,100%);max-height:88vh;overflow:auto;background:#f5efe4;color:#25180e;border:2px solid #8c5b2b;border-radius:14px;box-shadow:0 18px 50px rgba(0,0,0,.45)}
+.v115Head{position:sticky;top:0;background:#321b0c;color:#ffe2a1;padding:13px 15px;display:flex;justify-content:space-between;z-index:2}
+.v115Body{padding:14px}.v115Search{width:100%;padding:10px;border:1px solid #b79b74;border-radius:8px;margin:8px 0 12px}
+.v115Quest{display:grid;grid-template-columns:24px 1fr auto;gap:8px;padding:8px;border-bottom:1px solid #ded1bb;align-items:center}
+.v115Quest small{display:block;color:#756452;margin-top:2px}.v115Section{font-size:11px;font-weight:900;text-transform:uppercase;color:#6d4b24;margin:12px 0 5px}
+.v115All summary{cursor:pointer;font-weight:900;padding:10px 0}.v115Foot{position:sticky;bottom:0;background:#eee1ca;border-top:1px solid #c9b28d;padding:11px 14px;display:flex;justify-content:space-between;gap:10px;align-items:center}
+.v115Btn{border:1px solid #8c5b2b;background:#fffaf1;color:#321b0c;border-radius:8px;padding:8px 11px;font-weight:900;cursor:pointer}.v115Btn.primary{background:#5a3217;color:#fff3d4}
+.v115Busy{position:fixed;inset:0;z-index:10020;background:rgba(16,8,3,.62);display:none;align-items:center;justify-content:center;padding:20px}
+.v115Busy.show{display:flex}
+.v115BusyBox{min-width:280px;max-width:440px;background:#fff7df;color:#25180e;border:2px solid #d99b29;border-radius:14px;box-shadow:0 16px 45px rgba(0,0,0,.45);padding:18px 20px;text-align:center}
+.v115Spinner{width:32px;height:32px;border:4px solid #e5c985;border-top-color:#5a3217;border-radius:50%;margin:0 auto 11px;animation:v115spin .8s linear infinite}
+.v115BusyTitle{font-size:15px;font-weight:900;margin-bottom:4px}
+.v115BusyText{font-size:11px;color:#6f5b43}
+@keyframes v115spin{to{transform:rotate(360deg)}}
+.v115Toast{position:fixed;z-index:10030;top:18px;left:50%;transform:translate(-50%,-140%);min-width:300px;max-width:min(620px,calc(100% - 30px));background:#e2efe1;color:#214e28;border:2px solid #4d8154;border-radius:12px;box-shadow:0 12px 30px rgba(0,0,0,.35);padding:12px 16px;font-size:12px;font-weight:800;transition:transform .35s ease}
+.v115Toast.show{transform:translate(-50%,0)}
+.v115Toast.error{background:#f2dddd;color:#761d17;border-color:#a62a21}
+
+</style>
+<div id="v115Banner" class="v115Banner"><b>Quest Points increased</b><div id="v115BannerText"></div><div class="v115BannerActions"><button class="v115Btn primary" onclick="openV115QuestModal('QP Reconciliation')">Review completed quests</button><button class="v115Btn" onclick="hideV115Banner()">Dismiss</button></div></div>
+<div id="v115Modal" class="v115Modal"><div class="v115Box"><div class="v115Head"><b>Report Completed Quest</b><button class="v115Btn" onclick="closeV115QuestModal()">Close</button></div><div class="v115Body"><div id="v115Qp"></div><input id="v115Search" class="v115Search" placeholder="Search incomplete quests..." oninput="renderV115Quests()"><div class="v115Section">Likely completed</div><div id="v115Likely"></div><details class="v115All" open><summary>All incomplete quests (A-Z)</summary><div id="v115All"></div></details></div><div class="v115Foot"><span id="v115Selected">Selected: 0 quests</span><button class="v115Btn primary" onclick="confirmV115Quests()">Confirm completions</button></div></div></div>
+<div id="v115Busy" class="v115Busy" aria-live="polite" aria-busy="true">
+  <div class="v115BusyBox">
+    <div class="v115Spinner"></div>
+    <div id="v115BusyTitle" class="v115BusyTitle">Updating quest progress...</div>
+    <div id="v115BusyText" class="v115BusyText">Saving completion and recalculating the dashboard.</div>
+  </div>
+</div>
+<div id="v115Toast" class="v115Toast" aria-live="polite"></div>
+
+
 
 </body>
 </html>
