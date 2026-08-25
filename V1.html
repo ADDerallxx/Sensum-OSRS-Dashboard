@@ -254,7 +254,7 @@
   <div class="hero">
     <div class="heroTop">
       <div><h1>Sensum OSRS Progression Dashboard</h1><div class="sub">Open this, see what matters, play the game.</div></div>
-      <div class="version">V1.24 · Quest Corrections</div>
+      <div class="version">V1.24a · Quest Corrections</div>
     </div>
     <div class="controls">
       <div class="label">Goal Target</div><select id="goal" onchange="changeGoal()"></select>
@@ -1106,6 +1106,7 @@ function openV115QuestModal(src){
 
   v115Source=src||'Dashboard Manual';
   v115Selected.clear();
+  document.querySelectorAll('#v115Modal details.v115All,#v115Modal details.v124Manage').forEach(x=>x.removeAttribute('open'));
   modal.classList.add('show');
   likely.innerHTML='<small>Loading quests...</small>';
   all.innerHTML='<small>Loading quests...</small>';
@@ -1273,7 +1274,7 @@ load();
 
 </style>
 <div id="v115Banner" class="v115Banner"><b>Quest Points increased</b><div id="v115BannerText"></div><div class="v115BannerActions"><button class="v115Btn primary" onclick="openV115QuestModal('QP Reconciliation')">Review completed quests</button><button class="v115Btn" onclick="hideV115Banner()">Dismiss</button></div></div>
-<div id="v115Modal" class="v115Modal"><div class="v115Box"><div class="v115Head"><b>Report or Correct Quests</b><button type="button" class="v115Btn" onclick="closeV115QuestModal()">Close</button></div><div class="v115Body"><div id="v115Qp"></div><input id="v115Search" class="v115Search" placeholder="Search quests..." oninput="renderV115Quests()"><div class="v115Section">Likely completed</div><div id="v115Likely"></div><details class="v115All" open><summary>All incomplete quests (A-Z)</summary><div id="v115All"></div></details><details class="v124Manage"><summary>Manage completed quests (<span id="v124CompletedCount">0</span>)</summary><div class="muted" style="margin-bottom:6px">Marked one by mistake? Restore it to incomplete and the dashboard will recalculate.</div><div id="v124Completed"></div></details></div><div class="v115Foot"><span id="v115Selected">Selected: 0 quests</span><button type="button" class="v115Btn primary" onclick="confirmV115Quests()">Confirm completions</button></div></div></div>
+<div id="v115Modal" class="v115Modal"><div class="v115Box"><div class="v115Head"><b>Report or Correct Quests</b><button type="button" class="v115Btn" onclick="closeV115QuestModal()">Close</button></div><div class="v115Body"><div id="v115Qp"></div><input id="v115Search" class="v115Search" placeholder="Search quests..." oninput="renderV115Quests()"><div class="v115Section">Likely completed</div><div id="v115Likely"></div><details class="v115All"><summary>All incomplete quests (A-Z)</summary><div id="v115All"></div></details><details class="v124Manage"><summary>Manage completed quests (<span id="v124CompletedCount">0</span>)</summary><div class="muted" style="margin-bottom:6px">Marked one by mistake? Restore it to incomplete and the dashboard will recalculate.</div><div id="v124Completed"></div></details></div><div class="v115Foot"><span id="v115Selected">Selected: 0 quests</span><button type="button" class="v115Btn primary" onclick="confirmV115Quests()">Confirm completions</button></div></div></div>
 <div id="v115Busy" class="v115Busy" aria-live="polite" aria-busy="true">
   <div class="v115BusyBox">
     <div class="v115Spinner"></div>
