@@ -159,7 +159,7 @@
     .heroSkills{grid-template-columns:repeat(8,minmax(0,1fr));padding:12px 22px 16px}
     .heroSkills .skill{position:relative;display:grid;grid-template-columns:34px 1fr;grid-template-areas:'icon name' 'icon level' 'meta meta' 'target target';align-items:center;text-align:left;padding:8px;min-width:0}
     .skillIconWrap{grid-area:icon;position:relative;width:30px;height:30px;display:flex;align-items:center;justify-content:center}
-    .skillIcon{position:relative;z-index:1;max-width:28px;max-height:28px;image-rendering:auto}.skillIconFallback{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;border-radius:7px;background:#5d3518;color:#ffd878;font-weight:950}
+    .skillIcon{position:relative;z-index:1;max-width:28px;max-height:28px;image-rendering:auto}.skillIconFallback{position:absolute;inset:0;display:none;align-items:center;justify-content:center;border-radius:7px;background:#5d3518;color:#ffd878;font-weight:950}
     .heroSkills .name{grid-area:name}.heroSkills .lvl{grid-area:level;margin:0}.skillMeta{grid-area:meta;font-size:9px;color:#85735f;margin-top:5px}.heroSkills .targetLine{grid-area:target}
     .healthMetaGrid{display:grid;grid-template-columns:1fr 1fr;gap:9px;padding:12px 22px 16px;background:rgba(99,55,22,.28)}
     .healthMeta{background:#211107;border:1px solid #5a3216;border-radius:10px;padding:10px 12px}.healthMeta>span{display:block;font-size:9px;color:#cbb696;text-transform:uppercase;font-weight:900}.healthMeta>b{display:block;margin-top:5px;font-size:12px}.healthMeta.wide{grid-column:1/-1}.healthMeta .health{padding:7px 0 0}.healthMeta .pill{background:#3a210f;color:#f6dfb7}
@@ -269,7 +269,7 @@
   <div class="hero">
     <div class="heroTop">
       <div><h1>Sensum OSRS Progression Dashboard</h1><div class="sub">Open this, see what matters, play the game.</div></div>
-      <div class="version">V1.25 · Tabbed Command Center</div>
+      <div class="version">V1.25a · Tabbed Command Center</div>
     </div>
     <div class="heroTabs" role="tablist" aria-label="Dashboard command center">
       <button type="button" id="heroTabOverview" class="heroTab active" role="tab" aria-selected="true" onclick="setHeroTab('overview')">Overview</button>
@@ -393,7 +393,7 @@
 const $=id=>document.getElementById(id);
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const V125_SKILL_ICONS={
-  attack:'Attack_icon.png',strength:'Strength_icon.png',defence:'Defence_icon.png',ranged:'Ranged_icon.png',prayer:'Prayer_icon.png',magic:'Magic_icon.png',runecraft:'Runecraft_icon.png',construction:'Construction_icon.png',hitpoints:'Hitpoints_icon.png',agility:'Agility_icon.png',herblore:'Herblore_icon.png',thieving:'Thieving_icon.png',crafting:'Crafting_icon.png',fletching:'Fletching_icon.png',slayer:'Slayer_icon.png',hunter:'Hunter_icon.png',mining:'Mining_icon.png',smithing:'Smithing_icon.png',fishing:'Fishing_icon.png',cooking:'Cooking_icon.png',firemaking:'Firemaking_icon.png',woodcutting:'Woodcutting_icon.png',farming:'Farming_icon.png',sailing:'Sailing_icon.png'
+  attack:'Attack_icon.png',strength:'Strength_icon.png',defence:'Defence_icon.png',ranged:'Ranged_icon.png',prayer:'Prayer_icon.png',magic:'Magic_icon.png',runecraft:'Runecraft_icon.png',runecrafting:'Runecraft_icon.png',construction:'Construction_icon.png',hitpoints:'Hitpoints_icon.png',agility:'Agility_icon.png',herblore:'Herblore_icon.png',thieving:'Thieving_icon.png',crafting:'Crafting_icon.png',fletching:'Fletching_icon.png',slayer:'Slayer_icon.png',hunter:'Hunter_icon.png',mining:'Mining_icon.png',smithing:'Smithing_icon.png',fishing:'Fishing_icon.png',cooking:'Cooking_icon.png',firemaking:'Firemaking_icon.png',woodcutting:'Woodcutting_icon.png',farming:'Farming_icon.png',sailing:'Sailing_icon.png'
 };
 function v125SkillIcon(skill){const key=String(skill||'').trim().toLowerCase();const file=V125_SKILL_ICONS[key]||(`${String(skill||'Skill').trim().replace(/\s+/g,'_')}_icon.png`);return 'https://oldschool.runescape.wiki/images/'+encodeURIComponent(file).replace(/%2F/gi,'/')}
 function setHeroTab(name){
@@ -1120,7 +1120,7 @@ function render(s){
   $('shopping').innerHTML=routeShoppingHtml(s);
 
   const focus=goalSkills(s);
-  $('skills').innerHTML=(s.stats||[]).map(x=>{const skill=String(x.skill||''),relevant=focus.has(skill.toLowerCase()),target=relevant?inferTarget(x,s):null,gap=target?Math.max(0,target-Number(x.level||0)):0;return `<div class="skill ${relevant?'goalSkill':''}"><div class="skillIconWrap"><span class="skillIconFallback">${esc(skill.slice(0,1))}</span><img class="skillIcon" src="${v125SkillIcon(skill)}" alt="" loading="lazy" onerror="this.style.display='none'"></div><div class="name">${esc(skill)}</div><div class="lvl">${esc(x.level)}</div><div class="skillMeta">${Number(x.xp||0).toLocaleString()} XP</div>${target?`<div class="targetLine">Target ${target}${gap?` · +${gap}`:' · ✓ met'}</div>`:''}</div>`}).join('');
+  $('skills').innerHTML=(s.stats||[]).map(x=>{const skill=String(x.skill||''),relevant=focus.has(skill.toLowerCase()),target=relevant?inferTarget(x,s):null,gap=target?Math.max(0,target-Number(x.level||0)):0;return `<div class="skill ${relevant?'goalSkill':''}"><div class="skillIconWrap"><span class="skillIconFallback">${esc(skill.slice(0,1))}</span><img class="skillIcon" src="${v125SkillIcon(skill)}" alt="" loading="lazy" onerror="this.style.display='none';this.previousElementSibling.style.display='flex'"></div><div class="name">${esc(skill)}</div><div class="lvl">${esc(x.level)}</div><div class="skillMeta">${Number(x.xp||0).toLocaleString()} XP</div>${target?`<div class="targetLine">Target ${target}${gap?` · +${gap}`:' · ✓ met'}</div>`:''}</div>`}).join('');
   const h=s.wikiHealth||{};
   $('health').innerHTML=`<span class="pill good">Wiki OK: ${esc(h.ok||0)}</span><span class="pill">Review: ${esc(h.review||0)}</span><span class="pill">Missing: ${esc(h.missing||0)}</span><span class="pill">Last check: ${esc(h.lastCheck||'—')}</span>`;
 }
