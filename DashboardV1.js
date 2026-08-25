@@ -51,6 +51,7 @@ function getV1DashboardState(options) {
     routeDepth: Number(getRouteDepthValue_(dash) || 10),
     goals,
     accomplishedGoals,
+    bosses: readV128BossPlanner_(ss, statsRows),
     goalSummary: summary,
     topQuests: topRows.map(r => ({rank:r[0],quest:r[1],score:r[2],tier:r[3],downstream:r[4],why:r[5],rewards:rewardMap[String(r[1]||'').trim().toLowerCase()]||null})),
     blockedQuests: blockedRows.map(r => ({quest:r[0],score:r[1],downstream:r[2],blockedBy:r[3],missingSkills:r[4],hours:r[5]})),
@@ -63,6 +64,38 @@ function getV1DashboardState(options) {
     planningMode:'Base levels only',
     wikiHealth: readV1WikiHealth_(dash)
   };
+}
+
+function readV128BossPlanner_(ss, statsRows) {
+  const stats = {};
+  (statsRows || []).forEach(r => stats[String(r[0] || '').trim().toLowerCase()] = Number(r[1] || 0));
+  const completed = new Set();
+  try {
+    const t = v115QuestTable_(ss);
+    t.vals.slice(t.headerRow + 1).forEach(r => {
+      if (/^(yes|true|complete|completed)$/i.test(String(r[t.cCol] || ''))) completed.add(String(r[t.qCol] || '').trim().toLowerCase());
+    });
+  } catch (e) {}
+
+  const definitions = [
+    {name:'Scurrius',stage:'Beginning',access:'None',goal:'Combat Growth',stats:{Attack:45,Strength:45,Defence:40,Hitpoints:50,Prayer:43},style:'Melee',gear:'Rune weapon and armour or better',prep:'Protection prayers, food, combat potion',notes:'Excellent mechanics practice with forgiving deaths and strong combat XP.'},
+    {name:'Barrows',stage:'Beginning',access:'Priest in Peril',goal:'Combat Growth',stats:{Magic:50,Prayer:43,Defence:50,Hitpoints:60},style:'Magic',gear:'Iban\'s staff or a powered staff; tank armour',prep:'Prayer potions, food, emergency teleport',notes:'Prayer management and efficient brother routing matter more than perfect gear.'},
+    {name:'Giant Mole',stage:'Beginning',access:'None',goal:'Combat Growth',stats:{Attack:60,Strength:60,Defence:50,Hitpoints:60,Prayer:43},style:'Melee',gear:'Dragon weapon or better; Falador shield helps track it',prep:'Protection prayers, stamina and food',notes:'A straightforward introduction to repeatable boss trips.'},
+    {name:'Moons of Peril',stage:'Mid-game',access:'Children of the Sun',goal:'Combat Growth',stats:{Attack:65,Strength:65,Defence:65,Hitpoints:65,Prayer:43},style:'Melee',gear:'Three melee setups that cover stab, slash and crush',prep:'Supplies can be gathered inside the dungeon',notes:'Defence and weapon-style coverage are especially valuable here.'},
+    {name:'Sarachnis',stage:'Mid-game',access:'Priest in Peril',goal:'Combat Growth',stats:{Attack:65,Strength:65,Defence:60,Hitpoints:65,Prayer:43},style:'Crush',gear:'Dragon mace or stronger crush weapon',prep:'Prayer potions, food, antipoison',notes:'Good practice for prayer switching, add control and movement.'},
+    {name:'Zulrah',stage:'Mid-game',access:'Regicide',goal:'Combat Growth',stats:{Ranged:75,Magic:75,Defence:70,Hitpoints:75,Prayer:45},style:'Ranged + Magic',gear:'Two compact combat switches; anti-venom protection',prep:'Food, prayer, recoil effect and emergency teleport',notes:'Rotation learning is a separate skill from stat readiness.'},
+    {name:'Vorkath',stage:'Advanced',access:'Dragon Slayer II',goal:'Dragon Slayer II',stats:{Ranged:80,Defence:75,Hitpoints:80,Prayer:74},style:'Ranged',gear:'Dragon hunter or strong crossbow setup; salve amulet',prep:'Antifire, anti-venom, prayer and crumble undead',notes:'Access is a hard quest gate; movement and special-attack handling still require practice.'},
+    {name:'Phantom Muspah',stage:'Advanced',access:'Secrets of the North',goal:'Combat Growth',stats:{Ranged:85,Magic:80,Defence:75,Hitpoints:80,Prayer:70},style:'Ranged + Magic',gear:'Strong ranged setup with an optional magic switch',prep:'Prayer, stamina, food and emergency teleport',notes:'Consistent movement and prayer switching are core readiness factors.'},
+    {name:'Corrupted Gauntlet',stage:'Advanced',access:'Song of the Elves',goal:'Prifddinas',stats:{Attack:80,Strength:80,Defence:80,Ranged:80,Magic:80,Hitpoints:80,Prayer:70},style:'All combat styles',gear:'No bank gear required; prep occurs inside',prep:'Learn resource routing, Hunllef prayers and floor patterns',notes:'Stats help, but preparation speed and mechanics determine success.'},
+    {name:'Tombs of Amascut (Entry)',stage:'Raids',access:'Beneath Cursed Sands',goal:'Tombs of Amascut Access',stats:{Attack:75,Strength:75,Defence:70,Ranged:75,Magic:75,Hitpoints:75,Prayer:70},style:'All combat styles',gear:'Melee, ranged and magic setups with modest switches',prep:'Food, prayer, potions and an invocation level suited to practice',notes:'Entry Mode scales down well; raise invocations as mechanics become consistent.'}
+  ];
+
+  return definitions.map(b => {
+    const skillRows = Object.keys(b.stats).map(skill => ({skill:skill,current:Number(stats[skill.toLowerCase()] || 0),recommended:b.stats[skill]}));
+    const statsReady = skillRows.every(x => x.current >= x.recommended);
+    const accessReady = b.access === 'None' || completed.has(b.access.toLowerCase());
+    return Object.assign({}, b, {skillRows:skillRows,statsReady:statsReady,accessReady:accessReady,status:accessReady?(statsReady?'Recommended stats met':'Stat preparation'):'Access quest needed'});
+  });
 }
 
 function v122SkillPairs_(text) {

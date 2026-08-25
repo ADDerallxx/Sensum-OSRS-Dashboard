@@ -269,12 +269,13 @@
   <div class="hero">
     <div class="heroTop">
       <div><h1>Sensum OSRS Progression Dashboard</h1><div class="sub">Open this, see what matters, play the game.</div></div>
-      <div class="version">V1.27a · Goal Manager</div>
+      <div class="version">V1.28 · Boss Planner</div>
     </div>
     <div class="heroTabs" role="tablist" aria-label="Dashboard command center">
       <button type="button" id="heroTabOverview" class="heroTab active" role="tab" aria-selected="true" onclick="setHeroTab('overview')">Overview</button>
       <button type="button" id="heroTabStats" class="heroTab" role="tab" aria-selected="false" onclick="setHeroTab('stats')">Stats</button>
       <button type="button" id="heroTabHealth" class="heroTab" role="tab" aria-selected="false" onclick="setHeroTab('health')"><span class="heroTabDot"></span>Data Health</button>
+      <button type="button" id="heroTabBosses" class="heroTab" role="tab" aria-selected="false" onclick="setHeroTab('bosses')">Bosses</button>
     </div>
     <div id="heroPanelOverview" class="heroPanel active" role="tabpanel">
       <div class="controls">
@@ -310,6 +311,10 @@
         <div class="healthMeta"><span>Sheet sync</span><b id="sync">—</b></div>
         <div class="healthMeta wide"><span>Wiki requirement audit</span><div id="health" class="health"></div></div>
       </div>
+    </div>
+    <div id="heroPanelBosses" class="heroPanel" role="tabpanel" hidden>
+      <div class="v128BossTop"><div><b>Boss Readiness Planner</b><span>Recommended targets are guidance, not hard game requirements.</span></div><select id="v128BossSelect" onchange="renderV128Boss()"></select></div>
+      <div id="v128BossCard" class="v128BossCard"></div>
     </div>
   </div>
 
@@ -410,12 +415,28 @@ function goalOptionsV126(goals){
   (goals||[]).forEach(g=>(groups[V126_GOAL_STAGES[g.name]||'Other']).push(g));
   return ['Beginning','Mid-game','End-game','Other'].filter(label=>groups[label].length).map(label=>`<optgroup label="${label}">${groups[label].map(g=>`<option value="${esc(g.name)}">${esc(g.name)}</option>`).join('')}</optgroup>`).join('');
 }function setHeroTab(name){
-  ['overview','stats','health'].forEach(key=>{
+  ['overview','stats','health','bosses'].forEach(key=>{
     const active=key===name,cap=key.charAt(0).toUpperCase()+key.slice(1);
     const tab=$('heroTab'+cap),panel=$('heroPanel'+cap);
     tab.classList.toggle('active',active);tab.setAttribute('aria-selected',String(active));
     panel.classList.toggle('active',active);panel.hidden=!active;
   });
+}
+function bossOptionsV128(bosses){
+  const groups={'Beginning':[],'Mid-game':[],'Advanced':[],'Raids':[]};
+  (bosses||[]).forEach(b=>{if(groups[b.stage])groups[b.stage].push(b)});
+  return Object.keys(groups).filter(k=>groups[k].length).map(k=>`<optgroup label="${k}">${groups[k].map(b=>`<option value="${esc(b.name)}">${esc(b.name)}</option>`).join('')}</optgroup>`).join('');
+}
+function renderV128Boss(){
+  const s=window.__sensumState||{},name=$('v128BossSelect').value,b=(s.bosses||[]).find(x=>x.name===name)||(s.bosses||[])[0];
+  if(!b){$('v128BossCard').innerHTML='<div class="v127GoalEmpty">Boss data unavailable.</div>';return}
+  const skillHtml=(b.skillRows||[]).map(x=>{const met=Number(x.current)>=Number(x.recommended),gap=Math.max(0,Number(x.recommended)-Number(x.current));return `<div class="v128Stat ${met?'met':'short'}"><span>${esc(x.skill)}</span><b>${esc(x.current)} <small>/ ${esc(x.recommended)}</small></b><em>${met?'✓ Ready':`+${gap} levels`}</em></div>`}).join('');
+  const access=b.access==='None'?'No quest gate':b.access;
+  $('v128BossCard').innerHTML=`<div class="v128BossHero"><div><span class="v128Stage">${esc(b.stage)}</span><h3>${esc(b.name)}</h3><p>${esc(b.notes)}</p></div><div class="v128Readiness ${b.statsReady&&b.accessReady?'ready':'prep'}"><b>${esc(b.status)}</b><span>${b.accessReady?'Access ready':`Complete ${esc(access)}`}</span></div></div><div class="v128Stats">${skillHtml}</div><div class="v128PrepGrid"><div><span>Access</span><b>${esc(access)}</b><small>${b.accessReady?'✓ Access condition met':'Progression gate still needed'}</small></div><div><span>Primary style</span><b>${esc(b.style)}</b><small>${esc(b.gear)}</small></div><div><span>Supplies & practice</span><b>Trip preparation</b><small>${esc(b.prep)}</small></div></div>${b.goal?`<button type="button" class="v128GoalBtn" onclick="setV128BossGoal(decodeURIComponent('${encodeURIComponent(b.goal)}'))">Set related goal: ${esc(b.goal)}</button>`:''}`;
+}
+function setV128BossGoal(goal){
+  if(!((window.__sensumState&&window.__sensumState.goals)||[]).some(g=>g.name===goal)){showV115Toast(`${goal} is currently marked accomplished. Restore it from Manage completed first.`,true);return}
+  busy(true);google.script.run.withSuccessHandler(s=>{render(s);setHeroTab('bosses');showV115Toast(`${goal} is now your active progression goal.`)}).withFailureHandler(fail).setV1Goal(goal);
 }
 function busy(v){$('loading').classList.toggle('hidden',!v)}
 function fail(e){busy(false);$('err').textContent='Dashboard error: '+(e&&e.message?e.message:e);$('err').classList.remove('hidden')}
@@ -1069,6 +1090,10 @@ function render(s){
   $('wom').textContent=s.lastWomSnapshot||'—';$('sync').textContent=s.lastSheetSync||'—';
   $('goal').innerHTML=goalOptionsV126(s.goals||[]);
   $('goal').value=s.goal;$('depth').value=String(s.routeDepth||10);
+  const previousBoss=$('v128BossSelect').value;
+  $('v128BossSelect').innerHTML=bossOptionsV128(s.bosses||[]);
+  if(previousBoss&&(s.bosses||[]).some(b=>b.name===previousBoss))$('v128BossSelect').value=previousBoss;
+  renderV128Boss();
   $('v127CompleteGoal').disabled=/^balanced$/i.test(String(s.goal||''));
 
   const g=s.goalSummary||{};
@@ -1360,6 +1385,7 @@ body.v115ModalOpen{overflow:hidden}
 .v124QuestStatus{display:flex;align-items:center;justify-content:space-between;gap:10px}.v124QuestStatus span{font-size:9px;font-weight:900;color:#756452;text-transform:uppercase;white-space:nowrap}
 .v124Manage{margin-top:12px;border-top:1px solid #c9b28d;padding-top:4px}.v124Manage summary{cursor:pointer;font-weight:900;padding:10px 0;color:#6d4b24}
 .v127GoalControl{display:flex;gap:7px;align-items:center}.v127GoalControl select{min-width:210px}.v127ManageBtn,.v127CompleteBtn{border:1px solid #b8873c;border-radius:8px;background:#fff7df;color:#4b2c13;padding:8px 10px;font-weight:900;cursor:pointer}.v127ManageBtn{font-size:10px;white-space:nowrap}.v127CompleteBtn{background:#e4f0df;border-color:#72906b;color:#28502b}.v127CompleteBtn:disabled{opacity:.45;cursor:not-allowed}.v127GoalActions{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:11px;padding-top:10px;border-top:1px solid #ded1bb}.v127GoalActions span{font-size:9px;color:#756452;font-weight:750}.v127GoalRow{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:11px 2px;border-bottom:1px solid #ded1bb}.v127GoalRow small{display:block;color:#756452;margin-top:3px}.v127GoalEmpty{padding:20px;text-align:center;color:#756452}
+.v128BossTop{display:flex;align-items:end;justify-content:space-between;gap:14px;margin-bottom:12px}.v128BossTop>div{display:flex;flex-direction:column;gap:3px}.v128BossTop b{font-size:13px;color:#ffe2a1}.v128BossTop span{font-size:9px;color:#cdbb9b}.v128BossTop select{min-width:230px}.v128BossCard{background:#f8f1e5;color:#2d1b0f;border:1px solid #9b6a36;border-radius:12px;padding:13px}.v128BossHero{display:flex;align-items:flex-start;justify-content:space-between;gap:15px}.v128BossHero h3{font-size:20px;margin:5px 0 4px}.v128BossHero p{max-width:760px;margin:0;color:#6e5a45;font-size:10px;line-height:1.4}.v128Stage{display:inline-block;background:#4b2b16;color:#ffe0a0;border-radius:999px;padding:3px 7px;text-transform:uppercase;font-weight:900;letter-spacing:.4px}.v128Readiness{min-width:160px;border-radius:9px;padding:9px 11px;display:flex;flex-direction:column;gap:3px}.v128Readiness.ready{background:#dcebd7;color:#285b30}.v128Readiness.prep{background:#f5e0b1;color:#6d470d}.v128Readiness b{font-size:11px}.v128Readiness span{font-size:9px}.v128Stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(105px,1fr));gap:7px;margin-top:12px}.v128Stat{border:1px solid #d0bea2;border-radius:8px;padding:8px;display:grid;grid-template-columns:1fr auto;gap:2px 8px;background:#fffaf2}.v128Stat span{font-size:9px;font-weight:900;text-transform:uppercase;color:#70583f}.v128Stat b{font-size:16px}.v128Stat b small{font-size:9px;color:#7b6a59}.v128Stat em{grid-column:1/-1;font-size:8px;font-style:normal;font-weight:900}.v128Stat.met em{color:#397441}.v128Stat.short{border-color:#d39d74;background:#fff3ea}.v128Stat.short em{color:#a1432d}.v128PrepGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}.v128PrepGrid>div{background:#efe4d2;border-radius:8px;padding:9px;display:flex;flex-direction:column;gap:3px}.v128PrepGrid span{font-size:8px;text-transform:uppercase;font-weight:900;color:#806345}.v128PrepGrid b{font-size:11px}.v128PrepGrid small{font-size:9px;color:#6e5a45;line-height:1.35}.v128GoalBtn{margin-top:10px;border:1px solid #7b572e;background:#4b2b16;color:#fff0cd;border-radius:8px;padding:8px 11px;font-weight:900;cursor:pointer}@media(max-width:720px){.v128BossTop,.v128BossHero{align-items:stretch;flex-direction:column}.v128BossTop select{min-width:0;width:100%}.v128PrepGrid{grid-template-columns:1fr}.v128Readiness{min-width:0}}
 
 </style>
 <div id="v115Banner" class="v115Banner"><b>Quest Points increased</b><div id="v115BannerText"></div><div class="v115BannerActions"><button class="v115Btn primary" onclick="openV115QuestModal('QP Reconciliation')">Review completed quests</button><button class="v115Btn" onclick="hideV115Banner()">Dismiss</button></div></div>
