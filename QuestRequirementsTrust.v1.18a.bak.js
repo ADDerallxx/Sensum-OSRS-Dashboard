@@ -1,22 +1,5 @@
 // V1.18 Requirements Trust Layer
 function qhV118Norm_(s){return String(s||'').toLowerCase().replace(/[^a-z0-9]+/g,'').trim();}
-function qhV118SkillSet_(s){
-  const out=[],re=/\b(?:([a-z]+)\s+(\d+)|(\d+)\s+([a-z]+))\b/g; let m;
-  s=String(s||'').toLowerCase().replace(/\*/g,' ');
-  while((m=re.exec(s))!==null){
-    const skill=m[1]||m[4],level=m[2]||m[3];
-    out.push(skill+':'+level);
-  }
-  return out.sort().join('|');
-}
-function qhV118Path_(quest){
-  const overrides={
-    'merlinscrystal':'src/main/java/com/questhelper/helpers/quests/merlinscrystal/MerlinsCrystal.java',
-    'dragonslayeri':'src/main/java/com/questhelper/helpers/quests/dragonslayer/DragonSlayer.java',
-    'enakhraslament':'src/main/java/com/questhelper/helpers/quests/enakhraslament/EnakhrasLament.java'
-  };
-  return overrides[qhV118Norm_(quest)]||qhDirectQuestPath_(quest);
-}
 function qhV118Method_(src,name){
   const re=new RegExp('(?:public|protected)\\s+[^{;]+\\s+'+name+'\\s*\\([^)]*\\)\\s*\\{','m'),m=re.exec(src);
   if(!m)return ''; let i=m.index+m[0].length,d=1,a=i;
@@ -56,13 +39,13 @@ function qhV118AuditBatch_(start,size){
     const quest=String(rows[i][q]||'').trim(),dataset=sk>=0?String(rows[i][sk]||'').trim():'',slug=qhV118Norm_(quest);
     let path='',qs='',alt='',combat='',status='REVIEW',reason='';
     try{
-      path=qhV118Path_(quest);
+      path=qhDirectQuestPath_(quest);
       const src=qhFetchText_('https://raw.githubusercontent.com/'+QH_REPO+'/'+QH_BRANCH+'/'+path);
       qs=qhV118Skills_(src);combat=qhV118Combat_(src);
       const norm=x=>String(x||'').toLowerCase().replace(/\bnone\b/g,'').replace(/[^a-z0-9]+/g,' ').trim();
-      status=qhV118SkillSet_(dataset)===qhV118SkillSet_(qs)?'VERIFIED':'REVIEW';
+      status=norm(dataset)===norm(qs)?'VERIFIED':'REVIEW';
       reason=status==='VERIFIED'?'Dataset agrees with Quest Helper hard requirements.':'Dataset and Quest Helper hard requirements differ.';
-      if(slug==='thefremenniktrials'){qs='None';alt='25 Fletching; 40 Woodcutting; 40 Crafting';combat='Defeat Draugen (level 69); Koschei trial';status='VERIFIED';reason='Hard skills are none; lyre-making skills are conditional, not mandatory.'}
+      if(slug==='thefremenniktrials'){alt='25 Fletching; 40 Woodcutting; 40 Crafting';combat='Defeat Draugen (level 69); Koschei trial';status='VERIFIED';reason='Hard skills are none; lyre-making skills are conditional, not mandatory.'}
     }catch(e){status='NO SOURCE';reason=String(e&&e.message?e.message:e)}
     out.push([quest,dataset,qs,alt,combat,status,reason,path,new Date()]);
   }
