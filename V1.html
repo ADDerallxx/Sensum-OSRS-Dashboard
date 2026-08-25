@@ -149,6 +149,21 @@
     .skill.goalSkill .name{color:#775012}.skill .name{font-size:9px;color:#786753;text-transform:uppercase;font-weight:900}.skill .lvl{font-size:18px;font-weight:900;margin:2px 0}
     .health{display:flex;gap:7px;flex-wrap:wrap;padding:0 12px 12px}.pill{background:#e8dcc7;border-radius:999px;padding:5px 8px;font-size:10px;font-weight:800}
 
+    .heroTabs{display:flex;gap:4px;padding:8px 22px 0;background:#170c06;border-top:1px solid #5a3216}
+    .heroTab{display:inline-flex;align-items:center;gap:7px;background:transparent;color:#bfa98a;border:1px solid transparent;border-bottom:0;border-radius:9px 9px 0 0;padding:9px 14px;font-size:10px;font-weight:950;text-transform:uppercase;letter-spacing:.45px;cursor:pointer}
+    .heroTab.active{background:rgba(99,55,22,.55);color:#ffe09a;border-color:#75451f}
+    .heroTabDot{width:7px;height:7px;border-radius:50%;background:#6fb673}.heroTab.hasIssue .heroTabDot{background:#e4aa3b;box-shadow:0 0 0 2px rgba(228,170,59,.18)}
+    .heroPanel{display:none}.heroPanel.active{display:block}.heroPanel[hidden]{display:none!important}
+    .overviewMetrics{grid-template-columns:repeat(3,minmax(0,1fr))}
+    .heroPanelIntro{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:11px 22px 0;color:#f4dfb7}.heroPanelIntro b{font-size:13px}.heroPanelIntro span{font-size:10px;color:#bfa98a}
+    .heroSkills{grid-template-columns:repeat(8,minmax(0,1fr));padding:12px 22px 16px}
+    .heroSkills .skill{position:relative;display:grid;grid-template-columns:34px 1fr;grid-template-areas:'icon name' 'icon level' 'meta meta' 'target target';align-items:center;text-align:left;padding:8px;min-width:0}
+    .skillIconWrap{grid-area:icon;position:relative;width:30px;height:30px;display:flex;align-items:center;justify-content:center}
+    .skillIcon{position:relative;z-index:1;max-width:28px;max-height:28px;image-rendering:auto}.skillIconFallback{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;border-radius:7px;background:#5d3518;color:#ffd878;font-weight:950}
+    .heroSkills .name{grid-area:name}.heroSkills .lvl{grid-area:level;margin:0}.skillMeta{grid-area:meta;font-size:9px;color:#85735f;margin-top:5px}.heroSkills .targetLine{grid-area:target}
+    .healthMetaGrid{display:grid;grid-template-columns:1fr 1fr;gap:9px;padding:12px 22px 16px;background:rgba(99,55,22,.28)}
+    .healthMeta{background:#211107;border:1px solid #5a3216;border-radius:10px;padding:10px 12px}.healthMeta>span{display:block;font-size:9px;color:#cbb696;text-transform:uppercase;font-weight:900}.healthMeta>b{display:block;margin-top:5px;font-size:12px}.healthMeta.wide{grid-column:1/-1}.healthMeta .health{padding:7px 0 0}.healthMeta .pill{background:#3a210f;color:#f6dfb7}
+
 
     /* V1.5 play-session UI */
     .actionBody{grid-template-columns:minmax(230px,.64fr) minmax(0,1.7fr);padding:10px}
@@ -181,8 +196,8 @@
     .loading{position:fixed;inset:0;background:rgba(11,6,3,.82);display:flex;align-items:center;justify-content:center;z-index:10}.loading>div{background:#2c180a;border:1px solid #996128;border-radius:12px;padding:18px 22px;color:#ffe2a4;font-weight:900}
     .hidden{display:none}.error{background:#5c1712;border:1px solid #aa4238;border-radius:10px;padding:10px;margin-top:14px}
 
-    @media(max-width:1100px){.grid,.prepGrid{grid-template-columns:1fr}.metrics{grid-template-columns:repeat(3,1fr)}.skills{grid-template-columns:repeat(6,1fr)}.actionBody{grid-template-columns:1fr}.actionSteps{grid-template-columns:1fr 1fr 1fr}}
-    @media(max-width:680px){.dataHealthBar{align-items:flex-start;flex-direction:column}.healthFacts{justify-content:flex-start;gap:9px}.shell{padding:8px}.controls{grid-template-columns:1fr}.metrics{grid-template-columns:repeat(2,1fr);padding:10px}.heroTop{padding:15px 13px}.skills{grid-template-columns:repeat(3,1fr)}.summaryGrid{grid-template-columns:1fr}.summaryBox.full{grid-column:auto}.actionSteps{grid-template-columns:1fr}.actionStep.prep{grid-column:auto}.version{display:none}.qpStrip{display:block}}
+    @media(max-width:1100px){.grid,.prepGrid{grid-template-columns:1fr}.metrics{grid-template-columns:repeat(3,1fr)}.skills{grid-template-columns:repeat(6,1fr)}.heroSkills{grid-template-columns:repeat(6,minmax(0,1fr))}.actionBody{grid-template-columns:1fr}.actionSteps{grid-template-columns:1fr 1fr 1fr}}
+    @media(max-width:680px){.dataHealthBar{align-items:flex-start;flex-direction:column;padding:10px 13px}.healthFacts{justify-content:flex-start;gap:9px}.shell{padding:8px}.controls{grid-template-columns:1fr}.metrics,.overviewMetrics{grid-template-columns:1fr;padding:10px 13px}.heroTop{padding:15px 13px}.heroTabs{padding:7px 13px 0}.heroTab{flex:1;justify-content:center;padding:9px 7px;font-size:9px}.heroSkills{grid-template-columns:repeat(3,minmax(0,1fr));padding:10px 13px}.heroSkills .skill{grid-template-columns:28px 1fr;padding:7px 5px}.skillIconWrap{width:25px;height:25px}.skillIcon{max-width:24px;max-height:24px}.heroPanelIntro{padding:10px 13px 0;align-items:flex-start;flex-direction:column}.healthMetaGrid{grid-template-columns:1fr;padding:10px 13px}.healthMeta.wide{grid-column:auto}.summaryGrid{grid-template-columns:1fr}.summaryBox.full{grid-column:auto}.actionSteps{grid-template-columns:1fr}.actionStep.prep{grid-column:auto}.version{display:none}.qpStrip{display:block}}
   .questReward{margin-top:5px;font-size:10px;line-height:1.4;color:#705d48}.questReward b{color:#4d3218}.rewardBox{background:#fff7df!important;border-color:#d8b267!important}.rewardLines{display:grid;gap:5px}.rewardLine{font-size:11px;line-height:1.4}.rewardLabel{font-size:9px;font-weight:900;text-transform:uppercase;color:#8a642d;margin-right:5px}
 
 .questRewardSummary{display:flex;gap:5px;flex-wrap:wrap;margin-top:6px}
@@ -254,30 +269,46 @@
   <div class="hero">
     <div class="heroTop">
       <div><h1>Sensum OSRS Progression Dashboard</h1><div class="sub">Open this, see what matters, play the game.</div></div>
-      <div class="version">V1.24c · Focused Quest Menu</div>
+      <div class="version">V1.25 · Tabbed Command Center</div>
     </div>
-    <div class="controls">
-      <div class="label">Goal Target</div><select id="goal" onchange="changeGoal()"></select>
-      <div class="label">Route Depth</div><select id="depth" onchange="changeDepth()"><option value="3">3 steps</option><option value="5">5 steps</option><option value="10">10 steps</option></select>
+    <div class="heroTabs" role="tablist" aria-label="Dashboard command center">
+      <button type="button" id="heroTabOverview" class="heroTab active" role="tab" aria-selected="true" onclick="setHeroTab('overview')">Overview</button>
+      <button type="button" id="heroTabStats" class="heroTab" role="tab" aria-selected="false" onclick="setHeroTab('stats')">Stats</button>
+      <button type="button" id="heroTabHealth" class="heroTab" role="tab" aria-selected="false" onclick="setHeroTab('health')"><span class="heroTabDot"></span>Data Health</button>
     </div>
-    <div class="metrics">
-      <div class="metric"><div class="k">Username</div><div class="v" id="user">—</div></div>
-      <div class="metric"><div class="k">Combat Level</div><div class="v" id="combat">—</div></div>
-      <div class="metric"><div class="k">Quest Points</div><div class="v" id="qp">—</div><button id="v115Report" class="v115Report" title="Report Completed Quest" aria-label="Report Completed Quest" onclick="openV115QuestModal('Dashboard Manual')" type="button"><img src="https://oldschool.runescape.wiki/images/Quest_point_icon.png" alt=""><span>Report Quest</span></button></div>
-      <div class="metric"><div class="k">WOM Snapshot</div><div class="v" id="wom" style="font-size:12px">—</div></div>
-      <div class="metric"><div class="k">Sheet Sync</div><div class="v" id="sync" style="font-size:12px">—</div></div>
-    </div>
-    <div class="dataHealthBar" id="dataHealthBar">
-      <div class="dataHealthStatus">
-        <span class="healthDot" id="healthDot"></span>
-        <span class="healthTitle">Data Health</span>
-        <span class="healthState" id="healthState">Checking…</span>
+    <div id="heroPanelOverview" class="heroPanel active" role="tabpanel">
+      <div class="controls">
+        <div class="label">Goal Target</div><select id="goal" onchange="changeGoal()"></select>
+        <div class="label">Route Depth</div><select id="depth" onchange="changeDepth()"><option value="3">3 steps</option><option value="5">5 steps</option><option value="10">10 steps</option></select>
       </div>
-      <div class="healthFacts">
-        <span>WOM <b id="healthWom">—</b></span>
-        <span>Wiki <b id="healthWiki">—</b></span>
-        <span>Sheet <b id="healthSheet">—</b></span>
-        <span>Reviews <b id="healthReviews">—</b></span>
+      <div class="metrics overviewMetrics">
+        <div class="metric"><div class="k">Username</div><div class="v" id="user">—</div></div>
+        <div class="metric"><div class="k">Combat Level</div><div class="v" id="combat">—</div></div>
+        <div class="metric"><div class="k">Quest Points</div><div class="v" id="qp">—</div><button id="v115Report" class="v115Report" title="Report Completed Quest" aria-label="Report Completed Quest" onclick="openV115QuestModal('Dashboard Manual')" type="button"><img src="https://oldschool.runescape.wiki/images/Quest_point_icon.png" alt=""><span>Report Quest</span></button></div>
+      </div>
+    </div>
+    <div id="heroPanelStats" class="heroPanel" role="tabpanel" hidden>
+      <div class="heroPanelIntro"><b>Current Stats</b><span>Goal-relevant skills are highlighted in gold.</span></div>
+      <div id="skills" class="skills heroSkills"></div>
+    </div>
+    <div id="heroPanelHealth" class="heroPanel" role="tabpanel" hidden>
+      <div class="dataHealthBar" id="dataHealthBar">
+        <div class="dataHealthStatus">
+          <span class="healthDot" id="healthDot"></span>
+          <span class="healthTitle">Data Health</span>
+          <span class="healthState" id="healthState">Checking…</span>
+        </div>
+        <div class="healthFacts">
+          <span>WOM <b id="healthWom">—</b></span>
+          <span>Wiki <b id="healthWiki">—</b></span>
+          <span>Sheet <b id="healthSheet">—</b></span>
+          <span>Reviews <b id="healthReviews">—</b></span>
+        </div>
+      </div>
+      <div class="healthMetaGrid">
+        <div class="healthMeta"><span>WOM snapshot</span><b id="wom">—</b></div>
+        <div class="healthMeta"><span>Sheet sync</span><b id="sync">—</b></div>
+        <div class="healthMeta wide"><span>Wiki requirement audit</span><div id="health" class="health"></div></div>
       </div>
     </div>
   </div>
@@ -356,15 +387,23 @@
     <div id="shopping" class="shop"></div>
   </div>
 
-  <details class="card section">
-    <summary><div class="head">📊 Current Stats & Data Health</div></summary>
-    <div id="skills" class="skills"></div><div id="health" class="health"></div>
-  </details>
 </div>
 
 <script>
 const $=id=>document.getElementById(id);
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const V125_SKILL_ICONS={
+  attack:'Attack_icon.png',strength:'Strength_icon.png',defence:'Defence_icon.png',ranged:'Ranged_icon.png',prayer:'Prayer_icon.png',magic:'Magic_icon.png',runecraft:'Runecraft_icon.png',construction:'Construction_icon.png',hitpoints:'Hitpoints_icon.png',agility:'Agility_icon.png',herblore:'Herblore_icon.png',thieving:'Thieving_icon.png',crafting:'Crafting_icon.png',fletching:'Fletching_icon.png',slayer:'Slayer_icon.png',hunter:'Hunter_icon.png',mining:'Mining_icon.png',smithing:'Smithing_icon.png',fishing:'Fishing_icon.png',cooking:'Cooking_icon.png',firemaking:'Firemaking_icon.png',woodcutting:'Woodcutting_icon.png',farming:'Farming_icon.png',sailing:'Sailing_icon.png'
+};
+function v125SkillIcon(skill){const key=String(skill||'').trim().toLowerCase();const file=V125_SKILL_ICONS[key]||(`${String(skill||'Skill').trim().replace(/\s+/g,'_')}_icon.png`);return 'https://oldschool.runescape.wiki/images/'+encodeURIComponent(file).replace(/%2F/gi,'/')}
+function setHeroTab(name){
+  ['overview','stats','health'].forEach(key=>{
+    const active=key===name,cap=key.charAt(0).toUpperCase()+key.slice(1);
+    const tab=$('heroTab'+cap),panel=$('heroPanel'+cap);
+    tab.classList.toggle('active',active);tab.setAttribute('aria-selected',String(active));
+    panel.classList.toggle('active',active);panel.hidden=!active;
+  });
+}
 function busy(v){$('loading').classList.toggle('hidden',!v)}
 function fail(e){busy(false);$('err').textContent='Dashboard error: '+(e&&e.message?e.message:e);$('err').classList.remove('hidden')}
 function load(){
@@ -776,6 +815,8 @@ function dataHealth(s){
 
   const bar=$('dataHealthBar');
   bar.className='dataHealthBar '+cls;
+  $('heroTabHealth').classList.toggle('hasIssue',cls!=='healthHealthy');
+  $('heroTabHealth').title=cls==='healthHealthy'?'All data sources are healthy':`Data health: ${state}`;
   $('healthState').textContent=state;
   $('healthWom').textContent=ageLabel(s.lastWomSnapshot);
   $('healthWiki').textContent=ageLabel(h.lastCheck);
@@ -1079,7 +1120,7 @@ function render(s){
   $('shopping').innerHTML=routeShoppingHtml(s);
 
   const focus=goalSkills(s);
-  $('skills').innerHTML=(s.stats||[]).map(x=>{const relevant=focus.has(String(x.skill||'').toLowerCase()),target=relevant?inferTarget(x,s):null,gap=target?Math.max(0,target-Number(x.level||0)):0;return `<div class="skill ${relevant?'goalSkill':''}"><div class="name">${esc(x.skill)}</div><div class="lvl">${esc(x.level)}</div><div style="font-size:9px;color:#85735f">${Number(x.xp||0).toLocaleString()} XP</div>${target?`<div class="targetLine">Target ${target}${gap?` · +${gap}`:' · met'}</div>`:''}</div>`}).join('');
+  $('skills').innerHTML=(s.stats||[]).map(x=>{const skill=String(x.skill||''),relevant=focus.has(skill.toLowerCase()),target=relevant?inferTarget(x,s):null,gap=target?Math.max(0,target-Number(x.level||0)):0;return `<div class="skill ${relevant?'goalSkill':''}"><div class="skillIconWrap"><span class="skillIconFallback">${esc(skill.slice(0,1))}</span><img class="skillIcon" src="${v125SkillIcon(skill)}" alt="" loading="lazy" onerror="this.style.display='none'"></div><div class="name">${esc(skill)}</div><div class="lvl">${esc(x.level)}</div><div class="skillMeta">${Number(x.xp||0).toLocaleString()} XP</div>${target?`<div class="targetLine">Target ${target}${gap?` · +${gap}`:' · ✓ met'}</div>`:''}</div>`}).join('');
   const h=s.wikiHealth||{};
   $('health').innerHTML=`<span class="pill good">Wiki OK: ${esc(h.ok||0)}</span><span class="pill">Review: ${esc(h.review||0)}</span><span class="pill">Missing: ${esc(h.missing||0)}</span><span class="pill">Last check: ${esc(h.lastCheck||'—')}</span>`;
 }
