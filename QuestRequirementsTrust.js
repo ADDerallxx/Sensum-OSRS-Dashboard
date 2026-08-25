@@ -409,6 +409,14 @@ function qhV122Policy_(quest,dataset,qs,combat,path) {
       :'Dataset differs from current OSRS Wiki hard requirements.';
   }
 
+  else if(slug==='fairytaleiicureaqueen'){
+    qs='40 THIEVING; 49 FARMING; 57 HERBLORE';
+    status=qhV118SkillSet_(dataset)===qhV118SkillSet_(qs)?'VERIFIED':'REVIEW';
+    reason=status==='VERIFIED'
+      ?'OSRS Wiki and Quest Helper confirm 40 Thieving, 49 Farming, and 57 Herblore. Quest Helper stores the skill requirements as variables, so the generic direct-constructor parser cannot discover them.'
+      :'Dataset differs from the verified Fairytale II skill requirements.';
+  }
+
   return {
     qs:qs || (base ? base.qs : ''),
     alt:alt || (base ? base.alt : ''),
@@ -585,3 +593,8 @@ function qhInstallV122() {
     lastResult:result
   };
 }
+
+function qhInstallV122a() {
+  return qhInstallV122();
+}
+

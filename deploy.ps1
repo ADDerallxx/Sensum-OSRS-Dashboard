@@ -171,12 +171,70 @@ try {
     exit 1
   }
 
+
+  # V122A_AUTO_WEBAPP_REDEPLOY
+  Step "Redeploying live Apps Script web app"
+
+  $deploymentOutput = @(& clasp list-deployments)
+  if ($LASTEXITCODE -ne 0) {
+    Fail "Could not list Apps Script deployments."
+  }
+
+  $parsedDeployments = @()
+  foreach ($line in $deploymentOutput) {
+    if ($line -match '^\-\s+(AKfy\S+)\s+@(\d+)(?:\s+\-\s+(.+))?$') {
+      $parsedDeployments += [PSCustomObject]@{
+        Id = $Matches[1]
+        Version = [int]$Matches[2]
+        Description = [string]$Matches[3]
+      }
+    }
+  }
+
+  if ($parsedDeployments.Count -eq 0) {
+    Fail "No versioned Apps Script deployments were found."
+  }
+
+  $targets = @()
+
+  $named = @($parsedDeployments | Where-Object {
+    $_.Description -match 'Sensum\s*-\s*OSRS\s*Dashboard'
+  })
+  if ($named.Count -gt 0) {
+    $targets += $named
+  }
+
+  $newest = $parsedDeployments | Sort-Object Version -Descending | Select-Object -First 1
+  if ($newest) {
+    $targets += $newest
+  }
+
+  $targets = @($targets | Group-Object Id | ForEach-Object { $_.Group[0] })
+
+  $claspHelp = (& clasp --help 2>&1 | Out-String)
+  foreach ($target in $targets) {
+    Write-Host ("Redeploying " + $target.Id + " (currently @" + $target.Version + ")") -ForegroundColor DarkCyan
+
+    if ($claspHelp -match 'update-deployment') {
+      & clasp update-deployment $target.Id --description $Message
+    } else {
+      & clasp deploy -i $target.Id -d $Message
+    }
+
+    if ($LASTEXITCODE -ne 0) {
+      Fail ("Apps Script live redeployment failed for " + $target.Id)
+    }
+  }
+
+  Write-Host ""
+  Write-Host ("Live deployment(s) updated: " + (($targets | ForEach-Object { $_.Id }) -join ", ")) -ForegroundColor Green
+
   Write-Host ""
   Write-Host "==========================================" -ForegroundColor Green
   Write-Host " DEPLOY SUCCESSFUL" -ForegroundColor Green
   Write-Host " GitHub: pushed to main" -ForegroundColor Green
   Write-Host " Apps Script: source updated with clasp" -ForegroundColor Green
-  Write-Host " Live web app: NOT redeployed" -ForegroundColor Yellow
+  Write-Host " Live web app: redeployed automatically" -ForegroundColor Green
   Write-Host "==========================================" -ForegroundColor Green
   Write-Host ""
 }
