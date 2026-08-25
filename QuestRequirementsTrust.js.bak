@@ -1,26 +1,26 @@
 // V1.18 Requirements Trust Layer
 function qhV118Norm_(s){return String(s||'').toLowerCase().replace(/[^a-z0-9]+/g,'').trim();}
 function qhV118Method_(src,name){
-  const re=new RegExp('(?:public|protected)\\s+[^{;]+\\s+'+name+'\\s*\\([^)]*\\)\\s*\\{','m'),m=re.exec(src);
+  const re=new RegExp('(?:public|protected)\\\\s+[^{;]+\\\\s+'+name+'\\\\s*\\\\([^)]*\\\\)\\\\s*\\\\{','m'),m=re.exec(src);
   if(!m)return ''; let i=m.index+m[0].length,d=1,a=i;
   for(;i<src.length;i++){if(src[i]==='{')d++;else if(src[i]==='}'&&--d===0)return src.slice(a,i)} return '';
 }
 function qhV118Skills_(src){
   const b=qhV118Method_(src,'getGeneralRequirements'),o=[]; let m;
-  const re=/new\s+SkillRequirement\s*\(\s*Skill\.([A-Z_]+)\s*,\s*(\d+)/g;
-  while((m=re.exec(b))!==null)o.push(m[2]+' '+m[1].replace(/_/g,' ').replace(/\b\w/g,c=>c.toUpperCase()));
+  const re=/new\\s+SkillRequirement\\s*\\(\\s*Skill\\.([A-Z_]+)\\s*,\\s*(\\d+)/g;
+  while((m=re.exec(b))!==null)o.push(m[2]+' '+m[1].replace(/_/g,' ').replace(/\\b\\w/g,c=>c.toUpperCase()));
   return o.join('; ');
 }
 function qhV118Combat_(src){
-  const b=qhV118Method_(src,'getCombatRequirements'),o=[];let m,re=/"((?:\\.|[^"\\])*)"/g;
-  while((m=re.exec(b))!==null)o.push(m[1].replace(/\"/g,'"'));return o.join('; ');
+  const b=qhV118Method_(src,'getCombatRequirements'),o=[];let m,re=/"((?:\\\\.|[^"\\\\])*)"/g;
+  while((m=re.exec(b))!==null)o.push(m[1].replace(/\\"/g,'"'));return o.join('; ');
 }
 function qhV118Header_(h,res){for(let i=0;i<h.length;i++)if(res.some(r=>r.test(String(h[i]||'').trim())))return i;return -1;}
 function qhV118FixFremennik_(){
   const ss=SpreadsheetApp.openById(QH_TRACKER_ID),sh=ss.getSheetByName('Quest Dependency'),v=sh.getDataRange().getDisplayValues();
   let hr=-1,h=[];for(let i=0;i<Math.min(v.length,15);i++){let r=v[i].map(String);if(r.some(x=>/^quest name$/i.test(x.trim()))){hr=i;h=r;break}}
   const q=qhV118Header_(h,[/^quest name$/i]),sk=qhV118Header_(h,[/^skill level requirements?$/i,/^skill requirements?$/i]),oth=qhV118Header_(h,[/^other requirements?$/i]);
-  let alt=qhV118Header_(h,[/^conditional \/ alternative requirements$/i]);if(alt<0){alt=h.length;sh.getRange(hr+1,alt+1).setValue('Conditional / Alternative Requirements')}
+  let alt=qhV118Header_(h,[/^conditional \\/ alternative requirements$/i]);if(alt<0){alt=h.length;sh.getRange(hr+1,alt+1).setValue('Conditional / Alternative Requirements')}
   let row=-1;for(let i=hr+1;i<v.length;i++)if(qhV118Norm_(v[i][q])==='thefremenniktrials'){row=i+1;break}
   if(row<0)throw new Error('The Fremennik Trials not found');
   if(sk>=0)sh.getRange(row,sk+1).setValue('None');
@@ -42,7 +42,7 @@ function qhV118AuditBatch_(start,size){
       path=qhDirectQuestPath_(quest);
       const src=qhFetchText_('https://raw.githubusercontent.com/'+QH_REPO+'/'+QH_BRANCH+'/'+path);
       qs=qhV118Skills_(src);combat=qhV118Combat_(src);
-      const norm=x=>String(x||'').toLowerCase().replace(/\bnone\b/g,'').replace(/[^a-z0-9]+/g,' ').trim();
+      const norm=x=>String(x||'').toLowerCase().replace(/\\bnone\\b/g,'').replace(/[^a-z0-9]+/g,' ').trim();
       status=norm(dataset)===norm(qs)?'VERIFIED':'REVIEW';
       reason=status==='VERIFIED'?'Dataset agrees with Quest Helper hard requirements.':'Dataset and Quest Helper hard requirements differ.';
       if(slug==='thefremenniktrials'){alt='25 Fletching; 40 Woodcutting; 40 Crafting';combat='Defeat Draugen (level 69); Koschei trial';status='VERIFIED';reason='Hard skills are none; lyre-making skills are conditional, not mandatory.'}
