@@ -76,3 +76,30 @@ function qhInstallV118TrustLayer_(){qhV118FixFremennik_();return qhV118AuditBatc
 function qhInstallV118TrustLayer() {
   return qhInstallV118TrustLayer_();
 }
+
+function qhV118AuditRemaining() {
+  const p = PropertiesService.getScriptProperties();
+  let cursor = Number(p.getProperty('QH_V118_AUDIT_CURSOR') || 0);
+
+  if (cursor === 0) {
+    return {ok:true, complete:true, message:'No remaining audit batches.'};
+  }
+
+  const started = Date.now();
+  let batches = 0;
+  let result = null;
+
+  while (cursor !== 0 && batches < 6 && (Date.now() - started) < 240000) {
+    result = qhV118AuditBatch_(cursor, 20);
+    cursor = Number(result.next || 0);
+    batches++;
+  }
+
+  return {
+    ok:true,
+    batchesProcessed:batches,
+    next:cursor,
+    complete:cursor === 0,
+    lastResult:result
+  };
+}
