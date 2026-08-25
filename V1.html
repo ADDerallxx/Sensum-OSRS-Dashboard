@@ -146,7 +146,7 @@
     .skills{display:grid;grid-template-columns:repeat(12,1fr);gap:7px;padding:12px}
     .skill{background:#fffaf2;border:1px solid #d5c3a6;border-radius:9px;padding:8px 5px;text-align:center;transition:.15s}
     .skill.goalSkill{border-color:#c18b2b;background:#fff1cf;box-shadow:inset 0 0 0 1px #e1bd72}
-    .skill.goalSkill .name{color:#775012}.skill .name{font-size:9px;color:#786753;text-transform:uppercase;font-weight:900}.skill .lvl{font-size:18px;font-weight:900;margin:2px 0}
+    .skill.goalSkill .name{color:#775012}.skill .name{font-size:9px;color:#786753;text-transform:uppercase;font-weight:900}.skill .lvl{font-size:18px;font-weight:900;margin:2px 0;color:#25180e;text-shadow:none}
     .health{display:flex;gap:7px;flex-wrap:wrap;padding:0 12px 12px}.pill{background:#e8dcc7;border-radius:999px;padding:5px 8px;font-size:10px;font-weight:800}
 
     .heroTabs{display:flex;gap:4px;padding:8px 22px 0;background:#170c06;border-top:1px solid #5a3216}
@@ -160,7 +160,7 @@
     .heroSkills .skill{position:relative;display:grid;grid-template-columns:34px 1fr;grid-template-areas:'icon name' 'icon level' 'meta meta' 'target target';align-items:center;text-align:left;padding:8px;min-width:0}
     .skillIconWrap{grid-area:icon;position:relative;width:30px;height:30px;display:flex;align-items:center;justify-content:center}
     .skillIcon{position:relative;z-index:1;max-width:28px;max-height:28px;image-rendering:auto}.skillIconFallback{position:absolute;inset:0;display:none;align-items:center;justify-content:center;border-radius:7px;background:#5d3518;color:#ffd878;font-weight:950}
-    .heroSkills .name{grid-area:name}.heroSkills .lvl{grid-area:level;margin:0}.skillMeta{grid-area:meta;font-size:9px;color:#85735f;margin-top:5px}.heroSkills .targetLine{grid-area:target}
+    .heroSkills .name{grid-area:name}.heroSkills .lvl{grid-area:level;margin:0;color:#25180e}.skillMeta{grid-area:meta;font-size:9px;color:#85735f;margin-top:5px}.heroSkills .targetLine{grid-area:target}
     .healthMetaGrid{display:grid;grid-template-columns:1fr 1fr;gap:9px;padding:12px 22px 16px;background:rgba(99,55,22,.28)}
     .healthMeta{background:#211107;border:1px solid #5a3216;border-radius:10px;padding:10px 12px}.healthMeta>span{display:block;font-size:9px;color:#cbb696;text-transform:uppercase;font-weight:900}.healthMeta>b{display:block;margin-top:5px;font-size:12px}.healthMeta.wide{grid-column:1/-1}.healthMeta .health{padding:7px 0 0}.healthMeta .pill{background:#3a210f;color:#f6dfb7}
 
@@ -269,7 +269,7 @@
   <div class="hero">
     <div class="heroTop">
       <div><h1>Sensum OSRS Progression Dashboard</h1><div class="sub">Open this, see what matters, play the game.</div></div>
-      <div class="version">V1.25a · Tabbed Command Center</div>
+      <div class="version">V1.25b · Tabbed Command Center</div>
     </div>
     <div class="heroTabs" role="tablist" aria-label="Dashboard command center">
       <button type="button" id="heroTabOverview" class="heroTab active" role="tab" aria-selected="true" onclick="setHeroTab('overview')">Overview</button>
