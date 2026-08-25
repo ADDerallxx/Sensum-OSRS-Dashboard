@@ -95,6 +95,7 @@ function syncQuestHelperRouteRequirements() {
   cache.autoResizeColumns(1,14);
 
   qhBuildReconciledPrep_(ss, rows, now, commit);
+  if (typeof qhV119ApplyRoutePolicies_ === 'function') qhV119ApplyRoutePolicies_(ss, now, commit);
 
   PropertiesService.getScriptProperties().setProperty('QH_ROUTE_SYNC_MS_V2', String(Date.now()));
   return {ok:true, quests:routeQuests.length, rows:rows.length, commit:commit, syncedAt:now.toISOString()};
