@@ -269,7 +269,7 @@
   <div class="hero">
     <div class="heroTop">
       <div><h1>Sensum OSRS Progression Dashboard</h1><div class="sub">Open this, see what matters, play the game.</div></div>
-      <div class="version">V1.29 · Quest Context</div>
+      <div class="version">V1.29a · Styled Confirmations</div>
     </div>
     <div class="heroTabs" role="tablist" aria-label="Dashboard command center">
       <button type="button" id="heroTabOverview" class="heroTab active" role="tab" aria-selected="true" onclick="setHeroTab('overview')">Overview</button>
@@ -1182,8 +1182,9 @@ function closeV127GoalManager(){$('v127GoalModal').classList.remove('show');docu
 function completeCurrentV127Goal(){
   const name=String((window.__sensumState&&window.__sensumState.goal)||'');
   if(!name||/^balanced$/i.test(name))return;
-  if(!confirm(`Mark ${name} accomplished? It will move to Manage completed goals.`))return;
-  busy(true);google.script.run.withSuccessHandler(s=>{render(s);showV115Toast(`${name} marked accomplished.`)}).withFailureHandler(fail).completeV127Goal(name);
+  openV130Confirm({eyebrow:'Goal progress',title:'Mark this goal accomplished?',message:'It will leave the active goal menu, but you can restore it at any time.',items:[name],confirmLabel:'Mark accomplished',icon:'✓'},()=>{
+    busy(true);google.script.run.withSuccessHandler(s=>{render(s);showV115Toast(`${name} marked accomplished.`)}).withFailureHandler(fail).completeV127Goal(name);
+  });
 }
 function restoreV127GoalUi(name){
   busy(true);google.script.run.withSuccessHandler(s=>{render(s);openV127GoalManager();showV115Toast(`${name} restored to active goals.`)}).withFailureHandler(fail).restoreV127Goal(name);
@@ -1203,7 +1204,7 @@ function openV115QuestModal(src){
   const likely=document.getElementById('v115Likely');
   const all=document.getElementById('v115All');
   if(!modal||!likely||!all){
-    alert('Quest reporter did not initialize correctly. Refresh the dashboard and try again.');
+    showV115Toast('Quest reporter did not initialize correctly. Refresh the dashboard and try again.',true);
     return;
   }
 
@@ -1261,6 +1262,31 @@ function showV115Toast(message,isError,action){
   requestAnimationFrame(()=>t.classList.add('show'));
   v115ToastTimer=setTimeout(()=>t.classList.remove('show'),action?9000:4200);
 }
+let v130ConfirmAction=null;
+function openV130Confirm(options,onConfirm){
+  const o=options||{},modal=$('v130ConfirmModal'),items=Array.isArray(o.items)?o.items:[];
+  $('v130ConfirmIcon').textContent=o.icon||'✓';
+  $('v130ConfirmEyebrow').textContent=o.eyebrow||'Please confirm';
+  $('v130ConfirmTitle').textContent=o.title||'Confirm this change?';
+  $('v130ConfirmMessage').textContent=o.message||'';
+  $('v130ConfirmItems').innerHTML=items.map(x=>`<div class="v130ConfirmItem"><span>✓</span><b>${esc(x)}</b></div>`).join('');
+  $('v130ConfirmItems').classList.toggle('hidden',!items.length);
+  $('v130ConfirmAccept').textContent=o.confirmLabel||'Confirm';
+  modal.classList.toggle('danger',o.tone==='danger');
+  v130ConfirmAction=typeof onConfirm==='function'?onConfirm:null;
+  modal.classList.add('show');document.body.classList.add('v115ModalOpen');
+  setTimeout(()=>$('v130ConfirmAccept').focus(),0);
+}
+function closeV130Confirm(){
+  $('v130ConfirmModal').classList.remove('show');v130ConfirmAction=null;
+  if(!document.querySelector('.v115Modal.show'))document.body.classList.remove('v115ModalOpen');
+}
+function acceptV130Confirm(){
+  const action=v130ConfirmAction;
+  $('v130ConfirmModal').classList.remove('show');v130ConfirmAction=null;
+  if(!document.querySelector('.v115Modal.show'))document.body.classList.remove('v115ModalOpen');
+  if(action)action();
+}
 
 function applyV124CorrectionResult(r,message){
   v115State=r.state||v115State;
@@ -1285,15 +1311,14 @@ function undoV124LastCompletion(){
 
 function unmarkV124Quest(quest){
   if(v122SavingQuest)return;
-  if(!confirm(`Mark ${quest} as incomplete?
-
-This will recalculate your route and recommendations.`))return;
-  setV122Saving(true);
-  showV115Toast(`Restoring ${quest} to incomplete…`);
-  google.script.run
-    .withFailureHandler(e=>{setV122Saving(false);showV115Toast('Correction failed: '+((e&&e.message)?e.message:String(e||'Unknown error')),true)})
-    .withSuccessHandler(r=>{setV122Saving(false);applyV124CorrectionResult(r,`${quest} is incomplete again. Dashboard updated.`)})
-    .uncompleteV124QuestsFast([quest],'Dashboard Manage Completed');
+  openV130Confirm({eyebrow:'Correct quest progress',title:'Mark this quest incomplete?',message:'Your route, quest points, and recommendations will be recalculated.',items:[quest],confirmLabel:'Mark incomplete',icon:'↶',tone:'danger'},()=>{
+    setV122Saving(true);
+    showV115Toast(`Restoring ${quest} to incomplete…`);
+    google.script.run
+      .withFailureHandler(e=>{setV122Saving(false);showV115Toast('Correction failed: '+((e&&e.message)?e.message:String(e||'Unknown error')),true)})
+      .withSuccessHandler(r=>{setV122Saving(false);applyV124CorrectionResult(r,`${quest} is incomplete again. Dashboard updated.`)})
+      .uncompleteV124QuestsFast([quest],'Dashboard Manage Completed');
+  });
 }
 
 function v115Row(q){const checked=v115Selected.has(q.quest);return `<label class="v115Quest"><input type="checkbox" ${checked?'checked':''} onchange="toggleV115('${String(q.quest).replace(/'/g,"\\'")}',this.checked)"><span><b>${q.quest}</b>${q.reasons&&q.reasons.length?`<small>${q.reasons.join(' - ')}</small>`:''}</span><span>${q.qp||0} QP</span></label>`}
@@ -1312,19 +1337,17 @@ function setV122Saving(on){
 }
 function confirmV115Quests(){
   if(v122SavingQuest)return;
-  if(!v115Selected.size)return alert('Select at least one quest.');
+  if(!v115Selected.size)return showV115Toast('Select at least one quest first.',true);
   const names=[...v115Selected];
-  if(!confirm(`Mark these quests complete?
+  const qp=(v115State&&v115State.incomplete||[]).filter(q=>v115Selected.has(q.quest)).reduce((sum,q)=>sum+Number(q.qp||0),0);
+  openV130Confirm({eyebrow:'Quest completion',title:names.length===1?'Mark this quest complete?':`Mark ${names.length} quests complete?`,message:`This adds ${qp} quest point${qp===1?'':'s'} and refreshes your recommendations.`,items:names,confirmLabel:names.length===1?'Mark complete':'Mark all complete',icon:'★'},()=>{
+   closeV115QuestModal();
+   setV122Saving(true);
 
-${names.join('\n')}`))return;
+   const label=names.length===1?names[0]:`${names.length} quests`;
+   showV115Toast(`Saving ${label}… recommendations will refresh automatically.`);
 
-  closeV115QuestModal();
-  setV122Saving(true);
-
-  const label=names.length===1?names[0]:`${names.length} quests`;
-  showV115Toast(`Saving ${label}… recommendations will refresh automatically.`);
-
-  google.script.run
+   google.script.run
     .withFailureHandler(e=>{
       setV122Saving(false);
       const msg=(e&&e.message)?e.message:String(e||'Unknown error');
@@ -1351,6 +1374,7 @@ ${names.join('\n')}`))return;
       showV115Toast(`${doneLabel} marked complete. Dashboard updated.`,false,{label:'Undo',onclick:'undoV124LastCompletion()'});
     })
     .completeV122QuestsFast(names,v115Source);
+  });
 }
 function v123QuestReporterSelfTest(){
   const b=document.getElementById('v115Report');
@@ -1394,6 +1418,7 @@ body.v115ModalOpen{overflow:hidden}
 .v127GoalControl{display:flex;gap:7px;align-items:center}.v127GoalControl select{min-width:210px}.v127ManageBtn,.v127CompleteBtn{border:1px solid #b8873c;border-radius:8px;background:#fff7df;color:#4b2c13;padding:8px 10px;font-weight:900;cursor:pointer}.v127ManageBtn{font-size:10px;white-space:nowrap}.v127CompleteBtn{background:#e4f0df;border-color:#72906b;color:#28502b}.v127CompleteBtn:disabled{opacity:.45;cursor:not-allowed}.v127GoalActions{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:11px;padding-top:10px;border-top:1px solid #ded1bb}.v127GoalActions span{font-size:9px;color:#756452;font-weight:750}.v127GoalRow{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:11px 2px;border-bottom:1px solid #ded1bb}.v127GoalRow small{display:block;color:#756452;margin-top:3px}.v127GoalEmpty{padding:20px;text-align:center;color:#756452}
 .v128BossTop{display:flex;align-items:end;justify-content:space-between;gap:14px;margin-bottom:12px}.v128BossTop>div{display:flex;flex-direction:column;gap:3px}.v128BossTop b{font-size:13px;color:#ffe2a1}.v128BossTop span{font-size:9px;color:#cdbb9b}.v128BossTop select{min-width:230px}.v128BossCard{background:#f8f1e5;color:#2d1b0f;border:1px solid #9b6a36;border-radius:12px;padding:13px}.v128BossHero{display:flex;align-items:flex-start;justify-content:space-between;gap:15px}.v128BossHero h3{font-size:20px;margin:5px 0 4px}.v128BossHero p{max-width:760px;margin:0;color:#6e5a45;font-size:10px;line-height:1.4}.v128Stage{display:inline-block;background:#4b2b16;color:#ffe0a0;border-radius:999px;padding:3px 7px;text-transform:uppercase;font-weight:900;letter-spacing:.4px}.v128Readiness{min-width:160px;border-radius:9px;padding:9px 11px;display:flex;flex-direction:column;gap:3px}.v128Readiness.ready{background:#dcebd7;color:#285b30}.v128Readiness.prep{background:#f5e0b1;color:#6d470d}.v128Readiness b{font-size:11px}.v128Readiness span{font-size:9px}.v128Stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(105px,1fr));gap:7px;margin-top:12px}.v128Stat{border:1px solid #d0bea2;border-radius:8px;padding:8px;display:grid;grid-template-columns:1fr auto;gap:2px 8px;background:#fffaf2}.v128Stat span{font-size:9px;font-weight:900;text-transform:uppercase;color:#70583f}.v128Stat b{font-size:16px}.v128Stat b small{font-size:9px;color:#7b6a59}.v128Stat em{grid-column:1/-1;font-size:8px;font-style:normal;font-weight:900}.v128Stat.met em{color:#397441}.v128Stat.short{border-color:#d39d74;background:#fff3ea}.v128Stat.short em{color:#a1432d}.v128PrepGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}.v128PrepGrid>div{background:#efe4d2;border-radius:8px;padding:9px;display:flex;flex-direction:column;gap:3px}.v128PrepGrid span{font-size:8px;text-transform:uppercase;font-weight:900;color:#806345}.v128PrepGrid b{font-size:11px}.v128PrepGrid small{font-size:9px;color:#6e5a45;line-height:1.35}.v128GoalBtn{margin-top:10px;border:1px solid #7b572e;background:#4b2b16;color:#fff0cd;border-radius:8px;padding:8px 11px;font-weight:900;cursor:pointer}@media(max-width:720px){.v128BossTop,.v128BossHero{align-items:stretch;flex-direction:column}.v128BossTop select{min-width:0;width:100%}.v128PrepGrid{grid-template-columns:1fr}.v128Readiness{min-width:0}}
 .v128BossTop{display:grid;grid-template-columns:minmax(250px,.7fr) minmax(320px,1.3fr);align-items:end;gap:24px;padding:7px 2px 2px;margin-bottom:14px}.v128BossTop .v128BossIntro{display:flex;flex-direction:column;gap:5px}.v128BossTop .v128BossIntro b{font-size:15px;line-height:1.15;color:#ffe2a1}.v128BossTop .v128BossIntro span{max-width:480px;font-size:10px;line-height:1.35;color:#cdbb9b}.v128BossPicker{display:flex;flex-direction:column;gap:5px}.v128BossPicker>span{font-size:8px;font-weight:950;letter-spacing:.55px;text-transform:uppercase;color:#d8c29b}.v128BossPicker select{width:100%;min-width:0;padding:10px 12px;font-size:12px;font-weight:850}.v128BossCard{padding:16px}.v128BossHero h3{font-size:22px;line-height:1.1;margin:7px 0 6px}.v128BossHero p{font-size:10px;line-height:1.5}.v128Stat{padding:10px}.v128PrepGrid>div{padding:11px}.v128PrepGrid small{margin-top:2px}.v129QuestMeta{display:flex;align-items:center;gap:4px;flex-wrap:wrap;margin-top:5px}.actionQuest .v129QuestMeta{display:inline-flex;vertical-align:middle;margin:0 0 0 9px}.v129QuestBadge{display:inline-flex;align-items:center;border-radius:999px;padding:3px 7px;font-size:7px;line-height:1;font-weight:950;letter-spacing:.3px;text-transform:uppercase;border:1px solid #c7b18d;background:#f2e9d8;color:#694c28}.v129QuestBadge.difficulty{background:#ede4d6;color:#654324}.v129QuestBadge.length{background:#e7eef0;border-color:#b8c9cf;color:#355968}.step>.v129QuestMeta{margin:-1px 0 6px}@media(max-width:720px){.v128BossTop{grid-template-columns:1fr;gap:12px}.actionQuest .v129QuestMeta{display:flex;margin:6px 0 0}}
+.v130ConfirmModal{z-index:10040;background:rgba(20,9,3,.78);backdrop-filter:blur(3px)}.v130ConfirmBox{width:min(480px,100%);background:#fffaf0;color:#2b190d;border:2px solid #c88b2d;border-radius:16px;box-shadow:0 22px 60px rgba(0,0,0,.5);overflow:hidden}.v130ConfirmTop{display:flex;align-items:flex-start;gap:12px;padding:18px 19px 12px}.v130ConfirmIcon{width:42px;height:42px;flex:0 0 auto;display:flex;align-items:center;justify-content:center;border-radius:12px;background:#f2c35a;color:#4b260d;font-size:20px;font-weight:950;box-shadow:inset 0 0 0 1px #d7a53d}.v130ConfirmEyebrow{font-size:8px;line-height:1;text-transform:uppercase;letter-spacing:.7px;font-weight:950;color:#9a6b2e;margin:2px 0 6px}.v130ConfirmTitle{font-size:19px;line-height:1.18;font-weight:950;color:#321b0c}.v130ConfirmMessage{padding:0 19px 13px;color:#6d5942;font-size:11px;line-height:1.45}.v130ConfirmItems{margin:0 19px 16px;padding:7px 10px;background:#f2e7d5;border:1px solid #dac4a2;border-radius:10px;max-height:190px;overflow:auto}.v130ConfirmItem{display:flex;align-items:center;gap:8px;padding:7px 2px;font-size:11px}.v130ConfirmItem+.v130ConfirmItem{border-top:1px solid #dfcfb5}.v130ConfirmItem span{color:#4d8154;font-weight:950}.v130ConfirmActions{display:flex;justify-content:flex-end;gap:8px;padding:12px 18px;background:#eee0c8;border-top:1px solid #d9c2a0}.v130ConfirmActions button{min-width:105px}.v130ConfirmAccept{background:#5a3217!important;color:#fff3d4!important}.v130ConfirmModal.danger .v130ConfirmIcon{background:#efd6cf;color:#8b241d;box-shadow:inset 0 0 0 1px #d4a39a}.v130ConfirmModal.danger .v130ConfirmAccept{background:#8b241d!important}.v130ConfirmModal .hidden{display:none}
 
 </style>
 <div id="v115Banner" class="v115Banner"><b>Quest Points increased</b><div id="v115BannerText"></div><div class="v115BannerActions"><button class="v115Btn primary" onclick="openV115QuestModal('QP Reconciliation')">Review completed quests</button><button class="v115Btn" onclick="hideV115Banner()">Dismiss</button></div></div>
@@ -1407,6 +1432,7 @@ body.v115ModalOpen{overflow:hidden}
 </div>
 <div id="v115Toast" class="v115Toast" aria-live="polite"></div>
 <div id="v127GoalModal" class="v115Modal"><div class="v115Box"><div class="v115Head"><b>Manage Completed Goals</b><button type="button" class="v115Btn" onclick="closeV127GoalManager()">Close</button></div><div class="v115Body"><div class="muted" style="margin-bottom:8px">Restore anything marked accomplished by mistake. It will return to the Goal Target menu immediately.</div><div id="v127GoalList"></div></div></div></div>
+<div id="v130ConfirmModal" class="v115Modal v130ConfirmModal" role="dialog" aria-modal="true" aria-labelledby="v130ConfirmTitle"><div class="v130ConfirmBox"><div class="v130ConfirmTop"><div id="v130ConfirmIcon" class="v130ConfirmIcon">✓</div><div><div id="v130ConfirmEyebrow" class="v130ConfirmEyebrow">Please confirm</div><div id="v130ConfirmTitle" class="v130ConfirmTitle">Confirm this change?</div></div></div><div id="v130ConfirmMessage" class="v130ConfirmMessage"></div><div id="v130ConfirmItems" class="v130ConfirmItems"></div><div class="v130ConfirmActions"><button type="button" class="v115Btn" onclick="closeV130Confirm()">Cancel</button><button id="v130ConfirmAccept" type="button" class="v115Btn v130ConfirmAccept" onclick="acceptV130Confirm()">Confirm</button></div></div></div>
 
 
 
