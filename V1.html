@@ -195,7 +195,7 @@
   <div class="hero">
     <div class="heroTop">
       <div><h1>Sensum OSRS Progression Dashboard</h1><div class="sub">Open this, see what matters, play the game.</div></div>
-      <div class="version">V1.16.3 · Trust the Numbers</div>
+      <div class="version">V1.16.4 · Trust the Numbers</div>
     </div>
     <div class="controls">
       <div class="label">Goal Target</div><select id="goal" onchange="changeGoal()"></select>
@@ -705,17 +705,46 @@ function dataHealth(s){
 
 function cleanRewardText(v){const s=String(v||'').trim();return(!s||/^none listed$/i.test(s))?'':s}
 function parseXpTotal(text){
-  const s=String(text||'');
+  const s=String(text||'').trim();
+  if(!s)return 0;
+
+  // Quest Dependency XP strings look like:
+  // "2,812.4 Agility XP; 2,812.4 Attack XP; ..."
+  // Parse each reward clause independently and sum the leading numeric amount.
   let total=0,matched=false;
-  const rx=/([0-9]+(?:,[0-9]{3})*(?:\.[0-9]+)?)\s*([kKmM]?)\s*(?:XP|experience)/g;
-  let m;
-  while((m=rx.exec(s))!==null){
+  const parts=s.split(/[;\n|]+/).map(x=>x.trim()).filter(Boolean);
+
+  parts.forEach(part=>{
+    if(!/(?:\bXP\b|experience)/i.test(part))return;
+
+    const m=part.match(/(?:^|[^0-9])([0-9]+(?:,[0-9]{3})*(?:\.[0-9]+)?)\s*([kKmM]?)/);
+    if(!m)return;
+
     let n=Number(String(m[1]).replace(/,/g,''));
-    const suf=String(m[2]||'').toLowerCase();
-    if(suf==='k')n*=1000;
-    else if(suf==='m')n*=1000000;
-    if(Number.isFinite(n)){total+=n;matched=true;}
+    const suffix=String(m[2]||'').toLowerCase();
+
+    if(suffix==='k')n*=1000;
+    else if(suffix==='m')n*=1000000;
+
+    if(Number.isFinite(n)){
+      total+=n;
+      matched=true;
+    }
+  });
+
+  // Fallback for compact strings such as "10k XP" that are not semicolon-delimited.
+  if(!matched){
+    const rx=/([0-9]+(?:,[0-9]{3})*(?:\.[0-9]+)?)\s*([kKmM]?)\s*(?:XP|experience)/g;
+    let m;
+    while((m=rx.exec(s))!==null){
+      let n=Number(String(m[1]).replace(/,/g,''));
+      const suffix=String(m[2]||'').toLowerCase();
+      if(suffix==='k')n*=1000;
+      else if(suffix==='m')n*=1000000;
+      if(Number.isFinite(n)){total+=n;matched=true;}
+    }
   }
+
   return matched?total:0;
 }
 function compactNumber(n){
