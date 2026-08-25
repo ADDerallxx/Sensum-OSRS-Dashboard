@@ -422,20 +422,20 @@ function getV115QuestCompletionState_() {
   const ss=SpreadsheetApp.openById(V1_TRACKER_ID);
   const t=v115QuestTable_(ss);
 
-  const incomplete=[];
+  const incomplete=[],completed=[];
   t.vals.slice(t.headerRow+1).forEach((r,idx)=>{
     const quest=String(r[t.qCol]||'').trim();
     if(!quest)return;
     const done=/^(yes|true|complete|completed)$/i.test(String(r[t.cCol]||'').trim());
-    if(!done){
-      incomplete.push({
-        quest,
-        qp:t.qpCol>=0 ? Number(r[t.qpCol]||0) : 0,
-        row:t.headerRow+2+idx
-      });
-    }
+    const item={
+      quest,
+      qp:t.qpCol>=0 ? Number(r[t.qpCol]||0) : 0,
+      row:t.headerRow+2+idx
+    };
+    (done?completed:incomplete).push(item);
   });
   incomplete.sort((a,b)=>a.quest.localeCompare(b.quest));
+  completed.sort((a,b)=>a.quest.localeCompare(b.quest));
 
   const props=PropertiesService.getScriptProperties();
   const current=v115CurrentTrackerQp_(ss);
@@ -474,6 +474,7 @@ function getV115QuestCompletionState_() {
     previousQp:previous,
     detectedGain:gain,
     incomplete,
+    completed,
     likely,
     qpDetectionSource:'tracker'
   };
@@ -519,25 +520,55 @@ function completeV115Quests(quests,source){
   return {ok:true,changed,transactionId:tx,state:getV115QuestCompletionState_()};
 }
 
+function uncompleteV124QuestsFast(quests,source){
+  if(!Array.isArray(quests)||!quests.length)throw new Error('Select at least one completed quest.');
+
+  const ss=SpreadsheetApp.openById(V1_TRACKER_ID);
+  const t=v115QuestTable_(ss);
+  const wanted=new Set(quests.map(x=>String(x).trim().toLowerCase()).filter(Boolean));
+  const changed=[],addresses=[];
+  const col=v122ColLetter_(t.cCol+1);
+
+  t.vals.slice(t.headerRow+1).forEach((r,idx)=>{
+    const quest=String(r[t.qCol]||'').trim();
+    const done=/^(yes|true|complete|completed)$/i.test(String(r[t.cCol]||'').trim());
+    if(wanted.has(quest.toLowerCase())&&done){
+      changed.push(quest);
+      addresses.push(col+String(t.headerRow+2+idx));
+    }
+  });
+
+  if(!changed.length)throw new Error('No completed quests matched the selection.');
+  t.sh.getRangeList(addresses).setValue('No');
+
+  let log=ss.getSheetByName('Quest Completion Log');
+  if(!log){
+    log=ss.insertSheet('Quest Completion Log');
+    log.getRange(1,1,1,6).setValues([['Timestamp','Quest','Previous Status','New Status','Source','Transaction ID']]);
+  }
+
+  const tx=Utilities.getUuid(),now=new Date(),src=source||'Dashboard Correction';
+  const logRows=changed.map(q=>[now,q,'Yes','No',src,tx]);
+  log.getRange(log.getLastRow()+1,1,logRows.length,6).setValues(logRows);
+  SpreadsheetApp.flush();
+
+  PropertiesService.getScriptProperties().setProperty(
+    'V115_LAST_RECONCILED_QP',
+    String(v115CurrentTrackerQp_(ss))
+  );
+
+  const dashboard=getV1DashboardState({allowQuestHelperSync:false});
+  return {ok:true,changed,transactionId:tx,state:getV115QuestCompletionState_(),dashboard};
+}
+
 function undoV115QuestCompletion(transactionId){
+  if(!transactionId)throw new Error('Undo transaction ID is required.');
   const ss=SpreadsheetApp.openById(V1_TRACKER_ID),log=ss.getSheetByName('Quest Completion Log');
   if(!log)throw new Error('No quest completion log exists.');
 
   const lv=log.getDataRange().getDisplayValues();
-  const quests=lv.slice(1).filter(r=>r[5]===transactionId).map(r=>r[1]);
-  if(!quests.length)throw new Error('Transaction not found.');
-
-  const t=v115QuestTable_(ss);
-  const set=new Set(quests.map(x=>x.toLowerCase()));
-  t.vals.slice(t.headerRow+1).forEach((r,idx)=>{
-    if(set.has(String(r[t.qCol]||'').trim().toLowerCase())){
-      t.sh.getRange(t.headerRow+2+idx,t.cCol+1).setValue('No');
-    }
-  });
-
-  const tx=Utilities.getUuid(),now=new Date();
-  quests.forEach(q=>log.appendRow([now,q,'Yes','No','Dashboard Undo',tx]));
-  SpreadsheetApp.flush();
-  return {ok:true,changed:quests,state:getV115QuestCompletionState_()};
+  const quests=lv.slice(1).filter(r=>r[5]===transactionId&&String(r[3]).toLowerCase()==='yes').map(r=>r[1]);
+  if(!quests.length)throw new Error('Completion transaction not found.');
+  return uncompleteV124QuestsFast(quests,'Dashboard Immediate Undo');
 }
 
