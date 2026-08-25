@@ -10,6 +10,7 @@ function getV1DashboardState(options) {
   const shoppingSheet = ss.getSheetByName('Route Shopping');
   const reconciledSheet = ss.getSheetByName('Quest Prep Reconciled');
   const questDependencySheet = ss.getSheetByName('Quest Dependency');
+  const questDisplayMeta = readV129QuestDisplayMeta_(ss.getSheetByName('Wiki Cache'));
   const questMeta = readV122QuestMeta_(questDependencySheet);
   const rewardMap = questMeta.rewards;
   const requirementIntel = questMeta.requirements;
@@ -61,9 +62,20 @@ function getV1DashboardState(options) {
     stats: statsRows.map(r => ({skill:r[0],level:r[1],xp:r[7],nextXp:r[5]})),
     shopping: readV1Shopping_(shoppingSheet, reconciledSheet),
     requirementIntel,
+    questDisplayMeta,
     planningMode:'Base levels only',
     wikiHealth: readV1WikiHealth_(dash)
   };
+}
+
+function readV129QuestDisplayMeta_(sh) {
+  const out = {};
+  if (!sh || sh.getLastRow() < 2) return out;
+  sh.getRange(2, 1, Math.min(199, sh.getLastRow() - 1), 6).getDisplayValues().forEach(r => {
+    const quest = String(r[0] || '').trim();
+    if (quest) out[quest.toLowerCase()] = {difficulty:String(r[4] || '').trim(), length:String(r[5] || '').trim()};
+  });
+  return out;
 }
 
 function readV128BossPlanner_(ss, statsRows) {
