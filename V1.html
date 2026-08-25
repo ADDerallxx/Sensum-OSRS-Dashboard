@@ -183,7 +183,8 @@
 
     @media(max-width:1100px){.grid,.prepGrid{grid-template-columns:1fr}.metrics{grid-template-columns:repeat(3,1fr)}.skills{grid-template-columns:repeat(6,1fr)}.actionBody{grid-template-columns:1fr}.actionSteps{grid-template-columns:1fr 1fr 1fr}}
     @media(max-width:680px){.dataHealthBar{align-items:flex-start;flex-direction:column}.healthFacts{justify-content:flex-start;gap:9px}.shell{padding:8px}.controls{grid-template-columns:1fr}.metrics{grid-template-columns:repeat(2,1fr);padding:10px}.heroTop{padding:15px 13px}.skills{grid-template-columns:repeat(3,1fr)}.summaryGrid{grid-template-columns:1fr}.summaryBox.full{grid-column:auto}.actionSteps{grid-template-columns:1fr}.actionStep.prep{grid-column:auto}.version{display:none}.qpStrip{display:block}}
-  </style>
+  .questReward{margin-top:5px;font-size:10px;line-height:1.4;color:#705d48}.questReward b{color:#4d3218}.rewardBox{background:#fff7df!important;border-color:#d8b267!important}.rewardLines{display:grid;gap:5px}.rewardLine{font-size:11px;line-height:1.4}.rewardLabel{font-size:9px;font-weight:900;text-transform:uppercase;color:#8a642d;margin-right:5px}
+</style>
 </head>
 <body>
 <div id="loading" class="loading"><div>Loading Sensum progression engine…</div></div>
@@ -191,7 +192,7 @@
   <div class="hero">
     <div class="heroTop">
       <div><h1>Sensum OSRS Progression Dashboard</h1><div class="sub">Open this, see what matters, play the game.</div></div>
-      <div class="version">V1.15.4 · Trust the Numbers</div>
+      <div class="version">V1.16 · Trust the Numbers</div>
     </div>
     <div class="controls">
       <div class="label">Goal Target</div><select id="goal" onchange="changeGoal()"></select>
@@ -251,6 +252,7 @@
         <div class="actionStep"><div class="n">Before you start</div><div id="nextGrind" class="v">None</div></div>
         <div class="actionStep"><div class="n">Expected result</div><div id="nextResult" class="v">—</div></div>
         <div class="actionStep"><div class="n">Route impact</div><div id="nextImpact" class="v">—</div></div>
+<div class="actionStep rewardBox"><div class="n">Quest rewards</div><div id="nextRewards" class="v rewardLines">—</div></div>
         <div class="actionStep prep"><div class="n">Quest prep</div><div id="nextPrepStructured" class="prepGroups"></div></div>
         <div class="qpStrip">
           <span><b>Current QP:</b> <span id="nextCurrentQp">—</span></span>
@@ -692,6 +694,9 @@ function dataHealth(s){
   $('healthReviews').textContent=String(reviews);
 }
 
+function cleanRewardText(v){const s=String(v||'').trim();return(!s||/^none listed$/i.test(s))?'':s}
+function shortRewardText(r){if(!r)return '';const b=[];if(Number(r.qp||0)>0)b.push('+'+Number(r.qp)+' QP');for(const x of [r.xp,r.items,r.unlocks]){const y=cleanRewardText(x);if(y)b.push(y)}return b.join(' · ')}
+function rewardLinesHtml(r){if(!r)return 'No reward data cached.';const a=[];if(Number(r.qp||0)>0)a.push('<div class="rewardLine"><span class="rewardLabel">Quest Points</span>+'+esc(Number(r.qp))+' QP</div>');for(const z of [['XP',r.xp],['Items',r.items],['Unlocks',r.unlocks]]){const y=cleanRewardText(z[1]);if(y)a.push('<div class="rewardLine"><span class="rewardLabel">'+z[0]+'</span>'+esc(y)+'</div>')}return a.join('')||'No listed rewards in cached quest data.'}
 function render(s){
   window.__sensumState=s;
   busy(false);$('err').classList.add('hidden');
@@ -725,7 +730,7 @@ function render(s){
     $('effect').textContent=g.effect||'Supports the selected progression goal.';
   }
 
-  $('top').innerHTML=(s.topQuests||[]).map(q=>`<tr><td class="num"><span class="rank">${esc(q.rank)}</span></td><td><b>${esc(q.quest)}</b></td><td class="num">${esc(q.score)}</td><td class="num"><span class="tier">${esc(q.tier)}</span></td><td class="num">${esc(q.downstream)}</td><td class="why">${esc(q.why)}</td></tr>`).join('');
+  $('top').innerHTML=(s.topQuests||[]).map(q=>`<tr><td class="num"><span class="rank">${esc(q.rank)}</span></td><td><b>${esc(q.quest)}</b></td><td class="num">${esc(q.score)}</td><td class="num"><span class="tier">${esc(q.tier)}</span></td><td class="num">${esc(q.downstream)}</td><td class="why">${esc(q.why)}${shortRewardText(q.rewards)?`<div class="questReward"><b>Rewards:</b> ${esc(shortRewardText(q.rewards))}</div>`:''}</td></tr>`).join('');
 
   const n=s.nextSession||{},quest=n['Next Quest']||'';
   const top=(s.topQuests||[]).find(q=>q.quest===quest)||null;
@@ -741,6 +746,7 @@ function render(s){
   $('nextGrind').innerHTML=ready?'<span class="readyBadge">✓ Ready now</span>':esc(grind);
   $('nextResult').textContent=quest ? `Complete ${quest}${qpGain?` · +${qpGain} QP`:''}` : 'Advance the selected goal';
   $('nextImpact').textContent=top ? `${top.downstream||0} downstream quests · score ${top.score||'—'} · ${top.tier||'—'} tier` : (route?`Route step ${route.step||1} · projected QP ${route.projectedQp||'—'}`:'Advance route');
+  $('nextRewards').innerHTML=rewardLinesHtml(top&&top.rewards?top.rewards:null);
   $('nextCurrentQp').textContent=n['Current Quest Points']||s.questPoints||'—';
   $('nextProjectedQp').textContent=n['Projected QP After Displayed Route']||'—';
   $('nextMilestones').textContent=n['QP Milestones']||'—';

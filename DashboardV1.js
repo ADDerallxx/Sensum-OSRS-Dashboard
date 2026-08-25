@@ -12,6 +12,8 @@ function getV1DashboardState() {
   const goalsSheet = ss.getSheetByName('Goal Registry');
   const shoppingSheet = ss.getSheetByName('Route Shopping');
   const reconciledSheet = ss.getSheetByName('Quest Prep Reconciled');
+  const questDependencySheet = ss.getSheetByName('Quest Dependency');
+  const rewardMap = readV1QuestRewards_(questDependencySheet);
 
   const topRows = dash.getRange('A5:F10').getDisplayValues().slice(1).filter(r => r[1]);
   const blockedRows = dash.getRange('A13:F21').getDisplayValues().slice(1).filter(r => r[0]);
@@ -48,7 +50,7 @@ function getV1DashboardState() {
     routeDepth: Number(getRouteDepthValue_(dash) || 10),
     goals,
     goalSummary: summary,
-    topQuests: topRows.map(r => ({rank:r[0],quest:r[1],score:r[2],tier:r[3],downstream:r[4],why:r[5]})),
+    topQuests: topRows.map(r => ({rank:r[0],quest:r[1],score:r[2],tier:r[3],downstream:r[4],why:r[5],rewards:rewardMap[String(r[1]||'').trim().toLowerCase()]||null})),
     blockedQuests: blockedRows.map(r => ({quest:r[0],score:r[1],downstream:r[2],blockedBy:r[3],missingSkills:r[4],hours:r[5]})),
     skillGrinds: grindRows.map(r => ({quest:r[0],missingSkills:r[1],xp:r[2],fast:r[3],value:r[4],afk:r[5],downstream:r[6],score:r[7],efficiency:r[8]})),
     route: routeRows.map(r => ({step:r[0],quest:r[1],score:r[2],blocker:r[3],currentHours:r[4],xpCredit:r[5],afterHours:r[6],projectedQp:r[7]})),
@@ -57,6 +59,16 @@ function getV1DashboardState() {
     shopping: readV1Shopping_(shoppingSheet, reconciledSheet),
     wikiHealth: readV1WikiHealth_(dash)
   };
+}
+
+function readV1QuestRewards_(sh) {
+  const out={}; if(!sh||sh.getLastRow()<1)return out;
+  const v=sh.getDataRange().getDisplayValues(); let hr=-1,h=[];
+  for(let i=0;i<Math.min(v.length,15);i++){const r=v[i].map(x=>String(x||'').trim());if(r.some(x=>/^quest name$/i.test(x))&&r.some(x=>/quest points reward/i.test(x))){hr=i;h=r;break}}
+  if(hr<0)return out; const c=n=>h.findIndex(x=>String(x||'').trim().toLowerCase()===n);
+  const q=c('quest name'),qp=c('quest points reward'),xp=c('xp rewards'),it=c('item / coin rewards'),un=c('unlocks / other rewards');
+  v.slice(hr+1).forEach(r=>{const n=q>=0?String(r[q]||'').trim():'';if(n)out[n.toLowerCase()]={qp:qp>=0?String(r[qp]||'').trim():'',xp:xp>=0?String(r[xp]||'').trim():'',items:it>=0?String(r[it]||'').trim():'',unlocks:un>=0?String(r[un]||'').trim():''}});
+  return out;
 }
 
 function readV1WikiHealth_(dash) {
