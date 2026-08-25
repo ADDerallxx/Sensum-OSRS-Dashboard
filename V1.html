@@ -184,6 +184,9 @@
     @media(max-width:1100px){.grid,.prepGrid{grid-template-columns:1fr}.metrics{grid-template-columns:repeat(3,1fr)}.skills{grid-template-columns:repeat(6,1fr)}.actionBody{grid-template-columns:1fr}.actionSteps{grid-template-columns:1fr 1fr 1fr}}
     @media(max-width:680px){.dataHealthBar{align-items:flex-start;flex-direction:column}.healthFacts{justify-content:flex-start;gap:9px}.shell{padding:8px}.controls{grid-template-columns:1fr}.metrics{grid-template-columns:repeat(2,1fr);padding:10px}.heroTop{padding:15px 13px}.skills{grid-template-columns:repeat(3,1fr)}.summaryGrid{grid-template-columns:1fr}.summaryBox.full{grid-column:auto}.actionSteps{grid-template-columns:1fr}.actionStep.prep{grid-column:auto}.version{display:none}.qpStrip{display:block}}
   .questReward{margin-top:5px;font-size:10px;line-height:1.4;color:#705d48}.questReward b{color:#4d3218}.rewardBox{background:#fff7df!important;border-color:#d8b267!important}.rewardLines{display:grid;gap:5px}.rewardLine{font-size:11px;line-height:1.4}.rewardLabel{font-size:9px;font-weight:900;text-transform:uppercase;color:#8a642d;margin-right:5px}
+
+.questRewardSummary{display:flex;gap:5px;flex-wrap:wrap;margin-top:6px}
+.rewardPill{display:inline-flex;align-items:center;padding:3px 6px;border-radius:999px;background:#eee1c8;border:1px solid #d4bd94;color:#5d472e;font-size:9px;font-weight:900}
 </style>
 </head>
 <body>
@@ -192,7 +195,7 @@
   <div class="hero">
     <div class="heroTop">
       <div><h1>Sensum OSRS Progression Dashboard</h1><div class="sub">Open this, see what matters, play the game.</div></div>
-      <div class="version">V1.16 · Trust the Numbers</div>
+      <div class="version">V1.16.1 · Trust the Numbers</div>
     </div>
     <div class="controls">
       <div class="label">Goal Target</div><select id="goal" onchange="changeGoal()"></select>
@@ -695,7 +698,31 @@ function dataHealth(s){
 }
 
 function cleanRewardText(v){const s=String(v||'').trim();return(!s||/^none listed$/i.test(s))?'':s}
-function shortRewardText(r){if(!r)return '';const b=[];if(Number(r.qp||0)>0)b.push('+'+Number(r.qp)+' QP');for(const x of [r.xp,r.items,r.unlocks]){const y=cleanRewardText(x);if(y)b.push(y)}return b.join(' · ')}
+function rewardSummaryHtml(r){
+  if(!r)return '';
+  const pills=[];
+  const qp=Number(r.qp||0);
+  if(qp>0)pills.push('<span class="rewardPill">+'+esc(qp)+' QP</span>');
+  const xp=cleanRewardText(r.xp);
+  if(xp){
+    const nums=(xp.match(/[\d,]+(?=\s*(?:xp|experience))/gi)||[]).map(x=>Number(x.replace(/,/g,''))).filter(Number.isFinite);
+    if(nums.length){
+      const total=nums.reduce((a,b)=>a+b,0);
+      const label=total>=1000?(Math.round(total/100)/10)+'k XP':total+' XP';
+      pills.push('<span class="rewardPill">'+esc(label)+'</span>');
+    }else{
+      pills.push('<span class="rewardPill">XP reward</span>');
+    }
+  }
+  const items=cleanRewardText(r.items), unlocks=cleanRewardText(r.unlocks);
+  let major=0;
+  if(items)major++;
+  if(unlocks){
+    major+=(unlocks.split(/[;,•]/).map(x=>x.trim()).filter(Boolean).length||1);
+  }
+  if(major>0)pills.push('<span class="rewardPill">'+esc(major)+' major reward'+(major===1?'':'s')+'</span>');
+  return pills.length?'<div class="questRewardSummary">'+pills.join('')+'</div>':'';
+}
 function rewardLinesHtml(r){if(!r)return 'No reward data cached.';const a=[];if(Number(r.qp||0)>0)a.push('<div class="rewardLine"><span class="rewardLabel">Quest Points</span>+'+esc(Number(r.qp))+' QP</div>');for(const z of [['XP',r.xp],['Items',r.items],['Unlocks',r.unlocks]]){const y=cleanRewardText(z[1]);if(y)a.push('<div class="rewardLine"><span class="rewardLabel">'+z[0]+'</span>'+esc(y)+'</div>')}return a.join('')||'No listed rewards in cached quest data.'}
 function render(s){
   window.__sensumState=s;
@@ -730,7 +757,7 @@ function render(s){
     $('effect').textContent=g.effect||'Supports the selected progression goal.';
   }
 
-  $('top').innerHTML=(s.topQuests||[]).map(q=>`<tr><td class="num"><span class="rank">${esc(q.rank)}</span></td><td><b>${esc(q.quest)}</b></td><td class="num">${esc(q.score)}</td><td class="num"><span class="tier">${esc(q.tier)}</span></td><td class="num">${esc(q.downstream)}</td><td class="why">${esc(q.why)}${shortRewardText(q.rewards)?`<div class="questReward"><b>Rewards:</b> ${esc(shortRewardText(q.rewards))}</div>`:''}</td></tr>`).join('');
+  $('top').innerHTML=(s.topQuests||[]).map(q=>`<tr><td class="num"><span class="rank">${esc(q.rank)}</span></td><td><b>${esc(q.quest)}</b></td><td class="num">${esc(q.score)}</td><td class="num"><span class="tier">${esc(q.tier)}</span></td><td class="num">${esc(q.downstream)}</td><td class="why">${esc(q.why)}${rewardSummaryHtml(q.rewards)}</td></tr>`).join('');
 
   const n=s.nextSession||{},quest=n['Next Quest']||'';
   const top=(s.topQuests||[]).find(q=>q.quest===quest)||null;
