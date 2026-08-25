@@ -206,6 +206,24 @@
 .rewardEmpty{font-size:10px;color:#8b7a67;font-style:italic}
 @media(max-width:950px){.rewardDetailGrid{grid-template-columns:1fr}.rewardStats{grid-template-columns:1fr 1fr 1fr}}
 </style>
+
+<style id="v122RequirementStyles">
+.reqIntelStep{grid-column:1/-1!important;min-height:auto!important}
+.reqIntel{display:grid;gap:8px;margin-top:6px}
+.reqMode{display:flex;align-items:center;gap:7px;flex-wrap:wrap;padding:7px 9px;background:#efe7d7;border:1px solid #d5c2a1;border-radius:8px;font-size:10px;color:#5e4c37}
+.reqMode b{color:#3f2a16}.reqModePill{display:inline-flex;padding:4px 7px;border-radius:999px;background:#3d2514;color:#ffe0a0;font-weight:900;text-transform:uppercase;font-size:9px}
+.reqSection{display:grid;gap:6px}.reqSectionTitle{font-size:9px;text-transform:uppercase;font-weight:950;letter-spacing:.55px;color:#795c39}
+.reqCards{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:6px}
+.reqCard{border:1px solid #d8c7a9;border-radius:9px;padding:8px 9px;background:#fffaf1}
+.reqCard.optional{background:#edf3f6;border-color:#a9c0cb}.reqCard.recommended{background:#f7f2e7;border-color:#cbbda0}.reqCard.boostable{background:#fff4d9;border-color:#d9b665}
+.reqTop{display:flex;align-items:center;justify-content:space-between;gap:8px}.reqSkill{font-weight:950;font-size:12px;color:#332319}
+.reqBadge{font-size:8px;font-weight:950;text-transform:uppercase;border-radius:999px;padding:4px 6px;white-space:nowrap;background:#e5d8c0;color:#5c442b}
+.reqCard.optional .reqBadge{background:#d7e7ee;color:#31596b}.reqCard.recommended .reqBadge{background:#e8e0cf;color:#65563e}.reqCard.boostable .reqBadge{background:#f0d99e;color:#63420b}
+.reqMeta{margin-top:4px;font-size:10px;font-weight:800;color:#665746}.reqWhy{margin-top:5px;font-size:9px;line-height:1.35;color:#6d6256}.reqClear{font-size:10px;color:#37683d;font-weight:900}
+.routeReqHint{display:block;margin-top:5px;font-size:9px;line-height:1.3;color:#587181;font-weight:800}
+.v115Report:disabled{opacity:.65;cursor:wait}
+</style>
+
 </head>
 <body>
 <div id="loading" class="loading"><div>Loading Sensum progression engine…</div></div>
@@ -213,7 +231,7 @@
   <div class="hero">
     <div class="heroTop">
       <div><h1>Sensum OSRS Progression Dashboard</h1><div class="sub">Open this, see what matters, play the game.</div></div>
-      <div class="version">V1.20 · Trust the Numbers</div>
+      <div class="version">V1.22 · Know What Is Optional</div>
     </div>
     <div class="controls">
       <div class="label">Goal Target</div><select id="goal" onchange="changeGoal()"></select>
@@ -274,6 +292,7 @@
         <div class="actionStep"><div class="n">Expected result</div><div id="nextResult" class="v">—</div></div>
         <div class="actionStep"><div class="n">Route impact</div><div id="nextImpact" class="v">—</div></div>
 <div class="actionStep rewardBox"><div class="n">Quest rewards</div><div id="nextRewards" class="v rewardLines">—</div></div>
+        <div class="actionStep reqIntelStep"><div class="n">Skill requirement intelligence</div><div id="nextReqIntel" class="reqIntel"></div></div>
         <div class="actionStep prep"><div class="n">Quest prep</div><div id="nextPrepStructured" class="prepGroups"></div></div>
         <div class="qpStrip">
           <span><b>Current QP:</b> <span id="nextCurrentQp">—</span></span>
@@ -325,7 +344,27 @@ const $=id=>document.getElementById(id);
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 function busy(v){$('loading').classList.toggle('hidden',!v)}
 function fail(e){busy(false);$('err').textContent='Dashboard error: '+(e&&e.message?e.message:e);$('err').classList.remove('hidden')}
-function load(){google.script.run.withSuccessHandler(render).withFailureHandler(fail).getV1DashboardState()}
+function load(){
+  google.script.run
+    .withSuccessHandler(s=>{render(s);kickV122BackgroundRefresh();})
+    .withFailureHandler(fail)
+    .getV1DashboardState({allowQuestHelperSync:false});
+}
+let v122BackgroundRefreshStarted=false;
+function kickV122BackgroundRefresh(){
+  if(v122BackgroundRefreshStarted)return;
+  v122BackgroundRefreshStarted=true;
+  google.script.run
+    .withFailureHandler(e=>console.warn('Background Quest Helper refresh failed:',e))
+    .withSuccessHandler(r=>{
+      if(!r||!r.refreshed)return;
+      google.script.run
+        .withFailureHandler(e=>console.warn('Background dashboard re-read failed:',e))
+        .withSuccessHandler(render)
+        .getV1DashboardState({allowQuestHelperSync:false});
+    })
+    .refreshQuestHelperIfStaleV122();
+}
 
 function friendlyHours(v){
   const n=Number(v);
@@ -834,6 +873,54 @@ function rewardLinesHtml(r){
   '</div>';
 }
 
+function statLevelV122(s,skill){
+  const row=(s.stats||[]).find(x=>String(x.skill||'').toLowerCase()===String(skill||'').toLowerCase());
+  return row?Number(row.level||0):0;
+}
+function requirementIntelForV122(s,quest){
+  return (s.requirementIntel||{})[String(quest||'').trim().toLowerCase()]||null;
+}
+function requirementIntelHtmlV122(s,quest){
+  const intel=requirementIntelForV122(s,quest);
+  if(!intel)return '<div class="reqClear">No requirement intelligence cached for this quest.</div>';
+
+  const required=intel.requiredSkills||[], optional=intel.optionalSkills||[];
+  let html='<div class="reqMode"><span class="reqModePill">Base levels only</span><span><b>Planning rule:</b> boosts are shown as an option, but the dashboard trains to the real level by default.</span></div>';
+
+  if(required.length){
+    html+='<div class="reqSection"><div class="reqSectionTitle">Hard skill requirements</div><div class="reqCards">';
+    required.forEach(x=>{
+      const current=statLevelV122(s,x.skill),met=current>=Number(x.level||0);
+      const boost=!!x.boostable;
+      html+=`<div class="reqCard ${boost?'boostable':''}"><div class="reqTop"><span class="reqSkill">${esc(x.skill)} ${esc(x.level)}</span><span class="reqBadge">${boost?'Required · Boostable':'Required'}</span></div><div class="reqMeta">Your level: ${esc(current)} · ${met?'Base level met':`Train to ${esc(x.level)}`}</div>${boost?'<div class="reqWhy">A boost can satisfy this requirement, but V1.22 does not assume you want to boost.</div>':''}</div>`;
+    });
+    html+='</div></div>';
+  }else{
+    html+='<div class="reqClear">✓ No hard skill-level requirement.</div>';
+  }
+
+  if(optional.length){
+    html+='<div class="reqSection"><div class="reqSectionTitle">Optional / alternative skills — do not block the quest</div><div class="reqCards">';
+    optional.forEach(x=>{
+      const rec=/recommended/i.test(String(x.kind||''));
+      html+=`<div class="reqCard ${rec?'recommended':'optional'}"><div class="reqTop"><span class="reqSkill">${esc(x.skill)} ${esc(x.level)}</span><span class="reqBadge">${esc(x.kind||'Optional')}</span></div><div class="reqWhy"><b>Why optional:</b> ${esc(x.why||intel.optionalText||'Alternative route; not required to finish the quest.')}</div></div>`;
+    });
+    html+='</div></div>';
+  }else if(String(intel.optionalText||'').trim()){
+    html+=`<div class="reqSection"><div class="reqSectionTitle">Optional route note</div><div class="reqCard optional"><div class="reqWhy">${esc(intel.optionalText)}</div></div></div>`;
+  }
+
+  return html;
+}
+function routeRequirementHintV122(s,quest){
+  const intel=requirementIntelForV122(s,quest);
+  if(!intel)return '';
+  const optional=(intel.optionalSkills||[]).map(x=>`${x.skill} ${x.level} (${x.kind||'optional'})`);
+  const boost=(intel.requiredSkills||[]).filter(x=>x.boostable).map(x=>`${x.skill} ${x.level} boostable`);
+  const parts=[...optional,...boost];
+  return parts.length?`<span class="routeReqHint">${esc(parts.join(' · '))}</span>`:'';
+}
+
 function render(s){
   window.__sensumState=s;
   busy(false);$('err').classList.add('hidden');
@@ -884,6 +971,7 @@ function render(s){
   $('nextResult').textContent=quest ? `Complete ${quest}${qpGain?` · +${qpGain} QP`:''}` : 'Advance the selected goal';
   $('nextImpact').textContent=top ? `${top.downstream||0} downstream quests · score ${top.score||'—'} · ${top.tier||'—'} tier` : (route?`Route step ${route.step||1} · projected QP ${route.projectedQp||'—'}`:'Advance route');
   $('nextRewards').innerHTML=rewardLinesHtml(top&&top.rewards?top.rewards:null);
+  $('nextReqIntel').innerHTML=requirementIntelHtmlV122(s,quest);
   $('nextCurrentQp').textContent=n['Current Quest Points']||s.questPoints||'—';
   $('nextProjectedQp').textContent=n['Projected QP After Displayed Route']||'—';
   $('nextMilestones').textContent=n['QP Milestones']||'—';
@@ -896,7 +984,7 @@ function render(s){
     const hrs=Number(r.afterHours||0);
     const state=hrs<=0?`<span class="readyState">Ready</span>`:`${esc(friendlyHours(hrs))} after XP chain`;
     const blocked=hrs>0 || (r.blocker && !/ready/i.test(String(r.blocker)));
-    return `<div class="step ${blocked?'blockedStep':''}"><div class="stepNo">Step ${esc(r.step)} · projected QP ${esc(r.projectedQp)}</div><div class="stepQuest">${esc(r.quest)}</div><div class="stepMeta">${esc(r.blocker)}<br>${state}</div>${blocked?'<span class="blockedFlag">Training needed</span>':''}<span class="stepScore">Score ${esc(r.score)}</span></div>`;
+    return `<div class="step ${blocked?'blockedStep':''}"><div class="stepNo">Step ${esc(r.step)} · projected QP ${esc(r.projectedQp)}</div><div class="stepQuest">${esc(r.quest)}</div><div class="stepMeta">${esc(r.blocker)}<br>${state}${routeRequirementHintV122(s,r.quest)}</div>${blocked?'<span class="blockedFlag">Training needed</span>':''}<span class="stepScore">Score ${esc(r.score)}</span></div>`;
   }).join('');
 
   $('blocked').innerHTML=(s.blockedQuests||[]).map(q=>{const c=timeClass(q.hours);return `<tr class="blockerRow ${c}Row"><td><b>${esc(q.quest)}</b></td><td class="num">${esc(q.score)}</td><td class="num">${esc(q.downstream)}</td><td>${esc(q.blockedBy)}</td><td class="${q.missingSkills&&q.missingSkills!=='None'?'danger':'good'}">${esc(q.missingSkills||'None')}</td><td class="num">${timeBadge(q.hours)}</td></tr>`}).join('');
@@ -995,45 +1083,57 @@ function v115Row(q){const checked=v115Selected.has(q.quest);return `<label class
 function renderV115Quests(){if(!v115State)return;const f=(document.getElementById('v115Search').value||'').toLowerCase();document.getElementById('v115Qp').textContent=v115State.detectedGain?`Detected QP gain: +${v115State.detectedGain}`:'No unresolved QP increase.';document.getElementById('v115Likely').innerHTML=(v115State.likely||[]).filter(q=>q.quest.toLowerCase().includes(f)).map(v115Row).join('')||'<small>No likely matches.</small>';document.getElementById('v115All').innerHTML=(v115State.incomplete||[]).filter(q=>q.quest.toLowerCase().includes(f)).map(v115Row).join('');updateV115Selected()}
 function toggleV115(q,on){on?v115Selected.add(q):v115Selected.delete(q);renderV115Quests()}
 function updateV115Selected(){if(!v115State)return;const rows=v115State.incomplete.filter(q=>v115Selected.has(q.quest));const qp=rows.reduce((a,b)=>a+(Number(b.qp)||0),0);let t=`Selected: ${rows.length} quest${rows.length===1?'':'s'} - ${qp} QP`;if(v115State.detectedGain)t+=qp===v115State.detectedGain?' - Matches detected change':` - Detected +${v115State.detectedGain}`;document.getElementById('v115Selected').textContent=t}
+let v122SavingQuest=false;
+function setV122Saving(on){
+  v122SavingQuest=!!on;
+  const b=document.getElementById('v115Report');
+  if(!b)return;
+  b.disabled=!!on;
+  const span=b.querySelector('span');
+  if(span)span.textContent=on?'Saving…':'Report Quest';
+}
 function confirmV115Quests(){
+  if(v122SavingQuest)return;
   if(!v115Selected.size)return alert('Select at least one quest.');
   const names=[...v115Selected];
-  if(!confirm(`Mark these quests complete?\n\n${names.join('\n')}`))return;
+  if(!confirm(`Mark these quests complete?
+
+${names.join('
+')}`))return;
 
   closeV115QuestModal();
-  showV115Busy(
-    names.length===1?'Updating quest progress...':`Updating ${names.length} quests...`,
-    'Saving completion and recalculating goals, route, blockers, and quest prep.'
-  );
+  setV122Saving(true);
+
+  const label=names.length===1?names[0]:`${names.length} quests`;
+  showV115Toast(`Saving ${label}… recommendations will refresh automatically.`);
 
   google.script.run
     .withFailureHandler(e=>{
-      hideV115Busy();
+      setV122Saving(false);
       const msg=(e&&e.message)?e.message:String(e||'Unknown error');
       showV115Toast('Quest update failed: '+msg,true);
     })
     .withSuccessHandler(r=>{
+      setV122Saving(false);
       v115LastTx=r.transactionId;
-      v115State=r.state;
       hideV115Banner();
 
-      google.script.run
-        .withFailureHandler(e=>{
-          hideV115Busy();
-          const count=(r.changed||[]).length;
-          showV115Toast(`${count} quest${count===1?'':'s'} saved, but dashboard refresh failed. Use browser refresh once.`,true);
-        })
-        .withSuccessHandler(fresh=>{
-          render(fresh);
-          window.__sensumState=fresh;
-          hideV115Busy();
-          const changed=r.changed||[];
-          const label=changed.length===1?changed[0]:`${changed.length} quests`;
-          showV115Toast(`${label} marked complete. Dashboard updated.`);
-        })
-        .getV1DashboardState();
+      if(v115State){
+        const changed=new Set((r.changed||[]).map(x=>String(x).toLowerCase()));
+        v115State.incomplete=(v115State.incomplete||[]).filter(x=>!changed.has(String(x.quest||'').toLowerCase()));
+        v115State.likely=(v115State.likely||[]).filter(x=>!changed.has(String(x.quest||'').toLowerCase()));
+      }
+
+      if(r.dashboard){
+        render(r.dashboard);
+        window.__sensumState=r.dashboard;
+      }
+
+      const changed=r.changed||[];
+      const doneLabel=changed.length===1?changed[0]:`${changed.length} quests`;
+      showV115Toast(`${doneLabel} marked complete. Dashboard updated.`);
     })
-    .completeV115Quests(names,v115Source);
+    .completeV122QuestsFast(names,v115Source);
 }
 document.addEventListener('DOMContentLoaded',()=>{loadV115();});
 </script>

@@ -239,6 +239,12 @@ function qhPrepSort_(s) {
 
 function qhDirectQuestPath_(quest) {
   const overrides = {
+    'gardenoftranquillity': 'src/main/java/com/questhelper/helpers/quests/gardenoftranquility/GardenOfTranquillity.java',
+    'perilousmoons': 'src/main/java/com/questhelper/helpers/quests/perilousmoon/PerilousMoon.java',
+    'ratcatchers': 'src/main/java/com/questhelper/helpers/quests/ratcatchers/RatCatchers.java',
+    'anothersliceofham': 'src/main/java/com/questhelper/helpers/quests/anothersliceofham/AnotherSliceOfHam.java',
+    'fairytaleiicureaqueen': 'src/main/java/com/questhelper/helpers/quests/fairytaleii/FairytaleII.java',
+    'deserttreasureiithefallenempire': 'src/main/java/com/questhelper/helpers/quests/deserttreasureii/DesertTreasureII.java',
     'blackknightsfortress': 'src/main/java/com/questhelper/helpers/quests/blackknightfortress/BlackKnightFortress.java',
     'ragandbonemani': 'src/main/java/com/questhelper/helpers/quests/ragandboneman/RagAndBoneManI.java',
     'ragandbonemanii': 'src/main/java/com/questhelper/helpers/quests/ragandboneman/RagAndBoneManII.java',

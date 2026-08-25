@@ -1,11 +1,8 @@
 const V1_TRACKER_ID = '18cUN2RTytdinH9kpgqQhz9OZsKRpHrVAB2hiUotznKU';
 
-function getV1DashboardState() {
-  if (typeof qhMaybeSyncRoute_ === 'function') {
-    const props = PropertiesService.getScriptProperties();
-    const lastQh = Number(props.getProperty('QH_ROUTE_SYNC_MS_V2') || 0);
-    if (Date.now() - lastQh > 6 * 60 * 60 * 1000) qhMaybeSyncRoute_();
-  }
+function getV1DashboardState(options) {
+  options = options || {};
+  // V1.22: interactive reads never block on a Quest Helper network sync.
   const ss = SpreadsheetApp.openById(V1_TRACKER_ID);
   const dash = ss.getSheetByName('Dashboard');
   const statsSheet = ss.getSheetByName('Your Stats');
@@ -13,7 +10,9 @@ function getV1DashboardState() {
   const shoppingSheet = ss.getSheetByName('Route Shopping');
   const reconciledSheet = ss.getSheetByName('Quest Prep Reconciled');
   const questDependencySheet = ss.getSheetByName('Quest Dependency');
-  const rewardMap = readV1QuestRewards_(questDependencySheet);
+  const questMeta = readV122QuestMeta_(questDependencySheet);
+  const rewardMap = questMeta.rewards;
+  const requirementIntel = questMeta.requirements;
 
   const topRows = dash.getRange('A5:F10').getDisplayValues().slice(1).filter(r => r[1]);
   const blockedRows = dash.getRange('A13:F21').getDisplayValues().slice(1).filter(r => r[0]);
@@ -57,8 +56,155 @@ function getV1DashboardState() {
     nextSession,
     stats: statsRows.map(r => ({skill:r[0],level:r[1],xp:r[7],nextXp:r[5]})),
     shopping: readV1Shopping_(shoppingSheet, reconciledSheet),
+    requirementIntel,
+    planningMode:'Base levels only',
     wikiHealth: readV1WikiHealth_(dash)
   };
+}
+
+function v122SkillPairs_(text) {
+  const skills=[
+    'Attack','Strength','Defence','Ranged','Prayer','Magic','Runecraft',
+    'Construction','Hitpoints','Agility','Herblore','Thieving','Crafting',
+    'Fletching','Slayer','Hunter','Mining','Smithing','Fishing','Cooking',
+    'Firemaking','Woodcutting','Farming','Sailing'
+  ];
+  const s=String(text||'');
+  const out=[];
+  skills.forEach(skill=>{
+    const escSkill=skill.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
+    let m=new RegExp('\\b'+escSkill+'\\s+(\\d+)\\*?','i').exec(s);
+    if(!m) m=new RegExp('\\b(\\d+)\\s+'+escSkill+'\\b','i').exec(s);
+    if(m) out.push({skill:skill,level:Number(m[1])});
+  });
+  return out;
+}
+
+function v122OptionalKind_(text) {
+  const s=String(text||'').toLowerCase();
+  if(s.indexOf('recommended')>=0) return 'Recommended';
+  if(/alternative|avoidable|avoid|route|only needed|if you|if mining|if crafting|if making/.test(s)) return 'Alternative route';
+  return 'Optional';
+}
+
+function readV122QuestMeta_(sh) {
+  const result={rewards:{},requirements:{}};
+  if(!sh||sh.getLastRow()<1)return result;
+
+  const v=sh.getDataRange().getDisplayValues();
+  let hr=-1,h=[];
+  for(let i=0;i<Math.min(v.length,15);i++){
+    const r=v[i].map(x=>String(x||'').trim());
+    if(r.some(x=>/^quest name$/i.test(x))){hr=i;h=r;break}
+  }
+  if(hr<0)return result;
+
+  const first=res=>{for(let i=0;i<h.length;i++)if(res.some(r=>r.test(String(h[i]||'').trim())))return i;return -1};
+  const q=first([/^quest name$/i]);
+  const qp=first([/^quest points reward$/i,/^quest points$/i]);
+  const xp=first([/^xp rewards?$/i]);
+  const it=first([/^item \/ coin rewards?$/i]);
+  const un=first([/^unlocks \/ other rewards?$/i]);
+  const hard=first([/^skill level requirements?$/i,/^skill requirements?$/i]);
+  const boost=first([/^boostable skill requirements?$/i]);
+  const optional=first([/^conditional \/ alternative requirements$/i]);
+
+  v.slice(hr+1).forEach(r=>{
+    const name=q>=0?String(r[q]||'').trim():'';
+    if(!name)return;
+    const key=name.toLowerCase();
+
+    result.rewards[key]={
+      qp:qp>=0?String(r[qp]||'').trim():'',
+      xp:xp>=0?String(r[xp]||'').trim():'',
+      items:it>=0?String(r[it]||'').trim():'',
+      unlocks:un>=0?String(r[un]||'').trim():''
+    };
+
+    const hardText=hard>=0?String(r[hard]||'').trim():'';
+    const boostText=boost>=0?String(r[boost]||'').trim():'';
+    const optionalText=optional>=0?String(r[optional]||'').trim():'';
+    const boostPairs=v122SkillPairs_(boostText);
+    const boostSkills=new Set(boostPairs.map(x=>x.skill.toLowerCase()));
+
+    result.requirements[key]={
+      quest:name,
+      hardText:hardText,
+      boostableText:boostText,
+      optionalText:optionalText,
+      requiredSkills:v122SkillPairs_(hardText).map(x=>({
+        skill:x.skill,
+        level:x.level,
+        boostable:boostSkills.has(x.skill.toLowerCase()),
+        planning:'Base level'
+      })),
+      optionalSkills:v122SkillPairs_(optionalText).map(x=>({
+        skill:x.skill,
+        level:x.level,
+        kind:v122OptionalKind_(optionalText),
+        why:optionalText
+      })),
+      planningMode:'Base levels only'
+    };
+  });
+
+  return result;
+}
+
+function refreshQuestHelperIfStaleV122() {
+  if(typeof syncQuestHelperRouteRequirements!=='function')return {ok:true,refreshed:false,reason:'Quest Helper sync unavailable'};
+  const props=PropertiesService.getScriptProperties();
+  const last=Number(props.getProperty('QH_ROUTE_SYNC_MS_V2')||0);
+  if(last && Date.now()-last<=6*60*60*1000)return {ok:true,refreshed:false,reason:'Quest Helper cache is fresh'};
+  const result=syncQuestHelperRouteRequirements();
+  return {ok:true,refreshed:true,result:result};
+}
+
+function v122ColLetter_(n) {
+  let s='';
+  while(n>0){n--;s=String.fromCharCode(65+(n%26))+s;n=Math.floor(n/26);}
+  return s;
+}
+
+function completeV122QuestsFast(quests,source) {
+  if(!Array.isArray(quests)||!quests.length)throw new Error('Select at least one quest.');
+
+  const ss=SpreadsheetApp.openById(V1_TRACKER_ID);
+  const t=v115QuestTable_(ss);
+  const wanted=new Set(quests.map(x=>String(x).toLowerCase()));
+  const changed=[],addresses=[];
+  const col=v122ColLetter_(t.cCol+1);
+
+  t.vals.slice(t.headerRow+1).forEach((r,idx)=>{
+    const quest=String(r[t.qCol]||'').trim();
+    if(wanted.has(quest.toLowerCase())&&!/^(yes|true|complete|completed)$/i.test(String(r[t.cCol]||''))){
+      changed.push(quest);
+      addresses.push(col+String(t.headerRow+2+idx));
+    }
+  });
+
+  if(!changed.length)throw new Error('No incomplete quests matched the selection.');
+  t.sh.getRangeList(addresses).setValue('Yes');
+
+  let log=ss.getSheetByName('Quest Completion Log');
+  if(!log){
+    log=ss.insertSheet('Quest Completion Log');
+    log.getRange(1,1,1,6).setValues([['Timestamp','Quest','Previous Status','New Status','Source','Transaction ID']]);
+  }
+
+  const tx=Utilities.getUuid(),now=new Date(),src=source||'Dashboard Manual';
+  const logRows=changed.map(q=>[now,q,'No','Yes',src,tx]);
+  log.getRange(log.getLastRow()+1,1,logRows.length,6).setValues(logRows);
+
+  SpreadsheetApp.flush();
+
+  PropertiesService.getScriptProperties().setProperty(
+    'V115_LAST_RECONCILED_QP',
+    String(v115CurrentTrackerQp_(ss))
+  );
+
+  const dashboard=getV1DashboardState({allowQuestHelperSync:false});
+  return {ok:true,changed:changed,transactionId:tx,dashboard:dashboard};
 }
 
 function readV1QuestRewards_(sh) {

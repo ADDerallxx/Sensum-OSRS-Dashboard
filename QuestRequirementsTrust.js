@@ -180,7 +180,7 @@ function qhV120Policy_(quest,dataset,qs,combat,path) {
 
   if(slug==='thefremenniktrials'){
     qs='None';
-    alt='25 Fletching; 40 Woodcutting; 40 Crafting â€” optional lyre-making path only.';
+    alt='25 Fletching; 40 Woodcutting; 40 Crafting - optional lyre-making path only.';
     combat='Defeat Draugen (level 69); Koschei trial';
     status='VERIFIED';
     reason='Hard skills are none; lyre-making skills are conditional, not mandatory.';
@@ -195,7 +195,7 @@ function qhV120Policy_(quest,dataset,qs,combat,path) {
   }
   else if(slug==='whatliesbelow'){
     qs='35 RUNECRAFT';
-    alt='42 Mining â€” recommended/optional for the Tunnel of Chaos route.';
+    alt='42 Mining - recommended/optional for the Tunnel of Chaos route.';
     status=qhV118SkillSet_(dataset)===qhV118SkillSet_(qs)?'VERIFIED':'REVIEW';
     reason=status==='VERIFIED'
       ?'OSRS Wiki lists 35 Runecraft as hard; 42 Mining is recommended, not mandatory.'
@@ -210,7 +210,7 @@ function qhV120Policy_(quest,dataset,qs,combat,path) {
   }
   else if(slug==='taibwowannaitrio'){
     qs='15 AGILITY; 30 COOKING; 5 FISHING';
-    alt='30 Firemaking â€” recommended only; a furnace can be used instead.';
+    alt='30 Firemaking - recommended only; a furnace can be used instead.';
     status=qhV118SkillSet_(dataset)===qhV118SkillSet_(qs)?'VERIFIED':'REVIEW';
     reason=status==='VERIFIED'
       ?'OSRS Wiki confirms 30 Firemaking is recommended, not a hard requirement.'
@@ -356,6 +356,227 @@ function qhInstallV120() {
   return {
     ok:true,
     version:'V1.20',
+    first:first,
+    additionalBatches:batches,
+    next:cursor,
+    complete:cursor===0,
+    auditedRows:SpreadsheetApp.openById(QH_TRACKER_ID).getSheetByName('Quest Data Audit').getLastRow()-1,
+    lastResult:result
+  };
+}
+
+
+// V1.22 - Final Whole-Dataset Trust + Requirement Intelligence support
+function qhV122Policy_(quest,dataset,qs,combat,path) {
+  const base=(typeof qhV120Policy_==='function')
+    ? qhV120Policy_(quest,dataset,qs,combat,path)
+    : {qs:qs,alt:'',combat:combat,path:path,status:'',reason:''};
+
+  if(base && base.status) return base;
+
+  const slug=qhV118Norm_(quest);
+  let alt='',status='',reason='';
+
+  if(slug==='ragandbonemanii'){
+    qs='40 SLAYER';
+    alt='20 Defence is used by the normal mirror-shield route, but can be avoided by using a safe/freeze method against the basilisk.';
+    status=qhV118SkillSet_(dataset)===qhV118SkillSet_(qs)?'VERIFIED':'REVIEW';
+    reason=status==='VERIFIED'
+      ?'OSRS Wiki route policy: 40 Slayer is hard; 20 Defence belongs to an avoidable combat route.'
+      :'Dataset differs from the OSRS Wiki hard-requirement interpretation.';
+  }
+  else if(slug==='throneofmiscellania'){
+    qs='None';
+    alt='Public support has several routes. Buying flowers can earn the required favour without a skill level, so Woodcutting/Farming/Mining/Fishing methods are alternatives.';
+    status=qhV118SkillSet_(dataset)===''?'VERIFIED':'REVIEW';
+    reason=status==='VERIFIED'
+      ?'OSRS Wiki route policy: no unavoidable skill requirement.'
+      :'Dataset incorrectly treats an optional favour route as mandatory.';
+  }
+  else if(slug==='thefremennikexiles'){
+    qs='65 CRAFTING; 60 SLAYER; 60 SMITHING; 60 FISHING; 55 RUNECRAFT';
+    alt='60 Mining is only needed if you mine the lunar ores yourself; bringing the required lunar materials avoids the Mining level.';
+    status=qhV118SkillSet_(dataset)===qhV118SkillSet_(qs)?'VERIFIED':'REVIEW';
+    reason=status==='VERIFIED'
+      ?'OSRS Wiki route policy: 60 Mining is an alternative item-acquisition path, not a hard quest requirement.'
+      :'Dataset differs from the OSRS Wiki hard-requirement interpretation.';
+  }
+  else if(slug==='inaidofthemyreque'){
+    qs='25 AGILITY; 25 CRAFTING; 15 MINING; 7 MAGIC';
+    status=qhV118SkillSet_(dataset)===qhV118SkillSet_(qs)?'VERIFIED':'REVIEW';
+    reason=status==='VERIFIED'
+      ?'OSRS Wiki confirms 25 Agility, 25 Crafting, 15 Mining, and 7 Magic; Quest Helper parsing omitted Agility.'
+      :'Dataset differs from current OSRS Wiki hard requirements.';
+  }
+
+  return {
+    qs:qs || (base ? base.qs : ''),
+    alt:alt || (base ? base.alt : ''),
+    combat:combat || (base ? base.combat : ''),
+    path:path || (base ? base.path : ''),
+    status:status,
+    reason:reason
+  };
+}
+
+function qhV122RfdFallback_(dataset) {
+  const qs=[
+    '48 AGILITY','70 COOKING','40 CRAFTING','50 FIREMAKING','53 FISHING',
+    '10 FLETCHING','25 HERBLORE','59 MAGIC','50 MINING','40 RANGED',
+    '40 SMITHING','53 THIEVING','36 WOODCUTTING'
+  ].join('; ');
+  const status=qhV118SkillSet_(dataset)===qhV118SkillSet_(qs)?'VERIFIED':'REVIEW';
+  return {
+    qs:qs,
+    alt:'',
+    combat:'Ability to defeat multiple high-level monsters; several fights restrict Prayer.',
+    status:status,
+    reason:status==='VERIFIED'
+      ?'Verified against the current OSRS Wiki aggregate requirements. Quest Helper models Recipe for Disaster as separate subquest helpers.'
+      :'Dataset differs from the current OSRS Wiki aggregate requirements.',
+    path:'OSRS Wiki aggregate; Quest Helper split across recipefordisaster/RFD*.java'
+  };
+}
+
+function qhV122AuditBatch_(start,size) {
+  start=Number(start||0);
+  size=Math.min(25,Number(size||20));
+
+  const ss=SpreadsheetApp.openById(QH_TRACKER_ID);
+  const dep=ss.getSheetByName('Quest Dependency');
+  const v=dep.getDataRange().getDisplayValues();
+
+  let hr=-1,h=[];
+  for(let i=0;i<Math.min(v.length,15);i++){
+    const r=v[i].map(String);
+    if(r.some(x=>/^quest name$/i.test(x.trim()))){hr=i;h=r;break}
+  }
+  if(hr<0) throw new Error('Quest Dependency header not found');
+
+  const q=qhV118Header_(h,[/^quest name$/i]);
+  const sk=qhV118Header_(h,[/^skill level requirements?$/i,/^skill requirements?$/i]);
+  const rows=v.slice(hr+1).filter(r=>String(r[q]||'').trim());
+  const sh=ss.getSheetByName('Quest Data Audit')||ss.insertSheet('Quest Data Audit');
+
+  if(start===0){
+    sh.clearContents();
+    sh.getRange(1,1,1,9).setValues([[
+      'Quest','Dataset Mandatory Skills','QH Mandatory Skills',
+      'Conditional / Alternative Skills','Combat / Capability Requirements',
+      'Status','Reason','QH Source','Checked At'
+    ]]);
+    sh.setFrozenRows(1);
+  }
+
+  const out=[];
+  const end=Math.min(rows.length,start+size);
+
+  for(let i=start;i<end;i++){
+    const quest=String(rows[i][q]||'').trim();
+    const dataset=sk>=0?String(rows[i][sk]||'').trim():'';
+    const slug=qhV118Norm_(quest);
+
+    let path='',qs='',alt='',combat='',status='REVIEW',reason='';
+
+    try{
+      if(slug==='recipefordisaster'){
+        const rfd=qhV122RfdFallback_(dataset);
+        qs=rfd.qs; alt=rfd.alt; combat=rfd.combat;
+        status=rfd.status; reason=rfd.reason; path=rfd.path;
+      }else{
+        path=qhV118Path_(quest);
+        const src=qhFetchText_('https://raw.githubusercontent.com/'+QH_REPO+'/'+QH_BRANCH+'/'+path);
+        qs=qhV118Skills_(src);
+        combat=qhV118Combat_(src);
+
+        const policy=qhV122Policy_(quest,dataset,qs,combat,path);
+        qs=policy.qs; alt=policy.alt; combat=policy.combat; path=policy.path;
+
+        if(policy.status){
+          status=policy.status;
+          reason=policy.reason;
+        }else{
+          status=qhV118SkillSet_(dataset)===qhV118SkillSet_(qs)?'VERIFIED':'REVIEW';
+          reason=status==='VERIFIED'
+            ?'Dataset agrees with Quest Helper hard requirements.'
+            :'Dataset and Quest Helper hard requirements differ.';
+        }
+      }
+    }catch(e){
+      if(slug==='learningtheropes'){
+        path='OSRS Wiki fallback';
+        qs='None';
+        combat='2 Giant rats (level 3)';
+        status=qhV118SkillSet_(dataset)===''?'VERIFIED':'REVIEW';
+        reason=status==='VERIFIED'
+          ?'OSRS Wiki confirms Learning the Ropes has no skill requirements; Quest Helper has no matching helper source.'
+          :'Dataset differs from OSRS Wiki fallback.';
+      }else{
+        status='NO SOURCE';
+        reason=String(e&&e.message?e.message:e);
+      }
+    }
+
+    out.push([quest,dataset,qs,alt,combat,status,reason,path,new Date()]);
+  }
+
+  if(out.length) sh.getRange(sh.getLastRow()+1,1,out.length,9).setValues(out);
+  sh.autoResizeColumns(1,9);
+
+  const next=end>=rows.length?0:end;
+  PropertiesService.getScriptProperties().setProperty('QH_V122_AUDIT_CURSOR',String(next));
+  return {ok:true,start:start,end:end,total:rows.length,next:next,complete:end>=rows.length};
+}
+
+function qhV122ContinueAudit_() {
+  const ss=SpreadsheetApp.openById(QH_TRACKER_ID);
+  const sh=ss.getSheetByName('Quest Data Audit');
+  let cursor=sh?Math.max(0,sh.getLastRow()-1):0;
+
+  if(cursor===0){
+    const seed=qhV122AuditBatch_(0,20);
+    cursor=Number(seed.next||0);
+    if(cursor===0) return {ok:true,complete:true,next:0,auditedRows:seed.end};
+  }
+
+  const started=Date.now();
+  let batches=0,result=null;
+  while(cursor!==0 && batches<8 && (Date.now()-started)<260000){
+    result=qhV122AuditBatch_(cursor,20);
+    cursor=Number(result.next||0);
+    batches++;
+  }
+
+  return {
+    ok:true,
+    batchesProcessed:batches,
+    next:cursor,
+    complete:cursor===0,
+    auditedRows:ss.getSheetByName('Quest Data Audit').getLastRow()-1,
+    lastResult:result
+  };
+}
+
+function qhV122ContinueAudit(){ return qhV122ContinueAudit_(); }
+
+function qhInstallV122() {
+  if(typeof qhV120FixDataset_==='function') qhV120FixDataset_();
+  if(typeof qhV118FixFremennik_==='function') qhV118FixFremennik_();
+
+  const first=qhV122AuditBatch_(0,20);
+  let cursor=Number(first.next||0);
+  const started=Date.now();
+  let batches=0,result=first;
+
+  while(cursor!==0 && batches<8 && (Date.now()-started)<260000){
+    result=qhV122AuditBatch_(cursor,20);
+    cursor=Number(result.next||0);
+    batches++;
+  }
+
+  return {
+    ok:true,
+    version:'V1.22',
     first:first,
     additionalBatches:batches,
     next:cursor,
