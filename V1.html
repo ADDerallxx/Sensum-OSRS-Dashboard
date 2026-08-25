@@ -269,7 +269,7 @@
   <div class="hero">
     <div class="heroTop">
       <div><h1>Sensum OSRS Progression Dashboard</h1><div class="sub">Open this, see what matters, play the game.</div></div>
-      <div class="version">V1.25c · Organized Skill Grid</div>
+      <div class="version">V1.26 · Goal Stages</div>
     </div>
     <div class="heroTabs" role="tablist" aria-label="Dashboard command center">
       <button type="button" id="heroTabOverview" class="heroTab active" role="tab" aria-selected="true" onclick="setHeroTab('overview')">Overview</button>
@@ -397,7 +397,16 @@ const V125_SKILL_ICONS={
 };
 const V125_SKILL_ORDER=['attack','strength','defence','hitpoints','ranged','magic','prayer','slayer','mining','smithing','fishing','cooking','woodcutting','firemaking','farming','herblore','agility','thieving','crafting','fletching','runecraft','runecrafting','construction','hunter','sailing'];
 function v125SkillIcon(skill){const key=String(skill||'').trim().toLowerCase();const file=V125_SKILL_ICONS[key]||(`${String(skill||'Skill').trim().replace(/\s+/g,'_')}_icon.png`);return 'https://oldschool.runescape.wiki/images/'+encodeURIComponent(file).replace(/%2F/gi,'/')}
-function setHeroTab(name){
+const V126_GOAL_STAGES={
+  'Balanced':'Beginning','Transportation':'Beginning','Fairy Rings':'Beginning','Combat Growth':'Beginning',
+  'Fire Cape Prep':'Mid-game','Barrows Gloves / RFD':'Mid-game','Ancient Magicks':'Mid-game',
+  'Dragon Slayer II':'End-game','Prifddinas':'End-game','Quest Cape':'End-game','Inferno / Infernal Cape':'End-game'
+};
+function goalOptionsV126(goals){
+  const groups={'Beginning':[],'Mid-game':[],'End-game':[],'Other':[]};
+  (goals||[]).forEach(g=>(groups[V126_GOAL_STAGES[g.name]||'Other']).push(g));
+  return ['Beginning','Mid-game','End-game','Other'].filter(label=>groups[label].length).map(label=>`<optgroup label="${label}">${groups[label].map(g=>`<option value="${esc(g.name)}">${esc(g.name)}</option>`).join('')}</optgroup>`).join('');
+}function setHeroTab(name){
   ['overview','stats','health'].forEach(key=>{
     const active=key===name,cap=key.charAt(0).toUpperCase()+key.slice(1);
     const tab=$('heroTab'+cap),panel=$('heroPanel'+cap);
@@ -1055,7 +1064,7 @@ function render(s){
   dataHealth(s);
   $('user').textContent=s.username||'Sensum';$('combat').textContent=s.combatLevel||'—';$('qp').textContent=s.questPoints||'—';
   $('wom').textContent=s.lastWomSnapshot||'—';$('sync').textContent=s.lastSheetSync||'—';
-  $('goal').innerHTML=(s.goals||[]).map(g=>`<option value="${esc(g.name)}">${esc(g.name)}</option>`).join('');
+  $('goal').innerHTML=goalOptionsV126(s.goals||[]);
   $('goal').value=s.goal;$('depth').value=String(s.routeDepth||10);
 
   const g=s.goalSummary||{};
