@@ -239,6 +239,13 @@ function qhPrepSort_(s) {
 
 function qhDirectQuestPath_(quest) {
   const overrides = {
+    'blackknightsfortress': 'src/main/java/com/questhelper/helpers/quests/blackknightfortress/BlackKnightFortress.java',
+    'ragandbonemani': 'src/main/java/com/questhelper/helpers/quests/ragandboneman/RagAndBoneManI.java',
+    'ragandbonemanii': 'src/main/java/com/questhelper/helpers/quests/ragandboneman/RagAndBoneManII.java',
+    'romeojuliet': 'src/main/java/com/questhelper/helpers/quests/romeoandjuliet/RomeoAndJuliet.java',
+    'shieldofarrav': 'src/main/java/com/questhelper/helpers/quests/shieldofarrav/ShieldOfArravPhoenixGang.java',
+    'fairytaleigrowingpains': 'src/main/java/com/questhelper/helpers/quests/fairytalei/FairytaleI.java',
+    'deserttreasurei': 'src/main/java/com/questhelper/helpers/quests/deserttreasure/DesertTreasure.java',
     'plaguecity': 'src/main/java/com/questhelper/helpers/quests/plaguecity/PlagueCity.java',
     'biohazard': 'src/main/java/com/questhelper/helpers/quests/biohazard/Biohazard.java',
     'undergroundpass': 'src/main/java/com/questhelper/helpers/quests/undergroundpass/UndergroundPass.java',
@@ -255,6 +262,7 @@ function qhDirectQuestPath_(quest) {
   if (overrides[slug]) return overrides[slug];
 
   const className = String(quest || '')
+    .replace(/['\u2019]/g, '')
     .replace(/[^A-Za-z0-9]+/g, ' ')
     .trim()
     .split(/\s+/)
