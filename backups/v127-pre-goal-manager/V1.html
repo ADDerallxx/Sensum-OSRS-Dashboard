@@ -269,7 +269,7 @@
   <div class="hero">
     <div class="heroTop">
       <div><h1>Sensum OSRS Progression Dashboard</h1><div class="sub">Open this, see what matters, play the game.</div></div>
-      <div class="version">V1.27 · Goal Manager</div>
+      <div class="version">V1.26 · Goal Stages</div>
     </div>
     <div class="heroTabs" role="tablist" aria-label="Dashboard command center">
       <button type="button" id="heroTabOverview" class="heroTab active" role="tab" aria-selected="true" onclick="setHeroTab('overview')">Overview</button>
@@ -278,7 +278,7 @@
     </div>
     <div id="heroPanelOverview" class="heroPanel active" role="tabpanel">
       <div class="controls">
-        <div class="label">Goal Target</div><div class="v127GoalControl"><select id="goal" onchange="changeGoal()"></select><button type="button" class="v127ManageBtn" onclick="openV127GoalManager()">Manage completed</button></div>
+        <div class="label">Goal Target</div><select id="goal" onchange="changeGoal()"></select>
         <div class="label">Route Depth</div><select id="depth" onchange="changeDepth()"><option value="3">3 steps</option><option value="5">5 steps</option><option value="10">10 steps</option></select>
       </div>
       <div class="metrics overviewMetrics">
@@ -329,7 +329,6 @@
           <div class="summaryBox"><div class="skey">Key Blocker</div><div id="prereq" class="sval"></div></div>
           <div class="summaryBox full"><div class="skey">Why This Goal</div><div id="effect" class="sval"></div></div>
         </div>
-        <div class="v127GoalActions"><button id="v127CompleteGoal" type="button" class="v127CompleteBtn" onclick="completeCurrentV127Goal()">✓ Mark goal accomplished</button><span>Completed goals leave this menu and can always be restored.</span></div>
       </div>
     </div>
   </div>
@@ -400,9 +399,7 @@ const V125_SKILL_ORDER=['attack','strength','defence','hitpoints','ranged','magi
 function v125SkillIcon(skill){const key=String(skill||'').trim().toLowerCase();const file=V125_SKILL_ICONS[key]||(`${String(skill||'Skill').trim().replace(/\s+/g,'_')}_icon.png`);return 'https://oldschool.runescape.wiki/images/'+encodeURIComponent(file).replace(/%2F/gi,'/')}
 const V126_GOAL_STAGES={
   'Balanced':'Beginning','Transportation':'Beginning','Fairy Rings':'Beginning','Combat Growth':'Beginning',
-  "Ava's Accumulator":'Beginning','Fossil Island Access':'Beginning',
   'Fire Cape Prep':'Mid-game','Barrows Gloves / RFD':'Mid-game','Ancient Magicks':'Mid-game',
-  'Piety':'Mid-game','Lunar Spellbook':'Mid-game','Darkmeyer Access':'Mid-game','Tombs of Amascut Access':'Mid-game',
   'Dragon Slayer II':'End-game','Prifddinas':'End-game','Quest Cape':'End-game','Inferno / Infernal Cape':'End-game'
 };
 function goalOptionsV126(goals){
@@ -1069,7 +1066,6 @@ function render(s){
   $('wom').textContent=s.lastWomSnapshot||'—';$('sync').textContent=s.lastSheetSync||'—';
   $('goal').innerHTML=goalOptionsV126(s.goals||[]);
   $('goal').value=s.goal;$('depth').value=String(s.routeDepth||10);
-  $('v127CompleteGoal').disabled=/^balanced$/i.test(String(s.goal||''));
 
   const g=s.goalSummary||{};
   const balanced=/balanced/i.test(String(s.goal||''));
@@ -1141,21 +1137,6 @@ function render(s){
 }
 function changeGoal(){busy(true);google.script.run.withSuccessHandler(render).withFailureHandler(fail).setV1Goal($('goal').value)}
 function changeDepth(){busy(true);google.script.run.withSuccessHandler(render).withFailureHandler(fail).setV1RouteDepth(Number($('depth').value))}
-function openV127GoalManager(){
-  const modal=$('v127GoalModal'),list=$('v127GoalList'),done=(window.__sensumState&&window.__sensumState.accomplishedGoals)||[];
-  list.innerHTML=done.length?done.map(g=>`<div class="v127GoalRow"><div><b>${esc(g.name)}</b><small>${esc(g.notes||'Completed progression goal')}</small></div><button type="button" class="v115Btn" onclick="restoreV127GoalUi(decodeURIComponent('${encodeURIComponent(g.name)}'))">Restore</button></div>`).join(''):'<div class="v127GoalEmpty">No accomplished goals yet.</div>';
-  modal.classList.add('show');document.body.classList.add('v115ModalOpen');
-}
-function closeV127GoalManager(){$('v127GoalModal').classList.remove('show');document.body.classList.remove('v115ModalOpen')}
-function completeCurrentV127Goal(){
-  const name=String((window.__sensumState&&window.__sensumState.goal)||'');
-  if(!name||/^balanced$/i.test(name))return;
-  if(!confirm(`Mark ${name} accomplished? It will move to Manage completed goals.`))return;
-  busy(true);google.script.run.withSuccessHandler(s=>{render(s);showV115Toast(`${name} marked accomplished.`)}).withFailureHandler(fail).completeV127Goal(name);
-}
-function restoreV127GoalUi(name){
-  busy(true);google.script.run.withSuccessHandler(s=>{render(s);openV127GoalManager();showV115Toast(`${name} restored to active goals.`)}).withFailureHandler(fail).restoreV127Goal(name);
-}
 
 // V1.23b quest reporter - initialized in the main dashboard script.
 let v115State=null,v115Selected=new Set(),v115Source='Dashboard Manual',v115LastTx='';
@@ -1359,7 +1340,6 @@ body.v115ModalOpen{overflow:hidden}
 .v115Btn.danger{background:#fff3f1;color:#8b241d;border-color:#b95d54;padding:6px 9px}
 .v124QuestStatus{display:flex;align-items:center;justify-content:space-between;gap:10px}.v124QuestStatus span{font-size:9px;font-weight:900;color:#756452;text-transform:uppercase;white-space:nowrap}
 .v124Manage{margin-top:12px;border-top:1px solid #c9b28d;padding-top:4px}.v124Manage summary{cursor:pointer;font-weight:900;padding:10px 0;color:#6d4b24}
-.v127GoalControl{display:flex;gap:7px;align-items:center}.v127GoalControl select{min-width:210px}.v127ManageBtn,.v127CompleteBtn{border:1px solid #b8873c;border-radius:8px;background:#fff7df;color:#4b2c13;padding:8px 10px;font-weight:900;cursor:pointer}.v127ManageBtn{font-size:10px;white-space:nowrap}.v127CompleteBtn{background:#e4f0df;border-color:#72906b;color:#28502b}.v127CompleteBtn:disabled{opacity:.45;cursor:not-allowed}.v127GoalActions{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:11px;padding-top:10px;border-top:1px solid #ded1bb}.v127GoalActions span{font-size:9px;color:#756452;font-weight:750}.v127GoalRow{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:11px 2px;border-bottom:1px solid #ded1bb}.v127GoalRow small{display:block;color:#756452;margin-top:3px}.v127GoalEmpty{padding:20px;text-align:center;color:#756452}
 
 </style>
 <div id="v115Banner" class="v115Banner"><b>Quest Points increased</b><div id="v115BannerText"></div><div class="v115BannerActions"><button class="v115Btn primary" onclick="openV115QuestModal('QP Reconciliation')">Review completed quests</button><button class="v115Btn" onclick="hideV115Banner()">Dismiss</button></div></div>
@@ -1372,7 +1352,6 @@ body.v115ModalOpen{overflow:hidden}
   </div>
 </div>
 <div id="v115Toast" class="v115Toast" aria-live="polite"></div>
-<div id="v127GoalModal" class="v115Modal"><div class="v115Box"><div class="v115Head"><b>Manage Completed Goals</b><button type="button" class="v115Btn" onclick="closeV127GoalManager()">Close</button></div><div class="v115Body"><div class="muted" style="margin-bottom:8px">Restore anything marked accomplished by mistake. It will return to the Goal Target menu immediately.</div><div id="v127GoalList"></div></div></div></div>
 
 
 

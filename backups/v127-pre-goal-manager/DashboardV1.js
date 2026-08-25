@@ -25,10 +25,8 @@ function getV1DashboardState(options) {
   const account = {};
   accountRows.forEach(r => account[r[0]] = r[1]);
 
-  const goalRows = goalsSheet.getRange('A5:P200').getDisplayValues().filter(r => r[0]);
-  const allGoals = goalRows.map(r => ({name:r[0], type:r[1], anchor:r[2], line:r[3], notes:r[14], status:r[15]||'ACTIVE'}));
-  const goals = allGoals.filter(g => g.name === 'Balanced' || !/^accomplished$/i.test(g.status));
-  const accomplishedGoals = allGoals.filter(g => g.name !== 'Balanced' && /^accomplished$/i.test(g.status));
+  const goalRows = goalsSheet.getRange('A5:O200').getDisplayValues().filter(r => r[0]);
+  const goals = goalRows.map(r => ({name:r[0], type:r[1], anchor:r[2], line:r[3], notes:r[14]}));
 
   const summary = {
     objective: dash.getRange('J3').getDisplayValue() || dash.getRange('B3').getDisplayValue(),
@@ -50,7 +48,6 @@ function getV1DashboardState(options) {
     goal: dash.getRange('B3').getDisplayValue(),
     routeDepth: Number(getRouteDepthValue_(dash) || 10),
     goals,
-    accomplishedGoals,
     goalSummary: summary,
     topQuests: topRows.map(r => ({rank:r[0],quest:r[1],score:r[2],tier:r[3],downstream:r[4],why:r[5],rewards:rewardMap[String(r[1]||'').trim().toLowerCase()]||null})),
     blockedQuests: blockedRows.map(r => ({quest:r[0],score:r[1],downstream:r[2],blockedBy:r[3],missingSkills:r[4],hours:r[5]})),
@@ -241,48 +238,6 @@ function setV1Goal(goalName) {
   SpreadsheetApp.flush();
   Utilities.sleep(150);
   return getV1DashboardState();
-}
-
-function setV127GoalStatus_(goalName, newStatus) {
-  goalName = String(goalName || '').trim();
-  newStatus = String(newStatus || '').toUpperCase();
-  if (!goalName) throw new Error('Choose a goal first.');
-  if (goalName === 'Balanced') throw new Error('Balanced is the permanent fallback goal and cannot be completed.');
-  if (['ACTIVE','ACCOMPLISHED'].indexOf(newStatus) === -1) throw new Error('Unknown goal status.');
-
-  const ss = SpreadsheetApp.openById(V1_TRACKER_ID);
-  const sh = ss.getSheetByName('Goal Registry');
-  const rows = sh.getRange('A5:P200').getDisplayValues();
-  const index = rows.findIndex(r => String(r[0] || '').trim() === goalName);
-  if (index < 0) throw new Error('Unknown goal: ' + goalName);
-
-  const row = index + 5;
-  const previous = String(rows[index][15] || 'ACTIVE').toUpperCase();
-  if (previous === newStatus) return getV1DashboardState({allowQuestHelperSync:false});
-  sh.getRange(row, 16).setValue(newStatus);
-
-  let log = ss.getSheetByName('Goal Completion Log');
-  if (!log) {
-    log = ss.insertSheet('Goal Completion Log');
-    log.getRange(1,1,1,6).setValues([['Timestamp','Goal','Previous Status','New Status','Source','Transaction ID']]);
-  }
-  log.appendRow([new Date(), goalName, previous, newStatus, 'Dashboard Goal Manager', Utilities.getUuid()]);
-
-  const dash = ss.getSheetByName('Dashboard');
-  if (newStatus === 'ACCOMPLISHED' && dash.getRange('B3').getDisplayValue() === goalName) {
-    dash.getRange('B3').setValue('Balanced');
-  }
-  SpreadsheetApp.flush();
-  Utilities.sleep(150);
-  return getV1DashboardState({allowQuestHelperSync:false});
-}
-
-function completeV127Goal(goalName) {
-  return setV127GoalStatus_(goalName, 'ACCOMPLISHED');
-}
-
-function restoreV127Goal(goalName) {
-  return setV127GoalStatus_(goalName, 'ACTIVE');
 }
 
 function setV1RouteDepth(depth) {
@@ -616,3 +571,4 @@ function undoV115QuestCompletion(transactionId){
   if(!quests.length)throw new Error('Completion transaction not found.');
   return uncompleteV124QuestsFast(quests,'Dashboard Immediate Undo');
 }
+
