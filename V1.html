@@ -269,7 +269,7 @@
   <div class="hero">
     <div class="heroTop">
       <div><h1>Sensum OSRS Progression Dashboard</h1><div class="sub">Open this, see what matters, play the game.</div></div>
-      <div class="version">V1.25b · Tabbed Command Center</div>
+      <div class="version">V1.25c · Organized Skill Grid</div>
     </div>
     <div class="heroTabs" role="tablist" aria-label="Dashboard command center">
       <button type="button" id="heroTabOverview" class="heroTab active" role="tab" aria-selected="true" onclick="setHeroTab('overview')">Overview</button>
@@ -395,6 +395,7 @@ const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&
 const V125_SKILL_ICONS={
   attack:'Attack_icon.png',strength:'Strength_icon.png',defence:'Defence_icon.png',ranged:'Ranged_icon.png',prayer:'Prayer_icon.png',magic:'Magic_icon.png',runecraft:'Runecraft_icon.png',runecrafting:'Runecraft_icon.png',construction:'Construction_icon.png',hitpoints:'Hitpoints_icon.png',agility:'Agility_icon.png',herblore:'Herblore_icon.png',thieving:'Thieving_icon.png',crafting:'Crafting_icon.png',fletching:'Fletching_icon.png',slayer:'Slayer_icon.png',hunter:'Hunter_icon.png',mining:'Mining_icon.png',smithing:'Smithing_icon.png',fishing:'Fishing_icon.png',cooking:'Cooking_icon.png',firemaking:'Firemaking_icon.png',woodcutting:'Woodcutting_icon.png',farming:'Farming_icon.png',sailing:'Sailing_icon.png'
 };
+const V125_SKILL_ORDER=['attack','strength','defence','hitpoints','ranged','magic','prayer','slayer','mining','smithing','fishing','cooking','woodcutting','firemaking','farming','herblore','agility','thieving','crafting','fletching','runecraft','runecrafting','construction','hunter','sailing'];
 function v125SkillIcon(skill){const key=String(skill||'').trim().toLowerCase();const file=V125_SKILL_ICONS[key]||(`${String(skill||'Skill').trim().replace(/\s+/g,'_')}_icon.png`);return 'https://oldschool.runescape.wiki/images/'+encodeURIComponent(file).replace(/%2F/gi,'/')}
 function setHeroTab(name){
   ['overview','stats','health'].forEach(key=>{
@@ -1120,7 +1121,8 @@ function render(s){
   $('shopping').innerHTML=routeShoppingHtml(s);
 
   const focus=goalSkills(s);
-  $('skills').innerHTML=(s.stats||[]).map(x=>{const skill=String(x.skill||''),relevant=focus.has(skill.toLowerCase()),target=relevant?inferTarget(x,s):null,gap=target?Math.max(0,target-Number(x.level||0)):0;return `<div class="skill ${relevant?'goalSkill':''}"><div class="skillIconWrap"><span class="skillIconFallback">${esc(skill.slice(0,1))}</span><img class="skillIcon" src="${v125SkillIcon(skill)}" alt="" loading="lazy" onerror="this.style.display='none';this.previousElementSibling.style.display='flex'"></div><div class="name">${esc(skill)}</div><div class="lvl">${esc(x.level)}</div><div class="skillMeta">${Number(x.xp||0).toLocaleString()} XP</div>${target?`<div class="targetLine">Target ${target}${gap?` · +${gap}`:' · ✓ met'}</div>`:''}</div>`}).join('');
+  const orderedStats=[...(s.stats||[])].sort((a,b)=>{const ai=V125_SKILL_ORDER.indexOf(String(a.skill||'').toLowerCase()),bi=V125_SKILL_ORDER.indexOf(String(b.skill||'').toLowerCase());return (ai<0?999:ai)-(bi<0?999:bi)});
+  $('skills').innerHTML=orderedStats.map(x=>{const skill=String(x.skill||''),relevant=focus.has(skill.toLowerCase()),target=relevant?inferTarget(x,s):null,gap=target?Math.max(0,target-Number(x.level||0)):0;return `<div class="skill ${relevant?'goalSkill':''}"><div class="skillIconWrap"><span class="skillIconFallback">${esc(skill.slice(0,1))}</span><img class="skillIcon" src="${v125SkillIcon(skill)}" alt="" loading="lazy" onerror="this.style.display='none';this.previousElementSibling.style.display='flex'"></div><div class="name">${esc(skill)}</div><div class="lvl">${esc(x.level)}</div><div class="skillMeta">${Number(x.xp||0).toLocaleString()} XP</div>${target?`<div class="targetLine">Target ${target}${gap?` · +${gap}`:' · ✓ met'}</div>`:''}</div>`}).join('');
   const h=s.wikiHealth||{};
   $('health').innerHTML=`<span class="pill good">Wiki OK: ${esc(h.ok||0)}</span><span class="pill">Review: ${esc(h.review||0)}</span><span class="pill">Missing: ${esc(h.missing||0)}</span><span class="pill">Last check: ${esc(h.lastCheck||'—')}</span>`;
 }
