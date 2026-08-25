@@ -195,7 +195,7 @@
   <div class="hero">
     <div class="heroTop">
       <div><h1>Sensum OSRS Progression Dashboard</h1><div class="sub">Open this, see what matters, play the game.</div></div>
-      <div class="version">V1.16.2 · Trust the Numbers</div>
+      <div class="version">V1.16.3 · Trust the Numbers</div>
     </div>
     <div class="controls">
       <div class="label">Goal Target</div><select id="goal" onchange="changeGoal()"></select>
@@ -489,12 +489,18 @@ function routeShoppingHtml(s){
 
   rows.forEach(i=>{
     const quests=splitQuests(i.quests);
-    const ordered=(quests.length?quests:['Other']).sort((a,b)=>(steps.get(a.toLowerCase())||999)-(steps.get(b.toLowerCase())||999));
+    const ordered=quests
+      .filter(q=>steps.has(q.toLowerCase()))
+      .sort((a,b)=>(steps.get(a.toLowerCase())||999)-(steps.get(b.toLowerCase())||999));
+
     ordered.forEach(quest=>{
       if(!groups.has(quest))groups.set(quest,[]);
       const c=classifyPrepItemV1142(i);
       const allUses=[...new Set(itemQuestMap.get(normalizedItemName(i.item))||[])];
-      const also=allUses.filter(q=>q.toLowerCase()!==quest.toLowerCase());
+      const also=allUses.filter(q=>
+        q.toLowerCase()!==quest.toLowerCase() &&
+        steps.has(q.toLowerCase())
+      );
       groups.get(quest).push({...i,quest,also,...c});
     });
   });
