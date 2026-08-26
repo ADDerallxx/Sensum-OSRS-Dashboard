@@ -1298,7 +1298,7 @@ function render(s){
   dataHealth(s);
   $('user').textContent=s.username||'Sensum';$('combat').textContent=s.combatLevel||'—';$('qp').textContent=s.questPoints||'—';
   $('wom').textContent=s.lastWomSnapshot?v200FormatDate(s.lastWomSnapshot,{dateStyle:'medium',timeStyle:'short'}):'—';$('sync').textContent=s.lastSheetSync?v200FormatDate(s.lastSheetSync,{dateStyle:'medium',timeStyle:'short'}):'—';
-  const live=s.wikiSync||{},liveAge=ageLabel(live.lastSync);$('v22LiveStatus').textContent=live.lastError?`WikiSync unavailable · WOM data preserved`:`WikiSync live levels ${liveAge} · exact XP from WOM`;
+  const live=s.wikiSync||{},liveAge=ageLabel(live.lastSync),liveStatus=$('v22LiveStatus');liveStatus.textContent=live.lastError?`WikiSync unavailable · WOM data preserved`:`WikiSync live levels ${liveAge} · exact XP from WOM`;liveStatus.title=live.lastError||'Live base levels from WikiSync; exact XP from Wise Old Man.';
   $('goal').innerHTML=goalOptionsV126(s.goals||[]);
   $('goal').value=s.goal;$('depth').value=String(s.routeDepth||10);
   const previousBoss=$('v128BossSelect').value;
