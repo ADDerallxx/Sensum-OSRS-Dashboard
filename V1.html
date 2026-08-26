@@ -234,6 +234,7 @@
 .rewardEmpty{font-size:10px;color:#8b7a67;font-style:italic}
 @media(max-width:950px){.rewardDetailGrid{grid-template-columns:1fr}.rewardStats{grid-template-columns:1fr 1fr 1fr}}
 .v22Help img{display:none}.v22Help:before{content:'⌕';font-size:14px;line-height:1;color:#5c402b;font-weight:950}
+.v200Compact .shell{max-width:1720px;padding:8px 12px 24px}.v200Compact .grid,.v200Compact .route,.v200Compact details.section,.v200Compact .actionCard{margin-top:8px}.v200Compact .grid{gap:8px}.v200Compact .heroTop{padding:18px 15px 8px}.v200Compact .controls{padding:7px 15px;gap:7px}.v200Compact .metrics{padding:7px 15px 9px;gap:6px}.v200Compact .metric{min-height:48px;padding:7px 9px}.v200Compact .metric .v{font-size:16px}.v200Compact .head{padding:7px 10px;font-size:13px}.v200Compact .table th{padding:5px 7px}.v200Compact .table td{padding:6px 7px}.v200Compact .summary,.v200Compact .actionBody{padding:7px;gap:6px}.v200Compact .summaryBox,.v200Compact .actionStep{padding:7px;min-height:0}.v200Compact .routeGrid{padding:10px}.v200Compact .step{min-height:104px;padding:8px}.v200Compact .heroPanelIntro{padding-top:7px}.v200Compact .heroSkills{gap:5px;padding:7px 15px 10px}.v200Compact .heroSkills .skill{min-height:58px;padding:6px}.v200Compact .dataHealthBar{padding:6px 15px 7px}.v200Compact .v130TonightTop,.v200Compact .v130TonightPlan{padding-left:15px;padding-right:15px}
 </style>
 
 <style id="v122RequirementStyles">
@@ -1426,7 +1427,10 @@ function openV115QuestModal(src){
 
   v115Source=src||'Dashboard Manual';
   v115Selected.clear();
+  document.getElementById('v115Search').value='';
   document.querySelectorAll('#v115Modal details.v115All,#v115Modal details.v124Manage').forEach(x=>x.removeAttribute('open'));
+  const prompted=/QP Reconciliation/i.test(v115Source);
+  if(prompted)document.querySelector('#v115Modal details.v124Manage').setAttribute('open','');
   modal.classList.add('show');
   document.body.classList.add('v115ModalOpen');
   const refreshStatus=document.getElementById('v124RefreshStatus');
