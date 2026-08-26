@@ -269,7 +269,7 @@
   <div class="hero">
     <div class="heroTop">
       <div><h1>Sensum OSRS Progression Dashboard</h1><div class="sub">Open this, see what matters, play the game.</div></div>
-      <div class="version">V1.30 · Tonight Mode</div>
+      <div class="version">V1.30a · Tonight Mode</div>
     </div>
     <div class="heroTabs" role="tablist" aria-label="Dashboard command center">
       <button type="button" id="heroTabOverview" class="heroTab active" role="tab" aria-selected="true" onclick="setHeroTab('overview')">Overview</button>
@@ -470,11 +470,13 @@ function renderV130Tonight(){
     }else{
       blocks.push(v130PlanBlock('main',Math.max(10,budget-used),`Start ${quest}`,`Work through a clean stopping point; the full quest is planned at roughly ${v130MinutesLabel(questMin)}.`,`Progress is useful even if the quest is not finished tonight.`));used=budget;
     }
-    const left=budget-used;
+    let left=budget-used,bonusCount=0;
+    route.slice(1).forEach(next=>{
+      const qMin=v130QuestMinutes(s,next.quest);
+      if(bonusCount<3&&left>=qMin&&Number(next.afterHours||0)<=0){blocks.push(v130PlanBlock('extra',qMin,`Bonus: complete ${next.quest}`,`A ready route quest that fits the remaining window.`,`Adds another concrete route result if the earlier blocks finish on time.`));left-=qMin;bonusCount++}
+    });
     if(left>=10){
-      const next=route.slice(1).find(r=>Number(r.afterHours||0)<=0&&v130QuestMinutes(s,r.quest)<=left);
-      if(next)blocks.push(v130PlanBlock('extra',v130QuestMinutes(s,next.quest),`Bonus: complete ${next.quest}`,`A ready route quest that fits the remaining window.`,`Keeps the session productive if the main objective finishes early.`));
-      else blocks.push(v130PlanBlock('extra',left,'Stage the next route step',`Review the next quest card, gather its items, and travel to its start location.`,'Tomorrow begins with less friction.'));
+      blocks.push(v130PlanBlock('extra',left,'Stage the next route step',`Review the next unfinished quest card, gather its items, and travel to its start location.`,'Tomorrow begins with less friction.'));
     }
   }
   $('v130TonightPlan').innerHTML=`<div class="v130TonightSummary"><div><span>Tonight's focus</span><h2>${esc(headline)}</h2><p>${esc(summary)}</p></div><div class="v130Budget"><b>${esc(v130MinutesLabel(budget))}</b><span>available</span></div></div><div class="v130PlanBlocks">${blocks.join('')}</div><div class="v130TonightNote">Time estimates use Wiki quest-length categories plus the dashboard's training model. Treat them as a session plan, not a stopwatch.</div>`;
