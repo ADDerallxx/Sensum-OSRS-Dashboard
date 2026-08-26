@@ -103,6 +103,11 @@ function readV134OrderedBlockedQuests_(blockedRows, dependencySheet) {
   const questCol = column(/^quest name$/i);
   const prereqCol = column(/^direct prior quest requirement\(s\)$/i);
   const completedCol = column(/^completed$/i);
+  const downstreamCol = column(/^total downstream unlocks$/i);
+  const balancedScoreCol = column(/^balanced priority score$/i);
+  const goalScoreCol = column(/^goal profile score$/i);
+  const gapCol = column(/^skill gap summary$/i);
+  const hoursCol = column(/^best value hours$/i);
   if (questCol < 0 || prereqCol < 0) return base.map(v134PublicBlocker_);
 
   const records = values.slice(headerRow + 1).filter(r => String(r[questCol] || '').trim());
@@ -114,16 +119,49 @@ function readV134OrderedBlockedQuests_(blockedRows, dependencySheet) {
     const prereqs = names.filter(name => name.toLowerCase() !== quest.toLowerCase() &&
       source.toLowerCase().indexOf(name.toLowerCase()) >= 0);
     byName[quest.toLowerCase()] = {
+      quest:quest,
       prereqs:prereqs,
-      complete:completedCol >= 0 && /^(yes|true|complete|completed)$/i.test(String(r[completedCol] || '').trim())
+      complete:completedCol >= 0 && /^(yes|true|complete|completed)$/i.test(String(r[completedCol] || '').trim()),
+      score:String(r[goalScoreCol >= 0 ? goalScoreCol : balancedScoreCol] || '').trim(),
+      downstream:String(r[downstreamCol] || '').trim(),
+      missingSkills:String(r[gapCol] || '').trim() || 'None',
+      hours:String(r[hoursCol] || '').trim()
     };
   });
+
+  // The Dashboard sheet only supplies its eight highest-ranked blockers. Add
+  // every unfinished ancestor needed by those quests so the table can show a
+  // complete, actionable quest chain instead of merely naming hidden rows.
+  const included = {};
+  base.forEach(item => included[String(item.quest || '').toLowerCase()] = true);
+  let nextIndex = base.length;
+  function includeMissingAncestors(questKey, visiting) {
+    const rec = byName[questKey];
+    if (!rec || visiting[questKey]) return;
+    const path = Object.assign({}, visiting); path[questKey] = true;
+    rec.prereqs.forEach(name => {
+      const key = name.toLowerCase(), prereq = byName[key];
+      if (!prereq || prereq.complete) return;
+      includeMissingAncestors(key, path);
+      if (!included[key]) {
+        base.push({
+          quest:prereq.quest, score:prereq.score, downstream:prereq.downstream,
+          blockedBy:'Quest prerequisite', missingSkills:prereq.missingSkills,
+          hours:prereq.hours, _index:nextIndex++
+        });
+        included[key] = true;
+      }
+    });
+  }
+  base.slice().forEach(item => includeMissingAncestors(String(item.quest || '').toLowerCase(), {}));
 
   base.forEach(item => {
     const rec = byName[String(item.quest || '').toLowerCase()];
     if (!rec) return;
     const missing = rec.prereqs.filter(name => !(byName[name.toLowerCase()] || {}).complete);
     if (missing.length) item.blockedBy = missing.join('; ');
+    else if (item.missingSkills && !/^none$/i.test(item.missingSkills)) item.blockedBy = 'Skills';
+    else item.blockedBy = 'Ready now';
   });
 
   // Stable topological sort: dependency constraints win; unrelated quests
