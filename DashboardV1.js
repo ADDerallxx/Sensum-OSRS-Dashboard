@@ -27,6 +27,7 @@ function getV1DashboardState(options) {
 
   const statsRows = statsSheet.getRange('A3:H26').getDisplayValues().filter(r => r[0]);
   const accountRows = statsSheet.getRange('A30:D35').getDisplayValues().filter(r => r[0]);
+  const blockerSkillTargets = readV134BlockerSkillTargets_(orderedBlockedQuests, requirementIntel, statsRows);
   const account = {};
   accountRows.forEach(r => account[r[0]] = r[1]);
 
@@ -67,6 +68,7 @@ function getV1DashboardState(options) {
     goalSummary: summary,
     topQuests: topRows.map(r => ({rank:r[0],quest:r[1],score:r[2],tier:r[3],downstream:r[4],why:r[5],rewards:rewardMap[String(r[1]||'').trim().toLowerCase()]||null})),
     blockedQuests: orderedBlockedQuests,
+    blockerSkillTargets: blockerSkillTargets,
     skillGrinds: grindRows.map(r => ({quest:r[0],missingSkills:r[1],xp:r[2],fast:r[3],value:r[4],afk:r[5],downstream:r[6],score:r[7],efficiency:r[8]})),
     route: routeRows.map(r => ({step:r[0],quest:r[1],score:r[2],blocker:r[3],currentHours:r[4],xpCredit:r[5],afterHours:r[6],projectedQp:r[7]})),
     nextSession,
@@ -197,6 +199,36 @@ function readV134OrderedBlockedQuests_(blockedRows, dependencySheet) {
 
 function v134PublicBlocker_(item) {
   return {quest:item.quest,score:item.score,downstream:item.downstream,blockedBy:item.blockedBy,missingSkills:item.missingSkills,hours:item.hours};
+}
+
+function readV134BlockerSkillTargets_(blockedQuests, requirementIntel, statsRows) {
+  const levels = {};
+  (statsRows || []).forEach(r => levels[String(r[0] || '').trim().toLowerCase()] = Number(r[1] || 0));
+  const targets = {};
+  (blockedQuests || []).forEach(q => {
+    const quest = String(q.quest || '').trim();
+    const req = (requirementIntel || {})[quest.toLowerCase()];
+    (req && req.requiredSkills ? req.requiredSkills : []).forEach(skillReq => {
+      const skill = String(skillReq.skill || '').trim(), key = skill.toLowerCase(), target = Number(skillReq.level || 0);
+      if (!skill || !target) return;
+      if (!targets[key] || target > targets[key].target) targets[key] = {skill:skill,target:target,quests:[quest]};
+      else if (target === targets[key].target && targets[key].quests.indexOf(quest) < 0) targets[key].quests.push(quest);
+    });
+  });
+  const all = Object.keys(targets).map(key => {
+    const item = targets[key], current = Number(levels[key] || 0);
+    return {skill:item.skill,current:current,target:item.target,gap:Math.max(0,item.target-current),quests:item.quests};
+  });
+  all.sort((a,b) => (b.gap-a.gap) || (b.target-a.target) || a.skill.localeCompare(b.skill));
+  const unmet = all.filter(x => x.gap > 0), met = all.filter(x => x.gap <= 0);
+  return {
+    unmet:unmet,
+    met:met,
+    totalSkills:all.length,
+    unmetCount:unmet.length,
+    largestGap:unmet.length ? {skill:unmet[0].skill,gap:unmet[0].gap,target:unmet[0].target} : null,
+    planningMode:'Base levels only'
+  };
 }
 
 function readV131GoalProgress_(ss, goals, statsRows, account, requirementIntel, routeRows) {

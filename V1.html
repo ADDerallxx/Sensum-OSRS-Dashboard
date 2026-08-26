@@ -102,6 +102,17 @@
     .blockerRow.midRow td:first-child{border-left:7px solid #9b6816}
     .blockerRow.longRow td:first-child{border-left:7px solid #9c2d24}
     .riskWord{font-size:9px;text-transform:uppercase;letter-spacing:.5px}
+    .blockerTargets{padding:12px;background:#f8f1e5;border-bottom:1px solid #d9c7aa}
+    .blockerTargetsHead{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:10px}
+    .blockerTargetsTitle{font-size:12px;font-weight:950;color:#52351c;text-transform:uppercase;letter-spacing:.45px}
+    .blockerTargetsSummary{font-size:10px;color:#75614b;margin-top:3px}.blockerTargetsMode{font-size:9px;font-weight:900;color:#4c7048;background:#dfeada;border:1px solid #a8c2a5;border-radius:999px;padding:5px 8px;white-space:nowrap}
+    .blockerTargetGrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+    .blockerTarget{display:grid;grid-template-columns:30px 1fr auto;gap:8px;align-items:center;text-align:left;background:#fffaf2;border:1px solid #d7c3a3;border-radius:10px;padding:9px;cursor:pointer;color:#342314}
+    .blockerTarget:hover{border-color:#a86f2d;box-shadow:0 3px 10px rgba(73,39,14,.12)}.blockerTarget img{width:28px;height:28px;object-fit:contain}
+    .blockerTargetName{font-size:10px;font-weight:950;text-transform:uppercase;color:#6a4b2b}.blockerTargetLevels{font-size:12px;font-weight:900;margin-top:2px}.blockerTargetQuest{grid-column:2/-1;font-size:9px;color:#7f6d58;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .blockerTargetGap{background:#f3d2cd;color:#8d2119;border:1px solid #c56b61;border-radius:999px;padding:4px 6px;font-size:10px;font-weight:950}.blockerTargetMet{background:#dfeadb;color:#2c6335;border-color:#8fb193}
+    .blockerMet{margin-top:9px;border:1px solid #d7c8ae;border-radius:9px;background:#f4eee3}.blockerMet summary{cursor:pointer;padding:7px 9px;font-size:9px;font-weight:900;color:#587052;text-transform:uppercase}.blockerMetList{display:flex;flex-wrap:wrap;gap:5px;padding:0 9px 9px}.blockerMetPill{background:#e2ecdf;color:#315d36;border:1px solid #a7c0a7;border-radius:999px;padding:4px 7px;font-size:9px;font-weight:850}
+    .blockerRow.skillFocus{outline:2px solid #c58a2d;outline-offset:-2px;background:#fff1c9!important}
 
     .subHead{background:#eadcc4;color:#5d3b18;border:1px solid #d0b991;border-bottom:0;border-radius:9px 9px 0 0;padding:8px 10px;font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.5px}
     .checkRow.obtainRow{background:#edf4ec}
@@ -196,8 +207,8 @@
     .loading{position:fixed;inset:0;background:rgba(11,6,3,.82);display:flex;align-items:center;justify-content:center;z-index:10}.loading>div{background:#2c180a;border:1px solid #996128;border-radius:12px;padding:18px 22px;color:#ffe2a4;font-weight:900}
     .hidden{display:none}.error{background:#5c1712;border:1px solid #aa4238;border-radius:10px;padding:10px;margin-top:14px}
 
-    @media(max-width:1100px){.grid,.prepGrid{grid-template-columns:1fr}.metrics{grid-template-columns:repeat(3,1fr)}.skills{grid-template-columns:repeat(6,1fr)}.heroSkills{grid-template-columns:repeat(6,minmax(0,1fr))}.actionBody{grid-template-columns:1fr}.actionSteps{grid-template-columns:1fr 1fr 1fr}}
-    @media(max-width:680px){.dataHealthBar{align-items:flex-start;flex-direction:column;padding:10px 13px}.healthFacts{justify-content:flex-start;gap:9px}.shell{padding:8px}.controls{grid-template-columns:1fr}.metrics,.overviewMetrics{grid-template-columns:1fr;padding:10px 13px}.heroTop{padding:15px 13px}.heroTabs{padding:7px 13px 0}.heroTab{flex:1;justify-content:center;padding:9px 7px;font-size:9px}.heroSkills{grid-template-columns:repeat(3,minmax(0,1fr));padding:10px 13px}.heroSkills .skill{grid-template-columns:28px 1fr;padding:7px 5px}.skillIconWrap{width:25px;height:25px}.skillIcon{max-width:24px;max-height:24px}.heroPanelIntro{padding:10px 13px 0;align-items:flex-start;flex-direction:column}.healthMetaGrid{grid-template-columns:1fr;padding:10px 13px}.healthMeta.wide{grid-column:auto}.summaryGrid{grid-template-columns:1fr}.summaryBox.full{grid-column:auto}.actionSteps{grid-template-columns:1fr}.actionStep.prep{grid-column:auto}.version{display:none}.qpStrip{display:block}}
+    @media(max-width:1100px){.grid,.prepGrid{grid-template-columns:1fr}.metrics{grid-template-columns:repeat(3,1fr)}.skills{grid-template-columns:repeat(6,1fr)}.heroSkills{grid-template-columns:repeat(6,minmax(0,1fr))}.actionBody{grid-template-columns:1fr}.actionSteps{grid-template-columns:1fr 1fr 1fr}.blockerTargetGrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+    @media(max-width:680px){.dataHealthBar{align-items:flex-start;flex-direction:column;padding:10px 13px}.healthFacts{justify-content:flex-start;gap:9px}.shell{padding:8px}.controls{grid-template-columns:1fr}.metrics,.overviewMetrics{grid-template-columns:1fr;padding:10px 13px}.heroTop{padding:15px 13px}.heroTabs{padding:7px 13px 0}.heroTab{flex:1;justify-content:center;padding:9px 7px;font-size:9px}.heroSkills{grid-template-columns:repeat(3,minmax(0,1fr));padding:10px 13px}.heroSkills .skill{grid-template-columns:28px 1fr;padding:7px 5px}.skillIconWrap{width:25px;height:25px}.skillIcon{max-width:24px;max-height:24px}.heroPanelIntro{padding:10px 13px 0;align-items:flex-start;flex-direction:column}.healthMetaGrid{grid-template-columns:1fr;padding:10px 13px}.healthMeta.wide{grid-column:auto}.summaryGrid{grid-template-columns:1fr}.summaryBox.full{grid-column:auto}.actionSteps{grid-template-columns:1fr}.actionStep.prep{grid-column:auto}.version{display:none}.qpStrip{display:block}.blockerTargetGrid{grid-template-columns:1fr}.blockerTargetsHead{flex-direction:column}}
   .questReward{margin-top:5px;font-size:10px;line-height:1.4;color:#705d48}.questReward b{color:#4d3218}.rewardBox{background:#fff7df!important;border-color:#d8b267!important}.rewardLines{display:grid;gap:5px}.rewardLine{font-size:11px;line-height:1.4}.rewardLabel{font-size:9px;font-weight:900;text-transform:uppercase;color:#8a642d;margin-right:5px}
 
 .questRewardSummary{display:flex;gap:5px;flex-wrap:wrap;margin-top:6px}
@@ -388,6 +399,7 @@
       <span class="legendBadge mid">! MEDIUM · 30 min–3 hr</span>
       <span class="legendBadge long">▲ LONG · over 3 hr</span>
     </div>
+    <div id="blockerSkillTargets" class="blockerTargets"></div>
     <div class="grid" style="margin:0;padding:14px">
       <div>
         <div class="subHead">Blocked Quests</div>
@@ -561,6 +573,19 @@ function timeClass(v){
 function timeBadge(v){
   const cls=timeClass(v), label=cls==='quick'?'QUICK':cls==='mid'?'MEDIUM':'LONG', icon=cls==='quick'?'✓':cls==='mid'?'!':'▲';
   return `<span class="timeBadge ${cls}"><span>${icon}</span><span class="riskWord">${label}</span><span>· ${esc(friendlyHours(v))}</span></span>`;
+}
+function blockerSkillTargetsHtml(data){
+  data=data||{};const unmet=data.unmet||[],met=data.met||[];
+  const summary=unmet.length?(unmet.length+' skills to train · largest gap: '+data.largestGap.skill+' +'+data.largestGap.gap):'All displayed blocker skill targets are met.';
+  const card=x=>`<button type="button" class="blockerTarget" onclick="highlightBlockerSkill('${encodeURIComponent(String(x.skill||''))}')"><img src="${v125SkillIcon(x.skill)}" alt="" loading="lazy"><span><span class="blockerTargetName">${esc(x.skill)}</span><span class="blockerTargetLevels">${esc(x.current)} → ${esc(x.target)}</span></span><span class="blockerTargetGap ${x.gap?'':'blockerTargetMet'}">${x.gap?'+'+esc(x.gap):'✓ Met'}</span><span class="blockerTargetQuest" title="${esc((x.quests||[]).join(', '))}">Highest target: ${esc((x.quests||[]).join(', '))}</span></button>`;
+  return `<div class="blockerTargetsHead"><div><div class="blockerTargetsTitle">Blocker Skill Targets</div><div class="blockerTargetsSummary">${esc(summary)}</div></div><span class="blockerTargetsMode">Base levels only</span></div>`+
+    (unmet.length?`<div class="blockerTargetGrid">${unmet.map(card).join('')}</div>`:'')+
+    (met.length?`<details class="blockerMet"><summary>✓ ${met.length} requirements already met</summary><div class="blockerMetList">${met.map(x=>`<span class="blockerMetPill">${esc(x.skill)} ${esc(x.current)} / ${esc(x.target)}</span>`).join('')}</div></details>`:'');
+}
+function highlightBlockerSkill(encoded){
+  const skill=decodeURIComponent(encoded).toLowerCase(),rows=[...document.querySelectorAll('#blocked .blockerRow')];let first=null;
+  rows.forEach(row=>{const match=String(row.dataset.skills||'').toLowerCase().includes(skill);row.classList.toggle('skillFocus',match);if(match&&!first)first=row});
+  if(first)first.scrollIntoView({behavior:'smooth',block:'center'});
 }
 function prepForQuest(s,quest){
   const rows=(s.shopping||[]).filter(i=>String(i.quests||'').toLowerCase().split(',').map(x=>x.trim()).includes(String(quest||'').toLowerCase()));
@@ -1258,7 +1283,8 @@ function render(s){
     return `<div class="step ${blocked?'blockedStep':''}"><div class="stepNo">Step ${esc(r.step)} · projected QP ${esc(r.projectedQp)}</div><div class="stepQuest">${esc(r.quest)}</div>${questMetaBadgesV129(s,r.quest)}<div class="stepMeta">${esc(r.blocker)}<br>${state}${routeRequirementHintV122(s,r.quest)}</div>${blocked?'<span class="blockedFlag">Training needed</span>':''}<span class="stepScore">Score ${esc(r.score)}</span></div>`;
   }).join('');
 
-  $('blocked').innerHTML=(s.blockedQuests||[]).map(q=>{const c=timeClass(q.hours);return `<tr class="blockerRow ${c}Row"><td><b>${esc(q.quest)}</b></td><td class="num">${esc(q.score)}</td><td class="num">${esc(q.downstream)}</td><td>${esc(q.blockedBy)}</td><td class="${q.missingSkills&&q.missingSkills!=='None'?'danger':'good'}">${esc(q.missingSkills||'None')}</td><td class="num">${timeBadge(q.hours)}</td></tr>`}).join('');
+  $('blockerSkillTargets').innerHTML=blockerSkillTargetsHtml(s.blockerSkillTargets);
+  $('blocked').innerHTML=(s.blockedQuests||[]).map(q=>{const c=timeClass(q.hours);return `<tr class="blockerRow ${c}Row" data-skills="${esc(q.missingSkills||'')}"><td><b>${esc(q.quest)}</b></td><td class="num">${esc(q.score)}</td><td class="num">${esc(q.downstream)}</td><td>${esc(q.blockedBy)}</td><td class="${q.missingSkills&&q.missingSkills!=='None'?'danger':'good'}">${esc(q.missingSkills||'None')}</td><td class="num">${timeBadge(q.hours)}</td></tr>`}).join('');
   $('grinds').innerHTML=(s.skillGrinds||[]).map(q=>{const c=timeClass(q.value);return `<tr class="blockerRow ${c}Row"><td><b>${esc(q.quest)}</b></td><td>${esc(q.missingSkills)}</td><td class="num">${timeBadge(q.value)}</td><td class="num">${esc(q.efficiency)}</td></tr>`}).join('');
 
   $('shopping').innerHTML=routeShoppingHtml(s);
