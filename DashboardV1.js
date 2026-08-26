@@ -3,6 +3,46 @@ const V1_TRACKER_ID = '18cUN2RTytdinH9kpgqQhz9OZsKRpHrVAB2hiUotznKU';
 function saveV133ManualAchievement(title,note){return addV133ManualAchievement(title,note)}
 function deleteV133ManualAchievement(id){return removeV133ManualAchievement(id)}
 
+function forceV134WiseOldManUpdate() {
+  const lock = LockService.getScriptLock();
+  if (!lock.tryLock(1000)) throw new Error('A Wise Old Man update is already running.');
+  try {
+    const ss = SpreadsheetApp.openById(V1_TRACKER_ID), sh = ss.getSheetByName('Your Stats');
+    if (!sh) throw new Error('Your Stats sheet was not found.');
+    const values = sh.getDataRange().getDisplayValues();
+    let username = 'Sensum';
+    values.forEach(r => { if (/^username$/i.test(String(r[0] || '').trim()) && r[1]) username = String(r[1]).trim(); });
+    const url = 'https://api.wiseoldman.net/v2/players/' + encodeURIComponent(username);
+    const response = UrlFetchApp.fetch(url, {method:'post',contentType:'application/json',muteHttpExceptions:true,headers:{'User-Agent':'SensumOSRSDashboard/1.34'}});
+    const code = response.getResponseCode(), body = response.getContentText();
+    if (code < 200 || code >= 300) {
+      let message = 'Wise Old Man returned HTTP ' + code;
+      try { const parsed = JSON.parse(body); message = parsed.message || parsed.error || message; } catch (e) {}
+      if (code === 429) message = 'Wise Old Man update cooldown is active. Wait about a minute and try again.';
+      throw new Error(message);
+    }
+    const player = JSON.parse(body), snapshot = player.latestSnapshot;
+    if (!snapshot || !snapshot.data || !snapshot.data.skills) throw new Error('Wise Old Man did not return a current skill snapshot.');
+    const skills = snapshot.data.skills;
+    const aliases = {runecraft:'runecrafting',runecrafting:'runecrafting'};
+    const skillRows = sh.getRange(3,1,24,8).getDisplayValues();
+    skillRows.forEach((r,i) => {
+      const display = String(r[0] || '').trim(), key = aliases[display.toLowerCase()] || display.toLowerCase().replace(/\s+/g,'_');
+      const stat = skills[key];
+      if (!stat) return;
+      sh.getRange(i+3,2).setValue(Number(stat.level || 1));
+      sh.getRange(i+3,8).setValue(Math.max(0,Number(stat.experience || 0)));
+    });
+    const account = sh.getRange(30,1,Math.max(1,sh.getLastRow()-29),2).getDisplayValues();
+    let snapshotRow = -1, syncRow = -1;
+    account.forEach((r,i) => { if (/^last wom snapshot$/i.test(String(r[0] || '').trim())) snapshotRow=i+30; if (/^last sheet sync$/i.test(String(r[0] || '').trim())) syncRow=i+30; });
+    if (snapshotRow > 0) sh.getRange(snapshotRow,2).setValue(new Date(snapshot.createdAt || new Date()));
+    if (syncRow > 0) sh.getRange(syncRow,2).setValue(new Date());
+    SpreadsheetApp.flush();
+    return {ok:true,message:'Wise Old Man updated for '+username+'.',snapshotAt:snapshot.createdAt||'',state:getV1DashboardState({allowQuestHelperSync:false})};
+  } finally { lock.releaseLock(); }
+}
+
 function getV1DashboardState(options) {
   options = options || {};
   // V1.22: interactive reads never block on a Quest Helper network sync.
@@ -28,6 +68,7 @@ function getV1DashboardState(options) {
   const statsRows = statsSheet.getRange('A3:H26').getDisplayValues().filter(r => r[0]);
   const accountRows = statsSheet.getRange('A30:D35').getDisplayValues().filter(r => r[0]);
   const blockerSkillTargets = readV134BlockerSkillTargets_(orderedBlockedQuests, requirementIntel, statsRows);
+  const questLibrary = readV134QuestLibrary_(questDependencySheet, questDisplayMeta);
   const account = {};
   accountRows.forEach(r => account[r[0]] = r[1]);
 
@@ -69,6 +110,7 @@ function getV1DashboardState(options) {
     topQuests: topRows.map(r => ({rank:r[0],quest:r[1],score:r[2],tier:r[3],downstream:r[4],why:r[5],rewards:rewardMap[String(r[1]||'').trim().toLowerCase()]||null})),
     blockedQuests: orderedBlockedQuests,
     blockerSkillTargets: blockerSkillTargets,
+    questLibrary: questLibrary,
     skillGrinds: grindRows.map(r => ({quest:r[0],missingSkills:r[1],xp:r[2],fast:r[3],value:r[4],afk:r[5],downstream:r[6],score:r[7],efficiency:r[8]})),
     route: routeRows.map(r => ({step:r[0],quest:r[1],score:r[2],blocker:r[3],currentHours:r[4],xpCredit:r[5],afterHours:r[6],projectedQp:r[7]})),
     nextSession,
@@ -229,6 +271,56 @@ function readV134BlockerSkillTargets_(blockedQuests, requirementIntel, statsRows
     largestGap:unmet.length ? {skill:unmet[0].skill,gap:unmet[0].gap,target:unmet[0].target} : null,
     planningMode:'Base levels only'
   };
+}
+
+function readV134QuestLibrary_(sh, displayMeta) {
+  if (!sh || sh.getLastRow() < 2) return {quests:[],audit:{current:0,review:0,total:0}};
+  const values = sh.getDataRange().getDisplayValues();
+  let hr = -1, headers = [];
+  for (let i=0;i<Math.min(values.length,12);i++) {
+    const row=values[i].map(x=>String(x||'').trim());
+    if (row.some(x=>/^quest name$/i.test(x))) {hr=i;headers=row;break;}
+  }
+  if (hr < 0) return {quests:[],audit:{current:0,review:0,total:0}};
+  const col = rx => headers.findIndex(x => rx.test(x));
+  const q=col(/^quest name$/i),completed=col(/^completed$/i),qp=col(/^quest points reward$/i),xp=col(/^xp rewards$/i),items=col(/^item \/ coin rewards$/i),unlocks=col(/^unlocks \/ other rewards$/i);
+  const ready=col(/^ready now\?$/i),downstream=col(/^total downstream unlocks$/i),score=col(/^goal profile score$/i),why=col(/^goal profile why$/i),gap=col(/^skill gap summary$/i);
+  const url=col(/^wiki url$/i),stored=col(/^wiki stored revision$/i),latest=col(/^wiki latest revision$/i),checked=col(/^wiki last checked$/i),status=col(/^wiki status$/i),recon=col(/^wiki reconciliation$/i);
+  const clean = v => { const s=String(v||'').trim(); return (!s||/^none listed$/i.test(s))?'':s; };
+  const quests = [];
+  values.slice(hr+1).forEach(r => {
+    const name=q>=0?String(r[q]||'').trim():''; if(!name)return;
+    const xpText=clean(r[xp]), itemText=clean(r[items]), unlockText=clean(r[unlocks]), combined=(xpText+' '+itemText+' '+unlockText).toLowerCase();
+    const xpParts=xpText?xpText.split(/\s*;\s*/).filter(Boolean):[],rewardXp={guaranteed:[],selectable:[],during:[],postQuest:[]};
+    xpParts.forEach(part=>{
+      if(/during (?:the )?quest|additional .* during/i.test(part))rewardXp.during.push(part);
+      else if(/claim from|historian|minas|first chromium|after (?:the )?quest|post[- ]quest/i.test(part))rewardXp.postQuest.push(part);
+      else if(/selectable|choice|choosing|any skill|random combat/i.test(part))rewardXp.selectable.push(part);
+      else rewardXp.guaranteed.push(part);
+    });
+    const categories=[];
+    if(xpText)categories.push('xp');
+    if(rewardXp.selectable.length||/\blamp\b|\btome\b/i.test(itemText))categories.push('selectable');
+    if(/teleport|transport|boat|glider|fairy ring|spirit tree|minecart|passage|shortcut|travel/i.test(unlockText))categories.push('transport');
+    if(/spellbook|spell|magick|magic/i.test(unlockText))categories.push('spellbooks');
+    if(itemText||/armour|armor|weapon|staff|sword|shield|helm|glove|cape|bow/i.test(unlockText))categories.push('equipment');
+    if(/access|area|guild|dungeon|island|city|camp|mine|zone/i.test(unlockText))categories.push('areas');
+    if(/nightmare zone|boss|vorkath|zulrah|barrelchest|fight/i.test(unlockText))categories.push('bosses');
+    const wikiStatus=status>=0?String(r[status]||'').trim():'';
+    const reconciliation=recon>=0?String(r[recon]||'').trim():'';
+    const needsReview=!!((stored>=0&&latest>=0&&String(r[stored]||'')!==String(r[latest]||''))||!/^current$/i.test(wikiStatus)||!/^ok$/i.test(reconciliation));
+    if(needsReview)categories.push('audit');
+    const meta=(displayMeta||{})[name.toLowerCase()]||{};
+    quests.push({
+      name:name,completed:completed>=0&&/^(yes|true|complete|completed)$/i.test(String(r[completed]||'')),ready:ready>=0&&/^true$/i.test(String(r[ready]||'')),
+      qp:Number(r[qp]||0),xp:xpText,items:itemText,unlocks:unlockText,rewardXp:rewardXp,categories:categories,
+      difficulty:meta.difficulty||'',length:meta.length||'',downstream:Number(r[downstream]||0),accountScore:Number(r[score]||0),why:String(r[why]||''),missingSkills:clean(r[gap]),
+      wikiUrl:url>=0?String(r[url]||''):'',lastVerified:checked>=0?String(r[checked]||''):'',wikiStatus:wikiStatus||'UNKNOWN',reconciliation:reconciliation||'UNKNOWN',needsReview:needsReview
+    });
+  });
+  quests.sort((a,b)=>b.accountScore-a.accountScore||a.name.localeCompare(b.name));
+  const review=quests.filter(x=>x.needsReview).length;
+  return {quests:quests,audit:{current:quests.length-review,review:review,total:quests.length},generatedAt:new Date().toISOString()};
 }
 
 function readV131GoalProgress_(ss, goals, statsRows, account, requirementIntel, routeRows) {

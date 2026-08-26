@@ -19,7 +19,7 @@
     .hero{background:linear-gradient(135deg,#1b0d05,#3a1f0b);border-radius:18px;overflow:hidden}
     .heroTop{display:flex;align-items:end;justify-content:space-between;padding:18px 22px 12px;border-bottom:1px solid #633a1a}
     h1{margin:0;color:var(--gold);font-size:29px}.sub{color:#d9c3a4;font-size:12px;font-style:italic;margin-top:4px}
-    .version{font-size:10px;color:#bba484;text-transform:uppercase;letter-spacing:1px;font-weight:900}
+    .version{font-size:10px;color:#bba484;text-transform:uppercase;letter-spacing:1px;font-weight:900}.heroActions{display:flex;align-items:center;gap:9px}.womForce{border:1px solid #9a682d;background:#3b210e;color:#ffe0a1;border-radius:9px;padding:7px 10px;font-size:9px;font-weight:950;text-transform:uppercase;letter-spacing:.4px;cursor:pointer}.womForce:hover{background:#533018}.womForce:disabled{opacity:.55;cursor:wait}
     .controls{display:grid;grid-template-columns:105px minmax(300px,1fr) 95px 150px;gap:10px;padding:11px 22px;background:rgba(99,55,22,.48);align-items:center}
     .label{font-size:10px;text-transform:uppercase;font-weight:900;color:#ffe09a;letter-spacing:.7px}
     select{background:#291609;color:#fff5df;border:1px solid #9c672c;border-radius:9px;padding:9px 11px;font-weight:800;width:100%}
@@ -165,6 +165,7 @@
     .heroTab.active{background:rgba(99,55,22,.55);color:#ffe09a;border-color:#75451f}
     .heroTabDot{width:7px;height:7px;border-radius:50%;background:#6fb673}.heroTab.hasIssue .heroTabDot{background:#e4aa3b;box-shadow:0 0 0 2px rgba(228,170,59,.18)}
     .heroPanel{display:none}.heroPanel.active{display:block}.heroPanel[hidden]{display:none!important}
+    .v134LibraryTop{display:grid;grid-template-columns:minmax(220px,1fr) 170px 190px;gap:8px;padding:12px 18px;background:#211107;border-bottom:1px solid #5a3216}.v134LibraryTop input,.v134LibraryTop select{background:#fffaf1;border:1px solid #b69061;border-radius:8px;padding:9px 10px;color:#352313;font-weight:800}.v134LibraryStatus{display:flex;gap:7px;align-items:center;justify-content:space-between;padding:9px 18px;color:#d8c19f;font-size:10px}.v134AuditPill{border-radius:999px;padding:4px 7px;font-weight:900}.v134AuditPill.ok{background:#284528;color:#bce0b8}.v134AuditPill.review{background:#5a2a20;color:#ffb4a6}.v134QuestGrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;padding:0 18px 16px;max-height:650px;overflow:auto}.v134QuestCard{background:#fff8ed;border:1px solid #cbb28d;border-radius:11px;color:#372719;overflow:hidden}.v134QuestCard[open]{grid-column:span 2}.v134QuestCard summary{cursor:pointer;list-style:none;padding:10px}.v134QuestCard summary::-webkit-details-marker{display:none}.v134QuestHead{display:flex;justify-content:space-between;gap:8px}.v134QuestName{font-size:13px;font-weight:950}.v134QuestScore{text-align:right;font-size:9px;color:#765a39}.v134QuestScore b{display:block;font-size:16px;color:#422a15}.v134QuestMeta{display:flex;gap:5px;flex-wrap:wrap;margin-top:6px}.v134Tag{border-radius:999px;padding:3px 6px;background:#eadcc7;color:#624827;font-size:8px;font-weight:900;text-transform:uppercase}.v134Tag.ready{background:#dcebd9;color:#2e6736}.v134Tag.review{background:#f2c9c2;color:#8a241b}.v134QuestWhy{margin-top:7px;font-size:9px;color:#786653;line-height:1.35}.v134QuestBody{border-top:1px solid #d8c4a5;padding:10px;display:grid;gap:8px}.v134RewardGroup{background:#fffdf8;border:1px solid #e1d3bd;border-radius:8px;padding:8px}.v134RewardGroup h4{margin:0 0 5px;font-size:9px;text-transform:uppercase;color:#815d2f}.v134RewardGroup ul{margin:0;padding-left:16px;display:grid;gap:3px}.v134RewardGroup li,.v134RewardText{font-size:9px;line-height:1.4;color:#4c4033}.v134WikiRow{display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:8px;color:#76644f}.v134WikiRow a{color:#6c4314;font-weight:900}.v134ShowMore{display:block;margin:0 auto 14px;border:1px solid #96602a;background:#3b210e;color:#ffe1a4;border-radius:8px;padding:7px 12px;font-size:9px;font-weight:900;cursor:pointer}.v134Empty{padding:30px;text-align:center;color:#c7ad87}
     .overviewMetrics{grid-template-columns:repeat(3,minmax(0,1fr))}
     .heroPanelIntro{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:11px 22px 0;color:#f4dfb7}.heroPanelIntro b{font-size:13px}.heroPanelIntro span{font-size:10px;color:#bfa98a}
     .heroSkills{grid-template-columns:repeat(8,minmax(0,1fr));padding:12px 22px 16px}
@@ -207,8 +208,8 @@
     .loading{position:fixed;inset:0;background:rgba(11,6,3,.82);display:flex;align-items:center;justify-content:center;z-index:10}.loading>div{background:#2c180a;border:1px solid #996128;border-radius:12px;padding:18px 22px;color:#ffe2a4;font-weight:900}
     .hidden{display:none}.error{background:#5c1712;border:1px solid #aa4238;border-radius:10px;padding:10px;margin-top:14px}
 
-    @media(max-width:1100px){.grid,.prepGrid{grid-template-columns:1fr}.metrics{grid-template-columns:repeat(3,1fr)}.skills{grid-template-columns:repeat(6,1fr)}.heroSkills{grid-template-columns:repeat(6,minmax(0,1fr))}.actionBody{grid-template-columns:1fr}.actionSteps{grid-template-columns:1fr 1fr 1fr}.blockerTargetGrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
-    @media(max-width:680px){.dataHealthBar{align-items:flex-start;flex-direction:column;padding:10px 13px}.healthFacts{justify-content:flex-start;gap:9px}.shell{padding:8px}.controls{grid-template-columns:1fr}.metrics,.overviewMetrics{grid-template-columns:1fr;padding:10px 13px}.heroTop{padding:15px 13px}.heroTabs{padding:7px 13px 0}.heroTab{flex:1;justify-content:center;padding:9px 7px;font-size:9px}.heroSkills{grid-template-columns:repeat(3,minmax(0,1fr));padding:10px 13px}.heroSkills .skill{grid-template-columns:28px 1fr;padding:7px 5px}.skillIconWrap{width:25px;height:25px}.skillIcon{max-width:24px;max-height:24px}.heroPanelIntro{padding:10px 13px 0;align-items:flex-start;flex-direction:column}.healthMetaGrid{grid-template-columns:1fr;padding:10px 13px}.healthMeta.wide{grid-column:auto}.summaryGrid{grid-template-columns:1fr}.summaryBox.full{grid-column:auto}.actionSteps{grid-template-columns:1fr}.actionStep.prep{grid-column:auto}.version{display:none}.qpStrip{display:block}.blockerTargetGrid{grid-template-columns:1fr}.blockerTargetsHead{flex-direction:column}}
+    @media(max-width:1100px){.grid,.prepGrid{grid-template-columns:1fr}.metrics{grid-template-columns:repeat(3,1fr)}.skills{grid-template-columns:repeat(6,1fr)}.heroSkills{grid-template-columns:repeat(6,minmax(0,1fr))}.actionBody{grid-template-columns:1fr}.actionSteps{grid-template-columns:1fr 1fr 1fr}.blockerTargetGrid{grid-template-columns:repeat(2,minmax(0,1fr))}.v134QuestGrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+    @media(max-width:680px){.dataHealthBar{align-items:flex-start;flex-direction:column;padding:10px 13px}.healthFacts{justify-content:flex-start;gap:9px}.shell{padding:8px}.controls{grid-template-columns:1fr}.metrics,.overviewMetrics{grid-template-columns:1fr;padding:10px 13px}.heroTop{padding:15px 13px;align-items:flex-start}.heroActions{flex-direction:column;align-items:flex-end}.heroTabs{padding:7px 13px 0;flex-wrap:wrap}.heroTab{flex:1;justify-content:center;padding:9px 7px;font-size:9px}.heroSkills{grid-template-columns:repeat(3,minmax(0,1fr));padding:10px 13px}.heroSkills .skill{grid-template-columns:28px 1fr;padding:7px 5px}.skillIconWrap{width:25px;height:25px}.skillIcon{max-width:24px;max-height:24px}.heroPanelIntro{padding:10px 13px 0;align-items:flex-start;flex-direction:column}.healthMetaGrid{grid-template-columns:1fr;padding:10px 13px}.healthMeta.wide{grid-column:auto}.summaryGrid{grid-template-columns:1fr}.summaryBox.full{grid-column:auto}.actionSteps{grid-template-columns:1fr}.actionStep.prep{grid-column:auto}.version{display:none}.qpStrip{display:block}.blockerTargetGrid{grid-template-columns:1fr}.blockerTargetsHead{flex-direction:column}.v134LibraryTop{grid-template-columns:1fr}.v134QuestGrid{grid-template-columns:1fr}.v134QuestCard[open]{grid-column:auto}}
   .questReward{margin-top:5px;font-size:10px;line-height:1.4;color:#705d48}.questReward b{color:#4d3218}.rewardBox{background:#fff7df!important;border-color:#d8b267!important}.rewardLines{display:grid;gap:5px}.rewardLine{font-size:11px;line-height:1.4}.rewardLabel{font-size:9px;font-weight:900;text-transform:uppercase;color:#8a642d;margin-right:5px}
 
 .questRewardSummary{display:flex;gap:5px;flex-wrap:wrap;margin-top:6px}
@@ -280,7 +281,7 @@
   <div class="hero">
     <div class="heroTop">
       <div><h1>Sensum OSRS Progression Dashboard</h1><div class="sub">Open this, see what matters, play the game.</div></div>
-      <div class="version">V1.33 · Account Timeline</div>
+      <div class="heroActions"><button id="v134WomForce" type="button" class="womForce" onclick="forceV134WomUpdate()">↻ Force WOM Update</button><div class="version">V1.34 · Reward Intelligence</div></div>
     </div>
     <div class="heroTabs" role="tablist" aria-label="Dashboard command center">
       <button type="button" id="heroTabOverview" class="heroTab active" role="tab" aria-selected="true" onclick="setHeroTab('overview')">Overview</button>
@@ -289,6 +290,7 @@
       <button type="button" id="heroTabHealth" class="heroTab" role="tab" aria-selected="false" onclick="setHeroTab('health')"><span class="heroTabDot"></span>Data Health</button>
       <button type="button" id="heroTabBosses" class="heroTab" role="tab" aria-selected="false" onclick="setHeroTab('bosses')">Bosses</button>
       <button type="button" id="heroTabAchievements" class="heroTab" role="tab" aria-selected="false" onclick="setHeroTab('achievements')">Achievements</button>
+      <button type="button" id="heroTabLibrary" class="heroTab" role="tab" aria-selected="false" onclick="setHeroTab('library')">Quest Library</button>
     </div>
     <div id="heroPanelOverview" class="heroPanel active" role="tabpanel">
       <div class="controls">
@@ -337,6 +339,10 @@
       <div class="v133Top"><div><b>Account Achievements</b><span>Automatic milestones use live dashboard data. Dates for older accomplishments mean “first observed,” not an invented completion date.</span></div><div id="v133Summary" class="v133Summary"></div></div>
       <div class="v133Grid"><section><div class="v133SectionTitle"><b>Closest milestones</b><span>What you are nearest to unlocking</span></div><div id="v133Upcoming" class="v133Upcoming"></div></section><section><div class="v133SectionTitle"><b>Timeline</b><span>Automatic observations and personal moments</span></div><div id="v133Timeline" class="v133Timeline"></div></section></div>
       <div class="v133Manual"><div><b>Add a personal achievement</b><span>For first kills, drops, capes, or anything the dashboard cannot detect automatically.</span></div><input id="v133ManualTitle" maxlength="90" placeholder="Achievement title"><input id="v133ManualNote" maxlength="300" placeholder="Optional note"><button type="button" onclick="addV133Manual()">Add to timeline</button></div>
+    </div>
+    <div id="heroPanelLibrary" class="heroPanel" role="tabpanel" hidden>
+      <div class="v134LibraryTop"><input id="v134QuestSearch" type="search" placeholder="Search quests, rewards, unlocks…" oninput="resetV134Library()"><select id="v134RewardFilter" onchange="resetV134Library()"><option value="all">All reward types</option><option value="xp">Any XP</option><option value="selectable">Lamps & selectable XP</option><option value="transport">Transportation</option><option value="spellbooks">Spellbooks & spells</option><option value="equipment">Equipment</option><option value="areas">Areas & access</option><option value="bosses">Boss access</option><option value="audit">Needs Wiki review</option></select><select id="v134QuestSort" onchange="resetV134Library()"><option value="account">Best for my account</option><option value="name">Quest name A–Z</option><option value="qp">Most quest points</option><option value="downstream">Most downstream unlocks</option><option value="verified">Recently verified</option></select></div>
+      <div id="v134LibraryStatus" class="v134LibraryStatus"></div><div id="v134QuestGrid" class="v134QuestGrid"></div><button id="v134ShowMore" type="button" class="v134ShowMore" onclick="showMoreV134Library()">Show more quests</button>
     </div>
   </div>
 
@@ -439,12 +445,29 @@ function goalOptionsV126(goals){
   (goals||[]).forEach(g=>(groups[V126_GOAL_STAGES[g.name]||'Other']).push(g));
   return ['Beginning','Mid-game','End-game','Other'].filter(label=>groups[label].length).map(label=>`<optgroup label="${label}">${groups[label].map(g=>`<option value="${esc(g.name)}">${esc(g.name)}</option>`).join('')}</optgroup>`).join('');
 }function setHeroTab(name){
-  ['overview','tonight','stats','health','bosses','achievements'].forEach(key=>{
+  ['overview','tonight','stats','health','bosses','achievements','library'].forEach(key=>{
     const active=key===name,cap=key.charAt(0).toUpperCase()+key.slice(1);
     const tab=$('heroTab'+cap),panel=$('heroPanel'+cap);
     tab.classList.toggle('active',active);tab.setAttribute('aria-selected',String(active));
     panel.classList.toggle('active',active);panel.hidden=!active;
   });
+}
+let v134LibraryLimit=30;
+function resetV134Library(){v134LibraryLimit=30;renderV134Library()}
+function showMoreV134Library(){v134LibraryLimit+=30;renderV134Library()}
+function v134RewardList(title,items){items=(items||[]).filter(Boolean);return items.length?`<div class="v134RewardGroup"><h4>${esc(title)}</h4><ul>${items.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></div>`:''}
+function renderV134Library(){
+  const s=window.__sensumState||{},lib=s.questLibrary||{},all=[...(lib.quests||[])],query=String($('v134QuestSearch').value||'').trim().toLowerCase(),filter=$('v134RewardFilter').value||'all',sort=$('v134QuestSort').value||'account';
+  let rows=all.filter(q=>{const hay=[q.name,q.xp,q.items,q.unlocks,q.why,q.missingSkills].join(' ').toLowerCase();return(!query||hay.includes(query))&&(filter==='all'||(q.categories||[]).includes(filter))});
+  if(sort==='name')rows.sort((a,b)=>a.name.localeCompare(b.name));else if(sort==='qp')rows.sort((a,b)=>b.qp-a.qp||b.accountScore-a.accountScore);else if(sort==='downstream')rows.sort((a,b)=>b.downstream-a.downstream||b.accountScore-a.accountScore);else if(sort==='verified')rows.sort((a,b)=>new Date(b.lastVerified||0)-new Date(a.lastVerified||0));else rows.sort((a,b)=>b.accountScore-a.accountScore||Number(b.ready)-Number(a.ready)||a.name.localeCompare(b.name));
+  const shown=rows.slice(0,v134LibraryLimit),audit=lib.audit||{};
+  $('v134LibraryStatus').innerHTML=`<span>Showing <b>${shown.length}</b> of <b>${rows.length}</b> matching quests</span><span><span class="v134AuditPill ok">${esc(audit.current||0)} current</span> <span class="v134AuditPill review">${esc(audit.review||0)} review</span></span>`;
+  $('v134QuestGrid').innerHTML=shown.length?shown.map(q=>{const rx=q.rewardXp||{},meta=[q.difficulty,q.length,q.completed?'Complete':q.ready?'Ready now':'Blocked'].filter(Boolean);return `<details class="v134QuestCard"><summary><div class="v134QuestHead"><div><div class="v134QuestName">${esc(q.name)}</div><div class="v134QuestMeta">${meta.map((x,i)=>`<span class="v134Tag ${i===2&&q.ready?'ready':''}">${esc(x)}</span>`).join('')}${q.needsReview?'<span class="v134Tag review">Wiki review</span>':''}</div></div><div class="v134QuestScore"><b>${esc(q.accountScore)}</b>account score</div></div><div class="v134QuestWhy">${esc(q.why||q.missingSkills||'Open for complete reward details.')}</div></summary><div class="v134QuestBody">`+v134RewardList('Guaranteed XP',rx.guaranteed)+v134RewardList('Selectable / choice XP',rx.selectable)+v134RewardList('XP earned during quest',rx.during)+v134RewardList('Post-quest claims',rx.postQuest)+(q.items?`<div class="v134RewardGroup"><h4>Items & coins</h4><div class="v134RewardText">${esc(q.items)}</div></div>`:'')+(q.unlocks?`<div class="v134RewardGroup"><h4>Unlocks & benefits</h4><div class="v134RewardText">${esc(q.unlocks)}</div></div>`:'')+`<div class="v134WikiRow"><span>${esc(q.wikiStatus)} · verified ${esc(q.lastVerified||'unknown')}</span>${q.wikiUrl?`<a href="${esc(q.wikiUrl)}" target="_blank" rel="noopener">Open OSRS Wiki ↗</a>`:''}</div></div></details>`}).join(''):'<div class="v134Empty">No quests match this search and reward filter.</div>';
+  $('v134ShowMore').style.display=rows.length>shown.length?'block':'none';
+}
+function forceV134WomUpdate(){
+  const btn=$('v134WomForce');btn.disabled=true;btn.textContent='Updating WOM…';showV115Toast('Requesting a fresh Wise Old Man snapshot…');
+  google.script.run.withFailureHandler(e=>{btn.disabled=false;btn.textContent='↻ Force WOM Update';fail(e)}).withSuccessHandler(r=>{btn.disabled=false;btn.textContent='↻ Force WOM Update';if(r&&r.state)render(r.state);showV115Toast((r&&r.message)||'Wise Old Man stats updated.');}).forceV134WiseOldManUpdate();
 }
 function bossOptionsV128(bosses){
   const groups={'Beginning':[],'Mid-game':[],'Advanced':[],'Raids':[]};
@@ -1225,6 +1248,7 @@ function render(s){
   $('v127CompleteGoal').disabled=/^balanced$/i.test(String(s.goal||''));
   renderV131GoalProgress(s);
   renderV133Achievements(s);
+  renderV134Library();
 
   const g=s.goalSummary||{};
   const balanced=/balanced/i.test(String(s.goal||''));
