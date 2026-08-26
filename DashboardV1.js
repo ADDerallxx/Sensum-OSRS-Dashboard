@@ -43,6 +43,84 @@ function forceV134WiseOldManUpdate() {
   } finally { lock.releaseLock(); }
 }
 
+function v22XpFloorForLevel_(level) {
+  level = Math.max(1, Math.min(99, Number(level) || 1));
+  let points = 0;
+  for (let current = 1; current < level; current++) points += Math.floor(current + 300 * Math.pow(2, current / 7));
+  return Math.floor(points / 4);
+}
+
+function v22WikiSyncMeta_() {
+  const p = PropertiesService.getScriptProperties();
+  return {
+    lastSync: p.getProperty('V22_WIKISYNC_LAST_SYNC') || '',
+    sourceTimestamp: p.getProperty('V22_WIKISYNC_SOURCE_TIMESTAMP') || '',
+    lastError: p.getProperty('V22_WIKISYNC_LAST_ERROR') || '',
+    updatedLevels: Number(p.getProperty('V22_WIKISYNC_UPDATED_LEVELS') || 0),
+    completedQuests: Number(p.getProperty('V22_WIKISYNC_COMPLETED_QUESTS') || 0)
+  };
+}
+
+function refreshV22WikiSync() {
+  const lock = LockService.getScriptLock();
+  if (!lock.tryLock(1000)) return {ok:true, skipped:true, message:'Live sync is already running.', state:getV1DashboardState({allowQuestHelperSync:false})};
+  const props = PropertiesService.getScriptProperties();
+  try {
+    const lastAttempt = Number(props.getProperty('V22_WIKISYNC_LAST_ATTEMPT_MS') || 0);
+    if (Date.now() - lastAttempt < 20000) return {ok:true, skipped:true, message:'Live data is already current.', state:getV1DashboardState({allowQuestHelperSync:false})};
+    props.setProperty('V22_WIKISYNC_LAST_ATTEMPT_MS', String(Date.now()));
+    const ss = SpreadsheetApp.openById(V1_TRACKER_ID), statsSheet = ss.getSheetByName('Your Stats');
+    if (!statsSheet) throw new Error('Your Stats sheet was not found.');
+    const allStats = statsSheet.getDataRange().getDisplayValues();
+    let username = 'Sensum';
+    allStats.forEach(r => { if (/^username$/i.test(String(r[0] || '').trim()) && r[1]) username = String(r[1]).trim(); });
+    const url = 'https://sync.runescape.wiki/runelite/player/' + encodeURIComponent(username) + '/STANDARD';
+    const response = UrlFetchApp.fetch(url, {muteHttpExceptions:true,headers:{'User-Agent':'SensumOSRSDashboard/2.2'}});
+    if (response.getResponseCode() !== 200) throw new Error('WikiSync returned HTTP ' + response.getResponseCode() + '.');
+    const payload = JSON.parse(response.getContentText());
+    if (!payload.levels || !payload.quests) throw new Error('WikiSync did not return levels and quests.');
+
+    const levelMap = {};
+    Object.keys(payload.levels).forEach(k => levelMap[String(k).toLowerCase()] = Number(payload.levels[k]));
+    const rows = statsSheet.getRange(3,1,24,8).getValues(), liveLevelValues = [];
+    let changedLevels = 0;
+    rows.forEach(r => {
+      const key = String(r[0] || '').trim().toLowerCase().replace(/^runecrafting$/,'runecraft');
+      if (!Object.prototype.hasOwnProperty.call(levelMap,key)) return;
+      const liveLevel = Math.max(1, levelMap[key] || 1);
+      if (Number(r[1]) !== liveLevel) changedLevels++;
+      r[1] = liveLevel;
+    });
+    rows.forEach(r => liveLevelValues.push([r[1]]));
+    statsSheet.getRange(3,2,24,1).setValues(liveLevelValues);
+
+    let newlyCompleted = 0;
+    const table = v115QuestTable_(ss), questRows = table.vals.slice(table.headerRow + 1), firstDataRow = table.headerRow + 2;
+    const liveQuests = {};
+    Object.keys(payload.quests).forEach(k => liveQuests[String(k).trim().toLowerCase()] = Number(payload.quests[k]));
+    questRows.forEach(r => {
+      const name = String(r[table.qCol] || '').trim(), status = String(r[table.cCol] || '').trim();
+      if (name && liveQuests[name.toLowerCase()] === 2 && !/^(yes|true|complete|completed)$/i.test(status)) {
+        r[table.cCol] = 'Yes'; newlyCompleted++;
+      }
+    });
+    if (newlyCompleted) table.sh.getRange(firstDataRow,table.cCol+1,questRows.length,1).setValues(questRows.map(r => [r[table.cCol]]));
+    const now = new Date().toISOString();
+    props.setProperties({
+      V22_WIKISYNC_LAST_SYNC: now,
+      V22_WIKISYNC_SOURCE_TIMESTAMP: String(payload.timestamp || now),
+      V22_WIKISYNC_LAST_ERROR: '',
+      V22_WIKISYNC_UPDATED_LEVELS: String(changedLevels),
+      V22_WIKISYNC_COMPLETED_QUESTS: String(newlyCompleted)
+    });
+    SpreadsheetApp.flush();
+    return {ok:true,message:'Live levels and quest states updated.',updatedLevels:changedLevels,completedQuests:newlyCompleted,state:getV1DashboardState({allowQuestHelperSync:false})};
+  } catch (e) {
+    props.setProperty('V22_WIKISYNC_LAST_ERROR', String(e && e.message ? e.message : e));
+    return {ok:false,message:String(e && e.message ? e.message : e),state:getV1DashboardState({allowQuestHelperSync:false})};
+  } finally { lock.releaseLock(); }
+}
+
 function getV1DashboardState(options) {
   options = options || {};
   // V1.22: interactive reads never block on a Quest Helper network sync.
@@ -95,6 +173,7 @@ function getV1DashboardState(options) {
   nextRows.forEach(r => { if (r[0]) nextSession[r[0]] = r[1]; });
   const bosses=readV128BossPlanner_(ss,statsRows),bossProgress=readV132BossProgress_();
 
+  const wikiSync = v22WikiSyncMeta_();
   return {
     username: account.Username || 'Sensum',
     combatLevel: account['Combat Level'] || '',
@@ -121,12 +200,17 @@ function getV1DashboardState(options) {
     skillGrinds: grindRows.map(r => ({quest:r[0],missingSkills:r[1],xp:r[2],fast:r[3],value:r[4],afk:r[5],downstream:r[6],score:r[7],efficiency:r[8]})),
     route: routeRows.map(r => ({step:r[0],quest:r[1],score:r[2],blocker:r[3],currentHours:r[4],xpCredit:r[5],afterHours:r[6],projectedQp:r[7]})),
     nextSession,
-    stats: statsRows.map(r => ({skill:r[0],level:r[1],xp:r[7],nextXp:r[5]})),
+    stats: statsRows.map(r => {
+      const level = Number(r[1] || 1), womXp = Math.max(0, Number(String(r[7] || 0).replace(/,/g,'')) || 0), floorXp = v22XpFloorForLevel_(level);
+      const floorActive = floorXp > womXp;
+      return {skill:r[0],level:r[1],xp:floorActive?floorXp:womXp,womXp:womXp,nextXp:r[5],xpExact:!floorActive,xpSource:floorActive?'Level floor':'WOM verified'};
+    }),
     shopping: readV1Shopping_(shoppingSheet, reconciledSheet),
     requirementIntel,
     questDisplayMeta,
     planningMode:'Base levels only',
-    wikiHealth: readV1WikiHealth_(dash)
+    wikiHealth: readV1WikiHealth_(dash),
+    wikiSync: wikiSync
   };
 }
 
