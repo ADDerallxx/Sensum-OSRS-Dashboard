@@ -607,9 +607,13 @@ function refreshV22LiveSync(){
   if(v22LiveSyncBusy)return;
   v22LiveSyncBusy=true;
   const el=$('v22LiveStatus');if(el)el.textContent='WikiSync: checking live levels…';
-  google.script.run.withFailureHandler(e=>{v22LiveSyncBusy=false;if(el)el.textContent='WikiSync unavailable · WOM data preserved';console.warn(e)})
-    .withSuccessHandler(r=>{v22LiveSyncBusy=false;if(r&&r.state)render(r.state);if(r&&!r.ok)showV115Toast('WikiSync unavailable; WOM data was preserved.',true)})
-    .refreshV22WikiSync();
+  const username=String((window.__sensumState&&window.__sensumState.username)||'Sensum').trim();
+  fetch(`https://sync.runescape.wiki/runelite/player/${encodeURIComponent(username)}/STANDARD`,{cache:'no-store'})
+    .then(r=>{if(!r.ok)throw new Error(`WikiSync returned HTTP ${r.status}.`);return r.json()})
+    .then(payload=>google.script.run.withFailureHandler(e=>{v22LiveSyncBusy=false;if(el)el.textContent='WikiSync unavailable · WOM data preserved';console.warn(e)})
+      .withSuccessHandler(r=>{v22LiveSyncBusy=false;if(r&&r.state)render(r.state);if(r&&!r.ok)showV115Toast('WikiSync unavailable; WOM data was preserved.',true)})
+      .refreshV22WikiSync(payload))
+    .catch(e=>{v22LiveSyncBusy=false;if(el){el.textContent='WikiSync unavailable · WOM data preserved';el.title=e.message||String(e)}console.warn(e)});
 }
 let v122BackgroundRefreshStarted=false;
 function kickV122BackgroundRefresh(){
