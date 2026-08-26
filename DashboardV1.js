@@ -69,6 +69,12 @@ function getV1DashboardState(options) {
   const accountRows = statsSheet.getRange('A30:D35').getDisplayValues().filter(r => r[0]);
   const blockerSkillTargets = readV134BlockerSkillTargets_(orderedBlockedQuests, requirementIntel, statsRows);
   const questLibrary = readV134QuestLibrary_(questDependencySheet, questDisplayMeta);
+  const relevantHealthQuests = new Set([].concat(
+    topRows.map(r=>String(r[1]||'').toLowerCase()),
+    orderedBlockedQuests.map(r=>String(r.quest||'').toLowerCase()),
+    routeRows.map(r=>String(r[1]||'').toLowerCase())
+  ));
+  const wikiReviewQueue = (questLibrary.quests||[]).filter(q=>q.needsReview).map(q=>({name:q.name,status:q.wikiStatus,reason:q.reconciliation,lastVerified:q.lastVerified,wikiUrl:q.wikiUrl,relevant:relevantHealthQuests.has(q.name.toLowerCase())}));
   const account = {};
   accountRows.forEach(r => account[r[0]] = r[1]);
 
@@ -111,6 +117,7 @@ function getV1DashboardState(options) {
     blockedQuests: orderedBlockedQuests,
     blockerSkillTargets: blockerSkillTargets,
     questLibrary: questLibrary,
+    dataHealthContext:{reviewQueue:wikiReviewQueue,relevantReviews:wikiReviewQueue.filter(q=>q.relevant).length,totalReviews:wikiReviewQueue.length},
     skillGrinds: grindRows.map(r => ({quest:r[0],missingSkills:r[1],xp:r[2],fast:r[3],value:r[4],afk:r[5],downstream:r[6],score:r[7],efficiency:r[8]})),
     route: routeRows.map(r => ({step:r[0],quest:r[1],score:r[2],blocker:r[3],currentHours:r[4],xpCredit:r[5],afterHours:r[6],projectedQp:r[7]})),
     nextSession,

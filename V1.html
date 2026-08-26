@@ -175,6 +175,7 @@
     .heroSkills .name{grid-area:name}.heroSkills .lvl{grid-area:level;margin:0;color:#25180e}.skillMeta{grid-area:meta;font-size:9px;color:#85735f;margin-top:5px}.heroSkills .targetLine{grid-area:target}
     .healthMetaGrid{display:grid;grid-template-columns:1fr 1fr;gap:9px;padding:12px 22px 16px;background:rgba(99,55,22,.28)}
     .healthMeta{background:#211107;border:1px solid #5a3216;border-radius:10px;padding:10px 12px}.healthMeta>span{display:block;font-size:9px;color:#cbb696;text-transform:uppercase;font-weight:900}.healthMeta>b{display:block;margin-top:5px;font-size:12px}.healthMeta.wide{grid-column:1/-1}.healthMeta .health{padding:7px 0 0}.healthMeta .pill{background:#3a210f;color:#f6dfb7}
+    .v135ReviewCenter{margin:0 22px 16px;border:1px solid #5a3216;border-radius:10px;background:#211107;color:#f3dfbb}.v135ReviewCenter summary{cursor:pointer;padding:10px 12px;font-size:10px;font-weight:950;text-transform:uppercase}.v135ReviewSummary{display:flex;justify-content:space-between;gap:8px}.v135ReviewList{border-top:1px solid #5a3216;max-height:300px;overflow:auto}.v135ReviewRow{display:grid;grid-template-columns:minmax(160px,1fr) 100px minmax(170px,1fr) auto;gap:8px;align-items:center;padding:8px 10px;border-bottom:1px solid #40230f;font-size:9px}.v135ReviewRow:last-child{border-bottom:0}.v135ReviewRow b{font-size:10px}.v135ReviewRow a{color:#ffd27b;font-weight:900}.v135Relevant{background:#75421c;color:#ffe0a0;border-radius:999px;padding:3px 6px;font-weight:900}.v135Queued{color:#bca98a}.v135HealthAdvisory{color:#e3b65a!important}
 
 
     /* V1.5 play-session UI */
@@ -281,7 +282,7 @@
   <div class="hero">
     <div class="heroTop">
       <div><h1>Sensum OSRS Progression Dashboard</h1><div class="sub">Open this, see what matters, play the game.</div></div>
-      <div class="heroActions"><button id="v134WomForce" type="button" class="womForce" onclick="forceV134WomUpdate()">↻ Force WOM Update</button><div class="version">V1.34 · Reward Intelligence</div></div>
+      <div class="heroActions"><button id="v134WomForce" type="button" class="womForce" onclick="forceV134WomUpdate()">↻ Force WOM Update</button><div class="version">V1.35 · Data Trust Center</div></div>
     </div>
     <div class="heroTabs" role="tablist" aria-label="Dashboard command center">
       <button type="button" id="heroTabOverview" class="heroTab active" role="tab" aria-selected="true" onclick="setHeroTab('overview')">Overview</button>
@@ -330,6 +331,7 @@
         <div class="healthMeta"><span>Sheet sync</span><b id="sync">—</b></div>
         <div class="healthMeta wide"><span>Wiki requirement audit</span><div id="health" class="health"></div></div>
       </div>
+      <details class="v135ReviewCenter"><summary><span class="v135ReviewSummary"><span>Wiki Review Queue</span><span id="v135ReviewHeadline">—</span></span></summary><div id="v135ReviewList" class="v135ReviewList"></div></details>
     </div>
     <div id="heroPanelBosses" class="heroPanel" role="tabpanel" hidden>
       <div class="v128BossTop"><div class="v128BossIntro"><b>Boss Readiness Planner</b><span>Compare your synced stats with practical preparation targets. These are recommendations—not hard requirements.</span></div><label class="v128BossPicker"><span>Choose a boss</span><select id="v128BossSelect" onchange="renderV128Boss()"></select></label></div>
@@ -965,26 +967,35 @@ function dataHealth(s){
   const sheet=ageMinutes(s.lastSheetSync);
   const h=s.wikiHealth||{};
   const wiki=ageMinutes(h.lastCheck);
-  const reviews=Number(h.review||0), missing=Number(h.missing||0);
+  const reviews=Number(h.review||0), missing=Number(h.missing||0), relevant=Number((s.dataHealthContext||{}).relevantReviews||0);
 
   let state='HEALTHY', cls='healthHealthy';
   if(wom===null || wiki===null || sheet===null || missing>0){
     state='ERROR'; cls='healthError';
   }else if(wom>240 || sheet>240 || wiki>2880){
     state='STALE'; cls='healthStale';
-  }else if(wom>120 || sheet>120 || wiki>1440 || reviews>0){
+  }else if(wom>120 || sheet>120 || wiki>1440 || relevant>0){
     state='ATTENTION'; cls='healthAttention';
+  }else if(reviews>0){
+    state='HEALTHY · REVIEWS QUEUED'; cls='healthHealthy';
   }
 
   const bar=$('dataHealthBar');
   bar.className='dataHealthBar '+cls;
   $('heroTabHealth').classList.toggle('hasIssue',cls!=='healthHealthy');
-  $('heroTabHealth').title=cls==='healthHealthy'?'All data sources are healthy':`Data health: ${state}`;
+  $('heroTabHealth').title=cls==='healthHealthy'?(reviews?`${reviews} unrelated Wiki reviews queued`:'All data sources are healthy'):`Data health: ${state}`;
   $('healthState').textContent=state;
   $('healthWom').textContent=ageLabel(s.lastWomSnapshot);
   $('healthWiki').textContent=ageLabel(h.lastCheck);
   $('healthSheet').textContent=ageLabel(s.lastSheetSync);
-  $('healthReviews').textContent=String(reviews);
+  $('healthReviews').textContent=reviews?(relevant?`${relevant} relevant / ${reviews} total`:`${reviews} queued`):'0';
+  renderV135ReviewCenter(s);
+}
+function renderV135ReviewCenter(s){
+  const ctx=s.dataHealthContext||{},rows=ctx.reviewQueue||[],relevant=Number(ctx.relevantReviews||0);
+  $('v135ReviewHeadline').textContent=relevant?`${relevant} affects current plan · ${rows.length} total`:`${rows.length} queued · none affect current plan`;
+  $('v135ReviewHeadline').classList.toggle('v135HealthAdvisory',!relevant&&rows.length>0);
+  $('v135ReviewList').innerHTML=rows.length?rows.sort((a,b)=>Number(b.relevant)-Number(a.relevant)||a.name.localeCompare(b.name)).map(q=>`<div class="v135ReviewRow"><b>${esc(q.name)}</b><span class="${q.relevant?'v135Relevant':'v135Queued'}">${q.relevant?'Current plan':'Queued'}</span><span>${esc(q.status)} · ${esc(q.reason)}</span>${q.wikiUrl?`<a href="${esc(q.wikiUrl)}" target="_blank" rel="noopener">Wiki ↗</a>`:''}</div>`).join(''):'<div class="v135ReviewRow"><b>No Wiki reviews pending.</b></div>';
 }
 
 function cleanRewardText(v){const s=String(v||'').trim();return(!s||/^none listed$/i.test(s))?'':s}
