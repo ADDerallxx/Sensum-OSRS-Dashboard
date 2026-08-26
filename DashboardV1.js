@@ -20,6 +20,7 @@ function getV1DashboardState(options) {
 
   const topRows = dash.getRange('A5:F10').getDisplayValues().slice(1).filter(r => r[1]);
   const blockedRows = dash.getRange('A13:F21').getDisplayValues().slice(1).filter(r => r[0]);
+  const orderedBlockedQuests = readV134OrderedBlockedQuests_(blockedRows, questDependencySheet);
   const grindRows = dash.getRange('A36:I44').getDisplayValues().slice(1).filter(r => r[0]);
   const routeRows = dash.getRange('A60:H69').getDisplayValues().filter(r => r[1]);
   const nextRows = dash.getRange('A73:B80').getDisplayValues();
@@ -65,7 +66,7 @@ function getV1DashboardState(options) {
     achievements: readV133Achievements_(ss,statsRows,account,allGoals,bosses,bossProgress),
     goalSummary: summary,
     topQuests: topRows.map(r => ({rank:r[0],quest:r[1],score:r[2],tier:r[3],downstream:r[4],why:r[5],rewards:rewardMap[String(r[1]||'').trim().toLowerCase()]||null})),
-    blockedQuests: blockedRows.map(r => ({quest:r[0],score:r[1],downstream:r[2],blockedBy:r[3],missingSkills:r[4],hours:r[5]})),
+    blockedQuests: orderedBlockedQuests,
     skillGrinds: grindRows.map(r => ({quest:r[0],missingSkills:r[1],xp:r[2],fast:r[3],value:r[4],afk:r[5],downstream:r[6],score:r[7],efficiency:r[8]})),
     route: routeRows.map(r => ({step:r[0],quest:r[1],score:r[2],blocker:r[3],currentHours:r[4],xpCredit:r[5],afterHours:r[6],projectedQp:r[7]})),
     nextSession,
@@ -76,6 +77,88 @@ function getV1DashboardState(options) {
     planningMode:'Base levels only',
     wikiHealth: readV1WikiHealth_(dash)
   };
+}
+
+// V1.34: preserve the dashboard ranking wherever possible, but never place a
+// blocked quest before one of its displayed prerequisites. The Blocked By
+// value also names the actual unfinished prerequisite quests.
+function readV134OrderedBlockedQuests_(blockedRows, dependencySheet) {
+  const base = (blockedRows || []).map((r, index) => ({
+    quest:r[0], score:r[1], downstream:r[2], blockedBy:r[3],
+    missingSkills:r[4], hours:r[5], _index:index
+  }));
+  if (!dependencySheet || !base.length) return base.map(v134PublicBlocker_);
+
+  const values = dependencySheet.getDataRange().getDisplayValues();
+  let headerRow = -1, headers = [];
+  for (let i = 0; i < Math.min(values.length, 12); i++) {
+    const row = values[i].map(x => String(x || '').trim());
+    if (row.some(x => /^quest name$/i.test(x)) && row.some(x => /^direct prior quest requirement\(s\)$/i.test(x))) {
+      headerRow = i; headers = row; break;
+    }
+  }
+  if (headerRow < 0) return base.map(v134PublicBlocker_);
+
+  const column = rx => headers.findIndex(x => rx.test(x));
+  const questCol = column(/^quest name$/i);
+  const prereqCol = column(/^direct prior quest requirement\(s\)$/i);
+  const completedCol = column(/^completed$/i);
+  if (questCol < 0 || prereqCol < 0) return base.map(v134PublicBlocker_);
+
+  const records = values.slice(headerRow + 1).filter(r => String(r[questCol] || '').trim());
+  const names = records.map(r => String(r[questCol] || '').trim()).sort((a,b) => b.length - a.length);
+  const byName = {};
+  records.forEach(r => {
+    const quest = String(r[questCol] || '').trim();
+    const source = String(r[prereqCol] || '').trim();
+    const prereqs = names.filter(name => name.toLowerCase() !== quest.toLowerCase() &&
+      source.toLowerCase().indexOf(name.toLowerCase()) >= 0);
+    byName[quest.toLowerCase()] = {
+      prereqs:prereqs,
+      complete:completedCol >= 0 && /^(yes|true|complete|completed)$/i.test(String(r[completedCol] || '').trim())
+    };
+  });
+
+  base.forEach(item => {
+    const rec = byName[String(item.quest || '').toLowerCase()];
+    if (!rec) return;
+    const missing = rec.prereqs.filter(name => !(byName[name.toLowerCase()] || {}).complete);
+    if (missing.length) item.blockedBy = missing.join('; ');
+  });
+
+  // Stable topological sort: dependency constraints win; unrelated quests
+  // retain their existing score-based dashboard order.
+  const displayed = {};
+  base.forEach((item, i) => displayed[String(item.quest || '').toLowerCase()] = i);
+  const indegree = base.map(() => 0), outgoing = base.map(() => []);
+  base.forEach((item, i) => {
+    const rec = byName[String(item.quest || '').toLowerCase()];
+    (rec ? rec.prereqs : []).forEach(name => {
+      const parent = displayed[name.toLowerCase()];
+      if (parent === undefined || parent === i) return;
+      indegree[i]++;
+      outgoing[parent].push(i);
+    });
+  });
+  const ready = base.map((_, i) => i).filter(i => indegree[i] === 0).sort((a,b) => base[a]._index - base[b]._index);
+  const ordered = [];
+  while (ready.length) {
+    const current = ready.shift();
+    ordered.push(base[current]);
+    outgoing[current].forEach(next => {
+      indegree[next]--;
+      if (indegree[next] === 0) {
+        ready.push(next);
+        ready.sort((a,b) => base[a]._index - base[b]._index);
+      }
+    });
+  }
+  if (ordered.length !== base.length) return base.map(v134PublicBlocker_);
+  return ordered.map(v134PublicBlocker_);
+}
+
+function v134PublicBlocker_(item) {
+  return {quest:item.quest,score:item.score,downstream:item.downstream,blockedBy:item.blockedBy,missingSkills:item.missingSkills,hours:item.hours};
 }
 
 function readV131GoalProgress_(ss, goals, statsRows, account, requirementIntel, routeRows) {
