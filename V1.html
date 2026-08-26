@@ -953,11 +953,11 @@ function parseXpTotal(text){
   parts.forEach(part=>{
     if(!/(?:\bXP\b|experience)/i.test(part))return;
 
-    const m=part.match(/(?:^|[^0-9])([0-9]+(?:,[0-9]{3})*(?:\.[0-9]+)?)\s*([kKmM]?)/);
+    const m=part.match(/(?:^|[^0-9])([0-9]+(?:,[0-9]{3})*(?:\.[0-9]+)?)(?:([kKmM])|\s+([kKmM])(?=\s*(?:XP|experience)\b))?/);
     if(!m)return;
 
     let n=Number(String(m[1]).replace(/,/g,''));
-    const suffix=String(m[2]||'').toLowerCase();
+    const suffix=String(m[2]||m[3]||'').toLowerCase();
 
     if(suffix==='k')n*=1000;
     else if(suffix==='m')n*=1000000;
@@ -970,11 +970,11 @@ function parseXpTotal(text){
 
   // Fallback for compact strings such as "10k XP" that are not semicolon-delimited.
   if(!matched){
-    const rx=/([0-9]+(?:,[0-9]{3})*(?:\.[0-9]+)?)\s*([kKmM]?)\s*(?:XP|experience)/g;
+    const rx=/([0-9]+(?:,[0-9]{3})*(?:\.[0-9]+)?)(?:([kKmM])|\s+([kKmM])(?=\s*(?:XP|experience)\b))?\s*(?:XP|experience)/g;
     let m;
     while((m=rx.exec(s))!==null){
       let n=Number(String(m[1]).replace(/,/g,''));
-      const suffix=String(m[2]||'').toLowerCase();
+      const suffix=String(m[2]||m[3]||'').toLowerCase();
       if(suffix==='k')n*=1000;
       else if(suffix==='m')n*=1000000;
       if(Number.isFinite(n)){total+=n;matched=true;}
@@ -1013,11 +1013,11 @@ function xpRewardCards(text){
   const parts=splitRewardEntries(text),cards=[];
   parts.forEach(part=>{
     if(!/(?:\bXP\b|experience)/i.test(part))return;
-    const m=part.match(/([0-9]+(?:,[0-9]{3})*(?:\.[0-9]+)?)\s*([kKmM]?)\s+(.+?)\s+(?:XP|experience)/i);
+    const m=part.match(/([0-9]+(?:,[0-9]{3})*(?:\.[0-9]+)?)(?:([kKmM])|\s+([kKmM])(?=\s*(?:XP|experience)\b))?\s+(.+?)\s+(?:XP|experience)/);
     if(!m)return;
-    let n=Number(m[1].replace(/,/g,'')); const suf=(m[2]||'').toLowerCase();
+    let n=Number(m[1].replace(/,/g,'')); const suf=(m[2]||m[3]||'').toLowerCase();
     if(suf==='k')n*=1000; else if(suf==='m')n*=1000000;
-    const skill=m[3].trim();
+    const skill=m[4].trim();
     cards.push('<div class="xpCard"><div class="xpAmt">'+esc(Math.round(n).toLocaleString())+'</div><div class="xpSkill">'+esc(skill)+'</div></div>');
   });
   return cards.join('')||'<div class="rewardEmpty">No XP reward listed.</div>';
