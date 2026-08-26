@@ -632,7 +632,7 @@ function v122ColLetter_(n) {
   return s;
 }
 
-function completeV122QuestsFast(quests,source) {
+function completeV122QuestsFast(quests,source,reconciledQp) {
   if(!Array.isArray(quests)||!quests.length)throw new Error('Select at least one quest.');
 
   const ss=SpreadsheetApp.openById(V1_TRACKER_ID);
@@ -664,10 +664,8 @@ function completeV122QuestsFast(quests,source) {
 
   SpreadsheetApp.flush();
 
-  PropertiesService.getScriptProperties().setProperty(
-    'V115_LAST_RECONCILED_QP',
-    String(v115CurrentTrackerQp_(ss))
-  );
+  const observedQp=v115CurrentTrackerQp_(ss), acknowledgedQp=Math.max(observedQp,Number(reconciledQp)||0);
+  PropertiesService.getScriptProperties().setProperty('V115_LAST_RECONCILED_QP',String(acknowledgedQp));
 
   const dashboard=getV1DashboardState({allowQuestHelperSync:false});
   return {ok:true,changed:changed,transactionId:tx,dashboard:dashboard};

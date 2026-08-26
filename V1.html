@@ -1438,7 +1438,7 @@ function openV115QuestModal(src){
   v115Selected.clear();
   document.getElementById('v115Search').value='';
   document.querySelectorAll('#v115Modal details.v115All,#v115Modal details.v124Manage').forEach(x=>x.removeAttribute('open'));
-  const completedView=/Completed History|QP Candidates|QP Reconciliation/i.test(v115Source);
+  const completedView=/Completed History/i.test(v115Source);
   const completedPanel=document.querySelector('#v115Modal details.v124Manage');
   if(completedView){completedPanel.setAttribute('open','');setTimeout(()=>completedPanel.scrollIntoView({block:'start',behavior:document.body.classList.contains('v200ReducedMotion')?'auto':'smooth'}),80)}
   modal.classList.add('show');
@@ -1603,7 +1603,7 @@ function confirmV115Quests(){
       const doneLabel=changed.length===1?changed[0]:`${changed.length} quests`;
       showV115Toast(`${doneLabel} marked complete. Dashboard updated.`,false,{label:'Undo',onclick:'undoV124LastCompletion()'});
     })
-    .completeV122QuestsFast(names,v115Source);
+    .completeV122QuestsFast(names,v115Source,Number(v115State&&v115State.currentQp||0));
   });
 }
 function v123QuestReporterSelfTest(){
