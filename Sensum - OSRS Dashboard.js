@@ -1,5 +1,5 @@
 const CONFIG = {
-  SPREADSHEET_ID: '1vDSs0OUaL1a6Sp2N8N9pLVFPtJWxXROzgnbTOWUDfuE',
+  SPREADSHEET_ID: '18cUN2RTytdinH9kpgqQhz9OZsKRpHrVAB2hiUotznKU',
   USERNAME: 'Sensum',
   HISCORES_URL: 'https://secure.runescape.com/m=hiscore_oldschool/index_lite.json',
   MASTER_CHECKLIST_DOC_ID: '1lZLW2cPVCknGzYYw0ImvfoH7O6A5rzCSF3xtKvS2b_o',
@@ -134,30 +134,37 @@ function doPost(e) {
       return json_({ok:false,error:'invalid_json'});
     }
 
-    if (String(payload.token || '') !== CONFIG.BRIDGE_TOKEN) {
+    const bridgeToken = PropertiesService.getScriptProperties().getProperty('RUNELITE_BRIDGE_TOKEN');
+    if (!bridgeToken || !constantTimeEqual_(String(payload.token || ''), bridgeToken)) {
       return json_({ok:false,error:'unauthorized'});
     }
     if (String(payload.username || '').toLowerCase() !== CONFIG.USERNAME.toLowerCase()) {
       return json_({ok:false,error:'wrong_username'});
     }
 
+    const validation = validateRuneLitePayload_(payload);
+    if (!validation.ok) return json_({ok:false,error:'invalid_payload',details:validation.errors});
+
     const ss = SpreadsheetApp.openById(CONFIG.SPREADSHEET_ID);
-    const now = payload.timestamp || new Date().toISOString();
+    const now = new Date().toISOString();
+    const payloadTime = new Date(payload.timestamp).getTime();
+    const props = PropertiesService.getScriptProperties();
+    const lastAccepted = Number(props.getProperty('RUNELITE_BRIDGE_LAST_TIMESTAMP') || 0);
+    if (payloadTime <= lastAccepted) return json_({ok:false,error:'replayed_or_out_of_order'});
 
-    writeRuneLiteQuests_(ss, payload.quests || [], now);
-    writeRuneLiteWealth_(ss, payload.wealth || {}, now);
+    stageRuneLitePayload_(ss, payload, now);
+    writeRuneLiteQuests_(ss, payload.quests, now);
+    writeRuneLiteWealth_(ss, payload.wealth, now);
     writeRuneLiteItems_(ss, payload.items || [], now);
+    props.setProperty('RUNELITE_BRIDGE_LAST_TIMESTAMP', String(payloadTime));
 
-    const account = ss.getSheetByName('Account');
-    upsert_(account, 'lastRuneLiteSync', now);
-    upsert_(account, 'questBridgeStatus', 'connected');
-    upsert_(account, 'wealthBridgeStatus', 'connected');
+    props.setProperties({
+      RUNELITE_BRIDGE_LAST_SYNC:now,
+      RUNELITE_BRIDGE_QUEST_STATUS:'connected',
+      RUNELITE_BRIDGE_WEALTH_STATUS:'connected'
+    });
 
-    evaluateGoals_(ss);
-    ensureMoneyMethods_(ss);
-    writeDailyPlan_(ss, generateDailyPlan_(ss));
-
-    return json_({ok:true,receivedAt:new Date().toISOString()});
+    return json_({ok:true,receivedAt:now,quests:payload.quests.length,items:(payload.items||[]).length});
   } catch (err) {
     return json_({ok:false,error:String(err && err.message ? err.message : err)});
   } finally {
@@ -165,8 +172,58 @@ function doPost(e) {
   }
 }
 
+function configureV200RuneLiteBridge() {
+  const props = PropertiesService.getScriptProperties();
+  let token = props.getProperty('RUNELITE_BRIDGE_TOKEN');
+  if (!token) {
+    token = Utilities.getUuid().replace(/-/g,'') + Utilities.getUuid().replace(/-/g,'');
+    props.setProperty('RUNELITE_BRIDGE_TOKEN', token);
+  }
+  return {ok:true,token:token,trackerId:CONFIG.SPREADSHEET_ID,message:'Store this token in the RuneLite companion. It will not be shown in dashboard settings.'};
+}
+
+function getV200BridgeStatus() {
+  const props = PropertiesService.getScriptProperties();
+  return {
+    configured:!!props.getProperty('RUNELITE_BRIDGE_TOKEN'),
+    trackerId:CONFIG.SPREADSHEET_ID,
+    username:CONFIG.USERNAME,
+    lastSync:props.getProperty('RUNELITE_BRIDGE_LAST_SYNC') || '',
+    questStatus:props.getProperty('RUNELITE_BRIDGE_QUEST_STATUS') || 'not connected',
+    wealthStatus:props.getProperty('RUNELITE_BRIDGE_WEALTH_STATUS') || 'not connected'
+  };
+}
+
+function constantTimeEqual_(a,b) {
+  a=String(a||'');b=String(b||'');
+  let diff=a.length^b.length, length=Math.max(a.length,b.length);
+  for(let i=0;i<length;i++) diff|=(a.charCodeAt(i%Math.max(1,a.length))||0)^(b.charCodeAt(i%Math.max(1,b.length))||0);
+  return diff===0;
+}
+
+function validateRuneLitePayload_(payload) {
+  const errors=[], timestamp=new Date(payload.timestamp).getTime();
+  if(!Number.isFinite(timestamp)) errors.push('timestamp_required');
+  else if(Math.abs(Date.now()-timestamp)>10*60*1000) errors.push('timestamp_outside_10_minutes');
+  if(!Array.isArray(payload.quests) || payload.quests.length<1 || payload.quests.length>300) errors.push('quests_must_contain_1_to_300_rows');
+  if(!payload.wealth || typeof payload.wealth!=='object' || Array.isArray(payload.wealth)) errors.push('wealth_object_required');
+  if(payload.items!==undefined && (!Array.isArray(payload.items) || payload.items.length>5000)) errors.push('items_must_be_an_array_of_at_most_5000_rows');
+  (Array.isArray(payload.quests)?payload.quests:[]).forEach((q,i)=>{if(!q||typeof q.name!=='string'||!q.name.trim()||q.name.length>100)errors.push('invalid_quest_'+i)});
+  return {ok:errors.length===0,errors:errors};
+}
+
+function stageRuneLitePayload_(ss,payload,now) {
+  let sh=ss.getSheetByName('RuneLite Bridge Staging');
+  if(!sh) sh=ss.insertSheet('RuneLite Bridge Staging');
+  sh.clearContents();
+  sh.getRange(1,1,6,2).setValues([
+    ['Status','VALIDATED'],['Received At',now],['Username',payload.username],
+    ['Quest Rows',payload.quests.length],['Item Rows',(payload.items||[]).length],['Payload Timestamp',payload.timestamp]
+  ]);
+}
+
 function writeRuneLiteQuests_(ss, quests, now) {
-  const sh = ss.getSheetByName('Quests');
+  const sh = ss.getSheetByName('Quests') || ss.insertSheet('Quests');
   sh.clearContents();
   sh.getRange(1,1,1,4).setValues([['Quest','Status','Source','Updated At']]);
   const rows = quests
@@ -176,7 +233,7 @@ function writeRuneLiteQuests_(ss, quests, now) {
 }
 
 function writeRuneLiteWealth_(ss, wealth, now) {
-  const sh = ss.getSheetByName('Wealth');
+  const sh = ss.getSheetByName('Wealth') || ss.insertSheet('Wealth');
   sh.clearContents();
   sh.getRange(1,1,1,7).setValues([['Container','GE Value','High Alch Value','Cash GP','Last Seen','Source','Updated At']]);
 
@@ -206,12 +263,13 @@ function writeRuneLiteWealth_(ss, wealth, now) {
 
   sh.getRange(2,1,rows.length,7).setValues(rows);
 
-  const account = ss.getSheetByName('Account');
-  upsert_(account,'bankGeValue',Number((wealth.bank || {}).geValue || 0));
-  upsert_(account,'inventoryGeValue',Number((wealth.inventory || {}).geValue || 0));
-  upsert_(account,'equipmentGeValue',Number((wealth.equipment || {}).geValue || 0));
-  upsert_(account,'cashGp',Number(wealth.cashGp || 0));
-  upsert_(account,'totalVisibleWealth',Number(wealth.totalVisibleGe || 0));
+  PropertiesService.getScriptProperties().setProperties({
+    RUNELITE_BANK_GE_VALUE:String(Number((wealth.bank || {}).geValue || 0)),
+    RUNELITE_INVENTORY_GE_VALUE:String(Number((wealth.inventory || {}).geValue || 0)),
+    RUNELITE_EQUIPMENT_GE_VALUE:String(Number((wealth.equipment || {}).geValue || 0)),
+    RUNELITE_CASH_GP:String(Number(wealth.cashGp || 0)),
+    RUNELITE_TOTAL_VISIBLE_WEALTH:String(Number(wealth.totalVisibleGe || 0))
+  });
 }
 
 function writeRuneLiteItems_(ss, items, now) {

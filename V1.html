@@ -273,6 +273,7 @@
 .routeIntelItem+.routeIntelItem{margin-top:5px;padding-top:5px;border-top:1px solid #cfdee4}
 .routeIntelType{display:inline-block;margin-bottom:2px;padding:2px 4px;border-radius:999px;background:#d9e9f0;color:#31596b;text-transform:uppercase;font-size:7px;font-weight:950;letter-spacing:.35px}
 .routeBaseNote{display:block;margin-top:3px;color:#796b59;font-size:8px;font-weight:750}
+.v200Settings{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.v200SettingCard{padding:13px;border:1px solid #b99865;border-radius:10px;background:#fffaf1}.v200SettingCard.wide{grid-column:1/-1}.v200SettingCard h3{margin:0 0 4px;color:#462715;font-size:14px}.v200SettingCard p{margin:0 0 10px;color:#786954;font-size:10px;line-height:1.4}.v200Field{display:grid;gap:4px;font-size:9px;font-weight:900;color:#5c402b}.v200Field select{width:100%;padding:9px;border:1px solid #b99865;border-radius:8px;background:white;color:#321b0e}.v200Checks{display:flex;gap:14px;flex-wrap:wrap}.v200Checks label{display:flex;align-items:center;gap:6px;font-size:10px;font-weight:850;color:#4c3525}.v200Bridge{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.v200Bridge>div{padding:9px;border-radius:8px;background:#f1e5d0}.v200Bridge span{display:block;color:#806c55;font-size:8px;font-weight:900;text-transform:uppercase}.v200Bridge b{display:block;margin-top:3px;color:#3a2415;font-size:11px;overflow-wrap:anywhere}.v200BridgeActions{display:flex;gap:8px;margin-top:10px}.v200BridgeActions button{border:0;border-radius:8px;padding:8px 11px;background:#5d3318;color:#fff;font-weight:900;cursor:pointer}.v200Security{margin-top:8px!important;color:#8b3129!important}.v200Compact .card{margin-bottom:8px}.v200Compact .summary,.v200Compact .actionBody{padding-top:8px;padding-bottom:8px}.v200ReducedMotion *{scroll-behavior:auto!important;animation:none!important;transition:none!important}@media(max-width:760px){.v200Settings{grid-template-columns:1fr}.v200SettingCard.wide{grid-column:auto}.v200Bridge{grid-template-columns:1fr}}
 </style>
 
 </head>
@@ -282,7 +283,7 @@
   <div class="hero">
     <div class="heroTop">
       <div><h1>Sensum OSRS Progression Dashboard</h1><div class="sub">Open this, see what matters, play the game.</div></div>
-      <div class="heroActions"><button id="v134WomForce" type="button" class="womForce" onclick="forceV134WomUpdate()">↻ Force WOM Update</button><div class="version">V1.35 · Data Trust Center</div></div>
+      <div class="heroActions"><button id="v134WomForce" type="button" class="womForce" onclick="forceV134WomUpdate()">↻ Force WOM Update</button><div class="version">V2.0 · RuneLite Bridge</div></div>
     </div>
     <div class="heroTabs" role="tablist" aria-label="Dashboard command center">
       <button type="button" id="heroTabOverview" class="heroTab active" role="tab" aria-selected="true" onclick="setHeroTab('overview')">Overview</button>
@@ -292,6 +293,7 @@
       <button type="button" id="heroTabBosses" class="heroTab" role="tab" aria-selected="false" onclick="setHeroTab('bosses')">Bosses</button>
       <button type="button" id="heroTabAchievements" class="heroTab" role="tab" aria-selected="false" onclick="setHeroTab('achievements')">Achievements</button>
       <button type="button" id="heroTabLibrary" class="heroTab" role="tab" aria-selected="false" onclick="setHeroTab('library')">Quest Library</button>
+      <button type="button" id="heroTabSettings" class="heroTab" role="tab" aria-selected="false" onclick="setHeroTab('settings')">Settings</button>
     </div>
     <div id="heroPanelOverview" class="heroPanel active" role="tabpanel">
       <div class="controls">
@@ -345,6 +347,14 @@
     <div id="heroPanelLibrary" class="heroPanel" role="tabpanel" hidden>
       <div class="v134LibraryTop"><input id="v134QuestSearch" type="search" placeholder="Search quests, rewards, unlocks…" oninput="resetV134Library()"><select id="v134RewardFilter" onchange="resetV134Library()"><option value="all">All reward types</option><option value="xp">Any XP</option><option value="selectable">Lamps & selectable XP</option><option value="transport">Transportation</option><option value="spellbooks">Spellbooks & spells</option><option value="equipment">Equipment</option><option value="areas">Areas & access</option><option value="bosses">Boss access</option><option value="audit">Needs Wiki review</option></select><select id="v134QuestSort" onchange="resetV134Library()"><option value="account">Best for my account</option><option value="name">Quest name A–Z</option><option value="qp">Most quest points</option><option value="downstream">Most downstream unlocks</option><option value="verified">Recently verified</option></select></div>
       <div id="v134LibraryStatus" class="v134LibraryStatus"></div><div id="v134QuestGrid" class="v134QuestGrid"></div><button id="v134ShowMore" type="button" class="v134ShowMore" onclick="showMoreV134Library()">Show more quests</button>
+    </div>
+    <div id="heroPanelSettings" class="heroPanel" role="tabpanel" hidden>
+      <div class="v200Settings">
+        <section class="v200SettingCard"><h3>Local time</h3><p>Controls how dashboard dates and sync timestamps are displayed on this device.</p><label class="v200Field">Timezone<select id="v200Timezone" onchange="saveV200Settings()"></select></label></section>
+        <section class="v200SettingCard"><h3>Session defaults</h3><p>Choose the duration Tonight Mode starts with.</p><label class="v200Field">Default available time<select id="v200TonightDefault" onchange="saveV200Settings()"><option value="30">30 minutes</option><option value="60">1 hour</option><option value="90">90 minutes</option><option value="120">2 hours</option><option value="180">3+ hours</option></select></label></section>
+        <section class="v200SettingCard"><h3>Display preferences</h3><p>These preferences stay local to this browser.</p><div class="v200Checks"><label><input id="v200Compact" type="checkbox" onchange="saveV200Settings()"> Compact layout</label><label><input id="v200ReducedMotion" type="checkbox" onchange="saveV200Settings()"> Reduce motion</label></div></section>
+        <section class="v200SettingCard wide"><h3>RuneLite companion bridge</h3><p>The receiver validates the token, username, timestamp, row limits, and stages each accepted upload before live data is replaced.</p><div id="v200BridgeStatus" class="v200Bridge"><div><span>Configuration</span><b>Checking…</b></div></div><div class="v200BridgeActions"><button type="button" onclick="loadV200BridgeStatus()">Refresh status</button><button type="button" onclick="copyV200Endpoint()">Copy endpoint</button></div><p class="v200Security">The private token is never rendered in this public web app.</p></section>
+      </div>
     </div>
   </div>
 
@@ -447,13 +457,33 @@ function goalOptionsV126(goals){
   (goals||[]).forEach(g=>(groups[V126_GOAL_STAGES[g.name]||'Other']).push(g));
   return ['Beginning','Mid-game','End-game','Other'].filter(label=>groups[label].length).map(label=>`<optgroup label="${label}">${groups[label].map(g=>`<option value="${esc(g.name)}">${esc(g.name)}</option>`).join('')}</optgroup>`).join('');
 }function setHeroTab(name){
-  ['overview','tonight','stats','health','bosses','achievements','library'].forEach(key=>{
+  ['overview','tonight','stats','health','bosses','achievements','library','settings'].forEach(key=>{
     const active=key===name,cap=key.charAt(0).toUpperCase()+key.slice(1);
     const tab=$('heroTab'+cap),panel=$('heroPanel'+cap);
     tab.classList.toggle('active',active);tab.setAttribute('aria-selected',String(active));
     panel.classList.toggle('active',active);panel.hidden=!active;
   });
+  if(name==='settings')loadV200BridgeStatus();
 }
+const V200_SETTINGS_KEY='sensum-v200-settings';
+const V200_TIMEZONES=['Pacific/Honolulu','America/Anchorage','America/Los_Angeles','America/Phoenix','America/Denver','America/Chicago','America/New_York','America/Toronto','America/Sao_Paulo','UTC','Europe/London','Europe/Paris','Europe/Berlin','Africa/Johannesburg','Asia/Dubai','Asia/Kolkata','Asia/Singapore','Asia/Tokyo','Australia/Perth','Australia/Adelaide','Australia/Sydney','Pacific/Auckland'];
+function readV200Settings(){try{return Object.assign({timezone:Intl.DateTimeFormat().resolvedOptions().timeZone||'America/Denver',tonight:'90',compact:false,reducedMotion:false},JSON.parse(localStorage.getItem(V200_SETTINGS_KEY)||'{}'))}catch(e){return {timezone:'America/Denver',tonight:'90',compact:false,reducedMotion:false}}}
+function initV200Settings(){
+  const p=readV200Settings(),tz=$('v200Timezone');
+  if(!tz.options.length){const zones=V200_TIMEZONES.includes(p.timezone)?V200_TIMEZONES:[p.timezone,...V200_TIMEZONES];tz.innerHTML=zones.map(z=>`<option value="${esc(z)}">${esc(z.replace(/_/g,' '))}</option>`).join('')}
+  tz.value=p.timezone;$('v200TonightDefault').value=String(p.tonight);$('v200Compact').checked=!!p.compact;$('v200ReducedMotion').checked=!!p.reducedMotion;
+  document.body.classList.toggle('v200Compact',!!p.compact);document.body.classList.toggle('v200ReducedMotion',!!p.reducedMotion);
+}
+function saveV200Settings(){
+  const p={timezone:$('v200Timezone').value,tonight:$('v200TonightDefault').value,compact:$('v200Compact').checked,reducedMotion:$('v200ReducedMotion').checked};
+  localStorage.setItem(V200_SETTINGS_KEY,JSON.stringify(p));initV200Settings();$('v130Time').value=p.tonight;renderV130Tonight();showV115Toast('Settings saved on this device.');
+}
+function v200FormatDate(value,options){const d=parseDashboardDate(value);if(!d)return value||'—';try{return new Intl.DateTimeFormat(undefined,Object.assign({timeZone:readV200Settings().timezone},options||{})).format(d)}catch(e){return d.toLocaleString()}}
+function loadV200BridgeStatus(){
+  $('v200BridgeStatus').innerHTML='<div><span>Configuration</span><b>Checking…</b></div>';
+  google.script.run.withFailureHandler(e=>{$('v200BridgeStatus').innerHTML=`<div><span>Status</span><b>${esc(e.message||e)}</b></div>`}).withSuccessHandler(s=>{$('v200BridgeStatus').innerHTML=`<div><span>Configuration</span><b>${s.configured?'Token configured':'Setup required'}</b></div><div><span>Quest sync</span><b>${esc(s.questStatus||'Not connected')}</b></div><div><span>Last upload</span><b>${esc(s.lastSync?v200FormatDate(s.lastSync,{dateStyle:'medium',timeStyle:'short'}):'Never')}</b></div>`}).getV200BridgeStatus();
+}
+function copyV200Endpoint(){const endpoint=location.href.split('?')[0];navigator.clipboard.writeText(endpoint).then(()=>showV115Toast('RuneLite bridge endpoint copied.')).catch(()=>showV115Toast(endpoint))}
 let v134LibraryLimit=30;
 function resetV134Library(){v134LibraryLimit=30;renderV134Library()}
 function showMoreV134Library(){v134LibraryLimit+=30;renderV134Library()}
@@ -1230,7 +1260,7 @@ function renderV131GoalProgress(s){
   host.innerHTML=`<div class="v131ProgressHead"><div><span>Goal progress</span><b>${esc(p.status||'In progress')}</b></div><strong>${pct}%</strong></div><div class="v131Track"><i style="width:${pct}%"></i></div><div class="v131Dimensions">${dims}</div><div class="v131ProgressNote">Calculated from tracked quest completion, direct prerequisites, real base levels, and applicable QP gates.</div>`;
 }
 
-function v133Date(value){const d=new Date(value);return isNaN(d)?'Unknown date':d.toLocaleDateString(undefined,{month:'short',day:'numeric',year:'numeric'})}
+function v133Date(value){return v200FormatDate(value,{month:'short',day:'numeric',year:'numeric'})}
 function renderV133Achievements(s){
   const a=s.achievements||{},sum=a.summary||{},up=a.upcoming||[],events=a.timeline||[];
   $('v133Summary').innerHTML=`<div><b>${esc(sum.unlocked||0)}</b><span>unlocked</span></div><div><b>${esc(sum.quests||0)}</b><span>quests</span></div><div><b>${esc(sum.totalLevel||0)}</b><span>total level</span></div>`;
@@ -1245,16 +1275,18 @@ function removeV133Manual(id){openV130Confirm({icon:'↶',eyebrow:'Correct timel
 
 function render(s){
   window.__sensumState=s;
+  initV200Settings();
   busy(false);$('err').classList.add('hidden');
   dataHealth(s);
   $('user').textContent=s.username||'Sensum';$('combat').textContent=s.combatLevel||'—';$('qp').textContent=s.questPoints||'—';
-  $('wom').textContent=s.lastWomSnapshot||'—';$('sync').textContent=s.lastSheetSync||'—';
+  $('wom').textContent=s.lastWomSnapshot?v200FormatDate(s.lastWomSnapshot,{dateStyle:'medium',timeStyle:'short'}):'—';$('sync').textContent=s.lastSheetSync?v200FormatDate(s.lastSheetSync,{dateStyle:'medium',timeStyle:'short'}):'—';
   $('goal').innerHTML=goalOptionsV126(s.goals||[]);
   $('goal').value=s.goal;$('depth').value=String(s.routeDepth||10);
   const previousBoss=$('v128BossSelect').value;
   $('v128BossSelect').innerHTML=bossOptionsV128(s.bosses||[]);
   if(previousBoss&&(s.bosses||[]).some(b=>b.name===previousBoss))$('v128BossSelect').value=previousBoss;
   renderV128Boss();
+  $('v130Time').value=String(readV200Settings().tonight||'90');
   renderV130Tonight();
   $('v127CompleteGoal').disabled=/^balanced$/i.test(String(s.goal||''));
   renderV131GoalProgress(s);
