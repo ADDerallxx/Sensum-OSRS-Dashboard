@@ -56,6 +56,7 @@ function getV1DashboardState(options) {
     bosses: readV128BossPlanner_(ss, statsRows),
     bossGuides: v132BossGuides_(),
     bossLoadouts: V132B_WIKI_LOADOUTS,
+    bossItemImages: V132B_ITEM_IMAGES,
     bossProgress: readV132BossProgress_(),
     goalSummary: summary,
     topQuests: topRows.map(r => ({rank:r[0],quest:r[1],score:r[2],tier:r[3],downstream:r[4],why:r[5],rewards:rewardMap[String(r[1]||'').trim().toLowerCase()]||null})),

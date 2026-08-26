@@ -497,7 +497,7 @@ function closeV132Boss(){$('v132BossModal').classList.remove('show');document.bo
 function selectV132Setup(i){v132SetupIndex=Number(i)||0;renderV132BossModal()}
 function selectV132Method(i){v132MethodIndex=Number(i)||0;renderV132BossModal()}
 function v132TierChoice(items,tier){if(!items||!items.length)return null;const index=tier===3?0:tier===2?Math.min(1,items.length-1):tier===1?Math.min(2,items.length-1):items.length-1;return {item:items[index],alternatives:items.filter((x,i)=>i!==index).slice(0,4)}}
-function v132ItemImage(item){return 'https://oldschool.runescape.wiki/images/'+encodeURIComponent(String(item||'').replace(/ /g,'_')+'.png').replace(/%27/g,"'")}
+function v132ItemImage(item){const mapped=(window.__sensumState&&window.__sensumState.bossItemImages||{})[item];return mapped||('https://oldschool.runescape.wiki/images/'+encodeURIComponent(String(item||'').replace(/ /g,'_')+'.png').replace(/%27/g,"'"))}
 function renderV132BossModal(){
   const s=window.__sensumState||{},g=(s.bossGuides||[]).find(x=>x.name===v132BossName),b=(s.bosses||[]).find(x=>x.name===v132BossName);if(!g)return;
   const progress=(s.bossProgress||{})[g.name]||{},setup=g.setups[v132SetupIndex]||g.setups[0],methods=(s.bossLoadouts||{})[g.name]||[],method=methods[v132MethodIndex]||methods[0],values=g.mechanics.map(x=>progress[v132Id('mechanic',x)]||'not_started');
