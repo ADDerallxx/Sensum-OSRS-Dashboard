@@ -1,5 +1,8 @@
 const V1_TRACKER_ID = '18cUN2RTytdinH9kpgqQhz9OZsKRpHrVAB2hiUotznKU';
 
+function saveV133ManualAchievement(title,note){return addV133ManualAchievement(title,note)}
+function deleteV133ManualAchievement(id){return removeV133ManualAchievement(id)}
+
 function getV1DashboardState(options) {
   options = options || {};
   // V1.22: interactive reads never block on a Quest Helper network sync.

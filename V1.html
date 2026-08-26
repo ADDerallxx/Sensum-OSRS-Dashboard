@@ -1180,9 +1180,9 @@ function renderV133Achievements(s){
 }
 function addV133Manual(){
   const title=$('v133ManualTitle').value.trim(),note=$('v133ManualNote').value.trim();if(!title){showV115Toast('Enter an achievement title first.',true);return}
-  busy(true);google.script.run.withFailureHandler(fail).withSuccessHandler(s=>{render(s);setHeroTab('achievements');$('v133ManualTitle').value='';$('v133ManualNote').value='';showV115Toast('Achievement added to your timeline.')}).addV133ManualAchievement(title,note);
+  busy(true);google.script.run.withFailureHandler(fail).withSuccessHandler(s=>{render(s);setHeroTab('achievements');$('v133ManualTitle').value='';$('v133ManualNote').value='';showV115Toast('Achievement added to your timeline.')}).saveV133ManualAchievement(title,note);
 }
-function removeV133Manual(id){openV130Confirm({icon:'↶',eyebrow:'Correct timeline',title:'Remove this personal achievement?',message:'Automatic milestones are unaffected. You can add this personal achievement again later.',confirmLabel:'Remove',tone:'danger'},()=>{busy(true);google.script.run.withFailureHandler(fail).withSuccessHandler(s=>{render(s);setHeroTab('achievements');showV115Toast('Personal achievement removed.')}).removeV133ManualAchievement(id)})}
+function removeV133Manual(id){openV130Confirm({icon:'↶',eyebrow:'Correct timeline',title:'Remove this personal achievement?',message:'Automatic milestones are unaffected. You can add this personal achievement again later.',confirmLabel:'Remove',tone:'danger'},()=>{busy(true);google.script.run.withFailureHandler(fail).withSuccessHandler(s=>{render(s);setHeroTab('achievements');showV115Toast('Personal achievement removed.')}).deleteV133ManualAchievement(id)})}
 
 function render(s){
   window.__sensumState=s;
