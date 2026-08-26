@@ -269,10 +269,11 @@
   <div class="hero">
     <div class="heroTop">
       <div><h1>Sensum OSRS Progression Dashboard</h1><div class="sub">Open this, see what matters, play the game.</div></div>
-      <div class="version">V1.29a · Styled Confirmations</div>
+      <div class="version">V1.30 · Tonight Mode</div>
     </div>
     <div class="heroTabs" role="tablist" aria-label="Dashboard command center">
       <button type="button" id="heroTabOverview" class="heroTab active" role="tab" aria-selected="true" onclick="setHeroTab('overview')">Overview</button>
+      <button type="button" id="heroTabTonight" class="heroTab" role="tab" aria-selected="false" onclick="setHeroTab('tonight')">Tonight</button>
       <button type="button" id="heroTabStats" class="heroTab" role="tab" aria-selected="false" onclick="setHeroTab('stats')">Stats</button>
       <button type="button" id="heroTabHealth" class="heroTab" role="tab" aria-selected="false" onclick="setHeroTab('health')"><span class="heroTabDot"></span>Data Health</button>
       <button type="button" id="heroTabBosses" class="heroTab" role="tab" aria-selected="false" onclick="setHeroTab('bosses')">Bosses</button>
@@ -287,6 +288,10 @@
         <div class="metric"><div class="k">Combat Level</div><div class="v" id="combat">—</div></div>
         <div class="metric"><div class="k">Quest Points</div><div class="v" id="qp">—</div><button id="v115Report" class="v115Report" title="Report Completed Quest" aria-label="Report Completed Quest" onclick="openV115QuestModal('Dashboard Manual')" type="button"><img src="https://oldschool.runescape.wiki/images/Quest_point_icon.png" alt=""><span>Report Quest</span></button></div>
       </div>
+    </div>
+    <div id="heroPanelTonight" class="heroPanel" role="tabpanel" hidden>
+      <div class="v130TonightTop"><div><b>What should I do tonight?</b><span>Choose the time you actually have. The plan uses your current goal, route, training gaps, quest length, and preparation list.</span></div><label><span>Available time</span><select id="v130Time" onchange="renderV130Tonight()"><option value="30">30 minutes</option><option value="60">1 hour</option><option value="90" selected>90 minutes</option><option value="120">2 hours</option><option value="180">Long session · 3+ hours</option></select></label></div>
+      <div id="v130TonightPlan" class="v130TonightPlan"></div>
     </div>
     <div id="heroPanelStats" class="heroPanel" role="tabpanel" hidden>
       <div class="heroPanelIntro"><b>Current Stats</b><span>Goal-relevant skills are highlighted in gold.</span></div>
@@ -415,7 +420,7 @@ function goalOptionsV126(goals){
   (goals||[]).forEach(g=>(groups[V126_GOAL_STAGES[g.name]||'Other']).push(g));
   return ['Beginning','Mid-game','End-game','Other'].filter(label=>groups[label].length).map(label=>`<optgroup label="${label}">${groups[label].map(g=>`<option value="${esc(g.name)}">${esc(g.name)}</option>`).join('')}</optgroup>`).join('');
 }function setHeroTab(name){
-  ['overview','stats','health','bosses'].forEach(key=>{
+  ['overview','tonight','stats','health','bosses'].forEach(key=>{
     const active=key===name,cap=key.charAt(0).toUpperCase()+key.slice(1);
     const tab=$('heroTab'+cap),panel=$('heroPanel'+cap);
     tab.classList.toggle('active',active);tab.setAttribute('aria-selected',String(active));
@@ -433,6 +438,46 @@ function questMetaBadgesV129(s,quest){
   if(m.difficulty)bits.push(`<span class="v129QuestBadge difficulty">${esc(m.difficulty)}</span>`);
   if(m.length)bits.push(`<span class="v129QuestBadge length">${esc(m.length)}</span>`);
   return bits.length?`<span class="v129QuestMeta" aria-label="Quest difficulty and length">${bits.join('')}</span>`:'';
+}
+function v130QuestMinutes(s,quest){
+  const length=String(questMetaV129(s,quest).length||'').toLowerCase();
+  if(length==='very short')return 15;if(length==='short')return 30;if(length==='medium')return 60;if(length==='long')return 105;if(length==='very long')return 165;
+  return 60;
+}
+function v130MinutesLabel(n){n=Math.max(0,Math.round(Number(n)||0));return n>=60?`${Math.floor(n/60)}h${n%60?` ${n%60}m`:''}`:`${n}m`}
+function v130PlanBlock(kind,time,title,detail,outcome){return `<div class="v130PlanBlock ${kind}"><div class="v130PlanTime">${esc(v130MinutesLabel(time))}</div><div><span class="v130PlanKind">${esc(kind==='main'?'Main objective':kind==='prep'?'Prepare':'If time remains')}</span><h3>${esc(title)}</h3><p>${esc(detail)}</p>${outcome?`<small>${esc(outcome)}</small>`:''}</div></div>`}
+function renderV130Tonight(){
+  const s=window.__sensumState||{},budget=Number($('v130Time').value||90),route=s.route||[],first=route[0];
+  if(!first){$('v130TonightPlan').innerHTML='<div class="v127GoalEmpty">No route is available yet.</div>';return}
+  const quest=first.quest,questMin=v130QuestMinutes(s,quest),trainMin=Math.max(0,Math.ceil(Number(first.afterHours||0)*60));
+  const prep=prepForQuest(s,quest),bring=[...(prep.buy||[]),...(prep.alt||[])],prepMin=bring.length?Math.min(18,Math.max(5,bring.length*2)):3;
+  const prepNames=bring.slice(0,5).map(x=>x.name).join(', ')+(bring.length>5?` and ${bring.length-5} more`:''),blocks=[];
+  let used=0,headline='',summary='';
+  if(trainMin>=budget-10){
+    const spend=Math.max(15,budget-(bring.length?10:0));
+    headline=`Make ${quest} easier to start`;
+    summary=`The current route needs training before ${quest}. Use tonight to remove as much of that blocker as possible.`;
+    blocks.push(v130PlanBlock('main',spend,first.blocker||`Train for ${quest}`,`Follow the fastest practical training option shown in Immediate Blockers & Skill Grinds.`,`About ${v130MinutesLabel(Math.max(0,trainMin-spend))} of modeled training may remain.`));used+=spend;
+    if(bring.length&&budget-used>=8)blocks.push(v130PlanBlock('prep',budget-used,`Bank the items for ${quest}`,prepNames,'Your next session can begin at the quest start.'));
+  }else{
+    headline=`Advance ${s.goal||'your active goal'}`;
+    summary=`This plan favors one complete, meaningful result over filling every minute.`;
+    if(trainMin>0){const t=Math.min(trainMin,budget-used);blocks.push(v130PlanBlock('prep',t,first.blocker||`Train for ${quest}`,`Finish the modeled base-level training requirement before starting the quest.`,`Unlocks the next route step.`));used+=t}
+    if(bring.length&&budget-used>questMin){blocks.push(v130PlanBlock('prep',prepMin,`Prepare ${quest}`,prepNames,'Required and alternative items are staged.'));used+=prepMin}
+    if(budget-used>=questMin){
+      const startQp=Number(s.questPoints||0),gain=Math.max(0,Number(first.projectedQp||startQp)-startQp);
+      blocks.push(v130PlanBlock('main',questMin,`Complete ${quest}`,`Estimated from the Wiki length category: ${questMetaV129(s,quest).length||'Unknown length'}.`,gain?`Expected dashboard result: +${gain} QP and route recalculation.`:'Completes the next recommended route step.'));used+=questMin;
+    }else{
+      blocks.push(v130PlanBlock('main',Math.max(10,budget-used),`Start ${quest}`,`Work through a clean stopping point; the full quest is planned at roughly ${v130MinutesLabel(questMin)}.`,`Progress is useful even if the quest is not finished tonight.`));used=budget;
+    }
+    const left=budget-used;
+    if(left>=10){
+      const next=route.slice(1).find(r=>Number(r.afterHours||0)<=0&&v130QuestMinutes(s,r.quest)<=left);
+      if(next)blocks.push(v130PlanBlock('extra',v130QuestMinutes(s,next.quest),`Bonus: complete ${next.quest}`,`A ready route quest that fits the remaining window.`,`Keeps the session productive if the main objective finishes early.`));
+      else blocks.push(v130PlanBlock('extra',left,'Stage the next route step',`Review the next quest card, gather its items, and travel to its start location.`,'Tomorrow begins with less friction.'));
+    }
+  }
+  $('v130TonightPlan').innerHTML=`<div class="v130TonightSummary"><div><span>Tonight's focus</span><h2>${esc(headline)}</h2><p>${esc(summary)}</p></div><div class="v130Budget"><b>${esc(v130MinutesLabel(budget))}</b><span>available</span></div></div><div class="v130PlanBlocks">${blocks.join('')}</div><div class="v130TonightNote">Time estimates use Wiki quest-length categories plus the dashboard's training model. Treat them as a session plan, not a stopwatch.</div>`;
 }
 function renderV128Boss(){
   const s=window.__sensumState||{},name=$('v128BossSelect').value,b=(s.bosses||[]).find(x=>x.name===name)||(s.bosses||[])[0];
@@ -1101,6 +1146,7 @@ function render(s){
   $('v128BossSelect').innerHTML=bossOptionsV128(s.bosses||[]);
   if(previousBoss&&(s.bosses||[]).some(b=>b.name===previousBoss))$('v128BossSelect').value=previousBoss;
   renderV128Boss();
+  renderV130Tonight();
   $('v127CompleteGoal').disabled=/^balanced$/i.test(String(s.goal||''));
 
   const g=s.goalSummary||{};
@@ -1419,6 +1465,7 @@ body.v115ModalOpen{overflow:hidden}
 .v128BossTop{display:flex;align-items:end;justify-content:space-between;gap:14px;margin-bottom:12px}.v128BossTop>div{display:flex;flex-direction:column;gap:3px}.v128BossTop b{font-size:13px;color:#ffe2a1}.v128BossTop span{font-size:9px;color:#cdbb9b}.v128BossTop select{min-width:230px}.v128BossCard{background:#f8f1e5;color:#2d1b0f;border:1px solid #9b6a36;border-radius:12px;padding:13px}.v128BossHero{display:flex;align-items:flex-start;justify-content:space-between;gap:15px}.v128BossHero h3{font-size:20px;margin:5px 0 4px}.v128BossHero p{max-width:760px;margin:0;color:#6e5a45;font-size:10px;line-height:1.4}.v128Stage{display:inline-block;background:#4b2b16;color:#ffe0a0;border-radius:999px;padding:3px 7px;text-transform:uppercase;font-weight:900;letter-spacing:.4px}.v128Readiness{min-width:160px;border-radius:9px;padding:9px 11px;display:flex;flex-direction:column;gap:3px}.v128Readiness.ready{background:#dcebd7;color:#285b30}.v128Readiness.prep{background:#f5e0b1;color:#6d470d}.v128Readiness b{font-size:11px}.v128Readiness span{font-size:9px}.v128Stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(105px,1fr));gap:7px;margin-top:12px}.v128Stat{border:1px solid #d0bea2;border-radius:8px;padding:8px;display:grid;grid-template-columns:1fr auto;gap:2px 8px;background:#fffaf2}.v128Stat span{font-size:9px;font-weight:900;text-transform:uppercase;color:#70583f}.v128Stat b{font-size:16px}.v128Stat b small{font-size:9px;color:#7b6a59}.v128Stat em{grid-column:1/-1;font-size:8px;font-style:normal;font-weight:900}.v128Stat.met em{color:#397441}.v128Stat.short{border-color:#d39d74;background:#fff3ea}.v128Stat.short em{color:#a1432d}.v128PrepGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}.v128PrepGrid>div{background:#efe4d2;border-radius:8px;padding:9px;display:flex;flex-direction:column;gap:3px}.v128PrepGrid span{font-size:8px;text-transform:uppercase;font-weight:900;color:#806345}.v128PrepGrid b{font-size:11px}.v128PrepGrid small{font-size:9px;color:#6e5a45;line-height:1.35}.v128GoalBtn{margin-top:10px;border:1px solid #7b572e;background:#4b2b16;color:#fff0cd;border-radius:8px;padding:8px 11px;font-weight:900;cursor:pointer}@media(max-width:720px){.v128BossTop,.v128BossHero{align-items:stretch;flex-direction:column}.v128BossTop select{min-width:0;width:100%}.v128PrepGrid{grid-template-columns:1fr}.v128Readiness{min-width:0}}
 .v128BossTop{display:grid;grid-template-columns:minmax(250px,.7fr) minmax(320px,1.3fr);align-items:end;gap:24px;padding:7px 2px 2px;margin-bottom:14px}.v128BossTop .v128BossIntro{display:flex;flex-direction:column;gap:5px}.v128BossTop .v128BossIntro b{font-size:15px;line-height:1.15;color:#ffe2a1}.v128BossTop .v128BossIntro span{max-width:480px;font-size:10px;line-height:1.35;color:#cdbb9b}.v128BossPicker{display:flex;flex-direction:column;gap:5px}.v128BossPicker>span{font-size:8px;font-weight:950;letter-spacing:.55px;text-transform:uppercase;color:#d8c29b}.v128BossPicker select{width:100%;min-width:0;padding:10px 12px;font-size:12px;font-weight:850}.v128BossCard{padding:16px}.v128BossHero h3{font-size:22px;line-height:1.1;margin:7px 0 6px}.v128BossHero p{font-size:10px;line-height:1.5}.v128Stat{padding:10px}.v128PrepGrid>div{padding:11px}.v128PrepGrid small{margin-top:2px}.v129QuestMeta{display:flex;align-items:center;gap:4px;flex-wrap:wrap;margin-top:5px}.actionQuest .v129QuestMeta{display:inline-flex;vertical-align:middle;margin:0 0 0 9px}.v129QuestBadge{display:inline-flex;align-items:center;border-radius:999px;padding:3px 7px;font-size:7px;line-height:1;font-weight:950;letter-spacing:.3px;text-transform:uppercase;border:1px solid #c7b18d;background:#f2e9d8;color:#694c28}.v129QuestBadge.difficulty{background:#ede4d6;color:#654324}.v129QuestBadge.length{background:#e7eef0;border-color:#b8c9cf;color:#355968}.step>.v129QuestMeta{margin:-1px 0 6px}@media(max-width:720px){.v128BossTop{grid-template-columns:1fr;gap:12px}.actionQuest .v129QuestMeta{display:flex;margin:6px 0 0}}
 .v130ConfirmModal{z-index:10040;background:rgba(20,9,3,.78);backdrop-filter:blur(3px)}.v130ConfirmBox{width:min(480px,100%);background:#fffaf0;color:#2b190d;border:2px solid #c88b2d;border-radius:16px;box-shadow:0 22px 60px rgba(0,0,0,.5);overflow:hidden}.v130ConfirmTop{display:flex;align-items:flex-start;gap:12px;padding:18px 19px 12px}.v130ConfirmIcon{width:42px;height:42px;flex:0 0 auto;display:flex;align-items:center;justify-content:center;border-radius:12px;background:#f2c35a;color:#4b260d;font-size:20px;font-weight:950;box-shadow:inset 0 0 0 1px #d7a53d}.v130ConfirmEyebrow{font-size:8px;line-height:1;text-transform:uppercase;letter-spacing:.7px;font-weight:950;color:#9a6b2e;margin:2px 0 6px}.v130ConfirmTitle{font-size:19px;line-height:1.18;font-weight:950;color:#321b0c}.v130ConfirmMessage{padding:0 19px 13px;color:#6d5942;font-size:11px;line-height:1.45}.v130ConfirmItems{margin:0 19px 16px;padding:7px 10px;background:#f2e7d5;border:1px solid #dac4a2;border-radius:10px;max-height:190px;overflow:auto}.v130ConfirmItem{display:flex;align-items:center;gap:8px;padding:7px 2px;font-size:11px}.v130ConfirmItem+.v130ConfirmItem{border-top:1px solid #dfcfb5}.v130ConfirmItem span{color:#4d8154;font-weight:950}.v130ConfirmActions{display:flex;justify-content:flex-end;gap:8px;padding:12px 18px;background:#eee0c8;border-top:1px solid #d9c2a0}.v130ConfirmActions button{min-width:105px}.v130ConfirmAccept{background:#5a3217!important;color:#fff3d4!important}.v130ConfirmModal.danger .v130ConfirmIcon{background:#efd6cf;color:#8b241d;box-shadow:inset 0 0 0 1px #d4a39a}.v130ConfirmModal.danger .v130ConfirmAccept{background:#8b241d!important}.v130ConfirmModal .hidden{display:none}
+.v130TonightTop{display:grid;grid-template-columns:1fr minmax(220px,320px);gap:22px;align-items:end;padding:15px 22px 13px}.v130TonightTop>div{display:flex;flex-direction:column;gap:5px}.v130TonightTop b{font-size:17px;color:#ffe2a1}.v130TonightTop>div span{max-width:680px;color:#c9b394;font-size:10px;line-height:1.4}.v130TonightTop label{display:flex;flex-direction:column;gap:5px}.v130TonightTop label span{font-size:8px;font-weight:950;text-transform:uppercase;letter-spacing:.55px;color:#d8c29b}.v130TonightTop select{width:100%;padding:10px 12px;font-size:12px;font-weight:850}.v130TonightPlan{padding:0 22px 18px}.v130TonightSummary{display:flex;align-items:center;justify-content:space-between;gap:18px;background:linear-gradient(135deg,#fff8e9,#f0dfbd);color:#321b0c;border:1px solid #c89a55;border-radius:13px;padding:14px 16px}.v130TonightSummary>div:first-child{min-width:0}.v130TonightSummary span{font-size:8px;font-weight:950;text-transform:uppercase;letter-spacing:.55px;color:#95662d}.v130TonightSummary h2{margin:4px 0;font-size:19px;line-height:1.15}.v130TonightSummary p{margin:0;color:#705b42;font-size:10px;line-height:1.4}.v130Budget{min-width:90px;text-align:center;background:#4b2b16;color:#fff1cf;border-radius:10px;padding:10px}.v130Budget b{display:block;font-size:18px}.v130Budget span{color:#e6ca94}.v130PlanBlocks{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:8px;margin-top:9px}.v130PlanBlock{display:grid;grid-template-columns:48px 1fr;gap:11px;background:#f8f1e5;color:#321b0c;border:1px solid #b98b51;border-radius:10px;padding:11px}.v130PlanBlock.main{border-color:#d39931;box-shadow:inset 3px 0 0 #d39931}.v130PlanBlock.prep{box-shadow:inset 3px 0 0 #6d8d6b}.v130PlanBlock.extra{box-shadow:inset 3px 0 0 #66828e}.v130PlanTime{display:flex;align-items:center;justify-content:center;align-self:start;min-height:38px;background:#4b2b16;color:#ffe4a6;border-radius:8px;font-size:10px;font-weight:950}.v130PlanKind{font-size:7px;font-weight:950;text-transform:uppercase;letter-spacing:.5px;color:#8c6333}.v130PlanBlock h3{font-size:13px;line-height:1.2;margin:3px 0 4px}.v130PlanBlock p{font-size:9px;line-height:1.4;color:#6e5a45;margin:0}.v130PlanBlock small{display:block;margin-top:6px;padding-top:5px;border-top:1px solid #dfcfb6;color:#436a49;font-size:8px;font-weight:850;line-height:1.35}.v130TonightNote{margin-top:9px;color:#bda98b;font-size:8px;line-height:1.35}@media(max-width:680px){.heroTabs{overflow-x:auto;justify-content:flex-start}.heroTab{flex:0 0 auto}.v130TonightTop{grid-template-columns:1fr;padding:13px;gap:12px}.v130TonightPlan{padding:0 13px 14px}.v130TonightSummary{align-items:stretch;flex-direction:column}.v130Budget{min-width:0}.v130PlanBlocks{grid-template-columns:1fr}}
 
 </style>
 <div id="v115Banner" class="v115Banner"><b>Quest Points increased</b><div id="v115BannerText"></div><div class="v115BannerActions"><button class="v115Btn primary" onclick="openV115QuestModal('QP Reconciliation')">Review completed quests</button><button class="v115Btn" onclick="hideV115Banner()">Dismiss</button></div></div>
