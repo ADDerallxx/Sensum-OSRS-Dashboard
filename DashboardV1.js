@@ -41,6 +41,7 @@ function getV1DashboardState(options) {
 
   const nextSession = {};
   nextRows.forEach(r => { if (r[0]) nextSession[r[0]] = r[1]; });
+  const bosses=readV128BossPlanner_(ss,statsRows),bossProgress=readV132BossProgress_();
 
   return {
     username: account.Username || 'Sensum',
@@ -53,11 +54,12 @@ function getV1DashboardState(options) {
     goals,
     accomplishedGoals,
     goalProgress: readV131GoalProgress_(ss, allGoals, statsRows, account, requirementIntel, routeRows),
-    bosses: readV128BossPlanner_(ss, statsRows),
+    bosses: bosses,
     bossGuides: v132BossGuides_(),
     bossLoadouts: V132B_WIKI_LOADOUTS,
     bossItemImages: V132B_ITEM_IMAGES,
-    bossProgress: readV132BossProgress_(),
+    bossProgress: bossProgress,
+    achievements: readV133Achievements_(ss,statsRows,account,allGoals,bosses,bossProgress),
     goalSummary: summary,
     topQuests: topRows.map(r => ({rank:r[0],quest:r[1],score:r[2],tier:r[3],downstream:r[4],why:r[5],rewards:rewardMap[String(r[1]||'').trim().toLowerCase()]||null})),
     blockedQuests: blockedRows.map(r => ({quest:r[0],score:r[1],downstream:r[2],blockedBy:r[3],missingSkills:r[4],hours:r[5]})),
