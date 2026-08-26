@@ -52,6 +52,7 @@ function getV1DashboardState(options) {
     routeDepth: Number(getRouteDepthValue_(dash) || 10),
     goals,
     accomplishedGoals,
+    goalProgress: readV131GoalProgress_(ss, allGoals, statsRows, account, requirementIntel, routeRows),
     bosses: readV128BossPlanner_(ss, statsRows),
     goalSummary: summary,
     topQuests: topRows.map(r => ({rank:r[0],quest:r[1],score:r[2],tier:r[3],downstream:r[4],why:r[5],rewards:rewardMap[String(r[1]||'').trim().toLowerCase()]||null})),
@@ -66,6 +67,70 @@ function getV1DashboardState(options) {
     planningMode:'Base levels only',
     wikiHealth: readV1WikiHealth_(dash)
   };
+}
+
+function readV131GoalProgress_(ss, goals, statsRows, account, requirementIntel, routeRows) {
+  const out = {}, stats = {}, completed = new Set();
+  (statsRows || []).forEach(r => stats[String(r[0] || '').trim().toLowerCase()] = Number(r[1] || 0));
+  let table = null;
+  try {
+    table = v115QuestTable_(ss);
+    table.vals.slice(table.headerRow + 1).forEach(r => {
+      if (/^(yes|true|complete|completed)$/i.test(String(r[table.cCol] || ''))) completed.add(String(r[table.qCol] || '').trim().toLowerCase());
+    });
+  } catch (e) {}
+
+  const depSheet = ss.getSheetByName('Quest Dependency'), depRows = depSheet ? depSheet.getDataRange().getDisplayValues() : [];
+  let headerRow = -1, headers = [];
+  for (let i = 0; i < Math.min(depRows.length, 10); i++) {
+    if (depRows[i].some(x => /^quest name$/i.test(String(x || '').trim()))) { headerRow = i; headers = depRows[i]; break; }
+  }
+  const col = name => headers.findIndex(x => String(x || '').trim().toLowerCase() === name);
+  const qCol = col('quest name'), prereqCol = col('direct prior quest requirement(s)'), otherCol = col('other requirements');
+  const questInfo = {}, questNames = [];
+  if (headerRow >= 0 && qCol >= 0) depRows.slice(headerRow + 1).forEach(r => {
+    const name = String(r[qCol] || '').trim();
+    if (name) { questNames.push(name); questInfo[name.toLowerCase()] = {prereq:String(r[prereqCol] || ''), other:String(r[otherCol] || '')}; }
+  });
+  const currentQp = Number(account['Quest Points'] || 0), totalQuests = questNames.length || 1;
+  const routeReady = (routeRows || []).filter(r => Number(r[6] || 0) <= 0).length, routeTotal = (routeRows || []).length || 1;
+  const dim = (label,current,target,detail) => ({label:label,current:current,target:target,percent:target ? Math.min(100,Math.round(current/target*100)) : 100,detail:detail});
+
+  (goals || []).forEach(goal => {
+    const dimensions = [], weighted = [];
+    if (/^accomplished$/i.test(goal.status || '')) {
+      out[goal.name.toLowerCase()] = {percent:100,status:'Accomplished',dimensions:[dim('Goal status',1,1,'Marked accomplished')]};
+      return;
+    }
+    const anchor = String(goal.anchor || '').trim(), anchorKey = anchor.toLowerCase(), info = questInfo[anchorKey];
+    if (anchor && info) {
+      const anchorDone = completed.has(anchorKey) ? 1 : 0;
+      dimensions.push(dim('Anchor quest',anchorDone,1,anchorDone ? `${anchor} complete` : `${anchor} incomplete`)); weighted.push({value:anchorDone*100,weight:40});
+      const prereqs = questNames.filter(name => info.prereq.toLowerCase().indexOf(name.toLowerCase()) >= 0);
+      if (prereqs.length) {
+        const done = prereqs.filter(name => completed.has(name.toLowerCase())).length;
+        dimensions.push(dim('Direct prerequisites',done,prereqs.length,`${done} of ${prereqs.length} complete`)); weighted.push({value:done/prereqs.length*100,weight:25});
+      }
+      const req = (requirementIntel || {})[anchorKey], skills = req && req.requiredSkills ? req.requiredSkills : [];
+      if (skills.length) {
+        const met = skills.filter(x => Number(stats[String(x.skill || '').toLowerCase()] || 0) >= Number(x.level || 0)).length;
+        dimensions.push(dim('Base skill requirements',met,skills.length,`${met} of ${skills.length} met`)); weighted.push({value:met/skills.length*100,weight:25});
+      }
+      const qpMatch = /quest points?\s+(\d+)/i.exec(info.other || '');
+      if (qpMatch) {
+        const targetQp = Number(qpMatch[1]);
+        dimensions.push(dim('Quest-point gate',Math.min(currentQp,targetQp),targetQp,`${currentQp} of ${targetQp} QP`)); weighted.push({value:Math.min(100,currentQp/targetQp*100),weight:10});
+      }
+    } else {
+      dimensions.push(dim('Account quest completion',completed.size,totalQuests,`${completed.size} of ${totalQuests} quests complete`));
+      dimensions.push(dim('Displayed route ready',routeReady,routeTotal,`${routeReady} of ${routeTotal} steps ready now`));
+      weighted.push({value:completed.size/totalQuests*100,weight:70},{value:routeReady/routeTotal*100,weight:30});
+    }
+    const weightTotal = weighted.reduce((s,x) => s+x.weight,0) || 1;
+    const percent = Math.round(weighted.reduce((s,x) => s+x.value*x.weight,0)/weightTotal);
+    out[goal.name.toLowerCase()] = {percent:Math.max(0,Math.min(100,percent)),status:percent>=100?'Ready to complete':percent>=70?'Close':percent>=35?'In progress':'Early progress',dimensions:dimensions};
+  });
+  return out;
 }
 
 function readV129QuestDisplayMeta_(sh) {
