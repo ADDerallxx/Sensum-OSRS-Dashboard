@@ -977,6 +977,29 @@ function getV115QuestCompletionState_() {
     return {...q,score,reasons};
   }).filter(q=>q.score>0).sort((a,b)=>b.score-a.score||a.quest.localeCompare(b.quest));
 
+  const detectedOptions=[];
+  if(gain>0){
+    const pool=likely.slice(0,12);
+    const addOption=indexes=>{
+      const rows=indexes.map(i=>pool[i]),qp=rows.reduce((sum,q)=>sum+Number(q.qp||0),0);
+      if(qp!==gain)return;
+      const score=rows.reduce((sum,q)=>sum+Number(q.score||0),0)+(4-rows.length)*15;
+      detectedOptions.push({quests:rows.map(q=>q.quest),score,qp});
+    };
+    for(let a=0;a<pool.length;a++){
+      addOption([a]);
+      for(let b=a+1;b<pool.length;b++){
+        addOption([a,b]);
+        for(let c=b+1;c<pool.length;c++)addOption([a,b,c]);
+      }
+    }
+    detectedOptions.sort((a,b)=>b.score-a.score||a.quests.length-b.quests.length);
+  }
+  const bestDetection=detectedOptions[0]||null, runnerUp=detectedOptions[1]||null;
+  const detectedCompletions=bestDetection&&(!runnerUp||bestDetection.score-runnerUp.score>=40)
+    ? {quests:bestDetection.quests,confidence:'high',reason:'Quest-point change and current route agree'}
+    : null;
+
   return {
     currentQp:current,
     previousQp:previous,
@@ -984,6 +1007,7 @@ function getV115QuestCompletionState_() {
     incomplete,
     completed,
     likely,
+    detectedCompletions,
     qpDetectionSource:'tracker'
   };
 }
