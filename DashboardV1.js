@@ -77,8 +77,12 @@ function refreshV22WikiSync(clientPayload) {
     let payload = clientPayload;
     if (!payload) {
       const url = 'https://sync.runescape.wiki/runelite/player/' + encodeURIComponent(username) + '/STANDARD';
-      const response = UrlFetchApp.fetch(url, {muteHttpExceptions:true,headers:{'User-Agent':'SensumOSRSDashboard/2.2'}});
-      if (response.getResponseCode() !== 200) throw new Error('WikiSync returned HTTP ' + response.getResponseCode() + '.');
+      let response = UrlFetchApp.fetch(url, {muteHttpExceptions:true,headers:{'User-Agent':'SensumOSRSDashboard/2.2'}});
+      if (response.getResponseCode() !== 200) {
+        const relay = 'https://api.allorigins.win/raw?url=' + encodeURIComponent(url);
+        response = UrlFetchApp.fetch(relay, {muteHttpExceptions:true,headers:{'User-Agent':'SensumOSRSDashboard/2.2'}});
+      }
+      if (response.getResponseCode() !== 200) throw new Error('WikiSync relay returned HTTP ' + response.getResponseCode() + '.');
       payload = JSON.parse(response.getContentText());
     }
     if (String(payload.username || '').trim().toLowerCase() !== username.toLowerCase()) throw new Error('WikiSync username did not match this dashboard.');
