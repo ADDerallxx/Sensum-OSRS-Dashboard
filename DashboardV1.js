@@ -54,6 +54,8 @@ function getV1DashboardState(options) {
     accomplishedGoals,
     goalProgress: readV131GoalProgress_(ss, allGoals, statsRows, account, requirementIntel, routeRows),
     bosses: readV128BossPlanner_(ss, statsRows),
+    bossGuides: v132BossGuides_(),
+    bossProgress: readV132BossProgress_(),
     goalSummary: summary,
     topQuests: topRows.map(r => ({rank:r[0],quest:r[1],score:r[2],tier:r[3],downstream:r[4],why:r[5],rewards:rewardMap[String(r[1]||'').trim().toLowerCase()]||null})),
     blockedQuests: blockedRows.map(r => ({quest:r[0],score:r[1],downstream:r[2],blockedBy:r[3],missingSkills:r[4],hours:r[5]})),
