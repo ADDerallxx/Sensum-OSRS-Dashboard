@@ -61,6 +61,13 @@ function v22WikiSyncMeta_() {
   };
 }
 
+function acknowledgeV237QuestDetection(currentQp,quests,disposition){
+  const props=PropertiesService.getScriptProperties(),qp=Math.max(0,Number(currentQp)||0);
+  props.setProperty('V115_LAST_RECONCILED_QP',String(qp));
+  props.setProperty('V237_LAST_DETECTION_ACK',JSON.stringify({quests:Array.isArray(quests)?quests:[],disposition:String(disposition||'dismissed'),qp:qp,at:new Date().toISOString()}));
+  return {ok:true,currentQp:qp};
+}
+
 function refreshV22WikiSync(clientPayload) {
   const lock = LockService.getScriptLock();
   if (!lock.tryLock(1000)) return {ok:true, skipped:true, message:'Live sync is already running.', state:getV1DashboardState({allowQuestHelperSync:false})};
@@ -1059,6 +1066,8 @@ function getV115QuestCompletionState_() {
     item.completionDate=found.date||'';
     item.completionDateSource=found.source||'';
     item.completionDateConfidence=found.confidence||'';
+    const source=String(found.source||'');
+    item.completionDateBadge=/f2p baseline/i.test(source)?'Assumed':(/observed|checklist|project chat/i.test(source)?'Historical':(/runelite/i.test(source)?'RuneLite':(/wiki|live detection/i.test(source)?'WikiSync':(found.date?'Confirmed':'Needs date'))));
   });
   completed.sort((a,b)=>{
     if(!a.completionDate&&!b.completionDate)return a.quest.localeCompare(b.quest);
@@ -1128,6 +1137,7 @@ function getV115QuestCompletionState_() {
     detectedGain:gain,
     incomplete,
     completed,
+    completionDateSummary:{needsDate:completed.filter(x=>!x.completionDate).length,dated:completed.filter(x=>!!x.completionDate).length,total:completed.length},
     likely,
     detectedCompletions,
     qpDetectionSource:'tracker'

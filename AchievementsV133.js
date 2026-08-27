@@ -19,8 +19,8 @@ function removeV133ManualAchievement(id){
 }
 
 function readV133Achievements_(ss,statsRows,account,allGoals,bosses,bossProgress){
-  const completed=new Set();
-  try{const t=v115QuestTable_(ss);t.vals.slice(t.headerRow+1).forEach(r=>{if(/^(yes|true|complete|completed)$/i.test(String(r[t.cCol]||'')))completed.add(String(r[t.qCol]||'').trim().toLowerCase())})}catch(e){}
+  const completed=new Set(),completedNames={};
+  try{const t=v115QuestTable_(ss);t.vals.slice(t.headerRow+1).forEach(r=>{if(/^(yes|true|complete|completed)$/i.test(String(r[t.cCol]||''))){const name=String(r[t.qCol]||'').trim(),key=name.toLowerCase();completed.add(key);completedNames[key]=name}})}catch(e){}
   const stats={};(statsRows||[]).forEach(r=>stats[String(r[0]||'').trim().toLowerCase()]=Number(r[1]||0));
   const levels=Object.values(stats).filter(x=>x>0),totalLevel=levels.reduce((a,b)=>a+b,0),combat=Number(account['Combat Level']||0),qp=Number(account['Quest Points']||0);
   const A=(id,category,title,detail,current,target,link)=>({id:id,category:category,title:title,detail:detail,current:current,target:target,percent:Math.max(0,Math.min(100,Math.round((target?current/target:1)*100))),unlocked:current>=target,link:link||'overview'});
@@ -40,6 +40,13 @@ function readV133Achievements_(ss,statsRows,account,allGoals,bosses,bossProgress
   let timeline=v133ReadTimeline_(),known=new Set(timeline.filter(x=>x.achievementId).map(x=>x.achievementId)),changed=false;
   achievements.filter(x=>x.unlocked&&!known.has(x.id)).forEach(x=>{timeline.push({id:v133EventId_(),achievementId:x.id,kind:'automatic',category:x.category,title:x.title,detail:x.detail,date:new Date().toISOString(),observed:true});known.add(x.id);changed=true});
   if(changed)v133WriteTimeline_(timeline);
+  const questDates=typeof v235ReadQuestDates_==='function'?v235ReadQuestDates_():{},questEvents=[];
+  Object.keys(questDates).forEach(key=>{
+    const entry=questDates[key]||{};if(!entry.date||!completed.has(key))return;
+    const display=completedNames[key]||key,source=String(entry.source||'Completion history');
+    questEvents.push({id:'quest-'+key.replace(/[^a-z0-9]+/g,'-'),kind:'quest',category:'Quest',title:display+' completed',detail:source,date:String(entry.date)+'T12:00:00.000Z',observed:entry.confidence==='observed'});
+  });
   const unlocked=achievements.filter(x=>x.unlocked),upcoming=achievements.filter(x=>!x.unlocked).sort((a,b)=>b.percent-a.percent||a.title.localeCompare(b.title)).slice(0,8);
-  return {summary:{unlocked:unlocked.length,total:achievements.length,quests:completed.size,totalLevel:totalLevel},achievements:achievements,timeline:timeline.slice().sort((a,b)=>String(b.date).localeCompare(String(a.date))).slice(0,100),upcoming:upcoming};
+  const merged=timeline.concat(questEvents).sort((a,b)=>String(b.date).localeCompare(String(a.date))).slice(0,150);
+  return {summary:{unlocked:unlocked.length,total:achievements.length,quests:completed.size,totalLevel:totalLevel},achievements:achievements,timeline:merged,upcoming:upcoming};
 }
