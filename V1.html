@@ -1439,6 +1439,7 @@ function confirmV115Detected(){
 function openV115CompletedHistory(){openV115QuestModal('Completed History')}
 function hideV115Banner(){document.getElementById('v115Banner').classList.remove('show')}
 function openV115QuestModal(src){
+  hideV115Banner();
   const modal=document.getElementById('v115Modal');
   const likely=document.getElementById('v115Likely');
   const all=document.getElementById('v115All');
@@ -1583,7 +1584,7 @@ function toggleV236CompletedManagement(){
 
 function v115Row(q){const checked=v115Selected.has(q.quest);return `<label class="v115Quest"><input type="checkbox" ${checked?'checked':''} onchange="toggleV115('${String(q.quest).replace(/'/g,"\\'")}',this.checked)"><span><b>${q.quest}</b>${q.reasons&&q.reasons.length?`<small>${q.reasons.join(' - ')}</small>`:''}</span><span>${q.qp||0} QP</span></label>`}
 function v235Today(){const d=new Date(),p=n=>String(n).padStart(2,'0');return `${d.getFullYear()}-${p(d.getMonth()+1)}-${p(d.getDate())}`}
-function primeV235QuestDate(el){if(!el.value){el.value=v235Today();el.dataset.primed='1'}}
+function primeV235QuestDate(el){if(!el.value){el.value=v235Today();el.dataset.primed='1';stageV235QuestDate(el)}}
 function stageV235QuestDate(el){v235PendingDates.set(el.dataset.quest,el.value);el.closest('.v124CompletedQuest').classList.add('v235Pending');updateV115Selected()}
 function v124CompletedRow(q){const note=q.completionDateSource?(q.completionDateConfidence==='observed'?'Observed complete by this date':q.completionDateSource):'Date needed — detected completion has no timestamp',pending=v235PendingDates.has(q.quest),value=pending?v235PendingDates.get(q.quest):(q.completionDate||'');return `<div class="v124CompletedQuest ${pending?'v235Pending':''}"><span class="v235CompletedName"><b>${esc(q.quest)}</b><small>${Number(q.qp||0)} QP · ${esc(note)}</small></span><label class="v235Date"><span>Completed</span><input type="date" value="${esc(value)}" data-quest="${esc(q.quest)}" onfocus="primeV235QuestDate(this)" onchange="stageV235QuestDate(this)"></label><button type="button" class="v115Btn danger v236IncompleteAction" data-quest="${esc(q.quest)}" onclick="unmarkV124Quest(this.dataset.quest)">Mark incomplete</button></div>`}
 function renderV115Quests(){if(!v115State)return;const f=(document.getElementById('v115Search').value||'').toLowerCase();const completed=(v115State.completed||[]).filter(q=>q.quest.toLowerCase().includes(f));document.getElementById('v115Qp').textContent=v115State.detectedGain?`Detected QP gain: +${v115State.detectedGain}`:'No unresolved QP increase.';document.getElementById('v115Likely').innerHTML=(v115State.likely||[]).filter(q=>q.quest.toLowerCase().includes(f)).map(v115Row).join('')||'<small>No likely matches.</small>';document.getElementById('v115All').innerHTML=(v115State.incomplete||[]).filter(q=>q.quest.toLowerCase().includes(f)).map(v115Row).join('')||'<small>No incomplete quests match.</small>';document.getElementById('v124Completed').innerHTML=completed.map(v124CompletedRow).join('')||'<small>No completed quests match.</small>';document.getElementById('v124CompletedCount').textContent=String((v115State.completed||[]).length);updateV115Selected()}
@@ -1673,8 +1674,8 @@ body.v115ModalOpen{overflow:hidden}
 .v115BusyTitle{font-size:15px;font-weight:900;margin-bottom:4px}
 .v115BusyText{font-size:11px;color:#6f5b43}
 @keyframes v115spin{to{transform:rotate(360deg)}}
-.v115Toast{position:fixed;z-index:10030;top:18px;left:50%;transform:translate(-50%,-140%);min-width:300px;max-width:min(620px,calc(100% - 30px));background:#e2efe1;color:#214e28;border:2px solid #4d8154;border-radius:12px;box-shadow:0 12px 30px rgba(0,0,0,.35);padding:12px 16px;font-size:12px;font-weight:800;transition:transform .35s ease}
-.v115Toast.show{transform:translate(-50%,0)}
+.v115Toast{position:fixed;z-index:10030;top:0;left:50%;transform:translate(-50%,calc(-100% - 12px));min-width:300px;max-width:min(620px,calc(100% - 30px));background:#e2efe1;color:#214e28;border:2px solid #4d8154;border-radius:12px;box-shadow:0 12px 30px rgba(0,0,0,.35);padding:12px 16px;font-size:12px;font-weight:800;transition:transform .35s ease;visibility:hidden;pointer-events:none}
+.v115Toast.show{transform:translate(-50%,18px);visibility:visible;pointer-events:auto}
 .v115Toast.error{background:#f2dddd;color:#761d17;border-color:#a62a21}
 .v115Toast{display:flex;align-items:center;justify-content:space-between;gap:14px}
 .v115ToastAction{border:1px solid #315f37;background:#fff;color:#214e28;border-radius:8px;padding:7px 12px;font-weight:900;cursor:pointer;white-space:nowrap}
