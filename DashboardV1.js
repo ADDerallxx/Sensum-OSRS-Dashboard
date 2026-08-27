@@ -118,6 +118,16 @@ function deleteV240Action(id){
   id=String(id||'');if(!id)throw new Error('Choose an action.');const lock=LockService.getScriptLock();lock.waitLock(10000);try{const sh=v240ActionSheet_();if(sh.getLastRow()>1){const ids=sh.getRange(2,1,sh.getLastRow()-1,1).getDisplayValues(),index=ids.findIndex(r=>String(r[0])===id);if(index>=0)sh.deleteRow(index+2);}return {ok:true,portfolio:getV240Portfolio()};}finally{lock.releaseLock();}
 }
 
+function v244WikiItems_(query,tracked){
+  query=String(query||'').trim().toLowerCase();tracked=tracked||[];if(!query&&!tracked.length)return [];
+  const cache=CacheService.getScriptCache(),key='V244_ITEMS_'+Utilities.base64EncodeWebSafe(JSON.stringify([query,tracked])).slice(0,180),cached=cache.get(key);if(cached)return JSON.parse(cached);
+  const root='https://prices.runescape.wiki/api/v1/osrs/',headers={'User-Agent':'SensumOSRSDashboard/2.44'},responses=UrlFetchApp.fetchAll(['mapping','latest'].map(path=>({url:root+path,headers:headers,muteHttpExceptions:true})));responses.forEach((r,i)=>{if(r.getResponseCode()<200||r.getResponseCode()>=300)throw new Error('OSRS Wiki item service returned HTTP '+r.getResponseCode()+'.')});
+  const mapping=JSON.parse(responses[0].getContentText()),latest=JSON.parse(responses[1].getContentText()).data||{},ids=new Set(tracked.map(x=>Number(x.itemId||x.id||0)).filter(Boolean)),names=new Set(tracked.map(x=>String(x.item||x.name||'').toLowerCase()).filter(Boolean));let rows=mapping.filter(x=>query?String(x.name||'').toLowerCase().includes(query):ids.has(Number(x.id))||names.has(String(x.name||'').toLowerCase()));if(query)rows.sort((a,b)=>{const an=String(a.name).toLowerCase(),bn=String(b.name).toLowerCase();return Number(!an.startsWith(query))-Number(!bn.startsWith(query))||an.length-bn.length||an.localeCompare(bn)}),rows=rows.slice(0,15);
+  const result=rows.map(item=>{const p=latest[String(item.id)]||{};return {id:Number(item.id),name:String(item.name||''),members:!!item.members,icon:String(item.icon||''),limit:Number(item.limit||0),high:Number(p.high||0),low:Number(p.low||0),highTime:Number(p.highTime||0),lowTime:Number(p.lowTime||0)}});try{cache.put(key,JSON.stringify(result),query?600:60)}catch(e){}return result;
+}
+function searchV244Items(query){return v244WikiItems_(query,[])}
+function getV244TrackedItemPrices(items){return {generatedAt:new Date().toISOString(),items:v244WikiItems_('',(items||[]).slice(0,100))}}
+
 function v243ProcessingSheet_(){
   const ss=SpreadsheetApp.openById(V1_TRACKER_ID);let sh=ss.getSheetByName('Money Making Processing');
   if(!sh){sh=ss.insertSheet('Money Making Processing');sh.getRange(1,1,1,16).setValues([['Batch ID','Start Date','Recipe','Inputs JSON','Output Item ID','Output Item','Planned','Processed','Sold','Sell Price','XP Each','Notes','Source','Updated At','Waste','Status']]);sh.setFrozenRows(1);}
