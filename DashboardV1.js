@@ -3,6 +3,15 @@ const V1_TRACKER_ID = '18cUN2RTytdinH9kpgqQhz9OZsKRpHrVAB2hiUotznKU';
 function saveV133ManualAchievement(title,note){return addV133ManualAchievement(title,note)}
 function deleteV133ManualAchievement(id){return removeV133ManualAchievement(id)}
 
+const V239_WIKI_ACK_KEY='V239_ACKNOWLEDGED_WIKI_REVISIONS';
+function v239WikiAcknowledgements_(){try{return JSON.parse(PropertiesService.getScriptProperties().getProperty(V239_WIKI_ACK_KEY)||'{}')}catch(e){return {}}}
+function acknowledgeV239WikiRevision(quest,revision){
+  quest=String(quest||'').trim();revision=String(revision||'').trim();if(!quest)throw new Error('Choose a quest alert.');
+  const ack=v239WikiAcknowledgements_();ack[quest.toLowerCase()]={revision:revision,acknowledgedAt:new Date().toISOString()};
+  PropertiesService.getScriptProperties().setProperty(V239_WIKI_ACK_KEY,JSON.stringify(ack));
+  return getV1DashboardState({allowQuestHelperSync:false});
+}
+
 function forceV134WiseOldManUpdate() {
   const lock = LockService.getScriptLock();
   if (!lock.tryLock(1000)) throw new Error('A Wise Old Man update is already running.');
@@ -167,7 +176,7 @@ function getV1DashboardState(options) {
     orderedBlockedQuests.map(r=>String(r.quest||'').toLowerCase()),
     routeRows.map(r=>String(r[1]||'').toLowerCase())
   ));
-  const wikiReviewQueue = (questLibrary.quests||[]).filter(q=>q.needsReview).map(q=>({name:q.name,status:q.wikiStatus,reason:q.reconciliation,lastVerified:q.lastVerified,wikiUrl:q.wikiUrl,relevant:relevantHealthQuests.has(q.name.toLowerCase())}));
+  const wikiReviewQueue = (questLibrary.quests||[]).filter(q=>q.needsReview).map(q=>({name:q.name,status:q.wikiStatus,reason:q.reviewReason,lastVerified:q.lastVerified,wikiUrl:q.wikiUrl,relevant:relevantHealthQuests.has(q.name.toLowerCase()),latestRevision:q.latestRevision,acknowledged:q.alertAcknowledged}));
   const account = {};
   accountRows.forEach(r => account[r[0]] = r[1]);
 
@@ -393,7 +402,7 @@ function readV134QuestLibrary_(sh, displayMeta) {
   const ready=col(/^ready now\?$/i),downstream=col(/^total downstream unlocks$/i),score=col(/^goal profile score$/i),why=col(/^goal profile why$/i),gap=col(/^skill gap summary$/i);
   const url=col(/^wiki url$/i),stored=col(/^wiki stored revision$/i),latest=col(/^wiki latest revision$/i),checked=col(/^wiki last checked$/i),status=col(/^wiki status$/i),recon=col(/^wiki reconciliation$/i);
   const clean = v => { const s=String(v||'').trim(); return (!s||/^none listed$/i.test(s))?'':s; };
-  const quests = [];
+  const quests = [],acknowledgements=v239WikiAcknowledgements_();
   values.slice(hr+1).forEach(r => {
     const name=q>=0?String(r[q]||'').trim():''; if(!name)return;
     const xpText=clean(r[xp]), itemText=clean(r[items]), unlockText=clean(r[unlocks]), combined=(xpText+' '+itemText+' '+unlockText).toLowerCase();
@@ -422,16 +431,19 @@ function readV134QuestLibrary_(sh, displayMeta) {
     const needsReview=!!((stored>=0&&latest>=0&&String(r[stored]||'')!==String(r[latest]||''))||!/^current$/i.test(wikiStatus)||!/^ok$/i.test(reconciliation));
     if(needsReview)categories.push('audit');
     const meta=(displayMeta||{})[name.toLowerCase()]||{};
+    const storedRevision=stored>=0?String(r[stored]||'').trim():'',latestRevision=latest>=0?String(r[latest]||'').trim():'',ack=acknowledgements[name.toLowerCase()]||{};
+    const alertAcknowledged=needsReview&&String(ack.revision||'')===latestRevision;
+    const reviewReason=storedRevision&&latestRevision&&storedRevision!==latestRevision?'Wiki page revision changed':(!/^ok$/i.test(reconciliation)?'Stored quest data needs reconciliation':(!/^current$/i.test(wikiStatus)?'Wiki cache is not current':'Review requested'));
     quests.push({
       name:name,completed:completed>=0&&/^(yes|true|complete|completed)$/i.test(String(r[completed]||'')),ready:ready>=0&&/^true$/i.test(String(r[ready]||'')),
       qp:Number(r[qp]||0),xp:xpText,items:itemText,unlocks:unlockText,rewardXp:rewardXp,categories:[...new Set(categories)],rewardBreadth:[...new Set(categories.filter(x=>!/^audit$/.test(x)))].length,
       difficulty:meta.difficulty||'',length:meta.length||'',downstream:Number(r[downstream]||0),accountScore:Number(r[score]||0),why:String(r[why]||''),missingSkills:clean(r[gap]),
-      wikiUrl:url>=0?String(r[url]||''):'',lastVerified:checked>=0?String(r[checked]||''):'',wikiStatus:wikiStatus||'UNKNOWN',reconciliation:reconciliation||'UNKNOWN',needsReview:needsReview
+      wikiUrl:url>=0?String(r[url]||''):'',lastVerified:checked>=0?String(r[checked]||''):'',wikiStatus:wikiStatus||'UNKNOWN',reconciliation:reconciliation||'UNKNOWN',storedRevision:storedRevision,latestRevision:latestRevision,needsReview:needsReview,reviewReason:reviewReason,alertAcknowledged:alertAcknowledged
     });
   });
   quests.sort((a,b)=>b.accountScore-a.accountScore||a.name.localeCompare(b.name));
-  const review=quests.filter(x=>x.needsReview).length;
-  return {quests:quests,audit:{current:quests.length-review,review:review,total:quests.length},generatedAt:new Date().toISOString()};
+  const review=quests.filter(x=>x.needsReview).length,pendingAlerts=quests.filter(x=>x.needsReview&&!x.alertAcknowledged).length;
+  return {quests:quests,audit:{current:quests.length-review,review:review,pendingAlerts:pendingAlerts,acknowledgedAlerts:review-pendingAlerts,total:quests.length},generatedAt:new Date().toISOString()};
 }
 
 function readV131GoalProgress_(ss, goals, statsRows, account, requirementIntel, routeRows) {
