@@ -1408,7 +1408,7 @@ function restoreV127GoalUi(name){
 }
 
 // V1.23b quest reporter - initialized in the main dashboard script.
-let v115State=null,v115Selected=new Set(),v115Source='Dashboard Manual',v115LastTx='',v115Detected=[],v115DetectedAlreadyComplete=false;
+let v115State=null,v115Selected=new Set(),v115Source='Dashboard Manual',v115LastTx='',v115Detected=[],v115DetectedAlreadyComplete=false,v235PendingDates=new Map();
 function loadV115(){
  google.script.run
   .withFailureHandler(e=>console.error('Quest completion state failed:',e))
@@ -1449,6 +1449,7 @@ function openV115QuestModal(src){
 
   v115Source=src||'Dashboard Manual';
   v115Selected.clear();
+  v235PendingDates.clear();
   document.getElementById('v115Search').value='';
   document.querySelectorAll('#v115Modal details.v235Likely,#v115Modal details.v115All,#v115Modal details.v124Manage').forEach(x=>x.removeAttribute('open'));
   const completedView=/Completed History/i.test(v115Source);
@@ -1457,7 +1458,7 @@ function openV115QuestModal(src){
   const completedPanel=document.querySelector('#v115Modal details.v124Manage');
   const footerLabel=document.getElementById('v115Selected'),footerButton=document.getElementById('v115ConfirmButton');
   const questBox=modal.querySelector('.v115Box'),scrollBehavior=document.body.classList.contains('v200ReducedMotion')?'auto':'smooth';
-  if(completedView){completedPanel.setAttribute('open','');footerLabel.textContent='Completion dates save automatically when selected.';footerButton.hidden=true;setTimeout(()=>completedPanel.scrollIntoView({block:'start',behavior:scrollBehavior}),80)}
+  if(completedView){completedPanel.setAttribute('open','');footerButton.hidden=false;setTimeout(()=>completedPanel.scrollIntoView({block:'start',behavior:scrollBehavior}),80)}
   else if(candidateView){likelyPanel.setAttribute('open','');footerButton.hidden=false;questBox.scrollTop=0}
   else{footerButton.hidden=false;questBox.scrollTop=0;setTimeout(()=>questBox.scrollTo({top:0,behavior:'auto'}),0)}
   modal.classList.add('show');
@@ -1494,7 +1495,7 @@ function openV115QuestModal(src){
     .withSuccessHandler(s=>{v115State=s;renderV115Quests();refreshStatus.textContent='Current'})
     .getV115QuestCompletionState();
 }
-function closeV115QuestModal(){document.getElementById('v115Modal').classList.remove('show');document.body.classList.remove('v115ModalOpen')}
+function closeV115QuestModal(){v235PendingDates.clear();document.getElementById('v115Modal').classList.remove('show');document.body.classList.remove('v115ModalOpen')}
 function showV115Busy(title,text){
   const box=document.getElementById('v115Busy');
   document.getElementById('v115BusyTitle').textContent=title||'Updating quest progress...';
@@ -1573,16 +1574,11 @@ function unmarkV124Quest(quest){
 function v115Row(q){const checked=v115Selected.has(q.quest);return `<label class="v115Quest"><input type="checkbox" ${checked?'checked':''} onchange="toggleV115('${String(q.quest).replace(/'/g,"\\'")}',this.checked)"><span><b>${q.quest}</b>${q.reasons&&q.reasons.length?`<small>${q.reasons.join(' - ')}</small>`:''}</span><span>${q.qp||0} QP</span></label>`}
 function v235Today(){const d=new Date(),p=n=>String(n).padStart(2,'0');return `${d.getFullYear()}-${p(d.getMonth()+1)}-${p(d.getDate())}`}
 function primeV235QuestDate(el){if(!el.value){el.value=v235Today();el.dataset.primed='1'}}
-function saveV235QuestDate(el){
-  const quest=el.dataset.quest,date=el.value;el.disabled=true;
-  google.script.run.withFailureHandler(e=>{el.disabled=false;showV115Toast('Date update failed: '+((e&&e.message)?e.message:String(e)),true)})
-    .withSuccessHandler(r=>{el.disabled=false;v115State=r.state||v115State;renderV115Quests();showV115Toast(date?`${quest} completion date saved.`:`${quest} date cleared.`,false)})
-    .saveV235QuestCompletionDate(quest,date);
-}
-function v124CompletedRow(q){const note=q.completionDateSource?(q.completionDateConfidence==='observed'?'Observed complete by this date':q.completionDateSource):'Date needed — detected completion has no timestamp';return `<div class="v124CompletedQuest"><span class="v235CompletedName"><b>${esc(q.quest)}</b><small>${Number(q.qp||0)} QP · ${esc(note)}</small></span><label class="v235Date"><span>Completed</span><input type="date" value="${esc(q.completionDate||'')}" data-quest="${esc(q.quest)}" onfocus="primeV235QuestDate(this)" onchange="saveV235QuestDate(this)"></label><button type="button" class="v115Btn danger" data-quest="${esc(q.quest)}" onclick="unmarkV124Quest(this.dataset.quest)">Mark incomplete</button></div>`}
+function stageV235QuestDate(el){v235PendingDates.set(el.dataset.quest,el.value);el.closest('.v124CompletedQuest').classList.add('v235Pending');updateV115Selected()}
+function v124CompletedRow(q){const note=q.completionDateSource?(q.completionDateConfidence==='observed'?'Observed complete by this date':q.completionDateSource):'Date needed — detected completion has no timestamp',pending=v235PendingDates.has(q.quest),value=pending?v235PendingDates.get(q.quest):(q.completionDate||'');return `<div class="v124CompletedQuest ${pending?'v235Pending':''}"><span class="v235CompletedName"><b>${esc(q.quest)}</b><small>${Number(q.qp||0)} QP · ${esc(note)}</small></span><label class="v235Date"><span>Completed</span><input type="date" value="${esc(value)}" data-quest="${esc(q.quest)}" onfocus="primeV235QuestDate(this)" onchange="stageV235QuestDate(this)"></label><button type="button" class="v115Btn danger" data-quest="${esc(q.quest)}" onclick="unmarkV124Quest(this.dataset.quest)">Mark incomplete</button></div>`}
 function renderV115Quests(){if(!v115State)return;const f=(document.getElementById('v115Search').value||'').toLowerCase();const completed=(v115State.completed||[]).filter(q=>q.quest.toLowerCase().includes(f));document.getElementById('v115Qp').textContent=v115State.detectedGain?`Detected QP gain: +${v115State.detectedGain}`:'No unresolved QP increase.';document.getElementById('v115Likely').innerHTML=(v115State.likely||[]).filter(q=>q.quest.toLowerCase().includes(f)).map(v115Row).join('')||'<small>No likely matches.</small>';document.getElementById('v115All').innerHTML=(v115State.incomplete||[]).filter(q=>q.quest.toLowerCase().includes(f)).map(v115Row).join('')||'<small>No incomplete quests match.</small>';document.getElementById('v124Completed').innerHTML=completed.map(v124CompletedRow).join('')||'<small>No completed quests match.</small>';document.getElementById('v124CompletedCount').textContent=String((v115State.completed||[]).length);updateV115Selected()}
 function toggleV115(q,on){on?v115Selected.add(q):v115Selected.delete(q);renderV115Quests()}
-function updateV115Selected(){if(!v115State)return;const button=document.getElementById('v115ConfirmButton');if(button&&button.hidden){document.getElementById('v115Selected').textContent='Completion dates save automatically when selected.';return}const rows=v115State.incomplete.filter(q=>v115Selected.has(q.quest));const qp=rows.reduce((a,b)=>a+(Number(b.qp)||0),0);let t=`Selected: ${rows.length} quest${rows.length===1?'':'s'} - ${qp} QP`;if(v115State.detectedGain)t+=qp===v115State.detectedGain?' - Matches detected change':` - Detected +${v115State.detectedGain}`;document.getElementById('v115Selected').textContent=t}
+function updateV115Selected(){if(!v115State)return;const rows=v115State.incomplete.filter(q=>v115Selected.has(q.quest)),dateCount=v235PendingDates.size,qp=rows.reduce((a,b)=>a+(Number(b.qp)||0),0),button=document.getElementById('v115ConfirmButton');let parts=[];if(rows.length)parts.push(`${rows.length} new quest${rows.length===1?'':'s'} · ${qp} QP`);if(dateCount)parts.push(`${dateCount} date change${dateCount===1?'':'s'}`);document.getElementById('v115Selected').textContent=parts.length?`Waiting to confirm: ${parts.join(' + ')}`:'No unconfirmed changes.';button.textContent=dateCount&&!rows.length?'Confirm date changes':'Confirm changes'}
 let v122SavingQuest=false;
 function setV122Saving(on){
   v122SavingQuest=!!on;
@@ -1594,10 +1590,13 @@ function setV122Saving(on){
 }
 function confirmV115Quests(){
   if(v122SavingQuest)return;
-  if(!v115Selected.size)return showV115Toast('Select at least one quest first.',true);
+  if(!v115Selected.size&&!v235PendingDates.size)return showV115Toast('No quest or date changes are waiting to be confirmed.',true);
   const names=[...v115Selected];
+  const dateChanges=[...v235PendingDates].map(([quest,date])=>({quest,date}));
   const qp=(v115State&&v115State.incomplete||[]).filter(q=>v115Selected.has(q.quest)).reduce((sum,q)=>sum+Number(q.qp||0),0);
-  openV130Confirm({eyebrow:'Quest completion',title:names.length===1?'Mark this quest complete?':`Mark ${names.length} quests complete?`,message:`This adds ${qp} quest point${qp===1?'':'s'} and refreshes your recommendations.`,items:names,confirmLabel:names.length===1?'Mark complete':'Mark all complete',icon:'★'},()=>{
+  const items=names.concat(dateChanges.map(x=>`${x.quest}: ${x.date||'clear date'}`));
+  const title=names.length?(names.length===1?'Confirm quest changes?':`Confirm ${names.length} new quests?`):`Confirm ${dateChanges.length} date change${dateChanges.length===1?'':'s'}?`;
+  openV130Confirm({eyebrow:'Quest progress',title,message:names.length?`New quests will be dated today. ${dateChanges.length?'Your date corrections will be saved at the same time.':''}`:'Dates are not saved until you confirm this change.',items,confirmLabel:'Confirm changes',icon:'★'},()=>{
    closeV115QuestModal();
    setV122Saving(true);
 
@@ -1612,7 +1611,7 @@ function confirmV115Quests(){
     })
     .withSuccessHandler(r=>{
       setV122Saving(false);
-      v115LastTx=r.transactionId;
+      v115LastTx=r.transactionId;v235PendingDates.clear();
       hideV115Banner();
 
       if(v115State){
@@ -1626,11 +1625,12 @@ function confirmV115Quests(){
         window.__sensumState=r.dashboard;
       }
 
-      const changed=r.changed||[];
-      const doneLabel=changed.length===1?changed[0]:`${changed.length} quests`;
-      showV115Toast(`${doneLabel} marked complete. Dashboard updated.`,false,{label:'Undo',onclick:'undoV124LastCompletion()'});
+      v115State=r.state||v115State;
+      const changed=r.changed||[],saved=r.savedDates||[];
+      const message=[changed.length?`${changed.length} quest${changed.length===1?'':'s'} completed`:'',saved.length?`${saved.length} date${saved.length===1?'':'s'} saved`:''].filter(Boolean).join(' · ');
+      showV115Toast(`${message}. Dashboard updated.`,false,changed.length?{label:'Undo',onclick:'undoV124LastCompletion()'}:null);
     })
-    .completeV122QuestsFast(names,v115Source,Number(v115State&&v115State.currentQp||0),'');
+    .commitV236QuestChanges(names,v115Source,Number(v115State&&v115State.currentQp||0),dateChanges,v235Today());
   });
 }
 function v123QuestReporterSelfTest(){
@@ -1671,6 +1671,7 @@ body.v115ModalOpen{overflow:hidden}
 .v124CompletedQuest{display:grid;grid-template-columns:minmax(180px,1fr) auto auto;align-items:center;gap:12px;padding:9px 2px;border-bottom:1px solid #ded1bb}
 .v124CompletedQuest:last-child{border-bottom:0}.v124CompletedQuest small{display:block;color:#756452;margin-top:2px}
 .v235Date{display:flex;flex-direction:column;gap:3px}.v235Date span{font-size:7px;text-transform:uppercase;font-weight:950;color:#806345}.v235Date input{border:1px solid #bfa67f;border-radius:7px;background:#fffaf2;color:#321b0c;padding:6px 8px;font:inherit}.v235Date input:disabled{opacity:.55}.v235CompletedName{min-width:0}@media(max-width:650px){.v124CompletedQuest{grid-template-columns:1fr auto}.v235Date{grid-column:1}.v124CompletedQuest>.danger{grid-column:2;grid-row:1/3}}
+.v124CompletedQuest.v235Pending{background:#fff1c9;box-shadow:inset 3px 0 0 #d99b29;padding-left:8px}.v124CompletedQuest.v235Pending .v235Date span:after{content:' · pending';color:#a25f13}
 .v115Btn.danger{background:#fff3f1;color:#8b241d;border-color:#b95d54;padding:6px 9px}
 .v124QuestStatus{display:flex;align-items:center;justify-content:space-between;gap:10px}.v124QuestStatus span{font-size:9px;font-weight:900;color:#756452;text-transform:uppercase;white-space:nowrap}
 .v124Manage{margin-top:12px;border-top:1px solid #c9b28d;padding-top:4px}.v124Manage summary{cursor:pointer;font-weight:900;padding:10px 0;color:#6d4b24}

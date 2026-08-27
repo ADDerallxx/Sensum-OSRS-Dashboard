@@ -988,7 +988,7 @@ function saveV235QuestCompletionDate(quest,date){
   const row=t.vals.slice(t.headerRow+1).find(r=>v235QuestDateKey_(r[t.qCol])===v235QuestDateKey_(quest));
   if(!row||!/^(yes|true|complete|completed)$/i.test(String(row[t.cCol]||'').trim()))throw new Error('Only completed quests can have a completion date.');
   const dates=v235ReadQuestDates_(),key=v235QuestDateKey_(quest);
-  if(date)dates[key]={date:date,source:'Dashboard calendar',confidence:'manual'};else delete dates[key];
+  dates[key]={date:date,source:date?'Dashboard calendar':'Date intentionally cleared',confidence:'manual'};
   PropertiesService.getScriptProperties().setProperty(V235_QUEST_DATE_KEY,JSON.stringify(dates));
   return {ok:true,state:getV115QuestCompletionState_()};
 }
@@ -1007,6 +1007,33 @@ function confirmV235DetectedQuestDates(quests,date){
   confirmed.forEach(q=>dates[v235QuestDateKey_(q)]={date:date,source:'Live detection confirmed',confidence:'manual'});
   PropertiesService.getScriptProperties().setProperty(V235_QUEST_DATE_KEY,JSON.stringify(dates));
   return {ok:true,confirmed:confirmed,state:getV115QuestCompletionState_()};
+}
+
+function v236SaveQuestDateChanges_(changes){
+  if(!Array.isArray(changes)||!changes.length)return [];
+  const ss=SpreadsheetApp.openById(V1_TRACKER_ID),t=v115QuestTable_(ss),completed=new Set();
+  t.vals.slice(t.headerRow+1).forEach(r=>{
+    if(/^(yes|true|complete|completed)$/i.test(String(r[t.cCol]||'').trim()))completed.add(v235QuestDateKey_(r[t.qCol]));
+  });
+  const dates=v235ReadQuestDates_(),saved=[];
+  changes.forEach(change=>{
+    const quest=String(change&&change.quest||'').trim(),date=String(change&&change.date||'').trim(),key=v235QuestDateKey_(quest);
+    if(!quest||!completed.has(key))throw new Error('Only completed quests can have a completion date: '+quest);
+    if(date&&!/^\d{4}-\d{2}-\d{2}$/.test(date))throw new Error('Use a valid completion date for '+quest+'.');
+    dates[key]={date:date,source:date?'Dashboard calendar':'Date intentionally cleared',confidence:'manual'};
+    saved.push(quest);
+  });
+  PropertiesService.getScriptProperties().setProperty(V235_QUEST_DATE_KEY,JSON.stringify(dates));
+  return saved;
+}
+
+function commitV236QuestChanges(quests,source,reconciledQp,dateChanges,newQuestDate){
+  quests=Array.isArray(quests)?quests:[];dateChanges=Array.isArray(dateChanges)?dateChanges:[];
+  if(!quests.length&&!dateChanges.length)throw new Error('No quest or date changes are waiting to be confirmed.');
+  let completion=null;
+  if(quests.length)completion=completeV122QuestsFast(quests,source,reconciledQp,newQuestDate);
+  const savedDates=v236SaveQuestDateChanges_(dateChanges);
+  return {ok:true,changed:completion?completion.changed:[],transactionId:completion?completion.transactionId:'',dashboard:completion?completion.dashboard:null,savedDates:savedDates,state:getV115QuestCompletionState_()};
 }
 
 function getV115QuestCompletionState_() {
