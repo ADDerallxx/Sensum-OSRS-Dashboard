@@ -51,6 +51,23 @@ function getV239WikiRevisionSummaries(requests){
   return results;
 }
 
+function getV240MoneyMakingData(options){
+  options=options||{};const runeBasis=Math.max(0,Number(options.runeCost)||0),capital=Math.max(0,Number(options.capital)||0),minVolume=Math.max(0,Number(options.minVolume)||0),members=String(options.members||'all');
+  const cache=CacheService.getScriptCache(),cacheKey='V240_'+[runeBasis,capital,minVolume,members].join('_'),cached=cache.get(cacheKey);if(cached)return JSON.parse(cached);
+  const root='https://prices.runescape.wiki/api/v1/osrs/',headers={'User-Agent':'SensumOSRSDashboard/2.40'};
+  const responses=UrlFetchApp.fetchAll(['mapping','latest','5m','1h'].map(path=>({url:root+path,headers:headers,muteHttpExceptions:true})));
+  responses.forEach((r,i)=>{if(r.getResponseCode()<200||r.getResponseCode()>=300)throw new Error('OSRS Wiki price feed returned HTTP '+r.getResponseCode()+' for '+['mapping','latest','5m','1h'][i]+'.')});
+  const mapping=JSON.parse(responses[0].getContentText()),latest=JSON.parse(responses[1].getContentText()).data||{},five=JSON.parse(responses[2].getContentText()),hour=JSON.parse(responses[3].getContentText()),fiveData=five.data||{},hourData=hour.data||{};
+  const nature=mapping.find(x=>String(x.name||'').toLowerCase()==='nature rune')||{},naturePrice=Number((latest[nature.id]||{}).high||(fiveData[nature.id]||{}).avgHighPrice||0),effectiveRuneCost=runeBasis||naturePrice;
+  const eligible=item=>members==='all'||members==='members'&&item.members||members==='f2p'&&!item.members;
+  const rows=mapping.filter(eligible).map(item=>{const id=String(item.id),p=latest[id]||{},f=fiveData[id]||{},h=hourData[id]||{},buy=Number(p.high||f.avgHighPrice||0),sell=Number(p.low||f.avgLowPrice||0),volume=Number(h.highPriceVolume||0)+Number(h.lowPriceVolume||0),recentVolume=Number(f.highPriceVolume||0)+Number(f.lowPriceVolume||0),limit=Math.max(0,Number(item.limit)||0),highalch=Math.max(0,Number(item.highalch)||0),fresh=Math.max(Number(p.highTime||0),Number(p.lowTime||0)),trend=h.avgHighPrice?((Number(f.avgHighPrice||h.avgHighPrice)-Number(h.avgHighPrice))/Number(h.avgHighPrice)*100):0;return {id:Number(item.id),name:item.name,members:!!item.members,icon:item.icon||'',limit:limit,highalch:highalch,buy:buy,sell:sell,volume:volume,recentVolume:recentVolume,fresh:fresh,trend:trend}}).filter(x=>x.buy>0&&x.volume>=minVolume);
+  const alchs=rows.filter(x=>x.highalch>0).map(x=>{const profit=Math.floor(x.highalch-x.buy-effectiveRuneCost),roi=x.buy+effectiveRuneCost>0?profit/(x.buy+effectiveRuneCost)*100:0,maxQty=x.limit||0,affordable=capital?Math.min(maxQty||Infinity,Math.floor(capital/(x.buy+effectiveRuneCost))):(maxQty||0),cycleProfit=profit*Math.max(0,Number.isFinite(affordable)?affordable:0),practicalScore=profit>0?profit*Math.log10(x.volume+10)*Math.log10((x.limit||1)+10):profit;return Object.assign({},x,{profit:profit,roi:roi,capitalEach:x.buy+effectiveRuneCost,affordable:Math.max(0,affordable||0),cycleProfit:cycleProfit,practicalScore:practicalScore})});
+  const merch=rows.filter(x=>x.sell>0&&x.buy>x.sell).map(x=>{const tax=Math.min(5000000,Math.floor(x.buy*.02)),margin=x.buy-tax-x.sell,roi=x.sell?margin/x.sell*100:0,maxQty=x.limit||0,affordable=capital?Math.min(maxQty||Infinity,Math.floor(capital/x.sell)):(maxQty||0),cycleProfit=margin*Math.max(0,Number.isFinite(affordable)?affordable:0),score=margin>0?margin*Math.log10(x.volume+10)*Math.log10((x.limit||1)+10)/(1+Math.abs(x.trend)/10):margin;return Object.assign({},x,{entry:x.sell,exit:x.buy,tax:tax,margin:margin,roi:roi,affordable:Math.max(0,affordable||0),cycleProfit:cycleProfit,practicalScore:score})}).filter(x=>x.margin>0);
+  const top=(list,key,n)=>list.slice().sort((a,b)=>b[key]-a[key]||b.volume-a.volume).slice(0,n);
+  const result={generatedAt:new Date().toISOString(),feedTimestamp:Math.max(Number(five.timestamp||0),Number(hour.timestamp||0))*1000,natureRune:{id:nature.id||561,livePrice:naturePrice,costBasis:effectiveRuneCost,manualBasis:!!runeBasis},highAlch:{highest:top(alchs,'profit',40),practical:top(alchs.filter(x=>x.profit>0&&x.volume>=Math.max(20,minVolume)),'practicalScore',40)},merch:{practical:top(merch,'practicalScore',40)},assumptions:{taxRate:.02,taxCap:5000000,magicXpPerCast:65,castsPerHour:1200,source:'OSRS Wiki real-time prices'}};
+  try{cache.put(cacheKey,JSON.stringify(result),120)}catch(e){}return result;
+}
+
 function forceV134WiseOldManUpdate() {
   const lock = LockService.getScriptLock();
   if (!lock.tryLock(1000)) throw new Error('A Wise Old Man update is already running.');
