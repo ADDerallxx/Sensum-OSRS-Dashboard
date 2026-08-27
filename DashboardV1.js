@@ -406,7 +406,12 @@ function readV134QuestLibrary_(sh, displayMeta) {
     });
     const categories=[];
     if(xpText)categories.push('xp');
+    if(rewardXp.guaranteed.length)categories.push('guaranteed');
     if(rewardXp.selectable.length||/\blamp\b|\btome\b/i.test(itemText))categories.push('selectable');
+    if(rewardXp.during.length)categories.push('during');
+    if(rewardXp.postQuest.length)categories.push('postquest');
+    if(itemText)categories.push('items');
+    if(Number(r[qp]||0)>0)categories.push('qp');
     if(/teleport|transport|boat|glider|fairy ring|spirit tree|minecart|passage|shortcut|travel/i.test(unlockText))categories.push('transport');
     if(/spellbook|spell|magick|magic/i.test(unlockText))categories.push('spellbooks');
     if(itemText||/armour|armor|weapon|staff|sword|shield|helm|glove|cape|bow/i.test(unlockText))categories.push('equipment');
@@ -419,7 +424,7 @@ function readV134QuestLibrary_(sh, displayMeta) {
     const meta=(displayMeta||{})[name.toLowerCase()]||{};
     quests.push({
       name:name,completed:completed>=0&&/^(yes|true|complete|completed)$/i.test(String(r[completed]||'')),ready:ready>=0&&/^true$/i.test(String(r[ready]||'')),
-      qp:Number(r[qp]||0),xp:xpText,items:itemText,unlocks:unlockText,rewardXp:rewardXp,categories:categories,
+      qp:Number(r[qp]||0),xp:xpText,items:itemText,unlocks:unlockText,rewardXp:rewardXp,categories:[...new Set(categories)],rewardBreadth:[...new Set(categories.filter(x=>!/^audit$/.test(x)))].length,
       difficulty:meta.difficulty||'',length:meta.length||'',downstream:Number(r[downstream]||0),accountScore:Number(r[score]||0),why:String(r[why]||''),missingSkills:clean(r[gap]),
       wikiUrl:url>=0?String(r[url]||''):'',lastVerified:checked>=0?String(r[checked]||''):'',wikiStatus:wikiStatus||'UNKNOWN',reconciliation:reconciliation||'UNKNOWN',needsReview:needsReview
     });
