@@ -613,7 +613,7 @@ function refreshV22LiveSync(){
   const target=`https://sync.runescape.wiki/runelite/player/${encodeURIComponent(username)}/STANDARD`;
   v22FetchJson(target,6000).catch(()=>v22FetchJson(`https://api.allorigins.win/raw?url=${encodeURIComponent(target)}`,12000))
     .then(payload=>{google.script.run.withFailureHandler(e=>{v22LiveSyncBusy=false;if(el)el.textContent='WikiSync unavailable · WOM data preserved';console.warn(e)})
-      .withSuccessHandler(r=>{v22LiveSyncBusy=false;if(r&&r.state)render(r.state);if(r&&!r.ok)showV115Toast('WikiSync unavailable; WOM data was preserved.',true)})
+      .withSuccessHandler(r=>{v22LiveSyncBusy=false;if(r&&r.state)render(r.state);if(r&&r.newlyCompletedQuests&&r.newlyCompletedQuests.length)showV235LiveQuestDetection(r.newlyCompletedQuests);if(r&&!r.ok)showV115Toast('WikiSync unavailable; WOM data was preserved.',true)})
       .refreshV22WikiSync(payload)})
     .catch(e=>{v22LiveSyncBusy=false;if(el){el.textContent='WikiSync unavailable · WOM data preserved';el.title=e.message||String(e)}});
 }
@@ -1408,7 +1408,7 @@ function restoreV127GoalUi(name){
 }
 
 // V1.23b quest reporter - initialized in the main dashboard script.
-let v115State=null,v115Selected=new Set(),v115Source='Dashboard Manual',v115LastTx='',v115Detected=[];
+let v115State=null,v115Selected=new Set(),v115Source='Dashboard Manual',v115LastTx='',v115Detected=[],v115DetectedAlreadyComplete=false;
 function loadV115(){
  google.script.run
   .withFailureHandler(e=>console.error('Quest completion state failed:',e))
@@ -1417,12 +1417,25 @@ function loadV115(){
 }
 function renderV115DetectionBanner(s){
   const detection=s.detectedCompletions,quests=detection&&Array.isArray(detection.quests)?detection.quests:[];
-  v115Detected=quests;
-  const text=document.getElementById('v115BannerText'),confirm=document.getElementById('v115ConfirmDetected');
-  if(quests.length){text.textContent=`It looks like you completed ${quests.join(' + ')} for +${s.detectedGain} QP. Is that correct?`;confirm.textContent=quests.length===1?`Yes — ${quests[0]}`:`Yes — mark ${quests.length} quests`;confirm.hidden=false}
-  else{text.textContent=`Detected +${s.detectedGain} QP, but there is not one safe quest match yet.`;confirm.hidden=true}
+  v115Detected=quests;v115DetectedAlreadyComplete=false;
+  const text=document.getElementById('v115BannerText'),confirm=document.getElementById('v115ConfirmDetected'),review=document.getElementById('v115ReviewCandidates');
+  if(quests.length){text.textContent=quests.length===1?`Did you complete ${quests[0]}?`:`Did you complete ${quests.join(' + ')}?`;confirm.textContent='Confirm';confirm.hidden=false;review.hidden=true}
+  else{text.textContent=`Detected +${s.detectedGain} QP, but there is not one safe quest match yet.`;confirm.hidden=true;review.hidden=false}
 }
-function confirmV115Detected(){if(!v115Detected.length)return;v115Selected=new Set(v115Detected);confirmV115Quests()}
+function showV235LiveQuestDetection(quests){
+  v115Detected=quests.slice();v115DetectedAlreadyComplete=true;
+  const text=$('v115BannerText'),confirm=$('v115ConfirmDetected');
+  text.textContent=quests.length===1?`Did you complete ${quests[0]}?`:`Did you complete ${quests.join(' + ')}?`;
+  confirm.textContent='Confirm';confirm.hidden=false;$('v115ReviewCandidates').hidden=true;$('v115Banner').classList.add('show');
+}
+function confirmV115Detected(){
+  if(!v115Detected.length||v122SavingQuest)return;
+  const names=v115Detected.slice(),today=v235Today();setV122Saving(true);
+  const done=r=>{setV122Saving(false);v115State=r.state||v115State;v115Detected=[];hideV115Banner();showV115Toast(`${(r.confirmed||r.changed||names).join(', ')} completed on ${today}.`,false)};
+  const failDate=e=>{setV122Saving(false);showV115Toast('Quest confirmation failed: '+((e&&e.message)?e.message:String(e)),true)};
+  if(v115DetectedAlreadyComplete){google.script.run.withFailureHandler(failDate).withSuccessHandler(done).confirmV235DetectedQuestDates(names,today);return;}
+  google.script.run.withFailureHandler(failDate).withSuccessHandler(done).completeV122QuestsFast(names,'Detected completion',Number(v115State&&v115State.currentQp||0),today);
+}
 function openV115CompletedHistory(){openV115QuestModal('Completed History')}
 function hideV115Banner(){document.getElementById('v115Banner').classList.remove('show')}
 function openV115QuestModal(src){
@@ -1437,11 +1450,14 @@ function openV115QuestModal(src){
   v115Source=src||'Dashboard Manual';
   v115Selected.clear();
   document.getElementById('v115Search').value='';
-  document.querySelectorAll('#v115Modal details.v115All,#v115Modal details.v124Manage').forEach(x=>x.removeAttribute('open'));
+  document.querySelectorAll('#v115Modal details.v235Likely,#v115Modal details.v115All,#v115Modal details.v124Manage').forEach(x=>x.removeAttribute('open'));
   const completedView=/Completed History/i.test(v115Source);
+  const candidateView=/QP Candidates/i.test(v115Source);
+  const likelyPanel=document.querySelector('#v115Modal details.v235Likely');
   const completedPanel=document.querySelector('#v115Modal details.v124Manage');
   const questBox=modal.querySelector('.v115Box'),scrollBehavior=document.body.classList.contains('v200ReducedMotion')?'auto':'smooth';
   if(completedView){completedPanel.setAttribute('open','');setTimeout(()=>completedPanel.scrollIntoView({block:'start',behavior:scrollBehavior}),80)}
+  else if(candidateView){likelyPanel.setAttribute('open','');questBox.scrollTop=0}
   else{questBox.scrollTop=0;setTimeout(()=>questBox.scrollTo({top:0,behavior:'auto'}),0)}
   modal.classList.add('show');
   document.body.classList.add('v115ModalOpen');
@@ -1613,7 +1629,7 @@ function confirmV115Quests(){
       const doneLabel=changed.length===1?changed[0]:`${changed.length} quests`;
       showV115Toast(`${doneLabel} marked complete. Dashboard updated.`,false,{label:'Undo',onclick:'undoV124LastCompletion()'});
     })
-    .completeV122QuestsFast(names,v115Source,Number(v115State&&v115State.currentQp||0));
+    .completeV122QuestsFast(names,v115Source,Number(v115State&&v115State.currentQp||0),'');
   });
 }
 function v123QuestReporterSelfTest(){
@@ -1657,6 +1673,7 @@ body.v115ModalOpen{overflow:hidden}
 .v115Btn.danger{background:#fff3f1;color:#8b241d;border-color:#b95d54;padding:6px 9px}
 .v124QuestStatus{display:flex;align-items:center;justify-content:space-between;gap:10px}.v124QuestStatus span{font-size:9px;font-weight:900;color:#756452;text-transform:uppercase;white-space:nowrap}
 .v124Manage{margin-top:12px;border-top:1px solid #c9b28d;padding-top:4px}.v124Manage summary{cursor:pointer;font-weight:900;padding:10px 0;color:#6d4b24}
+.v235Likely{margin-top:8px;border-top:1px solid #c9b28d;padding-top:4px}.v235Likely summary{cursor:pointer;font-weight:900;padding:10px 0;color:#6d4b24}
 .v127GoalControl{display:flex;gap:7px;align-items:center}.v127GoalControl select{min-width:210px}.v127ManageBtn,.v127CompleteBtn{border:1px solid #b8873c;border-radius:8px;background:#fff7df;color:#4b2c13;padding:8px 10px;font-weight:900;cursor:pointer}.v127ManageBtn{font-size:10px;white-space:nowrap}.v127CompleteBtn{background:#e4f0df;border-color:#72906b;color:#28502b}.v127CompleteBtn:disabled{opacity:.45;cursor:not-allowed}.v127GoalActions{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:11px;padding-top:10px;border-top:1px solid #ded1bb}.v127GoalActions span{font-size:9px;color:#756452;font-weight:750}.v127GoalRow{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:11px 2px;border-bottom:1px solid #ded1bb}.v127GoalRow small{display:block;color:#756452;margin-top:3px}.v127GoalEmpty{padding:20px;text-align:center;color:#756452}
 .v128BossTop{display:flex;align-items:end;justify-content:space-between;gap:14px;margin-bottom:12px}.v128BossTop>div{display:flex;flex-direction:column;gap:3px}.v128BossTop b{font-size:13px;color:#ffe2a1}.v128BossTop span{font-size:9px;color:#cdbb9b}.v128BossTop select{min-width:230px}.v128BossCard{background:#f8f1e5;color:#2d1b0f;border:1px solid #9b6a36;border-radius:12px;padding:13px}.v128BossHero{display:flex;align-items:flex-start;justify-content:space-between;gap:15px}.v128BossHero h3{font-size:20px;margin:5px 0 4px}.v128BossHero p{max-width:760px;margin:0;color:#6e5a45;font-size:10px;line-height:1.4}.v128Stage{display:inline-block;background:#4b2b16;color:#ffe0a0;border-radius:999px;padding:3px 7px;text-transform:uppercase;font-weight:900;letter-spacing:.4px}.v128Readiness{min-width:160px;border-radius:9px;padding:9px 11px;display:flex;flex-direction:column;gap:3px}.v128Readiness.ready{background:#dcebd7;color:#285b30}.v128Readiness.prep{background:#f5e0b1;color:#6d470d}.v128Readiness b{font-size:11px}.v128Readiness span{font-size:9px}.v128Stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(105px,1fr));gap:7px;margin-top:12px}.v128Stat{border:1px solid #d0bea2;border-radius:8px;padding:8px;display:grid;grid-template-columns:1fr auto;gap:2px 8px;background:#fffaf2}.v128Stat span{font-size:9px;font-weight:900;text-transform:uppercase;color:#70583f}.v128Stat b{font-size:16px}.v128Stat b small{font-size:9px;color:#7b6a59}.v128Stat em{grid-column:1/-1;font-size:8px;font-style:normal;font-weight:900}.v128Stat.met em{color:#397441}.v128Stat.short{border-color:#d39d74;background:#fff3ea}.v128Stat.short em{color:#a1432d}.v128PrepGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}.v128PrepGrid>div{background:#efe4d2;border-radius:8px;padding:9px;display:flex;flex-direction:column;gap:3px}.v128PrepGrid span{font-size:8px;text-transform:uppercase;font-weight:900;color:#806345}.v128PrepGrid b{font-size:11px}.v128PrepGrid small{font-size:9px;color:#6e5a45;line-height:1.35}.v128GoalBtn{margin-top:10px;border:1px solid #7b572e;background:#4b2b16;color:#fff0cd;border-radius:8px;padding:8px 11px;font-weight:900;cursor:pointer}@media(max-width:720px){.v128BossTop,.v128BossHero{align-items:stretch;flex-direction:column}.v128BossTop select{min-width:0;width:100%}.v128PrepGrid{grid-template-columns:1fr}.v128Readiness{min-width:0}}
 .v128BossTop{display:grid;grid-template-columns:minmax(250px,.7fr) minmax(320px,1.3fr);align-items:end;gap:24px;padding:7px 2px 2px;margin-bottom:14px}.v128BossTop .v128BossIntro{display:flex;flex-direction:column;gap:5px}.v128BossTop .v128BossIntro b{font-size:15px;line-height:1.15;color:#ffe2a1}.v128BossTop .v128BossIntro span{max-width:480px;font-size:10px;line-height:1.35;color:#cdbb9b}.v128BossPicker{display:flex;flex-direction:column;gap:5px}.v128BossPicker>span{font-size:8px;font-weight:950;letter-spacing:.55px;text-transform:uppercase;color:#d8c29b}.v128BossPicker select{width:100%;min-width:0;padding:10px 12px;font-size:12px;font-weight:850}.v128BossCard{padding:16px}.v128BossHero h3{font-size:22px;line-height:1.1;margin:7px 0 6px}.v128BossHero p{font-size:10px;line-height:1.5}.v128Stat{padding:10px}.v128PrepGrid>div{padding:11px}.v128PrepGrid small{margin-top:2px}.v129QuestMeta{display:flex;align-items:center;gap:4px;flex-wrap:wrap;margin-top:5px}.actionQuest .v129QuestMeta{display:inline-flex;vertical-align:middle;margin:0 0 0 9px}.v129QuestBadge{display:inline-flex;align-items:center;border-radius:999px;padding:3px 7px;font-size:7px;line-height:1;font-weight:950;letter-spacing:.3px;text-transform:uppercase;border:1px solid #c7b18d;background:#f2e9d8;color:#694c28}.v129QuestBadge.difficulty{background:#ede4d6;color:#654324}.v129QuestBadge.length{background:#e7eef0;border-color:#b8c9cf;color:#355968}.step>.v129QuestMeta{margin:-1px 0 6px}@media(max-width:720px){.v128BossTop{grid-template-columns:1fr;gap:12px}.actionQuest .v129QuestMeta{display:flex;margin:6px 0 0}}
@@ -1668,8 +1685,8 @@ body.v115ModalOpen{overflow:hidden}
 .v131GoalProgress{margin-top:11px;padding:11px 12px;background:#f3eadb;border:1px solid #d2bea0;border-radius:10px}.v131ProgressHead{display:flex;align-items:center;justify-content:space-between;gap:12px}.v131ProgressHead>div{display:flex;flex-direction:column;gap:2px}.v131ProgressHead span{font-size:8px;font-weight:950;text-transform:uppercase;letter-spacing:.5px;color:#8b673e}.v131ProgressHead b{font-size:11px;color:#3f2a18}.v131ProgressHead strong{font-size:20px;color:#4f3118}.v131Track,.v131MiniTrack{height:8px;background:#dcccad;border-radius:999px;overflow:hidden;margin-top:8px}.v131Track i,.v131MiniTrack i{display:block;height:100%;border-radius:inherit;background:linear-gradient(90deg,#b47a24,#e0b14c);transition:width .35s ease}.v131Dimensions{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:7px;margin-top:9px}.v131Dim{background:#fff9ef;border:1px solid #dfcfb6;border-radius:8px;padding:8px}.v131Dim>div:first-child{display:flex;align-items:center;justify-content:space-between;gap:7px}.v131Dim span{font-size:8px;font-weight:900;text-transform:uppercase;color:#705438}.v131Dim b{font-size:9px;color:#4b321d}.v131MiniTrack{height:5px;margin-top:6px}.v131Dim small{display:block;margin-top:5px;color:#756452;font-size:8px;line-height:1.3}.v131ProgressNote{margin-top:7px;color:#86735d;font-size:7px;line-height:1.3}
 
 </style>
-<div id="v115Banner" class="v115Banner"><b>Quest completion detected</b><div id="v115BannerText"></div><div class="v115BannerActions"><button id="v115ConfirmDetected" class="v115Btn primary" onclick="confirmV115Detected()" hidden>Confirm detected</button><button class="v115Btn primary" onclick="openV115CompletedHistory()">Review all completed</button><button class="v115Btn" onclick="openV115QuestModal('QP Candidates')">Review candidates</button><button class="v115Btn" onclick="hideV115Banner()">Dismiss</button></div></div>
-<div id="v115Modal" class="v115Modal"><div class="v115Box"><div class="v115Head"><b>Report or Correct Quests</b><button type="button" class="v115Btn" onclick="closeV115QuestModal()">Close</button></div><div class="v115Body"><div class="v124QuestStatus"><div id="v115Qp"></div><span id="v124RefreshStatus"></span></div><input id="v115Search" class="v115Search" placeholder="Search quests..." oninput="renderV115Quests()"><div class="v115Section">Likely completed</div><div id="v115Likely"></div><details class="v115All"><summary>All incomplete quests (A-Z)</summary><div id="v115All"></div></details><details class="v124Manage"><summary>Manage completed quests (<span id="v124CompletedCount">0</span>)</summary><div class="muted" style="margin-bottom:6px">Blank dates appear first, followed by newest completions. Open a blank calendar and it starts on today. Historical “observed” dates are best-known evidence and remain editable.</div><div id="v124Completed"></div></details></div><div class="v115Foot"><span id="v115Selected">Selected: 0 quests</span><button type="button" class="v115Btn primary" onclick="confirmV115Quests()">Confirm completions</button></div></div></div>
+<div id="v115Banner" class="v115Banner"><b>Quest completion detected</b><div id="v115BannerText"></div><div class="v115BannerActions"><button id="v115ConfirmDetected" class="v115Btn primary" onclick="confirmV115Detected()" hidden>Confirm</button><button class="v115Btn primary" onclick="openV115CompletedHistory()">Review all completed</button><button id="v115ReviewCandidates" class="v115Btn" onclick="openV115QuestModal('QP Candidates')" hidden>Review candidates</button><button class="v115Btn" onclick="hideV115Banner()">Dismiss</button></div></div>
+<div id="v115Modal" class="v115Modal"><div class="v115Box"><div class="v115Head"><b>Report or Correct Quests</b><button type="button" class="v115Btn" onclick="closeV115QuestModal()">Close</button></div><div class="v115Body"><div class="v124QuestStatus"><div id="v115Qp"></div><span id="v124RefreshStatus"></span></div><input id="v115Search" class="v115Search" placeholder="Search quests..." oninput="renderV115Quests()"><details class="v235Likely"><summary>Likely completed</summary><div id="v115Likely"></div></details><details class="v115All"><summary>All incomplete quests (A-Z)</summary><div id="v115All"></div></details><details class="v124Manage"><summary>Manage completed quests (<span id="v124CompletedCount">0</span>)</summary><div class="muted" style="margin-bottom:6px">Blank dates appear first, followed by newest completions. Open a blank calendar and it starts on today. Historical “observed” dates are best-known evidence and remain editable.</div><div id="v124Completed"></div></details></div><div class="v115Foot"><span id="v115Selected">Selected: 0 quests</span><button type="button" class="v115Btn primary" onclick="confirmV115Quests()">Confirm completions</button></div></div></div>
 <div id="v115Busy" class="v115Busy" aria-live="polite" aria-busy="true">
   <div class="v115BusyBox">
     <div class="v115Spinner"></div>

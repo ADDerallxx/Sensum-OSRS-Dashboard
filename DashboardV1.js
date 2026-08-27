@@ -102,14 +102,14 @@ function refreshV22WikiSync(clientPayload) {
     rows.forEach(r => liveLevelValues.push([r[1]]));
     statsSheet.getRange(3,2,24,1).setValues(liveLevelValues);
 
-    let newlyCompleted = 0;
+    let newlyCompleted = 0, newlyCompletedNames = [];
     const table = v115QuestTable_(ss), questRows = table.vals.slice(table.headerRow + 1), firstDataRow = table.headerRow + 2;
     const liveQuests = {};
     Object.keys(payload.quests).forEach(k => liveQuests[String(k).trim().toLowerCase()] = Number(payload.quests[k]));
     questRows.forEach(r => {
       const name = String(r[table.qCol] || '').trim(), status = String(r[table.cCol] || '').trim();
       if (name && liveQuests[name.toLowerCase()] === 2 && !/^(yes|true|complete|completed)$/i.test(status)) {
-        r[table.cCol] = 'Yes'; newlyCompleted++;
+        r[table.cCol] = 'Yes'; newlyCompleted++; newlyCompletedNames.push(name);
       }
     });
     if (newlyCompleted) table.sh.getRange(firstDataRow,table.cCol+1,questRows.length,1).setValues(questRows.map(r => [r[table.cCol]]));
@@ -122,7 +122,7 @@ function refreshV22WikiSync(clientPayload) {
       V22_WIKISYNC_COMPLETED_QUESTS: String(newlyCompleted)
     });
     SpreadsheetApp.flush();
-    return {ok:true,message:'Live levels and quest states updated.',updatedLevels:changedLevels,completedQuests:newlyCompleted,state:getV1DashboardState({allowQuestHelperSync:false})};
+    return {ok:true,message:'Live levels and quest states updated.',updatedLevels:changedLevels,completedQuests:newlyCompleted,newlyCompletedQuests:newlyCompletedNames,state:getV1DashboardState({allowQuestHelperSync:false})};
   } catch (e) {
     props.setProperty('V22_WIKISYNC_LAST_ERROR', String(e && e.message ? e.message : e));
     return {ok:false,message:String(e && e.message ? e.message : e),state:getV1DashboardState({allowQuestHelperSync:false})};
@@ -632,7 +632,7 @@ function v122ColLetter_(n) {
   return s;
 }
 
-function completeV122QuestsFast(quests,source,reconciledQp) {
+function completeV122QuestsFast(quests,source,reconciledQp,completionDate) {
   if(!Array.isArray(quests)||!quests.length)throw new Error('Select at least one quest.');
 
   const ss=SpreadsheetApp.openById(V1_TRACKER_ID);
@@ -661,6 +661,12 @@ function completeV122QuestsFast(quests,source,reconciledQp) {
   const tx=Utilities.getUuid(),now=new Date(),src=source||'Dashboard Manual';
   const logRows=changed.map(q=>[now,q,'No','Yes',src,tx]);
   log.getRange(log.getLastRow()+1,1,logRows.length,6).setValues(logRows);
+
+  if(completionDate&&/^\d{4}-\d{2}-\d{2}$/.test(String(completionDate))){
+    const dates=v235ReadQuestDates_();
+    changed.forEach(q=>dates[v235QuestDateKey_(q)]={date:String(completionDate),source:'Detected completion confirmed',confidence:'manual'});
+    PropertiesService.getScriptProperties().setProperty(V235_QUEST_DATE_KEY,JSON.stringify(dates));
+  }
 
   SpreadsheetApp.flush();
 
@@ -985,6 +991,22 @@ function saveV235QuestCompletionDate(quest,date){
   if(date)dates[key]={date:date,source:'Dashboard calendar',confidence:'manual'};else delete dates[key];
   PropertiesService.getScriptProperties().setProperty(V235_QUEST_DATE_KEY,JSON.stringify(dates));
   return {ok:true,state:getV115QuestCompletionState_()};
+}
+
+function confirmV235DetectedQuestDates(quests,date){
+  if(!Array.isArray(quests)||!quests.length)throw new Error('No detected quests were supplied.');
+  date=String(date||'').trim();
+  if(!/^\d{4}-\d{2}-\d{2}$/.test(date))throw new Error('Use a valid completion date.');
+  const ss=SpreadsheetApp.openById(V1_TRACKER_ID),t=v115QuestTable_(ss),wanted=new Set(quests.map(v235QuestDateKey_)),confirmed=[];
+  t.vals.slice(t.headerRow+1).forEach(r=>{
+    const quest=String(r[t.qCol]||'').trim();
+    if(wanted.has(v235QuestDateKey_(quest))&&/^(yes|true|complete|completed)$/i.test(String(r[t.cCol]||'').trim()))confirmed.push(quest);
+  });
+  if(!confirmed.length)throw new Error('The detected quest is not marked complete yet.');
+  const dates=v235ReadQuestDates_();
+  confirmed.forEach(q=>dates[v235QuestDateKey_(q)]={date:date,source:'Live detection confirmed',confidence:'manual'});
+  PropertiesService.getScriptProperties().setProperty(V235_QUEST_DATE_KEY,JSON.stringify(dates));
+  return {ok:true,confirmed:confirmed,state:getV115QuestCompletionState_()};
 }
 
 function getV115QuestCompletionState_() {
