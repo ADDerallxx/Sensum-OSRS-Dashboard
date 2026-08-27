@@ -924,6 +924,69 @@ function v115CurrentTrackerQp_(ss) {
   return found ? Number(found.offset(0,1).getValue()||0) : 0;
 }
 
+// Quest completion dates are intentionally separate from the completion flag:
+// WikiSync/RuneLite can prove that a quest is complete, but not when it happened.
+const V235_QUEST_DATE_KEY='V235_QUEST_COMPLETION_DATES';
+
+function v235QuestDateKey_(name){return String(name||'').trim().toLowerCase()}
+
+function v235ReadQuestDates_(){
+  try{return JSON.parse(PropertiesService.getScriptProperties().getProperty(V235_QUEST_DATE_KEY)||'{}')||{}}
+  catch(e){return {}}
+}
+
+function v235SeedQuestDates_(ss,completedNames){
+  const dates=v235ReadQuestDates_(), completed=new Set((completedNames||[]).map(v235QuestDateKey_));
+  let dirty=false;
+  const put=(quest,date,source,confidence)=>{
+    const key=v235QuestDateKey_(quest);
+    if(!completed.has(key)||dates[key])return;
+    dates[key]={date:date,source:source,confidence:confidence};dirty=true;
+  };
+
+  // User-directed baseline for every completed free-to-play quest in the
+  // screenshot-confirmed initial account snapshot.
+  ["Below Ice Mountain","Black Knights' Fortress","Cook's Assistant","The Corsair Curse","Demon Slayer","Doric's Quest","Dragon Slayer I","Ernest the Chicken","Goblin Diplomacy","Imp Catcher","The Knight's Sword","Learning the Ropes","Misthalin Mystery","Pirate's Treasure","Prince Ali Rescue","The Restless Ghost","Romeo & Juliet","Rune Mysteries","Sheep Shearer","Shield of Arrav","Vampyre Slayer","Witch's Potion","X Marks the Spot"]
+    .forEach(q=>put(q,'2023-01-01','F2P baseline (user supplied)','assumed'));
+
+  // Earlier project evidence only proves these were complete by this date.
+  ['Merlin\'s Crystal','Holy Grail','Fight Arena','Tree Gnome Village','The Grand Tree']
+    .forEach(q=>put(q,'2026-08-23','Drive checklist (observed complete)','observed'));
+  ['Animal Magnetism','Waterfall Quest']
+    .forEach(q=>put(q,'2026-08-20','Project chat (observed complete)','observed'));
+
+  // The dashboard's own append-only log is the strongest available evidence.
+  const log=ss.getSheetByName('Quest Completion Log');
+  if(log&&log.getLastRow()>1){
+    log.getRange(2,1,log.getLastRow()-1,6).getValues().forEach(r=>{
+      const quest=String(r[1]||'').trim(),status=String(r[3]||'').trim();
+      if(!quest||!/^yes$/i.test(status)||!completed.has(v235QuestDateKey_(quest)))return;
+      const d=r[0] instanceof Date?r[0]:new Date(r[0]);
+      if(isNaN(d.getTime()))return;
+      const date=Utilities.formatDate(d,Session.getScriptTimeZone()||'America/Denver','yyyy-MM-dd');
+      const key=v235QuestDateKey_(quest),existing=dates[key];
+      if(!existing||existing.confidence!=='manual'){
+        dates[key]={date:date,source:String(r[4]||'Dashboard completion log'),confidence:'logged'};dirty=true;
+      }
+    });
+  }
+  if(dirty)PropertiesService.getScriptProperties().setProperty(V235_QUEST_DATE_KEY,JSON.stringify(dates));
+  return dates;
+}
+
+function saveV235QuestCompletionDate(quest,date){
+  quest=String(quest||'').trim();date=String(date||'').trim();
+  if(!quest)throw new Error('Choose a quest.');
+  if(date&&!/^\d{4}-\d{2}-\d{2}$/.test(date))throw new Error('Use a valid completion date.');
+  const ss=SpreadsheetApp.openById(V1_TRACKER_ID),t=v115QuestTable_(ss);
+  const row=t.vals.slice(t.headerRow+1).find(r=>v235QuestDateKey_(r[t.qCol])===v235QuestDateKey_(quest));
+  if(!row||!/^(yes|true|complete|completed)$/i.test(String(row[t.cCol]||'').trim()))throw new Error('Only completed quests can have a completion date.');
+  const dates=v235ReadQuestDates_(),key=v235QuestDateKey_(quest);
+  if(date)dates[key]={date:date,source:'Dashboard calendar',confidence:'manual'};else delete dates[key];
+  PropertiesService.getScriptProperties().setProperty(V235_QUEST_DATE_KEY,JSON.stringify(dates));
+  return {ok:true,state:getV115QuestCompletionState_()};
+}
+
 function getV115QuestCompletionState_() {
   const ss=SpreadsheetApp.openById(V1_TRACKER_ID);
   const t=v115QuestTable_(ss);
@@ -941,7 +1004,19 @@ function getV115QuestCompletionState_() {
     (done?completed:incomplete).push(item);
   });
   incomplete.sort((a,b)=>a.quest.localeCompare(b.quest));
-  completed.sort((a,b)=>a.quest.localeCompare(b.quest));
+  const completionDates=v235SeedQuestDates_(ss,completed.map(x=>x.quest));
+  completed.forEach(item=>{
+    const found=completionDates[v235QuestDateKey_(item.quest)]||{};
+    item.completionDate=found.date||'';
+    item.completionDateSource=found.source||'';
+    item.completionDateConfidence=found.confidence||'';
+  });
+  completed.sort((a,b)=>{
+    if(!a.completionDate&&!b.completionDate)return a.quest.localeCompare(b.quest);
+    if(!a.completionDate)return -1;
+    if(!b.completionDate)return 1;
+    return b.completionDate.localeCompare(a.completionDate)||a.quest.localeCompare(b.quest);
+  });
 
   const props=PropertiesService.getScriptProperties();
   const current=v115CurrentTrackerQp_(ss);
