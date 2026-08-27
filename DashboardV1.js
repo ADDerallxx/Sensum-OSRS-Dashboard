@@ -12,6 +12,38 @@ function acknowledgeV239WikiRevision(quest,revision){
   return getV1DashboardState({allowQuestHelperSync:false});
 }
 
+function v239WikiSections_(text){
+  const sections={},source=String(text||''),rx=/^(={2,6})\s*(.*?)\s*\1\s*$/gm;let last=0,key='Overview',match;
+  while((match=rx.exec(source))){sections[key]=(sections[key]||'')+source.slice(last,match.index);key=String(match[2]||'').replace(/\[\[[^\]|]+\|([^\]]+)\]\]/g,'$1').replace(/[{}\[\]]/g,'').trim()||'Other';last=rx.lastIndex;}
+  sections[key]=(sections[key]||'')+source.slice(last);return sections;
+}
+function v239RevisionSummary_(oldText,newText){
+  const before=v239WikiSections_(oldText),after=v239WikiSections_(newText),keys=[...new Set(Object.keys(before).concat(Object.keys(after)))],changed=[];
+  keys.forEach(key=>{const clean=v=>String(v||'').replace(/\s+/g,' ').trim();if(clean(before[key])!==clean(after[key]))changed.push(key)});
+  const categories=[];changed.forEach(section=>{
+    if(/requirement|start point|items? required|recommended/i.test(section))categories.push('Requirements');
+    else if(/reward/i.test(section))categories.push('Rewards');
+    else if(/walkthrough|combat|fight|strategy|mechanic/i.test(section))categories.push('Walkthrough / mechanics');
+    else if(/transcript|dialogue/i.test(section))categories.push('Dialogue');
+    else if(/music/i.test(section))categories.push('Music');
+    else if(/trivia/i.test(section))categories.push('Trivia');
+    else if(/change|update history/i.test(section))categories.push('Wiki update history');
+    else categories.push(section==='Overview'?'Page overview':section);
+  });
+  return {changedSections:changed,categories:[...new Set(categories)],summary:changed.length?('Changed: '+[...new Set(categories)].join(', ')+'.'):'No text difference was returned for these revisions.'};
+}
+function getV239WikiRevisionSummaries(requests){
+  requests=(requests||[]).slice(0,25).map(x=>({name:String(x.name||''),stored:String(x.storedRevision||''),latest:String(x.latestRevision||'')}));
+  const valid=requests.filter(x=>/^\d+$/.test(x.stored)&&/^\d+$/.test(x.latest)&&x.stored!==x.latest),results={};
+  valid.forEach(x=>results[x.name]={name:x.name,status:'loading'});
+  const calls=valid.map(x=>({url:'https://oldschool.runescape.wiki/api.php?action=query&format=json&formatversion=2&prop=revisions&rvprop=ids%7Ccontent&rvslots=main&revids='+encodeURIComponent(x.stored+'|'+x.latest),headers:{'User-Agent':'SensumOSRSDashboard/2.39a'},muteHttpExceptions:true}));
+  if(calls.length){
+    UrlFetchApp.fetchAll(calls).forEach((response,index)=>{const item=valid[index];try{if(response.getResponseCode()<200||response.getResponseCode()>=300)throw new Error('Wiki HTTP '+response.getResponseCode());const data=JSON.parse(response.getContentText()),pages=(data.query&&data.query.pages)||[],revisions=[];pages.forEach(p=>(p.revisions||[]).forEach(r=>revisions.push(r)));const oldRev=revisions.find(r=>String(r.revid)===item.stored),newRev=revisions.find(r=>String(r.revid)===item.latest);if(!oldRev||!newRev)throw new Error('One of the Wiki revisions is unavailable.');const content=r=>r.slots&&r.slots.main?String(r.slots.main.content||''):'';results[item.name]=Object.assign({name:item.name,status:'ok'},v239RevisionSummary_(content(oldRev),content(newRev)));}catch(e){results[item.name]={name:item.name,status:'unavailable',summary:'The Wiki comparison could not be loaded: '+e.message,changedSections:[],categories:[]};}});
+  }
+  requests.filter(x=>!results[x.name]).forEach(x=>results[x.name]={name:x.name,status:'unavailable',summary:'Stored and latest revision IDs are not both available for comparison.',changedSections:[],categories:[]});
+  return results;
+}
+
 function forceV134WiseOldManUpdate() {
   const lock = LockService.getScriptLock();
   if (!lock.tryLock(1000)) throw new Error('A Wise Old Man update is already running.');
@@ -176,7 +208,7 @@ function getV1DashboardState(options) {
     orderedBlockedQuests.map(r=>String(r.quest||'').toLowerCase()),
     routeRows.map(r=>String(r[1]||'').toLowerCase())
   ));
-  const wikiReviewQueue = (questLibrary.quests||[]).filter(q=>q.needsReview).map(q=>({name:q.name,status:q.wikiStatus,reason:q.reviewReason,lastVerified:q.lastVerified,wikiUrl:q.wikiUrl,relevant:relevantHealthQuests.has(q.name.toLowerCase()),latestRevision:q.latestRevision,acknowledged:q.alertAcknowledged}));
+  const wikiReviewQueue = (questLibrary.quests||[]).filter(q=>q.needsReview).map(q=>({name:q.name,status:q.wikiStatus,reason:q.reviewReason,lastVerified:q.lastVerified,wikiUrl:q.wikiUrl,relevant:relevantHealthQuests.has(q.name.toLowerCase()),storedRevision:q.storedRevision,latestRevision:q.latestRevision,acknowledged:q.alertAcknowledged}));
   const account = {};
   accountRows.forEach(r => account[r[0]] = r[1]);
 
