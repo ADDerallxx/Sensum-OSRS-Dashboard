@@ -1040,6 +1040,10 @@ function commitV236QuestChanges(quests,source,reconciledQp,dateChanges,newQuestD
   let completion=null;
   if(quests.length)completion=completeV122QuestsFast(quests,source,reconciledQp,newQuestDate);
   const savedDates=v236SaveQuestDateChanges_(dateChanges);
+  if(savedDates.length&&!completion){
+    const qp=Math.max(0,Number(reconciledQp)||0);
+    PropertiesService.getScriptProperties().setProperty('V115_LAST_RECONCILED_QP',String(qp));
+  }
   return {ok:true,changed:completion?completion.changed:[],transactionId:completion?completion.transactionId:'',dashboard:completion?completion.dashboard:null,savedDates:savedDates,state:getV115QuestCompletionState_()};
 }
 
@@ -1083,7 +1087,12 @@ function getV115QuestCompletionState_() {
     props.setProperty('V115_LAST_RECONCILED_QP',String(current));
     previous=current;
   }
-  const gain=Math.max(0,current-previous);
+  let gain=Math.max(0,current-previous);
+  const historyComplete=completed.length>0&&completed.every(x=>!!x.completionDate);
+  if(gain>0&&historyComplete&&!props.getProperty('V237_FULL_HISTORY_RECONCILED')){
+    props.setProperties({V115_LAST_RECONCILED_QP:String(current),V237_FULL_HISTORY_RECONCILED:new Date().toISOString()});
+    previous=current;gain=0;
+  }
 
   const dash=ss.getSheetByName('Dashboard');
   const route=dash.getRange('A60:B69').getDisplayValues().map(r=>r[1]).filter(Boolean);
