@@ -1440,7 +1440,9 @@ function openV115QuestModal(src){
   document.querySelectorAll('#v115Modal details.v115All,#v115Modal details.v124Manage').forEach(x=>x.removeAttribute('open'));
   const completedView=/Completed History/i.test(v115Source);
   const completedPanel=document.querySelector('#v115Modal details.v124Manage');
-  if(completedView){completedPanel.setAttribute('open','');setTimeout(()=>completedPanel.scrollIntoView({block:'start',behavior:document.body.classList.contains('v200ReducedMotion')?'auto':'smooth'}),80)}
+  const questBox=modal.querySelector('.v115Box'),scrollBehavior=document.body.classList.contains('v200ReducedMotion')?'auto':'smooth';
+  if(completedView){completedPanel.setAttribute('open','');setTimeout(()=>completedPanel.scrollIntoView({block:'start',behavior:scrollBehavior}),80)}
+  else{questBox.scrollTop=0;setTimeout(()=>questBox.scrollTo({top:0,behavior:'auto'}),0)}
   modal.classList.add('show');
   document.body.classList.add('v115ModalOpen');
   const refreshStatus=document.getElementById('v124RefreshStatus');
