@@ -11,6 +11,13 @@ function acknowledgeV239WikiRevision(quest,revision){
   PropertiesService.getScriptProperties().setProperty(V239_WIKI_ACK_KEY,JSON.stringify(ack));
   return getV1DashboardState({allowQuestHelperSync:false});
 }
+function acknowledgeAllV239WikiRevisions(items){
+  items=(items||[]).slice(0,250);if(!items.length)return getV1DashboardState({allowQuestHelperSync:false});
+  const ack=v239WikiAcknowledgements_(),now=new Date().toISOString();
+  items.forEach(item=>{const quest=String(item.quest||item.name||'').trim(),revision=String(item.revision||item.latestRevision||'').trim();if(quest&&revision)ack[quest.toLowerCase()]={revision:revision,acknowledgedAt:now};});
+  PropertiesService.getScriptProperties().setProperty(V239_WIKI_ACK_KEY,JSON.stringify(ack));
+  return getV1DashboardState({allowQuestHelperSync:false});
+}
 
 function v239WikiSections_(text){
   const sections={},source=String(text||''),rx=/^(={2,6})\s*(.*?)\s*\1\s*$/gm;let last=0,key='Overview',match;

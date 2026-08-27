@@ -235,7 +235,8 @@
 @media(max-width:950px){.rewardDetailGrid{grid-template-columns:1fr}.rewardStats{grid-template-columns:1fr 1fr 1fr}}
 .v22Help img{display:none}.v22Help:before{content:'⌕';font-size:14px;line-height:1;color:#5c402b;font-weight:950}
 .v200Compact .shell{max-width:1720px;padding:8px 12px 24px}.v200Compact .grid,.v200Compact .route,.v200Compact details.section,.v200Compact .actionCard{margin-top:8px}.v200Compact .grid{gap:8px}.v200Compact .heroTop{padding:18px 15px 8px}.v200Compact .controls{padding:7px 15px;gap:7px}.v200Compact .metrics{padding:7px 15px 9px;gap:6px}.v200Compact .metric{min-height:48px;padding:7px 9px}.v200Compact .metric .v{font-size:16px}.v200Compact .head{padding:7px 10px;font-size:13px}.v200Compact .table th{padding:5px 7px}.v200Compact .table td{padding:6px 7px}.v200Compact .summary,.v200Compact .actionBody{padding:7px;gap:6px}.v200Compact .summaryBox,.v200Compact .actionStep{padding:7px;min-height:0}.v200Compact .routeGrid{padding:10px}.v200Compact .step{min-height:104px;padding:8px}.v200Compact .heroPanelIntro{padding-top:7px}.v200Compact .heroSkills{gap:5px;padding:7px 15px 10px}.v200Compact .heroSkills .skill{min-height:58px;padding:6px}.v200Compact .dataHealthBar{padding:6px 15px 7px}.v200Compact .v130TonightTop,.v200Compact .v130TonightPlan{padding-left:15px;padding-right:15px}
-</style>
+    .v135ReviewSummary{align-items:center}.v239ReviewHeadline{margin-left:auto}.v239AcknowledgeAll{border:1px solid #9a6b35;background:#4a2912;color:#ffd989;border-radius:6px;padding:5px 8px;font-size:8px;font-weight:950;cursor:pointer;text-transform:none}.v239AcknowledgeAll:disabled{opacity:.5;cursor:wait}
+  </style>
 
 <style id="v122RequirementStyles">
 .reqIntelStep{grid-column:1/-1!important;min-height:auto!important}
@@ -285,7 +286,7 @@
   <div class="hero">
     <div class="heroTop">
       <div><h1>Sensum OSRS Progression Dashboard</h1><div class="sub">Open this, see what matters, play the game.</div></div>
-      <div class="heroActions"><div id="v22BannerClock" class="v22Clock">—<small>Local time</small></div><button id="v134WomForce" type="button" class="womForce" onclick="forceV134WomUpdate()">↻ Force WOM Update</button><div class="version">V2.39a · Revision Summaries</div><button type="button" class="v201SettingsButton" onclick="openV201Settings()" title="Open settings" aria-label="Open settings"><img src="https://oldschool.runescape.wiki/images/Settings_%28historical%29.png" alt=""></button></div>
+      <div class="heroActions"><div id="v22BannerClock" class="v22Clock">—<small>Local time</small></div><button id="v134WomForce" type="button" class="womForce" onclick="forceV134WomUpdate()">↻ Force WOM Update</button><div class="version">V2.39b · Revision Review</div><button type="button" class="v201SettingsButton" onclick="openV201Settings()" title="Open settings" aria-label="Open settings"><img src="https://oldschool.runescape.wiki/images/Settings_%28historical%29.png" alt=""></button></div>
     </div>
     <div class="heroTabs" role="tablist" aria-label="Dashboard command center">
       <button type="button" id="heroTabOverview" class="heroTab active" role="tab" aria-selected="true" onclick="setHeroTab('overview')">Overview</button>
@@ -334,7 +335,7 @@
         <div class="healthMeta"><span>Sheet sync</span><b id="sync">—</b></div>
         <div class="healthMeta wide"><span>Wiki requirement audit</span><div id="health" class="health"></div></div>
       </div>
-      <details id="v135ReviewCenter" class="v135ReviewCenter"><summary><span class="v135ReviewSummary"><span>Wiki Review Queue</span><span id="v135ReviewHeadline">—</span></span></summary><div id="v135ReviewList" class="v135ReviewList"></div></details>
+      <details id="v135ReviewCenter" class="v135ReviewCenter"><summary><span class="v135ReviewSummary"><span>Wiki Review Queue</span><span id="v135ReviewHeadline" class="v239ReviewHeadline">—</span><button id="v239AcknowledgeAll" type="button" class="v239AcknowledgeAll" onclick="event.preventDefault();event.stopPropagation();acknowledgeAllV239Reviews()" hidden>Acknowledge all</button></span></summary><div id="v135ReviewList" class="v135ReviewList"></div></details>
     </div>
     <div id="heroPanelBosses" class="heroPanel" role="tabpanel" hidden>
       <div class="v128BossTop"><div class="v128BossIntro"><b>Boss Readiness Planner</b><span>Compare your synced stats with practical preparation targets. These are recommendations—not hard requirements.</span></div><label class="v128BossPicker"><span>Choose a boss</span><select id="v128BossSelect" onchange="renderV128Boss()"></select></label></div>
@@ -1054,6 +1055,7 @@ function dataHealth(s){
 function renderV135ReviewCenter(s){
   const ctx=s.dataHealthContext||{},rows=ctx.reviewQueue||[],relevant=Number(ctx.relevantReviews||0);
   const pending=rows.filter(q=>!q.acknowledged).length;
+  const acknowledgeAll=$('v239AcknowledgeAll');acknowledgeAll.hidden=!pending;acknowledgeAll.disabled=false;acknowledgeAll.textContent=`Acknowledge all (${pending})`;
   $('v135ReviewHeadline').textContent=relevant?`${relevant} affects current plan · ${pending} new alert${pending===1?'':'s'}`:`${pending} new alert${pending===1?'':'s'} · none affect current plan`;
   $('v135ReviewHeadline').classList.toggle('v135HealthAdvisory',!relevant&&rows.length>0);
   $('v135ReviewList').innerHTML=rows.length?rows.sort((a,b)=>Number(b.relevant)-Number(a.relevant)||Number(a.acknowledged)-Number(b.acknowledged)||a.name.localeCompare(b.name)).map(q=>{const encodedName=encodeURIComponent(q.name).replace(/'/g,'%27'),encodedRevision=encodeURIComponent(q.latestRevision||'').replace(/'/g,'%27'),change=v239RevisionSummaries[q.name],changeText=change?change.summary:(q.storedRevision&&q.latestRevision&&q.storedRevision!==q.latestRevision?'Open Review changes to compare the two Wiki revisions.':q.reason),sections=change&&change.changedSections&&change.changedSections.length?`<small class="v239ChangedSections">Wiki sections: ${esc(change.changedSections.join(' · '))}</small>`:'';return `<div class="v135ReviewRow"><b>${esc(q.name)}</b><span class="${q.relevant?'v135Relevant':q.acknowledged?'v135Acknowledged':'v135Queued'}">${q.relevant?'Current plan':q.acknowledged?'Alert reviewed':'New alert'}</span><span class="v239ReviewDetail"><strong>${esc(changeText)}</strong>${sections}<small>${esc(q.reason)}${q.lastVerified?` · checked ${esc(q.lastVerified)}`:''}</small></span><span class="v135ReviewActions">${q.wikiUrl?`<a href="${esc(q.wikiUrl)}" target="_blank" rel="noopener">Wiki ↗</a>`:''}${q.acknowledged?'':`<button type="button" onclick="acknowledgeV239Review('${encodedName}','${encodedRevision}')">Acknowledge</button>`}</span></div>`}).join(''):'<div class="v135ReviewRow"><b>No Wiki reviews pending.</b></div>';
@@ -1062,6 +1064,7 @@ function acknowledgeV239Review(name,revision){
   name=decodeURIComponent(name);revision=decodeURIComponent(revision);showV115Toast(`Acknowledging ${name} revision alert…`);
   google.script.run.withFailureHandler(fail).withSuccessHandler(s=>{render(s);showV115Toast(`${name} alert acknowledged. Underlying data remains in review.`)}).acknowledgeV239WikiRevision(name,revision);
 }
+function acknowledgeAllV239Reviews(){const rows=((((window.__sensumState||{}).dataHealthContext||{}).reviewQueue)||[]).filter(q=>!q.acknowledged&&q.latestRevision);if(!rows.length){showV115Toast('No new Wiki revision alerts to acknowledge.');return}const btn=$('v239AcknowledgeAll');btn.disabled=true;btn.textContent='Acknowledging…';showV115Toast(`Acknowledging ${rows.length} Wiki revision alert${rows.length===1?'':'s'}…`);google.script.run.withFailureHandler(e=>{btn.disabled=false;btn.textContent=`Acknowledge all (${rows.length})`;fail(e)}).withSuccessHandler(s=>{render(s);showV115Toast(`${rows.length} revision alert${rows.length===1?'':'s'} acknowledged. Future Wiki edits will still alert you.`)}).acknowledgeAllV239WikiRevisions(rows.map(q=>({quest:q.name,revision:q.latestRevision})))}
 
 function cleanRewardText(v){const s=String(v||'').trim();return(!s||/^none listed$/i.test(s))?'':s}
 function parseXpTotal(text){
