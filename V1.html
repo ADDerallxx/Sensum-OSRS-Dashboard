@@ -1655,8 +1655,8 @@ load();
 <style id="v115styles">
 .v115Report{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;margin-top:7px;background:#f0b83d;color:#321b0c;border:1px solid #d99b29;border-radius:8px;padding:8px 10px;font-size:13px;font-weight:900;cursor:pointer}
 .v115Report img{width:24px;height:24px;object-fit:contain;flex:0 0 auto}
-.v115Banner{position:fixed;z-index:9998;top:-220px;left:50%;transform:translateX(-50%);width:min(720px,calc(100% - 30px));background:#fff7df;color:#25180e;border:3px solid #d99b29;border-radius:0 0 14px 14px;box-shadow:0 12px 35px rgba(0,0,0,.38);padding:14px 16px;transition:top .45s ease}
-.v115Banner.show{top:0}.v115Banner b{font-size:15px}.v115BannerActions{margin-top:9px;display:flex;gap:8px;flex-wrap:wrap}
+.v115Banner{position:fixed;z-index:9998;top:0;left:50%;transform:translate(-50%,calc(-100% - 12px));width:min(720px,calc(100% - 30px));background:#fff7df;color:#25180e;border:3px solid #d99b29;border-radius:0 0 14px 14px;box-shadow:0 12px 35px rgba(0,0,0,.38);padding:14px 16px;transition:transform .45s ease;visibility:hidden;pointer-events:none}
+.v115Banner.show{transform:translate(-50%,0);visibility:visible;pointer-events:auto}.v115Banner b{font-size:15px}.v115BannerActions{margin-top:9px;display:flex;gap:8px;flex-wrap:wrap}
 body.v115ModalOpen{overflow:hidden}
 .v115Modal{position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.68);display:none;align-items:center;justify-content:center;padding:20px}
 .v115Modal.show{display:flex}.v115Box{width:min(760px,100%);max-height:88vh;overflow:auto;background:#f5efe4;color:#25180e;border:2px solid #8c5b2b;border-radius:14px;box-shadow:0 18px 50px rgba(0,0,0,.45)}
