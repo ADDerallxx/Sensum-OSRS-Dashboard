@@ -1069,6 +1069,8 @@ function confirmV235DetectedQuestDates(quests,date){
   const dates=v235ReadQuestDates_();
   confirmed.forEach(q=>dates[v235QuestDateKey_(q)]={date:date,source:'Live detection confirmed',confidence:'manual'});
   PropertiesService.getScriptProperties().setProperty(V235_QUEST_DATE_KEY,JSON.stringify(dates));
+  const currentQp=v115CurrentTrackerQp_(ss);
+  PropertiesService.getScriptProperties().setProperties({V115_LAST_RECONCILED_QP:String(currentQp),V237_LAST_DETECTION_ACK:JSON.stringify({quests:confirmed,disposition:'confirmed',qp:currentQp,at:new Date().toISOString()})});
   return {ok:true,confirmed:confirmed,state:getV115QuestCompletionState_()};
 }
 
