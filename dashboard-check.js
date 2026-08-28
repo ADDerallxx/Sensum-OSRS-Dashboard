@@ -1,3 +1,4 @@
+if (typeof require === 'function' && typeof process !== 'undefined') {
 const fs = require('fs');
 const vm = require('vm');
 
@@ -63,3 +64,4 @@ if (failures.length) {
 }
 
 console.log(`Dashboard checks passed: ${scripts.length} script block(s), ${ids.length} IDs, ${tabs.length} tabs, ${handlers.length} inline handlers.`);
+}
