@@ -127,6 +127,7 @@ function v244WikiItems_(query,tracked){
 }
 function searchV244Items(query){return v244WikiItems_(query,[])}
 function getV244TrackedItemPrices(items){return {generatedAt:new Date().toISOString(),items:v244WikiItems_('',(items||[]).slice(0,100))}}
+function getV253TrackedOutputPrices(outputs){const finished=(outputs||[]).slice(0,100).map(x=>({id:Number(x&&x.outputItemId||0),name:String(x&&x.outputItem||'').trim()})).filter(x=>x.id||x.name);return {generatedAt:new Date().toISOString(),scope:'finished outputs only',items:v244WikiItems_('',finished)}}
 function getV245VerifiedRecipe(item){
   const name=String(item&&item.name||item||'').trim().toLowerCase(),recipes={
     'amulet of chemistry':{recipe:'Lvl-2 Enchant — Amulet of chemistry',output:'Amulet of chemistry',skill:'Magic',level:27,xpEach:37,inputs:[{item:'Jade amulet',quantity:1},{item:'Cosmic rune',quantity:1},{item:'Air rune',quantity:3}],source:'https://oldschool.runescape.wiki/w/Amulet_of_chemistry',verified:'2026-08-27',modifierGroups:[{type:'Input replacement',description:'Supplies or replaces a consumed ingredient',icon:'Staff of air',options:[{item:'Staff of air',supplies:['Air rune']},{item:'Air battlestaff',supplies:['Air rune']},{item:'Mystic air staff',supplies:['Air rune']},{item:'Mist battlestaff',supplies:['Air rune','Water rune']},{item:'Dust battlestaff',supplies:['Air rune','Earth rune']},{item:'Smoke battlestaff',supplies:['Air rune','Fire rune']}]}]}
