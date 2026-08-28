@@ -61,6 +61,8 @@ check(/if\(context\)context\.hidden=name==='overview'/.test(html), 'Account cont
 check(/function\s+initV266MoneyWorkspace\s*\(/.test(html), 'Focused Money workspace initialization is missing.');
 check((html.match(/data-view="(?:overview|alch|merch|purchases|processing|profit)"/g) || []).length === 6, 'Money workspace must expose exactly six focused views.');
 check(/initV265PageWorkspaces\(\);initV266MoneyWorkspace\(\);restoreV258HeroTab\(\)/.test(html), 'Money workspace must initialize after page workspaces and before tab restoration.');
+check(/className='v267ProfitDock'/.test(html), 'Money workspace must keep the profit snapshot visible across sub-tabs.');
+check(/#v240AlchPractical,#v240AlchHighest,#v240MerchPractical\{max-height:238px\}/.test(html), 'Alch and merch scanners must use the compact five-row viewport.');
 
 const definedTokens = new Set([...html.matchAll(/(--[A-Za-z0-9_-]+)\s*:/g)].map(match => match[1]));
 const usedTokens = new Set([...html.matchAll(/var\(\s*(--[A-Za-z0-9_-]+)/g)].map(match => match[1]));
