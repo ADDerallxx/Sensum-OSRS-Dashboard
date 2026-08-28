@@ -49,6 +49,11 @@ check(!missingHandlers.size, `Inline handlers reference missing functions: ${[..
 
 check(!html.includes('[object Object]'), 'Literal [object Object] placeholder found.');
 
+const definedTokens = new Set([...html.matchAll(/(--[A-Za-z0-9_-]+)\s*:/g)].map(match => match[1]));
+const usedTokens = new Set([...html.matchAll(/var\(\s*(--[A-Za-z0-9_-]+)/g)].map(match => match[1]));
+const missingTokens = [...usedTokens].filter(token => !definedTokens.has(token));
+check(!missingTokens.length, `Undefined CSS design tokens: ${missingTokens.join(', ')}`);
+
 const modalIds = [...html.matchAll(/<div\s+id=["']([^"']+)["'][^>]*class=["'][^"']*\bv115Modal\b[^"']*["']/gi)]
   .map(match => match[1]);
 modalIds.forEach(id => {
@@ -63,5 +68,5 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log(`Dashboard checks passed: ${scripts.length} script block(s), ${ids.length} IDs, ${tabs.length} tabs, ${handlers.length} inline handlers.`);
+console.log(`Dashboard checks passed: ${scripts.length} script block(s), ${ids.length} IDs, ${tabs.length} tabs, ${handlers.length} inline handlers, ${definedTokens.size} design tokens.`);
 }

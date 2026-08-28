@@ -10,12 +10,22 @@
       --panel:#f5efe4;--panel2:#fffaf1;--brown:#321b0c;--brown2:#5a3217;
       --gold:#f0b83d;--gold2:#d99b29;--ink:#25180e;--muted:#786653;--line:#dbc9aa;
       --green:#34713c;--greenBg:#e2efe1;--red:#a62a21;--redBg:#f2dddd;
-      --amber:#a76516;--amberBg:#f4e6c8;--shadow:0 10px 28px rgba(0,0,0,.22)
+      --amber:#a76516;--amberBg:#f4e6c8;--shadow:0 10px 28px rgba(0,0,0,.22);
+      --surface-app:#100803;--surface-dark:#321b0c;--surface-dark-raised:#5a3217;
+      --surface-card:#f5efe4;--surface-field:#fffaf1;--surface-muted:#eee1ca;
+      --text-dark:#25180e;--text-muted:#786653;--text-on-dark:#fff3d4;
+      --brand-gold:#f0b83d;--brand-gold-border:#d99b29;--border-dark:#8c5b2b;--border-light:#dbc9aa;
+      --success:#34713c;--success-surface:#e2efe1;--danger:#a62a21;--danger-surface:#f2dddd;
+      --warning:#a76516;--warning-surface:#f4e6c8;
+      --space-1:4px;--space-2:8px;--space-3:12px;--space-4:16px;--space-5:24px;
+      --radius-sm:8px;--radius-md:10px;--radius-lg:14px;--radius-pill:999px;
+      --shadow-card:0 10px 28px rgba(0,0,0,.22);--shadow-modal:0 22px 60px rgba(0,0,0,.5);
+      --focus-ring:0 0 0 3px rgba(240,184,61,.42)
     }
     *{box-sizing:border-box}
     body{margin:0;font-family:Arial,sans-serif;background:radial-gradient(circle at 50% -20%,#3b200c 0,#1b0e06 42%,#100803 100%);color:#fff;min-height:100vh}
     .shell{max-width:1560px;margin:auto;padding:18px 24px 42px}
-    .hero,.card{border:1px solid #8c5b2b;box-shadow:var(--shadow)}
+    .hero,.card{border:1px solid var(--border-dark);box-shadow:var(--shadow-card)}
     .hero{background:linear-gradient(135deg,#1b0d05,#3a1f0b);border-radius:18px;overflow:hidden}
     .heroTop{position:relative;display:flex;align-items:end;justify-content:space-between;padding:25px 22px 12px;border-bottom:1px solid #633a1a}
     h1{margin:0;color:var(--gold);font-size:29px}.sub{color:#d9c3a4;font-size:12px;font-style:italic;margin-top:4px}
@@ -28,7 +38,7 @@
     .metric .k{font-size:9px;color:#cbb696;text-transform:uppercase;font-weight:900}.metric .v{font-size:19px;font-weight:900;margin-top:4px}
 
     .grid{display:grid;grid-template-columns:minmax(0,1.72fr) minmax(350px,.78fr);gap:14px;margin-top:14px}
-    .card{background:var(--panel);color:var(--ink);border-radius:14px;overflow:hidden}
+    .card{background:var(--surface-card);color:var(--text-dark);border-radius:var(--radius-lg);overflow:hidden}
     .head{background:linear-gradient(90deg,var(--brown),var(--brown2));color:#ffe2a1;padding:10px 14px;font-weight:900;font-size:15px;display:flex;align-items:center;gap:7px}
         .tableWrap{overflow:auto}.table{width:100%;border-collapse:collapse}
     .table th{background:#3c220f;color:#ffe2a1;text-align:left;padding:8px 9px;font-size:11px;white-space:nowrap}
@@ -253,6 +263,15 @@
     .v249IngredientsBanner,.v254NotesBanner,.v257ProgressBanner{margin-top:12px;box-shadow:0 5px 12px #48250e18;border-left:4px solid #9a5d24}.v254NotesExpanded .v243Preview{margin-top:-10px;border:1px solid #c99e63;border-top:0;border-radius:0;background:#f1e3cc}.v254NotesExpanded .v247Notes{margin-top:-10px;padding:7px 10px;border:1px solid #c99e63;border-top:0;border-radius:0 0 10px 10px;background:#fffaf1;opacity:.8}.v254NotesExpanded .v247Notes input{padding:6px;font-size:9px;font-weight:700}.v257ProgressBanner{grid-column:1/-1;border:1px solid #c99e63;border-left:4px solid #9a5d24;border-radius:10px;background:#f5e4c8;color:#452914;padding:10px 12px;text-align:left;cursor:pointer}.v257ProgressTop{display:flex;justify-content:space-between;gap:10px;font-size:10px;font-weight:950;text-transform:uppercase;letter-spacing:.08em}.v257ProgressPreview{margin:8px 0 0 18px;padding:0;display:grid;gap:4px;font-size:9px;font-weight:800;text-transform:none;letter-spacing:0}.v257ProgressExpanded .v257ProgressPreview{display:none}.v257ProgressCollapsed .v247Progress,.v257ProgressCollapsed .v247Price{display:none!important}.v257ProgressExpanded .v257ProgressBanner{border-radius:10px 10px 0 0;border-bottom:0;background:#ecd3aa}.v257ProgressExpanded .v247Progress,.v257ProgressExpanded .v247Price{margin-top:-10px;padding:9px;border-top:0;background:#fffaf1}.v257ProgressExpanded .v247Progress{border-bottom:1px solid #e1c8a2}.v257ProgressExpanded .v247Price{border-bottom:1px solid #c99e63}.v257ProgressExpanded .v247Price:last-child{border-radius:0 0 10px 0}
     .v249IngredientsBanner,.v254NotesBanner,.v257ProgressBanner{margin:12px 0 -2px!important;padding:0!important;border:0!important;border-radius:0!important;background:transparent!important;box-shadow:none!important;color:#4b2d17;text-align:left}.v249IngredientsBannerTop,.v254NotesBannerTop,.v257ProgressTop{padding:0 0 5px;border-bottom:1px solid #d7bd94;font-size:10px;font-weight:950;text-transform:uppercase;letter-spacing:.08em}.v249IngredientPreview,.v254NotesPreview,.v257ProgressPreview{margin:8px 0 2px 32px}.v249IngredientsExpanded .v244InputPicker{margin-top:0;border:1px solid #c99e63;border-radius:10px 10px 0 0}.v249IngredientsExpanded .v246InputEditor{margin-top:-10px;border:1px solid #c99e63;border-top:0;border-radius:0 0 10px 10px}.v254NotesExpanded .v243Preview{margin-top:0;border:1px solid #c99e63;border-radius:10px 10px 0 0}.v254NotesExpanded .v247Notes{margin-top:-10px}.v257ProgressExpanded .v247Progress,.v257ProgressExpanded .v247Price{margin-top:0}
     .v251JournalTable{min-width:1380px;table-layout:auto}.v251JournalTable th{position:sticky;top:0;z-index:2;white-space:nowrap}.v251JournalTable td{vertical-align:top;line-height:1.35}.v251JournalTable td:nth-child(n+6):nth-child(-n+13){text-align:right;white-space:nowrap}.v251JournalTable .v243BatchActions{min-width:150px;flex-wrap:wrap}.v260Invalid{border-color:#b7332d!important;box-shadow:0 0 0 2px #b7332d22!important}.v260Validation{grid-column:1/-1;display:none;padding:9px 11px;border:1px solid #c45c53;border-radius:8px;background:#fde8e4;color:#84251e;font-size:9px;font-weight:850;line-height:1.45}.v260Validation.show{display:block}@media(max-width:760px){.v247BatchBox{width:calc(100vw - 14px);max-height:calc(100vh - 14px);margin:7px}.v247BatchBox .v243BatchGrid{grid-template-columns:1fr;padding:13px}.v247BatchBox .v247OutputItem,.v247BatchBox .v247Quantity,.v247BatchBox .v247Recipe,.v247BatchBox .v247Date,.v247BatchBox .v247Progress,.v247BatchBox .v247Price{grid-column:1/-1}.v244InputPicker{grid-template-columns:1fr 1fr}.v244InputPicker label:first-child{grid-column:1/-1}.v246InputHead{display:none}.v246InputRow{grid-template-columns:1fr 1fr}.v246InputRow [data-field="item"]{grid-column:1/-1}.v246InputTotal{justify-content:flex-end}.v249IngredientPreview,.v254NotesPreview,.v257ProgressPreview{margin-left:18px}}
+    :where(button,input,select,textarea,summary,[tabindex]):focus-visible{outline:2px solid var(--brand-gold);outline-offset:2px;box-shadow:var(--focus-ring)}
+    :where(button,input,select,textarea){font-family:inherit}
+    :where(button):disabled{opacity:.55;cursor:not-allowed!important}
+    .v115Btn,.v127ManageBtn,.v127CompleteBtn,.v128GoalBtn,.v132OpenBtn,.v133Manual button,.v200BridgeActions button,.v239RevisionAlert button,.v239ClearFilters,.v241PlanButton,.v243BatchActions button{border-radius:var(--radius-sm);font-weight:900;cursor:pointer;transition:border-color .15s ease,background-color .15s ease,color .15s ease,transform .15s ease}
+    .v115Btn:active,.v127ManageBtn:active,.v127CompleteBtn:active,.v128GoalBtn:active,.v132OpenBtn:active,.v241PlanButton:active{transform:translateY(1px)}
+    .v115Modal .v115Box,.v201SettingsBox,.v132ModalBox,.v130ConfirmBox{box-shadow:var(--shadow-modal)}
+    .v115Modal input,.v115Modal select,.v115Modal textarea{border-radius:var(--radius-sm)}
+    .v115Toast,.v115BusyBox,.v260Validation{border-radius:var(--radius-lg)}
+    .v240ProfitPositive,.good{color:var(--success)!important}.v240ProfitNegative,.danger{color:var(--danger)!important}
     .v251JournalTable{min-width:1540px;table-layout:fixed}.v251JournalTable th,.v251JournalTable td{box-sizing:border-box;vertical-align:top;padding:9px 8px}.v251JournalTable th{white-space:normal;line-height:1.2}.v251JournalTable td{white-space:nowrap}.v251JournalTable th:nth-child(2),.v251JournalTable td:nth-child(2),.v251JournalTable th:nth-child(3),.v251JournalTable td:nth-child(3){white-space:normal}.v251JournalTable th:nth-child(1){width:92px}.v251JournalTable th:nth-child(2){width:190px}.v251JournalTable th:nth-child(3){width:225px}.v251JournalTable th:nth-child(4){width:145px}.v251JournalTable th:nth-child(5){width:105px}.v251JournalTable th:nth-child(n+6):nth-child(-n+13){width:88px}.v251JournalTable th:nth-child(14){width:175px}.v251InputLine{display:grid;grid-template-columns:minmax(95px,1fr) auto;gap:8px;padding:2px 0;border-bottom:1px dotted #dbc5a5}.v251InputLine:last-child{border-bottom:0}.v251InputLine b{color:#3f2918}.v251InputLine small{color:#755f47;text-align:right}.v251JournalSub{display:block;margin-top:3px;color:#78644c;font-size:7px}.v251SummaryStrong{font-weight:950;color:#4b2d17}
     .v251JournalTable th:nth-child(15),.v251JournalTable th:nth-child(16){width:135px}
     @media(max-width:900px){.v240MoneyTop{grid-template-columns:1fr 1fr}.v240Summary{grid-template-columns:1fr 1fr}.v240PortfolioSummary{grid-template-columns:1fr 1fr}.v241Controls{grid-template-columns:1fr 1fr}.v241Metrics{grid-template-columns:1fr 1fr}.v242Summary{grid-template-columns:1fr 1fr}.v243BatchGrid{grid-template-columns:1fr 1fr}.v243Preview{grid-template-columns:1fr 1fr}}
@@ -307,7 +326,7 @@
   <div class="hero">
     <div class="heroTop">
       <div><h1>Sensum OSRS Progression Dashboard</h1><div class="sub">Open this, see what matters, play the game.</div></div>
-        <div class="heroActions"><div id="v22BannerClock" class="v22Clock">—<small>Local time</small></div><button id="v134WomForce" type="button" class="womForce" onclick="forceV134WomUpdate()">↻ Force WOM Update</button><div class="version">V2.61b · Unified Interaction</div><button type="button" class="v201SettingsButton" onclick="openV201Settings()" title="Open settings" aria-label="Open settings"><img src="https://oldschool.runescape.wiki/images/Settings_%28historical%29.png" alt=""></button></div>
+        <div class="heroActions"><div id="v22BannerClock" class="v22Clock">—<small>Local time</small></div><button id="v134WomForce" type="button" class="womForce" onclick="forceV134WomUpdate()">↻ Force WOM Update</button><div class="version">V2.61c · Shared Design System</div><button type="button" class="v201SettingsButton" onclick="openV201Settings()" title="Open settings" aria-label="Open settings"><img src="https://oldschool.runescape.wiki/images/Settings_%28historical%29.png" alt=""></button></div>
     </div>
     <div class="heroTabs" role="tablist" aria-label="Dashboard command center">
       <button type="button" id="heroTabOverview" class="heroTab active" role="tab" aria-selected="true" onclick="setHeroTab('overview')">Overview</button>
@@ -1834,13 +1853,13 @@ load();
 .v115Banner.show{transform:translate(-50%,0);visibility:visible;pointer-events:auto}.v115Banner b{font-size:15px}.v115BannerActions{margin-top:9px;display:flex;gap:8px;flex-wrap:wrap}
 body.v115ModalOpen{overflow:hidden}
 .v115Modal{position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.68);display:none;align-items:center;justify-content:center;padding:20px}
-.v115Modal.show{display:flex}.v115Box{width:min(760px,100%);max-height:88vh;overflow:auto;background:#f5efe4;color:#25180e;border:2px solid #8c5b2b;border-radius:14px;box-shadow:0 18px 50px rgba(0,0,0,.45)}
+.v115Modal.show{display:flex}.v115Box{width:min(760px,100%);max-height:88vh;overflow:auto;background:var(--surface-card);color:var(--text-dark);border:2px solid var(--border-dark);border-radius:var(--radius-lg);box-shadow:var(--shadow-modal)}
 .v115Head{position:sticky;top:0;background:#321b0c;color:#ffe2a1;padding:13px 15px;display:flex;justify-content:space-between;z-index:2}
 .v115Body{padding:14px}.v115Search{width:100%;padding:10px;border:1px solid #b79b74;border-radius:8px;margin:8px 0 12px}
 .v115Quest{display:grid;grid-template-columns:24px 1fr auto;gap:8px;padding:8px;border-bottom:1px solid #ded1bb;align-items:center}
 .v115Quest small{display:block;color:#756452;margin-top:2px}.v115Section{font-size:11px;font-weight:900;text-transform:uppercase;color:#6d4b24;margin:12px 0 5px}
 .v115All summary{cursor:pointer;font-weight:900;padding:10px 0}.v115Foot{position:sticky;bottom:0;background:#eee1ca;border-top:1px solid #c9b28d;padding:11px 14px;display:flex;justify-content:space-between;gap:10px;align-items:center}
-.v115Btn{border:1px solid #8c5b2b;background:#fffaf1;color:#321b0c;border-radius:8px;padding:8px 11px;font-weight:900;cursor:pointer}.v115Btn.primary{background:#5a3217;color:#fff3d4}
+.v115Btn{border:1px solid var(--border-dark);background:var(--surface-field);color:var(--surface-dark);border-radius:var(--radius-sm);padding:8px 11px;font-weight:900;cursor:pointer}.v115Btn.primary{background:var(--surface-dark-raised);color:var(--text-on-dark)}
 .v115Busy{position:fixed;inset:0;z-index:10020;background:rgba(16,8,3,.62);display:none;align-items:center;justify-content:center;padding:20px}
 .v115Busy.show{display:flex}
 .v115BusyBox{min-width:280px;max-width:440px;background:#fff7df;color:#25180e;border:2px solid #d99b29;border-radius:14px;box-shadow:0 16px 45px rgba(0,0,0,.45);padding:18px 20px;text-align:center}
