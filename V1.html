@@ -290,6 +290,16 @@
     .v263Context button:hover{background:#321b0c}.v263Context span{display:block;color:#a99372;font-size:7px;font-weight:950;letter-spacing:.55px;text-transform:uppercase}
     .v263Context b{display:block;margin-top:2px;overflow:hidden;color:#f4dfb7;font-size:10px;text-overflow:ellipsis;white-space:nowrap}.v263Context .v263Health b{color:#8bd18f}.v263Context .v263Health.attention b{color:#e5bc61}.v263Context .v263Health.stale b{color:#ef8e77}.v263Context .v263Health.error b{color:#ff766d}
     .v263OverviewWorkspace[hidden]{display:none!important}.v263OverviewWorkspace{display:block}.v263WorkspaceEmpty{padding:24px;color:#cdbb9b;text-align:center}
+    .v265PageWorkspace{margin-top:14px;overflow:hidden;border:1px solid #8d5b2b;border-radius:14px;background:#f4eadb;box-shadow:0 8px 24px rgba(35,17,7,.2)}
+    .v265PageBanner{position:relative;background:linear-gradient(135deg,#241107,#452510);border-bottom:3px solid #bd7d20;box-shadow:0 5px 14px rgba(41,20,7,.2)}
+    .v265PageBanner:after{content:'';position:absolute;inset:auto 0 0;height:1px;background:#f0b84f66}
+    .v265PageContent{min-height:180px;background:linear-gradient(#f8f1e5,#efe3d0);color:#2d1b0f;padding:16px 0 4px}
+    #heroPanelStats .v265PageContent{padding-top:4px}#heroPanelBosses .v265PageContent,#heroPanelAchievements .v265PageContent,#heroPanelHealth .v265PageContent{padding:16px}
+    #heroPanelMoney .v240MoneyTop,#heroPanelLibrary .v134LibraryTop{background:#ead9bd;border:1px solid #ceb58d;border-radius:10px;margin:0 18px 12px}
+    #heroPanelMoney .v240MoneyTop label{color:#674a2b}#heroPanelMoney .v240MoneyStatus,#heroPanelLibrary .v134LibraryStatus{color:#765f43}
+    #heroPanelMoney .v240Source{color:#765f43}#heroPanelTonight .v130TonightNote{color:#76634b}
+    #heroPanelLibrary .v239RevisionAlert{background:#fff0cf;color:#5c3515}#heroPanelLibrary .v239RevisionAlert span{color:#7c5d36}
+    .v200Compact .v265PageWorkspace{margin-top:8px}.v200Compact .v265PageContent{padding-top:9px}
     @media(max-width:760px){.v263Context{display:flex;overflow-x:auto}.v263Context button{flex:0 0 132px}.v263Context button:first-child{flex-basis:190px}}
     .v251JournalTable{min-width:1540px;table-layout:fixed}.v251JournalTable th,.v251JournalTable td{box-sizing:border-box;vertical-align:top;padding:9px 8px}.v251JournalTable th{white-space:normal;line-height:1.2}.v251JournalTable td{white-space:nowrap}.v251JournalTable th:nth-child(2),.v251JournalTable td:nth-child(2),.v251JournalTable th:nth-child(3),.v251JournalTable td:nth-child(3){white-space:normal}.v251JournalTable th:nth-child(1){width:92px}.v251JournalTable th:nth-child(2){width:190px}.v251JournalTable th:nth-child(3){width:225px}.v251JournalTable th:nth-child(4){width:145px}.v251JournalTable th:nth-child(5){width:105px}.v251JournalTable th:nth-child(n+6):nth-child(-n+13){width:88px}.v251JournalTable th:nth-child(14){width:175px}.v251InputLine{display:grid;grid-template-columns:minmax(95px,1fr) auto;gap:8px;padding:2px 0;border-bottom:1px dotted #dbc5a5}.v251InputLine:last-child{border-bottom:0}.v251InputLine b{color:#3f2918}.v251InputLine small{color:#755f47;text-align:right}.v251JournalSub{display:block;margin-top:3px;color:#78644c;font-size:7px}.v251SummaryStrong{font-weight:950;color:#4b2d17}
     .v251JournalTable th:nth-child(15),.v251JournalTable th:nth-child(16){width:135px}
@@ -345,7 +355,7 @@
   <div class="hero">
     <div class="heroTop">
       <div><h1>Sensum OSRS Progression Dashboard</h1><div class="sub">Open this, see what matters, play the game.</div></div>
-        <div class="heroActions"><div id="v22BannerClock" class="v22Clock">—<small>Local time</small></div><button id="v134WomForce" type="button" class="womForce" onclick="forceV134WomUpdate()">↻ Force WOM Update</button><div class="version">V2.64 · Reliable Game Assets</div><button type="button" class="v201SettingsButton" onclick="openV201Settings()" title="Open settings" aria-label="Open settings"><img src="https://oldschool.runescape.wiki/w/Special:Redirect/file/Settings_%28historical%29.png" alt="" onerror="v264AssetError(this)"></button></div>
+        <div class="heroActions"><div id="v22BannerClock" class="v22Clock">—<small>Local time</small></div><button id="v134WomForce" type="button" class="womForce" onclick="forceV134WomUpdate()">↻ Force WOM Update</button><div class="version">V2.65 · Distinct Page Workspaces</div><button type="button" class="v201SettingsButton" onclick="openV201Settings()" title="Open settings" aria-label="Open settings"><img src="https://oldschool.runescape.wiki/w/Special:Redirect/file/Settings_%28historical%29.png" alt="" onerror="v264AssetError(this)"></button></div>
     </div>
     <div class="heroTabs" role="tablist" aria-label="Dashboard command center">
       <div class="v262TabGroup" role="presentation"><span class="v262TabGroupLabel">Play</span><button type="button" id="heroTabOverview" class="heroTab active" role="tab" aria-selected="true" onclick="setHeroTab('overview')">Overview</button><button type="button" id="heroTabTonight" class="heroTab" role="tab" aria-selected="false" onclick="setHeroTab('tonight')">Tonight</button></div>
@@ -1791,6 +1801,16 @@ function v263ReadScrolls(){try{return JSON.parse(sessionStorage.getItem(V263_SCR
 function v263ActivateWorkspace(name){const workspace=$('v263OverviewWorkspace');if(v263CurrentTab&&v263CurrentTab!==name){v263Scrolls[v263CurrentTab]=Math.max(0,window.scrollY||0);try{sessionStorage.setItem(V263_SCROLL_KEY,JSON.stringify(v263Scrolls))}catch(e){}}if(workspace)workspace.hidden=name!=='overview';const changed=v263CurrentTab!==name;v263CurrentTab=name;if(changed){const top=Math.max(0,Number(v263Scrolls[name]||0));requestAnimationFrame(()=>requestAnimationFrame(()=>window.scrollTo({top,behavior:'auto'})))}}
 function updateV263Context(){const goal=$('goal'),health=$('healthState'),healthButton=document.querySelector('.v263Health');if(!$('v263ContextGoal'))return;$('v263ContextGoal').textContent=goal&&goal.selectedOptions.length?goal.selectedOptions[0].textContent:'—';$('v263ContextQp').textContent=($('qp')&&$('qp').textContent)||'—';$('v263ContextCombat').textContent=($('combat')&&$('combat').textContent)||'—';$('v263ContextSync').textContent=($('sync')&&$('sync').textContent)||'—';$('v263ContextHealth').textContent=(health&&health.textContent)||'Checking…';if(healthButton){const state=String(health&&health.textContent||'').toLowerCase();healthButton.classList.toggle('attention',/attention|review/.test(state));healthButton.classList.toggle('stale',/stale/.test(state));healthButton.classList.toggle('error',/error|failed/.test(state))}}
 function initV263Workspaces(){v263Scrolls=v263ReadScrolls();const shell=document.querySelector('.shell'),hero=shell&&shell.querySelector(':scope > .hero');if(shell&&hero&&!$('v263OverviewWorkspace')){const workspace=document.createElement('div');workspace.id='v263OverviewWorkspace';workspace.className='v263OverviewWorkspace';[...shell.children].filter(child=>child!==hero).forEach(child=>workspace.appendChild(child));shell.appendChild(workspace)}const watched=['goal','qp','combat','sync','healthState'].map(id=>$(id)).filter(Boolean),observer=new MutationObserver(updateV263Context);watched.forEach(el=>observer.observe(el,{subtree:true,childList:true,attributes:true}));if($('goal'))$('goal').addEventListener('change',updateV263Context);updateV263Context()}
+function initV265PageWorkspaces(){
+  const shell=document.querySelector('.shell');if(!shell)return;
+  const banners={tonight:'.v130TonightTop',stats:'.v262PanelIntro',health:'.v262PanelIntro',bosses:'.v128BossTop',achievements:'.v133Top',money:'.v262PanelIntro',library:'.v262PanelIntro'};
+  Object.entries(banners).forEach(([name,selector])=>{
+    const cap=name[0].toUpperCase()+name.slice(1),panel=$('heroPanel'+cap);if(!panel||panel.classList.contains('v265PageWorkspace'))return;
+    const banner=document.createElement('div'),content=document.createElement('div'),lead=panel.querySelector(':scope > '+selector);
+    banner.className='v265PageBanner';content.className='v265PageContent';if(lead)banner.appendChild(lead);
+    [...panel.children].forEach(child=>content.appendChild(child));panel.append(banner,content);panel.classList.add('v265PageWorkspace');shell.appendChild(panel);
+  });
+}
 
 function applyV124CorrectionResult(r,message){
   v115State=r.state||v115State;
@@ -1900,7 +1920,7 @@ function v123QuestReporterSelfTest(){
   if(!b)return;
   b.dataset.reporterReady=(typeof openV115QuestModal==='function')?'1':'0';
 }
-document.addEventListener('DOMContentLoaded',()=>{initV261InteractionController();initV263Workspaces();restoreV258HeroTab();v123QuestReporterSelfTest();loadV115();});
+document.addEventListener('DOMContentLoaded',()=>{initV261InteractionController();initV263Workspaces();initV265PageWorkspaces();restoreV258HeroTab();v123QuestReporterSelfTest();loadV115();});
 load();
 </script>
 <style id="v115styles">

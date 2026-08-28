@@ -53,6 +53,8 @@ check(/function\s+v264AssetError\s*\(/.test(html), 'Shared image retry/fallback 
 check(/function\s+v125SkillIcon[\s\S]{0,400}v264WikiAsset/.test(html), 'Skill icons do not use the shared asset resolver.');
 check(/function\s+v240Icon[\s\S]{0,300}v264WikiAsset/.test(html), 'Money and processing item icons do not use the shared asset resolver.');
 check(/function\s+v132ItemImage[\s\S]{0,400}v264WikiAsset/.test(html), 'Boss equipment icons do not use the shared asset resolver.');
+check(/function\s+initV265PageWorkspaces\s*\(/.test(html), 'Distinct non-Overview page workspace initialization is missing.');
+check(/initV263Workspaces\(\);initV265PageWorkspaces\(\);restoreV258HeroTab\(\)/.test(html), 'Page workspaces must initialize after Overview isolation and before tab restoration.');
 
 const definedTokens = new Set([...html.matchAll(/(--[A-Za-z0-9_-]+)\s*:/g)].map(match => match[1]));
 const usedTokens = new Set([...html.matchAll(/var\(\s*(--[A-Za-z0-9_-]+)/g)].map(match => match[1]));
