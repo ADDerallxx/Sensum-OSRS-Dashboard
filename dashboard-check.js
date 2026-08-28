@@ -48,6 +48,8 @@ handlers.forEach(handler => {
 check(!missingHandlers.size, `Inline handlers reference missing functions: ${[...missingHandlers].join(', ')}`);
 
 check(!html.includes('[object Object]'), 'Literal [object Object] placeholder found.');
+const closingHtml = html.toLowerCase().lastIndexOf('</html>');
+check(closingHtml >= 0 && !html.slice(closingHtml + 7).trim(), 'Unexpected content found after the closing </html> tag.');
 check(/function\s+v264WikiAsset\s*\(/.test(html), 'Shared OSRS Wiki asset resolver is missing.');
 check(/function\s+v264AssetError\s*\(/.test(html), 'Shared image retry/fallback handler is missing.');
 check(/function\s+v125SkillIcon[\s\S]{0,400}v264WikiAsset/.test(html), 'Skill icons do not use the shared asset resolver.');
