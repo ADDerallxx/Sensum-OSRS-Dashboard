@@ -1,0 +1,65 @@
+const fs = require('fs');
+const vm = require('vm');
+
+const file = process.argv[2] || 'V1.html';
+const html = fs.readFileSync(file, 'utf8');
+const failures = [];
+const warnings = [];
+
+function check(condition, message) {
+  if (!condition) failures.push(message);
+}
+
+const scripts = [...html.matchAll(/<script[^>]*>([\s\S]*?)<\/script>/gi)]
+  .map(match => match[1])
+  .filter(source => source.trim());
+
+scripts.forEach((source, index) => {
+  try {
+    new vm.Script(source, { filename: `${file}#script${index + 1}` });
+  } catch (error) {
+    failures.push(`JavaScript syntax error: ${error.message}`);
+  }
+});
+
+const ids = [...html.matchAll(/\bid=["']([^"']+)["']/gi)].map(match => match[1]);
+const duplicateIds = [...new Set(ids.filter((id, index) => ids.indexOf(id) !== index))];
+check(!duplicateIds.length, `Duplicate HTML IDs: ${duplicateIds.join(', ')}`);
+
+const idSet = new Set(ids);
+const tabs = [...html.matchAll(/id=["']heroTab([A-Za-z0-9_-]+)["']/g)].map(match => match[1]);
+tabs.forEach(name => check(idSet.has(`heroPanel${name}`), `Tab heroTab${name} has no heroPanel${name}.`));
+
+const handlers = [...html.matchAll(/\bon(?:click|input|change|keydown)=["']([^"']+)["']/gi)]
+  .map(match => match[1]);
+const declared = new Set([
+  ...scripts.flatMap(source => [...source.matchAll(/\bfunction\s+([A-Za-z_$][\w$]*)\s*\(/g)].map(match => match[1])),
+  ...scripts.flatMap(source => [...source.matchAll(/\b(?:const|let|var)\s+([A-Za-z_$][\w$]*)\s*=\s*(?:async\s*)?(?:function\b|\([^)]*\)\s*=>|[A-Za-z_$][\w$]*\s*=>)/g)].map(match => match[1]))
+]);
+const ignoredCalls = new Set(['if', 'for', 'while', 'switch', 'encodeURIComponent', 'decodeURIComponent', 'preventDefault', 'stopPropagation']);
+const missingHandlers = new Set();
+handlers.forEach(handler => {
+  for (const match of handler.matchAll(/\b([A-Za-z_$][\w$]*)\s*\(/g)) {
+    const name = match[1];
+    if (!ignoredCalls.has(name) && !declared.has(name)) missingHandlers.add(name);
+  }
+});
+check(!missingHandlers.size, `Inline handlers reference missing functions: ${[...missingHandlers].join(', ')}`);
+
+check(!html.includes('[object Object]'), 'Literal [object Object] placeholder found.');
+
+const modalIds = [...html.matchAll(/<div\s+id=["']([^"']+)["'][^>]*class=["'][^"']*\bv115Modal\b[^"']*["']/gi)]
+  .map(match => match[1]);
+modalIds.forEach(id => {
+  const start = html.indexOf(`id="${id}"`);
+  const sample = html.slice(start, start + 5000);
+  if (!/(?:close|Cancel|Close)/i.test(sample)) warnings.push(`Modal ${id} may not expose an obvious close control.`);
+});
+
+if (warnings.length) warnings.forEach(message => console.warn(`WARNING: ${message}`));
+if (failures.length) {
+  failures.forEach(message => console.error(`FAILED: ${message}`));
+  process.exit(1);
+}
+
+console.log(`Dashboard checks passed: ${scripts.length} script block(s), ${ids.length} IDs, ${tabs.length} tabs, ${handlers.length} inline handlers.`);

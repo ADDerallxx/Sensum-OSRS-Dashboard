@@ -70,6 +70,21 @@ try {
     [IO.File]::WriteAllText($_.FullName, $text, $utf8NoBom)
   }
 
+  Step "Running dashboard integrity checks"
+
+  if (-not (Get-Command node -ErrorAction SilentlyContinue)) {
+    Fail "Node.js is required for dashboard integrity checks."
+  }
+
+  if (-not (Test-Path -LiteralPath ".\dashboard-check.js")) {
+    Fail "dashboard-check.js was not found."
+  }
+
+  & node ".\dashboard-check.js" ".\V1.html"
+  if ($LASTEXITCODE -ne 0) {
+    Fail "Dashboard integrity checks failed. Nothing was committed or deployed."
+  }
+
   Step "Checking local changes"
 
   & git status --short
