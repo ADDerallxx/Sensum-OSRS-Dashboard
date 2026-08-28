@@ -56,8 +56,11 @@ check(/function\s+v125SkillIcon[\s\S]{0,400}v264WikiAsset/.test(html), 'Skill ic
 check(/function\s+v240Icon[\s\S]{0,300}v264WikiAsset/.test(html), 'Money and processing item icons do not use the shared asset resolver.');
 check(/function\s+v132ItemImage[\s\S]{0,400}v264WikiAsset/.test(html), 'Boss equipment icons do not use the shared asset resolver.');
 check(/function\s+initV265PageWorkspaces\s*\(/.test(html), 'Distinct non-Overview page workspace initialization is missing.');
-check(/initV263Workspaces\(\);initV265PageWorkspaces\(\);restoreV258HeroTab\(\)/.test(html), 'Page workspaces must initialize after Overview isolation and before tab restoration.');
+check(/initV263Workspaces\(\);initV265PageWorkspaces\(\);(?:initV266MoneyWorkspace\(\);)?restoreV258HeroTab\(\)/.test(html), 'Page workspaces must initialize after Overview isolation and before tab restoration.');
 check(/if\(context\)context\.hidden=name==='overview'/.test(html), 'Account context must be hidden on Overview and retained on the other tabs.');
+check(/function\s+initV266MoneyWorkspace\s*\(/.test(html), 'Focused Money workspace initialization is missing.');
+check((html.match(/data-view="(?:overview|alch|merch|purchases|processing|profit)"/g) || []).length === 6, 'Money workspace must expose exactly six focused views.');
+check(/initV265PageWorkspaces\(\);initV266MoneyWorkspace\(\);restoreV258HeroTab\(\)/.test(html), 'Money workspace must initialize after page workspaces and before tab restoration.');
 
 const definedTokens = new Set([...html.matchAll(/(--[A-Za-z0-9_-]+)\s*:/g)].map(match => match[1]));
 const usedTokens = new Set([...html.matchAll(/var\(\s*(--[A-Za-z0-9_-]+)/g)].map(match => match[1]));
