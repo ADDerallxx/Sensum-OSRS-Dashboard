@@ -10,12 +10,15 @@ const CONFIG = {
 };
 
 function doGet(e) {
-  const useV1 = e && e.parameter && String(e.parameter.v || '') === '1';
-  const template = useV1 ? 'V1' : 'Index';
+  // The current dashboard is the canonical app. Keep the retired prototype
+  // available only for explicit troubleshooting so the bare deployment URL
+  // can never fall into its obsolete spreadsheet schema.
+  const useLegacy = e && e.parameter && String(e.parameter.legacy || '') === '1';
+  const template = useLegacy ? 'Index' : 'V1';
 
   return HtmlService.createTemplateFromFile(template)
     .evaluate()
-    .setTitle(useV1 ? 'Sensum OSRS Progression Dashboard' : 'Sensum OSRS Dashboard');
+    .setTitle(useLegacy ? 'Sensum OSRS Dashboard — Legacy' : 'Sensum OSRS Progression Dashboard');
 }
 
 function getDashboardState() {
