@@ -61,7 +61,7 @@ check(/quantityCell=row\.length>=3\?row\[row\.length-2\]/.test(recipeSource), 'R
 check(/Goal Progress &amp; Switching/.test(html) && /switchV271Goal/.test(html), 'Goal progress window must support active-goal switching.');
 check(/Early-game/.test(html) && /Mid-game/.test(html) && /End-game/.test(html), 'Goal stage pills and filters are incomplete.');
 check(/Open potential incl\. processing/.test(html) && /combinedPotential=marketPotential\+processingPotential/.test(html), 'Open potential must include positive and negative processing projections.');
-check(/fresh=!source[\s\S]{0,300}output\.focus\(\)/.test(html), 'A fresh custom processing batch must focus the output field.');
+check(/toggleAttribute\('autofocus',fresh\)[\s\S]{0,300}output\.focus\(\)/.test(html), 'A fresh custom processing batch must make the output field the modal focus target.');
 check(/function\s+v132ItemImage[\s\S]{0,400}v264WikiAsset/.test(html), 'Boss equipment icons do not use the shared asset resolver.');
 check(/function\s+initV265PageWorkspaces\s*\(/.test(html), 'Distinct non-Overview page workspace initialization is missing.');
 check(/initV263Workspaces\(\);initV265PageWorkspaces\(\);(?:initV266MoneyWorkspace\(\);)?restoreV258HeroTab\(\)/.test(html), 'Page workspaces must initialize after Overview isolation and before tab restoration.');
