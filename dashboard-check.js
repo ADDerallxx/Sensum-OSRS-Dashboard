@@ -37,7 +37,7 @@ const declared = new Set([
   ...scripts.flatMap(source => [...source.matchAll(/\bfunction\s+([A-Za-z_$][\w$]*)\s*\(/g)].map(match => match[1])),
   ...scripts.flatMap(source => [...source.matchAll(/\b(?:const|let|var)\s+([A-Za-z_$][\w$]*)\s*=\s*(?:async\s*)?(?:function\b|\([^)]*\)\s*=>|[A-Za-z_$][\w$]*\s*=>)/g)].map(match => match[1]))
 ]);
-const ignoredCalls = new Set(['if', 'for', 'while', 'switch', 'encodeURIComponent', 'decodeURIComponent', 'preventDefault', 'stopPropagation']);
+const ignoredCalls = new Set(['if', 'for', 'while', 'switch', 'Number', 'encodeURIComponent', 'decodeURIComponent', 'preventDefault', 'stopPropagation']);
 const missingHandlers = new Set();
 handlers.forEach(handler => {
   for (const match of handler.matchAll(/\b([A-Za-z_$][\w$]*)\s*\(/g)) {
@@ -63,6 +63,10 @@ check((html.match(/data-view="(?:overview|alch|merch|purchases|processing|profit
 check(/initV265PageWorkspaces\(\);initV266MoneyWorkspace\(\);restoreV258HeroTab\(\)/.test(html), 'Money workspace must initialize after page workspaces and before tab restoration.');
 check(/className='v267ProfitDock'/.test(html), 'Money workspace must keep the profit snapshot visible across sub-tabs.');
 check(/#v240AlchPractical,#v240AlchHighest,#v240MerchPractical\{max-height:238px\}/.test(html), 'Alch and merch scanners must use the compact five-row viewport.');
+check(/function\s+renderV268AlchBatches\s*\(/.test(html), 'Active High Alch batch management is missing.');
+check(/nodes:\[alchCost,\$\('v241PlannerSection'\),alchBatches,\$\('v240AlchPanel'\)\]/.test(html), 'High Alch planner and active batches must appear before opportunity tables.');
+check(/function\s+renderV269GoalProgress\s*\(/.test(html), 'All-goal percentage menu is missing.');
+check(idSet.has('v269GoalModal') && idSet.has('v269GoalList'), 'All-goal percentage modal structure is incomplete.');
 
 const definedTokens = new Set([...html.matchAll(/(--[A-Za-z0-9_-]+)\s*:/g)].map(match => match[1]));
 const usedTokens = new Set([...html.matchAll(/var\(\s*(--[A-Za-z0-9_-]+)/g)].map(match => match[1]));
