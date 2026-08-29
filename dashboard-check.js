@@ -1,6 +1,7 @@
 if (typeof require === 'function' && typeof process !== 'undefined') {
 const fs = require('fs');
 const vm = require('vm');
+const path = require('path');
 
 const file = process.argv[2] || 'V1.html';
 const html = fs.readFileSync(file, 'utf8');
@@ -55,6 +56,8 @@ check(/function\s+v264AssetError\s*\(/.test(html), 'Shared image retry/fallback 
 check(/function\s+v125SkillIcon[\s\S]{0,400}v264WikiAsset/.test(html), 'Skill icons do not use the shared asset resolver.');
 check(/function\s+v240Icon[\s\S]{0,300}v264WikiAsset/.test(html), 'Money and processing item icons do not use the shared asset resolver.');
 check(/Checking the OSRS Wiki for a verified creation recipe/.test(html), 'Universal Wiki recipe resolver status is missing.');
+const recipeSource = fs.readFileSync(path.join(path.dirname(file), 'RecipeResolverV270.js'), 'utf8');
+check(/quantityCell=row\.length>=3\?row\[row\.length-2\]/.test(recipeSource), 'Recipe quantities must come from the Wiki quantity column, not numbers in item names.');
 check(/function\s+v132ItemImage[\s\S]{0,400}v264WikiAsset/.test(html), 'Boss equipment icons do not use the shared asset resolver.');
 check(/function\s+initV265PageWorkspaces\s*\(/.test(html), 'Distinct non-Overview page workspace initialization is missing.');
 check(/initV263Workspaces\(\);initV265PageWorkspaces\(\);(?:initV266MoneyWorkspace\(\);)?restoreV258HeroTab\(\)/.test(html), 'Page workspaces must initialize after Overview isolation and before tab restoration.');
