@@ -1,0 +1,31 @@
+{
+  "id": "stable_snake_case_id",
+  "name": "User-facing goal name",
+  "stage": "Early-game | Mid-game | End-game",
+  "completionType": "QUEST_COMPLETE | QUEST_PARTIAL_UNLOCK | SKILL_THRESHOLD | CHECKLIST | ITEM_OR_REWARD_OWNED | ALL_CURRENT_QUESTS | ROADMAP_MODE",
+  "finishLine": "This goal is complete when...",
+  "required": [
+    {
+      "id": "stable_condition_id",
+      "label": "Required condition",
+      "kind": "quest | quest_stage | skill | checklist | item | achievement",
+      "target": "Exact target value",
+      "detection": "quest | stats | runelite | manual",
+      "source": "https://oldschool.runescape.wiki/w/..."
+    }
+  ],
+  "recommended": [
+    {
+      "label": "Optional readiness recommendation",
+      "reason": "Why it helps without affecting completion",
+      "source": "https://oldschool.runescape.wiki/w/..."
+    }
+  ],
+  "progressFormula": "Plain-language direct progress formula",
+  "completionFormula": "Plain-language all-required-conditions finish gate",
+  "nextActionRule": "Earliest unmet required condition in dependency order",
+  "missingDataBehavior": "Data unavailable | Needs confirmation | Review",
+  "dynamic": false,
+  "lastVerified": "YYYY-MM-DD",
+  "reviewStatus": "VERIFIED | REVIEW"
+}
