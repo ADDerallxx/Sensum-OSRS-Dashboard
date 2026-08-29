@@ -58,6 +58,8 @@ check(/function\s+v240Icon[\s\S]{0,300}v264WikiAsset/.test(html), 'Money and pro
 check(/Checking the OSRS Wiki for a verified creation recipe/.test(html), 'Universal Wiki recipe resolver status is missing.');
 const recipeSource = fs.readFileSync(path.join(path.dirname(file), 'RecipeResolverV270.js'), 'utf8');
 check(/quantityCell=row\.length>=3\?row\[row\.length-2\]/.test(recipeSource), 'Recipe quantities must come from the Wiki quantity column, not numbers in item names.');
+check(/Goal Progress &amp; Switching/.test(html) && /switchV271Goal/.test(html), 'Goal progress window must support active-goal switching.');
+check(/Early-game/.test(html) && /Mid-game/.test(html) && /End-game/.test(html), 'Goal stage pills and filters are incomplete.');
 check(/function\s+v132ItemImage[\s\S]{0,400}v264WikiAsset/.test(html), 'Boss equipment icons do not use the shared asset resolver.');
 check(/function\s+initV265PageWorkspaces\s*\(/.test(html), 'Distinct non-Overview page workspace initialization is missing.');
 check(/initV263Workspaces\(\);initV265PageWorkspaces\(\);(?:initV266MoneyWorkspace\(\);)?restoreV258HeroTab\(\)/.test(html), 'Page workspaces must initialize after Overview isolation and before tab restoration.');
