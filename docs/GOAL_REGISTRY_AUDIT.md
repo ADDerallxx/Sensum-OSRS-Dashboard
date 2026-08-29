@@ -4,7 +4,7 @@ Audit date: 2026-08-29
 Scope: All 16 goals currently shown by the dashboard  
 Standard: `docs/GOAL_AUTHORING_SOP.md`
 
-Implementation status: V2.72 implements explicit completion types, direct Quest Cape progress, Balanced as an ongoing roadmap, finish-line text, readiness separation, source metadata, and honest manual-confirmation states. Combat Growth is concretized as Combat Level 85; Transportation is concretized as the Core Transportation Network; Fire Cape Prep is concretized as the Sensum first-attempt readiness baseline documented below.
+Implementation status: V2.72a implements explicit completion types, direct Quest Cape progress, Balanced as an ongoing roadmap, finish-line text, readiness separation, source metadata, and honest manual-confirmation states. Combat Growth runs through level 126 with milestone checkpoints; Transportation is the Core Transportation Network; Fire Cape and Infernal Cape each combine preparation checkpoints with the final manually confirmed cape.
 
 ## Executive finding
 
@@ -18,10 +18,10 @@ Anchor-quest goals also need correction: completing prerequisites or meeting ski
 |---|---|---|---|
 | Balanced | Reclassify | `ROADMAP_MODE`. Ongoing recommendation strategy balancing useful unlocks, quests, skills, and account development. It cannot be accomplished. | Configuration |
 | Fairy Rings | Correct endpoint, wrong likely detection | `QUEST_PARTIAL_UNLOCK`. Complete when the Fairy Godfather grants fairy-ring permission during Fairytale II; full quest completion also satisfies it. Fairytale I is required, but Fairytale II skill requirements and full completion are not required for the unlock. | Quest-stage detection if available; otherwise manual |
-| Combat Growth | Replace or clarify | The name has no finite endpoint. Recommended replacement: a user-selected `SKILL_THRESHOLD`, such as Combat Level 85, with optional individual combat-stat targets. Do not assign a percentage until a target is chosen. | Stats |
+| Combat Growth | Corrected | `SKILL_THRESHOLD`. Finish at maximum combat level 126, with visible checkpoints at 70, 85, 100, 110, and 120. Overall progress uses current combat level / 126. | Stats |
 | Transportation | Redefine | Recommended `CHECKLIST` named **Core Transportation Network**. Required networks must be explicitly chosen—for example fairy rings, spirit trees, and gnome gliders. Do not claim “all transportation,” which is open-ended and update-sensitive. | Quest flags plus manual partial-unlock checks |
 | Fossil Island Access | Valid | `QUEST_COMPLETE`. Complete Bone Voyage, which unlocks Fossil Island. The Dig Site and 100 Kudos are prerequisites/readiness, not completion. | Quest completion |
-| Fire Cape Prep | Split | Readiness is not ownership. Keep as a `CHECKLIST` only if its required stat/gear/practice preset is explicitly defined, or replace it with **Fire Cape** using `ITEM_OR_REWARD_OWNED`, completed after defeating TzTok-Jad and obtaining the cape. | Stats/checklist for prep; manual or supported achievement detection for cape |
+| Fire Cape Prep | Corrected and renamed in display | **Fire Cape** is one phased checklist: Wiki-aligned preparation checkpoints followed by defeating TzTok-Jad and manually confirming the cape. Preparation can advance the bar but cannot complete the goal. | Stats/quest for preparation; manual cape confirmation |
 | Barrows Gloves / RFD | Rename for precision | If tracking quest completion, name it **Barrows Gloves Unlocked** and complete Recipe for Disaster. If tracking actual ownership, require RFD plus manual confirmation that the gloves were purchased. | Quest plus optional manual ownership |
 | Ancient Magicks | Valid | `QUEST_COMPLETE`. Complete Desert Treasure I to unlock the Ancient Magicks spellbook. | Quest completion |
 | Piety | Composite and currently incomplete if quest-only | `CHECKLIST`. Complete King's Ransom, complete Knight Waves Training Grounds, reach 70 Prayer, and reach 70 Defence. Quest completion alone is insufficient. | Quest + stats + RuneLite/manual Knight Waves flag |
@@ -31,7 +31,7 @@ Anchor-quest goals also need correction: completing prerequisites or meeting ski
 | Dragon Slayer II | Valid | `QUEST_COMPLETE`. Complete Dragon Slayer II. Its quest, skill, QP, and Barbarian Training requirements are readiness details; only quest completion finishes the goal. | Quest completion |
 | Prifddinas | Valid | `QUEST_COMPLETE`. Complete Song of the Elves to unlock Prifddinas. The eight level-70 skill requirements and prerequisite quests are readiness details. | Quest completion |
 | Quest Cape | Formula invalid | `ALL_CURRENT_QUESTS`. Progress is completed tracked quests divided by the current verified quest total. Complete only when every current quest is complete. Quest points are a useful integrity cross-check, not a weighted bonus. New quest releases reopen the goal automatically. | Quest completion dataset + verified dynamic total |
-| Inferno / Infernal Cape | Rename and correct | Use **Infernal Cape** with `ITEM_OR_REWARD_OWNED`. Complete after defeating TzKal-Zuk and receiving the cape. Readiness stats, gear, a Fire Cape, and Inferno access are separate. | RuneLite achievement/collection signal if reliable; otherwise manual |
+| Inferno / Infernal Cape | Corrected and renamed in display | **Infernal Cape** is one phased checklist: Wiki suggested combat checkpoints, completion of the Fire Cape goal, then all 69 waves and TzKal-Zuk. Only manual cape confirmation completes it. | Stats plus completed Fire Cape goal; manual Infernal cape confirmation |
 
 ## Source register
 
