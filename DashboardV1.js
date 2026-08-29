@@ -403,6 +403,7 @@ function readV134OrderedBlockedQuests_(blockedRows, dependencySheet) {
   const questCol = column(/^quest name$/i);
   const prereqCol = column(/^direct prior quest requirement\(s\)$/i);
   const completedCol = column(/^completed$/i);
+  const readyCol = column(/^ready now\?$/i);
   const downstreamCol = column(/^total downstream unlocks$/i);
   const balancedScoreCol = column(/^balanced priority score$/i);
   const goalScoreCol = column(/^goal profile score$/i);
@@ -422,6 +423,7 @@ function readV134OrderedBlockedQuests_(blockedRows, dependencySheet) {
       quest:quest,
       prereqs:prereqs,
       complete:completedCol >= 0 && /^(yes|true|complete|completed)$/i.test(String(r[completedCol] || '').trim()),
+      ready:readyCol >= 0 && /^(yes|true|ready)$/i.test(String(r[readyCol] || '').trim()),
       score:String((goalScoreCol >= 0 ? r[goalScoreCol] : '') || (balancedScoreCol >= 0 ? r[balancedScoreCol] : '') || '').trim(),
       downstream:String(r[downstreamCol] || '').trim(),
       missingSkills:String(r[gapCol] || '').trim() || 'None',
@@ -438,7 +440,7 @@ function readV134OrderedBlockedQuests_(blockedRows, dependencySheet) {
   Object.values(byName).filter(rec=>{
     const missingPrereq=rec.prereqs.some(name=>!(byName[name.toLowerCase()]||{}).complete);
     const skillBlocked=rec.missingSkills&&!/^(?:none|ready|none\s*[—-]\s*ready now)$/i.test(String(rec.missingSkills).trim());
-    return !rec.complete&&(missingPrereq||skillBlocked)&&!initiallyIncluded[rec.quest.toLowerCase()];
+    return !rec.complete&&(readyCol>=0?!rec.ready:(missingPrereq||skillBlocked))&&!initiallyIncluded[rec.quest.toLowerCase()];
   }).sort((a,b)=>Number(b.score||0)-Number(a.score||0)||Number(b.downstream||0)-Number(a.downstream||0)||a.quest.localeCompare(b.quest)).slice(0,20).forEach(rec=>{
     base.push({quest:rec.quest,score:rec.score,downstream:rec.downstream,blockedBy:'',missingSkills:rec.missingSkills,hours:rec.hours,_index:base.length});
     initiallyIncluded[rec.quest.toLowerCase()]=true;
@@ -476,6 +478,7 @@ function readV134OrderedBlockedQuests_(blockedRows, dependencySheet) {
     const missing = rec.prereqs.filter(name => !(byName[name.toLowerCase()] || {}).complete);
     if (missing.length) item.blockedBy = missing.join('; ');
     else if (item.missingSkills && !/^(?:none|ready|none\s*[—-]\s*ready now)$/i.test(String(item.missingSkills).trim())) item.blockedBy = 'Skills';
+    else if (readyCol >= 0 && !rec.ready) { item.blockedBy = 'Requirements'; item.missingSkills = 'Review unmet quest requirements'; }
     else item.blockedBy = 'Ready now';
   });
 
