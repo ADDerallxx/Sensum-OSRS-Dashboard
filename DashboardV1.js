@@ -509,8 +509,8 @@ function readV134OrderedBlockedQuests_(blockedRows, dependencySheet) {
       }
     });
   }
-  if (ordered.length !== base.length) return base.filter(item=>item.blockedBy!=='Ready now').map(v134PublicBlocker_);
-  return ordered.filter(item=>item.blockedBy!=='Ready now').map(v134PublicBlocker_);
+  if (ordered.length !== base.length) return base.filter(item=>item.blockedBy!=='Ready now').slice(0,20).map(v134PublicBlocker_);
+  return ordered.filter(item=>item.blockedBy!=='Ready now').slice(0,20).map(v134PublicBlocker_);
 }
 
 function v134PublicBlocker_(item) {

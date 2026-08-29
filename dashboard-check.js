@@ -62,11 +62,11 @@ check(/quantityCell=row\.length>=3\?row\[row\.length-2\]/.test(recipeSource), 'R
 check(/Goal Progress &amp; Switching/.test(html) && /switchV271Goal/.test(html), 'Goal progress window must support active-goal switching.');
 check(/Early-game/.test(html) && /Mid-game/.test(html) && /End-game/.test(html), 'Goal stage pills and filters are incomplete.');
 check(/Expected Purchase Profit/.test(html) && /Expected Processing Profit/.test(html) && /Total Expected Profit/.test(html) && /combinedPotential=marketPotential\+processingPotential/.test(html), 'Purchase, processing, and total expected profit must remain visibly separated and retain negative projections.');
-check(/V2\.72d · Authoritative Blockers/.test(html) && /Finish line:/.test(html) && /Average measurable progress/.test(html), 'Audited goal cards must expose finish lines and exclude non-measurable roadmap modes from averages.');
+check(/V2\.72e · Top 20 True Blockers/.test(html) && /Finish line:/.test(html) && /Average measurable progress/.test(html), 'Audited goal cards must expose finish lines and exclude non-measurable roadmap modes from averages.');
 check(/'balanced':\{type:'ROADMAP_MODE'/.test(dashboardSource) && /'quest cape':\{type:'ALL_CURRENT_QUESTS'/.test(dashboardSource), 'Balanced must be an ongoing roadmap and Quest Cape must use the all-current-quests model.');
 check(/percent=Math\.round\(trackedCompleted\/totalQuests\*100\)/.test(dashboardSource) && !/completed\.size\/totalQuests\*100,weight:70/.test(dashboardSource), 'Quest Cape must use the direct completed/total fraction without route-readiness weighting.');
 check(/targetCombat:126/.test(dashboardSource) && /CHECKLIST_FIRE_CAPE/.test(dashboardSource) && /CHECKLIST_INFERNO/.test(dashboardSource), 'Combat Growth and both cape goals must retain their audited phased definitions.');
-check(/ordered\.filter\(item=>item\.blockedBy!==['"]Ready now['"]\)/.test(dashboardSource), 'Ready-now quests must be excluded from the Blocked Quests table.');
+check(/ordered\.filter\(item=>item\.blockedBy!==['"]Ready now['"]\)\.slice\(0,20\)/.test(dashboardSource), 'Ready-now quests must be excluded and the Blocked Quests working set must remain capped at 20.');
 check(/Object\.values\(byName\)[\s\S]{0,900}slice\(0,20\)/.test(dashboardSource), 'The blocker list must refill from the complete dependency dataset after ready-now rows are removed.');
 check(/readyCol = column\(\/\^ready now/.test(dashboardSource) && /readyCol>=0\?!rec\.ready/.test(dashboardSource), 'Blocker eligibility must use the dependency table Ready Now field when available.');
 check(/toggleAttribute\('autofocus',fresh\)[\s\S]{0,300}output\.focus\(\)/.test(html), 'A fresh custom processing batch must make the output field the modal focus target.');
