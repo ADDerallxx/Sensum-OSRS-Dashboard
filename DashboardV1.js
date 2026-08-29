@@ -422,7 +422,7 @@ function readV134OrderedBlockedQuests_(blockedRows, dependencySheet) {
       quest:quest,
       prereqs:prereqs,
       complete:completedCol >= 0 && /^(yes|true|complete|completed)$/i.test(String(r[completedCol] || '').trim()),
-      score:String(r[goalScoreCol >= 0 ? goalScoreCol : balancedScoreCol] || '').trim(),
+      score:String((goalScoreCol >= 0 ? r[goalScoreCol] : '') || (balancedScoreCol >= 0 ? r[balancedScoreCol] : '') || '').trim(),
       downstream:String(r[downstreamCol] || '').trim(),
       missingSkills:String(r[gapCol] || '').trim() || 'None',
       hours:String(r[hoursCol] || '').trim()
@@ -438,7 +438,7 @@ function readV134OrderedBlockedQuests_(blockedRows, dependencySheet) {
   Object.values(byName).filter(rec=>{
     const missingPrereq=rec.prereqs.some(name=>!(byName[name.toLowerCase()]||{}).complete);
     const skillBlocked=rec.missingSkills&&!/^(?:none|ready|none\s*[—-]\s*ready now)$/i.test(String(rec.missingSkills).trim());
-    return !rec.complete&&Number(rec.score||0)>0&&(missingPrereq||skillBlocked)&&!initiallyIncluded[rec.quest.toLowerCase()];
+    return !rec.complete&&(missingPrereq||skillBlocked)&&!initiallyIncluded[rec.quest.toLowerCase()];
   }).sort((a,b)=>Number(b.score||0)-Number(a.score||0)||Number(b.downstream||0)-Number(a.downstream||0)||a.quest.localeCompare(b.quest)).slice(0,20).forEach(rec=>{
     base.push({quest:rec.quest,score:rec.score,downstream:rec.downstream,blockedBy:'',missingSkills:rec.missingSkills,hours:rec.hours,_index:base.length});
     initiallyIncluded[rec.quest.toLowerCase()]=true;
