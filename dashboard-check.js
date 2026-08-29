@@ -5,6 +5,7 @@ const path = require('path');
 
 const file = process.argv[2] || 'V1.html';
 const html = fs.readFileSync(file, 'utf8');
+const dashboardSource = fs.existsSync('DashboardV1.js') ? fs.readFileSync('DashboardV1.js', 'utf8') : '';
 const failures = [];
 const warnings = [];
 
@@ -61,6 +62,9 @@ check(/quantityCell=row\.length>=3\?row\[row\.length-2\]/.test(recipeSource), 'R
 check(/Goal Progress &amp; Switching/.test(html) && /switchV271Goal/.test(html), 'Goal progress window must support active-goal switching.');
 check(/Early-game/.test(html) && /Mid-game/.test(html) && /End-game/.test(html), 'Goal stage pills and filters are incomplete.');
 check(/Expected Purchase Profit/.test(html) && /Expected Processing Profit/.test(html) && /Total Expected Profit/.test(html) && /combinedPotential=marketPotential\+processingPotential/.test(html), 'Purchase, processing, and total expected profit must remain visibly separated and retain negative projections.');
+check(/V2\.72 · Audited Goals/.test(html) && /Finish line:/.test(html) && /Average measurable progress/.test(html), 'Audited goal cards must expose finish lines and exclude non-measurable roadmap modes from averages.');
+check(/'balanced':\{type:'ROADMAP_MODE'/.test(dashboardSource) && /'quest cape':\{type:'ALL_CURRENT_QUESTS'/.test(dashboardSource), 'Balanced must be an ongoing roadmap and Quest Cape must use the all-current-quests model.');
+check(/percent=Math\.round\(trackedCompleted\/totalQuests\*100\)/.test(dashboardSource) && !/completed\.size\/totalQuests\*100,weight:70/.test(dashboardSource), 'Quest Cape must use the direct completed/total fraction without route-readiness weighting.');
 check(/toggleAttribute\('autofocus',fresh\)[\s\S]{0,300}output\.focus\(\)/.test(html), 'A fresh custom processing batch must make the output field the modal focus target.');
 check(/function\s+v132ItemImage[\s\S]{0,400}v264WikiAsset/.test(html), 'Boss equipment icons do not use the shared asset resolver.');
 check(/function\s+initV265PageWorkspaces\s*\(/.test(html), 'Distinct non-Overview page workspace initialization is missing.');

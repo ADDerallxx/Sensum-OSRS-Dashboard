@@ -610,43 +610,55 @@ function readV131GoalProgress_(ss, goals, statsRows, account, requirementIntel, 
     const name = String(r[qCol] || '').trim();
     if (name) { questNames.push(name); questInfo[name.toLowerCase()] = {prereq:String(r[prereqCol] || ''), other:String(r[otherCol] || '')}; }
   });
-  const currentQp = Number(account['Quest Points'] || 0), totalQuests = questNames.length || 1;
-  const routeReady = (routeRows || []).filter(r => Number(r[6] || 0) <= 0).length, routeTotal = (routeRows || []).length || 1;
-  const dim = (label,current,target,detail) => ({label:label,current:current,target:target,percent:target ? Math.min(100,Math.round(current/target*100)) : 100,detail:detail});
+  const totalQuests = questNames.length || 1;
+  const trackedCompleted = questNames.filter(name => completed.has(name.toLowerCase())).length;
+  const dim = (label,current,target,detail,group) => ({label:label,current:current,target:target,percent:target ? Math.min(100,Math.round(current/target*100)) : 100,detail:detail,group:group||'progress'});
+  const definitions = {
+    'balanced':{type:'ROADMAP_MODE',finish:'Ongoing planning mode; it balances useful unlocks, quests, skills, and account development.',tracked:'Dashboard configuration',source:'https://oldschool.runescape.wiki/w/Optimal_quest_guide'},
+    'fairy rings':{type:'QUEST_PARTIAL_UNLOCK',anchor:'Fairytale II - Cure a Queen',finish:'Receive permission from the Fairy Godfather during Fairytale II and use the fairy-ring network.',tracked:'Manual confirmation or full quest completion',source:'https://oldschool.runescape.wiki/w/Fairy_rings'},
+    'combat growth':{type:'SKILL_THRESHOLD',display:'Combat Level 85',targetCombat:85,finish:'Reach combat level 85 using your preferred mix of combat skills.',tracked:'Account combat level',source:'https://oldschool.runescape.wiki/w/Combat_level'},
+    'transportation':{type:'CHECKLIST_TRANSPORT',display:'Core Transportation Network',finish:'Unlock fairy rings, spirit trees, and gnome gliders.',tracked:'Quest completion plus fairy-ring confirmation',source:'https://oldschool.runescape.wiki/w/Transportation'},
+    'fossil island access':{type:'QUEST_COMPLETE',anchor:'Bone Voyage',finish:'Complete Bone Voyage and unlock Fossil Island.',tracked:'Quest completion',source:'https://oldschool.runescape.wiki/w/Fossil_Island'},
+    'fire cape prep':{type:'CHECKLIST_FIRE_CAPE',display:'Fire Cape Readiness',finish:'Meet the Sensum first-attempt baseline: 70 Ranged, 43 Prayer, 70 Hitpoints, and Animal Magnetism complete.',tracked:'Base stats and quest completion',source:'https://oldschool.runescape.wiki/w/TzHaar_Fight_Cave/Strategies'},
+    'barrows gloves / rfd':{type:'QUEST_COMPLETE',display:'Barrows Gloves Unlocked',anchor:'Recipe for Disaster',finish:'Complete Recipe for Disaster and unlock Barrows gloves in the Culinaromancer\'s Chest.',tracked:'Quest completion',source:'https://oldschool.runescape.wiki/w/Recipe_for_Disaster'},
+    'ancient magicks':{type:'QUEST_COMPLETE',anchor:'Desert Treasure I',finish:'Complete Desert Treasure I and unlock the Ancient Magicks spellbook.',tracked:'Quest completion',source:'https://oldschool.runescape.wiki/w/Ancient_Magicks'},
+    'piety':{type:'CHECKLIST_PIETY',finish:'Reach 70 Prayer and 70 Defence, complete King\'s Ransom, and complete Knight Waves Training Grounds.',tracked:'Stats and quest completion; Knight Waves needs confirmation',source:'https://oldschool.runescape.wiki/w/Piety'},
+    'lunar spellbook':{type:'QUEST_COMPLETE',anchor:'Lunar Diplomacy',finish:'Complete Lunar Diplomacy and unlock the Lunar spellbook.',tracked:'Quest completion',source:'https://oldschool.runescape.wiki/w/Lunar_spellbook'},
+    'darkmeyer access':{type:'QUEST_COMPLETE',anchor:'Sins of the Father',finish:'Complete Sins of the Father and unlock full access to Darkmeyer.',tracked:'Quest completion',source:'https://oldschool.runescape.wiki/w/Darkmeyer'},
+    'tombs of amascut access':{type:'QUEST_COMPLETE',anchor:'Beneath Cursed Sands',finish:'Complete Beneath Cursed Sands and unlock Tombs of Amascut.',tracked:'Quest completion',source:'https://oldschool.runescape.wiki/w/Tombs_of_Amascut'},
+    'dragon slayer ii':{type:'QUEST_COMPLETE',anchor:'Dragon Slayer II',finish:'Complete Dragon Slayer II.',tracked:'Quest completion',source:'https://oldschool.runescape.wiki/w/Dragon_Slayer_II'},
+    'prifddinas':{type:'QUEST_COMPLETE',anchor:'Song of the Elves',finish:'Complete Song of the Elves and unlock Prifddinas.',tracked:'Quest completion',source:'https://oldschool.runescape.wiki/w/Prifddinas'},
+    'quest cape':{type:'ALL_CURRENT_QUESTS',finish:'Complete every currently released quest; new quest releases reopen this goal.',tracked:'Verified quest completion dataset',source:'https://oldschool.runescape.wiki/w/Quest_point_cape'},
+    'inferno / infernal cape':{type:'ITEM_OR_REWARD_OWNED',display:'Infernal Cape',finish:'Defeat TzKal-Zuk and receive an Infernal cape.',tracked:'Manual confirmation until a reliable achievement signal is connected',source:'https://oldschool.runescape.wiki/w/Infernal_cape'}
+  };
 
   (goals || []).forEach(goal => {
-    const dimensions = [], weighted = [];
+    const dimensions = [], readiness = [], key=String(goal.name||'').toLowerCase(), def=definitions[key]||null;
     if (/^accomplished$/i.test(goal.status || '')) {
-      out[goal.name.toLowerCase()] = {percent:100,status:'Accomplished',dimensions:[dim('Goal status',1,1,'Marked accomplished')]};
+      out[key] = {percent:100,status:'Accomplished',displayName:def&&def.display||goal.name,completionType:def&&def.type||'MANUAL',finishLine:def&&def.finish||'Marked accomplished.',trackedBy:def&&def.tracked||'Manual confirmation',source:def&&def.source||'',lastVerified:'2026-08-29',dimensions:[dim('Goal status',1,1,'Marked accomplished')]};
       return;
     }
-    const anchor = String(goal.anchor || '').trim(), anchorKey = anchor.toLowerCase(), info = questInfo[anchorKey];
-    if (anchor && info) {
-      const anchorDone = completed.has(anchorKey) ? 1 : 0;
-      dimensions.push(dim('Anchor quest',anchorDone,1,anchorDone ? `${anchor} complete` : `${anchor} incomplete`)); weighted.push({value:anchorDone*100,weight:40});
-      const prereqs = questNames.filter(name => info.prereq.toLowerCase().indexOf(name.toLowerCase()) >= 0);
-      if (prereqs.length) {
-        const done = prereqs.filter(name => completed.has(name.toLowerCase())).length;
-        dimensions.push(dim('Direct prerequisites',done,prereqs.length,`${done} of ${prereqs.length} complete`)); weighted.push({value:done/prereqs.length*100,weight:25});
-      }
-      const req = (requirementIntel || {})[anchorKey], skills = req && req.requiredSkills ? req.requiredSkills : [];
-      if (skills.length) {
-        const met = skills.filter(x => Number(stats[String(x.skill || '').toLowerCase()] || 0) >= Number(x.level || 0)).length;
-        dimensions.push(dim('Base skill requirements',met,skills.length,`${met} of ${skills.length} met`)); weighted.push({value:met/skills.length*100,weight:25});
-      }
-      const qpMatch = /quest points?\s+(\d+)/i.exec(info.other || '');
-      if (qpMatch) {
-        const targetQp = Number(qpMatch[1]);
-        dimensions.push(dim('Quest-point gate',Math.min(currentQp,targetQp),targetQp,`${currentQp} of ${targetQp} QP`)); weighted.push({value:Math.min(100,currentQp/targetQp*100),weight:10});
-      }
-    } else {
-      dimensions.push(dim('Account quest completion',completed.size,totalQuests,`${completed.size} of ${totalQuests} quests complete`));
-      dimensions.push(dim('Displayed route ready',routeReady,routeTotal,`${routeReady} of ${routeTotal} steps ready now`));
-      weighted.push({value:completed.size/totalQuests*100,weight:70},{value:routeReady/routeTotal*100,weight:30});
+    if (!def) { out[key]={percent:null,status:'Definition required',displayName:goal.name,completionType:'REVIEW',finishLine:'This goal needs an audited finish line before progress can be calculated.',trackedBy:'Not configured',source:'',lastVerified:'',dimensions:[]}; return; }
+    let percent=null,status='In progress';
+    if(def.type==='ROADMAP_MODE'){status='Ongoing';}
+    else if(def.type==='ALL_CURRENT_QUESTS'){
+      percent=Math.round(trackedCompleted/totalQuests*100);dimensions.push(dim('Quests completed',trackedCompleted,totalQuests,`${trackedCompleted} of ${totalQuests} quests complete`));status=trackedCompleted>=totalQuests?'Accomplished':`${totalQuests-trackedCompleted} quests remaining`;
+    } else if(def.type==='SKILL_THRESHOLD'){
+      const current=Number(account['Combat Level']||0),target=Number(def.targetCombat||0);percent=target?Math.min(100,Math.round(current/target*100)):null;dimensions.push(dim('Combat level',current,target,`${current} of ${target}`));status=current>=target?'Ready to complete':`${Math.max(0,target-current)} combat levels remaining`;
+    } else if(def.type==='CHECKLIST_TRANSPORT'){
+      const spirit=completed.has('tree gnome village'),glider=completed.has('the grand tree'),fairyFull=completed.has('fairytale ii - cure a queen');const done=Number(spirit)+Number(glider)+Number(fairyFull);percent=Math.round(done/3*100);dimensions.push(dim('Spirit trees',Number(spirit),1,spirit?'Tree Gnome Village complete':'Complete Tree Gnome Village'));dimensions.push(dim('Gnome gliders',Number(glider),1,glider?'The Grand Tree complete':'Complete The Grand Tree'));dimensions.push(dim('Fairy rings',Number(fairyFull),1,fairyFull?'Confirmed by full Fairytale II completion':'Partial-quest unlock needs confirmation'));status=fairyFull&&spirit&&glider?'Ready to complete':'Fairy-ring state may need confirmation';
+    } else if(def.type==='CHECKLIST_FIRE_CAPE'){
+      const checks=[['70 Ranged',Number(stats.ranged||0)>=70],['43 Prayer',Number(stats.prayer||0)>=43],['70 Hitpoints',Number(stats.hitpoints||0)>=70],['Animal Magnetism',completed.has('animal magnetism')]],done=checks.filter(x=>x[1]).length;percent=Math.round(done/checks.length*100);checks.forEach(x=>dimensions.push(dim(x[0],Number(x[1]),1,x[1]?'Met':'Not met')));status=done===checks.length?'Ready to attempt':'Readiness in progress';
+    } else if(def.type==='CHECKLIST_PIETY'){
+      const checks=[['70 Prayer',Number(stats.prayer||0)>=70],['70 Defence',Number(stats.defence||0)>=70],["King's Ransom",completed.has("king's ransom")]],done=checks.filter(x=>x[1]).length;percent=Math.round(done/4*100);checks.forEach(x=>dimensions.push(dim(x[0],Number(x[1]),1,x[1]?'Met':'Not met')));dimensions.push(dim('Knight Waves',0,1,'Completion needs confirmation'));status='Knight Waves completion needs confirmation';
+    } else if(def.type==='QUEST_PARTIAL_UNLOCK'){
+      const full=completed.has(String(def.anchor).toLowerCase());percent=full?100:null;dimensions.push(dim('Fairy-ring permission',Number(full),1,full?'Confirmed by full quest completion':'Unlock occurs partway through the quest; confirm when obtained'));status=full?'Accomplished':'Needs confirmation';
+    } else if(def.type==='ITEM_OR_REWARD_OWNED'){
+      percent=null;status='Needs confirmation';dimensions.push(dim('Infernal cape obtained',0,1,'Confirm after defeating TzKal-Zuk and receiving the cape'));
+    } else if(def.type==='QUEST_COMPLETE'){
+      const anchor=String(def.anchor||goal.anchor||''),anchorKey=anchor.toLowerCase(),info=questInfo[anchorKey]||{prereq:''},anchorDone=completed.has(anchorKey),prereqs=questNames.filter(name=>String(info.prereq||'').toLowerCase().indexOf(name.toLowerCase())>=0),done=prereqs.filter(name=>completed.has(name.toLowerCase())).length,total=prereqs.length+1;percent=Math.round((done+Number(anchorDone))/total*100);dimensions.push(dim('Finish quest',Number(anchorDone),1,anchorDone?`${anchor} complete`:`Complete ${anchor}`));if(prereqs.length)dimensions.push(dim('Direct prerequisites',done,prereqs.length,`${done} of ${prereqs.length} complete`));const req=(requirementIntel||{})[anchorKey],skills=req&&req.requiredSkills?req.requiredSkills:[],met=skills.filter(x=>Number(stats[String(x.skill||'').toLowerCase()]||0)>=Number(x.level||0)).length;if(skills.length)readiness.push(dim('Base skill readiness',met,skills.length,`${met} of ${skills.length} required levels met`,'readiness'));status=anchorDone?'Accomplished':`${anchor} incomplete`;
     }
-    const weightTotal = weighted.reduce((s,x) => s+x.weight,0) || 1;
-    const percent = Math.round(weighted.reduce((s,x) => s+x.value*x.weight,0)/weightTotal);
-    out[goal.name.toLowerCase()] = {percent:Math.max(0,Math.min(100,percent)),status:percent>=100?'Ready to complete':percent>=70?'Close':percent>=35?'In progress':'Early progress',dimensions:dimensions};
+    out[key]={percent:percent,status:status,displayName:def.display||goal.name,completionType:def.type,finishLine:def.finish,trackedBy:def.tracked,source:def.source,lastVerified:'2026-08-29',dimensions:dimensions,readiness:readiness};
   });
   return out;
 }

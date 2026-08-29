@@ -4,6 +4,8 @@ Audit date: 2026-08-29
 Scope: All 16 goals currently shown by the dashboard  
 Standard: `docs/GOAL_AUTHORING_SOP.md`
 
+Implementation status: V2.72 implements explicit completion types, direct Quest Cape progress, Balanced as an ongoing roadmap, finish-line text, readiness separation, source metadata, and honest manual-confirmation states. Combat Growth is concretized as Combat Level 85; Transportation is concretized as the Core Transportation Network; Fire Cape Prep is concretized as the Sensum first-attempt readiness baseline documented below.
+
 ## Executive finding
 
 The existing progress engine has two paths: goals with a recognized anchor quest receive a weighted preparation score, while every other goal receives a generic score made from 70% account quest completion and 30% current-route readiness. That fallback is invalid. It caused Quest Cape to display 48% when 48 of 182 quests is approximately 26%, and it assigns unrelated progress to Balanced, Combat Growth, Transportation, Fire Cape Prep, and Infernal Cape.
