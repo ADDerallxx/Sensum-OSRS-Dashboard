@@ -356,7 +356,7 @@ function getV1DashboardState(options) {
     routeDepth: Number(getRouteDepthValue_(dash) || 10),
     goals,
     accomplishedGoals,
-    goalProgress: readV131GoalProgress_(ss, allGoals, statsRows, account, requirementIntel, routeRows),
+    goalProgress: readV131GoalProgress_(ss, allGoals, statsRows, account, requirementIntel, routeRows, questDisplayMeta),
     bosses: bosses,
     bossGuides: v132BossGuides_(),
     bossLoadouts: V132B_WIKI_LOADOUTS,
@@ -612,7 +612,7 @@ function readV134QuestLibrary_(sh, displayMeta) {
   return {quests:quests,audit:{current:quests.length-review,review:review,pendingAlerts:pendingAlerts,acknowledgedAlerts:review-pendingAlerts,total:quests.length},generatedAt:new Date().toISOString()};
 }
 
-function readV131GoalProgress_(ss, goals, statsRows, account, requirementIntel, routeRows) {
+function readV131GoalProgress_(ss, goals, statsRows, account, requirementIntel, routeRows, questDisplayMeta) {
   const out = {}, stats = {}, completed = new Set();
   (statsRows || []).forEach(r => stats[String(r[0] || '').trim().toLowerCase()] = Number(r[1] || 0));
   let table = null;
@@ -675,6 +675,23 @@ function readV131GoalProgress_(ss, goals, statsRows, account, requirementIntel, 
       skillPath:{current:skillsMet,target:skills.length,percent:skills.length?Math.round(skills.reduce((sum,x)=>sum+x.fraction,0)/skills.length*100):100,detail:skills.length?`${skillsMet} of ${skills.length} base-skill targets met`:'No base-skill targets'},
       quests:ordered,skills:skills
     };
+  };
+  const questActionPlan = (anchor, partialUnlock) => {
+    const steps=[],plannedLevels={};
+    const chain=questChain(anchor,true);
+    chain.forEach(q=>{
+      const qKey=String(q||'').toLowerCase(),isAnchor=qKey===String(anchor||'').toLowerCase(),req=(requirementIntel||{})[qKey];
+      ((req&&req.requiredSkills)||[]).forEach(x=>{
+        const skill=String(x.skill||'').trim(),skillKey=skill.toLowerCase(),target=Number(x.level||0),current=Math.max(Number(stats[skillKey]||0),Number(plannedLevels[skillKey]||0));
+        if(skill&&target>current){steps.push({kind:'TRAIN',status:'Train first',title:`Train ${skill}: ${current} → ${target}`,detail:`Mandatory base level for ${q}.`,outcome:`Meets the ${skill} requirement for ${q}.`,current:current,target:target,skill:skill,quest:q,estimate:'Calculated from the active-route training model when available'});plannedLevels[skillKey]=target;}
+      });
+      if(!completed.has(qKey)&&!(partialUnlock&&isAnchor)){
+        const meta=(questDisplayMeta||{})[qKey]||{};
+        steps.push({kind:'QUEST',status:'Complete quest',title:`Complete ${q}`,detail:isAnchor?'Final quest for this goal.':'Required before the next quest in this path.',outcome:isAnchor?'Completes the goal and triggers a dashboard recalculation.':'Unlocks the next prerequisite step.',quest:q,length:meta.length||'Unknown length'});
+      }
+    });
+    if(partialUnlock&&!completed.has(String(anchor||'').toLowerCase()))steps.push({kind:'CONFIRM',status:'Manual confirmation',title:'Confirm the partial-quest unlock',detail:'Continue the anchor quest until the documented unlock is received.',outcome:'Marks the finish line only after you confirm it in the dashboard.',quest:anchor,estimate:'Player-confirmed quest stage'});
+    return steps;
   };
   const totalQuests = questNames.length || 1;
   const trackedCompleted = questNames.filter(name => completed.has(name.toLowerCase())).length;
@@ -742,7 +759,13 @@ function readV131GoalProgress_(ss, goals, statsRows, account, requirementIntel, 
     const unmetSkillTargets=path.skillPath?Math.max(0,Number(path.skillPath.target||0)-Number(path.skillPath.current||0)):[].concat(dimensions,readiness).filter(d=>Number(d.percent||0)<100).length;
     const needsConfirmation=/confirm/i.test(String(status||''))||/manual confirmation/i.test(String(def.tracked||''));
     const ranking={eligible:def.type!=='ROADMAP_MODE',pathReadinessPercent:Number.isFinite(Number(path.percent))?Number(path.percent):null,remainingQuestSteps:remainingQuestSteps,unmetSkillTargets:unmetSkillTargets,needsConfirmation:needsConfirmation,dataConfidence:def.source?'VERIFIED':'REVIEW'};
-    out[key]={percent:percent,status:status,displayName:def.display||goal.name,completionType:def.type,finishLine:def.finish,trackedBy:def.tracked,source:def.source,lastVerified:'2026-08-29',dimensions:dimensions,readiness:readiness,pathReadinessPercent:path.percent,questPath:path.questPath,skillPath:path.skillPath,milestone:milestone,ranking:ranking};
+    let actionPlan=[];
+    if(def.type==='QUEST_COMPLETE')actionPlan=questActionPlan(def.anchor,false);
+    else if(def.type==='QUEST_PARTIAL_UNLOCK')actionPlan=questActionPlan(def.anchor,true);
+    else if(def.type==='SKILL_THRESHOLD'&&milestone)actionPlan=[{kind:'TRAIN',status:'Train first',title:`Reach combat level ${milestone.next}`,detail:`Current combat level: ${milestone.current}.`,outcome:`Advances Combat Growth to its next milestone.`,current:milestone.current,target:milestone.next,estimate:'Updates automatically from synced combat level'}];
+    else if(def.type!=='ROADMAP_MODE')actionPlan=[].concat(readiness,dimensions).filter(d=>Number(d.percent||0)<100).map(d=>({kind:/confirm/i.test(String(d.detail||''))?'CONFIRM':'CHECK',status:/confirm/i.test(String(d.detail||''))?'Manual confirmation':'Ready next',title:d.label,detail:d.detail||`${d.current} of ${d.target}`,outcome:'Advances this goal when the requirement is satisfied.',estimate:'No stable universal time estimate'}));
+    if(!actionPlan.length&&def.type!=='ROADMAP_MODE'&&percent!==100)actionPlan=[{kind:'READY',status:'Ready now',title:'Complete the finish-line action',detail:def.finish,outcome:'Completes this goal.',estimate:'Ready now'}];
+    out[key]={percent:percent,status:status,displayName:def.display||goal.name,completionType:def.type,finishLine:def.finish,trackedBy:def.tracked,source:def.source,lastVerified:'2026-08-29',dimensions:dimensions,readiness:readiness,pathReadinessPercent:path.percent,questPath:path.questPath,skillPath:path.skillPath,milestone:milestone,ranking:ranking,actionPlan:actionPlan};
   });
   return out;
 }

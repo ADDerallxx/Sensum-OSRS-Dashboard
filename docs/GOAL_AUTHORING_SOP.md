@@ -71,6 +71,21 @@ The default **Closest to ready** order is fixed:
 
 Roadmap modes are excluded because they have no finish line. Recommended levels, optional routes, boosts, equipment, supplies, and comfort targets never affect ranking. Missing or unaudited goal data receives `REVIEW` confidence and sorts beneath verified goals instead of receiving an invented score. Completion and readiness must never be blended into a single fabricated percentage.
 
+## Goal Action Plan Contract
+
+Every finite goal must generate an ordered action plan from the same verified data used for readiness:
+
+1. Traverse the complete prerequisite quest graph in dependency order.
+2. Insert each unmet mandatory base-skill target immediately before the quest that requires it.
+3. Never repeat a lower skill target after a higher target for that skill has already been planned.
+4. Place the goal's finish-line quest or action last.
+5. Use a visible manual-confirmation step for partial quest states, owned rewards, boss victories, or other outcomes the dashboard cannot observe.
+6. Label each step as `Ready now`, `Train first`, `Complete quest`, or `Manual confirmation`.
+7. State the expected unlock or dashboard effect of each meaningful step.
+8. Use Wiki quest-length categories and the existing active-route training model for time guidance. Display an unavailable/variable label when no stable estimate exists; never invent one.
+9. Recalculate the plan after every account sync, quest confirmation, stat change, or active-goal switch.
+10. Provide direct `Make active goal` and `Plan tonight` actions.
+
 ## Required goal record
 
 Every goal definition must contain:
@@ -91,6 +106,7 @@ Every goal definition must contain:
 - Revision/review status
 - Behavior when data is missing
 - All Goal Ranking Contract fields
+- Dependency-ordered action-plan behavior
 
 ## Authoring workflow
 
