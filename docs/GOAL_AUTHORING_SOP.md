@@ -86,6 +86,19 @@ Every finite goal must generate an ordered action plan from the same verified da
 9. Recalculate the plan after every account sync, quest confirmation, stat change, or active-goal switch.
 10. Provide direct `Make active goal` and `Plan tonight` actions.
 
+## Goal-Specific Tonight Contract
+
+Tonight Mode must consume the active goal's ordered action plan rather than independently inventing a route. It must:
+
+- Preserve prerequisite order for every session style.
+- Fit complete steps into the selected time budget and split unfinished training or long quests across sessions.
+- Include item-preparation time before quest work when preparation data exists.
+- Show the expected result of each scheduled block and the next remaining action afterward.
+- Offer Fastest progress, Quest-focused, Low-attention, and Mixed session styles without allowing a style to bypass mandatory requirements.
+- Use Wiki quest-length categories and the active-route training model when available.
+- Assign a clearly described session block when a stable total estimate is unavailable.
+- Recalculate after synced stats, quest completion, active-goal changes, and time/style changes.
+
 ## Required goal record
 
 Every goal definition must contain:
