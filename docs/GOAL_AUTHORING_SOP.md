@@ -99,6 +99,21 @@ Tonight Mode must consume the active goal's ordered action plan rather than inde
 - Assign a clearly described session block when a stable total estimate is unavailable.
 - Recalculate after synced stats, quest completion, active-goal changes, and time/style changes.
 
+## Goal Dependency Map Contract
+
+Every finite goal must expose a graph derived from the same verified requirements as its action plan:
+
+- Quest nodes connect through their direct prerequisite relationships.
+- Mandatory base-skill nodes connect to the exact quest that requires them.
+- A prominent destination node represents the goal finish line.
+- Node state is one of `completed`, `ready`, `blocked`, `training`, or `confirmation`.
+- The critical-path view identifies the deepest currently unfinished prerequisite branch without treating optional recommendations as blockers.
+- The next actionable node is visibly identified and can open Goal-Specific Tonight Mode.
+- Full, critical-path, quest-only, and skill-only views use the same graph rather than separate calculations.
+- Each node exposes its source, time guidance, requirements, and path role.
+- Desktop uses connected columns; narrow screens use a readable vertical flow rather than compressing the graph.
+- The graph recalculates whenever the underlying goal progress recalculates.
+
 ## Required goal record
 
 Every goal definition must contain:

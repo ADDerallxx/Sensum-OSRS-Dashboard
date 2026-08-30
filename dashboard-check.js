@@ -62,7 +62,7 @@ check(/quantityCell=row\.length>=3\?row\[row\.length-2\]/.test(recipeSource), 'R
 check(/Goal Progress &amp; Switching/.test(html) && /switchV271Goal/.test(html), 'Goal progress window must support active-goal switching.');
 check(/Early-game/.test(html) && /Mid-game/.test(html) && /End-game/.test(html), 'Goal stage pills and filters are incomplete.');
 check(/Expected Purchase Profit/.test(html) && /Expected Processing Profit/.test(html) && /Total Expected Profit/.test(html) && /combinedPotential=marketPotential\+processingPotential/.test(html), 'Purchase, processing, and total expected profit must remain visibly separated and retain negative projections.');
-check(/V2\.76 · Goal-Specific Tonight/.test(html) && /Finish line:/.test(html) && /Average path readiness/.test(html), 'Audited goal cards must expose finish lines and path-readiness summaries.');
+check(/V2\.77 · Goal Dependency Map/.test(html) && /Finish line:/.test(html) && /Average path readiness/.test(html), 'Audited goal cards must expose finish lines and path-readiness summaries.');
 check(/Path readiness/.test(html) && /pathReadinessPercent/.test(html) && /questChain/.test(dashboardSource) && /skillPath/.test(dashboardSource), 'Every goal must keep completion separate from transitive quest-and-skill path readiness.');
 check(/'balanced':\{type:'ROADMAP_MODE'/.test(dashboardSource) && /'quest cape':\{type:'ALL_CURRENT_QUESTS'/.test(dashboardSource), 'Balanced must be an ongoing roadmap and Quest Cape must use the all-current-quests model.');
 check(/percent=Math\.round\(trackedCompleted\/totalQuests\*100\)/.test(dashboardSource) && !/completed\.size\/totalQuests\*100,weight:70/.test(dashboardSource), 'Quest Cape must use the direct completed/total fraction without route-readiness weighting.');
@@ -75,6 +75,10 @@ check(/questActionPlan/.test(dashboardSource) && /actionPlan:actionPlan/.test(da
 check(/Make active goal/.test(html) && /Plan tonight/.test(html) && /planV275Tonight/.test(html), 'Goal action plans must connect directly to active-goal switching and Tonight Mode.');
 check(/v276SessionStyle/.test(html) && /Fastest progress/.test(html) && /Quest-focused/.test(html) && /Low-attention/.test(html) && /Mixed session/.test(html), 'Tonight Mode must expose all four goal-specific session styles.');
 check(/function renderV130Tonight\(\)[\s\S]{0,1800}progress\.actionPlan/.test(html) && /v276TrainingMinutes/.test(html) && /After tonight:/.test(html), 'Tonight Mode must schedule from the active goal action plan and show remaining work.');
+check(/goalDependencyMap/.test(dashboardSource) && /dependencyMap:dependencyMap/.test(dashboardSource) && /v277MapModal/.test(html), 'Finite goals must publish and render a dependency graph.');
+check(/getV277GoalDependencyMap/.test(dashboardSource) && /Building the verified dependency map/.test(html), 'Dependency graphs must load on demand instead of slowing every dashboard refresh.');
+check(/Full dependency map/.test(html) && /Critical path only/.test(html) && /Quest steps only/.test(html) && /Skill requirements only/.test(html), 'The dependency map must expose all four required views.');
+check(/v277DrawMap/.test(html) && /Plan tonight from here/.test(html) && /v277Node.*completed/.test(html), 'The dependency map must draw connections, expose node states, and connect the next node to Tonight Mode.');
 check(/ordered\.filter\(item=>item\.blockedBy!==['"]Ready now['"]\)\.slice\(0,20\)/.test(dashboardSource), 'Ready-now quests must be excluded and the Blocked Quests working set must remain capped at 20.');
 check(/Object\.values\(byName\)[\s\S]{0,900}slice\(0,20\)/.test(dashboardSource), 'The blocker list must refill from the complete dependency dataset after ready-now rows are removed.');
 check(/readyCol = column\(\/\^ready now/.test(dashboardSource) && /readyCol>=0\?!rec\.ready/.test(dashboardSource), 'Blocker eligibility must use the dependency table Ready Now field when available.');

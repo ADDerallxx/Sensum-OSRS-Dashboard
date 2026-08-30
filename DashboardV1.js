@@ -356,7 +356,7 @@ function getV1DashboardState(options) {
     routeDepth: Number(getRouteDepthValue_(dash) || 10),
     goals,
     accomplishedGoals,
-    goalProgress: readV131GoalProgress_(ss, allGoals, statsRows, account, requirementIntel, routeRows, questDisplayMeta),
+    goalProgress: readV131GoalProgress_(ss, allGoals, statsRows, account, requirementIntel, routeRows, questDisplayMeta, options.mapGoal),
     bosses: bosses,
     bossGuides: v132BossGuides_(),
     bossLoadouts: V132B_WIKI_LOADOUTS,
@@ -612,7 +612,7 @@ function readV134QuestLibrary_(sh, displayMeta) {
   return {quests:quests,audit:{current:quests.length-review,review:review,pendingAlerts:pendingAlerts,acknowledgedAlerts:review-pendingAlerts,total:quests.length},generatedAt:new Date().toISOString()};
 }
 
-function readV131GoalProgress_(ss, goals, statsRows, account, requirementIntel, routeRows, questDisplayMeta) {
+function readV131GoalProgress_(ss, goals, statsRows, account, requirementIntel, routeRows, questDisplayMeta, mapGoal) {
   const out = {}, stats = {}, completed = new Set();
   (statsRows || []).forEach(r => stats[String(r[0] || '').trim().toLowerCase()] = Number(r[1] || 0));
   let table = null;
@@ -693,6 +693,34 @@ function readV131GoalProgress_(ss, goals, statsRows, account, requirementIntel, 
     if(partialUnlock&&!completed.has(String(anchor||'').toLowerCase()))steps.push({kind:'CONFIRM',status:'Manual confirmation',title:'Confirm the partial-quest unlock',detail:'Continue the anchor quest until the documented unlock is received.',outcome:'Marks the finish line only after you confirm it in the dashboard.',quest:anchor,estimate:'Player-confirmed quest stage'});
     return steps;
   };
+  const goalDependencyMap = (def, goal, actionPlan, completionPercent) => {
+    const nodes=[],edges=[],nodeIds=new Set(),qId=q=>`quest:${String(q||'').toLowerCase()}`,sId=(skill,target,q)=>`skill:${String(skill||'').toLowerCase()}:${target}:${String(q||'').toLowerCase()}`,goalId=`goal:${String(goal.name||'').toLowerCase()}`;
+    const addNode=n=>{if(!nodeIds.has(n.id)){nodeIds.add(n.id);nodes.push(n)}};
+    const addEdge=(from,to)=>{if(from&&to&&!edges.some(e=>e.from===from&&e.to===to))edges.push({from:from,to:to})};
+    let anchors=[];
+    if(def.type==='QUEST_COMPLETE'||def.type==='QUEST_PARTIAL_UNLOCK')anchors=[def.anchor];
+    else if(def.type==='ALL_CURRENT_QUESTS')anchors=questNames.slice();
+    if(anchors.length){
+      const included=[],seen=new Set();anchors.forEach(anchor=>questChain(anchor,true).forEach(q=>{const k=String(q).toLowerCase();if(!seen.has(k)){seen.add(k);included.push(q)}}));
+      const depthMemo={};
+      const qDepth=(q,stack)=>{const k=String(q||'').toLowerCase();if(depthMemo[k]!=null)return depthMemo[k];stack=stack||new Set();if(stack.has(k))return 0;stack.add(k);const ps=((questInfo[k]&&questInfo[k].prereqs)||[]).filter(x=>seen.has(String(x).toLowerCase()));const d=ps.length?Math.max.apply(null,ps.map(x=>qDepth(x,new Set(stack))))+1:1;depthMemo[k]=d;return d};
+      included.forEach(q=>{
+        const k=String(q).toLowerCase(),info=questInfo[k]||{prereqs:[]},req=(requirementIntel||{})[k],skills=(req&&req.requiredSkills)||[],prereqs=(info.prereqs||[]).filter(x=>seen.has(String(x).toLowerCase())),prereqsDone=prereqs.every(x=>completed.has(String(x).toLowerCase())),skillsMet=skills.every(x=>Number(stats[String(x.skill||'').toLowerCase()]||0)>=Number(x.level||0)),done=completed.has(k),depth=qDepth(q);
+        addNode({id:qId(q),kind:'QUEST',label:q,state:done?'completed':prereqsDone&&skillsMet?'ready':'blocked',depth:depth*2,detail:done?'Quest complete':prereqsDone&&skillsMet?'All detected requirements met':'Prerequisites or mandatory skills remain',source:`https://oldschool.runescape.wiki/w/${encodeURIComponent(String(q).replace(/ /g,'_'))}`,estimate:((questDisplayMeta||{})[k]||{}).length||'Unknown length',requires:prereqs.slice()});
+        prereqs.forEach(p=>addEdge(qId(p),qId(q)));
+        skills.forEach(x=>{const skill=String(x.skill||''),target=Number(x.level||0),current=Number(stats[skill.toLowerCase()]||0),id=sId(skill,target,q);addNode({id:id,kind:'SKILL',label:`${skill} ${target}`,state:current>=target?'completed':'training',depth:Math.max(1,depth*2-1),detail:`Base level ${current} → ${target}`,source:'https://oldschool.runescape.wiki/w/Skills',estimate:current>=target?'Requirement met':'Rate-dependent training',requires:[]});addEdge(id,qId(q))});
+      });
+      anchors.forEach(anchor=>addEdge(qId(anchor),goalId));
+      addNode({id:goalId,kind:def.type==='QUEST_PARTIAL_UNLOCK'?'CONFIRM':'GOAL',label:def.display||goal.name,state:completionPercent===100?'completed':def.type==='QUEST_PARTIAL_UNLOCK'?'confirmation':'blocked',depth:(Math.max.apply(null,nodes.map(n=>n.depth).concat([0]))+1),detail:def.finish,source:def.source,estimate:def.type==='QUEST_PARTIAL_UNLOCK'?'Manual confirmation':'Finish-line outcome',requires:anchors.slice()});
+      const longest=(q,stack)=>{const k=String(q||'').toLowerCase();if(completed.has(k))return[];stack=stack||new Set();if(stack.has(k))return[];stack.add(k);const ps=((questInfo[k]&&questInfo[k].prereqs)||[]).filter(x=>!completed.has(String(x).toLowerCase())),branches=ps.map(x=>longest(x,new Set(stack))).sort((a,b)=>b.length-a.length);return (branches[0]||[]).concat([q])};
+      const criticalQuestPath=anchors.map(longest).sort((a,b)=>b.length-a.length)[0]||[],criticalIds=new Set([goalId]);criticalQuestPath.forEach(q=>{criticalIds.add(qId(q));const req=(requirementIntel||{})[String(q).toLowerCase()];((req&&req.requiredSkills)||[]).forEach(x=>{if(Number(stats[String(x.skill||'').toLowerCase()]||0)<Number(x.level||0))criticalIds.add(sId(x.skill,Number(x.level||0),q))})});
+      let nextActionId='';const first=actionPlan[0];if(first){if(first.kind==='QUEST')nextActionId=qId(first.quest);else if(first.kind==='TRAIN')nextActionId=sId(first.skill,Number(first.target||0),first.quest);else if(first.kind==='CONFIRM')nextActionId=goalId}nodes.forEach(n=>{n.critical=criticalIds.has(n.id);n.nextAction=n.id===nextActionId});
+      return {nodes:nodes,edges:edges,nextActionId:nextActionId};
+    }
+    let prior='';(actionPlan||[]).forEach((step,i)=>{const id=`step:${i}`;addNode({id:id,kind:step.kind||'CHECK',label:step.title,state:step.kind==='TRAIN'?'training':step.kind==='CONFIRM'?'confirmation':step.kind==='READY'?'ready':'blocked',depth:i+1,detail:step.detail||'',source:def.source,estimate:step.estimate||'',requires:prior?[prior]:[],critical:true,nextAction:i===0});if(prior)addEdge(prior,id);prior=id});
+    addNode({id:goalId,kind:'GOAL',label:def.display||goal.name,state:completionPercent===100?'completed':'blocked',depth:(actionPlan||[]).length+1,detail:def.finish,source:def.source,estimate:'Finish-line outcome',requires:prior?[prior]:[],critical:true,nextAction:false});if(prior)addEdge(prior,goalId);
+    return {nodes:nodes,edges:edges,nextActionId:(actionPlan||[]).length?'step:0':goalId};
+  };
   const totalQuests = questNames.length || 1;
   const trackedCompleted = questNames.filter(name => completed.has(name.toLowerCase())).length;
   const accomplishedGoals = new Set((goals||[]).filter(g=>/^accomplished$/i.test(String(g.status||''))).map(g=>String(g.name||'').toLowerCase()));
@@ -765,9 +793,18 @@ function readV131GoalProgress_(ss, goals, statsRows, account, requirementIntel, 
     else if(def.type==='SKILL_THRESHOLD'&&milestone)actionPlan=[{kind:'TRAIN',status:'Train first',title:`Reach combat level ${milestone.next}`,detail:`Current combat level: ${milestone.current}.`,outcome:`Advances Combat Growth to its next milestone.`,current:milestone.current,target:milestone.next,estimate:'Updates automatically from synced combat level'}];
     else if(def.type!=='ROADMAP_MODE')actionPlan=[].concat(readiness,dimensions).filter(d=>Number(d.percent||0)<100).map(d=>({kind:/confirm/i.test(String(d.detail||''))?'CONFIRM':'CHECK',status:/confirm/i.test(String(d.detail||''))?'Manual confirmation':'Ready next',title:d.label,detail:d.detail||`${d.current} of ${d.target}`,outcome:'Advances this goal when the requirement is satisfied.',estimate:'No stable universal time estimate'}));
     if(!actionPlan.length&&def.type!=='ROADMAP_MODE'&&percent!==100)actionPlan=[{kind:'READY',status:'Ready now',title:'Complete the finish-line action',detail:def.finish,outcome:'Completes this goal.',estimate:'Ready now'}];
-    out[key]={percent:percent,status:status,displayName:def.display||goal.name,completionType:def.type,finishLine:def.finish,trackedBy:def.tracked,source:def.source,lastVerified:'2026-08-29',dimensions:dimensions,readiness:readiness,pathReadinessPercent:path.percent,questPath:path.questPath,skillPath:path.skillPath,milestone:milestone,ranking:ranking,actionPlan:actionPlan};
+    const dependencyMap=def.type!=='ROADMAP_MODE'&&String(mapGoal||'').toLowerCase()===key?goalDependencyMap(def,goal,actionPlan,percent):null;
+    out[key]={percent:percent,status:status,displayName:def.display||goal.name,completionType:def.type,finishLine:def.finish,trackedBy:def.tracked,source:def.source,lastVerified:'2026-08-29',dimensions:dimensions,readiness:readiness,pathReadinessPercent:path.percent,questPath:path.questPath,skillPath:path.skillPath,milestone:milestone,ranking:ranking,actionPlan:actionPlan,dependencyMap:dependencyMap};
   });
   return out;
+}
+
+function getV277GoalDependencyMap(goalName) {
+  goalName=v274CanonicalGoalName_(goalName);
+  const state=getV1DashboardState({allowQuestHelperSync:false,mapGoal:goalName});
+  const progress=(state.goalProgress||{})[String(goalName||'').toLowerCase()];
+  if(!progress||!progress.dependencyMap)throw new Error('Dependency map unavailable for '+goalName+'.');
+  return progress.dependencyMap;
 }
 
 function readV129QuestDisplayMeta_(sh) {
