@@ -136,6 +136,17 @@ function getV245VerifiedRecipe(item){
   },recipe=recipes[name]||v270ResolveWikiRecipe_(item);if(!recipe)return null;recipe.modifierGroups=recipe.modifierGroups||[];const wanted=recipe.inputs.map(x=>({name:x.item})).concat(recipe.modifierGroups.flatMap(g=>[{name:g.icon}].concat(g.options.map(o=>({name:o.item}))))).concat([{name:recipe.output}]),prices=v244WikiItems_('',wanted),byName={};prices.forEach(x=>byName[x.name.toLowerCase()]=x);recipe.outputItem=byName[recipe.output.toLowerCase()]||{name:recipe.output};recipe.inputs=recipe.inputs.map(x=>Object.assign({},x,{market:byName[x.item.toLowerCase()]||null}));recipe.modifierGroups=recipe.modifierGroups.map(g=>Object.assign({},g,{iconItem:byName[g.icon.toLowerCase()]||{name:g.icon},options:g.options.map(o=>Object.assign({},o,{market:byName[o.item.toLowerCase()]||null}))}));return recipe;
 }
 
+function getV279DecantToFourRecipe(item){
+  const selectedName=String(item&&item.name||item||'').trim(),match=selectedName.match(/^(.*?)\s*\(([123])\)$/i);
+  if(!match)throw new Error('Choose a tradeable 1-, 2-, or 3-dose potion to decant.');
+  const base=match[1].trim(),sourceDose=Number(match[2]),outputName=base+'(4)',prices=v244WikiItems_('',[{name:selectedName},{name:outputName}]),byName={};
+  prices.forEach(x=>byName[String(x.name||'').toLowerCase()]=x);
+  const source=byName[selectedName.toLowerCase()],output=byName[outputName.toLowerCase()];
+  if(!source)throw new Error('The selected source potion is not available in the current GE mapping.');
+  if(!output)throw new Error('No tradeable 4-dose GE item was found for '+base+'.');
+  return {mode:'DECANT_4',recipe:'Decant to 4-dose — '+base,output:output.name,outputItem:output,outputQuantity:1,skill:'Processing',level:0,xpEach:0,inputs:[{item:source.name,quantity:4/sourceDose,market:source}],source:'https://oldschool.runescape.wiki/w/Decanting',verified:Utilities.formatDate(new Date(),Session.getScriptTimeZone()||'America/Denver','yyyy-MM-dd'),verification:'Dose-preserving decant conversion',sourceDose:sourceDose,dosesPerOutput:4,modifierGroups:[]};
+}
+
 function v243ProcessingSheet_(){
   const ss=SpreadsheetApp.openById(V1_TRACKER_ID);let sh=ss.getSheetByName('Money Making Processing');
   if(!sh){sh=ss.insertSheet('Money Making Processing');sh.getRange(1,1,1,17).setValues([['Batch ID','Start Date','Recipe','Inputs JSON','Output Item ID','Output Item','Planned','Processed','Sold','Sell Price','XP Each','Notes','Source','Updated At','Waste','Status','Modifiers JSON']]);sh.setFrozenRows(1);}else if(sh.getLastColumn()<17)sh.getRange(1,17).setValue('Modifiers JSON');
