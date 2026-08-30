@@ -62,7 +62,7 @@ check(/quantityCell=row\.length>=3\?row\[row\.length-2\]/.test(recipeSource), 'R
 check(/Goal Progress &amp; Switching/.test(html) && /switchV271Goal/.test(html), 'Goal progress window must support active-goal switching.');
 check(/Early-game/.test(html) && /Mid-game/.test(html) && /End-game/.test(html), 'Goal stage pills and filters are incomplete.');
 check(/Expected Purchase Profit/.test(html) && /Expected Processing Profit/.test(html) && /Total Expected Profit/.test(html) && /combinedPotential=marketPotential\+processingPotential/.test(html), 'Purchase, processing, and total expected profit must remain visibly separated and retain negative projections.');
-check(/V2\.78b · Potion Decanting/.test(html) && /Finish line:/.test(html) && /Average path readiness/.test(html), 'Audited goal cards must expose finish lines and path-readiness summaries.');
+check(/V2\.78c · Reversible Decanting/.test(html) && /Finish line:/.test(html) && /Average path readiness/.test(html), 'Audited goal cards must expose finish lines and path-readiness summaries.');
 check(/Path readiness/.test(html) && /pathReadinessPercent/.test(html) && /questChain/.test(dashboardSource) && /skillPath/.test(dashboardSource), 'Every goal must keep completion separate from transitive quest-and-skill path readiness.');
 check(/'balanced':\{type:'ROADMAP_MODE'/.test(dashboardSource) && /'quest cape':\{type:'ALL_CURRENT_QUESTS'/.test(dashboardSource), 'Balanced must be an ongoing roadmap and Quest Cape must use the all-current-quests model.');
 check(/percent=Math\.round\(trackedCompleted\/totalQuests\*100\)/.test(dashboardSource) && !/completed\.size\/totalQuests\*100,weight:70/.test(dashboardSource), 'Quest Cape must use the direct completed/total fraction without route-readiness weighting.');
@@ -79,8 +79,9 @@ check(/goalDependencyMap/.test(dashboardSource) && /dependencyMap:dependencyMap/
 check(/getV277GoalDependencyMap/.test(dashboardSource) && /Building the verified dependency map/.test(html), 'Dependency graphs must load on demand instead of slowing every dashboard refresh.');
 check(/Full dependency map/.test(html) && /Critical path only/.test(html) && /Quest steps only/.test(html) && /Skill requirements only/.test(html), 'The dependency map must expose all four required views.');
 check(/v277DrawMap/.test(html) && /Plan tonight from here/.test(html) && /v277Node.*completed/.test(html), 'The dependency map must draw connections, expose node states, and connect the next node to Tonight Mode.');
-check(/Decant to 4-dose potion/.test(html) && /getV279DecantToFourRecipe/.test(dashboardSource) && /quantity:4\/sourceDose/.test(dashboardSource), 'Four-dose potion decanting must preserve doses and use a tracked GE output.');
+check(/v279DecantFour/.test(html) && /getV279DecantToFourRecipe/.test(dashboardSource) && /quantity:4\/sourceDose/.test(dashboardSource), 'Four-dose potion decanting must preserve doses and use a tracked GE output.');
 check(/recipe\.mode==='DECANT_4'/.test(html) && /current GE price/.test(html), 'The processing modal must replace the selected source with its live-priced four-dose output.');
+check(/Commit four-dose conversion\?/.test(html) && /v279RestoreOriginal/.test(html) && /totalDoses=count\*dose/.test(html), 'Four-dose conversion must preview counts, require confirmation, preserve leftovers, and remain reversible.');
 check(/ordered\.filter\(item=>item\.blockedBy!==['"]Ready now['"]\)\.slice\(0,20\)/.test(dashboardSource), 'Ready-now quests must be excluded and the Blocked Quests working set must remain capped at 20.');
 check(/Object\.values\(byName\)[\s\S]{0,900}slice\(0,20\)/.test(dashboardSource), 'The blocker list must refill from the complete dependency dataset after ready-now rows are removed.');
 check(/readyCol = column\(\/\^ready now/.test(dashboardSource) && /readyCol>=0\?!rec\.ready/.test(dashboardSource), 'Blocker eligibility must use the dependency table Ready Now field when available.');
