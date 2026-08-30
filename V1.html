@@ -1917,7 +1917,7 @@ function initV265PageWorkspaces(){
   Object.entries(banners).forEach(([name,selector])=>{
     const cap=name[0].toUpperCase()+name.slice(1),panel=$('heroPanel'+cap);if(!panel||panel.classList.contains('v265PageWorkspace'))return;
     const banner=document.createElement('div'),content=document.createElement('div'),lead=panel.querySelector(':scope > '+selector);
-    banner.className='v265PageBanner';content.className='v265PageContent';if(lead){lead.classList.add('v278PageLead');const copy=lead.querySelector(':scope > div:first-child');if(copy&&!copy.querySelector('.v278Eyebrow')){const eyebrow=document.createElement('span');eyebrow.className='v278Eyebrow';eyebrow.textContent=labels[name]||'Dashboard';copy.prepend(eyebrow)}banner.appendChild(lead)}
+    banner.className='v265PageBanner';content.className='v265PageContent';if(lead){lead.classList.add('v278PageLead');const copy=lead.querySelector(':scope > div:first-child');if(copy){const existing=copy.querySelector('.v262PanelEyebrow');if(existing)existing.classList.add('v278Eyebrow');else if(!copy.querySelector('.v278Eyebrow')){const eyebrow=document.createElement('span');eyebrow.className='v278Eyebrow';eyebrow.textContent=labels[name]||'Dashboard';copy.prepend(eyebrow)}}banner.appendChild(lead)}
     [...panel.children].forEach(child=>content.appendChild(child));panel.append(banner,content);panel.classList.add('v265PageWorkspace');shell.appendChild(panel);
   });
 }
