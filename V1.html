@@ -321,6 +321,21 @@
     .v251JournalTable th:nth-child(15),.v251JournalTable th:nth-child(16){width:135px}
     @media(max-width:900px){.v240MoneyTop{grid-template-columns:1fr 1fr}.v240Summary{grid-template-columns:1fr 1fr}.v240PortfolioSummary{grid-template-columns:1fr 1fr}.v241Controls{grid-template-columns:1fr 1fr}.v241Metrics{grid-template-columns:1fr 1fr}.v242Summary{grid-template-columns:1fr 1fr}.v243BatchGrid{grid-template-columns:1fr 1fr}.v243Preview{grid-template-columns:1fr 1fr}}
     @media(max-width:760px){.v246InputHead,.v246InputRow{grid-template-columns:minmax(120px,2fr) 80px 90px 90px}}
+    /* V2.78 UI contract: shared page hierarchy, controls, sections, and empty states. */
+    .v278PageLead{min-height:78px;box-sizing:border-box;padding:16px 22px!important;background:transparent!important;color:#f4dfb7!important}
+    .v278PageLead>div:first-child{display:grid;gap:4px;min-width:0}.v278PageLead b{color:#ffe2a1!important;font-size:17px!important;line-height:1.15}.v278PageLead>div:first-child>span:not(.v278Eyebrow){max-width:760px;color:#c9b394!important;font-size:9px!important;line-height:1.45}
+    .v278Eyebrow{display:block;color:#d9a942!important;font-size:7px!important;font-weight:950;letter-spacing:.75px;text-transform:uppercase}
+    .v265PageContent{padding:16px 18px 18px}.v265PageContent>:first-child{margin-top:0}.v265PageContent>:last-child{margin-bottom:0}
+    #heroPanelStats .v265PageContent{padding:12px 18px 18px}#heroPanelStats .heroSkills{padding:0}
+    #heroPanelBosses .v265PageContent,#heroPanelAchievements .v265PageContent,#heroPanelHealth .v265PageContent{padding:16px 18px 18px}
+    #heroPanelMoney .v240MoneyTop,#heroPanelLibrary .v134LibraryTop,.v266MoneyNav,.v266ViewIntro,.v267ProfitDock,.v267AlchCost{margin-left:0;margin-right:0}
+    .v240MoneySection,.v133Grid>section,.v133Manual,.v128BossCard,.healthMeta,.v135ReviewCenter{box-shadow:0 3px 11px rgba(74,42,14,.08)}
+    .v240MoneySection>summary,.v135ReviewCenter>summary,.v271Accomplished>summary,.v275ActionPlan>summary{min-height:40px;box-sizing:border-box;list-style:none}.v240MoneySection>summary::-webkit-details-marker,.v135ReviewCenter>summary::-webkit-details-marker,.v271Accomplished>summary::-webkit-details-marker,.v275ActionPlan>summary::-webkit-details-marker{display:none}
+    .v240MoneySection>summary:after,.v135ReviewCenter>summary:after,.v271Accomplished>summary:after,.v275ActionPlan>summary:after{content:'▾';margin-left:auto;transition:transform .15s ease}.v240MoneySection:not([open])>summary:after,.v135ReviewCenter:not([open])>summary:after,.v271Accomplished:not([open])>summary:after,.v275ActionPlan:not([open])>summary:after{transform:rotate(-90deg)}
+    .v115Head{align-items:center;min-height:50px;box-sizing:border-box}.v115Head>div{display:grid;gap:2px}.v115Head small{color:#cdb895;font-size:8px;line-height:1.35}
+    .v240Empty,.v271GoalEmpty,.v134Empty,.v263WorkspaceEmpty{border:1px dashed #c8ad83;border-radius:10px;background:#fff8ed;color:#766047;padding:20px;text-align:center}
+    .v278PageLead select{border:1px solid #9d774d;border-radius:8px;background:#fffaf1;color:#352313}
+    @media(max-width:680px){.v278PageLead{min-height:0;padding:13px!important}.v265PageContent,#heroPanelStats .v265PageContent,#heroPanelBosses .v265PageContent,#heroPanelAchievements .v265PageContent,#heroPanelHealth .v265PageContent{padding:12px 10px 14px}.v278PageLead b{font-size:15px!important}}
   </style>
 
 <style id="v122RequirementStyles">
@@ -371,7 +386,7 @@
   <div class="hero">
     <div class="heroTop">
       <div><h1>Sensum OSRS Progression Dashboard</h1><div class="sub">Open this, see what matters, play the game.</div></div>
-        <div class="heroActions"><div id="v22BannerClock" class="v22Clock">—<small>Local time</small></div><button id="v134WomForce" type="button" class="womForce" onclick="forceV134WomUpdate()">↻ Force WOM Update</button><div class="version">V2.77 · Goal Dependency Map</div><button type="button" class="v201SettingsButton" onclick="openV201Settings()" title="Open settings" aria-label="Open settings"><img src="https://oldschool.runescape.wiki/w/Special:Redirect/file/Settings_%28historical%29.png" alt="" onerror="v264AssetError(this)"></button></div>
+        <div class="heroActions"><div id="v22BannerClock" class="v22Clock">—<small>Local time</small></div><button id="v134WomForce" type="button" class="womForce" onclick="forceV134WomUpdate()">↻ Force WOM Update</button><div class="version">V2.78 · UI Cohesion</div><button type="button" class="v201SettingsButton" onclick="openV201Settings()" title="Open settings" aria-label="Open settings"><img src="https://oldschool.runescape.wiki/w/Special:Redirect/file/Settings_%28historical%29.png" alt="" onerror="v264AssetError(this)"></button></div>
     </div>
     <div class="heroTabs" role="tablist" aria-label="Dashboard command center">
       <div class="v262TabGroup" role="presentation"><span class="v262TabGroupLabel">Play</span><button type="button" id="heroTabOverview" class="heroTab active" role="tab" aria-selected="true" onclick="setHeroTab('overview')">Overview</button><button type="button" id="heroTabTonight" class="heroTab" role="tab" aria-selected="false" onclick="setHeroTab('tonight')">Tonight</button></div>
@@ -1898,10 +1913,11 @@ function initV263Workspaces(){v263Scrolls=v263ReadScrolls();const shell=document
 function initV265PageWorkspaces(){
   const shell=document.querySelector('.shell');if(!shell)return;
   const banners={tonight:'.v130TonightTop',stats:'.v262PanelIntro',health:'.v262PanelIntro',bosses:'.v128BossTop',achievements:'.v133Top',money:'.v262PanelIntro',library:'.v262PanelIntro'};
+  const labels={tonight:'Play',stats:'Progress',health:'System',bosses:'Planning',achievements:'Progress',money:'Planning',library:'Progress'};
   Object.entries(banners).forEach(([name,selector])=>{
     const cap=name[0].toUpperCase()+name.slice(1),panel=$('heroPanel'+cap);if(!panel||panel.classList.contains('v265PageWorkspace'))return;
     const banner=document.createElement('div'),content=document.createElement('div'),lead=panel.querySelector(':scope > '+selector);
-    banner.className='v265PageBanner';content.className='v265PageContent';if(lead)banner.appendChild(lead);
+    banner.className='v265PageBanner';content.className='v265PageContent';if(lead){lead.classList.add('v278PageLead');const copy=lead.querySelector(':scope > div:first-child');if(copy&&!copy.querySelector('.v278Eyebrow')){const eyebrow=document.createElement('span');eyebrow.className='v278Eyebrow';eyebrow.textContent=labels[name]||'Dashboard';copy.prepend(eyebrow)}banner.appendChild(lead)}
     [...panel.children].forEach(child=>content.appendChild(child));panel.append(banner,content);panel.classList.add('v265PageWorkspace');shell.appendChild(panel);
   });
 }

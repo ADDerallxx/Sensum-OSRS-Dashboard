@@ -62,7 +62,7 @@ check(/quantityCell=row\.length>=3\?row\[row\.length-2\]/.test(recipeSource), 'R
 check(/Goal Progress &amp; Switching/.test(html) && /switchV271Goal/.test(html), 'Goal progress window must support active-goal switching.');
 check(/Early-game/.test(html) && /Mid-game/.test(html) && /End-game/.test(html), 'Goal stage pills and filters are incomplete.');
 check(/Expected Purchase Profit/.test(html) && /Expected Processing Profit/.test(html) && /Total Expected Profit/.test(html) && /combinedPotential=marketPotential\+processingPotential/.test(html), 'Purchase, processing, and total expected profit must remain visibly separated and retain negative projections.');
-check(/V2\.77 · Goal Dependency Map/.test(html) && /Finish line:/.test(html) && /Average path readiness/.test(html), 'Audited goal cards must expose finish lines and path-readiness summaries.');
+check(/V2\.78 · UI Cohesion/.test(html) && /Finish line:/.test(html) && /Average path readiness/.test(html), 'Audited goal cards must expose finish lines and path-readiness summaries.');
 check(/Path readiness/.test(html) && /pathReadinessPercent/.test(html) && /questChain/.test(dashboardSource) && /skillPath/.test(dashboardSource), 'Every goal must keep completion separate from transitive quest-and-skill path readiness.');
 check(/'balanced':\{type:'ROADMAP_MODE'/.test(dashboardSource) && /'quest cape':\{type:'ALL_CURRENT_QUESTS'/.test(dashboardSource), 'Balanced must be an ongoing roadmap and Quest Cape must use the all-current-quests model.');
 check(/percent=Math\.round\(trackedCompleted\/totalQuests\*100\)/.test(dashboardSource) && !/completed\.size\/totalQuests\*100,weight:70/.test(dashboardSource), 'Quest Cape must use the direct completed/total fraction without route-readiness weighting.');
@@ -85,6 +85,8 @@ check(/readyCol = column\(\/\^ready now/.test(dashboardSource) && /readyCol>=0\?
 check(/toggleAttribute\('autofocus',fresh\)[\s\S]{0,300}output\.focus\(\)/.test(html), 'A fresh custom processing batch must make the output field the modal focus target.');
 check(/function\s+v132ItemImage[\s\S]{0,400}v264WikiAsset/.test(html), 'Boss equipment icons do not use the shared asset resolver.');
 check(/function\s+initV265PageWorkspaces\s*\(/.test(html), 'Distinct non-Overview page workspace initialization is missing.');
+check(/v278PageLead/.test(html) && /const labels=\{tonight:'Play'/.test(html) && /v278Eyebrow/.test(html), 'V2.78 shared page-banner hierarchy is incomplete.');
+check(/\.v115Head\{align-items:center;min-height:50px/.test(html) && /\.v240Empty,.v271GoalEmpty,.v134Empty,.v263WorkspaceEmpty/.test(html), 'V2.78 modal and empty-state cohesion rules are incomplete.');
 check(/initV263Workspaces\(\);initV265PageWorkspaces\(\);(?:initV266MoneyWorkspace\(\);)?restoreV258HeroTab\(\)/.test(html), 'Page workspaces must initialize after Overview isolation and before tab restoration.');
 check(/if\(context\)context\.hidden=name==='overview'/.test(html), 'Account context must be hidden on Overview and retained on the other tabs.');
 check(/function\s+initV266MoneyWorkspace\s*\(/.test(html), 'Focused Money workspace initialization is missing.');
