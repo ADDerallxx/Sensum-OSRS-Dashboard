@@ -676,7 +676,7 @@ function readV131GoalProgress_(ss, goals, statsRows, account, requirementIntel, 
   const definitions = {
     'balanced':{type:'ROADMAP_MODE',finish:'Ongoing planning mode; it balances useful unlocks, quests, skills, and account development.',tracked:'Dashboard configuration',source:'https://oldschool.runescape.wiki/w/Optimal_quest_guide'},
     'fairy rings':{type:'QUEST_PARTIAL_UNLOCK',anchor:'Fairytale II - Cure a Queen',finish:'Receive permission from the Fairy Godfather during Fairytale II and use the fairy-ring network.',tracked:'Manual confirmation or full quest completion',source:'https://oldschool.runescape.wiki/w/Fairy_rings'},
-    'combat growth':{type:'SKILL_THRESHOLD',display:'Combat Growth — Level 126',targetCombat:126,finish:'Reach the maximum combat level of 126, with checkpoints at levels 70, 85, 100, 110, and 120.',tracked:'Account combat level',source:'https://oldschool.runescape.wiki/w/Combat_level'},
+    'combat growth':{type:'SKILL_THRESHOLD',display:'Combat Growth',targetCombat:126,finish:'Advance through combat-level milestones at 70, 85, 100, 110, 120, and finally 126.',tracked:'Account combat level',source:'https://oldschool.runescape.wiki/w/Combat_level'},
     'transportation':{type:'CHECKLIST_TRANSPORT',display:'Core Transportation Network',finish:'Unlock fairy rings, spirit trees, and gnome gliders.',tracked:'Quest completion plus fairy-ring confirmation',source:'https://oldschool.runescape.wiki/w/Transportation'},
     'fossil island access':{type:'QUEST_COMPLETE',anchor:'Bone Voyage',finish:'Complete Bone Voyage and unlock Fossil Island.',tracked:'Quest completion',source:'https://oldschool.runescape.wiki/w/Fossil_Island'},
     'fire cape prep':{type:'CHECKLIST_FIRE_CAPE',display:'Fire Cape',finish:'Prepare for the Fight Caves, defeat TzTok-Jad, and obtain a Fire cape.',tracked:'Base stats and quest completion; cape ownership is confirmed manually',source:'https://oldschool.runescape.wiki/w/TzHaar_Fight_Cave/Strategies'},
@@ -699,12 +699,12 @@ function readV131GoalProgress_(ss, goals, statsRows, account, requirementIntel, 
       return;
     }
     if (!def) { out[key]={percent:null,status:'Definition required',displayName:goal.name,completionType:'REVIEW',finishLine:'This goal needs an audited finish line before progress can be calculated.',trackedBy:'Not configured',source:'',lastVerified:'',dimensions:[]}; return; }
-    let percent=null,status='In progress';
+    let percent=null,status='In progress',milestone=null;
     if(def.type==='ROADMAP_MODE'){status='Ongoing';}
     else if(def.type==='ALL_CURRENT_QUESTS'){
       percent=Math.round(trackedCompleted/totalQuests*100);dimensions.push(dim('Quests completed',trackedCompleted,totalQuests,`${trackedCompleted} of ${totalQuests} quests complete`));status=trackedCompleted>=totalQuests?'Accomplished':`${totalQuests-trackedCompleted} quests remaining`;
     } else if(def.type==='SKILL_THRESHOLD'){
-      const current=Number(account['Combat Level']||0),target=Number(def.targetCombat||0),checkpoints=[70,85,100,110,120,126],next=checkpoints.find(x=>current<x);percent=target?Math.min(100,Math.round(current/target*100)):null;dimensions.push(dim('Overall combat level',current,target,`${current} of ${target}`));checkpoints.forEach(level=>dimensions.push(dim(`Level ${level} checkpoint`,Math.min(current,level),level,current>=level?'Reached':`${level-current} levels remaining`)));status=current>=target?'Accomplished':`Next checkpoint: level ${next||target}`;
+      const current=Number(account['Combat Level']||0),target=Number(def.targetCombat||0),checkpoints=[70,85,100,110,120,126],next=checkpoints.find(x=>current<x)||target,previous=[0].concat(checkpoints).filter(x=>x<=current).pop()||0,milestoneSpan=Math.max(1,next-previous),milestonePct=current>=target?100:Math.max(0,Math.min(100,Math.round((current-previous)/milestoneSpan*100)));percent=target?Math.min(100,Math.round(current/target*100)):null;milestone={current:current,next:next,previous:previous,percent:milestonePct,remaining:Math.max(0,next-current),checkpoints:checkpoints};dimensions.push(dim('Current combat level',current,next,`${current} → ${next}`));status=current>=target?'Accomplished':`${Math.max(0,next-current)} levels to milestone ${next}`;
     } else if(def.type==='CHECKLIST_TRANSPORT'){
       const spirit=completed.has('tree gnome village'),glider=completed.has('the grand tree'),fairyFull=completed.has('fairytale ii - cure a queen');const done=Number(spirit)+Number(glider)+Number(fairyFull);percent=Math.round(done/3*100);dimensions.push(dim('Spirit trees',Number(spirit),1,spirit?'Tree Gnome Village complete':'Complete Tree Gnome Village'));dimensions.push(dim('Gnome gliders',Number(glider),1,glider?'The Grand Tree complete':'Complete The Grand Tree'));dimensions.push(dim('Fairy rings',Number(fairyFull),1,fairyFull?'Confirmed by full Fairytale II completion':'Partial-quest unlock needs confirmation'));status=fairyFull&&spirit&&glider?'Ready to complete':'Fairy-ring state may need confirmation';
     } else if(def.type==='CHECKLIST_FIRE_CAPE'){
@@ -731,7 +731,7 @@ function readV131GoalProgress_(ss, goals, statsRows, account, requirementIntel, 
       const total = pathDims.length, earned = pathDims.reduce((sum,d)=>sum+Math.min(1,Number(d.current||0)/Math.max(1,Number(d.target||1))),0);
       path={percent:total?Math.round(earned/total*100):(percent===null?null:percent),questPath:null,skillPath:null};
     }
-    out[key]={percent:percent,status:status,displayName:def.display||goal.name,completionType:def.type,finishLine:def.finish,trackedBy:def.tracked,source:def.source,lastVerified:'2026-08-29',dimensions:dimensions,readiness:readiness,pathReadinessPercent:path.percent,questPath:path.questPath,skillPath:path.skillPath};
+    out[key]={percent:percent,status:status,displayName:def.display||goal.name,completionType:def.type,finishLine:def.finish,trackedBy:def.tracked,source:def.source,lastVerified:'2026-08-29',dimensions:dimensions,readiness:readiness,pathReadinessPercent:path.percent,questPath:path.questPath,skillPath:path.skillPath,milestone:milestone};
   });
   return out;
 }
