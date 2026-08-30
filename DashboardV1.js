@@ -286,6 +286,13 @@ function refreshV22WikiSync(clientPayload) {
   } finally { lock.releaseLock(); }
 }
 
+function v274CanonicalGoalName_(name) {
+  return String(name || '').trim() === 'Transportation' ? 'Core Transportation Network' : String(name || '').trim();
+}
+function v274StoredGoalName_(name) {
+  return String(name || '').trim() === 'Core Transportation Network' ? 'Transportation' : String(name || '').trim();
+}
+
 function getV1DashboardState(options) {
   options = options || {};
   // V1.22: interactive reads never block on a Quest Helper network sync.
@@ -322,7 +329,7 @@ function getV1DashboardState(options) {
   accountRows.forEach(r => account[r[0]] = r[1]);
 
   const goalRows = goalsSheet.getRange('A5:P200').getDisplayValues().filter(r => r[0]);
-  const allGoals = goalRows.map(r => ({name:r[0], type:r[1], anchor:r[2], line:r[3], notes:r[14], status:r[15]||'ACTIVE'}));
+  const allGoals = goalRows.map(r => ({name:v274CanonicalGoalName_(r[0]), type:r[1], anchor:r[2], line:r[3], notes:r[14], status:r[15]||'ACTIVE'}));
   const goals = allGoals.filter(g => g.name === 'Balanced' || !/^accomplished$/i.test(g.status));
   const accomplishedGoals = allGoals.filter(g => g.name !== 'Balanced' && /^accomplished$/i.test(g.status));
 
@@ -345,7 +352,7 @@ function getV1DashboardState(options) {
     questPoints: account['Quest Points'] || '',
     lastWomSnapshot: account['Last WOM Snapshot'] || '',
     lastSheetSync: account['Last Sheet Sync'] || '',
-    goal: dash.getRange('B3').getDisplayValue(),
+    goal: v274CanonicalGoalName_(dash.getRange('B3').getDisplayValue()),
     routeDepth: Number(getRouteDepthValue_(dash) || 10),
     goals,
     accomplishedGoals,
@@ -677,7 +684,7 @@ function readV131GoalProgress_(ss, goals, statsRows, account, requirementIntel, 
     'balanced':{type:'ROADMAP_MODE',finish:'Ongoing planning mode; it balances useful unlocks, quests, skills, and account development.',tracked:'Dashboard configuration',source:'https://oldschool.runescape.wiki/w/Optimal_quest_guide'},
     'fairy rings':{type:'QUEST_PARTIAL_UNLOCK',anchor:'Fairytale II - Cure a Queen',finish:'Receive permission from the Fairy Godfather during Fairytale II and use the fairy-ring network.',tracked:'Manual confirmation or full quest completion',source:'https://oldschool.runescape.wiki/w/Fairy_rings'},
     'combat growth':{type:'SKILL_THRESHOLD',display:'Combat Growth',targetCombat:126,finish:'Advance through combat-level milestones at 70, 85, 100, 110, 120, and finally 126.',tracked:'Account combat level',source:'https://oldschool.runescape.wiki/w/Combat_level'},
-    'transportation':{type:'CHECKLIST_TRANSPORT',display:'Core Transportation Network',finish:'Unlock fairy rings, spirit trees, and gnome gliders.',tracked:'Quest completion plus fairy-ring confirmation',source:'https://oldschool.runescape.wiki/w/Transportation'},
+    'core transportation network':{type:'CHECKLIST_TRANSPORT',display:'Core Transportation Network',finish:'Unlock fairy rings, spirit trees, and gnome gliders.',tracked:'Quest completion plus fairy-ring confirmation',source:'https://oldschool.runescape.wiki/w/Transportation'},
     'fossil island access':{type:'QUEST_COMPLETE',anchor:'Bone Voyage',finish:'Complete Bone Voyage and unlock Fossil Island.',tracked:'Quest completion',source:'https://oldschool.runescape.wiki/w/Fossil_Island'},
     'fire cape prep':{type:'CHECKLIST_FIRE_CAPE',display:'Fire Cape',finish:'Prepare for the Fight Caves, defeat TzTok-Jad, and obtain a Fire cape.',tracked:'Base stats and quest completion; cape ownership is confirmed manually',source:'https://oldschool.runescape.wiki/w/TzHaar_Fight_Cave/Strategies'},
     'barrows gloves / rfd':{type:'QUEST_COMPLETE',display:'Barrows Gloves Unlocked',anchor:'Recipe for Disaster',finish:'Complete Recipe for Disaster and unlock Barrows gloves in the Culinaromancer\'s Chest.',tracked:'Quest completion',source:'https://oldschool.runescape.wiki/w/Recipe_for_Disaster'},
@@ -695,10 +702,10 @@ function readV131GoalProgress_(ss, goals, statsRows, account, requirementIntel, 
   (goals || []).forEach(goal => {
     const dimensions = [], readiness = [], key=String(goal.name||'').toLowerCase(), def=definitions[key]||null;
     if (/^accomplished$/i.test(goal.status || '')) {
-      out[key] = {percent:100,status:'Accomplished',displayName:def&&def.display||goal.name,completionType:def&&def.type||'MANUAL',finishLine:def&&def.finish||'Marked accomplished.',trackedBy:def&&def.tracked||'Manual confirmation',source:def&&def.source||'',lastVerified:'2026-08-29',dimensions:[dim('Goal status',1,1,'Marked accomplished')]};
+      out[key] = {percent:100,status:'Accomplished',displayName:def&&def.display||goal.name,completionType:def&&def.type||'MANUAL',finishLine:def&&def.finish||'Marked accomplished.',trackedBy:def&&def.tracked||'Manual confirmation',source:def&&def.source||'',lastVerified:'2026-08-29',dimensions:[dim('Goal status',1,1,'Marked accomplished')],ranking:{eligible:false,pathReadinessPercent:100,remainingQuestSteps:0,unmetSkillTargets:0,needsConfirmation:false,dataConfidence:'VERIFIED'}};
       return;
     }
-    if (!def) { out[key]={percent:null,status:'Definition required',displayName:goal.name,completionType:'REVIEW',finishLine:'This goal needs an audited finish line before progress can be calculated.',trackedBy:'Not configured',source:'',lastVerified:'',dimensions:[]}; return; }
+    if (!def) { out[key]={percent:null,status:'Definition required',displayName:goal.name,completionType:'REVIEW',finishLine:'This goal needs an audited finish line before progress can be calculated.',trackedBy:'Not configured',source:'',lastVerified:'',dimensions:[],ranking:{eligible:true,pathReadinessPercent:null,remainingQuestSteps:999,unmetSkillTargets:999,needsConfirmation:false,dataConfidence:'REVIEW'}}; return; }
     let percent=null,status='In progress',milestone=null;
     if(def.type==='ROADMAP_MODE'){status='Ongoing';}
     else if(def.type==='ALL_CURRENT_QUESTS'){
@@ -731,7 +738,11 @@ function readV131GoalProgress_(ss, goals, statsRows, account, requirementIntel, 
       const total = pathDims.length, earned = pathDims.reduce((sum,d)=>sum+Math.min(1,Number(d.current||0)/Math.max(1,Number(d.target||1))),0);
       path={percent:total?Math.round(earned/total*100):(percent===null?null:percent),questPath:null,skillPath:null};
     }
-    out[key]={percent:percent,status:status,displayName:def.display||goal.name,completionType:def.type,finishLine:def.finish,trackedBy:def.tracked,source:def.source,lastVerified:'2026-08-29',dimensions:dimensions,readiness:readiness,pathReadinessPercent:path.percent,questPath:path.questPath,skillPath:path.skillPath,milestone:milestone};
+    const remainingQuestSteps=path.questPath?Math.max(0,Number(path.questPath.target||0)-Number(path.questPath.current||0)):0;
+    const unmetSkillTargets=path.skillPath?Math.max(0,Number(path.skillPath.target||0)-Number(path.skillPath.current||0)):[].concat(dimensions,readiness).filter(d=>Number(d.percent||0)<100).length;
+    const needsConfirmation=/confirm/i.test(String(status||''))||/manual confirmation/i.test(String(def.tracked||''));
+    const ranking={eligible:def.type!=='ROADMAP_MODE',pathReadinessPercent:Number.isFinite(Number(path.percent))?Number(path.percent):null,remainingQuestSteps:remainingQuestSteps,unmetSkillTargets:unmetSkillTargets,needsConfirmation:needsConfirmation,dataConfidence:def.source?'VERIFIED':'REVIEW'};
+    out[key]={percent:percent,status:status,displayName:def.display||goal.name,completionType:def.type,finishLine:def.finish,trackedBy:def.tracked,source:def.source,lastVerified:'2026-08-29',dimensions:dimensions,readiness:readiness,pathReadinessPercent:path.percent,questPath:path.questPath,skillPath:path.skillPath,milestone:milestone,ranking:ranking};
   });
   return out;
 }
@@ -952,6 +963,7 @@ function readV1WikiHealth_(dash) {
 
 function setV1Goal(goalName) {
   const ss = SpreadsheetApp.openById(V1_TRACKER_ID);
+  goalName = v274StoredGoalName_(goalName);
   const names = ss.getSheetByName('Goal Registry').getRange('A5:A200').getDisplayValues().flat().filter(Boolean);
   if (names.indexOf(goalName) === -1) throw new Error('Unknown goal: ' + goalName);
   ss.getSheetByName('Dashboard').getRange('B3').setValue(goalName);
@@ -970,7 +982,8 @@ function setV127GoalStatus_(goalName, newStatus) {
   const ss = SpreadsheetApp.openById(V1_TRACKER_ID);
   const sh = ss.getSheetByName('Goal Registry');
   const rows = sh.getRange('A5:P200').getDisplayValues();
-  const index = rows.findIndex(r => String(r[0] || '').trim() === goalName);
+  const storedGoalName = v274StoredGoalName_(goalName);
+  const index = rows.findIndex(r => String(r[0] || '').trim() === storedGoalName);
   if (index < 0) throw new Error('Unknown goal: ' + goalName);
 
   const row = index + 5;
@@ -986,7 +999,7 @@ function setV127GoalStatus_(goalName, newStatus) {
   log.appendRow([new Date(), goalName, previous, newStatus, 'Dashboard Goal Manager', Utilities.getUuid()]);
 
   const dash = ss.getSheetByName('Dashboard');
-  if (newStatus === 'ACCOMPLISHED' && dash.getRange('B3').getDisplayValue() === goalName) {
+  if (newStatus === 'ACCOMPLISHED' && dash.getRange('B3').getDisplayValue() === storedGoalName) {
     dash.getRange('B3').setValue('Balanced');
   }
   SpreadsheetApp.flush();

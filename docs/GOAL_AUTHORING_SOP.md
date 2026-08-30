@@ -48,6 +48,29 @@ Every goal must expose both metrics independently:
 
 Never let path readiness mark a goal accomplished. A player can be 100% ready and still need to finish or manually confirm the final outcome.
 
+## Goal Ranking Contract
+
+Every finite goal must expose the same ranking metadata. This contract applies automatically to existing goals and is mandatory for every future goal:
+
+- `completionPercent` — progress toward the actual finish line.
+- `pathReadinessPercent` — progress through required prerequisite quests and mandatory base-skill targets.
+- `remainingQuestSteps` — incomplete required quests, using the complete transitive dependency chain.
+- `unmetSkillTargets` — mandatory base-level targets not yet met.
+- `needsConfirmation` — true when the path is ready but the finish line cannot be observed automatically.
+- `dataConfidence` — `VERIFIED`, `STALE`, `INCOMPLETE`, or `REVIEW`.
+
+The default **Closest to ready** order is fixed:
+
+1. Automatically completed goals.
+2. Goals at 100% path readiness that need manual confirmation.
+3. Highest path-readiness percentage.
+4. Fewest remaining prerequisite quests.
+5. Fewest unmet mandatory skill targets.
+6. Highest goal-completion percentage.
+7. Alphabetical name as the stable final tie-breaker.
+
+Roadmap modes are excluded because they have no finish line. Recommended levels, optional routes, boosts, equipment, supplies, and comfort targets never affect ranking. Missing or unaudited goal data receives `REVIEW` confidence and sorts beneath verified goals instead of receiving an invented score. Completion and readiness must never be blended into a single fabricated percentage.
+
 ## Required goal record
 
 Every goal definition must contain:
@@ -67,6 +90,7 @@ Every goal definition must contain:
 - Last verified date
 - Revision/review status
 - Behavior when data is missing
+- All Goal Ranking Contract fields
 
 ## Authoring workflow
 
@@ -81,7 +105,8 @@ Every goal definition must contain:
 9. **Handle live-game change.** Store verification metadata and specify whether the denominator or conditions are dynamic.
 10. **Test five states.** Validate new account, partial progress, readiness-without-completion, completed, and missing/stale data.
 11. **Run regression checks.** Confirm the goal does not alter unrelated goals and that changing the active goal does not change another goal's percentage.
-12. **Document and deploy.** Update the goal audit, validation checks, version, backup, GitHub, Apps Script, and live verification.
+12. **Test ranking.** Verify readiness ordering, remaining-quest and skill tie-breakers, ready-to-confirm placement, roadmap exclusion, and review-data fallback.
+13. **Document and deploy.** Update the goal audit, validation checks, version, backup, GitHub, Apps Script, and live verification.
 
 ## Progress display standard
 

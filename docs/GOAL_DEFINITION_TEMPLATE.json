@@ -27,5 +27,13 @@
   "missingDataBehavior": "Data unavailable | Needs confirmation | Review",
   "dynamic": false,
   "lastVerified": "YYYY-MM-DD",
+  "rankingContract": {
+    "completionPercent": "direct finish-line formula",
+    "pathReadinessPercent": "transitive required quest and mandatory base-skill formula",
+    "remainingQuestSteps": "integer",
+    "unmetSkillTargets": "integer",
+    "needsConfirmation": false,
+    "dataConfidence": "VERIFIED | STALE | INCOMPLETE | REVIEW"
+  },
   "reviewStatus": "VERIFIED | REVIEW"
 }
