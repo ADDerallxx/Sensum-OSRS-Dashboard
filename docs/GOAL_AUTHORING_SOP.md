@@ -39,7 +39,14 @@ A **roadmap mode** changes recommendation priorities but has no completion state
 | `ALL_CURRENT_QUESTS` | Every currently released quest is complete | Completed tracked quests / current verified quest total |
 | `ROADMAP_MODE` | No finish line | No percentage; display `Ongoing` |
 
-Composite goals may contain multiple required conditions, but every condition must be explicitly declared. Do not use hidden weights. If a useful preparation metric is not part of the finish line, show it under **Readiness**, not **Progress**.
+Composite goals may contain multiple required conditions, but every condition must be explicitly declared. Do not use hidden weights. If a useful preparation metric is not part of the finish line, show it under **Path readiness**, not **Goal completion**.
+
+Every goal must expose both metrics independently:
+
+- **Goal completion** measures only the stated finish line. It may require manual confirmation when the endpoint is not observable.
+- **Path readiness** measures the complete transitive prerequisite quest chain plus progress toward the highest mandatory base-skill target for each skill across that chain. Completed quest steps count as binary requirements; skill targets contribute fractional progress up to their required base level. The score is the unweighted average of those visible atomic requirements.
+
+Never let path readiness mark a goal accomplished. A player can be 100% ready and still need to finish or manually confirm the final outcome.
 
 ## Required goal record
 
@@ -68,7 +75,7 @@ Every goal definition must contain:
 3. **Research first.** Verify the endpoint, prerequisites, required levels, boost rules, partial-unlock behavior, and whether the result is an unlock or an owned item. Prefer the OSRS Wiki and record direct URLs.
 4. **Separate requirements.** Put mandatory conditions in `required`; put comfort levels, gear suggestions, supplies, and strategy advice in `recommended`.
 5. **Choose detection honestly.** Use automatic completion only for data the dashboard actually observes. Otherwise use a visible manual confirmation.
-6. **Define progress without arbitrary weights.** Use the direct completion measure. For a quest cape, use quests completed / current quests. For a checklist, use required checks completed / total required checks. Do not blend route readiness into either.
+6. **Define both metrics without arbitrary weights.** Use the direct finish-line measure for goal completion. Separately calculate path readiness from every transitive prerequisite quest and highest mandatory base-skill target. For a quest cape, completion remains quests completed / current quests; readiness may describe the remaining quest-and-skill path but must not change that completion percentage.
 7. **Define the finish gate.** The progress bar may reach 100% only when every required finish condition is true.
 8. **Define the next action.** Select the nearest unmet prerequisite in dependency order; never recommend a downstream condition before its prerequisite.
 9. **Handle live-game change.** Store verification metadata and specify whether the denominator or conditions are dynamic.
@@ -81,8 +88,8 @@ Every goal definition must contain:
 Each card must show:
 
 - **Finish line** — the exact outcome.
-- **Progress** — only direct finish-line progress.
-- **Readiness** — optional preparation, clearly non-completing.
+- **Goal completion** — only direct finish-line progress.
+- **Path readiness** — prerequisite quest-chain and mandatory base-skill progress, clearly non-completing.
 - **Next requirement** — the earliest unmet required condition.
 - **Tracked by** — automatic source or manual confirmation.
 - **Verified** — date and Wiki link.

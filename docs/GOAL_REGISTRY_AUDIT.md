@@ -4,7 +4,7 @@ Audit date: 2026-08-29
 Scope: All 16 goals currently shown by the dashboard  
 Standard: `docs/GOAL_AUTHORING_SOP.md`
 
-Implementation status: V2.72a implements explicit completion types, direct Quest Cape progress, Balanced as an ongoing roadmap, finish-line text, readiness separation, source metadata, and honest manual-confirmation states. Combat Growth runs through level 126 with milestone checkpoints; Transportation is the Core Transportation Network; Fire Cape and Infernal Cape each combine preparation checkpoints with the final manually confirmed cape.
+Implementation status: V2.73 implements explicit completion types, direct Quest Cape progress, Balanced as an ongoing roadmap, finish-line text, source metadata, honest manual-confirmation states, and a separate path-readiness calculation using transitive prerequisite quests plus highest mandatory base-skill targets. Combat Growth runs through level 126 with milestone checkpoints; Transportation is the Core Transportation Network; Fire Cape and Infernal Cape each combine preparation checkpoints with the final manually confirmed cape.
 
 ## Executive finding
 

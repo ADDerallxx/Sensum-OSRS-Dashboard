@@ -628,6 +628,47 @@ function readV131GoalProgress_(ss, goals, statsRows, account, requirementIntel, 
     const name = String(r[qCol] || '').trim();
     if (name) { questNames.push(name); questInfo[name.toLowerCase()] = {prereq:String(r[prereqCol] || ''), other:String(r[otherCol] || '')}; }
   });
+  Object.keys(questInfo).forEach(key => {
+    const raw = String(questInfo[key].prereq || '').toLowerCase();
+    questInfo[key].prereqs = questNames.filter(name => raw.indexOf(name.toLowerCase()) >= 0);
+  });
+  const questChain = (anchor, includeAnchor) => {
+    const ordered = [], seen = new Set();
+    const visit = name => {
+      const key = String(name || '').toLowerCase();
+      if (!key || seen.has(key)) return;
+      seen.add(key);
+      ((questInfo[key] && questInfo[key].prereqs) || []).forEach(visit);
+      ordered.push(name);
+    };
+    visit(anchor);
+    return includeAnchor === false ? ordered.filter(x => String(x).toLowerCase() !== String(anchor).toLowerCase()) : ordered;
+  };
+  const pathForQuests = names => {
+    const ordered = [], seen = new Set(), skillTargets = {};
+    (names || []).forEach(name => questChain(name, true).forEach(q => {
+      const key = String(q || '').toLowerCase();
+      if (!seen.has(key)) { seen.add(key); ordered.push(q); }
+      const req = (requirementIntel || {})[key];
+      ((req && req.requiredSkills) || []).forEach(x => {
+        const skill = String(x.skill || '').trim(), level = Number(x.level || 0), skillKey = skill.toLowerCase();
+        if (skill && level > Number(skillTargets[skillKey] && skillTargets[skillKey].level || 0)) skillTargets[skillKey] = {skill:skill,level:level};
+      });
+    }));
+    const questsDone = ordered.filter(name => completed.has(String(name).toLowerCase())).length;
+    const skills = Object.keys(skillTargets).map(key => {
+      const target = skillTargets[key], current = Number(stats[key] || 0);
+      return {skill:target.skill,current:current,target:target.level,fraction:target.level ? Math.min(1,current/target.level) : 1,met:current >= target.level};
+    });
+    const skillsMet = skills.filter(x => x.met).length;
+    const earned = questsDone + skills.reduce((sum,x)=>sum+x.fraction,0), total = ordered.length + skills.length;
+    return {
+      percent:total ? Math.round(earned/total*100) : 100,
+      questPath:{current:questsDone,target:ordered.length,percent:ordered.length?Math.round(questsDone/ordered.length*100):100,detail:ordered.length?`${questsDone} of ${ordered.length} prerequisite quests complete`:'No prerequisite quests'},
+      skillPath:{current:skillsMet,target:skills.length,percent:skills.length?Math.round(skills.reduce((sum,x)=>sum+x.fraction,0)/skills.length*100):100,detail:skills.length?`${skillsMet} of ${skills.length} base-skill targets met`:'No base-skill targets'},
+      quests:ordered,skills:skills
+    };
+  };
   const totalQuests = questNames.length || 1;
   const trackedCompleted = questNames.filter(name => completed.has(name.toLowerCase())).length;
   const accomplishedGoals = new Set((goals||[]).filter(g=>/^accomplished$/i.test(String(g.status||''))).map(g=>String(g.name||'').toLowerCase()));
@@ -675,9 +716,22 @@ function readV131GoalProgress_(ss, goals, statsRows, account, requirementIntel, 
     } else if(def.type==='CHECKLIST_INFERNO'){
       const fireCape=accomplishedGoals.has('fire cape prep'),checks=[['90 Ranged',Number(stats.ranged||0)>=90],['90 Defence',Number(stats.defence||0)>=90],['80 Prayer',Number(stats.prayer||0)>=80],['94 Magic',Number(stats.magic||0)>=94],['90 Hitpoints',Number(stats.hitpoints||0)>=90],['Fire Cape goal',fireCape]],done=checks.filter(x=>x[1]).length,total=checks.length+1;percent=Math.round(done/total*100);checks.forEach(x=>readiness.push(dim(x[0],Number(x[1]),1,x[1]?'Preparation checkpoint met':'Preparation checkpoint not met','readiness')));dimensions.push(dim('Infernal cape obtained',0,1,'Confirm after defeating TzKal-Zuk and receiving the cape'));status=done===checks.length?'Prepared — obtain and confirm the Infernal cape':'Preparation in progress';
     } else if(def.type==='QUEST_COMPLETE'){
-      const anchor=String(def.anchor||goal.anchor||''),anchorKey=anchor.toLowerCase(),info=questInfo[anchorKey]||{prereq:''},anchorDone=completed.has(anchorKey),prereqs=questNames.filter(name=>String(info.prereq||'').toLowerCase().indexOf(name.toLowerCase())>=0),done=prereqs.filter(name=>completed.has(name.toLowerCase())).length,total=prereqs.length+1;percent=Math.round((done+Number(anchorDone))/total*100);dimensions.push(dim('Finish quest',Number(anchorDone),1,anchorDone?`${anchor} complete`:`Complete ${anchor}`));if(prereqs.length)dimensions.push(dim('Direct prerequisites',done,prereqs.length,`${done} of ${prereqs.length} complete`));const req=(requirementIntel||{})[anchorKey],skills=req&&req.requiredSkills?req.requiredSkills:[],met=skills.filter(x=>Number(stats[String(x.skill||'').toLowerCase()]||0)>=Number(x.level||0)).length;if(skills.length)readiness.push(dim('Base skill readiness',met,skills.length,`${met} of ${skills.length} required levels met`,'readiness'));status=anchorDone?'Accomplished':`${anchor} incomplete`;
+      const anchor=String(def.anchor||goal.anchor||''),anchorKey=anchor.toLowerCase(),anchorDone=completed.has(anchorKey);percent=anchorDone?100:0;dimensions.push(dim('Finish quest',Number(anchorDone),1,anchorDone?`${anchor} complete`:`Complete ${anchor}`));status=anchorDone?'Accomplished':`${anchor} incomplete`;
     }
-    out[key]={percent:percent,status:status,displayName:def.display||goal.name,completionType:def.type,finishLine:def.finish,trackedBy:def.tracked,source:def.source,lastVerified:'2026-08-29',dimensions:dimensions,readiness:readiness};
+    let path = null;
+    if (def.type === 'QUEST_COMPLETE') path = pathForQuests(questChain(def.anchor, false));
+    else if (def.type === 'QUEST_PARTIAL_UNLOCK') path = pathForQuests(questChain(def.anchor, false));
+    else if (def.type === 'ALL_CURRENT_QUESTS') path = pathForQuests(questNames.filter(name=>!completed.has(name.toLowerCase())));
+    else if (def.type === 'ROADMAP_MODE') {
+      const routeQuests=(routeRows||[]).map(r=>String(r.quest||r[1]||'').trim()).filter(Boolean);
+      path=pathForQuests(routeQuests);
+    }
+    if (!path) {
+      const pathDims = readiness.length ? readiness : dimensions;
+      const total = pathDims.length, earned = pathDims.reduce((sum,d)=>sum+Math.min(1,Number(d.current||0)/Math.max(1,Number(d.target||1))),0);
+      path={percent:total?Math.round(earned/total*100):(percent===null?null:percent),questPath:null,skillPath:null};
+    }
+    out[key]={percent:percent,status:status,displayName:def.display||goal.name,completionType:def.type,finishLine:def.finish,trackedBy:def.tracked,source:def.source,lastVerified:'2026-08-29',dimensions:dimensions,readiness:readiness,pathReadinessPercent:path.percent,questPath:path.questPath,skillPath:path.skillPath};
   });
   return out;
 }
