@@ -310,6 +310,7 @@ function getV1DashboardState(options) {
   options = options || {};
   try{ensureV285GameDataPlatform_()}catch(e){console.warn('V2.80 game-data bootstrap deferred: '+e.message)}
   try{ensureV286AccuracyMonitor_()}catch(e){console.warn('V2.86 accuracy monitor bootstrap deferred: '+e.message)}
+  try{ensureV287EquipmentKnowledge_()}catch(e){console.warn('V2.87 equipment knowledge bootstrap deferred: '+e.message)}
   // V1.22: interactive reads never block on a Quest Helper network sync.
   const ss = SpreadsheetApp.openById(V1_TRACKER_ID);
   const dash = ss.getSheetByName('Dashboard');
