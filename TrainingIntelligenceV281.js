@@ -52,7 +52,7 @@ function v281tRows_(sh){if(!sh||sh.getLastRow()<2)return [];const values=sh.getD
 function v281tIndex_(rows,nameField){const out={};rows.forEach(r=>{const key=v281tKey_(r[nameField]);if(key&&!out[key])out[key]=r});return out}
 function v281tEligible_(rule,stats,quests){const missing=[];Object.keys(rule.min||{}).forEach(skill=>{if(v281tNum_(stats[skill])<v281tNum_(rule.min[skill]))missing.push(skill+' '+rule.min[skill])});(rule.quests||[]).forEach(q=>{if(!quests[v281tKey_(q)])missing.push(q)});return {eligible:!missing.length,missing:missing}}
 function v281tItemEligible_(item,stats,quests){const missing=[];['attack','strength','defence','ranged','magic','prayer','hitpoints'].forEach(skill=>{if(item[skill]&&v281tNum_(stats[skill])<item[skill])missing.push(skill+' '+item[skill])});if(item.quest&&!quests[v281tKey_(item.quest)])missing.push(item.quest);return {eligible:!missing.length,missing:missing}}
-function v281tPrice_(itemIndex,name){const row=itemIndex[v281tKey_(name)]||{};return Math.max(0,v281tNum_(row['Instant Buy']||row['Instant Sell']))}
+function v281tPrice_(itemIndex,name){const row=itemIndex[v281tKey_(name)]||{},hourly=v281tNum_(row['1h Avg High']),volume=v281tNum_(row['1h High Volume']);return Math.max(0,hourly&&volume>0?hourly:v281tNum_(row['Instant Buy']||row['Instant Sell']))}
 function v281tEquipRow_(equipmentIndex,name){return equipmentIndex[v281tKey_(name)]||{}}
 function v281tMonster_(monsterRows,name){const matches=monsterRows.filter(r=>v281tKey_(r.Name||r.Page)===v281tKey_(name)&&v281tNum_(r.Hitpoints)>0);matches.sort((a,b)=>v281tNum_(b.Hitpoints)-v281tNum_(a.Hitpoints));return matches[0]||null}
 
