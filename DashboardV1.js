@@ -320,11 +320,16 @@ function getV1DashboardState(options) {
   const questMeta = readV122QuestMeta_(questDependencySheet);
   const rewardMap = questMeta.rewards;
   const requirementIntel = questMeta.requirements;
+  const goalRows = goalsSheet.getRange('A5:P200').getDisplayValues().filter(r => r[0]);
+  const activeGoalName = v274CanonicalGoalName_(dash.getRange('B3').getDisplayValue());
+  const activeGoalRow = goalRows.find(r => v274CanonicalGoalName_(r[0]).toLowerCase() === activeGoalName.toLowerCase());
 
   const topRows = dash.getRange('A5:F10').getDisplayValues().slice(1).filter(r => r[1]);
   const blockedRows = dash.getRange('A13:F21').getDisplayValues().slice(1).filter(r => r[0]);
-  const orderedBlockedQuests = readV134OrderedBlockedQuests_(blockedRows, questDependencySheet);
-  const grindRows = dash.getRange('A36:I44').getDisplayValues().slice(1).filter(r => r[0]);
+  const allOrderedBlockedQuests = readV134OrderedBlockedQuests_(blockedRows, questDependencySheet);
+  const goalBlockerScope = readV281GoalScopedBlockers_(allOrderedBlockedQuests, questDependencySheet, activeGoalName, activeGoalRow && activeGoalRow[2]);
+  const orderedBlockedQuests = goalBlockerScope.blockers;
+  const grindRows = dash.getRange('A36:I44').getDisplayValues().slice(1).filter(r => r[0]).filter(r => !goalBlockerScope.scoped || goalBlockerScope.questKeys[String(r[0]||'').trim().toLowerCase()]);
   const routeRows = dash.getRange('A60:H69').getDisplayValues().filter(r => r[1]);
   const nextRows = dash.getRange('A73:B80').getDisplayValues();
 
@@ -341,7 +346,6 @@ function getV1DashboardState(options) {
   const account = {};
   accountRows.forEach(r => account[r[0]] = r[1]);
 
-  const goalRows = goalsSheet.getRange('A5:P200').getDisplayValues().filter(r => r[0]);
   const allGoals = goalRows.map(r => ({name:v274CanonicalGoalName_(r[0]), type:r[1], anchor:r[2], line:r[3], notes:r[14], status:r[15]||'ACTIVE'}));
   const goals = allGoals.filter(g => g.name === 'Balanced' || !/^accomplished$/i.test(g.status));
   const accomplishedGoals = allGoals.filter(g => g.name !== 'Balanced' && /^accomplished$/i.test(g.status));
@@ -397,6 +401,23 @@ function getV1DashboardState(options) {
     wikiHealth: readV1WikiHealth_(dash),
     wikiSync: wikiSync
   };
+}
+
+// V2.81: quest-anchored goals own their blocker scope. The selected anchor and
+// its complete prerequisite ancestry are the only quests allowed into the
+// blocker table and its training-detour companion. Roadmap modes remain broad.
+function readV281GoalScopedBlockers_(blockers, dependencySheet, goalName, goalAnchor) {
+  const name=String(goalName||'').trim(),fallbackAnchors={'fairy rings':'Fairytale II - Cure a Queen','fossil island access':'Bone Voyage','barrows gloves / rfd':'Recipe for Disaster','ancient magicks':'Desert Treasure I','lunar spellbook':'Lunar Diplomacy','darkmeyer access':'Sins of the Father','tombs of amascut access':'Beneath Cursed Sands','dragon slayer ii':'Dragon Slayer II','prifddinas':'Song of the Elves'},anchor=String(goalAnchor||fallbackAnchors[name.toLowerCase()]||'').trim();
+  if(!anchor||/^balanced$/i.test(name)||!dependencySheet)return {blockers:blockers||[],questKeys:{},scoped:false};
+  const values=dependencySheet.getDataRange().getDisplayValues();let header=-1,headers=[];
+  for(let i=0;i<Math.min(values.length,12);i++){const row=values[i].map(x=>String(x||'').trim());if(row.some(x=>/^quest name$/i.test(x))&&row.some(x=>/^direct prior quest requirement\(s\)$/i.test(x))){header=i;headers=row;break}}
+  if(header<0)return {blockers:blockers||[],questKeys:{},scoped:false};
+  const qCol=headers.findIndex(x=>/^quest name$/i.test(x)),pCol=headers.findIndex(x=>/^direct prior quest requirement\(s\)$/i.test(x));
+  if(qCol<0||pCol<0)return {blockers:blockers||[],questKeys:{},scoped:false};
+  const rows=values.slice(header+1).filter(r=>String(r[qCol]||'').trim()),names=rows.map(r=>String(r[qCol]||'').trim()).sort((a,b)=>b.length-a.length),byName={};
+  rows.forEach(r=>{const quest=String(r[qCol]||'').trim(),raw=String(r[pCol]||'').toLowerCase();byName[quest.toLowerCase()]={quest:quest,prereqs:names.filter(x=>x.toLowerCase()!==quest.toLowerCase()&&raw.indexOf(x.toLowerCase())>=0)}});
+  const allowed={},visit=quest=>{const key=String(quest||'').toLowerCase();if(!key||allowed[key])return;allowed[key]=true;((byName[key]&&byName[key].prereqs)||[]).forEach(visit)};visit(anchor);
+  return {blockers:(blockers||[]).filter(x=>allowed[String(x.quest||'').toLowerCase()]),questKeys:allowed,scoped:true,anchor:anchor};
 }
 
 // V1.34: preserve the dashboard ranking wherever possible, but never place a
