@@ -1665,6 +1665,7 @@ function removeV133Manual(id){openV130Confirm({icon:'↶',eyebrow:'Correct timel
 
 function render(s){
   window.__sensumState=s;
+  let v285Status=$('v285BackgroundStatus');if(!v285Status){v285Status=document.createElement('span');v285Status.id='v285BackgroundStatus';v285Status.hidden=true;document.body.appendChild(v285Status)}v285Status.textContent=JSON.stringify(s.gameDataStatus||{});
   initV200Settings();
   busy(false);$('err').classList.add('hidden');
   dataHealth(s);

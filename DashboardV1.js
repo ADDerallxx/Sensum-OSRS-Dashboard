@@ -405,7 +405,8 @@ function getV1DashboardState(options) {
     questDisplayMeta,
     planningMode:'Base levels only',
     wikiHealth: readV1WikiHealth_(dash),
-    wikiSync: wikiSync
+    wikiSync: wikiSync,
+    gameDataStatus:getV285GameDataStatus()
   };
 }
 
