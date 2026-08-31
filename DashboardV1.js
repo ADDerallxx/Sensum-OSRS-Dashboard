@@ -308,6 +308,7 @@ function v274StoredGoalName_(name) {
 
 function getV1DashboardState(options) {
   options = options || {};
+  try{ensureV285GameDataPlatform_()}catch(e){console.warn('V2.80 game-data bootstrap deferred: '+e.message)}
   // V1.22: interactive reads never block on a Quest Helper network sync.
   const ss = SpreadsheetApp.openById(V1_TRACKER_ID);
   const dash = ss.getSheetByName('Dashboard');
