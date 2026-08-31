@@ -328,14 +328,14 @@ function getV1DashboardState(options) {
   const blockedRows = dash.getRange('A13:F21').getDisplayValues().slice(1).filter(r => r[0]);
   const allOrderedBlockedQuests = readV134OrderedBlockedQuests_(blockedRows, questDependencySheet);
   const goalBlockerScope = readV281GoalScopedBlockers_(allOrderedBlockedQuests, questDependencySheet, activeGoalName, activeGoalRow && activeGoalRow[2]);
-  const orderedBlockedQuests = goalBlockerScope.blockers;
-  const grindRows = dash.getRange('A36:I44').getDisplayValues().slice(1).filter(r => r[0]).filter(r => !goalBlockerScope.scoped || goalBlockerScope.questKeys[v281QuestScopeKey_(r[0])]);
+  let orderedBlockedQuests = goalBlockerScope.blockers;
+  let grindRows = dash.getRange('A36:I44').getDisplayValues().slice(1).filter(r => r[0]).filter(r => !goalBlockerScope.scoped || goalBlockerScope.questKeys[v281QuestScopeKey_(r[0])]);
   const routeRows = dash.getRange('A60:H69').getDisplayValues().filter(r => r[1]);
   const nextRows = dash.getRange('A73:B80').getDisplayValues();
 
   const statsRows = statsSheet.getRange('A3:H26').getDisplayValues().filter(r => r[0]);
   const accountRows = statsSheet.getRange('A30:D35').getDisplayValues().filter(r => r[0]);
-  const blockerSkillTargets = readV134BlockerSkillTargets_(orderedBlockedQuests, requirementIntel, statsRows);
+  let blockerSkillTargets = readV134BlockerSkillTargets_(orderedBlockedQuests, requirementIntel, statsRows);
   const questLibrary = readV134QuestLibrary_(questDependencySheet, questDisplayMeta);
   const relevantHealthQuests = new Set([].concat(
     topRows.map(r=>String(r[1]||'').toLowerCase()),
@@ -349,6 +349,11 @@ function getV1DashboardState(options) {
   const allGoals = goalRows.map(r => ({name:v274CanonicalGoalName_(r[0]), type:r[1], anchor:r[2], line:r[3], notes:r[14], status:r[15]||'ACTIVE'}));
   const goals = allGoals.filter(g => g.name === 'Balanced' || !/^accomplished$/i.test(g.status));
   const accomplishedGoals = allGoals.filter(g => g.name !== 'Balanced' && /^accomplished$/i.test(g.status));
+  const computedGoalProgress = readV131GoalProgress_(ss, allGoals, statsRows, account, requirementIntel, routeRows, questDisplayMeta, options.mapGoal);
+  if(goalBlockerScope.scoped&&!orderedBlockedQuests.length){
+    orderedBlockedQuests=readV281ActionPlanBlockers_(computedGoalProgress[activeGoalName.toLowerCase()],requirementIntel,statsRows);
+    blockerSkillTargets=readV134BlockerSkillTargets_(orderedBlockedQuests,requirementIntel,statsRows);
+  }
 
   const summary = {
     objective: dash.getRange('J3').getDisplayValue() || dash.getRange('B3').getDisplayValue(),
@@ -373,7 +378,7 @@ function getV1DashboardState(options) {
     routeDepth: Number(getRouteDepthValue_(dash) || 10),
     goals,
     accomplishedGoals,
-    goalProgress: readV131GoalProgress_(ss, allGoals, statsRows, account, requirementIntel, routeRows, questDisplayMeta, options.mapGoal),
+    goalProgress: computedGoalProgress,
     bosses: bosses,
     bossGuides: v132BossGuides_(),
     bossLoadouts: V132B_WIKI_LOADOUTS,
@@ -407,6 +412,11 @@ function getV1DashboardState(options) {
 // its complete prerequisite ancestry are the only quests allowed into the
 // blocker table and its training-detour companion. Roadmap modes remain broad.
 function v281QuestScopeKey_(name){return String(name||'').toLowerCase().replace(/&/g,'and').replace(/[^a-z0-9]+/g,'')}
+function readV281ActionPlanBlockers_(progress,requirementIntel,statsRows){
+  const levels={};(statsRows||[]).forEach(r=>levels[String(r[0]||'').trim().toLowerCase()]=Number(r[1]||0));
+  const grouped={};(progress&&progress.actionPlan||[]).filter(step=>step.kind==='TRAIN'&&step.quest).forEach(step=>{const quest=String(step.quest||'').trim(),key=quest.toLowerCase();if(!grouped[key])grouped[key]={quest:quest,trains:[]};grouped[key].trains.push(step)});
+  return Object.keys(grouped).map(key=>{const row=grouped[key],req=(requirementIntel||{})[key],requirements=(req&&req.requiredSkills)||[],missing=requirements.filter(x=>Number(levels[String(x.skill||'').toLowerCase()]||0)<Number(x.level||0)).map(x=>{const current=Number(levels[String(x.skill||'').toLowerCase()]||0),target=Number(x.level||0);return `${x.skill} ${current} to ${target} (+${target-current})`});if(!missing.length)missing=row.trains.map(x=>`${x.skill} ${x.current} to ${x.target} (+${Number(x.target||0)-Number(x.current||0)})`);return {quest:row.quest,score:'—',downstream:'—',blockedBy:'Skills',missingSkills:missing.join('; ')||'Review required training step',hours:''}});
+}
 function readV281GoalScopedBlockers_(blockers, dependencySheet, goalName, goalAnchor) {
   const name=String(goalName||'').trim(),fallbackAnchors={'fairy rings':'Fairytale II - Cure a Queen','fossil island access':'Bone Voyage','barrows gloves / rfd':'Recipe for Disaster','ancient magicks':'Desert Treasure I','lunar spellbook':'Lunar Diplomacy','darkmeyer access':'Sins of the Father','tombs of amascut access':'Beneath Cursed Sands','dragon slayer ii':'Dragon Slayer II','prifddinas':'Song of the Elves'},anchor=String(fallbackAnchors[name.toLowerCase()]||goalAnchor||'').trim();
   if(!anchor||/^balanced$/i.test(name)||!dependencySheet)return {blockers:blockers||[],questKeys:{},scoped:false};
