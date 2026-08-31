@@ -7,6 +7,7 @@ const file = process.argv[2] || 'V1.html';
 const html = fs.readFileSync(file, 'utf8');
 const dashboardSource = fs.existsSync('DashboardV1.js') ? fs.readFileSync('DashboardV1.js', 'utf8') : '';
 const gameDataSource = fs.existsSync('GameDataPlatformV285.js') ? fs.readFileSync('GameDataPlatformV285.js', 'utf8') : '';
+const trainingSource = fs.existsSync('TrainingIntelligenceV281.js') ? fs.readFileSync('TrainingIntelligenceV281.js', 'utf8') : '';
 const failures = [];
 const warnings = [];
 
@@ -63,7 +64,7 @@ check(/quantityCell=row\.length>=3\?row\[row\.length-2\]/.test(recipeSource), 'R
 check(/Goal Progress &amp; Switching/.test(html) && /switchV271Goal/.test(html), 'Goal progress window must support active-goal switching.');
 check(/Early-game/.test(html) && /Mid-game/.test(html) && /End-game/.test(html), 'Goal stage pills and filters are incomplete.');
 check(/Expected Purchase Profit/.test(html) && /Expected Processing Profit/.test(html) && /Total Expected Profit/.test(html) && /combinedPotential=marketPotential\+processingPotential/.test(html), 'Purchase, processing, and total expected profit must remain visibly separated and retain negative projections.');
-check(/V2\.80 · Game Data Foundation/.test(html) && /Finish line:/.test(html) && /Average path readiness/.test(html), 'Audited goal cards must expose finish lines and path-readiness summaries.');
+check(/V2\.81 · Training Intelligence/.test(html) && /Finish line:/.test(html) && /Average path readiness/.test(html), 'Audited goal cards must expose finish lines and path-readiness summaries.');
 check(/Path readiness/.test(html) && /pathReadinessPercent/.test(html) && /questChain/.test(dashboardSource) && /skillPath/.test(dashboardSource), 'Every goal must keep completion separate from transitive quest-and-skill path readiness.');
 check(/'balanced':\{type:'ROADMAP_MODE'/.test(dashboardSource) && /'quest cape':\{type:'ALL_CURRENT_QUESTS'/.test(dashboardSource), 'Balanced must be an ongoing roadmap and Quest Cape must use the all-current-quests model.');
 check(/percent=Math\.round\(trackedCompleted\/totalQuests\*100\)/.test(dashboardSource) && !/completed\.size\/totalQuests\*100,weight:70/.test(dashboardSource), 'Quest Cape must use the direct completed/total fraction without route-readiness weighting.');
@@ -98,6 +99,9 @@ check(/function readV281ActionPlanBlockers_/.test(dashboardSource) && /step\.kin
 check(/refreshV285ItemDatabase/.test(gameDataSource) && /refreshV285RecipeDatabase/.test(gameDataSource) && /refreshV285EquipmentDatabase/.test(gameDataSource) && /refreshV285MonsterDatabase/.test(gameDataSource), 'The background game-data platform must retain all four authoritative data domains.');
 check(/v285Replace_/.test(gameDataSource) && /staged only/.test(gameDataSource) && /verified data was preserved/.test(gameDataSource), 'Game-data refreshes must validate staged record counts before replacing verified tables.');
 check(/installV285GameDataPlatform/.test(gameDataSource) && /everyHours\(1\)/.test(gameDataSource) && /everyDays\(1\)/.test(gameDataSource), 'Game-data price and factual refresh schedules are incomplete.');
+check(/v281tAccuracy_/.test(trainingSource) && /v281tMaxHit_/.test(trainingSource) && /v281tNextMaxHit_/.test(trainingSource), 'Training intelligence must retain verified accuracy, maximum-hit, and breakpoint calculations.');
+check(/budget/.test(trainingSource) && /practical/.test(trainingSource) && /premium/.test(trainingSource) && /ownedEquipment:false/.test(trainingSource), 'Training intelligence must retain three generated loadout tiers without bank assumptions.');
+check(/V281T_FORMULAS/.test(trainingSource) && /source:/.test(trainingSource) && /confidence/.test(trainingSource), 'Training intelligence must retain formula sources and confidence labels.');
 check(/ordered\.filter\(item=>item\.blockedBy!==['"]Ready now['"]\)\.slice\(0,20\)/.test(dashboardSource), 'Ready-now quests must be excluded and the Blocked Quests working set must remain capped at 20.');
 check(/Object\.values\(byName\)[\s\S]{0,900}slice\(0,20\)/.test(dashboardSource), 'The blocker list must refill from the complete dependency dataset after ready-now rows are removed.');
 check(/readyCol = column\(\/\^ready now/.test(dashboardSource) && /readyCol>=0\?!rec\.ready/.test(dashboardSource), 'Blocker eligibility must use the dependency table Ready Now field when available.');

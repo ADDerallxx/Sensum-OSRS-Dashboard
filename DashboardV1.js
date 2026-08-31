@@ -406,7 +406,8 @@ function getV1DashboardState(options) {
     planningMode:'Base levels only',
     wikiHealth: readV1WikiHealth_(dash),
     wikiSync: wikiSync,
-    gameDataStatus:getV285GameDataStatus()
+    gameDataStatus:getV285GameDataStatus(),
+    trainingIntelligence:getV281TrainingState_(statsRows)
   };
 }
 
