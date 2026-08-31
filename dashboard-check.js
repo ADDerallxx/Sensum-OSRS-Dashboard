@@ -102,6 +102,10 @@ check(/installV285GameDataPlatform/.test(gameDataSource) && /everyHours\(1\)/.te
 check(/v281tAccuracy_/.test(trainingSource) && /v281tMaxHit_/.test(trainingSource) && /v281tNextMaxHit_/.test(trainingSource), 'Training intelligence must retain verified accuracy, maximum-hit, and breakpoint calculations.');
 check(/budget/.test(trainingSource) && /practical/.test(trainingSource) && /premium/.test(trainingSource) && /ownedEquipment:false/.test(trainingSource), 'Training intelligence must retain three generated loadout tiers without bank assumptions.');
 check(/V281T_FORMULAS/.test(trainingSource) && /source:/.test(trainingSource) && /confidence/.test(trainingSource), 'Training intelligence must retain formula sources and confidence labels.');
+const accuracySource = fs.readFileSync(path.join(path.dirname(file), 'TrainingAccuracyV286.js'), 'utf8');
+check(/v286AssessTrainingScenario_/.test(accuracySource) && /Fail closed/.test(accuracySource), 'Training recommendations must fail closed when required facts or effects are unverified.');
+check(/Sulphur blades outrank rune scimitar/.test(accuracySource) && /runV286AccuracyRegressionTests/.test(accuracySource), 'Known-matchup training regression tests are missing.');
+check(/scenario\.verification\.eligible/.test(trainingSource), 'Training scenarios must pass the accuracy gate before ranking.');
 check(/ordered\.filter\(item=>item\.blockedBy!==['"]Ready now['"]\)\.slice\(0,20\)/.test(dashboardSource), 'Ready-now quests must be excluded and the Blocked Quests working set must remain capped at 20.');
 check(/Object\.values\(byName\)[\s\S]{0,900}slice\(0,20\)/.test(dashboardSource), 'The blocker list must refill from the complete dependency dataset after ready-now rows are removed.');
 check(/readyCol = column\(\/\^ready now/.test(dashboardSource) && /readyCol>=0\?!rec\.ready/.test(dashboardSource), 'Blocker eligibility must use the dependency table Ready Now field when available.');
