@@ -109,6 +109,9 @@ check(/scenario\.verification\.eligible/.test(trainingSource), 'Training scenari
 const equipmentKnowledgeSource = fs.readFileSync(path.join(path.dirname(file), 'EquipmentKnowledgeV287.js'), 'utf8');
 check(/refreshV287EquipmentKnowledgeBatch/.test(equipmentKnowledgeSource) && /REVIEW_REQUIRED/.test(equipmentKnowledgeSource), 'The equipment knowledge collector and effect review queue are missing.');
 check(/weapon&&weapon\.twoHanded&&item\.slot==='shield'/.test(trainingSource), 'Two-handed loadouts must reject shield-slot combinations.');
+const optimizerSource = fs.readFileSync(path.join(path.dirname(file), 'LoadoutOptimizerV288.js'), 'utf8');
+check(/v288ArmourFrontier_/.test(optimizerSource) && /v288Prune_/.test(optimizerSource), 'The full-catalog Pareto loadout optimizer is missing.');
+check(/absolute:unresolved\.length===0/.test(optimizerSource), 'The optimizer must not claim an absolute best while candidates remain unresolved.');
 check(/ordered\.filter\(item=>item\.blockedBy!==['"]Ready now['"]\)\.slice\(0,20\)/.test(dashboardSource), 'Ready-now quests must be excluded and the Blocked Quests working set must remain capped at 20.');
 check(/Object\.values\(byName\)[\s\S]{0,900}slice\(0,20\)/.test(dashboardSource), 'The blocker list must refill from the complete dependency dataset after ready-now rows are removed.');
 check(/readyCol = column\(\/\^ready now/.test(dashboardSource) && /readyCol>=0\?!rec\.ready/.test(dashboardSource), 'Blocker eligibility must use the dependency table Ready Now field when available.');
