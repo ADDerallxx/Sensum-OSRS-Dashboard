@@ -115,6 +115,9 @@ check(/absolute:unresolved\.length===0/.test(optimizerSource), 'The optimizer mu
 const effectSource = fs.readFileSync(path.join(path.dirname(file), 'CombatEffectsV289.js'), 'utf8');
 check(/dragon hunter lance/.test(effectSource) && /accuracyReroll/.test(effectSource) && /flatSize/.test(effectSource), 'Verified target-aware melee effects are missing.');
 check(/v289ApplyWeaponEffect_/.test(optimizerSource), 'The loadout optimizer must apply verified weapon effects.');
+const setEffectSource = fs.readFileSync(path.join(path.dirname(file), 'SetEffectsV290.js'), 'utf8');
+check(/obsidian/.test(setEffectSource) && /void_melee/.test(setEffectSource) && /inquisitor/.test(setEffectSource), 'Verified melee set-effect rules are missing.');
+check(/setTags/.test(optimizerSource) && /v290SetModifiers_/.test(optimizerSource), 'Pareto optimization must preserve and apply set-effect candidates.');
 check(/ordered\.filter\(item=>item\.blockedBy!==['"]Ready now['"]\)\.slice\(0,20\)/.test(dashboardSource), 'Ready-now quests must be excluded and the Blocked Quests working set must remain capped at 20.');
 check(/Object\.values\(byName\)[\s\S]{0,900}slice\(0,20\)/.test(dashboardSource), 'The blocker list must refill from the complete dependency dataset after ready-now rows are removed.');
 check(/readyCol = column\(\/\^ready now/.test(dashboardSource) && /readyCol>=0\?!rec\.ready/.test(dashboardSource), 'Blocker eligibility must use the dependency table Ready Now field when available.');
