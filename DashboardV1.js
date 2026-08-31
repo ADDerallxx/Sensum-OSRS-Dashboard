@@ -407,7 +407,7 @@ function getV1DashboardState(options) {
 // its complete prerequisite ancestry are the only quests allowed into the
 // blocker table and its training-detour companion. Roadmap modes remain broad.
 function readV281GoalScopedBlockers_(blockers, dependencySheet, goalName, goalAnchor) {
-  const name=String(goalName||'').trim(),fallbackAnchors={'fairy rings':'Fairytale II - Cure a Queen','fossil island access':'Bone Voyage','barrows gloves / rfd':'Recipe for Disaster','ancient magicks':'Desert Treasure I','lunar spellbook':'Lunar Diplomacy','darkmeyer access':'Sins of the Father','tombs of amascut access':'Beneath Cursed Sands','dragon slayer ii':'Dragon Slayer II','prifddinas':'Song of the Elves'},anchor=String(goalAnchor||fallbackAnchors[name.toLowerCase()]||'').trim();
+  const name=String(goalName||'').trim(),fallbackAnchors={'fairy rings':'Fairytale II - Cure a Queen','fossil island access':'Bone Voyage','barrows gloves / rfd':'Recipe for Disaster','ancient magicks':'Desert Treasure I','lunar spellbook':'Lunar Diplomacy','darkmeyer access':'Sins of the Father','tombs of amascut access':'Beneath Cursed Sands','dragon slayer ii':'Dragon Slayer II','prifddinas':'Song of the Elves'},anchor=String(fallbackAnchors[name.toLowerCase()]||goalAnchor||'').trim();
   if(!anchor||/^balanced$/i.test(name)||!dependencySheet)return {blockers:blockers||[],questKeys:{},scoped:false};
   const values=dependencySheet.getDataRange().getDisplayValues();let header=-1,headers=[];
   for(let i=0;i<Math.min(values.length,12);i++){const row=values[i].map(x=>String(x||'').trim());if(row.some(x=>/^quest name$/i.test(x))&&row.some(x=>/^direct prior quest requirement\(s\)$/i.test(x))){header=i;headers=row;break}}
