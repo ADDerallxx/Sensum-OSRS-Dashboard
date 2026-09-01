@@ -394,7 +394,7 @@
   <div class="hero">
     <div class="heroTop">
       <div><h1>Sensum OSRS Progression Dashboard</h1><div class="sub">Open this, see what matters, play the game.</div></div>
-        <div class="heroActions"><div id="v22BannerClock" class="v22Clock">—<small>Local time</small></div><button id="v134WomForce" type="button" class="womForce" onclick="forceV134WomUpdate()">↻ Force WOM Update</button><div class="version">V3.01 · Modular Loading</div><button type="button" class="v201SettingsButton" onclick="openV201Settings()" title="Open settings" aria-label="Open settings"><img src="https://oldschool.runescape.wiki/w/Special:Redirect/file/Settings_%28historical%29.png" alt="" onerror="v264AssetError(this)"></button></div>
+        <div class="heroActions"><div id="v22BannerClock" class="v22Clock">—<small>Local time</small></div><button id="v134WomForce" type="button" class="womForce" onclick="forceV134WomUpdate()">↻ Force WOM Update</button><div class="version">V3.02 · Modular Planning</div><button type="button" class="v201SettingsButton" onclick="openV201Settings()" title="Open settings" aria-label="Open settings"><img src="https://oldschool.runescape.wiki/w/Special:Redirect/file/Settings_%28historical%29.png" alt="" onerror="v264AssetError(this)"></button></div>
     </div>
     <div class="heroTabs" role="tablist" aria-label="Dashboard command center">
       <div class="v262TabGroup" role="presentation"><span class="v262TabGroupLabel">Play</span><button type="button" id="heroTabOverview" class="heroTab active" role="tab" aria-selected="true" onclick="setHeroTab('overview')">Overview</button><button type="button" id="heroTabTonight" class="heroTab" role="tab" aria-selected="false" onclick="setHeroTab('tonight')">Tonight</button></div>
@@ -626,9 +626,16 @@ function setHeroTab(name){
   loadV301TabModule(name);
 }
 
-const V301_TAB_MODULES={health:{status:'idle'}};
+const V301_TAB_MODULES={overview:{status:'idle'},tonight:{status:'idle'},health:{status:'idle'}};
 function loadV301TabModule(name,force){
   const module=V301_TAB_MODULES[name];if(!module||module.status==='loading'||(!force&&module.status==='ready'))return;
+  if(name==='overview'||name==='tonight'){
+    module.status='loading';V301_TAB_MODULES.overview.status='loading';V301_TAB_MODULES.tonight.status='loading';
+    showV115Toast('Loading goal route and session plan…');
+    google.script.run.withFailureHandler(e=>{V301_TAB_MODULES.overview.status='error';V301_TAB_MODULES.tonight.status='error';showV115Toast('Planning data could not be loaded: '+String(e&&e.message||e),true)})
+      .withSuccessHandler(data=>{V301_TAB_MODULES.overview.status='ready';V301_TAB_MODULES.tonight.status='ready';const selected=V261_HERO_TABS.find(key=>$('heroTab'+key.charAt(0).toUpperCase()+key.slice(1)).classList.contains('active'))||name;render(Object.assign({},window.__sensumState||{},data||{}));setHeroTab(selected);showV115Toast('Goal route and session plan ready.')})
+      .getV302PlanningState();return;
+  }
   if(name==='health'){
     module.status='loading';
     const audit=$('health');if(audit)audit.innerHTML='<span class="pill">Loading Wiki audit…</span>';
@@ -934,7 +941,7 @@ function fail(e){busy(false);$('err').textContent='Dashboard error: '+(e&&e.mess
 function load(){
   busy(false);
   google.script.run
-    .withSuccessHandler(s=>{render(s);if($('heroTabHealth').classList.contains('active'))loadV301TabModule('health',true);kickV122BackgroundRefresh();kickV22LiveSync();})
+    .withSuccessHandler(s=>{render(s);if($('heroTabHealth').classList.contains('active'))loadV301TabModule('health',true);else if($('heroTabOverview').classList.contains('active'))loadV301TabModule('overview',true);else if($('heroTabTonight').classList.contains('active'))loadV301TabModule('tonight',true);kickV122BackgroundRefresh();kickV22LiveSync();})
     .withFailureHandler(fail)
     .getV300DashboardShellState();
 }
