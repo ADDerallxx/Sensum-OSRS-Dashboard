@@ -394,7 +394,7 @@
   <div class="hero">
     <div class="heroTop">
       <div><h1>Sensum OSRS Progression Dashboard</h1><div class="sub">Open this, see what matters, play the game.</div></div>
-        <div class="heroActions"><div id="v22BannerClock" class="v22Clock">—<small>Local time</small></div><button id="v134WomForce" type="button" class="womForce" onclick="forceV134WomUpdate()">↻ Force WOM Update</button><div class="version">V3.02 · Modular Planning</div><button type="button" class="v201SettingsButton" onclick="openV201Settings()" title="Open settings" aria-label="Open settings"><img src="https://oldschool.runescape.wiki/w/Special:Redirect/file/Settings_%28historical%29.png" alt="" onerror="v264AssetError(this)"></button></div>
+        <div class="heroActions"><div id="v22BannerClock" class="v22Clock">—<small>Local time</small></div><button id="v134WomForce" type="button" class="womForce" onclick="forceV134WomUpdate()">↻ Force WOM Update</button><div class="version">V3.02a · Stable Module State</div><button type="button" class="v201SettingsButton" onclick="openV201Settings()" title="Open settings" aria-label="Open settings"><img src="https://oldschool.runescape.wiki/w/Special:Redirect/file/Settings_%28historical%29.png" alt="" onerror="v264AssetError(this)"></button></div>
     </div>
     <div class="heroTabs" role="tablist" aria-label="Dashboard command center">
       <div class="v262TabGroup" role="presentation"><span class="v262TabGroupLabel">Play</span><button type="button" id="heroTabOverview" class="heroTab active" role="tab" aria-selected="true" onclick="setHeroTab('overview')">Overview</button><button type="button" id="heroTabTonight" class="heroTab" role="tab" aria-selected="false" onclick="setHeroTab('tonight')">Tonight</button></div>
@@ -627,6 +627,16 @@ function setHeroTab(name){
 }
 
 const V301_TAB_MODULES={overview:{status:'idle'},tonight:{status:'idle'},health:{status:'idle'}};
+function mergeV302ModuleState(incoming){
+  const current=window.__sensumState||{},next=Object.assign({},current,incoming||{});
+  if(V301_TAB_MODULES.overview.status==='ready'||V301_TAB_MODULES.tonight.status==='ready'){
+    ['goalProgress','goalSummary','topQuests','blockedQuests','blockerSkillTargets','skillGrinds','route','nextSession','shopping','requirementIntel','questDisplayMeta','planningMode'].forEach(key=>{if(current[key]!=null)next[key]=current[key]});
+  }
+  if(V301_TAB_MODULES.health.status==='ready'){
+    ['wikiHealth','dataHealthContext'].forEach(key=>{if(current[key]!=null)next[key]=current[key]});next.deferredAudit=false;
+  }
+  return next;
+}
 function loadV301TabModule(name,force){
   const module=V301_TAB_MODULES[name];if(!module||module.status==='loading'||(!force&&module.status==='ready'))return;
   if(name==='overview'||name==='tonight'){
@@ -820,7 +830,7 @@ function renderV134Library(){
 }
 function forceV134WomUpdate(){
   const btn=$('v134WomForce');btn.disabled=true;btn.textContent='Updating WOM…';showV115Toast('Requesting a fresh Wise Old Man snapshot…');
-  google.script.run.withFailureHandler(e=>{btn.disabled=false;btn.textContent='↻ Force WOM Update';fail(e)}).withSuccessHandler(r=>{btn.disabled=false;btn.textContent='↻ Force WOM Update';if(r&&r.state)render(r.state);showV115Toast((r&&r.message)||'Wise Old Man stats updated.');}).forceV134WiseOldManUpdate();
+  google.script.run.withFailureHandler(e=>{btn.disabled=false;btn.textContent='↻ Force WOM Update';fail(e)}).withSuccessHandler(r=>{btn.disabled=false;btn.textContent='↻ Force WOM Update';if(r&&r.state)render(mergeV302ModuleState(r.state));showV115Toast((r&&r.message)||'Wise Old Man stats updated.');}).forceV134WiseOldManUpdate();
 }
 function bossOptionsV128(bosses){
   const groups={'Beginning':[],'Mid-game':[],'Advanced':[],'Raids':[]};
@@ -960,7 +970,7 @@ function refreshV22LiveSync(){
   const target=`https://sync.runescape.wiki/runelite/player/${encodeURIComponent(username)}/STANDARD`;
   v22FetchJson(target,6000).catch(()=>v22FetchJson(`https://api.allorigins.win/raw?url=${encodeURIComponent(target)}`,12000))
     .then(payload=>{google.script.run.withFailureHandler(e=>{v22LiveSyncBusy=false;if(el)el.textContent='WikiSync unavailable · WOM data preserved';console.warn(e)})
-      .withSuccessHandler(r=>{v22LiveSyncBusy=false;if(r&&r.state)render(r.state);if(r&&r.newlyCompletedQuests&&r.newlyCompletedQuests.length)showV235LiveQuestDetection(r.newlyCompletedQuests);if(r&&!r.ok)showV115Toast('WikiSync unavailable; WOM data was preserved.',true)})
+      .withSuccessHandler(r=>{v22LiveSyncBusy=false;if(r&&r.state)render(mergeV302ModuleState(r.state));if(r&&r.newlyCompletedQuests&&r.newlyCompletedQuests.length)showV235LiveQuestDetection(r.newlyCompletedQuests);if(r&&!r.ok)showV115Toast('WikiSync unavailable; WOM data was preserved.',true)})
       .refreshV22WikiSync(payload)})
     .catch(e=>{v22LiveSyncBusy=false;if(el){el.textContent='WikiSync unavailable · WOM data preserved';el.title=e.message||String(e)}});
 }
@@ -975,7 +985,7 @@ function kickV122BackgroundRefresh(){
       if(!r||!r.refreshed)return;
       google.script.run
         .withFailureHandler(e=>console.warn('Background dashboard re-read failed:',e))
-        .withSuccessHandler(render)
+        .withSuccessHandler(s=>render(mergeV302ModuleState(s)))
         .getV300DashboardShellState();
     })
     .refreshQuestHelperIfStaleV122();
