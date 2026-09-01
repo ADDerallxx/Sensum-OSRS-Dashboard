@@ -37,7 +37,7 @@
     .metric{background:#211107;border:1px solid #5a3216;border-radius:10px;padding:10px 12px;min-height:62px}
     .metric .k{font-size:9px;color:#cbb696;text-transform:uppercase;font-weight:900}.metric .v{font-size:19px;font-weight:900;margin-top:4px}
 
-    .grid{display:grid;grid-template-columns:minmax(0,1.72fr) minmax(350px,.78fr);gap:14px;margin-top:14px}
+    .grid{display:grid;grid-template-columns:minmax(0,1.72fr) minmax(350px,.78fr);gap:14px;align-items:start;margin-top:14px}
     .card{background:var(--surface-card);color:var(--text-dark);border-radius:var(--radius-lg);overflow:hidden}
     .head{background:linear-gradient(90deg,var(--brown),var(--brown2));color:#ffe2a1;padding:10px 14px;font-weight:900;font-size:15px;display:flex;align-items:center;gap:7px}
         .tableWrap{overflow:auto}.table{width:100%;border-collapse:collapse}
@@ -394,7 +394,7 @@
   <div class="hero">
     <div class="heroTop">
       <div><h1>Sensum OSRS Progression Dashboard</h1><div class="sub">Open this, see what matters, play the game.</div></div>
-        <div class="heroActions"><div id="v22BannerClock" class="v22Clock">—<small>Local time</small></div><button id="v134WomForce" type="button" class="womForce" onclick="forceV134WomUpdate()">↻ Force WOM Update</button><div class="version">V3.02c · Resilient Planning</div><button type="button" class="v201SettingsButton" onclick="openV201Settings()" title="Open settings" aria-label="Open settings"><img src="https://oldschool.runescape.wiki/w/Special:Redirect/file/Settings_%28historical%29.png" alt="" onerror="v264AssetError(this)"></button></div>
+        <div class="heroActions"><div id="v22BannerClock" class="v22Clock">—<small>Local time</small></div><button id="v134WomForce" type="button" class="womForce" onclick="forceV134WomUpdate()">↻ Force WOM Update</button><div class="version">V3.03 · Modular Quests</div><button type="button" class="v201SettingsButton" onclick="openV201Settings()" title="Open settings" aria-label="Open settings"><img src="https://oldschool.runescape.wiki/w/Special:Redirect/file/Settings_%28historical%29.png" alt="" onerror="v264AssetError(this)"></button></div>
     </div>
     <div class="heroTabs" role="tablist" aria-label="Dashboard command center">
       <div class="v262TabGroup" role="presentation"><span class="v262TabGroupLabel">Play</span><button type="button" id="heroTabOverview" class="heroTab active" role="tab" aria-selected="true" onclick="setHeroTab('overview')">Overview</button><button type="button" id="heroTabTonight" class="heroTab" role="tab" aria-selected="false" onclick="setHeroTab('tonight')">Tonight</button></div>
@@ -626,7 +626,7 @@ function setHeroTab(name){
   loadV301TabModule(name);
 }
 
-const V301_TAB_MODULES={overview:{status:'idle'},tonight:{status:'idle'},health:{status:'idle'}};
+const V301_TAB_MODULES={overview:{status:'idle'},tonight:{status:'idle'},library:{status:'idle'},health:{status:'idle'}};
 const V302_PLANNING_CACHE_KEY='sensum-v302-planning-cache';
 function readV302PlanningCache(){try{const x=JSON.parse(sessionStorage.getItem(V302_PLANNING_CACHE_KEY)||'null');return x&&x.__planningLoaded?x:null}catch(e){return null}}
 function writeV302PlanningCache(data){try{const keep={__planningLoaded:true,goal:data.goal,goalProgress:data.goalProgress,goalSummary:data.goalSummary,topQuests:data.topQuests,blockedQuests:data.blockedQuests,blockerSkillTargets:data.blockerSkillTargets,skillGrinds:data.skillGrinds,route:data.route,nextSession:data.nextSession,shopping:data.shopping,requirementIntel:data.requirementIntel,questDisplayMeta:data.questDisplayMeta,planningMode:data.planningMode};sessionStorage.setItem(V302_PLANNING_CACHE_KEY,JSON.stringify(keep))}catch(e){console.warn('Planning cache unavailable:',e)}}
@@ -640,6 +640,9 @@ function mergeV302ModuleState(incoming){
     ['wikiHealth','dataHealthContext'].forEach(key=>{if(current[key]!=null)next[key]=current[key]});next.deferredAudit=false;
     next.__healthLoaded=true;
   }
+  if(current.__questsLoaded||V301_TAB_MODULES.library.status==='ready'){
+    ['questLibrary','requirementIntel','questDisplayMeta','dataHealthContext'].forEach(key=>{if(current[key]!=null)next[key]=current[key]});next.__questsLoaded=true;
+  }
   return next;
 }
 function loadV301TabModule(name,force){
@@ -650,6 +653,12 @@ function loadV301TabModule(name,force){
     google.script.run.withFailureHandler(e=>{V301_TAB_MODULES.overview.status='error';V301_TAB_MODULES.tonight.status='error';showV115Toast('Planning data could not be loaded: '+String(e&&e.message||e),true)})
       .withSuccessHandler(data=>{V301_TAB_MODULES.overview.status='ready';V301_TAB_MODULES.tonight.status='ready';writeV302PlanningCache(data||{});const selected=V261_HERO_TABS.find(key=>$('heroTab'+key.charAt(0).toUpperCase()+key.slice(1)).classList.contains('active'))||name;render(Object.assign({},window.__sensumState||{},data||{},{__planningLoaded:true}));setHeroTab(selected);showV115Toast('Goal route and session plan ready.')})
       .getV302PlanningState();return;
+  }
+  if(name==='library'){
+    module.status='loading';$('v134LibraryStatus').textContent='Loading the Quest Library…';
+    google.script.run.withFailureHandler(e=>{module.status='error';$('v134LibraryStatus').textContent='Quest Library unavailable: '+String(e&&e.message||e);showV115Toast('Quest data could not be loaded.',true)})
+      .withSuccessHandler(data=>{module.status='ready';const selected=V261_HERO_TABS.find(key=>$('heroTab'+key.charAt(0).toUpperCase()+key.slice(1)).classList.contains('active'))||name;render(Object.assign({},window.__sensumState||{},data||{},{__questsLoaded:true}));setHeroTab(selected);if(!window.__v303CompletionLoaded){window.__v303CompletionLoaded=true;loadV115()}showV115Toast('Quest Library ready.')})
+      .getV303QuestState();return;
   }
   if(name==='health'){
     module.status='loading';
