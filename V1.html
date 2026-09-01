@@ -394,7 +394,7 @@
   <div class="hero">
     <div class="heroTop">
       <div><h1>Sensum OSRS Progression Dashboard</h1><div class="sub">Open this, see what matters, play the game.</div></div>
-        <div class="heroActions"><div id="v22BannerClock" class="v22Clock">—<small>Local time</small></div><button id="v134WomForce" type="button" class="womForce" onclick="forceV134WomUpdate()">↻ Force WOM Update</button><div class="version">V3.02a · Stable Module State</div><button type="button" class="v201SettingsButton" onclick="openV201Settings()" title="Open settings" aria-label="Open settings"><img src="https://oldschool.runescape.wiki/w/Special:Redirect/file/Settings_%28historical%29.png" alt="" onerror="v264AssetError(this)"></button></div>
+        <div class="heroActions"><div id="v22BannerClock" class="v22Clock">—<small>Local time</small></div><button id="v134WomForce" type="button" class="womForce" onclick="forceV134WomUpdate()">↻ Force WOM Update</button><div class="version">V3.02c · Resilient Planning</div><button type="button" class="v201SettingsButton" onclick="openV201Settings()" title="Open settings" aria-label="Open settings"><img src="https://oldschool.runescape.wiki/w/Special:Redirect/file/Settings_%28historical%29.png" alt="" onerror="v264AssetError(this)"></button></div>
     </div>
     <div class="heroTabs" role="tablist" aria-label="Dashboard command center">
       <div class="v262TabGroup" role="presentation"><span class="v262TabGroupLabel">Play</span><button type="button" id="heroTabOverview" class="heroTab active" role="tab" aria-selected="true" onclick="setHeroTab('overview')">Overview</button><button type="button" id="heroTabTonight" class="heroTab" role="tab" aria-selected="false" onclick="setHeroTab('tonight')">Tonight</button></div>
@@ -627,13 +627,18 @@ function setHeroTab(name){
 }
 
 const V301_TAB_MODULES={overview:{status:'idle'},tonight:{status:'idle'},health:{status:'idle'}};
+const V302_PLANNING_CACHE_KEY='sensum-v302-planning-cache';
+function readV302PlanningCache(){try{const x=JSON.parse(sessionStorage.getItem(V302_PLANNING_CACHE_KEY)||'null');return x&&x.__planningLoaded?x:null}catch(e){return null}}
+function writeV302PlanningCache(data){try{const keep={__planningLoaded:true,goal:data.goal,goalProgress:data.goalProgress,goalSummary:data.goalSummary,topQuests:data.topQuests,blockedQuests:data.blockedQuests,blockerSkillTargets:data.blockerSkillTargets,skillGrinds:data.skillGrinds,route:data.route,nextSession:data.nextSession,shopping:data.shopping,requirementIntel:data.requirementIntel,questDisplayMeta:data.questDisplayMeta,planningMode:data.planningMode};sessionStorage.setItem(V302_PLANNING_CACHE_KEY,JSON.stringify(keep))}catch(e){console.warn('Planning cache unavailable:',e)}}
 function mergeV302ModuleState(incoming){
   const current=window.__sensumState||{},next=Object.assign({},current,incoming||{});
-  if(V301_TAB_MODULES.overview.status==='ready'||V301_TAB_MODULES.tonight.status==='ready'){
+  if(current.__planningLoaded||V301_TAB_MODULES.overview.status==='ready'||V301_TAB_MODULES.tonight.status==='ready'){
     ['goalProgress','goalSummary','topQuests','blockedQuests','blockerSkillTargets','skillGrinds','route','nextSession','shopping','requirementIntel','questDisplayMeta','planningMode'].forEach(key=>{if(current[key]!=null)next[key]=current[key]});
+    next.__planningLoaded=true;
   }
-  if(V301_TAB_MODULES.health.status==='ready'){
+  if(current.__healthLoaded||V301_TAB_MODULES.health.status==='ready'){
     ['wikiHealth','dataHealthContext'].forEach(key=>{if(current[key]!=null)next[key]=current[key]});next.deferredAudit=false;
+    next.__healthLoaded=true;
   }
   return next;
 }
@@ -643,14 +648,14 @@ function loadV301TabModule(name,force){
     module.status='loading';V301_TAB_MODULES.overview.status='loading';V301_TAB_MODULES.tonight.status='loading';
     showV115Toast('Loading goal route and session plan…');
     google.script.run.withFailureHandler(e=>{V301_TAB_MODULES.overview.status='error';V301_TAB_MODULES.tonight.status='error';showV115Toast('Planning data could not be loaded: '+String(e&&e.message||e),true)})
-      .withSuccessHandler(data=>{V301_TAB_MODULES.overview.status='ready';V301_TAB_MODULES.tonight.status='ready';const selected=V261_HERO_TABS.find(key=>$('heroTab'+key.charAt(0).toUpperCase()+key.slice(1)).classList.contains('active'))||name;render(Object.assign({},window.__sensumState||{},data||{}));setHeroTab(selected);showV115Toast('Goal route and session plan ready.')})
+      .withSuccessHandler(data=>{V301_TAB_MODULES.overview.status='ready';V301_TAB_MODULES.tonight.status='ready';writeV302PlanningCache(data||{});const selected=V261_HERO_TABS.find(key=>$('heroTab'+key.charAt(0).toUpperCase()+key.slice(1)).classList.contains('active'))||name;render(Object.assign({},window.__sensumState||{},data||{},{__planningLoaded:true}));setHeroTab(selected);showV115Toast('Goal route and session plan ready.')})
       .getV302PlanningState();return;
   }
   if(name==='health'){
     module.status='loading';
     const audit=$('health');if(audit)audit.innerHTML='<span class="pill">Loading Wiki audit…</span>';
     google.script.run.withFailureHandler(e=>{module.status='error';if(audit)audit.innerHTML='<span class="pill">Wiki audit unavailable</span>';console.warn('Health module failed:',e)})
-      .withSuccessHandler(data=>{module.status='ready';const current=window.__sensumState||{};window.__sensumState=Object.assign({},current,data||{},{deferredAudit:false});dataHealth(window.__sensumState);$('wom').textContent=window.__sensumState.lastWomSnapshot?v200FormatDate(window.__sensumState.lastWomSnapshot,{dateStyle:'medium',timeStyle:'short'}):'—';$('sync').textContent=window.__sensumState.lastSheetSync?v200FormatDate(window.__sensumState.lastSheetSync,{dateStyle:'medium',timeStyle:'short'}):'—';const h=window.__sensumState.wikiHealth||{};$('health').innerHTML=`<span class="pill good">Wiki OK: ${esc(h.ok||0)}</span><span class="pill">Review: ${esc(h.review||0)}</span><span class="pill">Missing: ${esc(h.missing||0)}</span><span class="pill">Last check: ${esc(h.lastCheck||'—')}</span>`})
+      .withSuccessHandler(data=>{module.status='ready';const current=window.__sensumState||{};window.__sensumState=Object.assign({},current,data||{},{deferredAudit:false,__healthLoaded:true});dataHealth(window.__sensumState);$('wom').textContent=window.__sensumState.lastWomSnapshot?v200FormatDate(window.__sensumState.lastWomSnapshot,{dateStyle:'medium',timeStyle:'short'}):'—';$('sync').textContent=window.__sensumState.lastSheetSync?v200FormatDate(window.__sensumState.lastSheetSync,{dateStyle:'medium',timeStyle:'short'}):'—';const h=window.__sensumState.wikiHealth||{};$('health').innerHTML=`<span class="pill good">Wiki OK: ${esc(h.ok||0)}</span><span class="pill">Review: ${esc(h.review||0)}</span><span class="pill">Missing: ${esc(h.missing||0)}</span><span class="pill">Last check: ${esc(h.lastCheck||'—')}</span>`})
       .getV301HealthState();
   }
 }
@@ -951,7 +956,7 @@ function fail(e){busy(false);$('err').textContent='Dashboard error: '+(e&&e.mess
 function load(){
   busy(false);
   google.script.run
-    .withSuccessHandler(s=>{render(s);if($('heroTabHealth').classList.contains('active'))loadV301TabModule('health',true);else if($('heroTabOverview').classList.contains('active'))loadV301TabModule('overview',true);else if($('heroTabTonight').classList.contains('active'))loadV301TabModule('tonight',true);kickV122BackgroundRefresh();kickV22LiveSync();})
+    .withSuccessHandler(s=>{const cached=readV302PlanningCache();if(cached){V301_TAB_MODULES.overview.status='ready';V301_TAB_MODULES.tonight.status='ready';s=Object.assign({},s,cached)}render(s);if($('heroTabHealth').classList.contains('active'))loadV301TabModule('health',true);else if($('heroTabOverview').classList.contains('active'))loadV301TabModule('overview',true);else if($('heroTabTonight').classList.contains('active'))loadV301TabModule('tonight',true);kickV122BackgroundRefresh();kickV22LiveSync();})
     .withFailureHandler(fail)
     .getV300DashboardShellState();
 }
@@ -1710,6 +1715,7 @@ function addV133Manual(){
 function removeV133Manual(id){openV130Confirm({icon:'↶',eyebrow:'Correct timeline',title:'Remove this personal achievement?',message:'Automatic milestones are unaffected. You can add this personal achievement again later.',confirmLabel:'Remove',tone:'danger'},()=>{busy(true);google.script.run.withFailureHandler(fail).withSuccessHandler(s=>{render(s);setHeroTab('achievements');showV115Toast('Personal achievement removed.')}).deleteV133ManualAchievement(id)})}
 
 function render(s){
+  if(s&&s.module==='shell'&&window.__sensumState)s=mergeV302ModuleState(s);
   window.__sensumState=s;
   let v285Status=$('v285BackgroundStatus');if(!v285Status){v285Status=document.createElement('span');v285Status.id='v285BackgroundStatus';v285Status.hidden=true;document.body.appendChild(v285Status)}v285Status.textContent=JSON.stringify(s.gameDataStatus||{});
   initV200Settings();
