@@ -394,7 +394,7 @@
   <div class="hero">
     <div class="heroTop">
       <div><h1>Sensum OSRS Progression Dashboard</h1><div class="sub">Open this, see what matters, play the game.</div></div>
-        <div class="heroActions"><div id="v22BannerClock" class="v22Clock">—<small>Local time</small></div><button id="v134WomForce" type="button" class="womForce" onclick="forceV134WomUpdate()">↻ Force WOM Update</button><div class="version">V3.03 · Modular Quests</div><button type="button" class="v201SettingsButton" onclick="openV201Settings()" title="Open settings" aria-label="Open settings"><img src="https://oldschool.runescape.wiki/w/Special:Redirect/file/Settings_%28historical%29.png" alt="" onerror="v264AssetError(this)"></button></div>
+        <div class="heroActions"><div id="v22BannerClock" class="v22Clock">—<small>Local time</small></div><button id="v134WomForce" type="button" class="womForce" onclick="forceV134WomUpdate()">↻ Force WOM Update</button><div class="version">V3.04 · Modular Progress</div><button type="button" class="v201SettingsButton" onclick="openV201Settings()" title="Open settings" aria-label="Open settings"><img src="https://oldschool.runescape.wiki/w/Special:Redirect/file/Settings_%28historical%29.png" alt="" onerror="v264AssetError(this)"></button></div>
     </div>
     <div class="heroTabs" role="tablist" aria-label="Dashboard command center">
       <div class="v262TabGroup" role="presentation"><span class="v262TabGroupLabel">Play</span><button type="button" id="heroTabOverview" class="heroTab active" role="tab" aria-selected="true" onclick="setHeroTab('overview')">Overview</button><button type="button" id="heroTabTonight" class="heroTab" role="tab" aria-selected="false" onclick="setHeroTab('tonight')">Tonight</button></div>
@@ -626,7 +626,7 @@ function setHeroTab(name){
   loadV301TabModule(name);
 }
 
-const V301_TAB_MODULES={overview:{status:'idle'},tonight:{status:'idle'},library:{status:'idle'},health:{status:'idle'}};
+const V301_TAB_MODULES={overview:{status:'idle'},tonight:{status:'idle'},achievements:{status:'idle'},library:{status:'idle'},health:{status:'idle'}};
 const V302_PLANNING_CACHE_KEY='sensum-v302-planning-cache';
 function readV302PlanningCache(){try{const x=JSON.parse(sessionStorage.getItem(V302_PLANNING_CACHE_KEY)||'null');return x&&x.__planningLoaded?x:null}catch(e){return null}}
 function writeV302PlanningCache(data){try{const keep={__planningLoaded:true,goal:data.goal,goalProgress:data.goalProgress,goalSummary:data.goalSummary,topQuests:data.topQuests,blockedQuests:data.blockedQuests,blockerSkillTargets:data.blockerSkillTargets,skillGrinds:data.skillGrinds,route:data.route,nextSession:data.nextSession,shopping:data.shopping,requirementIntel:data.requirementIntel,questDisplayMeta:data.questDisplayMeta,planningMode:data.planningMode};sessionStorage.setItem(V302_PLANNING_CACHE_KEY,JSON.stringify(keep))}catch(e){console.warn('Planning cache unavailable:',e)}}
@@ -642,6 +642,9 @@ function mergeV302ModuleState(incoming){
   }
   if(current.__questsLoaded||V301_TAB_MODULES.library.status==='ready'){
     ['questLibrary','requirementIntel','questDisplayMeta','dataHealthContext'].forEach(key=>{if(current[key]!=null)next[key]=current[key]});next.__questsLoaded=true;
+  }
+  if(current.__progressLoaded||V301_TAB_MODULES.achievements.status==='ready'){
+    ['goals','accomplishedGoals','goalProgress','achievements'].forEach(key=>{if(current[key]!=null)next[key]=current[key]});next.__progressLoaded=true;
   }
   return next;
 }
@@ -659,6 +662,12 @@ function loadV301TabModule(name,force){
     google.script.run.withFailureHandler(e=>{module.status='error';$('v134LibraryStatus').textContent='Quest Library unavailable: '+String(e&&e.message||e);showV115Toast('Quest data could not be loaded.',true)})
       .withSuccessHandler(data=>{module.status='ready';const selected=V261_HERO_TABS.find(key=>$('heroTab'+key.charAt(0).toUpperCase()+key.slice(1)).classList.contains('active'))||name;render(Object.assign({},window.__sensumState||{},data||{},{__questsLoaded:true}));setHeroTab(selected);if(!window.__v303CompletionLoaded){window.__v303CompletionLoaded=true;loadV115()}showV115Toast('Quest Library ready.')})
       .getV303QuestState();return;
+  }
+  if(name==='achievements'){
+    module.status='loading';renderV304ProgressLoading('Loading achievements and goal progress…');
+    google.script.run.withFailureHandler(e=>{module.status='error';renderV304ProgressError(e);showV115Toast('Progress data could not be loaded.',true)})
+      .withSuccessHandler(data=>{module.status='ready';const selected=V261_HERO_TABS.find(key=>$('heroTab'+key.charAt(0).toUpperCase()+key.slice(1)).classList.contains('active'))||name;render(Object.assign({},window.__sensumState||{},data||{},{__progressLoaded:true}));setHeroTab(selected);if(window.__v304OpenGoalProgress){window.__v304OpenGoalProgress=false;openV269GoalProgress()}showV115Toast('Achievements and goal progress ready.')})
+      .getV304ProgressState();return;
   }
   if(name==='health'){
     module.status='loading';
@@ -1705,12 +1714,32 @@ renderV269GoalProgress=function(){
   $('v271AccomplishedCount').textContent=String(accomplished.length);
   $('v271AccomplishedList').innerHTML=accomplished.length?accomplished.map(x=>`<div class="v271AccomplishedRow"><div><b>${esc(x.progress.displayName||x.goal.name)}</b><small>${esc(x.stage)} · ${x.measurable?x.percent+'%':'Confirmed'} · ${esc(x.goal.notes||'Marked accomplished')}</small></div><button type="button" class="v271Done" onclick="restoreV271Goal(decodeURIComponent('${encodeURIComponent(x.goal.name)}'))">Restore</button></div>`).join(''):'<div class="v271GoalEmpty">No accomplished goals yet.</div>';
 }
-function openV269GoalProgress(){renderV269GoalProgress();$('v269GoalModal').classList.add('show');document.body.classList.add('v115ModalOpen')}
-function closeV269GoalProgress(){$('v269GoalModal').classList.remove('show');if(!document.querySelector('.v115Modal.show'))document.body.classList.remove('v115ModalOpen')}
+function openV269GoalProgress(){
+  const module=V301_TAB_MODULES.achievements,state=window.__sensumState||{};
+  if(!state.__progressLoaded&&module.status!=='ready'){
+    window.__v304OpenGoalProgress=true;$('v269GoalModal').classList.add('show');document.body.classList.add('v115ModalOpen');
+    $('v269GoalSummary').innerHTML='<div class="v271GoalMetric"><span>Goal intelligence</span><b>Loading…</b></div>';
+    $('v269GoalList').innerHTML='<div class="v271GoalEmpty"><div class="v115Spinner"></div>Calculating verified completion and path readiness for every goal…</div>';
+    loadV301TabModule('achievements',true);return;
+  }
+  renderV269GoalProgress();$('v269GoalModal').classList.add('show');document.body.classList.add('v115ModalOpen');
+}
+function closeV269GoalProgress(){window.__v304OpenGoalProgress=false;$('v269GoalModal').classList.remove('show');if(!document.querySelector('.v115Modal.show'))document.body.classList.remove('v115ModalOpen')}
 function switchV271Goal(name){const current=String((window.__sensumState||{}).goal||'');if(!name||name===current)return;openV130Confirm({eyebrow:'Goal command center',title:`Switch active goal to ${name}?`,message:'Your roadmap, blockers, skill targets, and Tonight plan will be recalculated.',items:[`Current: ${current||'None'}`,`New: ${name}`],confirmLabel:'Switch goal',icon:'↻'},()=>{showV115Busy('Switching active goal…','Recalculating your roadmap, blockers, skill targets, and Tonight plan.');google.script.run.withFailureHandler(e=>{hideV115Busy();fail(e)}).withSuccessHandler(s=>{render(s);renderV269GoalProgress();hideV115Busy();showV115Toast(`${name} is now your active goal.`)}).setV1Goal(name)})}
 function restoreV271Goal(name){showV115Busy('Restoring goal…','Returning this goal to your active planning list.');google.script.run.withFailureHandler(e=>{hideV115Busy();fail(e)}).withSuccessHandler(s=>{render(s);renderV269GoalProgress();hideV115Busy();showV115Toast(`${name} restored to active goals.`)}).restoreV127Goal(name)}
 
 function v133Date(value){return v200FormatDate(value,{month:'short',day:'numeric',year:'numeric'})}
+function renderV304ProgressLoading(message){
+  const summary=$('v133Summary'),upcoming=$('v133Upcoming'),timeline=$('v133Timeline');
+  if(summary)summary.innerHTML='<div><b>…</b><span>loading</span></div>';
+  if(upcoming)upcoming.innerHTML=`<div class="v127GoalEmpty"><div class="v115Spinner"></div>${esc(message||'Loading progress…')}</div>`;
+  if(timeline)timeline.innerHTML='<div class="v127GoalEmpty">Preparing your achievement timeline…</div>';
+}
+function renderV304ProgressError(error){
+  const message=String(error&&error.message||error||'Unknown error'),upcoming=$('v133Upcoming'),timeline=$('v133Timeline');
+  if(upcoming)upcoming.innerHTML=`<div class="v127GoalEmpty">Achievements unavailable: ${esc(message)}</div>`;
+  if(timeline)timeline.innerHTML='<div class="v127GoalEmpty"><button type="button" onclick="loadV301TabModule(\'achievements\',true)">Try again</button></div>';
+}
 function renderV133Achievements(s){
   const a=s.achievements||{},sum=a.summary||{},up=a.upcoming||[],events=a.timeline||[];
   $('v133Summary').innerHTML=`<div><b>${esc(sum.unlocked||0)}</b><span>unlocked</span></div><div><b>${esc(sum.quests||0)}</b><span>quests</span></div><div><b>${esc(sum.totalLevel||0)}</b><span>total level</span></div>`;
@@ -1719,9 +1748,9 @@ function renderV133Achievements(s){
 }
 function addV133Manual(){
   const title=$('v133ManualTitle').value.trim(),note=$('v133ManualNote').value.trim();if(!title){showV115Toast('Enter an achievement title first.',true);return}
-  busy(true);google.script.run.withFailureHandler(fail).withSuccessHandler(s=>{render(s);setHeroTab('achievements');$('v133ManualTitle').value='';$('v133ManualNote').value='';showV115Toast('Achievement added to your timeline.')}).saveV133ManualAchievement(title,note);
+  busy(true);google.script.run.withFailureHandler(fail).withSuccessHandler(s=>{V301_TAB_MODULES.achievements.status='ready';render(Object.assign({},window.__sensumState||{},s||{},{__progressLoaded:true}));setHeroTab('achievements');$('v133ManualTitle').value='';$('v133ManualNote').value='';showV115Toast('Achievement added to your timeline.')}).saveV133ManualAchievement(title,note);
 }
-function removeV133Manual(id){openV130Confirm({icon:'↶',eyebrow:'Correct timeline',title:'Remove this personal achievement?',message:'Automatic milestones are unaffected. You can add this personal achievement again later.',confirmLabel:'Remove',tone:'danger'},()=>{busy(true);google.script.run.withFailureHandler(fail).withSuccessHandler(s=>{render(s);setHeroTab('achievements');showV115Toast('Personal achievement removed.')}).deleteV133ManualAchievement(id)})}
+function removeV133Manual(id){openV130Confirm({icon:'↶',eyebrow:'Correct timeline',title:'Remove this personal achievement?',message:'Automatic milestones are unaffected. You can add this personal achievement again later.',confirmLabel:'Remove',tone:'danger'},()=>{busy(true);google.script.run.withFailureHandler(fail).withSuccessHandler(s=>{V301_TAB_MODULES.achievements.status='ready';render(Object.assign({},window.__sensumState||{},s||{},{__progressLoaded:true}));setHeroTab('achievements');showV115Toast('Personal achievement removed.')}).deleteV133ManualAchievement(id)})}
 
 function render(s){
   if(s&&s.module==='shell'&&window.__sensumState)s=mergeV302ModuleState(s);

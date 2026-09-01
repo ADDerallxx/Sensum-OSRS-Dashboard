@@ -461,6 +461,20 @@ function getV303QuestState(){
   return {module:'quests',loadedAt:new Date().toISOString(),questLibrary:library,requirementIntel:meta.requirements,questDisplayMeta:displayMeta,dataHealthContext:{reviewQueue:queue,relevantReviews:0,totalReviews:queue.length}};
 }
 
+// V3.04: Achievements and the complete goal catalog are an on-demand module.
+// Nothing here runs during shell startup, and the response deliberately omits
+// planning tables, quest-library cards, money journals, and training data.
+function getV304ProgressState(){
+  const ss=SpreadsheetApp.openById(V1_TRACKER_ID),statsSheet=ss.getSheetByName('Your Stats'),goalsSheet=ss.getSheetByName('Goal Registry'),dependency=ss.getSheetByName('Quest Dependency'),dash=ss.getSheetByName('Dashboard');
+  const statsBlock=statsSheet.getRange('A3:H35').getDisplayValues(),statsRows=statsBlock.slice(0,24).filter(r=>r[0]),account={};
+  statsBlock.slice(27).filter(r=>r[0]).forEach(r=>account[r[0]]=r[1]);
+  const goalRows=goalsSheet.getRange('A5:P200').getDisplayValues().filter(r=>r[0]),allGoals=goalRows.map(r=>({name:v274CanonicalGoalName_(r[0]),type:r[1],anchor:r[2],line:r[3],notes:r[14],status:r[15]||'ACTIVE'}));
+  const goals=allGoals.filter(g=>g.name==='Balanced'||!/^accomplished$/i.test(g.status)),accomplishedGoals=allGoals.filter(g=>g.name!=='Balanced'&&/^accomplished$/i.test(g.status));
+  const questDisplayMeta=readV129QuestDisplayMeta_(ss.getSheetByName('Wiki Cache')),requirementIntel=readV122QuestMeta_(dependency).requirements,routeRows=dash.getRange('A60:H69').getDisplayValues().filter(r=>r[1]);
+  const bosses=readV128BossPlanner_(ss,statsRows),bossProgress=readV132BossProgress_();
+  return {module:'progress',loadedAt:new Date().toISOString(),goals:goals,accomplishedGoals:accomplishedGoals,goalProgress:readV131GoalProgress_(ss,allGoals,statsRows,account,requirementIntel,routeRows,questDisplayMeta),achievements:readV133Achievements_(ss,statsRows,account,allGoals,bosses,bossProgress)};
+}
+
 function getV300EmergencyState(){return {shellVersion:'V3.00b',recoveryMode:true,username:'Sensum',combatLevel:'',questPoints:'',lastWomSnapshot:'',lastSheetSync:'',goal:'',routeDepth:3,goals:[],accomplishedGoals:[],goalProgress:{},bosses:[],bossGuides:[],bossLoadouts:{},bossItemImages:{},bossProgress:{},achievements:{summary:{},upcoming:[],timeline:[]},goalSummary:{objective:'Data temporarily unavailable',status:'Recovery mode',missingSkills:'',prerequisites:'',effect:''},topQuests:[],blockedQuests:[],blockerSkillTargets:{targets:[],met:[]},questLibrary:{quests:[]},dataHealthContext:{reviewQueue:[],relevantReviews:0,totalReviews:0},skillGrinds:[],route:[],nextSession:{},stats:[],shopping:[],requirementIntel:{},questDisplayMeta:{},planningMode:'Base levels only',wikiHealth:{error:'Spreadsheet service recovery in progress'},wikiSync:{lastError:'Spreadsheet service recovery in progress'},gameDataStatus:{deferred:true},trainingIntelligence:null}}
 
 // V2.81: quest-anchored goals own their blocker scope. The selected anchor and

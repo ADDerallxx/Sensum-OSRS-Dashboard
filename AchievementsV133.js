@@ -9,13 +9,13 @@ function addV133ManualAchievement(title,note){
   if(!title)throw new Error('Enter an achievement title.');
   if(title.length>90||note.length>300)throw new Error('Achievement text is too long.');
   const events=v133ReadTimeline_();events.push({id:v133EventId_(),kind:'manual',category:'Personal',title:title,detail:note,date:new Date().toISOString(),observed:false});v133WriteTimeline_(events);
-  return getV1DashboardState({allowQuestHelperSync:false});
+  return getV304ProgressState();
 }
 
 function removeV133ManualAchievement(id){
   const events=v133ReadTimeline_(),target=events.find(x=>x.id===String(id||''));
   if(!target||target.kind!=='manual')throw new Error('Only manual achievements can be removed here.');
-  v133WriteTimeline_(events.filter(x=>x.id!==target.id));return getV1DashboardState({allowQuestHelperSync:false});
+  v133WriteTimeline_(events.filter(x=>x.id!==target.id));return getV304ProgressState();
 }
 
 function readV133Achievements_(ss,statsRows,account,allGoals,bosses,bossProgress){
