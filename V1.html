@@ -394,7 +394,7 @@
   <div class="hero">
     <div class="heroTop">
       <div><h1>Sensum OSRS Progression Dashboard</h1><div class="sub">Open this, see what matters, play the game.</div></div>
-        <div class="heroActions"><div id="v22BannerClock" class="v22Clock">—<small>Local time</small></div><button id="v134WomForce" type="button" class="womForce" onclick="forceV134WomUpdate()">↻ Force WOM Update</button><div class="version">V2.97 · Training Intelligence</div><button type="button" class="v201SettingsButton" onclick="openV201Settings()" title="Open settings" aria-label="Open settings"><img src="https://oldschool.runescape.wiki/w/Special:Redirect/file/Settings_%28historical%29.png" alt="" onerror="v264AssetError(this)"></button></div>
+        <div class="heroActions"><div id="v22BannerClock" class="v22Clock">—<small>Local time</small></div><button id="v134WomForce" type="button" class="womForce" onclick="forceV134WomUpdate()">↻ Force WOM Update</button><div class="version">V2.98 · Performance Baseline</div><button type="button" class="v201SettingsButton" onclick="openV201Settings()" title="Open settings" aria-label="Open settings"><img src="https://oldschool.runescape.wiki/w/Special:Redirect/file/Settings_%28historical%29.png" alt="" onerror="v264AssetError(this)"></button></div>
     </div>
     <div class="heroTabs" role="tablist" aria-label="Dashboard command center">
       <div class="v262TabGroup" role="presentation"><span class="v262TabGroupLabel">Play</span><button type="button" id="heroTabOverview" class="heroTab active" role="tab" aria-selected="true" onclick="setHeroTab('overview')">Overview</button><button type="button" id="heroTabTonight" class="heroTab" role="tab" aria-selected="false" onclick="setHeroTab('tonight')">Tonight</button></div>
@@ -448,6 +448,7 @@
         <div class="healthMeta"><span>WOM snapshot</span><b id="wom">—</b></div>
         <div class="healthMeta"><span>Sheet sync</span><b id="sync">—</b></div>
         <div class="healthMeta wide"><span>Wiki requirement audit</span><div id="health" class="health"></div></div>
+        <div class="healthMeta wide"><span>Dashboard performance baseline</span><div id="v298Performance" class="health">Measuring initial load…</div></div>
       </div>
       <details id="v135ReviewCenter" class="v135ReviewCenter"><summary><span class="v135ReviewSummary"><span>Wiki Review Queue</span><span id="v135ReviewHeadline" class="v239ReviewHeadline">—</span><button id="v239AcknowledgeAll" type="button" class="v239AcknowledgeAll" onclick="event.preventDefault();event.stopPropagation();acknowledgeAllV239Reviews()" hidden>Acknowledge all</button></span></summary><div id="v135ReviewList" class="v135ReviewList"></div></details>
     </div>
@@ -920,9 +921,11 @@ function setV128BossGoal(goal){
 }
 function busy(v){const box=$('loading');box.classList.toggle('hidden',!v);box.setAttribute('aria-hidden',String(!v));document.body.classList.toggle('v261Working',!!v)}
 function fail(e){busy(false);$('err').textContent='Dashboard error: '+(e&&e.message?e.message:e);$('err').classList.remove('hidden')}
+function renderV298Performance(metrics){window.__v298Performance=metrics||window.__v298Performance||{};const host=$('v298Performance'),m=window.__v298Performance;if(!host)return;host.innerHTML=`Server bootstrap: <b>${Math.round(Number(m.serverBootstrapMs||0)).toLocaleString()} ms</b> · Network wait: <b>${Math.round(Number(m.networkMs||0)).toLocaleString()} ms</b> · Browser render: <b>${Math.round(Number(m.renderMs||0)).toLocaleString()} ms</b> · Payload: <b>${Number(m.payloadKb||0).toFixed(1)} KB</b> · DOM: <b>${Number(m.domNodes||0).toLocaleString()} nodes</b>`}
 function load(){
+  const requestedAt=performance.now();
   google.script.run
-    .withSuccessHandler(s=>{render(s);kickV122BackgroundRefresh();kickV22LiveSync();})
+    .withSuccessHandler(s=>{const receivedAt=performance.now(),renderStarted=performance.now();render(s);const renderedAt=performance.now(),payload=JSON.stringify(s);renderV298Performance({serverBootstrapMs:Number(s.performance&&s.performance.serverBootstrapMs||0),networkMs:receivedAt-requestedAt,renderMs:renderedAt-renderStarted,payloadKb:new Blob([payload]).size/1024,domNodes:document.getElementsByTagName('*').length,measuredAt:new Date().toISOString()});kickV122BackgroundRefresh();kickV22LiveSync();})
     .withFailureHandler(fail)
     .getV1DashboardState({allowQuestHelperSync:false});
 }

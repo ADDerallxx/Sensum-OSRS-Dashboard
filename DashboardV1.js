@@ -307,6 +307,7 @@ function v274StoredGoalName_(name) {
 }
 
 function getV1DashboardState(options) {
+  const v298StartedAt=Date.now();
   options = options || {};
   try{ensureV285GameDataPlatform_()}catch(e){console.warn('V2.80 game-data bootstrap deferred: '+e.message)}
   try{ensureV286AccuracyMonitor_()}catch(e){console.warn('V2.86 accuracy monitor bootstrap deferred: '+e.message)}
@@ -409,7 +410,8 @@ function getV1DashboardState(options) {
     wikiHealth: readV1WikiHealth_(dash),
     wikiSync: wikiSync,
     gameDataStatus:getV285GameDataStatus(),
-    trainingIntelligence:getV281TrainingState_(statsRows)
+    trainingIntelligence:getV281TrainingState_(statsRows),
+    performance:{serverBootstrapMs:Date.now()-v298StartedAt,generatedAt:new Date().toISOString()}
   };
 }
 
