@@ -475,6 +475,14 @@ function getV304ProgressState(){
   return {module:'progress',loadedAt:new Date().toISOString(),goals:goals,accomplishedGoals:accomplishedGoals,goalProgress:readV131GoalProgress_(ss,allGoals,statsRows,account,requirementIntel,routeRows,questDisplayMeta),achievements:readV133Achievements_(ss,statsRows,account,allGoals,bosses,bossProgress)};
 }
 
+// V3.05: Boss readiness, guides, equipment tables, images, and checklist
+// progress load only when the Bosses workspace is opened.
+function getV305BossState(){
+  const ss=SpreadsheetApp.openById(V1_TRACKER_ID),statsSheet=ss.getSheetByName('Your Stats');
+  const statsRows=statsSheet.getRange('A3:H26').getDisplayValues().filter(r=>r[0]);
+  return {module:'bosses',loadedAt:new Date().toISOString(),bosses:readV128BossPlanner_(ss,statsRows),bossGuides:v132BossGuides_(),bossLoadouts:V132B_WIKI_LOADOUTS,bossItemImages:V132B_ITEM_IMAGES,bossProgress:readV132BossProgress_()};
+}
+
 function getV300EmergencyState(){return {shellVersion:'V3.00b',recoveryMode:true,username:'Sensum',combatLevel:'',questPoints:'',lastWomSnapshot:'',lastSheetSync:'',goal:'',routeDepth:3,goals:[],accomplishedGoals:[],goalProgress:{},bosses:[],bossGuides:[],bossLoadouts:{},bossItemImages:{},bossProgress:{},achievements:{summary:{},upcoming:[],timeline:[]},goalSummary:{objective:'Data temporarily unavailable',status:'Recovery mode',missingSkills:'',prerequisites:'',effect:''},topQuests:[],blockedQuests:[],blockerSkillTargets:{targets:[],met:[]},questLibrary:{quests:[]},dataHealthContext:{reviewQueue:[],relevantReviews:0,totalReviews:0},skillGrinds:[],route:[],nextSession:{},stats:[],shopping:[],requirementIntel:{},questDisplayMeta:{},planningMode:'Base levels only',wikiHealth:{error:'Spreadsheet service recovery in progress'},wikiSync:{lastError:'Spreadsheet service recovery in progress'},gameDataStatus:{deferred:true},trainingIntelligence:null}}
 
 // V2.81: quest-anchored goals own their blocker scope. The selected anchor and

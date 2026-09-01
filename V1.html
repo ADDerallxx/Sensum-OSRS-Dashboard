@@ -394,7 +394,7 @@
   <div class="hero">
     <div class="heroTop">
       <div><h1>Sensum OSRS Progression Dashboard</h1><div class="sub">Open this, see what matters, play the game.</div></div>
-        <div class="heroActions"><div id="v22BannerClock" class="v22Clock">—<small>Local time</small></div><button id="v134WomForce" type="button" class="womForce" onclick="forceV134WomUpdate()">↻ Force WOM Update</button><div class="version">V3.04 · Modular Progress</div><button type="button" class="v201SettingsButton" onclick="openV201Settings()" title="Open settings" aria-label="Open settings"><img src="https://oldschool.runescape.wiki/w/Special:Redirect/file/Settings_%28historical%29.png" alt="" onerror="v264AssetError(this)"></button></div>
+        <div class="heroActions"><div id="v22BannerClock" class="v22Clock">—<small>Local time</small></div><button id="v134WomForce" type="button" class="womForce" onclick="forceV134WomUpdate()">↻ Force WOM Update</button><div class="version">V3.05 · Modular Bosses</div><button type="button" class="v201SettingsButton" onclick="openV201Settings()" title="Open settings" aria-label="Open settings"><img src="https://oldschool.runescape.wiki/w/Special:Redirect/file/Settings_%28historical%29.png" alt="" onerror="v264AssetError(this)"></button></div>
     </div>
     <div class="heroTabs" role="tablist" aria-label="Dashboard command center">
       <div class="v262TabGroup" role="presentation"><span class="v262TabGroupLabel">Play</span><button type="button" id="heroTabOverview" class="heroTab active" role="tab" aria-selected="true" onclick="setHeroTab('overview')">Overview</button><button type="button" id="heroTabTonight" class="heroTab" role="tab" aria-selected="false" onclick="setHeroTab('tonight')">Tonight</button></div>
@@ -626,7 +626,7 @@ function setHeroTab(name){
   loadV301TabModule(name);
 }
 
-const V301_TAB_MODULES={overview:{status:'idle'},tonight:{status:'idle'},achievements:{status:'idle'},library:{status:'idle'},health:{status:'idle'}};
+const V301_TAB_MODULES={overview:{status:'idle'},tonight:{status:'idle'},achievements:{status:'idle'},library:{status:'idle'},bosses:{status:'idle'},health:{status:'idle'}};
 const V302_PLANNING_CACHE_KEY='sensum-v302-planning-cache';
 function readV302PlanningCache(){try{const x=JSON.parse(sessionStorage.getItem(V302_PLANNING_CACHE_KEY)||'null');return x&&x.__planningLoaded?x:null}catch(e){return null}}
 function writeV302PlanningCache(data){try{const keep={__planningLoaded:true,goal:data.goal,goalProgress:data.goalProgress,goalSummary:data.goalSummary,topQuests:data.topQuests,blockedQuests:data.blockedQuests,blockerSkillTargets:data.blockerSkillTargets,skillGrinds:data.skillGrinds,route:data.route,nextSession:data.nextSession,shopping:data.shopping,requirementIntel:data.requirementIntel,questDisplayMeta:data.questDisplayMeta,planningMode:data.planningMode};sessionStorage.setItem(V302_PLANNING_CACHE_KEY,JSON.stringify(keep))}catch(e){console.warn('Planning cache unavailable:',e)}}
@@ -645,6 +645,9 @@ function mergeV302ModuleState(incoming){
   }
   if(current.__progressLoaded||V301_TAB_MODULES.achievements.status==='ready'){
     ['goals','accomplishedGoals','goalProgress','achievements'].forEach(key=>{if(current[key]!=null)next[key]=current[key]});next.__progressLoaded=true;
+  }
+  if(current.__bossesLoaded||V301_TAB_MODULES.bosses.status==='ready'){
+    ['bosses','bossGuides','bossLoadouts','bossItemImages','bossProgress'].forEach(key=>{if(current[key]!=null)next[key]=current[key]});next.__bossesLoaded=true;
   }
   return next;
 }
@@ -668,6 +671,12 @@ function loadV301TabModule(name,force){
     google.script.run.withFailureHandler(e=>{module.status='error';renderV304ProgressError(e);showV115Toast('Progress data could not be loaded.',true)})
       .withSuccessHandler(data=>{module.status='ready';const selected=V261_HERO_TABS.find(key=>$('heroTab'+key.charAt(0).toUpperCase()+key.slice(1)).classList.contains('active'))||name;render(Object.assign({},window.__sensumState||{},data||{},{__progressLoaded:true}));setHeroTab(selected);if(window.__v304OpenGoalProgress){window.__v304OpenGoalProgress=false;openV269GoalProgress()}showV115Toast('Achievements and goal progress ready.')})
       .getV304ProgressState();return;
+  }
+  if(name==='bosses'){
+    module.status='loading';renderV305BossLoading('Loading boss readiness and verified equipment tables…');
+    google.script.run.withFailureHandler(e=>{module.status='error';renderV305BossError(e);showV115Toast('Boss Planner data could not be loaded.',true)})
+      .withSuccessHandler(data=>{module.status='ready';const selected=V261_HERO_TABS.find(key=>$('heroTab'+key.charAt(0).toUpperCase()+key.slice(1)).classList.contains('active'))||name;render(Object.assign({},window.__sensumState||{},data||{},{__bossesLoaded:true}));setHeroTab(selected);showV115Toast('Boss Planner ready.')})
+      .getV305BossState();return;
   }
   if(name==='health'){
     module.status='loading';
@@ -938,9 +947,18 @@ function renderV130Tonight(){
   const next=steps[nextIndex],completedSteps=Math.max(0,nextIndex),headline=nextIndex?`Advance ${goal} through ${completedSteps} planned step${completedSteps===1?'':'s'}`:`Start the next ${goal} requirement`,summary=`${v276StyleLabel(style)} follows the verified goal action plan without scheduling downstream work before its prerequisites.`;
   $('v130TonightPlan').innerHTML=`<div class="v130TonightSummary"><div><span>${esc(v276StyleLabel(style))}</span><h2>${esc(headline)}</h2><p>${esc(summary)}</p></div><div class="v130Budget"><b>${esc(v130MinutesLabel(budget))}</b><span>available</span></div></div><div class="v130PlanBlocks">${blocks.join('')}</div><div class="v276TonightRemainder"><b>After tonight:</b> ${next?esc(`${partial?'Continue':'Next'}: ${next.title}`):'The current action plan should be complete; sync the dashboard to confirm the result.'}</div><div class="v130TonightNote">Quest time uses verified Wiki length categories. Training uses the active-route model when available; variable rates receive session blocks instead of false precision. The plan recalculates after synced levels or quest completions.</div>`;
 }
+function renderV305BossLoading(message){
+  const select=$('v128BossSelect'),card=$('v128BossCard');if(select){select.innerHTML='<option>Loading bosses…</option>';select.disabled=true}
+  if(card)card.innerHTML=`<div class="v127GoalEmpty"><div class="v115Spinner"></div>${esc(message||'Loading Boss Planner…')}</div>`;
+}
+function renderV305BossError(error){
+  const select=$('v128BossSelect'),card=$('v128BossCard'),message=String(error&&error.message||error||'Unknown error');if(select)select.disabled=true;
+  if(card)card.innerHTML=`<div class="v127GoalEmpty">Boss Planner unavailable: ${esc(message)}<br><button type="button" onclick="loadV301TabModule('bosses',true)">Try again</button></div>`;
+}
 function renderV128Boss(){
   const s=window.__sensumState||{},name=$('v128BossSelect').value,b=(s.bosses||[]).find(x=>x.name===name)||(s.bosses||[])[0];
-  if(!b){$('v128BossCard').innerHTML='<div class="v127GoalEmpty">Boss data unavailable.</div>';return}
+  if(!b){$('v128BossCard').innerHTML='<div class="v127GoalEmpty">Open the Bosses tab to load account-specific readiness and verified equipment.</div>';return}
+  $('v128BossSelect').disabled=false;
   const skillHtml=(b.skillRows||[]).map(x=>{const met=Number(x.current)>=Number(x.recommended),gap=Math.max(0,Number(x.recommended)-Number(x.current));return `<div class="v128Stat ${met?'met':'short'}"><span>${esc(x.skill)}</span><b>${esc(x.current)} <small>/ ${esc(x.recommended)}</small></b><em>${met?'✓ Ready':`+${gap} levels`}</em></div>`}).join('');
   const access=b.access==='None'?'No quest gate':b.access;
   const guide=(s.bossGuides||[]).find(x=>x.name===b.name),pic=guide?`<img class="v132BossThumb" src="${esc(v264WikiAsset(guide.image))}" alt="${esc(b.name)}" onerror="v264AssetError(this)">`:'';
