@@ -409,7 +409,7 @@ function getV1DashboardState(options) {
     wikiHealth: readV1WikiHealth_(dash),
     wikiSync: wikiSync,
     gameDataStatus:getV285GameDataStatus(),
-    trainingIntelligence:getV281TrainingState_(statsRows)
+    trainingIntelligence:null
   };
 }
 
