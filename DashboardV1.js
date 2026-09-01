@@ -483,6 +483,15 @@ function getV305BossState(){
   return {module:'bosses',loadedAt:new Date().toISOString(),bosses:readV128BossPlanner_(ss,statsRows),bossGuides:v132BossGuides_(),bossLoadouts:V132B_WIKI_LOADOUTS,bossItemImages:V132B_ITEM_IMAGES,bossProgress:readV132BossProgress_()};
 }
 
+// V3.06: Interactive training uses the verified local catalogs. Network and
+// catalog maintenance are intentionally excluded from the user request path.
+function getV306TrainingState(skill,objective){
+  skill=String(skill||'Strength');objective=String(objective||'overall');
+  if(['Strength','Attack','Defence'].indexOf(skill)<0)throw new Error('Unsupported training skill.');
+  if(['overall','fastest','afk','cheapest'].indexOf(objective)<0)throw new Error('Unsupported training priority.');
+  return {module:'training',loadedAt:new Date().toISOString(),trainingIntelligence:getV296TrainingRecommendations(skill,objective)};
+}
+
 function getV300EmergencyState(){return {shellVersion:'V3.00b',recoveryMode:true,username:'Sensum',combatLevel:'',questPoints:'',lastWomSnapshot:'',lastSheetSync:'',goal:'',routeDepth:3,goals:[],accomplishedGoals:[],goalProgress:{},bosses:[],bossGuides:[],bossLoadouts:{},bossItemImages:{},bossProgress:{},achievements:{summary:{},upcoming:[],timeline:[]},goalSummary:{objective:'Data temporarily unavailable',status:'Recovery mode',missingSkills:'',prerequisites:'',effect:''},topQuests:[],blockedQuests:[],blockerSkillTargets:{targets:[],met:[]},questLibrary:{quests:[]},dataHealthContext:{reviewQueue:[],relevantReviews:0,totalReviews:0},skillGrinds:[],route:[],nextSession:{},stats:[],shopping:[],requirementIntel:{},questDisplayMeta:{},planningMode:'Base levels only',wikiHealth:{error:'Spreadsheet service recovery in progress'},wikiSync:{lastError:'Spreadsheet service recovery in progress'},gameDataStatus:{deferred:true},trainingIntelligence:null}}
 
 // V2.81: quest-anchored goals own their blocker scope. The selected anchor and
