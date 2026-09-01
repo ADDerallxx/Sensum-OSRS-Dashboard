@@ -184,7 +184,7 @@
     .skillIcon{position:relative;z-index:1;max-width:28px;max-height:28px;image-rendering:auto}.skillIconFallback{position:absolute;inset:0;display:none;align-items:center;justify-content:center;border-radius:7px;background:#5d3518;color:#ffd878;font-weight:950}
     .heroSkills .name{grid-area:name}.heroSkills .lvl{grid-area:level;margin:0;color:#25180e}.skillMeta{grid-area:meta;font-size:9px;color:#85735f;margin-top:5px}.heroSkills .targetLine{grid-area:target}
     .healthMetaGrid{display:grid;grid-template-columns:1fr 1fr;gap:9px;padding:12px 22px 16px;background:rgba(99,55,22,.28)}
-    .healthMeta{background:#211107;border:1px solid #5a3216;border-radius:10px;padding:10px 12px}.healthMeta>span{display:block;font-size:9px;color:#cbb696;text-transform:uppercase;font-weight:900}.healthMeta>b{display:block;margin-top:5px;font-size:12px}.healthMeta.wide{grid-column:1/-1}.healthMeta .health{padding:7px 0 0}.healthMeta .pill{background:#3a210f;color:#f6dfb7}
+    .healthMeta{background:#211107;border:1px solid #5a3216;border-radius:10px;padding:10px 12px}.healthMeta>span{display:block;font-size:9px;color:#d8c4a3;text-transform:uppercase;font-weight:900}.healthMeta>b{display:block;margin-top:5px;font-size:13px;color:#fff0cf}.healthMeta.wide{grid-column:1/-1}.healthMeta .health{padding:7px 0 0}.healthMeta .pill{background:#3a210f;color:#f6dfb7}
     .v135ReviewCenter{margin:0 22px 16px;border:1px solid #5a3216;border-radius:10px;background:#211107;color:#f3dfbb}.v135ReviewCenter summary{cursor:pointer;padding:10px 12px;font-size:10px;font-weight:950;text-transform:uppercase}.v135ReviewSummary{display:flex;justify-content:space-between;gap:8px}.v135ReviewList{border-top:1px solid #5a3216;max-height:420px;overflow:auto}.v135ReviewRow{display:grid;grid-template-columns:minmax(150px,.8fr) 100px minmax(240px,1.5fr) auto;gap:8px;align-items:center;padding:9px 10px;border-bottom:1px solid #40230f;font-size:9px}.v135ReviewRow:last-child{border-bottom:0}.v135ReviewRow b{font-size:10px}.v239ReviewDetail{display:grid;gap:3px}.v239ReviewDetail strong{color:#ffe0a0;font-size:9px}.v239ReviewDetail small{color:#bca98a;line-height:1.35}.v239ChangedSections{color:#d6bb91}.v135ReviewActions{display:flex;align-items:center;justify-content:flex-end;gap:6px}.v135ReviewRow a,.v135ReviewRow button{color:#ffd27b;font-weight:900}.v135ReviewRow button{border:1px solid #866035;background:#3b210e;border-radius:6px;padding:5px 7px;cursor:pointer}.v135Relevant{background:#75421c;color:#ffe0a0;border-radius:999px;padding:3px 6px;font-weight:900}.v135Queued{color:#bca98a}.v135Acknowledged{color:#86ad82;font-weight:900}.v135HealthAdvisory{color:#e3b65a!important}
 
 
@@ -394,7 +394,7 @@
   <div class="hero">
     <div class="heroTop">
       <div><h1>Sensum OSRS Progression Dashboard</h1><div class="sub">Open this, see what matters, play the game.</div></div>
-        <div class="heroActions"><div id="v22BannerClock" class="v22Clock">—<small>Local time</small></div><button id="v134WomForce" type="button" class="womForce" onclick="forceV134WomUpdate()">↻ Force WOM Update</button><div class="version">V3.00f · Fast Sync Recovery</div><button type="button" class="v201SettingsButton" onclick="openV201Settings()" title="Open settings" aria-label="Open settings"><img src="https://oldschool.runescape.wiki/w/Special:Redirect/file/Settings_%28historical%29.png" alt="" onerror="v264AssetError(this)"></button></div>
+        <div class="heroActions"><div id="v22BannerClock" class="v22Clock">—<small>Local time</small></div><button id="v134WomForce" type="button" class="womForce" onclick="forceV134WomUpdate()">↻ Force WOM Update</button><div class="version">V3.01 · Modular Loading</div><button type="button" class="v201SettingsButton" onclick="openV201Settings()" title="Open settings" aria-label="Open settings"><img src="https://oldschool.runescape.wiki/w/Special:Redirect/file/Settings_%28historical%29.png" alt="" onerror="v264AssetError(this)"></button></div>
     </div>
     <div class="heroTabs" role="tablist" aria-label="Dashboard command center">
       <div class="v262TabGroup" role="presentation"><span class="v262TabGroupLabel">Play</span><button type="button" id="heroTabOverview" class="heroTab active" role="tab" aria-selected="true" onclick="setHeroTab('overview')">Overview</button><button type="button" id="heroTabTonight" class="heroTab" role="tab" aria-selected="false" onclick="setHeroTab('tonight')">Tonight</button></div>
@@ -623,6 +623,19 @@ function setHeroTab(name){
   try{localStorage.setItem(V258_ACTIVE_TAB_KEY,name)}catch(e){}
   if(typeof v263ActivateWorkspace==='function')v263ActivateWorkspace(name);
   v240SetActive(name==='money');if(name==='money')loadV240Money(false);
+  loadV301TabModule(name);
+}
+
+const V301_TAB_MODULES={health:{status:'idle'}};
+function loadV301TabModule(name,force){
+  const module=V301_TAB_MODULES[name];if(!module||module.status==='loading'||(!force&&module.status==='ready'))return;
+  if(name==='health'){
+    module.status='loading';
+    const audit=$('health');if(audit)audit.innerHTML='<span class="pill">Loading Wiki audit…</span>';
+    google.script.run.withFailureHandler(e=>{module.status='error';if(audit)audit.innerHTML='<span class="pill">Wiki audit unavailable</span>';console.warn('Health module failed:',e)})
+      .withSuccessHandler(data=>{module.status='ready';const current=window.__sensumState||{};window.__sensumState=Object.assign({},current,data||{},{deferredAudit:false});dataHealth(window.__sensumState);$('wom').textContent=window.__sensumState.lastWomSnapshot?v200FormatDate(window.__sensumState.lastWomSnapshot,{dateStyle:'medium',timeStyle:'short'}):'—';$('sync').textContent=window.__sensumState.lastSheetSync?v200FormatDate(window.__sensumState.lastSheetSync,{dateStyle:'medium',timeStyle:'short'}):'—';const h=window.__sensumState.wikiHealth||{};$('health').innerHTML=`<span class="pill good">Wiki OK: ${esc(h.ok||0)}</span><span class="pill">Review: ${esc(h.review||0)}</span><span class="pill">Missing: ${esc(h.missing||0)}</span><span class="pill">Last check: ${esc(h.lastCheck||'—')}</span>`})
+      .getV301HealthState();
+  }
 }
 
 function v281tFmt(value,digits){const n=Number(value||0);return n.toLocaleString(undefined,{maximumFractionDigits:digits==null?0:digits})}
@@ -921,7 +934,7 @@ function fail(e){busy(false);$('err').textContent='Dashboard error: '+(e&&e.mess
 function load(){
   busy(false);
   google.script.run
-    .withSuccessHandler(s=>{render(s);kickV122BackgroundRefresh();kickV22LiveSync();})
+    .withSuccessHandler(s=>{render(s);if($('heroTabHealth').classList.contains('active'))loadV301TabModule('health',true);kickV122BackgroundRefresh();kickV22LiveSync();})
     .withFailureHandler(fail)
     .getV300DashboardShellState();
 }

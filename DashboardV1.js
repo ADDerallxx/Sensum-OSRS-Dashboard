@@ -422,6 +422,16 @@ function getV300DashboardShellState(){
   return {shellVersion:'V3.00',deferredAudit:true,username:account.Username||'Sensum',combatLevel:account['Combat Level']||'',questPoints:account['Quest Points']||'',lastWomSnapshot:account['Last WOM Snapshot']||'',lastSheetSync:account['Last Sheet Sync']||'',goal:activeGoal,routeDepth:Number(getRouteDepthValue_(dash)||10),goals:goals,accomplishedGoals:accomplishedGoals,goalProgress:{},bosses:[],bossGuides:[],bossLoadouts:{},bossItemImages:{},bossProgress:{},achievements:{summary:{},upcoming:[],timeline:[]},goalSummary:{objective:dashboard[2][9]||activeGoal,status:dashboard[3][9]||'',missingSkills:dashboard[4][9]||'',prerequisites:dashboard[5][9]||'',effect:dashboard[6][9]||''},topQuests:[],blockedQuests:[],blockerSkillTargets:{targets:[],met:[]},questLibrary:{quests:[]},dataHealthContext:{reviewQueue:[],relevantReviews:0,totalReviews:0},skillGrinds:[],route:[],nextSession:{},stats:statsRows.map(r=>{const level=Number(r[1]||1),womXp=Math.max(0,Number(String(r[7]||0).replace(/,/g,''))||0),floorXp=v22XpFloorForLevel_(level),floorActive=floorXp>womXp;return {skill:r[0],level:r[1],xp:floorActive?floorXp:womXp,womXp:womXp,nextXp:r[5],xpExact:!floorActive,xpSource:floorActive?'Level floor':'WOM verified'}}),shopping:[],requirementIntel:{},questDisplayMeta:{},planningMode:'Base levels only',wikiHealth:{deferred:true},wikiSync:v22WikiSyncMeta_(),gameDataStatus:{deferred:true},trainingIntelligence:null};
 }
 
+// V3.01: tab modules load their own data after the fast account shell renders.
+// Keep this endpoint deliberately small; the Wiki review queue will become its
+// own paged module rather than forcing the complete quest library into startup.
+function getV301HealthState(){
+  const ss=SpreadsheetApp.openById(V1_TRACKER_ID),dash=ss.getSheetByName('Dashboard'),statsSheet=ss.getSheetByName('Your Stats');
+  const accountRows=statsSheet.getRange('A30:D35').getDisplayValues().filter(r=>r[0]),account={};
+  accountRows.forEach(r=>account[r[0]]=r[1]);
+  return {module:'health',loadedAt:new Date().toISOString(),lastWomSnapshot:account['Last WOM Snapshot']||'',lastSheetSync:account['Last Sheet Sync']||'',wikiHealth:readV1WikiHealth_(dash),wikiSync:v22WikiSyncMeta_(),dataHealthContext:{reviewQueue:[],relevantReviews:0,totalReviews:0,queueDeferred:true}};
+}
+
 function getV300EmergencyState(){return {shellVersion:'V3.00b',recoveryMode:true,username:'Sensum',combatLevel:'',questPoints:'',lastWomSnapshot:'',lastSheetSync:'',goal:'',routeDepth:3,goals:[],accomplishedGoals:[],goalProgress:{},bosses:[],bossGuides:[],bossLoadouts:{},bossItemImages:{},bossProgress:{},achievements:{summary:{},upcoming:[],timeline:[]},goalSummary:{objective:'Data temporarily unavailable',status:'Recovery mode',missingSkills:'',prerequisites:'',effect:''},topQuests:[],blockedQuests:[],blockerSkillTargets:{targets:[],met:[]},questLibrary:{quests:[]},dataHealthContext:{reviewQueue:[],relevantReviews:0,totalReviews:0},skillGrinds:[],route:[],nextSession:{},stats:[],shopping:[],requirementIntel:{},questDisplayMeta:{},planningMode:'Base levels only',wikiHealth:{error:'Spreadsheet service recovery in progress'},wikiSync:{lastError:'Spreadsheet service recovery in progress'},gameDataStatus:{deferred:true},trainingIntelligence:null}}
 
 // V2.81: quest-anchored goals own their blocker scope. The selected anchor and
