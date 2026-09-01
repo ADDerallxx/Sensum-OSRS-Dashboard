@@ -413,6 +413,15 @@ function getV1DashboardState(options) {
   };
 }
 
+function getV300DashboardShellState(){
+  const ss=SpreadsheetApp.openById(V1_TRACKER_ID),dash=ss.getSheetByName('Dashboard'),statsSheet=ss.getSheetByName('Your Stats'),goalsSheet=ss.getSheetByName('Goal Registry');
+  const dashboard=dash.getRange('A1:J80').getDisplayValues(),statsBlock=statsSheet.getRange('A3:H35').getDisplayValues(),goalRows=goalsSheet.getRange('A5:P200').getDisplayValues().filter(r=>r[0]);
+  const statsRows=statsBlock.slice(0,24).filter(r=>r[0]),account={};statsBlock.slice(27).filter(r=>r[0]).forEach(r=>account[r[0]]=r[1]);
+  const activeGoal=v274CanonicalGoalName_(dashboard[2][1]),allGoals=goalRows.map(r=>({name:v274CanonicalGoalName_(r[0]),type:r[1],anchor:r[2],line:r[3],notes:r[14],status:r[15]||'ACTIVE'}));
+  const goals=allGoals.filter(g=>g.name==='Balanced'||!/^accomplished$/i.test(g.status)),accomplishedGoals=allGoals.filter(g=>g.name!=='Balanced'&&/^accomplished$/i.test(g.status));
+  return {shellVersion:'V3.00',username:account.Username||'Sensum',combatLevel:account['Combat Level']||'',questPoints:account['Quest Points']||'',lastWomSnapshot:account['Last WOM Snapshot']||'',lastSheetSync:account['Last Sheet Sync']||'',goal:activeGoal,routeDepth:Number(getRouteDepthValue_(dash)||10),goals:goals,accomplishedGoals:accomplishedGoals,goalProgress:{},bosses:[],bossGuides:[],bossLoadouts:{},bossItemImages:{},bossProgress:{},achievements:{summary:{},upcoming:[],timeline:[]},goalSummary:{objective:dashboard[2][9]||activeGoal,status:dashboard[3][9]||'',missingSkills:dashboard[4][9]||'',prerequisites:dashboard[5][9]||'',effect:dashboard[6][9]||''},topQuests:[],blockedQuests:[],blockerSkillTargets:{targets:[],met:[]},questLibrary:{quests:[]},dataHealthContext:{reviewQueue:[],relevantReviews:0,totalReviews:0},skillGrinds:[],route:[],nextSession:{},stats:statsRows.map(r=>{const level=Number(r[1]||1),womXp=Math.max(0,Number(String(r[7]||0).replace(/,/g,''))||0),floorXp=v22XpFloorForLevel_(level),floorActive=floorXp>womXp;return {skill:r[0],level:r[1],xp:floorActive?floorXp:womXp,womXp:womXp,nextXp:r[5],xpExact:!floorActive,xpSource:floorActive?'Level floor':'WOM verified'}}),shopping:[],requirementIntel:{},questDisplayMeta:{},planningMode:'Base levels only',wikiHealth:{},wikiSync:v22WikiSyncMeta_(),gameDataStatus:{deferred:true},trainingIntelligence:null};
+}
+
 // V2.81: quest-anchored goals own their blocker scope. The selected anchor and
 // its complete prerequisite ancestry are the only quests allowed into the
 // blocker table and its training-detour companion. Roadmap modes remain broad.
