@@ -202,7 +202,7 @@ function forceV134WiseOldManUpdate() {
     if (snapshotRow > 0) sh.getRange(snapshotRow,2).setValue(new Date(snapshot.createdAt || new Date()));
     if (syncRow > 0) sh.getRange(syncRow,2).setValue(new Date());
     SpreadsheetApp.flush();
-    return {ok:true,message:'Wise Old Man updated for '+username+'.',snapshotAt:snapshot.createdAt||'',state:getV1DashboardState({allowQuestHelperSync:false})};
+    return {ok:true,message:'Wise Old Man updated for '+username+'.',snapshotAt:snapshot.createdAt||'',state:getV300DashboardShellState()};
   } finally { lock.releaseLock(); }
 }
 
@@ -233,11 +233,11 @@ function acknowledgeV237QuestDetection(currentQp,quests,disposition){
 
 function refreshV22WikiSync(clientPayload) {
   const lock = LockService.getScriptLock();
-  if (!lock.tryLock(1000)) return {ok:true, skipped:true, message:'Live sync is already running.', state:getV1DashboardState({allowQuestHelperSync:false})};
+  if (!lock.tryLock(1000)) return {ok:true, skipped:true, message:'Live sync is already running.', state:getV300DashboardShellState()};
   const props = PropertiesService.getScriptProperties();
   try {
     const lastAttempt = Number(props.getProperty('V22_WIKISYNC_LAST_ATTEMPT_MS') || 0);
-    if (Date.now() - lastAttempt < 20000) return {ok:true, skipped:true, message:'Live data is already current.', state:getV1DashboardState({allowQuestHelperSync:false})};
+    if (Date.now() - lastAttempt < 20000) return {ok:true, skipped:true, message:'Live data is already current.', state:getV300DashboardShellState()};
     props.setProperty('V22_WIKISYNC_LAST_ATTEMPT_MS', String(Date.now()));
     const ss = SpreadsheetApp.openById(V1_TRACKER_ID), statsSheet = ss.getSheetByName('Your Stats');
     if (!statsSheet) throw new Error('Your Stats sheet was not found.');
@@ -292,10 +292,10 @@ function refreshV22WikiSync(clientPayload) {
       V22_WIKISYNC_COMPLETED_QUESTS: String(newlyCompleted)
     });
     SpreadsheetApp.flush();
-    return {ok:true,message:'Live levels and quest states updated.',updatedLevels:changedLevels,completedQuests:newlyCompleted,newlyCompletedQuests:newlyCompletedNames,state:getV1DashboardState({allowQuestHelperSync:false})};
+    return {ok:true,message:'Live levels and quest states updated.',updatedLevels:changedLevels,completedQuests:newlyCompleted,newlyCompletedQuests:newlyCompletedNames,state:getV300DashboardShellState()};
   } catch (e) {
     props.setProperty('V22_WIKISYNC_LAST_ERROR', String(e && e.message ? e.message : e));
-    return {ok:false,message:String(e && e.message ? e.message : e),state:getV1DashboardState({allowQuestHelperSync:false})};
+    return {ok:false,message:String(e && e.message ? e.message : e),state:getV300DashboardShellState()};
   } finally { lock.releaseLock(); }
 }
 
@@ -419,7 +419,7 @@ function getV300DashboardShellState(){
   const statsRows=statsBlock.slice(0,24).filter(r=>r[0]),account={};statsBlock.slice(27).filter(r=>r[0]).forEach(r=>account[r[0]]=r[1]);
   const activeGoal=v274CanonicalGoalName_(dashboard[2][1]),allGoals=goalRows.map(r=>({name:v274CanonicalGoalName_(r[0]),type:r[1],anchor:r[2],line:r[3],notes:r[14],status:r[15]||'ACTIVE'}));
   const goals=allGoals.filter(g=>g.name==='Balanced'||!/^accomplished$/i.test(g.status)),accomplishedGoals=allGoals.filter(g=>g.name!=='Balanced'&&/^accomplished$/i.test(g.status));
-  return {shellVersion:'V3.00',username:account.Username||'Sensum',combatLevel:account['Combat Level']||'',questPoints:account['Quest Points']||'',lastWomSnapshot:account['Last WOM Snapshot']||'',lastSheetSync:account['Last Sheet Sync']||'',goal:activeGoal,routeDepth:Number(getRouteDepthValue_(dash)||10),goals:goals,accomplishedGoals:accomplishedGoals,goalProgress:{},bosses:[],bossGuides:[],bossLoadouts:{},bossItemImages:{},bossProgress:{},achievements:{summary:{},upcoming:[],timeline:[]},goalSummary:{objective:dashboard[2][9]||activeGoal,status:dashboard[3][9]||'',missingSkills:dashboard[4][9]||'',prerequisites:dashboard[5][9]||'',effect:dashboard[6][9]||''},topQuests:[],blockedQuests:[],blockerSkillTargets:{targets:[],met:[]},questLibrary:{quests:[]},dataHealthContext:{reviewQueue:[],relevantReviews:0,totalReviews:0},skillGrinds:[],route:[],nextSession:{},stats:statsRows.map(r=>{const level=Number(r[1]||1),womXp=Math.max(0,Number(String(r[7]||0).replace(/,/g,''))||0),floorXp=v22XpFloorForLevel_(level),floorActive=floorXp>womXp;return {skill:r[0],level:r[1],xp:floorActive?floorXp:womXp,womXp:womXp,nextXp:r[5],xpExact:!floorActive,xpSource:floorActive?'Level floor':'WOM verified'}}),shopping:[],requirementIntel:{},questDisplayMeta:{},planningMode:'Base levels only',wikiHealth:{},wikiSync:v22WikiSyncMeta_(),gameDataStatus:{deferred:true},trainingIntelligence:null};
+  return {shellVersion:'V3.00',deferredAudit:true,username:account.Username||'Sensum',combatLevel:account['Combat Level']||'',questPoints:account['Quest Points']||'',lastWomSnapshot:account['Last WOM Snapshot']||'',lastSheetSync:account['Last Sheet Sync']||'',goal:activeGoal,routeDepth:Number(getRouteDepthValue_(dash)||10),goals:goals,accomplishedGoals:accomplishedGoals,goalProgress:{},bosses:[],bossGuides:[],bossLoadouts:{},bossItemImages:{},bossProgress:{},achievements:{summary:{},upcoming:[],timeline:[]},goalSummary:{objective:dashboard[2][9]||activeGoal,status:dashboard[3][9]||'',missingSkills:dashboard[4][9]||'',prerequisites:dashboard[5][9]||'',effect:dashboard[6][9]||''},topQuests:[],blockedQuests:[],blockerSkillTargets:{targets:[],met:[]},questLibrary:{quests:[]},dataHealthContext:{reviewQueue:[],relevantReviews:0,totalReviews:0},skillGrinds:[],route:[],nextSession:{},stats:statsRows.map(r=>{const level=Number(r[1]||1),womXp=Math.max(0,Number(String(r[7]||0).replace(/,/g,''))||0),floorXp=v22XpFloorForLevel_(level),floorActive=floorXp>womXp;return {skill:r[0],level:r[1],xp:floorActive?floorXp:womXp,womXp:womXp,nextXp:r[5],xpExact:!floorActive,xpSource:floorActive?'Level floor':'WOM verified'}}),shopping:[],requirementIntel:{},questDisplayMeta:{},planningMode:'Base levels only',wikiHealth:{deferred:true},wikiSync:v22WikiSyncMeta_(),gameDataStatus:{deferred:true},trainingIntelligence:null};
 }
 
 function getV300EmergencyState(){return {shellVersion:'V3.00b',recoveryMode:true,username:'Sensum',combatLevel:'',questPoints:'',lastWomSnapshot:'',lastSheetSync:'',goal:'',routeDepth:3,goals:[],accomplishedGoals:[],goalProgress:{},bosses:[],bossGuides:[],bossLoadouts:{},bossItemImages:{},bossProgress:{},achievements:{summary:{},upcoming:[],timeline:[]},goalSummary:{objective:'Data temporarily unavailable',status:'Recovery mode',missingSkills:'',prerequisites:'',effect:''},topQuests:[],blockedQuests:[],blockerSkillTargets:{targets:[],met:[]},questLibrary:{quests:[]},dataHealthContext:{reviewQueue:[],relevantReviews:0,totalReviews:0},skillGrinds:[],route:[],nextSession:{},stats:[],shopping:[],requirementIntel:{},questDisplayMeta:{},planningMode:'Base levels only',wikiHealth:{error:'Spreadsheet service recovery in progress'},wikiSync:{lastError:'Spreadsheet service recovery in progress'},gameDataStatus:{deferred:true},trainingIntelligence:null}}

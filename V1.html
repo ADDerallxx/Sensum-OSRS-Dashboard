@@ -394,7 +394,7 @@
   <div class="hero">
     <div class="heroTop">
       <div><h1>Sensum OSRS Progression Dashboard</h1><div class="sub">Open this, see what matters, play the game.</div></div>
-        <div class="heroActions"><div id="v22BannerClock" class="v22Clock">—<small>Local time</small></div><button id="v134WomForce" type="button" class="womForce" onclick="forceV134WomUpdate()">↻ Force WOM Update</button><div class="version">V3.00e · Data Recovery</div><button type="button" class="v201SettingsButton" onclick="openV201Settings()" title="Open settings" aria-label="Open settings"><img src="https://oldschool.runescape.wiki/w/Special:Redirect/file/Settings_%28historical%29.png" alt="" onerror="v264AssetError(this)"></button></div>
+        <div class="heroActions"><div id="v22BannerClock" class="v22Clock">—<small>Local time</small></div><button id="v134WomForce" type="button" class="womForce" onclick="forceV134WomUpdate()">↻ Force WOM Update</button><div class="version">V3.00f · Fast Sync Recovery</div><button type="button" class="v201SettingsButton" onclick="openV201Settings()" title="Open settings" aria-label="Open settings"><img src="https://oldschool.runescape.wiki/w/Special:Redirect/file/Settings_%28historical%29.png" alt="" onerror="v264AssetError(this)"></button></div>
     </div>
     <div class="heroTabs" role="tablist" aria-label="Dashboard command center">
       <div class="v262TabGroup" role="presentation"><span class="v262TabGroupLabel">Play</span><button type="button" id="heroTabOverview" class="heroTab active" role="tab" aria-selected="true" onclick="setHeroTab('overview')">Overview</button><button type="button" id="heroTabTonight" class="heroTab" role="tab" aria-selected="false" onclick="setHeroTab('tonight')">Tonight</button></div>
@@ -956,7 +956,7 @@ function kickV122BackgroundRefresh(){
       google.script.run
         .withFailureHandler(e=>console.warn('Background dashboard re-read failed:',e))
         .withSuccessHandler(render)
-        .getV1DashboardState({allowQuestHelperSync:false});
+        .getV300DashboardShellState();
     })
     .refreshQuestHelperIfStaleV122();
 }
@@ -1352,7 +1352,9 @@ function dataHealth(s){
   const reviews=Number(h.review||0), missing=Number(h.missing||0), relevant=Number((s.dataHealthContext||{}).relevantReviews||0);
 
   let state='HEALTHY', cls='healthHealthy';
-  if((wom===null && live===null) || wiki===null || sheet===null || missing>0){
+  if(s.deferredAudit){
+    state='CORE DATA READY · WIKI AUDIT DEFERRED'; cls='healthAttention';
+  }else if((wom===null && live===null) || wiki===null || sheet===null || missing>0){
     state='ERROR'; cls='healthError';
   }else if(((live===null || live>10) && wom>240) || sheet>240 || wiki>2880){
     state='STALE'; cls='healthStale';
