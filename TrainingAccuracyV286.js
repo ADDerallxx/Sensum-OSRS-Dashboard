@@ -58,6 +58,7 @@ function runV286AccuracyRegressionTests(){
   assert('Sulphur blades outrank rune scimitar at 60/60',v281tWeaponScore_({name:'Sulphur blades',speed:4,stab:11,slash:72,crush:0,strength:64},stats,'Strength')>v281tWeaponScore_({name:'Rune scimitar',speed:4,stab:7,slash:45,crush:-2,strength:44},stats,'Strength'));
   assert('Weapon Strength bonus is not treated as a level requirement',v281tItemEligible_({name:'Sulphur blades',attack:55,strengthBonus:64},{attack:60,strength:52},{}).eligible);
   assert('Real Strength requirements remain enforced',!v281tItemEligible_({name:'Granite hammer',attack:50,strength:50,strengthBonus:56},{attack:60,strength:49},{}).eligible);
+  assert('Wiki bonus templates do not become level requirements',!Object.keys(v287RequirementMap_('{{Infobox Bonuses\n|str=64\n|astab=11\n}}')).length);
   const mockItems={},mockEquipment={};['Sulphur blades','Rune full helm','Rune chainbody','Rune platelegs','Rune boots','Amulet of strength','Combat bracelet','Ring of wealth'].forEach(name=>{mockItems[name.toLowerCase()]={Name:name};mockEquipment[name.toLowerCase()]={Name:name}});
   assert('Two-handed weapons cannot equip a shield',!v281tLoadout_('budget',{attack:60,strength:60,defence:60},{},mockItems,mockEquipment,'Strength').items.some(x=>x.slot==='shield'));
   const failed=tests.filter(x=>!x.pass);
