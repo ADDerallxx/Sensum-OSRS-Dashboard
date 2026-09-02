@@ -98,8 +98,8 @@ function v240RawActions_(){
 function v243FifoAllocations_(purchases,actions){
   const key=x=>x.itemId?'id:'+x.itemId:'name:'+String(x.item||'').toLowerCase(),lots={};purchases.slice().sort((a,b)=>a.date.localeCompare(b.date)||a.updatedAt.localeCompare(b.updatedAt)).forEach(p=>{const k=key(p);(lots[k]||(lots[k]=[])).push({id:p.id,date:p.date,quantity:p.quantity,remaining:p.quantity,unitPrice:p.unitPrice})});const result={};actions.slice().sort((a,b)=>a.date.localeCompare(b.date)||a.updatedAt.localeCompare(b.updatedAt)).forEach(a=>{let need=a.quantity,total=0,used=0,alloc=[];(lots[key(a)]||[]).forEach(l=>{if(need<=0||l.remaining<=0)return;const qty=Math.min(need,l.remaining);l.remaining-=qty;need-=qty;used+=qty;total+=qty*l.unitPrice;alloc.push({purchaseId:l.id,purchaseDate:l.date,quantity:qty,unitCost:l.unitPrice})});result[a.id]={costBasis:used?total/used:Number(a.costBasis||0),allocations:alloc,unallocated:need}});return result;
 }
-function getV240Portfolio(){
-  const purchases=getV240Purchases(),actions=v240RawActions_(),positions={};
+function v307BuildPortfolio_(purchases,actions){
+  purchases=purchases||[];actions=actions||[];const positions={};
   const key=x=>x.itemId?'id:'+x.itemId:'name:'+String(x.item||'').toLowerCase();
   purchases.forEach(p=>{const k=key(p),row=positions[k]||(positions[k]={itemId:p.itemId,item:p.item,bought:0,purchaseCost:0,disposed:0,purposeMap:{},purposeQty:{},actionQty:{Sale:0,Alch:0}}),purpose=p.purpose||'Other';row.bought+=p.quantity;row.purchaseCost+=p.quantity*p.unitPrice;row.purposeMap[purpose]=true;row.purposeQty[purpose]=(row.purposeQty[purpose]||0)+p.quantity;});
   actions.forEach(a=>{const k=key(a),row=positions[k]||(positions[k]={itemId:a.itemId,item:a.item,bought:0,purchaseCost:0,disposed:0,purposeMap:{},purposeQty:{},actionQty:{Sale:0,Alch:0}});row.disposed+=a.quantity;row.actionQty[a.action]=(row.actionQty[a.action]||0)+a.quantity;});
@@ -109,6 +109,14 @@ function getV240Portfolio(){
   const now=new Date(),today=Utilities.formatDate(now,Session.getScriptTimeZone()||'America/Denver','yyyy-MM-dd'),weekAgo=Utilities.formatDate(new Date(now.getTime()-6*86400000),Session.getScriptTimeZone()||'America/Denver','yyyy-MM-dd'),month=today.slice(0,7);
   const sum=rows=>rows.reduce((s,x)=>s+x.realizedProfit,0),open=list.filter(x=>x.remaining>0).sort((a,b)=>b.remaining*b.averageCost-a.remaining*a.averageCost);
   return {positions:open,actions:enriched,summary:{inventoryValue:open.reduce((s,x)=>s+x.remaining*x.averageCost,0),realizedProfit:sum(enriched),todayProfit:sum(enriched.filter(x=>x.date===today)),weekProfit:sum(enriched.filter(x=>x.date>=weekAgo)),monthProfit:sum(enriched.filter(x=>x.date.slice(0,7)===month)),magicXp:enriched.reduce((s,x)=>s+x.magicXp,0)}};
+}
+function getV240Portfolio(){return v307BuildPortfolio_(getV240Purchases(),v240RawActions_())}
+
+// V3.07: Money journals load as one account module. The live market feed stays
+// separate so a price refresh never rereads or replaces the user's journals.
+function getV307MoneyState(){
+  const purchases=getV240Purchases(),actions=v240RawActions_();
+  return {module:'money',generatedAt:new Date().toISOString(),purchases:purchases,portfolio:v307BuildPortfolio_(purchases,actions),batches:getV243ProcessingBatches()};
 }
 function saveV240Action(entry){
   entry=entry||{};const item=String(entry.item||'').trim(),date=String(entry.date||'').trim(),quantity=Math.floor(Number(entry.quantity)||0),action=/^alch$/i.test(String(entry.action||''))?'Alch':'Sale',unitReturn=Math.floor(Number(entry.unitReturn)||0),natureCost=action==='Alch'?Math.max(0,Math.floor(Number(entry.natureCost)||0)):0,unitTax=action==='Sale'?Math.min(5000000,Math.max(0,Math.floor(entry.unitTax==null?unitReturn*.02:Number(entry.unitTax)||0))):0;if(!item)throw new Error('Choose an item.');if(!/^\d{4}-\d{2}-\d{2}$/.test(date))throw new Error('Choose a valid action date.');if(quantity<1)throw new Error('Quantity must be at least 1.');if(unitReturn<0)throw new Error('Unit return cannot be negative.');
