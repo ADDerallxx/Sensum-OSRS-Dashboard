@@ -27,6 +27,7 @@ const routeVariant=JSON.parse(fs.readFileSync('platform/contracts/agility-route-
 const shortcutVariant=JSON.parse(fs.readFileSync('platform/contracts/agility-shortcut-variant-v1.json','utf8'));
 const conditionVariant=JSON.parse(fs.readFileSync('platform/contracts/agility-condition-variant-v1.json','utf8'));
 const accessVariant=JSON.parse(fs.readFileSync('platform/contracts/agility-access-variant-v1.json','utf8'));
+const hallowedEquipment=JSON.parse(fs.readFileSync('platform/contracts/hallowed-equipment-modifier-v1.json','utf8'));
 const variantDiscovery=fs.readFileSync('platform/transforms/variant-snapshot-lib.mjs','utf8');
 const failures=[];const check=(ok,msg)=>{if(!ok)failures.push(msg)};
 for(const table of ['data_sources','data_snapshots','items','equipment','effects','npcs','npc_combat_stats','locations','recipes','price_observations','profiles','account_snapshots','training_methods','optimization_runs','optimization_evidence','validation_findings'])check(new RegExp(`CREATE TABLE ${table} \\(`).test(sql),`Missing canonical table: ${table}`);
@@ -93,5 +94,9 @@ for(const file of ['platform/ingestion/agility-condition-variant-lib.mjs','platf
 check(accessVariant.rules.requiredEquipmentMustBeExplicit===true&&accessVariant.rules.entryBoostabilityMustBeSeparateFromTrainingBoostPolicy===true&&accessVariant.rules.multiSkillFailureConditionsMustRemainConjunctive===true&&accessVariant.rules.sourceRateConflictsMustBlockVerification===true,'Access variants must preserve equipment, boost, failure, and source-conflict boundaries.');
 for(const file of ['platform/ingestion/agility-access-variant-lib.mjs','platform/ingestion/ingest-wiki-agility-access-variants.mjs','platform/tests/agility-access-variants.test.mjs'])check(fs.existsSync(file),`Missing access variant component: ${file}`);
 check(fs.existsSync('platform/transforms/activity-variant-condition-lib.mjs')&&fs.existsSync('platform/tests/activity-variant-conditions.test.mjs'),'Missing variant-condition integration components.');
+check(hallowedEquipment.rules.modifiersAreNotStandaloneMethods===true&&hallowedEquipment.rules.qualitativeEffectsCannotBecomeNumeric===true&&hallowedEquipment.rules.resourceReductionsMustRetainBaseline===true,'Hallowed equipment must remain composable, scoped, and non-invented.');
+for(const file of ['platform/ingestion/hallowed-equipment-modifier-lib.mjs','platform/ingestion/ingest-wiki-hallowed-equipment-modifiers.mjs','platform/tests/hallowed-equipment-modifiers.test.mjs'])check(fs.existsSync(file),`Missing Hallowed equipment component: ${file}`);
+check(/writeSnapshot\(root,'hallowed-equipment-variants'/.test(fs.readFileSync('platform/ingestion/ingest-wiki-hallowed-equipment-modifiers.mjs','utf8')),'Hallowed equipment snapshot domain must be discoverable as a variant domain.');
+for(const file of ['platform/transforms/agility-variant-exit-lib.mjs','platform/transforms/verify-agility-variant-expansion.mjs','platform/tests/agility-variant-exit.test.mjs'])check(fs.existsSync(file),`Missing Agility variant exit-gate component: ${file}`);
 if(failures.length){console.error(failures.map(x=>'FAIL: '+x).join('\n'));process.exit(1)}
 console.log('V4 foundation checks passed: canonical schema, provenance, coverage, and calculation contracts.');

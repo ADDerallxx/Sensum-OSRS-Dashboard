@@ -3,7 +3,7 @@ import path from 'node:path';
 import {hash,json} from '../ingestion/lib.mjs';
 import {hourly,lapModel,TICK_SECONDS} from '../formulas/activity-v1.mjs';
 import {discoverVariantSnapshots} from './variant-snapshot-lib.mjs';
-import {resolveVariantConditionModel} from './activity-variant-condition-lib.mjs';
+import {isTrainableVariantRecord,resolveVariantConditionModel} from './activity-variant-condition-lib.mjs';
 
 const root=path.resolve(process.argv.find(x=>x.startsWith('--root='))?.slice(7)||'.platform-data');
 const requestedFamily=process.argv.find(x=>x.startsWith('--family='))?.slice(9)||'agility_course';
@@ -11,7 +11,7 @@ async function latestFamilies(){const base=path.join(root,'activity-families'),d
 const input=await latestFamilies(),familyMembers=input.members.filter(x=>x.family_key===requestedFamily),members=familyMembers.filter(x=>x.entity_role==='trainable_method'),facts=input.facts.filter(x=>x.family_key===requestedFamily);
 async function latestTable(){const dirs=(await fs.readdir(root,{withFileTypes:true})).filter(x=>x.isDirectory()).map(x=>x.name).sort().reverse();for(const dir of dirs){const file=path.join(root,dir,'agility-course-table.ndjson');try{await fs.access(file);return {dir,rows:(await fs.readFile(file,'utf8')).trim().split(/\r?\n/).filter(Boolean).map(JSON.parse)}}catch{}}return {dir:null,rows:[]}}
 const table=await latestTable(),tableByName=new Map(table.rows.map(x=>[x.name,x]));
-const variantState=await discoverVariantSnapshots(root),variantSnapshots=variantState.snapshots,compositeNames=new Set(familyMembers.filter(x=>x.entity_role==='composite_method').map(x=>x.name)),expandedVariants=variantSnapshots.flatMap(x=>x.rows).filter(x=>compositeNames.has(x.parent_name));
+const variantState=await discoverVariantSnapshots(root),variantSnapshots=variantState.snapshots,compositeNames=new Set(familyMembers.filter(x=>x.entity_role==='composite_method').map(x=>x.name)),expandedVariants=variantSnapshots.flatMap(x=>x.rows).filter(x=>compositeNames.has(x.parent_name)&&isTrainableVariantRecord(x));
 const byRecord=new Map();for(const member of members)byRecord.set(member.external_record_key,{member,facts:facts.filter(x=>x.external_record_key===member.external_record_key),variant:null});for(const variant of expandedVariants)byRecord.set(variant.record_key,{member:{external_record_key:variant.record_key,name:variant.name,source_revision:variant.source_revision,entity_role:'trainable_method'},facts:[],variant});
 const one=(list,kind)=>list.find(x=>x.fact_kind===kind),all=(list,kind)=>list.filter(x=>x.fact_kind===kind);
 const vectors=[];

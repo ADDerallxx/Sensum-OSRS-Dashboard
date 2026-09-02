@@ -65,3 +65,13 @@ equivalent equipment alternatives, separate entry boostability from a training
 boost policy, and preserve compound failure-free conditions. Ape Atoll's
 conflicting 55,200 and 55,100 XP/hour statements remain an explicit verification
 blocker rather than being silently reconciled.
+
+Hallowed Sepulchre equipment is modeled as encounter-scoped requirements and
+composable modifiers, not standalone training methods. Exact resource changes
+remain numeric; unquantified “faster” and “better chance” claims remain
+qualitative. Observed floor-rate variants are blocked when their equipment state
+is not stated by the source.
+
+`verify-agility-variant-expansion.mjs` is the phase exit gate. It requires every
+detected axis to be expanded, every finding to retain revision-pinned locators,
+and every discovered snapshot to pass integrity validation.

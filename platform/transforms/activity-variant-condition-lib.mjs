@@ -1,4 +1,5 @@
 const finite=value=>Number.isFinite(Number(value))?Number(value):null;
+export const isTrainableVariantRecord=row=>!['composable_modifier','encounter_requirement'].includes(row?.record_kind);
 
 export function resolveVariantConditionModel(variant,legacyFailure=null){
   if(!variant)return {failure:legacyFailure,baseLevelMinimum:null,effectiveLevelMinimum:null,conditionDetails:{}};

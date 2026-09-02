@@ -1,0 +1,5 @@
+import fs from 'node:fs/promises';import path from 'node:path';import {hash} from '../ingestion/lib.mjs';import {verifyAgilityVariantExpansion} from './agility-variant-exit-lib.mjs';
+const root=path.resolve(process.argv.find(x=>x.startsWith('--root='))?.slice(7)||'.platform-data'),base=path.join(root,'agility-variant-audits'),dirs=(await fs.readdir(base,{withFileTypes:true})).filter(x=>x.isDirectory()).map(x=>x.name).sort().reverse();
+if(!dirs.length)throw new Error('No Agility variant audit exists.');
+const audit=JSON.parse(await fs.readFile(path.join(base,dirs[0],'report.json'),'utf8')),result=verifyAgilityVariantExpansion(audit),report={...result,generatedAt:new Date().toISOString(),contentHash:null};report.contentHash=hash({...report,contentHash:undefined});
+const out=path.join(root,'agility-variant-exit-reports',report.generatedAt.replace(/[:.]/g,'-'));await fs.mkdir(out,{recursive:true});await fs.writeFile(path.join(out,'report.json'),JSON.stringify(report,null,2)+'\n');console.log(JSON.stringify(report,null,2));if(!report.passed)process.exit(1);

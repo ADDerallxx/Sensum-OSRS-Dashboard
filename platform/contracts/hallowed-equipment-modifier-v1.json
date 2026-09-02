@@ -1,0 +1,13 @@
+{
+  "contract": "sensum.hallowed-equipment-modifier.v1",
+  "required": ["parent_name", "variant_key", "record_kind", "axis_coverage", "requirements", "source_revision", "source_locator"],
+  "rules": {
+    "modifiersAreNotStandaloneMethods": true,
+    "encounterRequirementsRemainScoped": true,
+    "equipmentReplacementsRemainExplicit": true,
+    "qualitativeEffectsCannotBecomeNumeric": true,
+    "resourceReductionsMustRetainBaseline": true,
+    "alternativeRecipesRemainIndependent": true,
+    "automaticVerificationAllowed": false
+  }
+}

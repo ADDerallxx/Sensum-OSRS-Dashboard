@@ -9,4 +9,5 @@ check(floor1Loot?.observed_xp_per_hour===30000&&floor5NoLoot?.observed_xp_per_ho
 check(floor5NoLoot?.cumulative_xp===11700&&floor5NoLoot?.floor_xp===5725,'Floor and cumulative XP must remain distinct.');
 check(rows.every(x=>x.model_kind==='observed_rate'&&x.mechanical_cycle_known===false),'Observed rates must never masquerade as mechanical calculations.');
 check(rows.every(x=>x.axis_coverage.includes('floor_access')&&x.axis_coverage.includes('looting_policy')),'Every emitted variant must declare the axes it covers.');
+check(rows.every(x=>x.equipment_policy==='source_rate_setup_unspecified'&&x.source_warning==='observed_rate_equipment_state_unspecified'),'Observed floor rates must not silently assume an equipment setup.');
 if(failures.length){console.error(failures.join('\n'));process.exit(1)}console.log('Hallowed Sepulchre floor/policy variant checks passed.');
