@@ -21,3 +21,17 @@ deterministic result. It may not invent stats, requirements, or formulas.
 
 Run `node platform/tests/foundation.test.mjs` from the repository root.
 
+## Activity-method engine
+
+Gathering, agility courses, combat loops, and location-constrained methods are
+modeled separately from production recipes. The activity contract records
+success probability, cycle time, resource supply, competition, banking,
+movement, failure penalties, and requirements. Unknown material inputs block an
+absolute-best claim instead of being guessed.
+
+Run:
+
+```text
+node platform/formulas/verify-activity.mjs
+node platform/transforms/activity-readiness.mjs
+```

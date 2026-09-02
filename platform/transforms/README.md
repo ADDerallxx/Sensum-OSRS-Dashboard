@@ -15,3 +15,6 @@ and output identities. A record can support one objective without being falsely
 presented as complete for every objective.
 
 Run `node platform/transforms/canonicalize.mjs`.
+`activity-readiness.mjs` converts canonical training gaps into a deterministic
+enrichment queue. It does not invent action timing or success formulas; records
+remain blocked until activity-specific, source-backed vectors are approved.

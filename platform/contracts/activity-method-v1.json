@@ -1,0 +1,40 @@
+{
+  "contract": "sensum.activity-method.v1",
+  "identity": {
+    "methodKey": "string",
+    "name": "string",
+    "skill": "string",
+    "modelKind": ["fixed_cycle", "success_roll", "resource_cycle", "lap", "combat", "time_gated"]
+  },
+  "verifiedInputs": {
+    "xpPerSuccess": "number >= 0",
+    "cycleTicks": "number > 0",
+    "successProbability": "number from 0 through 1",
+    "sessionSeconds": "number > 0",
+    "setupSeconds": "number >= 0",
+    "banking": {"inventoryCapacity":"number > 0", "roundTripSeconds":"number >= 0"},
+    "resource": {"spawnCount":"integer > 0", "respawnSeconds":"number > 0", "competitionShare":"number from 0 through 1"},
+    "failure": {"probability":"number from 0 through 1", "penaltySeconds":"number >= 0"}
+  },
+  "requirements": ["base skill level", "quest", "area", "tool", "equipment", "consumable"],
+  "requiredOutput": {
+    "attemptsPerHour": true,
+    "successesPerHour": true,
+    "xpPerHour": true,
+    "bankTripsPerHour": true,
+    "bottleneck": true,
+    "lowerEstimate": true,
+    "upperEstimate": true,
+    "missingMaterialInputs": true,
+    "formulaVersion": true,
+    "sourceRevision": true
+  },
+  "claimPolicy": {
+    "absoluteBestRequiresVerifiedMethodVector": true,
+    "unknownSuccessModelBlocksAbsoluteBest": true,
+    "unknownLocationCycleBlocksAbsoluteBest": true,
+    "competitionMustBeExplicit": true,
+    "bankingMustBeExplicitWhenInventoryLimited": true,
+    "aiGeneratedFactsAllowed": false
+  }
+}
