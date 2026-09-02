@@ -1,0 +1,20 @@
+{
+  "contract": "sensum.v4-upgrade-plan.v1",
+  "mode": "one_bounded_checkpoint_per_run",
+  "liveDeploymentAllowed": false,
+  "automaticEvidenceApprovalAllowed": false,
+  "phases": [
+    {"id": "foundation", "status": "complete", "exitGate": "Canonical schemas, provenance, formulas, ingestion controls, and fail-closed contracts pass."},
+    {"id": "agility_variant_expansion", "status": "in_progress", "exitGate": "Every composite Agility page is split into revision-pinned, independently eligible variants."},
+    {"id": "agility_level_34_coverage", "status": "pending", "exitGate": "Every method eligible at base level 34 has a condition-correct model or an explicit authoritative exclusion."},
+    {"id": "agility_golden_review", "status": "pending", "exitGate": "Exact vectors are manually reviewed and a reproducible level-34 certificate survives challenge."},
+    {"id": "all_skill_method_families", "status": "pending", "exitGate": "Every trainable skill has family-specific candidates, mechanics, requirements, variants, and coverage gates."},
+    {"id": "world_knowledge_coverage", "status": "pending", "exitGate": "Items, recipes, equipment, effects, monsters, locations, and prices meet objective-specific completeness gates."},
+    {"id": "optimizer_evaluations", "status": "pending", "exitGate": "Adversarial fixtures, sensitivity analysis, drift detection, and confidence calibration prevent unsupported best claims."},
+    {"id": "service_architecture", "status": "pending", "exitGate": "PostgreSQL, API, workers, refresh jobs, and compatibility interfaces pass isolated integration tests."},
+    {"id": "new_client", "status": "pending", "exitGate": "The new client covers existing workflows against versioned APIs without altering production."},
+    {"id": "architecture_and_ui_review", "status": "pending", "exitGate": "Architecture, ergonomics, language, accessibility, responsive behavior, and visual cohesion findings are resolved."},
+    {"id": "migration_rehearsal", "status": "pending", "exitGate": "Backup, rollback, data reconciliation, load testing, and deployment rehearsal pass."},
+    {"id": "production_cutover", "status": "blocked_user_approval", "exitGate": "User explicitly approves the production migration."}
+  ]
+}

@@ -21,6 +21,14 @@ deterministic result. It may not invent stats, requirements, or formulas.
 
 Run `node platform/tests/foundation.test.mjs` from the repository root.
 
+## Automated upgrade work
+
+The guarded unattended roadmap is documented in
+`docs/V4_AUTOMATED_UPGRADE_ROADMAP.md`. Run
+`node platform/automation/next-checkpoint.mjs` to validate the plan and identify
+the next bounded phase. Automation may commit tested V4 checkpoints, but it may
+not approve evidence or deploy the live dashboard.
+
 ## Activity-method engine
 
 Gathering, agility courses, combat loops, and location-constrained methods are
