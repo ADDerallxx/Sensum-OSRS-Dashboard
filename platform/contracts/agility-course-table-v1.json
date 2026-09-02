@@ -1,0 +1,13 @@
+{
+  "contract": "sensum.agility-course-table.v1",
+  "sourcePage": "Rooftop Agility Courses",
+  "required": ["name", "minimum_level", "obstacles", "xp_per_lap", "cycle_ticks", "observed_peak_xp_per_hour", "source_revision", "source_locator"],
+  "assumptions": {"perfectLaps": true, "noFailures": true},
+  "rules": {
+    "tableRateIsPeakNotExpected": true,
+    "failureProneLevelRequiresSeparateModel": true,
+    "coursePageRequirementsRemainAuthoritative": true,
+    "sourceRevisionRequired": true,
+    "automaticVerificationAllowed": false
+  }
+}

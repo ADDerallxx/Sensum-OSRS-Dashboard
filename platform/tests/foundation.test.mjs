@@ -17,6 +17,7 @@ const review=JSON.parse(fs.readFileSync('platform/contracts/golden-review-packet
 const decision=JSON.parse(fs.readFileSync('platform/contracts/golden-review-decision-v1.json','utf8'));
 const certificateSql=fs.readFileSync('platform/db/migrations/0008_recommendation_certificates.sql','utf8');
 const certificate=JSON.parse(fs.readFileSync('platform/contracts/recommendation-certificate-v1.json','utf8'));
+const agilityTable=JSON.parse(fs.readFileSync('platform/contracts/agility-course-table-v1.json','utf8'));
 const failures=[];const check=(ok,msg)=>{if(!ok)failures.push(msg)};
 for(const table of ['data_sources','data_snapshots','items','equipment','effects','npcs','npc_combat_stats','locations','recipes','price_observations','profiles','account_snapshots','training_methods','optimization_runs','optimization_evidence','validation_findings'])check(new RegExp(`CREATE TABLE ${table} \\(`).test(sql),`Missing canonical table: ${table}`);
 check(/content_hash text NOT NULL/.test(sql),'Sources must be content-addressed.');
@@ -56,5 +57,9 @@ check(decision.rules.matchingVectorHashRequired===true&&decision.rules.appendOnl
 for(const table of ['golden_review_decisions','recommendation_certificates','recommendation_certificate_inputs','recommendation_challenges'])check(new RegExp(`CREATE TABLE ${table} \\(`).test(certificateSql),`Missing recommendation certificate table: ${table}`);
 check(certificate.rules.unknownEligibilityBlocksAbsoluteBest===true&&certificate.rules.unapprovedCandidateCannotWin===true,'Recommendation claims must fail closed.');
 for(const file of ['platform/transforms/record-golden-review.mjs','platform/transforms/generate-recommendation-certificate.mjs','platform/tests/recommendation-certificate.test.mjs'])check(fs.existsSync(file),`Missing recommendation certificate component: ${file}`);
+check(agilityTable.rules.tableRateIsPeakNotExpected===true&&agilityTable.rules.failureProneLevelRequiresSeparateModel===true,'Agility table assumptions must remain explicit.');
+check(['minimum_level','xp_per_lap','cycle_ticks','observed_peak_xp_per_hour','source_revision'].every(x=>agilityTable.required.includes(x)),'Agility table contract must match emitted record fields.');
+check(fs.existsSync('platform/ingestion/ingest-wiki-agility-course-table.mjs'),'Missing structured Agility course ingestion.');
+check(fs.existsSync('platform/tests/agility-course-table.test.mjs'),'Missing structured Agility table regression test.');
 if(failures.length){console.error(failures.map(x=>'FAIL: '+x).join('\n'));process.exit(1)}
 console.log('V4 foundation checks passed: canonical schema, provenance, coverage, and calculation contracts.');

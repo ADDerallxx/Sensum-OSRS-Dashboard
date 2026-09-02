@@ -37,6 +37,9 @@ const parseFragment=(fragment,row,targetSkill)=>{
   if(!/requirement[^.]{0,30}removed/i.test(text)&&(m=text.match(/(?:requires?\s+(?:an?\s*)?(?:\[\[Agility\]\]\s*)?level(?:\s+of)?|(?:\[\[Agility\]\]|Agility)\s+level(?:\s+of)?)\s*(\d+)\s*(?:or above|or higher|required|to access)?/i)))push('level_requirement','constraint',{minimum:number(m[1])},m);
   if((m=text.match(/(?:at least|level)\s*(\d+)[\s\S]{0,180}?never fail/i)))push('failure_probability','mechanical',{probability:0,minimum_level:number(m[1])},m);
   if((m=text.match(/stops? failing[^.]{0,120}?at level\s*(\d+)/i)))push('failure_probability','mechanical',{probability:0,minimum_level:number(m[1])},m);
+  if((m=text.match(/at\s+(?:level\s*)?(\d+)\s*(?:\[\[[^\]]+\]\]|Agility)?[^.]{0,100}?stop failing (?:this |the )?course/i)))push('failure_probability','mechanical',{probability:0,minimum_level:number(m[1])},m);
+  if((m=text.match(/(?:obstacles|players)\s+(?:will\s+)?stop failing(?: (?:this|the) course)?[^.]{0,60}?at\s+(?:level\s*)?(\d+)/i)))push('failure_probability','mechanical',{probability:0,minimum_level:number(m[1])},m);
+  if((m=text.match(/stop failing (?:this |the )course at\s+(\d+)/i)))push('failure_probability','mechanical',{probability:0,minimum_level:number(m[1])},m);
   if(/(?:no longer possible|cannot|can't) to fail/i.test(text))push('failure_probability','mechanical',{probability:0,minimum_level:1},{index:0});
   const rates=[...text.matchAll(/([\d,.]+)(?:[–-]([\d,.]+))?\s*(?:\[\[[^\]]+\]\]\s*|[A-Za-z]+\s+)?(?:\[\[experience\]\]|experience)\s*per\s*hour/gi)];
   for(const rate of rates)push('observed_xp_per_hour','observational',{minimum:number(rate[1]),maximum:number(rate[2]||rate[1])},rate);

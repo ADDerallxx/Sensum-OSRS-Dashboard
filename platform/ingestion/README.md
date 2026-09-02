@@ -15,6 +15,7 @@ node platform/ingestion/ingest-wiki-domain.mjs --domain=recipes
 node platform/ingestion/audit-local-catalogs.mjs
 node platform/ingestion/ingest-activity-evidence.mjs --limit=100
 node platform/ingestion/ingest-activity-family-evidence.mjs --family=agility_course
+node platform/ingestion/ingest-wiki-agility-course-table.mjs
 ```
 
 Each run writes newline-delimited records and a manifest containing the source,
