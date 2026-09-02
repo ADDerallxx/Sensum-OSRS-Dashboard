@@ -49,3 +49,7 @@ Route variants keep Dorgesh-Kaan's Agility, grapple, and mixed rewards separate,
 including their independent skill and equipment requirements. Werewolf
 Skullball time ranges remain ranges, and its 1:45 optimal-route result remains a
 peak observation rather than a typical cycle-time claim.
+
+Prifddinas portal shortcuts are modeled as absent, randomly used, and
+best-spawn peak conditions. The Wiki's 5–10 second saving remains a range, and
+its unscoped 1:14 average lap is not assigned to either portal policy.

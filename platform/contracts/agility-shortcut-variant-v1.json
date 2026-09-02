@@ -1,0 +1,12 @@
+{
+  "contract": "sensum.agility-shortcut-variant.v1",
+  "required": ["parent_name", "variant_key", "axis_coverage", "entry_level", "requirements", "source_revision", "source_locator"],
+  "rules": {
+    "randomShortcutMustBeExplicit": true,
+    "timeSavingRangeMustRemainRange": true,
+    "unscopedAverageCannotBeAssignedToVariant": true,
+    "bestSpawnPeakCannotBecomeTypicalCycle": true,
+    "observedRatesCannotReplaceMechanicalRates": true,
+    "automaticVerificationAllowed": false
+  }
+}

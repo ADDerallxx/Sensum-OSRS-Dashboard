@@ -20,6 +20,7 @@ node platform/ingestion/ingest-wiki-agility-variants.mjs
 node platform/ingestion/ingest-wiki-hallowed-sepulchre-variants.mjs
 node platform/ingestion/ingest-wiki-agility-modifier-variants.mjs
 node platform/ingestion/ingest-wiki-agility-route-variants.mjs
+node platform/ingestion/ingest-wiki-agility-shortcut-variants.mjs
 ```
 
 Each run writes newline-delimited records and a manifest containing the source,
