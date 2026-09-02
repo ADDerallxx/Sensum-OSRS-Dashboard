@@ -8,6 +8,7 @@ not committed.
 
 ```text
 node platform/ingestion/ingest-ge.mjs
+node platform/ingestion/ingest-wiki-domain.mjs --domain=item-identities
 node platform/ingestion/ingest-wiki-domain.mjs --domain=equipment
 node platform/ingestion/ingest-wiki-domain.mjs --domain=monsters
 node platform/ingestion/ingest-wiki-domain.mjs --domain=recipes
@@ -28,4 +29,3 @@ record count, creation time, audit result, and SHA-256 content hash.
   transformation and formula validation are separate gates.
 - Legacy fallback or review records remain quarantined until independently
   sourced and validated.
-
