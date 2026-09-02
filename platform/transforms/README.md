@@ -31,4 +31,7 @@ source review; approval can open only the exact conditions covered by a vector.
 
 `audit-agility-variant-coverage.mjs` scans revision-pinned course evidence for
 material floor, route, modifier, shortcut, boost, intensity, and looting axes.
-Every unexpanded axis remains an explicit coverage blocker.
+Every unexpanded axis remains an explicit coverage blocker. Variant records
+must declare the exact axes they cover; their existence alone cannot clear an
+unrelated finding. Hallowed Sepulchre floor and looting variants retain Wiki
+rates as observational evidence and never relabel them as calculated mechanics.

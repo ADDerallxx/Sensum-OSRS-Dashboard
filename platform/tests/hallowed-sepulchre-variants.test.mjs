@@ -1,0 +1,12 @@
+import {parseHallowedSepulchreVariants} from '../ingestion/hallowed-sepulchre-variant-lib.mjs';
+const rowsText=[[1,52,575,575,30000,40000,100],[2,62,925,1500,40000,50000,100],[3,72,1600,3100,63000,71700,150],[4,77,2875,5975,73000,81000,150],[5,87,5725,11700,75800,88500,160]].map(values=>`|-\n|${values[0]}\n|{{SCP|Agility|${values[1]}|link=yes}}\n|${values[2]}\n|${values[3]}\n|${values[4]}\n|${values[5]}\n|${values[6]}`).join('\n');
+const source=`==Experience rates==\n{| class="wikitable"\n!Floor\n!Level Req.\n!Floor Exp\n!Cumulative Exp\n!Realistic Looting XP/hour\n!Realistic No looting XP/hour\n!Treasure Encounter XP (both ways)\n${rowsText}\n|}\nPlease note that experience rates will be higher if you ignore opportunities to loot coffins.\n# Looting assumptions.\n==Money making==`;
+const rows=parseHallowedSepulchreVariants({title:'Hallowed Sepulchre',content:source,sourceRevision:'15322138',sourceTimestamp:'2026-08-27T17:27:38Z',sourceUrl:'https://oldschool.runescape.wiki/w/Hallowed_Sepulchre'}),failures=[],check=(ok,message)=>{if(!ok)failures.push(message)};
+check(rows.length===10,'Five floors crossed with two looting policies must emit ten variants.');
+const floor1Loot=rows.find(x=>x.variant_key==='floor-1:looting'),floor5NoLoot=rows.find(x=>x.variant_key==='floor-5:no_looting');
+check(floor1Loot?.entry_level===52&&floor5NoLoot?.entry_level===87,'Each floor must retain independent eligibility.');
+check(floor1Loot?.observed_xp_per_hour===30000&&floor5NoLoot?.observed_xp_per_hour===88500,'Each policy must retain its own observed rate.');
+check(floor5NoLoot?.cumulative_xp===11700&&floor5NoLoot?.floor_xp===5725,'Floor and cumulative XP must remain distinct.');
+check(rows.every(x=>x.model_kind==='observed_rate'&&x.mechanical_cycle_known===false),'Observed rates must never masquerade as mechanical calculations.');
+check(rows.every(x=>x.axis_coverage.includes('floor_access')&&x.axis_coverage.includes('looting_policy')),'Every emitted variant must declare the axes it covers.');
+if(failures.length){console.error(failures.join('\n'));process.exit(1)}console.log('Hallowed Sepulchre floor/policy variant checks passed.');

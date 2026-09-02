@@ -17,6 +17,7 @@ node platform/ingestion/ingest-activity-evidence.mjs --limit=100
 node platform/ingestion/ingest-activity-family-evidence.mjs --family=agility_course
 node platform/ingestion/ingest-wiki-agility-course-table.mjs
 node platform/ingestion/ingest-wiki-agility-variants.mjs
+node platform/ingestion/ingest-wiki-hallowed-sepulchre-variants.mjs
 ```
 
 Each run writes newline-delimited records and a manifest containing the source,

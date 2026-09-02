@@ -1,0 +1,11 @@
+{
+  "contract": "sensum.hallowed-sepulchre-variant.v1",
+  "required": ["parent_name", "variant_key", "floor", "looting_policy", "entry_level", "cumulative_xp", "observed_xp_per_hour", "source_revision", "source_locator"],
+  "rules": {
+    "floorEligibilityIsIndependent": true,
+    "lootingAndNoLootingAreIndependentObjectives": true,
+    "observedRatesCannotBePresentedAsMechanicalCalculations": true,
+    "boostableEntryDoesNotChangeBaseLevelEligibility": true,
+    "automaticVerificationAllowed": false
+  }
+}
