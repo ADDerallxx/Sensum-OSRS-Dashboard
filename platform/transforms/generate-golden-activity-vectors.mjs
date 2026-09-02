@@ -1,0 +1,28 @@
+import fs from 'node:fs/promises';
+import path from 'node:path';
+import {hash,json} from '../ingestion/lib.mjs';
+import {hourly,lapModel,TICK_SECONDS} from '../formulas/activity-v1.mjs';
+
+const root=path.resolve(process.argv.find(x=>x.startsWith('--root='))?.slice(7)||'.platform-data');
+const requestedFamily=process.argv.find(x=>x.startsWith('--family='))?.slice(9)||'agility_course';
+async function latestFamilies(){const base=path.join(root,'activity-families'),dirs=(await fs.readdir(base,{withFileTypes:true})).filter(x=>x.isDirectory()).map(x=>x.name).sort().reverse();for(const dir of dirs){const facts=path.join(base,dir,'facts.ndjson'),members=path.join(base,dir,'members.ndjson');try{await Promise.all([fs.access(facts),fs.access(members)]);const read=async file=>(await fs.readFile(file,'utf8')).trim().split(/\r?\n/).filter(Boolean).map(JSON.parse);return {dir,facts:await read(facts),members:await read(members)}}catch{}}throw new Error('No activity family build found.');}
+const input=await latestFamilies(),members=input.members.filter(x=>x.family_key===requestedFamily),facts=input.facts.filter(x=>x.family_key===requestedFamily);
+const byRecord=new Map();for(const member of members)byRecord.set(member.external_record_key,{member,facts:facts.filter(x=>x.external_record_key===member.external_record_key)});
+const one=(list,kind)=>list.find(x=>x.fact_kind===kind),all=(list,kind)=>list.filter(x=>x.fact_kind===kind);
+const vectors=[];
+for(const {member,facts:recordFacts} of byRecord.values()){
+  const contradictions=[],missing=[],tickFact=one(recordFacts,'cycle_ticks'),secondsFact=one(recordFacts,'lap_seconds'),xpFact=one(recordFacts,'xp_per_success'),failureFacts=all(recordFacts,'failure_probability'),levelFacts=all(recordFacts,'level_requirement'),observedXp=all(recordFacts,'observed_xp_per_hour'),observedActions=all(recordFacts,'observed_actions_per_hour');
+  const cycleTicks=tickFact?.value?.ticks??(secondsFact?.value?.seconds/TICK_SECONDS||null),lapSeconds=cycleTicks?cycleTicks*TICK_SECONDS:null,xp=xpFact?.value?.xp??null;
+  if(!cycleTicks)missing.push('cycle_ticks');if(!xp)missing.push('xp_per_success');
+  const failure=failureFacts.find(x=>x.value?.probability===0&&x.value?.minimum_level)||null;if(!failure)missing.push('failure_model_with_level_condition');
+  const minimumLevel=Math.max(0,...levelFacts.map(x=>Number(x.value?.minimum||0)),Number(failure?.value?.minimum_level||0));if(!minimumLevel)missing.push('minimum_level');
+  if(tickFact&&secondsFact&&Math.abs(tickFact.value.ticks-secondsFact.value.seconds/TICK_SECONDS)>1)contradictions.push({rule:'cycle_units_disagree',severity:'blocker',ticks:tickFact.value.ticks,seconds:secondsFact.value.seconds});
+  let calculated=null,differenceRatio=null,observedRange=null;
+  if(cycleTicks&&xp&&failure){calculated=hourly(lapModel({lapSeconds,xpPerLap:xp,failureProbability:failure.value.probability}));const ranges=observedXp.map(x=>({minimum:Number(x.value?.minimum),maximum:Number(x.value?.maximum),sourceLocator:x.source_locator})).filter(x=>Number.isFinite(x.maximum));if(ranges.length){const upperReference=Math.max(...ranges.map(x=>x.maximum));observedRange={upperReference,comparison:'peak_observed_rate',candidateRanges:ranges};differenceRatio=Math.abs(calculated.xpPerHour-upperReference)/Math.max(1,upperReference);if(differenceRatio>.02)contradictions.push({rule:'calculated_rate_outside_tolerance',severity:'blocker',calculated:calculated.xpPerHour,observedUpper:upperReference,tolerance:.02})}else missing.push('observed_xp_per_hour');}
+  const sourceLocators=recordFacts.map(x=>({factKind:x.fact_kind,sourceRevision:x.source_revision,sourceUrl:x.source_url,sourceLocator:x.source_locator,state:x.state}));
+  const state=!missing.length&&!contradictions.length?'proposed':'blocked';
+  vectors.push({contract:'sensum.golden-activity-vector.v1',scenarioKey:`${requestedFamily}:${member.external_record_key}:level-${minimumLevel||'unknown'}`,familyKey:requestedFamily,recordKey:member.external_record_key,name:member.name,skill:'Agility',conditions:{minimumLevel:minimumLevel||null,failureFree:failure?.value?.probability===0},mechanics:{cycleTicks,lapSeconds,xpPerSuccess:xp,failureProbability:failure?.value?.probability??null},calculation:calculated?{formulaVersion:'activity-v1',actionsPerHour:calculated.successesPerHour,xpPerHour:calculated.xpPerHour}:null,observed:{xpPerHour:observedRange,actionsPerHour:observedActions.map(x=>x.value)},validation:{differenceRatio,missing,contradictions,sourceLocators},sourceRevision:member.source_revision,state,approval:{automaticApprovalAllowed:false,required:'manual_source_and_vector_review'},contentHash:null});
+}
+for(const vector of vectors)vector.contentHash=hash({...vector,contentHash:undefined});
+const report={contract:'sensum.golden-activity-vector-generation.v1',generatedAt:new Date().toISOString(),familyBuild:input.dir,familyKey:requestedFamily,records:vectors.length,proposed:vectors.filter(x=>x.state==='proposed').length,blocked:vectors.filter(x=>x.state==='blocked').length,approved:0,absoluteBestActivityGate:'blocked',vectors:vectors.map(x=>({scenarioKey:x.scenarioKey,name:x.name,state:x.state,missing:x.validation.missing,contradictions:x.validation.contradictions,calculation:x.calculation,observed:x.observed.xpPerHour,differenceRatio:x.validation.differenceRatio})),contentHash:hash(vectors)};
+const out=path.join(root,'activity-vectors',report.generatedAt.replace(/[:.]/g,'-'));await fs.mkdir(out,{recursive:true});await fs.writeFile(path.join(out,'vectors.ndjson'),vectors.map(json).join('\n')+'\n');await fs.writeFile(path.join(out,'report.json'),JSON.stringify(report,null,2)+'\n');console.log(JSON.stringify(report,null,2));

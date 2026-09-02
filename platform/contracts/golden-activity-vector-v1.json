@@ -1,0 +1,20 @@
+{
+  "contract": "sensum.golden-activity-vector.v1",
+  "required": {
+    "identity": ["familyKey", "recordKey", "name", "sourceRevision"],
+    "conditions": ["skill", "minimumLevel"],
+    "mechanics": ["cycle", "xpPerSuccess", "failureModel"],
+    "calculation": ["formulaVersion", "actionsPerHour", "xpPerHour"],
+    "validation": ["observedRange", "differenceRatio", "contradictions", "sourceLocators"]
+  },
+  "states": ["blocked", "proposed", "approved", "rejected", "stale"],
+  "approvalPolicy": {
+    "automaticApprovalAllowed": false,
+    "allMechanicalFactsMustBeVerified": true,
+    "conditionsMustBeExplicit": true,
+    "calculationMustMatchObservedRangeWithinTolerance": true,
+    "contradictionsBlockApproval": true,
+    "sourceRevisionChangeMarksStale": true,
+    "approvedVectorMayOpenOnlyItsOwnScenario": true
+  }
+}

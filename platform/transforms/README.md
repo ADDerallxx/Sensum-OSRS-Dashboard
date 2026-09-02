@@ -23,3 +23,8 @@ remain blocked until activity-specific, source-backed vectors are approved.
 families and extracts revision-pinned candidate facts. Regex output is never
 automatically verified. Observed guide rates are retained separately from the
 mechanical inputs used to calculate rates.
+
+`generate-golden-activity-vectors.mjs` builds reviewable, scenario-scoped test
+vectors from family facts. It checks unit agreement and compares calculated
+rates with observed source ranges. Passing vectors remain proposed until manual
+source review; approval can open only the exact conditions covered by a vector.

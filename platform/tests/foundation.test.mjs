@@ -11,6 +11,8 @@ const evidenceSql=fs.readFileSync('platform/db/migrations/0005_activity_evidence
 const evidence=JSON.parse(fs.readFileSync('platform/contracts/activity-evidence-v1.json','utf8'));
 const familySql=fs.readFileSync('platform/db/migrations/0006_activity_families.sql','utf8');
 const family=JSON.parse(fs.readFileSync('platform/contracts/activity-family-v1.json','utf8'));
+const goldenSql=fs.readFileSync('platform/db/migrations/0007_golden_activity_vectors.sql','utf8');
+const golden=JSON.parse(fs.readFileSync('platform/contracts/golden-activity-vector-v1.json','utf8'));
 const failures=[];const check=(ok,msg)=>{if(!ok)failures.push(msg)};
 for(const table of ['data_sources','data_snapshots','items','equipment','effects','npcs','npc_combat_stats','locations','recipes','price_observations','profiles','account_snapshots','training_methods','optimization_runs','optimization_evidence','validation_findings'])check(new RegExp(`CREATE TABLE ${table} \\(`).test(sql),`Missing canonical table: ${table}`);
 check(/content_hash text NOT NULL/.test(sql),'Sources must be content-addressed.');
@@ -38,5 +40,10 @@ for(const table of ['activity_families','activity_family_members','activity_fami
 check(family.rules.observationalFactsCannotReplaceMechanicalFacts===true,'Observed rates must not replace activity mechanics.');
 check(family.rules.unclassifiedRecordsCannotBeRanked===true,'Unclassified activities must not be rankable.');
 check(fs.existsSync('platform/transforms/build-activity-families.mjs'),'Missing activity family builder.');
+for(const table of ['golden_activity_scenarios','golden_activity_contradictions','golden_activity_reviews'])check(new RegExp(`CREATE TABLE ${table} \\(`).test(goldenSql),`Missing golden activity table: ${table}`);
+check(golden.approvalPolicy.automaticApprovalAllowed===false,'Golden vectors must not auto-approve.');
+check(golden.approvalPolicy.approvedVectorMayOpenOnlyItsOwnScenario===true,'Golden approval scope must remain scenario-specific.');
+check(fs.existsSync('platform/transforms/generate-golden-activity-vectors.mjs'),'Missing golden activity vector generator.');
+check(fs.existsSync('platform/tests/golden-agility.test.mjs'),'Missing golden Agility regression test.');
 if(failures.length){console.error(failures.map(x=>'FAIL: '+x).join('\n'));process.exit(1)}
 console.log('V4 foundation checks passed: canonical schema, provenance, coverage, and calculation contracts.');
