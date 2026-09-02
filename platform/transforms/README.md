@@ -9,5 +9,9 @@ records retain their source payload, hash, revision, and explicit reasons. A
 domain's staging capture may be complete while optimizer coverage is incomplete;
 these are intentionally separate gates.
 
-Run `node platform/transforms/canonicalize.mjs`.
+Recipe records expose objective-specific capabilities. XP-rate readiness needs
+verified XP and timing; profit-rate readiness additionally needs resolved input
+and output identities. A record can support one objective without being falsely
+presented as complete for every objective.
 
+Run `node platform/transforms/canonicalize.mjs`.
