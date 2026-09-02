@@ -1,0 +1,14 @@
+{
+  "contract": "sensum.recommendation-certificate.v1",
+  "claimStrengths": ["verified_absolute_best", "best_approved", "provisional", "insufficient_data"],
+  "required": ["objective", "accountConditions", "dataSnapshot", "formulaVersion", "candidateCoverage", "winner", "provisionalLeader", "closestAlternative", "exclusions", "challengeResult", "confidence", "evidence"],
+  "rules": {
+    "absoluteBestRequiresCompleteEligibleCoverage": true,
+    "absoluteBestRequiresApprovedVectors": true,
+    "unknownEligibilityBlocksAbsoluteBest": true,
+    "unapprovedCandidateCannotWin": true,
+    "provisionalLeaderMustBeLabeled": true,
+    "certificateMustBeReproducible": true,
+    "aiNarrativeIsNonAuthoritative": true
+  }
+}

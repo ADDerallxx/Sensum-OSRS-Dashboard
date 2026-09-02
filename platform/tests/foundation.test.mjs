@@ -14,6 +14,9 @@ const family=JSON.parse(fs.readFileSync('platform/contracts/activity-family-v1.j
 const goldenSql=fs.readFileSync('platform/db/migrations/0007_golden_activity_vectors.sql','utf8');
 const golden=JSON.parse(fs.readFileSync('platform/contracts/golden-activity-vector-v1.json','utf8'));
 const review=JSON.parse(fs.readFileSync('platform/contracts/golden-review-packet-v1.json','utf8'));
+const decision=JSON.parse(fs.readFileSync('platform/contracts/golden-review-decision-v1.json','utf8'));
+const certificateSql=fs.readFileSync('platform/db/migrations/0008_recommendation_certificates.sql','utf8');
+const certificate=JSON.parse(fs.readFileSync('platform/contracts/recommendation-certificate-v1.json','utf8'));
 const failures=[];const check=(ok,msg)=>{if(!ok)failures.push(msg)};
 for(const table of ['data_sources','data_snapshots','items','equipment','effects','npcs','npc_combat_stats','locations','recipes','price_observations','profiles','account_snapshots','training_methods','optimization_runs','optimization_evidence','validation_findings'])check(new RegExp(`CREATE TABLE ${table} \\(`).test(sql),`Missing canonical table: ${table}`);
 check(/content_hash text NOT NULL/.test(sql),'Sources must be content-addressed.');
@@ -49,5 +52,9 @@ check(fs.existsSync('platform/tests/golden-agility.test.mjs'),'Missing golden Ag
 check(fs.existsSync('platform/tests/golden-rooftop-agility.test.mjs'),'Missing golden rooftop Agility regression test.');
 check(review.rules.generationDoesNotApprove===true,'Review packet generation must not approve vectors.');
 for(const file of ['platform/ingestion/activity-evidence-lib.mjs','platform/ingestion/ingest-activity-family-evidence.mjs','platform/transforms/generate-golden-review-packets.mjs'])check(fs.existsSync(file),`Missing golden review component: ${file}`);
+check(decision.rules.matchingVectorHashRequired===true&&decision.rules.appendOnly===true,'Review decisions must be hash-bound and append-only.');
+for(const table of ['golden_review_decisions','recommendation_certificates','recommendation_certificate_inputs','recommendation_challenges'])check(new RegExp(`CREATE TABLE ${table} \\(`).test(certificateSql),`Missing recommendation certificate table: ${table}`);
+check(certificate.rules.unknownEligibilityBlocksAbsoluteBest===true&&certificate.rules.unapprovedCandidateCannotWin===true,'Recommendation claims must fail closed.');
+for(const file of ['platform/transforms/record-golden-review.mjs','platform/transforms/generate-recommendation-certificate.mjs','platform/tests/recommendation-certificate.test.mjs'])check(fs.existsSync(file),`Missing recommendation certificate component: ${file}`);
 if(failures.length){console.error(failures.map(x=>'FAIL: '+x).join('\n'));process.exit(1)}
 console.log('V4 foundation checks passed: canonical schema, provenance, coverage, and calculation contracts.');

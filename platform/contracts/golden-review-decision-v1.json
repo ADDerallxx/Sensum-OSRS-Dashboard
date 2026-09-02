@@ -1,0 +1,14 @@
+{
+  "contract": "sensum.golden-review-decision.v1",
+  "decisions": ["approve", "reject", "needs_evidence"],
+  "required": ["scenarioKey", "sourceRevision", "vectorContentHash", "packetContentHash", "reviewer", "reviewedAt", "decision", "notes"],
+  "rules": {
+    "appendOnly": true,
+    "matchingVectorHashRequired": true,
+    "matchingPacketHashRequired": true,
+    "matchingSourceRevisionRequired": true,
+    "approvalRequiresEligiblePacket": true,
+    "approvalCannotBroadenScenarioScope": true,
+    "newSourceRevisionInvalidatesPriorApproval": true
+  }
+}
