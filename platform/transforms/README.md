@@ -28,3 +28,7 @@ mechanical inputs used to calculate rates.
 vectors from family facts. It checks unit agreement and compares calculated
 rates with observed source ranges. Passing vectors remain proposed until manual
 source review; approval can open only the exact conditions covered by a vector.
+
+`audit-agility-variant-coverage.mjs` scans revision-pinned course evidence for
+material floor, route, modifier, shortcut, boost, intensity, and looting axes.
+Every unexpanded axis remains an explicit coverage blocker.

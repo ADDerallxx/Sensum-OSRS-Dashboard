@@ -1,0 +1,13 @@
+{
+  "contract": "sensum.activity-variant-audit.v1",
+  "axes": ["course_branch", "floor_access", "route_strategy", "achievement_modifier", "equipment_modifier", "random_shortcut", "temporary_boost", "intensity_strategy", "looting_policy"],
+  "states": ["expanded", "requires_model_variant"],
+  "rules": {
+    "everyFindingRequiresSourceLocator": true,
+    "variantAxesAreObjectiveScoped": true,
+    "unexpandedMaterialAxisBlocksCompleteCoverage": true,
+    "referenceCollectionsAreExcluded": true,
+    "modifierCannotBeAppliedToBaseVariant": true,
+    "automaticMaterialityApprovalAllowed": false
+  }
+}
