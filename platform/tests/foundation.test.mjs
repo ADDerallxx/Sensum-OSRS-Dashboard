@@ -22,6 +22,8 @@ const upgradePlan=JSON.parse(fs.readFileSync('platform/automation/v4-upgrade-pla
 const agilityVariant=JSON.parse(fs.readFileSync('platform/contracts/agility-variant-v1.json','utf8'));
 const variantAudit=JSON.parse(fs.readFileSync('platform/contracts/activity-variant-audit-v1.json','utf8'));
 const hallowedVariant=JSON.parse(fs.readFileSync('platform/contracts/hallowed-sepulchre-variant-v1.json','utf8'));
+const modifierVariant=JSON.parse(fs.readFileSync('platform/contracts/agility-modifier-variant-v1.json','utf8'));
+const variantDiscovery=fs.readFileSync('platform/transforms/variant-snapshot-lib.mjs','utf8');
 const failures=[];const check=(ok,msg)=>{if(!ok)failures.push(msg)};
 for(const table of ['data_sources','data_snapshots','items','equipment','effects','npcs','npc_combat_stats','locations','recipes','price_observations','profiles','account_snapshots','training_methods','optimization_runs','optimization_evidence','validation_findings'])check(new RegExp(`CREATE TABLE ${table} \\(`).test(sql),`Missing canonical table: ${table}`);
 check(/content_hash text NOT NULL/.test(sql),'Sources must be content-addressed.');
@@ -74,5 +76,8 @@ check(variantAudit.rules.everyFindingRequiresSourceLocator===true&&variantAudit.
 for(const file of ['platform/transforms/activity-variant-audit-lib.mjs','platform/transforms/audit-agility-variant-coverage.mjs','platform/tests/activity-variant-audit.test.mjs'])check(fs.existsSync(file),`Missing variant audit component: ${file}`);
 check(hallowedVariant.rules.observedRatesCannotBePresentedAsMechanicalCalculations===true&&hallowedVariant.rules.lootingAndNoLootingAreIndependentObjectives===true,'Hallowed Sepulchre variants must preserve policy and evidence boundaries.');
 for(const file of ['platform/ingestion/hallowed-sepulchre-variant-lib.mjs','platform/ingestion/ingest-wiki-hallowed-sepulchre-variants.mjs','platform/tests/hallowed-sepulchre-variants.test.mjs'])check(fs.existsSync(file),`Missing Hallowed Sepulchre variant component: ${file}`);
+check(modifierVariant.rules.xpAndRewardObjectivesRemainSeparate===true&&modifierVariant.rules.approximateRatesRemainLabeled===true&&modifierVariant.rules.missingMechanicalTimingBlocksCalculatedRate===true,'Modifier variants must preserve objective and timing evidence boundaries.');
+for(const file of ['platform/ingestion/agility-modifier-variant-lib.mjs','platform/ingestion/ingest-wiki-agility-modifier-variants.mjs','platform/transforms/variant-snapshot-lib.mjs','platform/tests/agility-modifier-variants.test.mjs','platform/tests/variant-snapshot-discovery.test.mjs'])check(fs.existsSync(file),`Missing modifier variant component: ${file}`);
+check(/source_audit_not_publishable/.test(variantDiscovery)&&/content_hash_mismatch/.test(variantDiscovery)&&/record_count_mismatch/.test(variantDiscovery),'Variant discovery must reject unpublished, corrupt, or incomplete snapshots.');
 if(failures.length){console.error(failures.map(x=>'FAIL: '+x).join('\n'));process.exit(1)}
 console.log('V4 foundation checks passed: canonical schema, provenance, coverage, and calculation contracts.');

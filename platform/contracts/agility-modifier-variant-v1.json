@@ -1,0 +1,11 @@
+{
+  "contract": "sensum.agility-modifier-variant.v1",
+  "required": ["parent_name", "variant_key", "modifier_type", "axis_coverage", "entry_level", "source_revision", "source_locator"],
+  "rules": {
+    "modifierConditionsMustBeExplicit": true,
+    "xpAndRewardObjectivesRemainSeparate": true,
+    "approximateRatesRemainLabeled": true,
+    "missingMechanicalTimingBlocksCalculatedRate": true,
+    "automaticVerificationAllowed": false
+  }
+}

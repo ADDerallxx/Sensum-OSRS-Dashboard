@@ -35,3 +35,12 @@ Every unexpanded axis remains an explicit coverage blocker. Variant records
 must declare the exact axes they cover; their existence alone cannot clear an
 unrelated finding. Hallowed Sepulchre floor and looting variants retain Wiki
 rates as observational evidence and never relabel them as calculated mechanics.
+
+`variant-snapshot-lib.mjs` discovers the newest immutable snapshot for every
+`*-variants.ndjson` domain. Family classification, coverage auditing, and vector
+generation use the same discovery path, so a new variant adapter cannot silently
+vanish from one of those stages. Rooftop diary variants keep XP and reward-rate
+effects separate, and approximate teleport timings remain calculation blockers.
+Discovery accepts only snapshots whose manifest, record count, content hash, and
+source audit all pass; rejected newer snapshots remain reported and cannot mask
+the latest valid immutable snapshot.
