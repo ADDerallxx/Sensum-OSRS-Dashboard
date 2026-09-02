@@ -1,0 +1,7 @@
+{"contract":"sensum.formula-registry.v1","claimRule":"Only verified formulas with passing source-backed vectors may support verified_best.","formulas":[
+{"key":"combat.melee_accuracy","version":"osrs-v1","state":"draft","source":"https://oldschool.runescape.wiki/w/Accuracy","requiredInputs":["effective_attack","attack_bonus","target_defence_roll"],"rounding":"integer at every documented stage"},
+{"key":"combat.melee_max_hit","version":"osrs-v1","state":"draft","source":"https://oldschool.runescape.wiki/w/Maximum_melee_hit","requiredInputs":["effective_strength","melee_strength_bonus"],"rounding":"integer at every documented stage"},
+{"key":"combat.expected_dps","version":"osrs-v1","state":"draft","source":"https://oldschool.runescape.wiki/w/Damage_per_second/Melee","requiredInputs":["accuracy","max_hit","attack_speed_ticks"],"rounding":"do not round until display"},
+{"key":"training.action_rate","version":"sensum-v1","state":"draft","source":"https://oldschool.runescape.wiki/w/Tick_rate","requiredInputs":["ticks_per_action","success_probability","banking_seconds","session_seconds"],"rounding":"floor completed actions"},
+{"key":"economy.recipe_margin","version":"sensum-v1","state":"draft","source":"https://oldschool.runescape.wiki/w/Grand_Exchange#Convenience_fee","requiredInputs":["input_cost","output_price","output_quantity","tax_rate","tax_cap"],"rounding":"integer GP per transaction"}]}
+

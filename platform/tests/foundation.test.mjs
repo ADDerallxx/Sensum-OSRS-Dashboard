@@ -3,6 +3,8 @@ const sql=fs.readFileSync('platform/db/migrations/0001_canonical_osrs.sql','utf8
 const optimizer=JSON.parse(fs.readFileSync('platform/contracts/optimizer-v1.json','utf8'));
 const result=JSON.parse(fs.readFileSync('platform/contracts/calculation-result-v1.json','utf8'));
 const control=fs.readFileSync('platform/db/migrations/0002_ingestion_control.sql','utf8');
+const formulas=JSON.parse(fs.readFileSync('platform/contracts/formula-registry-v1.json','utf8'));
+const formulaSql=fs.readFileSync('platform/db/migrations/0003_formula_registry.sql','utf8');
 const failures=[];const check=(ok,msg)=>{if(!ok)failures.push(msg)};
 for(const table of ['data_sources','data_snapshots','items','equipment','effects','npcs','npc_combat_stats','locations','recipes','price_observations','profiles','account_snapshots','training_methods','optimization_runs','optimization_evidence','validation_findings'])check(new RegExp(`CREATE TABLE ${table} \\(`).test(sql),`Missing canonical table: ${table}`);
 check(/content_hash text NOT NULL/.test(sql),'Sources must be content-addressed.');
@@ -14,5 +16,9 @@ check(result.explanation.authoritative===false,'AI explanations must be non-auth
 for(const table of ['ingestion_runs','ingestion_records','publication_gates'])check(new RegExp(`CREATE TABLE ${table} \\(`).test(control),`Missing ingestion-control table: ${table}`);
 check(/maximum_unknown_ratio/.test(control)&&/require_source_revision/.test(control),'Publication gates must enforce completeness and provenance.');
 for(const file of ['platform/ingestion/lib.mjs','platform/ingestion/ingest-ge.mjs','platform/ingestion/ingest-wiki-domain.mjs','platform/ingestion/audit-local-catalogs.mjs'])check(fs.existsSync(file),`Missing ingestion component: ${file}`);
+for(const table of ['formula_registry','formula_test_vectors','canonicalization_runs','entity_quarantine'])check(new RegExp(`CREATE TABLE ${table} \\(`).test(formulaSql),`Missing formula/canonicalization table: ${table}`);
+check(formulas.formulas.every(x=>x.source&&x.state==='draft'),'New formulas must start source-linked and unverified.');
+check(fs.existsSync('platform/transforms/canonicalize.mjs'),'Canonical transform is missing.');
+for(const file of ['platform/formulas/osrs-v1.mjs','platform/formulas/verify.mjs'])check(fs.existsSync(file),`Missing formula component: ${file}`);
 if(failures.length){console.error(failures.map(x=>'FAIL: '+x).join('\n'));process.exit(1)}
 console.log('V4 foundation checks passed: canonical schema, provenance, coverage, and calculation contracts.');
