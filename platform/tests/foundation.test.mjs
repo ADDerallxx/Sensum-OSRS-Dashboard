@@ -19,6 +19,7 @@ const certificateSql=fs.readFileSync('platform/db/migrations/0008_recommendation
 const certificate=JSON.parse(fs.readFileSync('platform/contracts/recommendation-certificate-v1.json','utf8'));
 const agilityTable=JSON.parse(fs.readFileSync('platform/contracts/agility-course-table-v1.json','utf8'));
 const upgradePlan=JSON.parse(fs.readFileSync('platform/automation/v4-upgrade-plan.json','utf8'));
+const agilityVariant=JSON.parse(fs.readFileSync('platform/contracts/agility-variant-v1.json','utf8'));
 const failures=[];const check=(ok,msg)=>{if(!ok)failures.push(msg)};
 for(const table of ['data_sources','data_snapshots','items','equipment','effects','npcs','npc_combat_stats','locations','recipes','price_observations','profiles','account_snapshots','training_methods','optimization_runs','optimization_evidence','validation_findings'])check(new RegExp(`CREATE TABLE ${table} \\(`).test(sql),`Missing canonical table: ${table}`);
 check(/content_hash text NOT NULL/.test(sql),'Sources must be content-addressed.');
@@ -65,5 +66,7 @@ check(fs.existsSync('platform/ingestion/ingest-wiki-agility-course-table.mjs'),'
 check(fs.existsSync('platform/tests/agility-course-table.test.mjs'),'Missing structured Agility table regression test.');
 check(upgradePlan.liveDeploymentAllowed===false&&upgradePlan.automaticEvidenceApprovalAllowed===false,'V4 automation must not deploy live or approve evidence unattended.');
 check(upgradePlan.phases.filter(x=>x.status==='in_progress').length<=1,'V4 automation may have only one active phase.');
+check(agilityVariant.rules.parentCompositeCannotBeRanked===true&&agilityVariant.rules.eachVariantHasIndependentEligibility===true&&agilityVariant.rules.sourceWarningBlocksApproval===true,'Composite activity variants must remain independently gated.');
+for(const file of ['platform/ingestion/agility-variant-lib.mjs','platform/ingestion/ingest-wiki-agility-variants.mjs','platform/tests/agility-variants.test.mjs'])check(fs.existsSync(file),`Missing Agility variant component: ${file}`);
 if(failures.length){console.error(failures.map(x=>'FAIL: '+x).join('\n'));process.exit(1)}
 console.log('V4 foundation checks passed: canonical schema, provenance, coverage, and calculation contracts.');

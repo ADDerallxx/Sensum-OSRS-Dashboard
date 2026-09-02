@@ -1,0 +1,12 @@
+{
+  "contract": "sensum.agility-variant.v1",
+  "required": ["parent_name", "variant_key", "name", "entry_level", "xp_per_lap", "cycle_seconds", "source_revision", "source_locator"],
+  "rules": {
+    "parentCompositeCannotBeRanked": true,
+    "eachVariantHasIndependentEligibility": true,
+    "eachVariantHasIndependentMechanics": true,
+    "sourceWarningBlocksApproval": true,
+    "unknownFailureBehaviorBlocksExpectedRate": true,
+    "automaticVerificationAllowed": false
+  }
+}

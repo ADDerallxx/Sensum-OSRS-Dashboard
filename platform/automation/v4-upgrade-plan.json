@@ -5,7 +5,7 @@
   "automaticEvidenceApprovalAllowed": false,
   "phases": [
     {"id": "foundation", "status": "complete", "exitGate": "Canonical schemas, provenance, formulas, ingestion controls, and fail-closed contracts pass."},
-    {"id": "agility_variant_expansion", "status": "in_progress", "exitGate": "Every composite Agility page is split into revision-pinned, independently eligible variants."},
+    {"id": "agility_variant_expansion", "status": "in_progress", "completedCheckpoints": ["basic_advanced_course_adapter"], "remainingWork": ["floor_and_route_variant_audit", "variant_coverage_exit_report"], "exitGate": "Every composite Agility page is split into revision-pinned, independently eligible variants."},
     {"id": "agility_level_34_coverage", "status": "pending", "exitGate": "Every method eligible at base level 34 has a condition-correct model or an explicit authoritative exclusion."},
     {"id": "agility_golden_review", "status": "pending", "exitGate": "Exact vectors are manually reviewed and a reproducible level-34 certificate survives challenge."},
     {"id": "all_skill_method_families", "status": "pending", "exitGate": "Every trainable skill has family-specific candidates, mechanics, requirements, variants, and coverage gates."},
