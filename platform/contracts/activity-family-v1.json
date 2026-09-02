@@ -1,0 +1,28 @@
+{
+  "contract": "sensum.activity-family.v1",
+  "familyKinds": ["agility_course", "woodcutting_node", "mining_node", "fishing_spot", "thieving_target", "hunter_target", "firemaking_action", "prayer_action", "unclassified"],
+  "modelMapping": {
+    "agility_course": "lap",
+    "woodcutting_node": "resource_cycle",
+    "mining_node": "resource_cycle",
+    "fishing_spot": "resource_cycle",
+    "thieving_target": "success_roll",
+    "hunter_target": "success_roll",
+    "firemaking_action": "fixed_cycle",
+    "prayer_action": "fixed_cycle",
+    "unclassified": null
+  },
+  "factClasses": {
+    "mechanical": ["cycle_ticks", "lap_seconds", "xp_per_success", "success_probability", "respawn_seconds", "failure_probability", "failure_penalty_seconds"],
+    "constraint": ["level_requirement", "quest_requirement", "tool_requirement", "location_requirement"],
+    "observational": ["observed_xp_per_hour", "observed_actions_per_hour"]
+  },
+  "rules": {
+    "familyClassificationIsAuthoritative": false,
+    "regexParsedFactsStartAsCandidates": true,
+    "observationalFactsCannotReplaceMechanicalFacts": true,
+    "variantFactsMustRetainSourceRevision": true,
+    "familyFormulaCannotEraseVariantRequirements": true,
+    "unclassifiedRecordsCannotBeRanked": true
+  }
+}

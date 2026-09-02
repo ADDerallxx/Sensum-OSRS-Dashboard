@@ -18,3 +18,8 @@ Run `node platform/transforms/canonicalize.mjs`.
 `activity-readiness.mjs` converts canonical training gaps into a deterministic
 enrichment queue. It does not invent action timing or success formulas; records
 remain blocked until activity-specific, source-backed vectors are approved.
+
+`build-activity-families.mjs` groups candidate evidence into reusable activity
+families and extracts revision-pinned candidate facts. Regex output is never
+automatically verified. Observed guide rates are retained separately from the
+mechanical inputs used to calculate rates.
