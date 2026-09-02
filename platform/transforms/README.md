@@ -59,3 +59,9 @@ model Karamja gloves and the elite diary independently, and distinguish base
 Agility from the boosted effective level used for the level-100 pillar reward.
 The active-rate source does not specify a glove state, so the model does not
 silently assign one.
+
+Ape Atoll, Penguin, and Werewolf access variants retain required equipment and
+equivalent equipment alternatives, separate entry boostability from a training
+boost policy, and preserve compound failure-free conditions. Ape Atoll's
+conflicting 55,200 and 55,100 XP/hour statements remain an explicit verification
+blocker rather than being silently reconciled.

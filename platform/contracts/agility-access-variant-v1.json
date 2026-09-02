@@ -1,0 +1,13 @@
+{
+  "contract": "sensum.agility-access-variant.v1",
+  "required": ["parent_name", "variant_key", "axis_coverage", "entry_level", "requirements", "source_revision", "source_locator"],
+  "rules": {
+    "requiredEquipmentMustBeExplicit": true,
+    "equipmentAlternativesMustRemainAlternatives": true,
+    "entryBoostabilityMustBeSeparateFromTrainingBoostPolicy": true,
+    "baseAndEffectiveLevelsMustRemainSeparate": true,
+    "multiSkillFailureConditionsMustRemainConjunctive": true,
+    "sourceRateConflictsMustBlockVerification": true,
+    "automaticVerificationAllowed": false
+  }
+}
