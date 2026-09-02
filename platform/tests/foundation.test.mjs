@@ -23,6 +23,7 @@ const agilityVariant=JSON.parse(fs.readFileSync('platform/contracts/agility-vari
 const variantAudit=JSON.parse(fs.readFileSync('platform/contracts/activity-variant-audit-v1.json','utf8'));
 const hallowedVariant=JSON.parse(fs.readFileSync('platform/contracts/hallowed-sepulchre-variant-v1.json','utf8'));
 const modifierVariant=JSON.parse(fs.readFileSync('platform/contracts/agility-modifier-variant-v1.json','utf8'));
+const routeVariant=JSON.parse(fs.readFileSync('platform/contracts/agility-route-variant-v1.json','utf8'));
 const variantDiscovery=fs.readFileSync('platform/transforms/variant-snapshot-lib.mjs','utf8');
 const failures=[];const check=(ok,msg)=>{if(!ok)failures.push(msg)};
 for(const table of ['data_sources','data_snapshots','items','equipment','effects','npcs','npc_combat_stats','locations','recipes','price_observations','profiles','account_snapshots','training_methods','optimization_runs','optimization_evidence','validation_findings'])check(new RegExp(`CREATE TABLE ${table} \\(`).test(sql),`Missing canonical table: ${table}`);
@@ -69,6 +70,7 @@ check(['minimum_level','xp_per_lap','cycle_ticks','observed_peak_xp_per_hour','s
 check(fs.existsSync('platform/ingestion/ingest-wiki-agility-course-table.mjs'),'Missing structured Agility course ingestion.');
 check(fs.existsSync('platform/tests/agility-course-table.test.mjs'),'Missing structured Agility table regression test.');
 check(upgradePlan.liveDeploymentAllowed===false&&upgradePlan.automaticEvidenceApprovalAllowed===false,'V4 automation must not deploy live or approve evidence unattended.');
+check(upgradePlan.productDefinition==='docs/V4_PRODUCT_DEFINITION.md'&&fs.existsSync(upgradePlan.productDefinition),'V4 automation must retain the authoritative product outcome and stopping condition.');
 check(upgradePlan.phases.filter(x=>x.status==='in_progress').length<=1,'V4 automation may have only one active phase.');
 check(agilityVariant.rules.parentCompositeCannotBeRanked===true&&agilityVariant.rules.eachVariantHasIndependentEligibility===true&&agilityVariant.rules.sourceWarningBlocksApproval===true,'Composite activity variants must remain independently gated.');
 for(const file of ['platform/ingestion/agility-variant-lib.mjs','platform/ingestion/ingest-wiki-agility-variants.mjs','platform/tests/agility-variants.test.mjs'])check(fs.existsSync(file),`Missing Agility variant component: ${file}`);
@@ -79,5 +81,7 @@ for(const file of ['platform/ingestion/hallowed-sepulchre-variant-lib.mjs','plat
 check(modifierVariant.rules.xpAndRewardObjectivesRemainSeparate===true&&modifierVariant.rules.approximateRatesRemainLabeled===true&&modifierVariant.rules.missingMechanicalTimingBlocksCalculatedRate===true,'Modifier variants must preserve objective and timing evidence boundaries.');
 for(const file of ['platform/ingestion/agility-modifier-variant-lib.mjs','platform/ingestion/ingest-wiki-agility-modifier-variants.mjs','platform/transforms/variant-snapshot-lib.mjs','platform/tests/agility-modifier-variants.test.mjs','platform/tests/variant-snapshot-discovery.test.mjs'])check(fs.existsSync(file),`Missing modifier variant component: ${file}`);
 check(/source_audit_not_publishable/.test(variantDiscovery)&&/content_hash_mismatch/.test(variantDiscovery)&&/record_count_mismatch/.test(variantDiscovery),'Variant discovery must reject unpublished, corrupt, or incomplete snapshots.');
+check(routeVariant.rules.routeEligibilityMustBeIndependent===true&&routeVariant.rules.multiSkillRewardsMustRemainSeparated===true&&routeVariant.rules.timeRangesCannotBecomePointEstimates===true&&routeVariant.rules.peakTimesCannotBecomeTypicalTimes===true,'Route variants must preserve eligibility, reward, and timing evidence boundaries.');
+for(const file of ['platform/ingestion/agility-route-variant-lib.mjs','platform/ingestion/ingest-wiki-agility-route-variants.mjs','platform/tests/agility-route-variants.test.mjs'])check(fs.existsSync(file),`Missing route variant component: ${file}`);
 if(failures.length){console.error(failures.map(x=>'FAIL: '+x).join('\n'));process.exit(1)}
 console.log('V4 foundation checks passed: canonical schema, provenance, coverage, and calculation contracts.');

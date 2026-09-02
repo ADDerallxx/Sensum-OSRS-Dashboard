@@ -1,0 +1,12 @@
+{
+  "contract": "sensum.agility-route-variant.v1",
+  "required": ["parent_name", "variant_key", "axis_coverage", "entry_level", "requirements", "source_revision", "source_locator"],
+  "rules": {
+    "routeEligibilityMustBeIndependent": true,
+    "multiSkillRewardsMustRemainSeparated": true,
+    "observedRatesCannotReplaceMechanicalRates": true,
+    "timeRangesCannotBecomePointEstimates": true,
+    "peakTimesCannotBecomeTypicalTimes": true,
+    "automaticVerificationAllowed": false
+  }
+}

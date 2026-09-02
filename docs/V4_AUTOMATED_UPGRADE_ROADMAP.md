@@ -3,6 +3,10 @@
 This roadmap is the durable handoff for unattended V4 work. The machine-readable
 state is in `platform/automation/v4-upgrade-plan.json`.
 
+The product outcome and stopping condition are authoritative in
+`docs/V4_PRODUCT_DEFINITION.md`. Every checkpoint must advance that product
+promise; completing infrastructure or ingesting records alone is not success.
+
 ## Operating rules
 
 - Complete one bounded checkpoint per run.

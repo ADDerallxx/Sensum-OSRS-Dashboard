@@ -44,3 +44,8 @@ effects separate, and approximate teleport timings remain calculation blockers.
 Discovery accepts only snapshots whose manifest, record count, content hash, and
 source audit all pass; rejected newer snapshots remain reported and cannot mask
 the latest valid immutable snapshot.
+
+Route variants keep Dorgesh-Kaan's Agility, grapple, and mixed rewards separate,
+including their independent skill and equipment requirements. Werewolf
+Skullball time ranges remain ranges, and its 1:45 optimal-route result remains a
+peak observation rather than a typical cycle-time claim.
