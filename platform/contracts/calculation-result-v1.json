@@ -1,0 +1,10 @@
+{
+  "contract":"sensum.calculation-result.v1",
+  "requestId":"uuid","generatedAt":"ISO-8601","formulaVersion":"combat-osrs-v1","dataSnapshotId":"uuid",
+  "claim":"verified_best|best_verified|estimated|insufficient_data",
+  "winner":{"methodId":"uuid","loadoutId":"uuid","primaryMetric":0,"xpPerHour":0,"gpPerHour":0,"gpPerXp":0,"dps":0,"accuracy":0,"maxHit":0},
+  "coverage":{"eligibleCandidates":0,"evaluatedCandidates":0,"excludedCandidates":0,"unknownCandidates":0,"complete":false},
+  "assumptions":[],"breakpoints":[],"evidence":[],"sensitivity":[],
+  "explanation":{"generatedBy":"deterministic-template|vertex-ai","authoritative":false}
+}
+

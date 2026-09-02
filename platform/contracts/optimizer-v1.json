@@ -1,0 +1,9 @@
+{
+  "contract": "sensum.optimizer.v1",
+  "objective": {"skill":"strength","metric":"xp_per_hour","mode":"overall","attention":"any","sessionMinutes":60},
+  "account": {"profileId":"uuid","snapshotId":"uuid","baseLevelsOnly":true,"ownedItemsAssumed":false},
+  "constraints": {"budgetGp":null,"members":true,"allowedRisk":"normal","allowUnverified":false,"maximumDataAgeSeconds":86400},
+  "requiredOutput": {"tiers":["budget","practical","absolute_best"],"winner":true,"breakpoints":true,"excludedCandidates":true,"formulaVersion":true,"dataSnapshot":true,"evidence":true,"confidence":true,"sensitivity":true},
+  "claimPolicy": {"absoluteBestRequiresCompleteCandidateCoverage":true,"absoluteBestRequiresVerifiedFormula":true,"unknownMaterialInputDowngradesClaim":true,"aiGeneratedFactsAllowed":false}
+}
+
