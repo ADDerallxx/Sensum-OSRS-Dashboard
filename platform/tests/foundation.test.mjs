@@ -44,6 +44,7 @@ for(const file of ['platform/ingestion/ingest-activity-evidence.mjs','platform/t
 for(const table of ['activity_families','activity_family_members','activity_family_facts'])check(new RegExp(`CREATE TABLE ${table} \\(`).test(familySql),`Missing activity family table: ${table}`);
 check(family.rules.observationalFactsCannotReplaceMechanicalFacts===true,'Observed rates must not replace activity mechanics.');
 check(family.rules.unclassifiedRecordsCannotBeRanked===true,'Unclassified activities must not be rankable.');
+check(family.rules.referenceCollectionsCannotBeRanked===true&&family.rules.compositeMethodsRequireVariantExpansion===true&&family.rules.entryEligibilityCannotBeReplacedByModelApplicability===true,'Activity eligibility, composites, and non-method exclusions must fail closed.');
 check(fs.existsSync('platform/transforms/build-activity-families.mjs'),'Missing activity family builder.');
 for(const table of ['golden_activity_scenarios','golden_activity_contradictions','golden_activity_reviews'])check(new RegExp(`CREATE TABLE ${table} \\(`).test(goldenSql),`Missing golden activity table: ${table}`);
 check(golden.approvalPolicy.automaticApprovalAllowed===false,'Golden vectors must not auto-approve.');

@@ -17,12 +17,16 @@
     "constraint": ["level_requirement", "quest_requirement", "tool_requirement", "location_requirement"],
     "observational": ["observed_xp_per_hour", "observed_actions_per_hour"]
   },
+  "entityRoles": ["trainable_method", "composite_method", "reference_collection"],
   "rules": {
     "familyClassificationIsAuthoritative": false,
     "regexParsedFactsStartAsCandidates": true,
     "observationalFactsCannotReplaceMechanicalFacts": true,
     "variantFactsMustRetainSourceRevision": true,
     "familyFormulaCannotEraseVariantRequirements": true,
-    "unclassifiedRecordsCannotBeRanked": true
+    "unclassifiedRecordsCannotBeRanked": true,
+    "referenceCollectionsCannotBeRanked": true,
+    "compositeMethodsRequireVariantExpansion": true,
+    "entryEligibilityCannotBeReplacedByModelApplicability": true
   }
 }
