@@ -1,0 +1,13 @@
+{
+  "contract": "sensum.agility-condition-variant.v1",
+  "required": ["parent_name", "variant_key", "axis_coverage", "entry_level", "requirements", "source_revision", "source_locator"],
+  "rules": {
+    "levelSpecificRatesCannotBeInterpolated": true,
+    "baseAndEffectiveLevelsMustRemainSeparate": true,
+    "equipmentAndDiaryEffectsMustRemainIndependent": true,
+    "pillarObstacleAndTicketExperienceMustRemainSeparate": true,
+    "derivedRateComponentsMustRetainFormula": true,
+    "approximateRatesRemainLabeled": true,
+    "automaticVerificationAllowed": false
+  }
+}

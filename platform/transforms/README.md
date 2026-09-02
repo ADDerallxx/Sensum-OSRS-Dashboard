@@ -53,3 +53,9 @@ peak observation rather than a typical cycle-time claim.
 Prifddinas portal shortcuts are modeled as absent, randomly used, and
 best-spawn peak conditions. The Wiki's 5–10 second saving remains a range, and
 its unscoped 1:14 average lap is not assigned to either portal policy.
+
+Brimhaven conditions keep passive level-40 and level-80 observations separate,
+model Karamja gloves and the elite diary independently, and distinguish base
+Agility from the boosted effective level used for the level-100 pillar reward.
+The active-rate source does not specify a glove state, so the model does not
+silently assign one.
