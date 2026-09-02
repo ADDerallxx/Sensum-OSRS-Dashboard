@@ -1,0 +1,24 @@
+{
+  "contract": "sensum.activity-evidence.v1",
+  "states": ["candidate", "parsed", "verified", "rejected", "stale"],
+  "sourceIdentity": {
+    "url": "required",
+    "revisionId": "required",
+    "revisionTimestamp": "required",
+    "contentHash": "required"
+  },
+  "supportedFacts": [
+    "cycle_ticks", "success_model", "xp_per_success", "resource_respawn_seconds",
+    "resource_count", "movement_seconds", "bank_round_trip_seconds",
+    "failure_probability", "failure_penalty_seconds", "requirements"
+  ],
+  "promotionRules": {
+    "candidateFragmentsAreAuthoritative": false,
+    "parsedValuesRequireExactSourceLocator": true,
+    "computedValuesRequireFormulaVersion": true,
+    "verifiedRequiresPassingModelVector": true,
+    "pageRevisionChangeMarksEvidenceStale": true,
+    "missingMaterialFactBlocksPromotion": true,
+    "aiGeneratedFactsAllowed": false
+  }
+}

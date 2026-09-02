@@ -7,6 +7,8 @@ const formulas=JSON.parse(fs.readFileSync('platform/contracts/formula-registry-v
 const formulaSql=fs.readFileSync('platform/db/migrations/0003_formula_registry.sql','utf8');
 const activitySql=fs.readFileSync('platform/db/migrations/0004_activity_methods.sql','utf8');
 const activity=JSON.parse(fs.readFileSync('platform/contracts/activity-method-v1.json','utf8'));
+const evidenceSql=fs.readFileSync('platform/db/migrations/0005_activity_evidence.sql','utf8');
+const evidence=JSON.parse(fs.readFileSync('platform/contracts/activity-evidence-v1.json','utf8'));
 const failures=[];const check=(ok,msg)=>{if(!ok)failures.push(msg)};
 for(const table of ['data_sources','data_snapshots','items','equipment','effects','npcs','npc_combat_stats','locations','recipes','price_observations','profiles','account_snapshots','training_methods','optimization_runs','optimization_evidence','validation_findings'])check(new RegExp(`CREATE TABLE ${table} \\(`).test(sql),`Missing canonical table: ${table}`);
 check(/content_hash text NOT NULL/.test(sql),'Sources must be content-addressed.');
@@ -26,5 +28,9 @@ for(const table of ['activity_methods','activity_locations','activity_requiremen
 check(activity.claimPolicy.absoluteBestRequiresVerifiedMethodVector===true,'Activity claims require verified method vectors.');
 check(activity.claimPolicy.aiGeneratedFactsAllowed===false,'AI activity facts must not be authoritative.');
 for(const file of ['platform/formulas/activity-v1.mjs','platform/formulas/verify-activity.mjs','platform/transforms/activity-readiness.mjs'])check(fs.existsSync(file),`Missing activity engine component: ${file}`);
+for(const table of ['activity_evidence','activity_enrichment_runs'])check(new RegExp(`CREATE TABLE ${table} \\(`).test(evidenceSql),`Missing activity evidence table: ${table}`);
+check(evidence.promotionRules.verifiedRequiresPassingModelVector===true,'Verified activity evidence requires a passing model vector.');
+check(evidence.promotionRules.aiGeneratedFactsAllowed===false,'AI evidence must not be authoritative.');
+for(const file of ['platform/ingestion/ingest-activity-evidence.mjs','platform/transforms/validate-activity-evidence.mjs'])check(fs.existsSync(file),`Missing activity evidence component: ${file}`);
 if(failures.length){console.error(failures.map(x=>'FAIL: '+x).join('\n'));process.exit(1)}
 console.log('V4 foundation checks passed: canonical schema, provenance, coverage, and calculation contracts.');
