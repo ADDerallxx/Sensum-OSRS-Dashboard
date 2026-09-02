@@ -1,0 +1,13 @@
+{
+  "contract": "sensum.golden-review-packet.v1",
+  "checklist": ["identity", "conditions", "mechanical facts", "source locators", "formula version", "unit agreement", "observed comparison", "contradictions", "scope"],
+  "decisions": ["approve", "reject", "needs_evidence"],
+  "rules": {
+    "generationDoesNotApprove": true,
+    "reviewerIdentityRequiredForDecision": true,
+    "decisionMustMatchSourceRevision": true,
+    "unresolvedContradictionBlocksApproval": true,
+    "missingMechanicalFactBlocksApproval": true,
+    "approvalScopeIsExactScenario": true
+  }
+}

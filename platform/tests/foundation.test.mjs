@@ -13,6 +13,7 @@ const familySql=fs.readFileSync('platform/db/migrations/0006_activity_families.s
 const family=JSON.parse(fs.readFileSync('platform/contracts/activity-family-v1.json','utf8'));
 const goldenSql=fs.readFileSync('platform/db/migrations/0007_golden_activity_vectors.sql','utf8');
 const golden=JSON.parse(fs.readFileSync('platform/contracts/golden-activity-vector-v1.json','utf8'));
+const review=JSON.parse(fs.readFileSync('platform/contracts/golden-review-packet-v1.json','utf8'));
 const failures=[];const check=(ok,msg)=>{if(!ok)failures.push(msg)};
 for(const table of ['data_sources','data_snapshots','items','equipment','effects','npcs','npc_combat_stats','locations','recipes','price_observations','profiles','account_snapshots','training_methods','optimization_runs','optimization_evidence','validation_findings'])check(new RegExp(`CREATE TABLE ${table} \\(`).test(sql),`Missing canonical table: ${table}`);
 check(/content_hash text NOT NULL/.test(sql),'Sources must be content-addressed.');
@@ -45,5 +46,8 @@ check(golden.approvalPolicy.automaticApprovalAllowed===false,'Golden vectors mus
 check(golden.approvalPolicy.approvedVectorMayOpenOnlyItsOwnScenario===true,'Golden approval scope must remain scenario-specific.');
 check(fs.existsSync('platform/transforms/generate-golden-activity-vectors.mjs'),'Missing golden activity vector generator.');
 check(fs.existsSync('platform/tests/golden-agility.test.mjs'),'Missing golden Agility regression test.');
+check(fs.existsSync('platform/tests/golden-rooftop-agility.test.mjs'),'Missing golden rooftop Agility regression test.');
+check(review.rules.generationDoesNotApprove===true,'Review packet generation must not approve vectors.');
+for(const file of ['platform/ingestion/activity-evidence-lib.mjs','platform/ingestion/ingest-activity-family-evidence.mjs','platform/transforms/generate-golden-review-packets.mjs'])check(fs.existsSync(file),`Missing golden review component: ${file}`);
 if(failures.length){console.error(failures.map(x=>'FAIL: '+x).join('\n'));process.exit(1)}
 console.log('V4 foundation checks passed: canonical schema, provenance, coverage, and calculation contracts.');
