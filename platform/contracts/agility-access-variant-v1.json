@@ -6,6 +6,9 @@
     "equipmentAlternativesMustRemainAlternatives": true,
     "entryBoostabilityMustBeSeparateFromTrainingBoostPolicy": true,
     "baseAndEffectiveLevelsMustRemainSeparate": true,
+    "partialQuestProgressMustNotBecomeQuestCompletion": true,
+    "unscopedObservedRatesMustRemainBlocked": true,
+    "qualitativeFailureMustNotBecomeNumericProbability": true,
     "multiSkillFailureConditionsMustRemainConjunctive": true,
     "sourceRateConflictsMustBlockVerification": true,
     "automaticVerificationAllowed": false

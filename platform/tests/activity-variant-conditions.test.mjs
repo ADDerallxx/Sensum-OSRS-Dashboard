@@ -16,6 +16,9 @@ check(timeOutcome.conditionDetails.outcomeModel==='completion_time_reward'&&time
 const qualitative=resolveVariantConditionModel({failure_possible:true,failure_qualifier:'very_unlikely',failure_probability_published:false,supporting_evidence:{source_revision:'9'}});
 check(qualitative.failure===null&&qualitative.conditionDetails.failurePossible===true&&qualitative.conditionDetails.failureQualifier==='very_unlikely'&&qualitative.conditionDetails.failureProbabilityPublished===false,'Qualitative failure evidence must survive without becoming a synthetic probability.');
 check(qualitative.conditionDetails.failureEvidence?.source_revision==='9','The supporting condition revision must survive vector condition resolution.');
+const scoped=resolveVariantConditionModel({entry_boostable:true,boost_policy:'entry_threshold_may_be_boosted',boost_source_unspecified_by_page:true,quest_progress_requirements:[{quest:'Cold War',state:'partial_completion'}],observed_xp_per_hour_level_scope:{agility_level_band:'lower_levels_unspecified'},observed_rate_level_scope_unresolved:true});
+check(scoped.conditionDetails.boostSourceUnspecifiedByPage===true&&scoped.conditionDetails.questProgressRequirements?.[0]?.state==='partial_completion','Boost-source uncertainty and partial quest progress must survive condition resolution.');
+check(scoped.conditionDetails.observedRateLevelScope?.agility_level_band==='lower_levels_unspecified'&&scoped.conditionDetails.observedRateLevelScopeUnresolved===true,'Unscoped observed-rate evidence must survive condition resolution as a blocker.');
 const unknown=resolveEntryAndModeledLevels({explicitEntryLevel:null,inferredEntryLevels:[null,undefined]});
 check(unknown.entryLevel===null&&unknown.modeledMinimumLevel===null&&finiteConditionLevel(null)===null,'Missing levels must not be coerced to zero.');
 if(failures.length){console.error(failures.join('\n'));process.exit(1)}console.log('Activity variant condition checks passed.');

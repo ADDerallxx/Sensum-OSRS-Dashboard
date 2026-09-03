@@ -62,3 +62,15 @@ revision 15326985 separately retains the approximate 53-second observation,
 8,750 XP/hour practical average, and qualitative “very unlikely” failure claim.
 Because that wording is not a numeric probability at level 34, the vector keeps
 the observation but withholds a calculated rate and names the missing condition.
+
+The Penguin Agility Course model now preserves its boostable level-30 entry as
+an entry rule rather than a training-boost assumption. Wiki revision 15239936
+also remains explicit about partial Cold War progress, the clockwork-suit
+transformation and cape-slot state, the 540 XP lap reward, and failures still
+being possible at level 99. Its 22,000–27,000 XP/hour claim is retained as an
+observed range for unspecified “lower levels,” not assigned to base level 34.
+The target audit therefore names both missing pieces: a level-34 failure
+probability and an observed-rate band that actually identifies level 34. The
+Agility overview at revision 15326985 says full Cold War completion is required,
+contradicting the course page's partial-completion claim. Both revisions remain
+attached and the unresolved access conflict is a third explicit blocker.

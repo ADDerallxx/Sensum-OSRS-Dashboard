@@ -15,7 +15,11 @@ function vectorCoverage(vector,target){
   const uncovered=(vector?.conditions?.unmodeledLevelRanges||[]).filter(range=>finite(range?.minimum)&&finite(range?.maximum)&&Number(range.minimum)<=target&&Number(range.maximum)>=target);
   if(uncovered.length)return {status:'target_condition_gap',blockers:[...new Set(uncovered.map(range=>range.blocker||'target_level_condition_model_missing'))]};
   if(!finite(modeled)||Number(modeled)>target)return {status:'target_condition_gap',blockers:['target_level_model_missing']};
-  if(missing.includes('failure_model_with_level_condition'))return {status:'target_condition_gap',blockers:[vector?.conditions?.failurePossible===true&&vector?.conditions?.failureProbabilityPublished===false?`failure_probability_at_base_level_${target}_not_published`:'failure_model_with_level_condition']};
+  const targetBlockers=[];
+  if(missing.includes('failure_model_with_level_condition'))targetBlockers.push(vector?.conditions?.failurePossible===true&&vector?.conditions?.failureProbabilityPublished===false?`failure_probability_at_base_level_${target}_not_published`:'failure_model_with_level_condition');
+  if(vector?.conditions?.observedRateLevelScopeUnresolved===true)targetBlockers.push(`observed_rate_level_scope_does_not_identify_base_level_${target}`);
+  targetBlockers.push(...(vector?.validation?.sourceConflicts||[]).map(item=>item.rule||'source_conflict'));
+  if(targetBlockers.length)return {status:'target_condition_gap',blockers:targetBlockers};
   return {status:'condition_model_present',blockers:[]};
 }
 
