@@ -1,5 +1,12 @@
-const finite=value=>Number.isFinite(Number(value))?Number(value):null;
+export const finiteConditionLevel=value=>value!==null&&value!==undefined&&value!==''&&Number.isFinite(Number(value))?Number(value):null;
+const finite=finiteConditionLevel;
 export const isTrainableVariantRecord=row=>!['composable_modifier','encounter_requirement'].includes(row?.record_kind);
+
+export function resolveEntryAndModeledLevels({explicitEntryLevel,inferredEntryLevels=[],baseLevelMinimum=null,failureBaseThreshold=0}){
+  const explicit=finite(explicitEntryLevel),inferred=inferredEntryLevels.map(finite).filter(x=>x!==null),inferredEntry=inferred.length?Math.max(...inferred):null,entryLevel=explicit??(inferredEntry!==null&&inferredEntry>0?inferredEntry:null);
+  if(entryLevel===null)return {entryLevel:null,modeledMinimumLevel:null};
+  return {entryLevel,modeledMinimumLevel:Math.max(entryLevel,finite(baseLevelMinimum)??0,finite(failureBaseThreshold)??0)};
+}
 
 export function resolveVariantConditionModel(variant,legacyFailure=null){
   if(!variant)return {failure:legacyFailure,baseLevelMinimum:null,effectiveLevelMinimum:null,conditionDetails:{}};

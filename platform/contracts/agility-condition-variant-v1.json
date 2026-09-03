@@ -4,6 +4,7 @@
   "rules": {
     "levelSpecificRatesCannotBeInterpolated": true,
     "baseAndEffectiveLevelsMustRemainSeparate": true,
+    "zeroEntryLevelMeansNoSkillAccessRequirement": true,
     "equipmentAndDiaryEffectsMustRemainIndependent": true,
     "pillarObstacleAndTicketExperienceMustRemainSeparate": true,
     "derivedRateComponentsMustRetainFormula": true,

@@ -1,4 +1,4 @@
-import {isTrainableVariantRecord,resolveVariantConditionModel} from '../transforms/activity-variant-condition-lib.mjs';
+import {finiteConditionLevel,isTrainableVariantRecord,resolveEntryAndModeledLevels,resolveVariantConditionModel} from '../transforms/activity-variant-condition-lib.mjs';
 const failures=[],check=(ok,message)=>{if(!ok)failures.push(message)};
 const boosted=resolveVariantConditionModel({entry_boostable:false,base_agility_level_minimum:70,effective_agility_level_minimum:75,failure_free_effective_agility_level:75,boost_policy:'maintain_effective_level',equipment_requirement:{mode:'one_of'}});
 check(boosted.baseLevelMinimum===70&&boosted.effectiveLevelMinimum===75,'Base and effective Agility levels must remain separate.');
@@ -7,4 +7,8 @@ check(boosted.conditionDetails.entryBoostable===false&&boosted.conditionDetails.
 const compound=resolveVariantConditionModel({failure_free_condition:{all_of:[{skill:'Agility',minimum:80},{skill:'Strength',minimum:80},{carried_weight_kg:{maximum:2}}]}});
 check(compound.failure?.value?.probability===0&&compound.failure?.value?.minimum_level===80&&compound.failure?.value?.level_kind==='compound'&&compound.failure?.value?.all_of?.length===3,'Compound failure-free conditions must retain the Agility threshold and remain conjunctive.');
 check(isTrainableVariantRecord({variant_key:'method'})&&!isTrainableVariantRecord({record_kind:'composable_modifier'})&&!isTrainableVariantRecord({record_kind:'encounter_requirement'}),'Composable effects and encounter requirements must not become standalone methods.');
+const noAccessRequirement=resolveEntryAndModeledLevels({explicitEntryLevel:0,baseLevelMinimum:40});
+check(noAccessRequirement.entryLevel===0&&noAccessRequirement.modeledMinimumLevel===40,'A zero access requirement must remain known while a level-specific rate keeps its modeled minimum.');
+const unknown=resolveEntryAndModeledLevels({explicitEntryLevel:null,inferredEntryLevels:[null,undefined]});
+check(unknown.entryLevel===null&&unknown.modeledMinimumLevel===null&&finiteConditionLevel(null)===null,'Missing levels must not be coerced to zero.');
 if(failures.length){console.error(failures.join('\n'));process.exit(1)}console.log('Activity variant condition checks passed.');

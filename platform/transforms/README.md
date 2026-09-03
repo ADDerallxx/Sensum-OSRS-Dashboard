@@ -60,6 +60,11 @@ Agility from the boosted effective level used for the level-100 pillar reward.
 The active-rate source does not specify a glove state, so the model does not
 silently assign one.
 
+A numeric zero entry level means the activity has no Agility access requirement;
+it is not missing data. Vector generation preserves that access fact separately
+from the minimum level actually covered by an observed rate. Certificate and
+review-packet eligibility checks use the same finite-level semantics.
+
 Ape Atoll, Penguin, and Werewolf access variants retain required equipment and
 equivalent equipment alternatives, separate entry boostability from a training
 boost policy, and preserve compound failure-free conditions. Ape Atoll's
