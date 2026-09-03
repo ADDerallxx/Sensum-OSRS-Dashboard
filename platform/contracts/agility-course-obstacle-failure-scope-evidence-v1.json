@@ -1,0 +1,14 @@
+{
+  "contract": "sensum.agility-course-obstacle-failure-scope-evidence.v1",
+  "required": ["candidate_key", "entry_level", "obstacle_sequence", "failure_scope", "rate_evidence", "source_revision", "supporting_source_revisions", "source_locator"],
+  "rules": {
+    "obstacleSequenceMustRetainRepeatedOccurrences": true,
+    "individualNoFailureEvidenceAppliesOnlyToThatObstacleType": true,
+    "unpublishedFailureCapableObstacleIdentityMustRemainUnknown": true,
+    "qualitativeCourseFailureMustNotBecomeNumericProbability": true,
+    "failedAttemptXpAndRecoveryMustNotBeInferred": true,
+    "supersededAverageMustNotBecomeCurrentExpectedRate": true,
+    "mechanicalDisagreementsMustBlock": true,
+    "automaticVerificationAllowed": false
+  }
+}

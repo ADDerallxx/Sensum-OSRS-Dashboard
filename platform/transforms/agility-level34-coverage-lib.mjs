@@ -18,8 +18,17 @@ function vectorCoverage(vector,target){
   const uncovered=(vector?.conditions?.unmodeledLevelRanges||[]).filter(range=>finite(range?.minimum)&&finite(range?.maximum)&&Number(range.minimum)<=target&&Number(range.maximum)>=target);
   if(uncovered.length)return {status:'target_condition_gap',blockers:[...new Set(uncovered.map(range=>range.blocker==='failure_probability_by_level_missing'?`failure_probability_at_base_level_${target}_not_published`:range.blocker||'target_level_condition_model_missing'))]};
   if(!finite(modeled)||Number(modeled)>target)return {status:'target_condition_gap',blockers:['target_level_model_missing']};
-  const targetBlockers=[];
-  if(missing.includes('failure_model_with_level_condition'))targetBlockers.push(vector?.conditions?.failurePossible===true&&vector?.conditions?.failureProbabilityPublished===false?`failure_probability_at_base_level_${target}_not_published`:'failure_model_with_level_condition');
+  const targetBlockers=[],obstacleEvidence=vector?.conditions?.obstacleFailureEvidence;
+  if(missing.includes('failure_model_with_level_condition')){
+    if(obstacleEvidence){
+      if(obstacleEvidence.failure_scope?.complete!==true)targetBlockers.push('failure_capable_obstacle_identity_not_published');
+      if(obstacleEvidence.failure_scope?.numeric_probability_published!==true)targetBlockers.push(`aggregate_failure_probability_at_base_level_${target}_not_published`);
+      if(obstacleEvidence.failure_scope?.failed_attempt_xp_published!==true)targetBlockers.push('failed_obstacle_xp_outcome_not_published');
+      if(obstacleEvidence.failure_scope?.recovery_route_and_time_published!==true)targetBlockers.push('failure_recovery_route_and_time_penalty_not_published');
+      if(obstacleEvidence.rate_evidence?.current_expected_rate_published!==true)targetBlockers.push(`expected_xp_per_hour_at_base_level_${target}_not_published`);
+      targetBlockers.push(...(obstacleEvidence.source_conflicts||[]).map(item=>item.rule||'obstacle_evidence_source_conflict'));
+    }else targetBlockers.push(vector?.conditions?.failurePossible===true&&vector?.conditions?.failureProbabilityPublished===false?`failure_probability_at_base_level_${target}_not_published`:'failure_model_with_level_condition');
+  }
   if(vector?.conditions?.observedRateLevelScopeUnresolved===true)targetBlockers.push(`observed_rate_level_scope_does_not_identify_base_level_${target}`);
   targetBlockers.push(...(vector?.validation?.sourceConflicts||[]).map(item=>item.rule||'source_conflict'));
   if(targetBlockers.length)return {status:'target_condition_gap',blockers:targetBlockers};

@@ -64,16 +64,20 @@ into the vector and review packet. It remains an uncalculated, manually
 reviewed interval that cannot enter scalar ranking or support an exact expected
 rate. This closes Varrock's target-condition gap without claiming verified best.
 
-The Shayzien basic-course model now fails closed on a stale cross-page rate.
-Course revision 15168110 retains the level-1 entry, 153.5 XP, 51-second minimum,
-10,000 XP/hour upper bound, and the explicit change from 8,750 to 10,000.
-Agility revision 15326985 still presents 8,750 as a current practical average and
-calls obstacle failure “very unlikely.” Because 8,750 exactly matches the course
-page's superseded value, ingestion no longer attaches it as current rate evidence.
-The conflicted record remains publishable as blocked evidence so downstream
-coverage exposes `supporting_rate_matches_superseded_pre_update_value` instead of
-falling back to an older clean-looking snapshot. The separate unpublished numeric
-failure probability at base level 34 also remains a blocker.
+The Shayzien basic-course model now retains its complete seven-obstacle sequence
+and evaluates its limitations at the requested account level rather than baking
+level 34 into the evidence. Course revision 15168110 supplies level-1 entry,
+153.5 lap XP, a 51-second minimum, the seven XP rows, a 10,000 XP/hour upper
+bound, and the explicit change from 8,750 to 10,000. Independent obstacle
+revisions 14715880, 14730388, 14738994, 14658395, and 14658396 confirm every
+level and successful XP value. Only Tightrope revision 14738994 explicitly says
+failure was removed, so that fact applies to the three Tightrope occurrences and
+not to Ladder, Monkeybars, Bar, or Gap. Agility revision 15326985 still presents
+8,750 as a current practical average and describes failure only as “very
+unlikely.” Sensum therefore preserves the stale-rate conflict and derives the
+requested-level blockers for unknown failure-capable obstacle identity, aggregate
+probability, failed-attempt XP, recovery routing/time, and current expected rate.
+It does not manufacture any of those facts from the upper bound or description.
 
 The Penguin Agility Course's Cold War access discrepancy is now resolved with
 revision-pinned specificity evidence rather than silently choosing one page.

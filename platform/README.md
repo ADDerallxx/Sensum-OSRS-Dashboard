@@ -52,6 +52,11 @@ course page and the quest sequence independently establish it. Quest completion
 also satisfies earlier milestones, while merely starting a quest never does.
 Resolved summary-page discrepancies remain attached to the candidate.
 
+Obstacle evidence is stored independently of the account level. Repeated route
+occurrences remain distinct, and a no-failure claim for one obstacle type cannot
+be applied to another. Coverage evaluates missing probabilities and expected
+rates at query time, allowing the same evidence to serve the full level range.
+
 Run:
 
 ```text
