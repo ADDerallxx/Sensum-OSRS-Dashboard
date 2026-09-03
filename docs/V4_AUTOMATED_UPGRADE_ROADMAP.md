@@ -48,12 +48,16 @@ revision 15324367 scopes its 11,000–12,000 XP/hour range to levels 20–30. Th
 coverage report therefore exposes both missing conditions and does not reuse the
 perfect-lap maximum or the out-of-band guide rate as a level-34 estimate.
 
-The Varrock Rooftop Course now uses the same revision-pinned condition-evidence
-path. Official Wiki revision 15319528 confirms two failing obstacles with
-separate 3–8 and 2–5 damage ranges. Training-guide revision 15324367 scopes the
-11,000–14,000 XP/hour range to levels 30–40, which includes level 34, but neither
-source publishes a level-34 failure probability. Varrock therefore remains
-blocked with that exact missing condition instead of receiving an inferred rate.
+The Varrock Rooftop Course now has a condition-scoped source-observed rate
+interval. Official Wiki revision 15319528 confirms two failing obstacles with
+separate 3–8 and 2–5 damage ranges, while training-guide revision 15324367
+publishes 11,000–14,000 XP/hour for levels 30–40. Because that band includes
+base level 34, Sensum can retain it as aggregate outcome evidence without
+inventing the unpublished failure probability. The full interval, level band,
+and an explicit source-unspecified within-band performance/failure mix survive
+into the vector and review packet. It remains an uncalculated, manually
+reviewed interval that cannot enter scalar ranking or support an exact expected
+rate. This closes Varrock's target-condition gap without claiming verified best.
 
 The Shayzien basic-course model now joins its course mechanics to the official
 Agility overview instead of discarding cross-page evidence. Course revision

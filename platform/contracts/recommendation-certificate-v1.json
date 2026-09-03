@@ -12,6 +12,8 @@
     "intervalDominanceRequiresStrictlyNonOverlappingBounds": true,
     "touchingOrOverlappingIntervalsRemainIncomparable": true,
     "peakOnlyEvidenceCannotEnterIntervalComparison": true,
+    "conditionScopedSourceObservedRangesMayEnterIntervalComparison": true,
+    "sourceObservedRangesCannotEnterScalarRanking": true,
     "provisionalLeaderMustBeLabeled": true,
     "certificateMustBeReproducible": true,
     "aiNarrativeIsNonAuthoritative": true

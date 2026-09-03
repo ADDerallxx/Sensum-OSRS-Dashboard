@@ -13,6 +13,7 @@
     "conflictingSourceUpperBoundsMustRetainEveryClaim": true,
     "equipmentAmbiguousObservedRatesBlockAccountSpecificUse": true,
     "knownFailureWithoutTargetLevelProbabilityRemainsBlocked": true,
+    "mechanicalFailureBlockerDoesNotInvalidateAConditionScopedObservedOutcomeRange": true,
     "ambiguousLevelScopeRemainsBlocked": true,
     "crossPageEligibilityMustBeRevisionPinned": true,
     "contradictorySupportingRequirementsRemainBlocked": true,

@@ -3,8 +3,9 @@
   "required": {
     "identity": ["familyKey", "recordKey", "name", "sourceRevision"],
     "conditions": ["skill", "entryLevel", "modeledMinimumLevel"],
-    "mechanics": ["cycle", "xpPerSuccess", "failureModel"],
-    "calculation": ["formulaVersion", "calculationKind", "point estimate or bounded range"],
+    "performanceEvidence": ["mechanical calculation or condition-scoped source observation"],
+    "mechanics": ["cycle", "xpPerSuccess", "failureModel when mechanically calculated"],
+    "calculation": ["formulaVersion and calculationKind, or explicit null for a direct source observation"],
     "validation": ["rateValidation", "contradictions", "sourceLocators"]
   },
   "states": ["blocked", "proposed", "approved", "rejected", "stale"],
@@ -20,6 +21,8 @@
     "intervalOnlyRatesCannotEnterScalarRanking": true,
     "intervalComparisonRequiresStrictlyNonOverlappingBounds": true,
     "touchingOrOverlappingIntervalsRemainIncomparable": true,
+    "sourceObservedRateRangesRemainNonScalar": true,
+    "sourceObservedRateRangesRequireExactLevelScope": true,
     "observedPeakTimingCannotBecomeTypicalTiming": true,
     "timeBasedCompletionOutcomesMayOmitRandomFailureRoll": true,
     "unknownRandomFailureStateRemainsNull": true
@@ -30,6 +33,8 @@
     "conditionsMustBeExplicit": true,
     "pointEstimateMustMatchObservedRangeWithinTolerance": true,
     "boundedRateRequiresSourceTimingAndRewardReview": true,
+    "sourceObservedRangeRequiresSourceAndConditionReview": true,
+    "sourceObservedRangeDoesNotRequireASyntheticFailureProbability": true,
     "contradictionsBlockApproval": true,
     "sourceRevisionChangeMarksStale": true,
     "approvedVectorMayOpenOnlyItsOwnScenario": true

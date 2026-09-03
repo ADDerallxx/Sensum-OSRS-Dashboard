@@ -3,6 +3,7 @@ import {rankScalarActivityRates} from '../transforms/activity-calculation-shape-
 
 const bounded=(scenarioKey,minimum,maximum)=>({scenarioKey,sourceRevision:'15315300',contentHash:`hash:${scenarioKey}`,calculation:{calculationKind:'bounded_cycle_range',actionsPerHourRange:{minimum:1,maximum:2},xpPerHourRange:{minimum,maximum}}});
 const point=(scenarioKey,rate)=>({scenarioKey,calculation:{calculationKind:'point_estimate',actionsPerHour:1,xpPerHour:rate}});
+const observed=(scenarioKey,minimum,maximum)=>({scenarioKey,calculation:null,conditions:{observationalBenchmarkOnly:true,outcomeIntegratedInObservedRate:true},observed:{xpPerHour:{candidateRanges:[{minimum,maximum,levelScope:{minimum:30,maximum:40},sourceRevision:'15324367',sourceLocator:{line:1}}]}}});
 const run=bounded('skullball:run',750*3600/165,750*3600/140),walk=bounded('skullball:walk',750*3600/195,750*3600/165),scramble=bounded('skullball:scramble',750*3600/229,750*3600/180),peakOnly={scenarioKey:'skullball:optimal-peak',mechanics:{lapSecondsObservedPeak:105},calculation:null};
 const failures=[],check=(ok,message)=>{if(!ok)failures.push(message)};
 
@@ -18,6 +19,9 @@ check(allRoutes.strictDominanceWinner===null&&!allRoutes.comparisonComplete&&all
 check(compareActivityRateCandidates([run,peakOnly]).invalidCandidateKeys.includes('skullball:optimal-peak'),'Peak-only evidence must be excluded until a typical bound is published.');
 check(rankScalarActivityRates([run,walk,scramble,point('point',10000)]).map(x=>x.scenarioKey).join(',')==='point','Interval candidates must remain outside scalar ranking after the comparison policy is added.');
 check(compareActivityRateBounds(point('cheap',10),bounded('cost-range',20,30),{objective:'minimize'}).outcome==='left_strictly_dominates','The generic policy must honor minimization objectives without reversing the bounds.');
+check(activityRateBounds(observed('varrock',11000,14000))?.kind==='source_observed_rate_range','Direct observed ranges must retain a distinct evidence kind.');
+check(compareActivityRateBounds(observed('varrock',11000,14000),bounded('skullball',16000,19000)).outcome==='right_strictly_dominates','Source-observed and mechanically derived ranges may compare only through complete non-overlapping bounds.');
+check(compareActivityRateBounds(observed('overlap',14000,17000),bounded('skullball-overlap',16000,19000)).outcome==='overlap_or_touch','Overlapping observed and derived bounds must remain incomparable.');
 
 if(failures.length){console.error(failures.join('\n'));process.exit(1)}
 console.log('Activity interval-comparison safety checks passed.');

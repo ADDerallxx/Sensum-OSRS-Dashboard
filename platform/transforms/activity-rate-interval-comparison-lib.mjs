@@ -1,4 +1,4 @@
-import {activityCalculationShape,isOrderedActivityRange} from './activity-calculation-shape-lib.mjs';
+import {activityCalculationShape,isOrderedActivityRange,sourceObservedActivityRateRange} from './activity-calculation-shape-lib.mjs';
 
 export const ACTIVITY_RATE_INTERVAL_POLICY='strict_non_overlapping_source_bounds_v1';
 
@@ -13,6 +13,8 @@ export function activityRateBounds(vector){
   if(shape==='bounded_cycle_range'&&isOrderedActivityRange(vector.calculation.xpPerHourRange)){
     return {candidateKey:keyOf(vector),kind:'bounded_cycle_range',minimum:Number(vector.calculation.xpPerHourRange.minimum),maximum:Number(vector.calculation.xpPerHourRange.maximum),sourceRevision:vector?.sourceRevision??null,vectorContentHash:vector?.contentHash??null};
   }
+  const observed=sourceObservedActivityRateRange(vector);
+  if(observed)return {candidateKey:keyOf(vector),kind:'source_observed_rate_range',minimum:observed.minimum,maximum:observed.maximum,sourceRevision:observed.sourceRevision,vectorContentHash:vector?.contentHash??null,levelScope:observed.levelScope,observationKind:observed.observationKind,approximate:observed.approximate};
   return null;
 }
 

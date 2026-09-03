@@ -17,6 +17,7 @@
     "benchmarkObservationsAreGroupedByStableCandidateIdentity": true,
     "oneTimeProgressionIsNotRankedAsRepeatableTraining": true,
     "mechanicalReadinessIsReportedSeparately": true,
+    "conditionScopedObservedOutcomeRangeCanCoverTargetWithoutSyntheticFailureProbability": true,
     "automaticApprovalAllowed": false
   }
 }

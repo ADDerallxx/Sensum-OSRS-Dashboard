@@ -1,0 +1,13 @@
+{
+  "contract": "sensum.agility-rooftop-observed-variant.v1",
+  "required": ["parent_name", "variant_key", "entry_level", "base_agility_level_minimum", "base_agility_level_maximum", "observed_xp_per_hour_range", "observed_xp_per_hour_level_scope", "observed_rate_source_revision", "observed_rate_source_locator", "source_revision", "supporting_evidence", "source_locator"],
+  "rules": {
+    "publishedRateBandMustRemainAnOrderedRange": true,
+    "publishedLevelBandMustRemainExact": true,
+    "unknownFailureProbabilityMustNotBeSynthesized": true,
+    "aggregateObservedOutcomesMayBeReviewedWithoutAMechanicalFailureCurve": true,
+    "observedBenchmarkDoesNotBecomeACalculatedRate": true,
+    "observedRangeCannotEnterScalarRanking": true,
+    "automaticVerificationAllowed": false
+  }
+}

@@ -1,7 +1,7 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import {hash} from '../ingestion/lib.mjs';
-import {activityCalculationShape,boundedActivityRates,hasBoundedActivityRate,rankScalarActivityRates} from './activity-calculation-shape-lib.mjs';
+import {hasIntervalActivityRate,intervalActivityRates,rankScalarActivityRates} from './activity-calculation-shape-lib.mjs';
 import {ACTIVITY_RATE_INTERVAL_POLICY,activityRateBounds,compareActivityRateCandidates} from './activity-rate-interval-comparison-lib.mjs';
 import {finiteConditionLevel} from './activity-variant-condition-lib.mjs';
 
@@ -33,8 +33,8 @@ const unknown=vectors.rows.filter(x=>{
   const entry=finiteConditionLevel(x.conditions?.entryLevel),modeled=finiteConditionLevel(x.conditions?.modeledMinimumLevel),missing=(x.validation?.missing||[]).length,contradictions=(x.validation?.contradictions||[]).length;
   return entry===null||(entry<=level&&(modeled===null||missing||contradictions||modeled>level));
 });
-const comparable=applicable.filter(x=>(isApproved(x)||x.state==='proposed')&&activityCalculationShape(x.calculation)!=='invalid');
-const intervalOnlyEligible=boundedActivityRates(applicable);
+const comparable=applicable.filter(x=>(isApproved(x)||x.state==='proposed')&&activityRateBounds(x)!==null);
+const intervalOnlyEligible=intervalActivityRates(applicable);
 const intervalComparison=intervalOnlyEligible.length?compareActivityRateCandidates(comparable,{objective:'maximize'}):null;
 const scalarRanked=intervalComparison?[]:rankScalarActivityRates(comparable);
 const leader=intervalComparison?intervalComparison.strictDominanceWinner:(scalarRanked[0]||null);
@@ -55,14 +55,14 @@ const exclusions=vectors.rows.filter(x=>x!==winner).map(x=>{
     ...(entry!==null&&entry<=level&&modeled!==null&&modeled>level?['current_level_model_missing']:[]),
     ...(intervalComparison&&unresolvedKeys.has(candidateKey)?['interval_bounds_overlap_or_touch']:[]),
     ...(intervalComparison&&dominatedKeys.has(candidateKey)?['strictly_dominated_under_interval_policy']:[]),
-    ...(hasBoundedActivityRate(x)&&!intervalComparison?['interval_comparison_policy_not_applied']:[]),
+    ...(hasIntervalActivityRate(x)&&!intervalComparison?['interval_comparison_policy_not_applied']:[]),
     ...(x.validation?.missing||[]),
     ...(x.validation?.contradictions||[]).map(item=>`contradiction:${item.rule||'unresolved'}`),
     ...(x.state==='proposed'&&!isApproved(x)?['awaiting_approval']:[]),
     ...(currentDecision(x)?.decision==='reject'?['review_rejected']:[])
   ]};
 });
-const summarizeRate=vector=>vector?{scenarioKey:vector.scenarioKey,name:vector.name,xpPerHour:vector.calculation?.xpPerHour??null,xpPerHourRange:vector.calculation?.xpPerHourRange??null,comparisonBasis:activityRateBounds(vector)}:null;
+const summarizeRate=vector=>{if(!vector)return null;const bounds=activityRateBounds(vector);return {scenarioKey:vector.scenarioKey,name:vector.name,xpPerHour:vector.calculation?.xpPerHour??null,xpPerHourRange:bounds&&bounds.kind!=='point_estimate'?{minimum:bounds.minimum,maximum:bounds.maximum}:null,rateEvidenceKind:bounds?.kind??null,comparisonBasis:bounds}};
 const comparisonSummary=intervalComparison?{
   policy:ACTIVITY_RATE_INTERVAL_POLICY,
   objective:intervalComparison.objective,
@@ -86,9 +86,10 @@ const certificate={
   objective:{skill,metric:'xp_per_hour'},
   accountConditions:{baseLevel:level,baseLevelsOnly:true},
   dataSnapshot:{vectorBuild:vectors.dir},
-  formulaVersion:'activity-v1',
+  formulaVersion:leader?.calculation?.formulaVersion??null,
+  rateEvidenceKind:leader?activityRateBounds(leader)?.kind??null:null,
   claimStrength:claim,
-  candidateCoverage:{total:vectors.rows.length,eligible:eligible.length,approvedEligible:approved.length,proposedEligible:proposed.length,unknownEligibility:unknown.length,intervalOnlyEligible:intervalOnlyEligible.length,scalarRankingPolicy:'point_estimates_only',intervalComparisonPolicy:intervalOnlyEligible.length?ACTIVITY_RATE_INTERVAL_POLICY:null,completeEligibleCoverage,comparisonComplete},
+  candidateCoverage:{total:vectors.rows.length,eligible:eligible.length,approvedEligible:approved.length,proposedEligible:proposed.length,unknownEligibility:unknown.length,intervalComparableEligible:intervalOnlyEligible.length,scalarRankingPolicy:'calculated_point_estimates_only',intervalComparisonPolicy:intervalOnlyEligible.length?ACTIVITY_RATE_INTERVAL_POLICY:null,completeEligibleCoverage,comparisonComplete},
   intervalComparison:comparisonSummary,
   winner:summarizeRate(winner),
   provisionalLeader:provisional?{...summarizeRate(provisional),label:'Not approved'}:null,

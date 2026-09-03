@@ -1,0 +1,14 @@
+import {buildRooftopObservedRateVariants} from '../ingestion/agility-rooftop-observed-variant-lib.mjs';
+
+const candidate={candidate_key:'guide:rooftop:varrock',name:'Varrock Rooftop Course',minimum_agility:30,observed_xp_per_hour_range:{minimum:11000,maximum:14000},observed_xp_per_hour_level_scope:{minimum:30,maximum:40},source_revision:'15324367',source_timestamp:'2026-08-29T09:28:52Z',source_url:'https://oldschool.runescape.wiki/w/Agility_training',source_locator:{evidence:[{line:135,excerpt:'| 30–40\n| [[Varrock Rooftop Course|Varrock]]\n| 11,000–14,000'}]},supporting_source_revisions:['15319528'],target_condition_evidence:{failure_possible:true,failure_outcomes:[{obstacle:'Cross Clothes Line',damage:{minimum:3,maximum:8}},{obstacle:'Balance Wall',damage:{minimum:2,maximum:5}}],source_revision:'15319528',source_url:'https://oldschool.runescape.wiki/w/Varrock_Rooftop_Course',source_locator:{evidence:[{line:23}]}}};
+const rows=buildRooftopObservedRateVariants([candidate]),row=rows[0],failures=[],check=(ok,message)=>{if(!ok)failures.push(message)};
+check(rows.length===1&&row.entry_level===30&&row.base_agility_level_minimum===30&&row.base_agility_level_maximum===40,'The Varrock observation must retain entry and the exact published level band.');
+check(row.observed_xp_per_hour_range?.minimum===11000&&row.observed_xp_per_hour_range?.maximum===14000,'The source rate must remain an ordered range without midpoint conversion.');
+check(row.observed_rate_approximate===true,'A training-guide range must remain labeled as an approximate practical benchmark.');
+check(row.observational_benchmark_only===true&&row.outcome_integrated_in_observed_rate===true&&row.outcome_model==='source_observed_hourly_rate_range','The rate must remain direct aggregate evidence, not a mechanical estimate.');
+check(row.failure_possible===true&&row.failure_probability_published===false&&row.failure_outcomes?.length===2,'Known failures must survive while their unpublished probability remains null.');
+check(row.observed_rate_condition_scope?.within_band_player_performance_and_failure_mix==='source_unspecified','Unpublished within-band performance and failure mix must remain explicit.');
+check(row.source_revision==='15324367'&&row.supporting_source_revisions?.includes('15319528'),'Both the rate and failure-evidence revisions must remain attached.');
+check(buildRooftopObservedRateVariants([{...candidate,observed_xp_per_hour_range:{minimum:14000,maximum:11000}}]).length===0,'A reversed source range must fail closed.');
+check(buildRooftopObservedRateVariants([{...candidate,target_condition_evidence:null}]).length===0,'Missing failure-condition evidence must fail closed.');
+if(failures.length){console.error(failures.join('\n'));process.exit(1)}console.log('Agility rooftop observed-range variant checks passed.');

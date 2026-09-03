@@ -158,3 +158,14 @@ benchmark with failures and repeated-obstacle XP already integrated—not a
 calculated success model. The level-scaled completion bonus remains a separate
 candidate formula, and target coverage ignores the incomplete level-75 sibling
 vector when a condition-correct level-34 variant is available.
+
+Condition-scoped source-observed rate ranges have a separate evidence path from
+mechanical calculations. A direct range must retain one ordered XP/hour band,
+an exact source level scope, a revision and locator, and an explicit declaration
+that outcomes are already aggregated by the source. It keeps `calculation` null,
+cannot enter scalar ranking, and may enter only the strict interval policy after
+manual review eligibility checks pass. Varrock revision 15324367 supplies an
+11,000–14,000 XP/hour band for levels 30–40; revision 15319528 separately
+supplies its failing obstacles and damage ranges. The unpublished level-34
+failure probability is not synthesized, and the within-band performance and
+failure mix remains source-unspecified.

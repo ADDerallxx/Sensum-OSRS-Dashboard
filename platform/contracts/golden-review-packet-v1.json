@@ -1,6 +1,6 @@
 {
   "contract": "sensum.golden-review-packet.v1",
-  "checklist": ["identity", "conditions", "mechanical facts", "source locators", "formula version", "calculation shape", "unit agreement", "rate validation", "contradictions", "scope"],
+  "checklist": ["identity", "conditions", "performance evidence", "source locators", "formula or explicit observation", "calculation or observation shape", "unit agreement", "rate validation", "contradictions", "scope"],
   "decisions": ["approve", "reject", "needs_evidence"],
   "rules": {
     "generationDoesNotApprove": true,
@@ -9,6 +9,7 @@
     "unresolvedContradictionBlocksApproval": true,
     "missingMechanicalFactBlocksApproval": true,
     "sourceDerivedBoundedRateMayBeReviewedWithoutIndependentObservedRate": true,
+    "sourceObservedRateMayBeReviewedWithoutSyntheticMechanics": true,
     "boundedReviewDoesNotAuthorizeScalarRanking": true,
     "approvalScopeIsExactScenario": true
   }
