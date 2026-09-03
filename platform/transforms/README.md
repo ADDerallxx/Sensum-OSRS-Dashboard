@@ -60,6 +60,13 @@ including their independent skill and equipment requirements. Werewolf
 Skullball time ranges remain ranges, and its 1:45 optimal-route result remains a
 peak observation rather than a typical cycle-time claim.
 
+Werewolf Skullball revision 15315300 defines a ten-goal player-executed route
+whose reward is determined by completion time. Its vectors therefore do not
+invent a level-based random failure roll. The three approximate route timings
+remain blocked on a bounded-cycle rate model, while the 1:45 result remains
+blocked as peak-only evidence without a typical completion-time distribution.
+Abandoned-attempt frequency is not stated by the source and remains unknown.
+
 Prifddinas portal shortcuts are modeled as absent, randomly used, and
 best-spawn peak conditions. The Wiki's 5–10 second saving remains a range, and
 its unscoped 1:14 average lap is not assigned to either portal policy.

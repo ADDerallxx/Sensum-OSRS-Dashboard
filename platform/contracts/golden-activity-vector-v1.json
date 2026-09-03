@@ -13,6 +13,12 @@
     "distinctConditionPoliciesCannotShareAGroupKey": true,
     "ungroupedVectorsRemainIndependentCandidates": true
   },
+  "timingPolicy": {
+    "boundedCycleRangesCannotBecomePointEstimates": true,
+    "observedPeakTimingCannotBecomeTypicalTiming": true,
+    "timeBasedCompletionOutcomesMayOmitRandomFailureRoll": true,
+    "unknownRandomFailureStateRemainsNull": true
+  },
   "approvalPolicy": {
     "automaticApprovalAllowed": false,
     "allMechanicalFactsMustBeVerified": true,

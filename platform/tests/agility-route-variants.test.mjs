@@ -39,5 +39,7 @@ check(grapple?.xp_per_lap_by_skill?.Ranged===1250&&grapple.observed_xp_per_hour_
 check(mixed?.xp_per_lap_by_skill===null&&mixed.mechanical_reward_blocker,'The mixed route must not invent an unstated per-lap reward vector.');
 check(walk?.cycle_seconds===null&&walk.cycle_seconds_range?.minimum===165&&walk.cycle_seconds_range?.maximum===195,'Approximate Wiki time ranges must remain ranges.');
 check(optimal?.cycle_seconds===null&&optimal.cycle_seconds_observed_peak===105&&optimal.observed_peak_not_typical===true,'The optimal-route peak must not become a typical cycle time.');
+check(walk?.outcome_model==='completion_time_reward'&&walk.failure_model_required===false&&walk.random_failure_roll_applicable===false&&walk.completion_scope==='all_10_goals_completed','Skullball completion-time rewards must not be forced into an unsourced random failure-roll model.');
+check(walk?.abandoned_attempt_rate===null,'The source does not quantify abandoned attempts, so that rate must remain unknown rather than becoming zero.');
 check(rows.every(x=>x.source_locator?.evidence?.length&&x.source_revision),'Every route variant must retain revision-bound source locators.');
 if(failures.length){console.error(failures.join('\n'));process.exit(1)}console.log('Agility route variant checks passed.');

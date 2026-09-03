@@ -11,6 +11,8 @@ check(partial.conditionDetails.unmodeledLevelRanges?.[0]?.maximum===49,'Explicit
 check(isTrainableVariantRecord({variant_key:'method'})&&!isTrainableVariantRecord({record_kind:'composable_modifier'})&&!isTrainableVariantRecord({record_kind:'encounter_requirement'}),'Composable effects and encounter requirements must not become standalone methods.');
 const noAccessRequirement=resolveEntryAndModeledLevels({explicitEntryLevel:0,baseLevelMinimum:40});
 check(noAccessRequirement.entryLevel===0&&noAccessRequirement.modeledMinimumLevel===40,'A zero access requirement must remain known while a level-specific rate keeps its modeled minimum.');
+const timeOutcome=resolveVariantConditionModel({skill_requirements:{Agility:25},outcome_model:'completion_time_reward',random_failure_roll_applicable:false,completion_scope:'all_10_goals_completed'});
+check(timeOutcome.conditionDetails.outcomeModel==='completion_time_reward'&&timeOutcome.conditionDetails.randomFailureRollApplicable===false&&timeOutcome.conditionDetails.completionScope==='all_10_goals_completed','Time-based completion outcomes must survive condition resolution without becoming random success rolls.');
 const unknown=resolveEntryAndModeledLevels({explicitEntryLevel:null,inferredEntryLevels:[null,undefined]});
 check(unknown.entryLevel===null&&unknown.modeledMinimumLevel===null&&finiteConditionLevel(null)===null,'Missing levels must not be coerced to zero.');
 if(failures.length){console.error(failures.join('\n'));process.exit(1)}console.log('Activity variant condition checks passed.');
