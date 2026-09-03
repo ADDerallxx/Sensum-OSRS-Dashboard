@@ -93,6 +93,11 @@ record count, creation time, audit result, and SHA-256 content hash.
   glove-adjusted hourly rate is not synthesized, and optional ticket-dispenser
   tagging remains a separate unquantified policy axis. Added, removed, duplicate,
   reordered, or structurally changed section paragraphs block publication.
+- Hallowed Sepulchre member coverage reuses the revision-pinned floor/policy and
+  equipment snapshots. Five maximum floors crossed with two looting policies
+  remain ten independent decision members, while thirteen encounter equipment
+  records remain non-method modifiers or requirements. Their detail-page
+  revision is never substituted for the separate training-guide revision.
 - Al Kharid multi-obstacle evidence V2 stores the two failing obstacle identities,
   successful XP, damage, requirements, timing, source revisions, and stable
   unknown-model states without storing an account level. Level-numbered missing

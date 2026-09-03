@@ -190,6 +190,20 @@ Run:
 node platform/transforms/audit-agility-brimhaven-guide-member-coverage.mjs
 ```
 
+`audit-agility-hallowed-guide-member-coverage.mjs` expands the Hallowed
+Sepulchre composite into the ten floor/looting-policy decisions already sourced
+from its experience table, requires one same-revision vector for each, and
+retains all thirteen encounter equipment requirements and modifiers as separate
+members. The guide revision and Hallowed detail-page revision remain distinct.
+Passing this identity gate does not prove cycle timing, failure mechanics,
+equipment-state performance, modifier combinations, or verified ranking.
+
+Run:
+
+```text
+node platform/transforms/audit-agility-hallowed-guide-member-coverage.mjs
+```
+
 `audit-agility-progression-coverage.mjs` is the account-independent companion
 gate. It evaluates every source-defined Agility base level from 1 through 99,
 then derives structural spans from changes in candidate eligibility, condition

@@ -85,8 +85,10 @@ uncovered sections and the previously omitted every-pillar Brimhaven strategy.
 The Rooftop collection's nine ordered members each match one structured course
 and at least one detailed vector (17 vectors total). The early-Brimhaven
 section's three ordered strategies each match exactly one same-revision guide
-candidate, with four detailed-vector links reported. Three collection or
-composite sections still need internal-member audits. These identity audits do
+candidate, with four detailed-vector links reported. The Hallowed Sepulchre
+composite now also links all ten floor/policy decisions to ten same-revision
+vectors and retains all thirteen encounter equipment members independently, so
+two collection or composite sections remain. These identity audits do
 not claim their variants or mechanics are complete. Even
 complete section coverage does not by itself prove
 the entire in-game method universe. Performance breakpoints are also not audited,
@@ -101,6 +103,7 @@ node platform/ingestion/ingest-wiki-agility-rooftop-guide-members.mjs
 node platform/ingestion/ingest-wiki-agility-brimhaven-guide-members.mjs
 node platform/transforms/audit-agility-rooftop-guide-member-coverage.mjs
 node platform/transforms/audit-agility-brimhaven-guide-member-coverage.mjs
+node platform/transforms/audit-agility-hallowed-guide-member-coverage.mjs
 node platform/transforms/audit-agility-training-guide-section-coverage.mjs
 node platform/transforms/audit-agility-progression-coverage.mjs
 ```

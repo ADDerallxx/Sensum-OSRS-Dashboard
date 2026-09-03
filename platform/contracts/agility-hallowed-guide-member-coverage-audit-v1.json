@@ -1,0 +1,14 @@
+{
+  "contract": "sensum.agility-hallowed-guide-member-coverage-audit.v1",
+  "required": ["sectionKey", "guideSourceRevision", "hallowedSourceRevision", "memberCount", "coveredMemberCount", "equipmentMemberCount", "coveredEquipmentMemberCount", "memberDetails", "equipmentDetails", "internalMemberAuditSatisfied", "blockers", "inputSnapshots", "contentHash"],
+  "rules": {
+    "exactlyOneSameRevisionGuideCandidateIsRequired": true,
+    "fiveFloorsCrossedWithTwoLootingPoliciesAreRequired": true,
+    "everyFloorPolicyMemberMustHaveExactlyOneSameRevisionVector": true,
+    "allEncounterEquipmentMembersMustRemainIndependent": true,
+    "unexpectedFloorPolicyEquipmentOrVectorMembersBlock": true,
+    "guideAndDetailPageRevisionsRemainDistinct": true,
+    "memberIdentityCoverageDoesNotProveVariantOrMechanicalCompleteness": true,
+    "automaticVerificationAllowed": false
+  }
+}

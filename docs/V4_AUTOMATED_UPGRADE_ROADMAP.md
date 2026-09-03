@@ -42,6 +42,19 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+The Hallowed Sepulchre section now has a cross-source member identity audit.
+Agility training revision 15324367 retains the composite guide candidate and
+its three declared axes. Hallowed Sepulchre revision 15322138 supplies five
+maximum-floor choices crossed with looting and no-looting policies, producing
+ten decision members; all ten match exactly one same-revision activity vector.
+The same detail-page revision supplies thirteen independent encounter equipment
+requirements and modifiers, all of which are linked without treating them as
+standalone methods. This reduces unaudited collection/composite sections from
+three to two. It does not prove route mechanics, failure probabilities, cycle
+timing, equipment-state rate effects, or the complete modifier cross-product.
+The level-34 audit is unchanged because Hallowed Sepulchre is not eligible
+there, and the full Agility levels 1–99 gate remains blocked at every level.
+
 The level 20–47 Brimhaven section now has a same-revision internal-member
 identity audit rather than being accepted as one opaque candidate. Agility
 training revision 15324367 contains three ordered strategies: repeated floor
