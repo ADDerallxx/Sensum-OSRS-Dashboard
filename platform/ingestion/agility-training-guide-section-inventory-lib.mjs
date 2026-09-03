@@ -12,7 +12,7 @@ function roleFor({depth,title,parentTitle}){
   if(depth!==3||!methodParents.has(parentTitle))return 'unknown_nested_section';
   if(/Questing/i.test(title))return 'one_time_progression_section';
   if(/Rooftop Agility Courses/i.test(title))return 'method_collection';
-  if(/Rockslide\s*\+\s*Other Activities/i.test(title)||/Levels 20[–-]47: Brimhaven Agility Arena/i.test(title))return 'composite_method_section';
+  if(/Rockslide\s*\+\s*Other Activities/i.test(title)||/Levels 20[–-]47: Brimhaven Agility Arena/i.test(title)||/Hallowed Sepulchre/i.test(title)||/Colossal Wyrm Agility Course/i.test(title))return 'composite_method_section';
   return 'method_section';
 }
 

@@ -5,6 +5,10 @@
   "rules": {
     "trainingGuideAndCourseCategoryMustBeUnioned": true,
     "everyCandidateMustLinkToAnInventoriedGuideSection": true,
+    "everyMaterialGuideSectionMustEmitAtLeastOneCandidateOrBlockPublication": true,
+    "boostedEntryBaseLevelAndRequiredEffectiveLevelRemainSeparate": true,
+    "sourceEffectiveRatesMustNotBePresentedAsSustainedTrainingRates": true,
+    "compositeSectionPresenceDoesNotProveInternalMemberCoverage": true,
     "sectionLevelBandsRemainScoped": true,
     "aggregateCollectionsAreNotMethods": true,
     "oneTimeAndRepeatableMethodsRemainDistinct": true,

@@ -42,6 +42,19 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+Every material section in Agility training revision 15324367 now emits at least
+one revision-located candidate. Ten new candidates cover the nine previously
+unrepresented sections: Wilderness, Hallowed Sepulchre, the Rockslide hybrid
+detour, Brimhaven tickets, Ape Atoll, Shayzien Advanced, both Colossal Wyrm
+routes, Werewolf, and Prifddinas. Boosted base-level entry remains separate from
+the required effective level for Wilderness and Werewolf; vague rate bands,
+upper bounds, the Rockslide “effective” rate, and exact-level Brimhaven
+observations retain their source semantics. The section audit moved from 6/15 to
+15/15, but five collection/composite sections still need member-level audits and
+the guide is still not accepted as proof of the complete game universe. Existing
+vectors are linked rather than duplicated, all 99 levels remain blocked from a
+full-skill authority claim, and level-34 coverage is unchanged.
+
 Agility now has a revision-pinned structural inventory of the complete official
 training-guide page instead of treating a selected parser as an unnamed universe.
 Training-guide revision 15324367 contains 18 ordered headings: 15 material method

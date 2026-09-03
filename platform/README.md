@@ -79,12 +79,12 @@ use the source-stated no-failure threshold. The broader field scan now finds zer
 embedded account-query evidence records. The report remains intentionally blocked
 by a measured structural gap rather than a generic selected-parser warning. A
 revision-pinned inventory of Agility training revision 15324367 counts 18 ordered
-headings and 15 material method sections. Existing candidates link to 6 material
-sections; 9 exact sections are uncovered, and 2 covered collection or composite
-sections still need internal-member audits. Even complete coverage of that guide
-would not by itself prove the entire in-game method universe. Performance
-breakpoints are also not audited, and every level still has at least one
-incomplete candidate.
+headings and 15 material method sections. Nineteen guide candidates now link to
+all 15 material sections, including ten candidates added for the nine previously
+uncovered sections. Five collection or composite sections still need
+internal-member audits. Even complete section coverage does not by itself prove
+the entire in-game method universe. Performance breakpoints are also not audited,
+and every level still has at least one incomplete candidate.
 
 Run:
 

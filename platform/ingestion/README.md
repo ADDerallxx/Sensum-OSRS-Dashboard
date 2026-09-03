@@ -73,6 +73,13 @@ record count, creation time, audit result, and SHA-256 content hash.
   lines, revision, and structural role. New heading depths or parents fail
   closed, while a new method section automatically becomes a named candidate-
   parser coverage gap rather than disappearing silently.
+- Training-guide candidate expansion is fail-closed across all nine formerly
+  uncovered material sections. It emits ten candidates because the Colossal Wyrm
+  basic and advanced routes remain separate. Natural and boosted entry levels,
+  effective-level requirements, exact-level observations, upper bounds, hybrid
+  incremental rates, unresolved rate scopes, quests, and equipment requirements
+  remain distinct fields. A missing expected section blocks publication rather
+  than silently shrinking the universe.
 - Al Kharid multi-obstacle evidence V2 stores the two failing obstacle identities,
   successful XP, damage, requirements, timing, source revisions, and stable
   unknown-model states without storing an account level. Level-numbered missing
