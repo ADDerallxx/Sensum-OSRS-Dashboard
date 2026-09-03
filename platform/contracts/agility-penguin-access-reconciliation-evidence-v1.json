@@ -1,0 +1,13 @@
+{
+  "contract": "sensum.agility-penguin-access-reconciliation-evidence.v1",
+  "required": ["candidate_key", "canonical_requirement", "discrepant_claim", "resolution", "source_revision", "supporting_source_revisions", "source_locator"],
+  "rules": {
+    "specificAccessClaimMayOverrideSummaryOnlyWithIndependentQuestSequenceEvidence": true,
+    "resolvedSummaryDiscrepancyMustRemainVisible": true,
+    "questCompletionSatisfiesEarlierProgressMilestone": true,
+    "questStartAloneDoesNotSatisfyCourseMilestone": true,
+    "inProgressEligibilityRequiresExplicitMilestoneState": true,
+    "missingCorroboratingEvidencePreservesConflict": true,
+    "automaticVerificationAllowed": false
+  }
+}

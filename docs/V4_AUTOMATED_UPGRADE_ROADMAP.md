@@ -75,17 +75,18 @@ coverage exposes `supporting_rate_matches_superseded_pre_update_value` instead o
 falling back to an older clean-looking snapshot. The separate unpublished numeric
 failure probability at base level 34 also remains a blocker.
 
-The Penguin Agility Course model now preserves its boostable level-30 entry as
-an entry rule rather than a training-boost assumption. Wiki revision 15239936
-also remains explicit about partial Cold War progress, the clockwork-suit
-transformation and cape-slot state, the 540 XP lap reward, and failures still
-being possible at level 99. Its 22,000–27,000 XP/hour claim is retained as an
-observed range for unspecified “lower levels,” not assigned to base level 34.
-The target audit therefore names both missing pieces: a level-34 failure
-probability and an observed-rate band that actually identifies level 34. The
-Agility overview at revision 15326985 says full Cold War completion is required,
-contradicting the course page's partial-completion claim. Both revisions remain
-attached and the unresolved access conflict is a third explicit blocker.
+The Penguin Agility Course's Cold War access discrepancy is now resolved with
+revision-pinned specificity evidence rather than silently choosing one page.
+Course revision 15239936 states partial completion twice, Iceberg revision
+15317986 says access begins halfway through Cold War, and Cold War revision
+15315223 requires the course before quest completion while separately confirming
+post-completion re-entry. Together these direct access and quest-sequence sources
+override the general Agility overview's completion-only summary at revision
+15326985. The canonical requirement accepts either completed Cold War or an
+explicit in-progress `penguin_agility_course_access` milestone; merely starting
+the quest is insufficient. The resolved discrepancy and all four revisions remain
+visible. Penguin's independent level-34 failure-probability and rate-scope gaps
+remain blocked.
 
 The Agility Pyramid now has a level-30–50 observed benchmark sourced from
 Agility training revision 15324367: roughly 13 completions and 25,000 XP/hour.

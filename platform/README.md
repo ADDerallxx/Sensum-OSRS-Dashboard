@@ -47,6 +47,11 @@ condition record with per-obstacle requirements, successful XP, probabilities,
 and revisions. Sensum does not derive an aggregate lap probability or expected
 rate unless every obstacle outcome plus failure recovery timing is sourced.
 
+Quest-progress access can use an explicit in-progress milestone only when a
+course page and the quest sequence independently establish it. Quest completion
+also satisfies earlier milestones, while merely starting a quest never does.
+Resolved summary-page discrepancies remain attached to the candidate.
+
 Run:
 
 ```text
