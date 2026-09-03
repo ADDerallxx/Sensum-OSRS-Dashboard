@@ -18,6 +18,8 @@
     "boundedCycleRangesProduceOrderedRateRanges": true,
     "timeDependentRewardsCrossingABoundRequireSeparateModeling": true,
     "intervalOnlyRatesCannotEnterScalarRanking": true,
+    "intervalComparisonRequiresStrictlyNonOverlappingBounds": true,
+    "touchingOrOverlappingIntervalsRemainIncomparable": true,
     "observedPeakTimingCannotBecomeTypicalTiming": true,
     "timeBasedCompletionOutcomesMayOmitRandomFailureRoll": true,
     "unknownRandomFailureStateRemainsNull": true

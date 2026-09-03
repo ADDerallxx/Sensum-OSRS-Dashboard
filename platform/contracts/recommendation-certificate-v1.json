@@ -9,6 +9,9 @@
     "unapprovedCandidateCannotWin": true,
     "intervalOnlyCandidateRequiresExplicitComparisonPolicy": true,
     "intervalOnlyCandidateCannotEnterScalarRanking": true,
+    "intervalDominanceRequiresStrictlyNonOverlappingBounds": true,
+    "touchingOrOverlappingIntervalsRemainIncomparable": true,
+    "peakOnlyEvidenceCannotEnterIntervalComparison": true,
     "provisionalLeaderMustBeLabeled": true,
     "certificateMustBeReproducible": true,
     "aiNarrativeIsNonAuthoritative": true

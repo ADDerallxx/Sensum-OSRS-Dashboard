@@ -123,3 +123,14 @@ claims are now non-expected upper-bound evidence with their own revision and
 scope; the audit names the missing round-trip ticks and the 13,000-versus-13,200
 conflict explicitly. Neither rate is selected, averaged, or reverse-engineered
 into game mechanics.
+
+Werewolf Skullball rate intervals now have a generic, certificate-level
+comparison policy. Revision 15315300 remains the sole game-fact source: its
+2:20–2:45 run, 2:45–3:15 walk, and 3:00–3:49 scramble timings each retain their
+full 750-XP reward and become source-bounded XP/hour ranges. The policy permits
+only strict dominance across complete non-overlapping bounds, never midpoint or
+scalar conversion. It proves the run range strictly dominates scramble, while
+the touching run/walk boundary and overlapping walk/scramble ranges remain
+incomparable. The 1:45 “as fast as” observation still lacks a typical timing
+range and remains an explicit mechanical blocker. No interval entered scalar
+ranking and no peak observation was promoted.

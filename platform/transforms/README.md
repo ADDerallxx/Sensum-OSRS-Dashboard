@@ -63,9 +63,10 @@ peak observation rather than a typical cycle-time claim.
 Werewolf Skullball revision 15315300 defines a ten-goal player-executed route
 whose reward is determined by completion time. Its vectors therefore do not
 invent a level-based random failure roll. The three approximate route timings
-remain blocked on a bounded-cycle rate model, while the 1:45 result remains
-blocked as peak-only evidence without a typical completion-time distribution.
-Abandoned-attempt frequency is not stated by the source and remains unknown.
+produce reviewable bounded-cycle rates and remain ineligible for scalar
+ranking. The 1:45 result remains blocked as peak-only evidence without a
+typical completion-time distribution. Abandoned-attempt frequency is not
+stated by the source and remains unknown.
 
 Prifddinas portal shortcuts are modeled as absent, randomly used, and
 best-spawn peak conditions. The Wiki's 5–10 second saving remains a range, and
@@ -134,10 +135,15 @@ coverage so incomplete rates cannot be mistaken for an eligibility failure.
 Werewolf Skullball's approximate route times are converted with the generic
 bounded-cycle formula only when the entire source range earns the same reward.
 The resulting actions/hour and XP/hour remain minimum/maximum ranges: no
-midpoint is invented. These vectors may proceed to manual source review, while
-recommendation certificates list them as `range_ranking_policy_missing` and
-exclude them from scalar ranking. The optimal 1:45 route remains blocked as a
-peak-only observation rather than being treated as typical performance.
+midpoint is invented. These vectors may proceed to manual source review and
+remain excluded from scalar ranking. Recommendation certificates compare point
+and interval candidates only through `strict_non_overlapping_source_bounds_v1`:
+one candidate wins only when its complete published rate range is strictly
+better than another candidate's complete range. Overlapping or touching bounds
+remain incomparable. This proves that the recommended run range dominates the
+unplanned-scramble range, but the run/walk and walk/scramble comparisons remain
+unresolved. The optimal 1:45 route remains blocked as a peak-only observation
+rather than being treated as typical performance.
 
 Agility Pyramid levels 30–50 use the training guide's revision-pinned,
 approximate 25,000 XP/hour and 13-completion/hour observation. The source says
