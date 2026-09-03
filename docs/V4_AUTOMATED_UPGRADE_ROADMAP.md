@@ -43,6 +43,22 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+Cross-skill unlock discovery now has a deterministic semantic-routing and Wiki
+page-identity layer across the complete level-domain inventory, not an
+Agility-only or current-account slice. The refreshed 24 level-up-table pages
+still contain 4,768/4,768 captured source statements. A versioned source-role
+policy routes every statement across all 114 observed leading forms: 4,717 have
+a surface role and 51 deliberately remain `unresolved_source_form`. The 6,375
+statement link references resolve to 3,567 distinct revision-pinned official
+Wiki pages, including 191 redirects and no missing or unresolved pages. The
+parser now recognizes plural-link templates and decodes a source-authored URI
+escape before API resolution. These are discovery and identity facts only:
+3,121 action-shaped statements are candidates for deeper investigation, while
+canonical activity identities, semantic entity types, repeatability, mechanics,
+and optimizer eligibility remain zero. The complete activity universe and every
+absolute-best claim therefore remain blocked. Agility is still the first
+end-to-end certification track, but it no longer defines the knowledge boundary.
+
 The second cross-skill discovery channel now captures every revision-pinned
 official `Level up table`. All 24 pages are tied to the Skills revision-15321845
 domain and preserve all 3,870 top-level membership/level parameters, including

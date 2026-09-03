@@ -111,6 +111,9 @@ Run:
 
 ```text
 node platform/ingestion/ingest-wiki-skill-level-domains.mjs
+node platform/ingestion/ingest-wiki-skill-level-unlock-inventory.mjs
+node platform/ingestion/ingest-wiki-unlock-linked-page-identities.mjs
+node platform/transforms/build-unlock-statement-semantic-crosswalk.mjs
 node platform/ingestion/ingest-wiki-agility-training-guide-sections.mjs
 node platform/ingestion/ingest-wiki-agility-rooftop-guide-members.mjs
 node platform/ingestion/ingest-wiki-agility-brimhaven-guide-members.mjs

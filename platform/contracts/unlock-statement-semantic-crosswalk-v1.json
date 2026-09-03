@@ -1,0 +1,16 @@
+{
+  "contract": "sensum.unlock-statement-semantic-crosswalk.v1",
+  "required": ["statementKey", "skillKey", "availability", "sourceText", "sourceRole", "linkedPageIdentities", "canonicalActivityIdentity", "repeatableTrainingActivity", "optimizerEligible", "source", "blockers"],
+  "rules": {
+    "everyRawStatementMustBeRoutedExactlyOnce": true,
+    "everyObservedLeadingFormMustBeCoveredByTheVersionedPolicy": true,
+    "unresolvedSourceFormsRemainExplicit": true,
+    "linkedTargetsMustUseTheRevisionPinnedIdentityCrosswalk": true,
+    "sourceRoleIsNotCanonicalActivityIdentity": true,
+    "repeatabilityRequiresSeparateEvidence": true,
+    "mechanicsAndRatesRequireSeparateEvidence": true,
+    "optimizerEligibilityIsAlwaysFalseAtThisStage": true,
+    "currentAccountStateIsForbidden": true,
+    "automaticVerificationAllowed": false
+  }
+}

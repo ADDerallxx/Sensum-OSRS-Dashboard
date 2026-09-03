@@ -1,0 +1,16 @@
+{
+  "contract": "sensum.unlock-linked-page-identity.v1",
+  "required": ["targetKey", "requestedTitle", "referenceCount", "referencedBy", "resolutionAttempted", "resolutionState", "accountIndependent", "blockers"],
+  "rules": {
+    "everyDistinctExplicitLinkedTargetMustBeAssessedExactlyOnce": true,
+    "redirectsAndNormalizationRemainVisible": true,
+    "resolvedPagesRequireRevisionAndTimestamp": true,
+    "missingPagesRemainExplicit": true,
+    "pageResolutionDoesNotEstablishEntityType": true,
+    "pageResolutionDoesNotEstablishCanonicalActivityIdentity": true,
+    "pageResolutionDoesNotEstablishRepeatability": true,
+    "pageResolutionDoesNotEstablishMechanicsOrRates": true,
+    "currentAccountStateIsForbidden": true,
+    "automaticVerificationAllowed": false
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "contract": "sensum.unlock-linked-page-identity-audit.v1",
+  "required": ["inputStatementCoverage", "linkedTargetCoverage", "resolutionCoverage", "resolutionAttemptCoverageComplete", "semanticEntityTypeClassificationComplete", "canonicalActivityIdentityCount", "completeActivityUniverse", "absoluteBestGate", "blockers"],
+  "rules": {
+    "inputRawInventoryMustBeValidated": true,
+    "expectedAndAssessedTargetSetsMustMatchExactly": true,
+    "duplicateTargetAssessmentsBlockPublication": true,
+    "unresolvedPagesBlockCanonicalIdentityCoverageButRemainPublishableEvidence": true,
+    "pageIdentityAndSemanticEntityIdentityRemainSeparate": true,
+    "activityUniverseCompletenessCannotBeInferred": true,
+    "accountSpecificInputsAreForbidden": true
+  }
+}

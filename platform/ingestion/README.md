@@ -37,6 +37,8 @@ node platform/ingestion/ingest-wiki-agility-pyramid-variants.mjs
 node platform/ingestion/ingest-wiki-skill-level-domains.mjs
 node platform/ingestion/ingest-wiki-skill-training-guide-inventory.mjs
 node platform/ingestion/ingest-wiki-skill-level-unlock-inventory.mjs
+node platform/ingestion/ingest-wiki-unlock-linked-page-identities.mjs
+node platform/transforms/build-unlock-statement-semantic-crosswalk.mjs
 ```
 
 Each run writes newline-delimited records and a manifest containing the source,
@@ -90,6 +92,14 @@ record count, creation time, audit result, and SHA-256 content hash.
   leading verbs and links do not establish a canonical activity, repeatability,
   XP mechanics, or optimizer eligibility. Semantic classification and a broader
   independent universe closure remain separate fail-closed gates.
+- Cross-skill unlock semantic routing uses a versioned policy that must account
+  for every observed leading form exactly once. A role describes only the
+  statement's surface form; action-shaped statements remain discovery
+  candidates and cannot become canonical, repeatable, mechanically complete, or
+  optimizer-eligible from wording alone. Every explicit linked target is
+  resolved independently to revision-pinned Wiki page metadata with redirects
+  preserved. Page resolution does not establish entity type or activity
+  identity, and unresolved statement forms remain measurable blockers.
 - Training-guide section ingestion inventories every Wiki heading in source
   order. Every method-bearing subsection is retained with its parent, source
   lines, revision, and structural role. New heading depths or parents fail

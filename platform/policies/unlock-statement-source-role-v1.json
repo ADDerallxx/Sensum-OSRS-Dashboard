@@ -1,0 +1,35 @@
+{
+  "policy": "sensum.unlock-statement-source-role-policy.v1",
+  "purpose": "Route every level-up-table statement by its explicit surface form without inferring a canonical activity, repeatability, mechanics, or optimizer eligibility.",
+  "roles": {
+    "requirement_statement": ["Required", "Optional"],
+    "equipment_capability": ["Equip", "Wear", "Wield"],
+    "production_action_candidate": ["Add", "Attach", "Bake", "Bless", "Brew", "Build", "Burn", "Carve", "Churn", "Clean", "Convert", "Cook", "Craft", "Create", "Crush", "Cut", "Dissect", "Dye", "Fletch", "Forge", "Infuse", "Light", "Make", "Mix", "Prepare", "Reinvigorate", "Repair", "Replace", "Smelt", "Smith", "Spin", "Split", "String", "Upgrade"],
+    "resource_action_candidate": ["Catch", "Chop", "Dig", "Extract", "Grow", "Harvest", "Mine", "Pick"],
+    "combat_action_candidate": ["Hit", "Slay", "Subdue"],
+    "thieving_action_candidate": ["Crack", "Loot", "Pickpocket", "Steal"],
+    "world_interaction_candidate": ["Access", "Activate", "Aid", "Attempt", "Cast", "Change", "Chart", "Complete", "Cross", "Dock", "Encounter", "Enter", "Move", "Participate", "Play", "Sacrifice", "Sail", "Salvage", "Scale", "Set", "Take", "Track", "Unlock", "Use"],
+    "economic_or_acquisition_capability": ["Buy", "Hire", "Obtain", "Purchase", "Receive", "Store"],
+    "passive_effect_or_capacity": ["Ability", "Able", "Can", "Chances", "Deal", "Each", "Entrance", "Have", "Heal", "Immunity", "Increases", "Lay", "Maximum", "Players", "Possibility", "Regenerate", "Restore", "Stop"],
+    "descriptive_label": ["Adept", "Basic", "Expert", "Fancy", "Fremennik", "Master", "New", "Shortcut", "Tropical", "Whitewashed"],
+    "unresolved_source_form": ["<none>", "A"]
+  },
+  "activityCandidateRoles": [
+    "production_action_candidate",
+    "resource_action_candidate",
+    "combat_action_candidate",
+    "thieving_action_candidate",
+    "world_interaction_candidate"
+  ],
+  "rules": {
+    "everyObservedLeadingFormMustMapExactlyOnce": true,
+    "unresolvedFormsRemainExplicit": true,
+    "classificationDescribesOnlyTheSourceStatementSurfaceForm": true,
+    "roleClassificationCannotCreateACanonicalActivityIdentity": true,
+    "roleClassificationCannotProveRepeatability": true,
+    "roleClassificationCannotProveMechanicsOrRates": true,
+    "roleClassificationCannotMakeARecordOptimizerEligible": true,
+    "currentAccountStateIsForbidden": true,
+    "automaticVerificationAllowed": false
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "contract": "sensum.unlock-statement-semantic-crosswalk-audit.v1",
+  "required": ["inputStatementCoverage", "sourceRoleCoverage", "linkedPageCoverage", "canonicalActivityIdentityCount", "repeatabilityProvenCount", "optimizerEligibleActivityCount", "completeActivityUniverse", "absoluteBestGate", "blockers"],
+  "rules": {
+    "inputAndCrosswalkStatementSetsMustMatchExactly": true,
+    "sourceRolePolicyMustRouteEveryObservedLeadingForm": true,
+    "unresolvedFormsDoNotCountAsSemanticallyResolved": true,
+    "linkedPageCrosswalkMustMatchEveryStatementReference": true,
+    "surfaceRoleClassificationCannotPromoteActivities": true,
+    "completeActivityUniverseRequiresIndependentDiscovery": true,
+    "accountSpecificInputsAreForbidden": true
+  }
+}
