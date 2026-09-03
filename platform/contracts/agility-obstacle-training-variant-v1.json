@@ -7,13 +7,15 @@
     "entry_level",
     "xp_per_success",
     "failure_free_level",
-    "observed_xp_per_hour",
     "source_revision",
     "source_locator"
   ],
   "rules": {
     "tableRequirementAndTrainingClaimMustMatchOneObstacle": true,
     "tableEntryLevelMustRemainSeparateFromObservedRateLevel": true,
+    "exactOrUpperBoundObservedRateIsRequired": true,
+    "sourceUpperBoundsMustRemainNonExpectedEvidence": true,
+    "missingRoundTripTimingMustRemainExplicit": true,
     "missingOrAmbiguousObstacleMatchBlocksPublication": true,
     "automaticVerificationAllowed": false
   }

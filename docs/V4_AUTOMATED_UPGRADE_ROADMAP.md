@@ -111,3 +111,15 @@ guide does not identify which equipment state produced 36,000 XP/hour, and no
 source publishes the failure probability at base level 34. The audit therefore
 names those two unresolved conditions independently and cannot use the observed
 rate to validate or rank either equipment variant.
+
+The Edgeville Dungeon monkeybars model now distinguishes observations from
+mechanics and retains its cross-page disagreement without normalization.
+Monkeybars revision 15161382 states 20 XP per successful crossing, no failure,
+and an upper bound of 13,000 XP/hour from level 15, but does not publish the
+complete motionless round-trip cycle. Agility training revision 15324367 places
+an independent 13,200 XP/hour upper bound in its levels 15–40 section. Revision
+history contains no authoritative reconciliation between those values. Both
+claims are now non-expected upper-bound evidence with their own revision and
+scope; the audit names the missing round-trip ticks and the 13,000-versus-13,200
+conflict explicitly. Neither rate is selected, averaged, or reverse-engineered
+into game mechanics.

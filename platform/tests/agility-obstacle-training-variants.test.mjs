@@ -45,8 +45,9 @@ Be aware that the monkey bars are located in the Wilderness, and the player may 
 Players can set a "motionless" training method, requiring no camera rotation or mouse movement.`;
 const shortcutRows=parseAgilityObstacleTrainingVariants({title:'Monkeybars (Edgeville Dungeon)',content:shortcut,sourceRevision:'15161382',sourceTimestamp:'2026-03-30',sourceUrl:'https://example.test/edgeville'}),shortcutRow=shortcutRows[0];
 check(shortcutRows.length===1&&shortcutRow?.standalone_training_method===true,'A complete shortcut training source must emit a standalone candidate.');
-check(shortcutRow?.entry_level===15&&shortcutRow?.xp_per_success===20&&shortcutRow?.failure_free_level===15&&shortcutRow?.observed_xp_per_hour===13000,'Shortcut eligibility, action XP, failure behavior, and observed rate must remain source-bound.');
-check(shortcutRow?.risk_context?.includes('Wilderness')&&shortcutRow?.cycle_ticks===null,'Wilderness risk must be explicit and unstated cycle timing must remain null.');
+check(shortcutRow?.entry_level===15&&shortcutRow?.xp_per_success===20&&shortcutRow?.failure_free_level===15&&shortcutRow?.observed_xp_per_hour_upper===13000,'Shortcut eligibility, action XP, failure behavior, and the source upper bound must remain source-bound.');
+check(shortcutRow?.observed_rate_kind==='source_stated_upper_bound'&&shortcutRow?.observed_rate_is_expected===false&&shortcutRow?.observed_xp_per_hour_upper_scope?.minimum===15,'The page rate must not be represented as an exact or expected rate.');
+check(shortcutRow?.risk_context?.includes('Wilderness')&&shortcutRow?.cycle_ticks===null&&shortcutRow?.cycle_timing_blocker==='motionless_round_trip_cycle_ticks_not_published','Wilderness risk and the unpublished round-trip timing must remain explicit.');
 check(parseAgilityObstacleTrainingVariants({title:'Monkeybars (Edgeville Dungeon)',content:shortcut.replace('|level = 15','|level = 16'),sourceRevision:'1'}).length===0,'Conflicting narrative and template levels must fail closed.');
 if(failures.length){console.error(failures.join('\n'));process.exit(1)}
 console.log('Agility obstacle-training variant checks passed.');
