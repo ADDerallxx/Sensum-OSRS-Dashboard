@@ -25,6 +25,7 @@ node platform/ingestion/ingest-wiki-agility-condition-variants.mjs
 node platform/ingestion/ingest-wiki-agility-access-variants.mjs
 node platform/ingestion/ingest-wiki-hallowed-equipment-modifiers.mjs
 node platform/ingestion/ingest-wiki-agility-training-guide.mjs
+node platform/ingestion/ingest-wiki-agility-floor-spike-training-variants.mjs
 ```
 
 Each run writes newline-delimited records and a manifest containing the source,

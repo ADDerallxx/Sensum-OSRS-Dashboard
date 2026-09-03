@@ -60,6 +60,16 @@ Agility from the boosted effective level used for the level-100 pillar reward.
 The active-rate source does not specify a glove state, so the model does not
 silently assign one.
 
+Detached-camera floor-spike training is split into standard and Karamja-glove
+variants using the obstacle page, arena table, and training guide as three
+independently revision-pinned sources. Both variants retain the four-tick
+crossing and their 24/26.4 XP rewards, but levels 20–49 stay unmodeled because
+the Wiki has no success-rate chart. The guide's approximate 36,000 XP/hour has
+no stated level or glove condition, so it remains an unscoped claim and cannot
+validate either exact vector. Mechanical calculations may still be emitted for
+fully specified conditions, but a missing comparable observation continues to
+block review.
+
 A numeric zero entry level means the activity has no Agility access requirement;
 it is not missing data. Vector generation preserves that access fact separately
 from the minimum level actually covered by an observed rate. Certificate and

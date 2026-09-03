@@ -12,6 +12,8 @@ function vectorCoverage(vector,target){
   const entry=vector?.conditions?.entryLevel,modeled=vector?.conditions?.modeledMinimumLevel,missing=vector?.validation?.missing||[];
   if(!finite(entry))return {status:'eligibility_unknown',blockers:['entry_level_unknown']};
   if(Number(entry)>target)return {status:'outside_target',blockers:['entry_level_above_target']};
+  const uncovered=(vector?.conditions?.unmodeledLevelRanges||[]).filter(range=>finite(range?.minimum)&&finite(range?.maximum)&&Number(range.minimum)<=target&&Number(range.maximum)>=target);
+  if(uncovered.length)return {status:'target_condition_gap',blockers:[...new Set(uncovered.map(range=>range.blocker||'target_level_condition_model_missing'))]};
   if(!finite(modeled)||Number(modeled)>target)return {status:'target_condition_gap',blockers:['target_level_model_missing']};
   if(missing.includes('failure_model_with_level_condition'))return {status:'target_condition_gap',blockers:['failure_model_with_level_condition']};
   return {status:'condition_model_present',blockers:[]};

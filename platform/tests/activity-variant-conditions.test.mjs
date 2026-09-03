@@ -6,6 +6,8 @@ check(boosted.failure?.value?.minimum_level===75&&boosted.failure?.value?.level_
 check(boosted.conditionDetails.entryBoostable===false&&boosted.conditionDetails.boostPolicy==='maintain_effective_level','Entry and training boost policies must remain independent.');
 const compound=resolveVariantConditionModel({failure_free_condition:{all_of:[{skill:'Agility',minimum:80},{skill:'Strength',minimum:80},{carried_weight_kg:{maximum:2}}]}});
 check(compound.failure?.value?.probability===0&&compound.failure?.value?.minimum_level===80&&compound.failure?.value?.level_kind==='compound'&&compound.failure?.value?.all_of?.length===3,'Compound failure-free conditions must retain the Agility threshold and remain conjunctive.');
+const partial=resolveVariantConditionModel({failure_free_level:50,unmodeled_level_ranges:[{minimum:20,maximum:49,blocker:'failure_probability_by_level_missing'}]});
+check(partial.conditionDetails.unmodeledLevelRanges?.[0]?.maximum===49,'Explicit level ranges without a trustworthy condition model must survive vector generation.');
 check(isTrainableVariantRecord({variant_key:'method'})&&!isTrainableVariantRecord({record_kind:'composable_modifier'})&&!isTrainableVariantRecord({record_kind:'encounter_requirement'}),'Composable effects and encounter requirements must not become standalone methods.');
 const noAccessRequirement=resolveEntryAndModeledLevels({explicitEntryLevel:0,baseLevelMinimum:40});
 check(noAccessRequirement.entryLevel===0&&noAccessRequirement.modeledMinimumLevel===40,'A zero access requirement must remain known while a level-specific rate keeps its modeled minimum.');
