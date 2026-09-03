@@ -101,9 +101,15 @@ the official Wiki's `Module:Skilling success chart`; each fish's Agility reward
 and Fishing, Strength, and Agility unlocks remain independently sourced. A
 three-tick calculated rate is a mechanical upper bound, while the guide's rate
 includes practical handling time, so a lower observed rate is expected and an
-observed rate above the upper bound blocks review. The Wiki does not provide an
-exact AFK attempt cycle, so all AFK variants retain `cycle_ticks` as an explicit
-mechanical blocker instead of borrowing three-tick timing.
+observed rate above the upper bound blocks review. For AFK rows, both official
+tables retain their agreeing rate values and the guide's conditions remain
+machine readable: the benchmark is at an exact Fishing level, assumes no
+Angler outfit, includes fish-dropping time, and varies with drop speed. Neither
+source publishes the catch-attempt cycle including that handling time. Every
+AFK vector therefore uses
+`afk_catch_attempt_cycle_including_drop_time_not_published` as its explicit
+ranking blocker instead of borrowing three-tick timing or reverse-engineering a
+cycle from rounded XP/hour.
 
 A numeric zero entry level means the activity has no Agility access requirement;
 it is not missing data. Vector generation preserves that access fact separately

@@ -134,3 +134,14 @@ the touching run/walk boundary and overlapping walk/scramble ranges remain
 incomparable. The 1:45 “as fast as” observation still lacks a typical timing
 range and remains an explicit mechanical blocker. No interval entered scalar
 ranking and no peak observation was promoted.
+
+Barbarian Fishing's AFK variants now expose the exact limit of the official
+evidence instead of the generic `cycle_ticks` gap. Barbarian Training revision
+15292392 and Pay-to-play Fishing training revision 15329351 publish matching
+AFK rate rows; the guide states that the rates assume no Angler outfit, include
+dropping time, and vary with the player's drop speed. Each of the six AFK rows
+therefore retains its exact Fishing-level scope, rate conditions, both source
+locations, and the blocker
+`afk_catch_attempt_cycle_including_drop_time_not_published`. No three-tick
+timing was borrowed and no attempt cycle was reverse-engineered from rounded
+XP/hour. The exact three-tick variants remain separately reviewable.

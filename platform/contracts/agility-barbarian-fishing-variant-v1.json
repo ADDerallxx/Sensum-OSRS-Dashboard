@@ -20,6 +20,9 @@
     "fishUnlocksAndRewardsMustAgreeAcrossSources": true,
     "rateTablesMustAgreeAcrossSources": true,
     "afkDropThreeTickDropAndCutEatRemainSeparate": true,
+    "afkAttemptCycleMustNotBorrowThreeTickTiming": true,
+    "afkObservedRateRetainsFishingLevelAndDropSpeedScope": true,
+    "missingAfkAttemptCycleRemainsExplicitRankingBlocker": true,
     "cookingRateRequiresSourceBenchmarkCookingLevel": true,
     "catchProbabilitiesMustUsePinnedWikiModuleFormula": true,
     "automaticVerificationAllowed": false
