@@ -8,6 +8,8 @@ const compound=resolveVariantConditionModel({failure_free_condition:{all_of:[{sk
 check(compound.failure?.value?.probability===0&&compound.failure?.value?.minimum_level===80&&compound.failure?.value?.level_kind==='compound'&&compound.failure?.value?.all_of?.length===3,'Compound failure-free conditions must retain the Agility threshold and remain conjunctive.');
 const partial=resolveVariantConditionModel({failure_free_level:50,unmodeled_level_ranges:[{minimum:20,maximum:49,blocker:'failure_probability_by_level_missing'}]});
 check(partial.conditionDetails.unmodeledLevelRanges?.[0]?.maximum===49,'Explicit level ranges without a trustworthy condition model must survive vector generation.');
+const reusableSuccessModel={entryLevel:20,failureFreeLevel:50,formulaKind:'wiki_skilling_success_interpolation',parameterStatus:'not_published',parameters:null,blocker:'success_interpolation_low_high_parameters_not_published'},modeled=resolveVariantConditionModel({failure_free_level:50,success_probability_model:reusableSuccessModel});
+check(modeled.conditionDetails.successProbabilityModel===reusableSuccessModel,'Account-independent success models must survive vector normalization for query-time evaluation.');
 check(isTrainableVariantRecord({variant_key:'method'})&&!isTrainableVariantRecord({record_kind:'composable_modifier'})&&!isTrainableVariantRecord({record_kind:'encounter_requirement'}),'Composable effects and encounter requirements must not become standalone methods.');
 const noAccessRequirement=resolveEntryAndModeledLevels({explicitEntryLevel:0,baseLevelMinimum:40});
 check(noAccessRequirement.entryLevel===0&&noAccessRequirement.modeledMinimumLevel===40,'A zero access requirement must remain known while a level-specific rate keeps its modeled minimum.');

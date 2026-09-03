@@ -20,20 +20,22 @@ export function parseBrimhavenDetachedFloorSpikeVariants({obstaclePage,arenaPage
   const consistent=entryLevel===arenaLevel&&entryLevel===tableLevel&&entryLevel===guideLevelMinimum&&guideLevelMaximum>=guideLevelMinimum&&standardXp===tableStandardXp&&gloveXp===tableGloveXp&&Math.abs(gloveXp-standardXp*(1+gloveBonus/100))<1e-9&&Math.abs(tableXpPerTick-standardXp/cycleTicks)<1e-9&&failureFreeLevel>entryLevel;
   if(!consistent)return [];
 
-  const targetSuccessEvidence=successEvidence.find(row=>row.candidate_key==='guide:brimhaven:floor-spikes-detached')||null;
-  if(!targetSuccessEvidence)return [];
+  const probabilityEvidence=successEvidence.find(row=>row.candidate_key==='guide:brimhaven:floor-spikes-detached')||null;
+  if(!probabilityEvidence||probabilityEvidence.contract!=='sensum.agility-floor-spike-success-evidence.v2'||probabilityEvidence.account_independent!==true)return [];
   const sourceLocator={
     obstacle:{agilityInfo:excerpt(obstaclePage,info),failure:excerpt(obstaclePage,failure),lowAttention:excerpt(obstaclePage,lowAttention)},
     arena:{access:excerpt(arenaPage,access),requirement:excerpt(arenaPage,arenaRequirement),gloves:excerpt(arenaPage,gloves),tableRow:excerpt(arenaPage,table)},
     guide:{section:excerpt(guidePage,guideHeading),equipmentUnscopedRate:excerpt(guidePage,guideRate)},
-    successModel:targetSuccessEvidence.source_locator
+    successModel:probabilityEvidence.source_locator
   };
-  const supportingSourceRevisions=[String(arenaPage.sourceRevision||''),String(guidePage.sourceRevision||''),...(targetSuccessEvidence.supporting_source_revisions||[])].filter(Boolean);
+  const supportingSourceRevisions=[String(arenaPage.sourceRevision||''),String(guidePage.sourceRevision||''),...(probabilityEvidence.supporting_source_revisions||[])].filter(Boolean);
+  const probabilityModel=probabilityEvidence.success_probability_model,unmodeledBlocker=probabilityModel?.parameterStatus==='ready'?null:probabilityModel?.blocker||'success_probability_model_incomplete';
   const common={
-    contract:'sensum.agility-floor-spike-training-variant.v1',
+    contract:'sensum.agility-floor-spike-training-variant.v2',
     parent_name:'Brimhaven Agility Arena',
     record_kind:'repeatable_method',
     standalone_training_method:true,
+    account_independent:true,
     axis_coverage:['obstacle_training_method','low_intensity_strategy','equipment_modifier','failure_condition'],
     entry_level:entryLevel,
     entry_boostable:null,
@@ -42,11 +44,9 @@ export function parseBrimhavenDetachedFloorSpikeVariants({obstaclePage,arenaPage
     action_unit:'obstacle_crossing',
     cycle_ticks:cycleTicks,
     failure_free_level:failureFreeLevel,
-    unmodeled_level_ranges:targetSuccessEvidence.failure_probability_at_target===null?[{minimum:entryLevel,maximum:failureFreeLevel-1,blocker:targetSuccessEvidence.target_condition_blocker}]:[],
-    success_model_evidence:targetSuccessEvidence,
-    success_probability_target_base_agility:targetSuccessEvidence.target_base_agility,
-    success_probability_at_target:targetSuccessEvidence.success_probability_at_target,
-    failure_probability_at_target:targetSuccessEvidence.failure_probability_at_target,
+    unmodeled_level_ranges:unmodeledBlocker?[{minimum:entryLevel,maximum:failureFreeLevel-1,blocker:unmodeledBlocker}]:[],
+    success_model_evidence:probabilityEvidence,
+    success_probability_model:probabilityModel,
     observed_xp_per_hour_equipment_unscoped:equipmentUnscopedRate,
     observed_rate_scope:{agility_level:{minimum:guideLevelMinimum,maximum:guideLevelMaximum},equipment_state:null,approximate:true},
     source_warning:'observed_rate_equipment_state_unspecified',

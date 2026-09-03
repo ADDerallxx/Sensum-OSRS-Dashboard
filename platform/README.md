@@ -72,11 +72,14 @@ coverage, and performance/ranking breakpoints. It also detects a foreign query
 level embedded in reusable evidence. The first report identified 79 Al Kharid
 evaluations contaminated by a stored level-34 query. The V2 obstacle-evidence
 schema removed that query state, and the next report measured zero embedded-level
-blocker defects. A broader field scan still finds two target-scoped Brimhaven
-floor-spike evidence records; they remain explicit blockers for the next schema
-migration. The report is also intentionally blocked because the selected-section
-guide parser is not a complete Agility method universe, performance breakpoints
-are not audited, and every level still has at least one incomplete candidate.
+blocker defects. Brimhaven floor-spike success evidence and its standard/glove
+training variants now use account-independent V2 contracts as well: levels
+20–49 derive the unpublished-parameter blocker at query time, while levels 50–99
+use the source-stated no-failure threshold. The broader field scan now finds zero
+embedded account-query evidence records. The report remains intentionally blocked
+because the selected-section guide parser is not a complete Agility method
+universe, performance breakpoints are not audited, and every level still has at
+least one incomplete candidate.
 
 Run:
 

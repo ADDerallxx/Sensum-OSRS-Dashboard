@@ -1,3 +1,5 @@
+import {evaluateSkillingSuccessAtBaseLevel} from '../formulas/skilling-success-v1.mjs';
+
 const normalize=value=>String(value||'').toLowerCase().replace(/[^a-z0-9]+/g,' ').trim();
 const finite=value=>value!==null&&value!==undefined&&value!==''&&Number.isFinite(Number(value));
 
@@ -14,6 +16,12 @@ function derivedMultiObstacleBlockers(candidate,target){
   if(evidence.failure_scope?.recovery_route_and_time_published!==true)blockers.push('failure_recovery_route_and_time_penalty_not_published');
   blockers.push(...(evidence.source_conflicts||[]).map(conflict=>conflict.rule||'source_conflict'));
   return [...new Set(blockers)];
+}
+
+function derivedFloorSpikeEvaluation(candidate,target){
+  const evidence=candidate?.target_condition_evidence;
+  if(evidence?.contract!=='sensum.agility-floor-spike-success-evidence.v2'||evidence.account_independent!==true)return null;
+  return evaluateSkillingSuccessAtBaseLevel(evidence.success_probability_model,target);
 }
 
 export function vectorMatchesCandidate(candidate,vector){
@@ -82,10 +90,12 @@ function guideDetail(candidate,vectors,target){
   if(candidate.level_scope_ambiguous)return {...common,status:'eligibility_unknown',blockers:['guide_level_scope_ambiguous']};
   if(candidate.other_skill_requirement_unknown)return {...common,status:'eligibility_unknown',blockers:['other_skill_requirement_unknown']};
   if(!vectors.length)return {...common,status:'missing_model',blockers:['no_activity_vector']};
-  const coverages=vectors.map(vector=>vectorCoverage(vector,target));
+  const coverages=vectors.map(vector=>vectorCoverage(vector,target)),floorSpikeEvaluation=derivedFloorSpikeEvaluation(candidate,target);
   if(coverages.some(x=>x.status==='condition_model_present')){
     const applicable=vectors.filter((_,index)=>coverages[index].status==='condition_model_present'),blockers=mechanicalBlockers(applicable,candidate);
-    return blockers.length||readiness!=='ready_for_golden_review'?{...common,status:'mechanical_model_gap',blockers:blockers.length?blockers:['mechanical_model_incomplete']}:{...common,status:'condition_model_present',blockers:[]};
+    if(floorSpikeEvaluation?.blocker)return {...common,status:'target_condition_gap',blockers:[floorSpikeEvaluation.blocker],targetConditionEvidence:candidate.target_condition_evidence,targetConditionEvaluation:floorSpikeEvaluation,observedRateLevelScope:rateScope||null};
+    const result=blockers.length||readiness!=='ready_for_golden_review'?{...common,status:'mechanical_model_gap',blockers:blockers.length?blockers:['mechanical_model_incomplete']}:{...common,status:'condition_model_present',blockers:[]};
+    return floorSpikeEvaluation?{...result,targetConditionEvidence:candidate.target_condition_evidence,targetConditionEvaluation:floorSpikeEvaluation}:result;
   }
   const blockers=[...new Set(coverages.flatMap(x=>x.blockers).filter(x=>x!=='entry_level_above_target'))];
   if(candidate.observed_rate_kind==='source_stated_upper_bound'&&candidate.observed_rate_is_expected===false&&finite(upperScope?.minimum)&&finite(upperScope?.maximum)&&target>=Number(upperScope.minimum)&&target<=Number(upperScope.maximum)){
@@ -99,7 +109,11 @@ function guideDetail(candidate,vectors,target){
     blockers.splice(blockers.indexOf('failure_model_with_level_condition'),1,`failure_probability_at_base_level_${target}_not_published`);
   }
   const derivedTargetBlockers=derivedMultiObstacleBlockers(candidate,target),specificTargetBlockers=Array.isArray(candidate.target_condition_blockers)?candidate.target_condition_blockers.filter(Boolean):[];
-  if(derivedTargetBlockers.length){
+  if(floorSpikeEvaluation){
+    const genericFailure=blockers.indexOf(`failure_probability_at_base_level_${target}_not_published`);
+    if(genericFailure>=0)blockers.splice(genericFailure,1);
+    if(floorSpikeEvaluation.blocker)blockers.push(floorSpikeEvaluation.blocker);
+  }else if(derivedTargetBlockers.length){
     const genericFailure=blockers.indexOf(`failure_probability_at_base_level_${target}_not_published`);
     if(genericFailure>=0)blockers.splice(genericFailure,1);
     blockers.push(...derivedTargetBlockers);
@@ -115,7 +129,7 @@ function guideDetail(candidate,vectors,target){
   if(finite(rateScope?.minimum)&&finite(rateScope?.maximum)&&(target<Number(rateScope.minimum)||target>Number(rateScope.maximum))){
     blockers.push(`observed_rate_scope_${Number(rateScope.minimum)}_to_${Number(rateScope.maximum)}_does_not_cover_base_level_${target}`);
   }
-  return {...common,status:'target_condition_gap',blockers:[...new Set(blockers)],targetConditionEvidence:candidate.target_condition_evidence||null,observedRateLevelScope:rateScope||null};
+  return {...common,status:'target_condition_gap',blockers:[...new Set(blockers)],targetConditionEvidence:candidate.target_condition_evidence||null,targetConditionEvaluation:floorSpikeEvaluation,observedRateLevelScope:rateScope||null};
 }
 
 function vectorGroupDetail(vectors,target){

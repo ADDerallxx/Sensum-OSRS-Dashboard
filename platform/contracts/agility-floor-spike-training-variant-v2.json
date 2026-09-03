@@ -1,15 +1,15 @@
 {
-  "contract": "sensum.agility-floor-spike-training-variant.v1",
-  "status": "superseded",
-  "supersededBy": "sensum.agility-floor-spike-training-variant.v2",
+  "contract": "sensum.agility-floor-spike-training-variant.v2",
   "required": [
     "parent_name",
     "variant_key",
     "name",
+    "account_independent",
     "entry_level",
     "xp_per_success",
     "cycle_ticks",
     "failure_free_level",
+    "success_probability_model",
     "unmodeled_level_ranges",
     "observed_xp_per_hour_equipment_unscoped",
     "observed_rate_scope",
@@ -19,8 +19,9 @@
   ],
   "rules": {
     "standardAndKaramjaGloveVariantsRemainSeparate": true,
+    "accountQueryLevelMustNotBeStoredInVariant": true,
     "failureProbabilityBelowFailureFreeLevelMustNotBeInferred": true,
-    "genericFormulaWithoutObstacleParametersRetainsExactBlocker": true,
+    "genericFormulaWithoutObstacleParametersRetainsExactBlockedRange": true,
     "sectionScopedEquipmentUnresolvedRateMustNotValidateExactVariant": true,
     "threeSourceMechanicalClaimsMustAgree": true,
     "automaticVerificationAllowed": false

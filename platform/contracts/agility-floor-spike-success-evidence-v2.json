@@ -1,0 +1,24 @@
+{
+  "contract": "sensum.agility-floor-spike-success-evidence.v2",
+  "required": [
+    "candidate_key",
+    "account_independent",
+    "entry_level",
+    "failure_free_level",
+    "success_probability_model",
+    "source_revision",
+    "supporting_source_revisions",
+    "source_locator"
+  ],
+  "rules": {
+    "accountQueryLevelMustNotBeStoredInEvidence": true,
+    "genericFormulaWithoutObstacleParametersCannotProduceProbability": true,
+    "needsSkillingSuccessChartIsAnExplicitParameterGap": true,
+    "probabilityBelowFailureFreeLevelRequiresRevisionPinnedLowAndHighInputs": true,
+    "explicitFailureFreeThresholdMayEstablishZeroFailureAtOrAboveThreshold": true,
+    "chartRequirementMustMatchObstacleEntryRequirement": true,
+    "chartAndNeedsChartMarkerConflictMustBlock": true,
+    "probabilityIsCalculatedOnlyAtEvaluationTime": true,
+    "automaticVerificationAllowed": false
+  }
+}

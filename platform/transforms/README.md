@@ -88,9 +88,12 @@ Detached-camera floor-spike training is split into standard and Karamja-glove
 variants using the obstacle page, arena table, and training guide as three
 independently revision-pinned sources. Both variants retain the four-tick
 crossing and their 24/26.4 XP rewards, but levels 20–49 stay unmodeled because
-the obstacle page has no success-rate chart. The generic success interpolation
-formula is separately pinned, but cannot produce a probability without the
-obstacle's unpublished low/high inputs. The guide's approximate 36,000 XP/hour
+the obstacle-specific interpolation inputs are unpublished. The V2 variants
+carry the reusable success model without a target level or “at target” result;
+coverage evaluates that model for each requested base level. At level 50 and
+above the direct source threshold resolves failure to zero without inventing
+lower-level probabilities.
+The guide's approximate 36,000 XP/hour
 is scoped to levels 20–47 but has no stated glove condition, so it cannot
 validate either equipment variant. Mechanical calculations may still be emitted
 for fully specified conditions, but missing parameters or a comparable

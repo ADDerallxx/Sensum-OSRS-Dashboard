@@ -42,6 +42,18 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+Brimhaven floor-spike evidence is now account-independent under V2 success and
+training-variant contracts. Floor-spike revision 15329694 still establishes
+level-20 entry and the level-50 no-failure threshold; module revision 15325744
+still supplies only the generic rounded interpolation formula, while the
+obstacle-specific low/high inputs remain unpublished. Neither the two guide
+records nor the two standard/Karamja-glove variants now store a target level or
+an “at target” probability. The evaluator derives the exact missing-parameter
+blocker for queries from levels 20–49, and derives zero failure directly from
+the published threshold at levels 50–99. The whole-skill audit still evaluates
+all 99 Agility levels, but its embedded account-query evidence count fell from
+two to zero. No probability, expected rate, or candidate coverage was invented.
+
 Al Kharid's composite failure evidence is now account-independent under a V2
 schema. Course revision 15319534 and obstacle revisions 14658399 and 14687253
 still establish the two failing obstacles, their requirements and successful XP,
@@ -50,11 +62,10 @@ The schema no longer stores `target_base_agility`, null “at target” probabil
 or level-numbered ingestion blockers. Coverage derives those blockers at query
 time: the pilot still names both missing level-34 probabilities, while a level-70
 query names both missing level-70 probabilities. The 1–99 audit's embedded-query
-blocker defects fell from 79 to 0. The strengthened field scan separately finds
-two Brimhaven floor-spike records that still store a level-34 target; they remain
-the next account-independence blocker. The broader skill-wide gate remains
-blocked, and no probability, expected rate, or additional candidate coverage was
-invented.
+blocker defects fell from 79 to 0. The subsequent Brimhaven V2 migration removed
+the final two embedded account-query evidence records. The broader skill-wide
+gate remains blocked, and no probability, expected rate, or additional candidate
+coverage was invented.
 
 Whole-skill progression coverage is now an explicit gate rather than an implied
 future expansion of the level-34 pilot. Skills revision 15321845 declares 24

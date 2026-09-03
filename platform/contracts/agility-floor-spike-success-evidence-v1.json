@@ -1,5 +1,7 @@
 {
   "contract": "sensum.agility-floor-spike-success-evidence.v1",
+  "status": "superseded",
+  "supersededBy": "sensum.agility-floor-spike-success-evidence.v2",
   "required": ["candidate_key", "entry_level", "target_base_agility", "failure_free_level", "success_formula_published", "success_formula_parameters_published", "target_condition_kind", "source_revision", "supporting_source_revisions", "source_locator"],
   "rules": {
     "genericFormulaWithoutObstacleParametersCannotProduceProbability": true,
