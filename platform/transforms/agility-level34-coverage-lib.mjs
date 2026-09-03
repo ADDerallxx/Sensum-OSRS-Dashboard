@@ -12,6 +12,7 @@ function vectorCoverage(vector,target){
   const entry=vector?.conditions?.entryLevel,modeled=vector?.conditions?.modeledMinimumLevel,missing=vector?.validation?.missing||[];
   if(!finite(entry))return {status:'eligibility_unknown',blockers:['entry_level_unknown']};
   if(Number(entry)>target)return {status:'outside_target',blockers:['entry_level_above_target']};
+  if(finite(vector?.conditions?.baseLevelMaximum)&&target>Number(vector.conditions.baseLevelMaximum))return {status:'outside_target',blockers:['base_level_above_variant_scope']};
   const uncovered=(vector?.conditions?.unmodeledLevelRanges||[]).filter(range=>finite(range?.minimum)&&finite(range?.maximum)&&Number(range.minimum)<=target&&Number(range.maximum)>=target);
   if(uncovered.length)return {status:'target_condition_gap',blockers:[...new Set(uncovered.map(range=>range.blocker||'target_level_condition_model_missing'))]};
   if(!finite(modeled)||Number(modeled)>target)return {status:'target_condition_gap',blockers:['target_level_model_missing']};
@@ -24,7 +25,7 @@ function vectorCoverage(vector,target){
 }
 
 function mechanicalReadiness(vectors,target){
-  const applicable=vectors.filter(vector=>finite(vector?.conditions?.entryLevel)&&Number(vector.conditions.entryLevel)<=target&&finite(vector?.conditions?.modeledMinimumLevel)&&Number(vector.conditions.modeledMinimumLevel)<=target);
+  const applicable=vectors.filter(vector=>finite(vector?.conditions?.entryLevel)&&Number(vector.conditions.entryLevel)<=target&&finite(vector?.conditions?.modeledMinimumLevel)&&Number(vector.conditions.modeledMinimumLevel)<=target&&(!finite(vector?.conditions?.baseLevelMaximum)||target<=Number(vector.conditions.baseLevelMaximum)));
   if(!applicable.length)return 'not_applicable_at_target';
   if(applicable.some(vector=>vector.state==='proposed'&&!(vector.validation?.missing||[]).length&&!(vector.validation?.contradictions||[]).length))return 'ready_for_golden_review';
   return 'mechanics_incomplete';
@@ -53,7 +54,7 @@ function guideDetail(candidate,vectors,target){
   if(!vectors.length)return {...common,status:'missing_model',blockers:['no_activity_vector']};
   const coverages=vectors.map(vector=>vectorCoverage(vector,target));
   if(coverages.some(x=>x.status==='condition_model_present')){
-    const blockers=mechanicalBlockers(vectors,candidate);
+    const applicable=vectors.filter((_,index)=>coverages[index].status==='condition_model_present'),blockers=mechanicalBlockers(applicable,candidate);
     return blockers.length||readiness!=='ready_for_golden_review'?{...common,status:'mechanical_model_gap',blockers:blockers.length?blockers:['mechanical_model_incomplete']}:{...common,status:'condition_model_present',blockers:[]};
   }
   const blockers=[...new Set(coverages.flatMap(x=>x.blockers).filter(x=>x!=='entry_level_above_target'))];

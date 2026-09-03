@@ -138,3 +138,11 @@ midpoint is invented. These vectors may proceed to manual source review, while
 recommendation certificates list them as `range_ranking_policy_missing` and
 exclude them from scalar ranking. The optimal 1:45 route remains blocked as a
 peak-only observation rather than being treated as typical performance.
+
+Agility Pyramid levels 30–50 use the training guide's revision-pinned,
+approximate 25,000 XP/hour and 13-completion/hour observation. The source says
+exact lower-level failure rates are unknown, so this is an observational
+benchmark with failures and repeated-obstacle XP already integrated—not a
+calculated success model. The level-scaled completion bonus remains a separate
+candidate formula, and target coverage ignores the incomplete level-75 sibling
+vector when a condition-correct level-34 variant is available.

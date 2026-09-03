@@ -1,4 +1,4 @@
-import {finiteConditionLevel,isTrainableVariantRecord,resolveEntryAndModeledLevels,resolveVariantConditionModel} from '../transforms/activity-variant-condition-lib.mjs';
+import {finiteConditionLevel,isReviewableObservedBenchmark,isTrainableVariantRecord,resolveEntryAndModeledLevels,resolveVariantConditionModel} from '../transforms/activity-variant-condition-lib.mjs';
 const failures=[],check=(ok,message)=>{if(!ok)failures.push(message)};
 const boosted=resolveVariantConditionModel({entry_boostable:false,base_agility_level_minimum:70,effective_agility_level_minimum:75,failure_free_effective_agility_level:75,boost_policy:'maintain_effective_level',equipment_requirement:{mode:'one_of'}});
 check(boosted.baseLevelMinimum===70&&boosted.effectiveLevelMinimum===75,'Base and effective Agility levels must remain separate.');
@@ -19,6 +19,10 @@ check(qualitative.conditionDetails.failureEvidence?.source_revision==='9','The s
 const scoped=resolveVariantConditionModel({entry_boostable:true,boost_policy:'entry_threshold_may_be_boosted',boost_source_unspecified_by_page:true,quest_progress_requirements:[{quest:'Cold War',state:'partial_completion'}],observed_xp_per_hour_level_scope:{agility_level_band:'lower_levels_unspecified'},observed_rate_level_scope_unresolved:true});
 check(scoped.conditionDetails.boostSourceUnspecifiedByPage===true&&scoped.conditionDetails.questProgressRequirements?.[0]?.state==='partial_completion','Boost-source uncertainty and partial quest progress must survive condition resolution.');
 check(scoped.conditionDetails.observedRateLevelScope?.agility_level_band==='lower_levels_unspecified'&&scoped.conditionDetails.observedRateLevelScopeUnresolved===true,'Unscoped observed-rate evidence must survive condition resolution as a blocker.');
+const benchmark={observational_benchmark_only:true,outcome_integrated_in_observed_rate:true,observed_xp_per_hour:25000,observed_xp_per_hour_level_scope:{minimum:30,maximum:50},observed_rate_source_revision:'2',observed_rate_source_locator:{line:2},source_revision:'1',source_locator:{line:1}};
+check(isReviewableObservedBenchmark(benchmark)&&!isReviewableObservedBenchmark({...benchmark,observed_xp_per_hour_level_scope:null})&&!isReviewableObservedBenchmark({...benchmark,outcome_integrated_in_observed_rate:false}),'Only revision-located, level-scoped, outcome-integrated observations may bypass unavailable mechanical inputs.');
+const benchmarkConditions=resolveVariantConditionModel({...benchmark,base_agility_level_maximum:50,outcome_model:'observed_hourly_benchmark'});
+check(benchmarkConditions.conditionDetails.baseLevelMaximum===50&&benchmarkConditions.conditionDetails.observationalBenchmarkOnly===true&&benchmarkConditions.conditionDetails.outcomeIntegratedInObservedRate===true,'Observed benchmark scope and outcome integration must survive condition resolution.');
 const unknown=resolveEntryAndModeledLevels({explicitEntryLevel:null,inferredEntryLevels:[null,undefined]});
 check(unknown.entryLevel===null&&unknown.modeledMinimumLevel===null&&finiteConditionLevel(null)===null,'Missing levels must not be coerced to zero.');
 if(failures.length){console.error(failures.join('\n'));process.exit(1)}console.log('Activity variant condition checks passed.');

@@ -74,3 +74,12 @@ probability and an observed-rate band that actually identifies level 34. The
 Agility overview at revision 15326985 says full Cold War completion is required,
 contradicting the course page's partial-completion claim. Both revisions remain
 attached and the unresolved access conflict is a third explicit blocker.
+
+The Agility Pyramid now has a level-30–50 observed benchmark sourced from
+Agility training revision 15324367: roughly 13 completions and 25,000 XP/hour.
+Course revision 15267215 separately supplies the level-30 entry, obstacle XP,
+base-level completion-bonus formula, and explicit warning that exact lower-level
+failure rates are unknown. Sensum therefore keeps 25,000 as an approximate,
+failure-inclusive observation rather than manufacturing a level-34 failure
+curve or multiplying completions by successful-lap XP. This closes the Pyramid
+target-condition gap while leaving its vector subject to manual golden review.
