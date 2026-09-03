@@ -1,0 +1,15 @@
+{
+  "contract": "sensum.unlock-linked-page-source-signature.v1",
+  "required": ["targetKey", "requestedTitle", "resolvedTitle", "identitySourceRevision", "sourceRevision", "sourceTimestamp", "sourceUrl", "sourceContentHash", "rootTemplates", "directCategories", "accountIndependent", "blockers"],
+  "rules": {
+    "everyLinkedPageIdentityMustBeFetchedExactlyOnce": true,
+    "everyFetchedPageMustRetainRevisionTimestampUrlAndContentHash": true,
+    "rootTemplatesAndDirectCategoriesAreDiscoverySignalsOnly": true,
+    "sourceAndIdentityRevisionDriftRemainsExplicit": true,
+    "sourceContentNeedNotBeRepublishedWhenRevisionAndHashAreRetained": true,
+    "signaturesCannotEstablishCanonicalEntityIdentity": true,
+    "signaturesCannotEstablishRepeatabilityOrMechanics": true,
+    "currentAccountStateIsForbidden": true,
+    "automaticVerificationAllowed": false
+  }
+}

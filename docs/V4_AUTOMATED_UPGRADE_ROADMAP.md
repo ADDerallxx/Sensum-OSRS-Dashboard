@@ -43,6 +43,18 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+The complete cross-skill linked-page set now has revision-pinned source
+signatures and a deterministic, fail-closed page-type routing layer. All 3,567
+resolved pages were fetched at the same revisions retained by the identity
+snapshot, covering 18,420,515 source bytes with zero revision drift. A
+versioned policy maps 23 exact root-template signals to 22 page types: 3,357
+pages have at least one explicit type, 807 legitimately have multiple types,
+and 210 unmatched pages remain visibly untyped. Thirty pages are merely
+activity-page candidates. No page type creates a canonical entity or activity,
+proves repeatability or mechanics, or becomes optimizer eligible. The complete
+activity universe and absolute-best claims therefore remain blocked while the
+untyped pages and cross-source activity identities are reconciled.
+
 Cross-skill unlock discovery now has a deterministic semantic-routing and Wiki
 page-identity layer across the complete level-domain inventory, not an
 Agility-only or current-account slice. The refreshed 24 level-up-table pages

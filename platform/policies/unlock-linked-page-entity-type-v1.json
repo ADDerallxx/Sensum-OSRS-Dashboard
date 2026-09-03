@@ -1,0 +1,39 @@
+{
+  "policy": "sensum.unlock-linked-page-entity-type-policy.v1",
+  "evidenceScope": "exact_root_template_on_revision_pinned_page_source",
+  "types": {
+    "item_page": ["Infobox Item"],
+    "equipment_page": ["Infobox Bonuses"],
+    "construction_object_page": ["Infobox Construction"],
+    "scenery_object_page": ["Infobox Scenery"],
+    "spell_page": ["Infobox Spell"],
+    "quest_page": ["Infobox Quest"],
+    "location_page": ["Infobox Location"],
+    "npc_page": ["Infobox NPC"],
+    "monster_page": ["Infobox Monster"],
+    "ship_part_page": ["Infobox Ship Part"],
+    "achievement_diary_page": ["Infobox Achievement Diary"],
+    "prayer_page": ["Infobox Prayer"],
+    "activity_page": ["Infobox Activity"],
+    "player_owned_house_room_page": ["Infobox Room"],
+    "miniquest_page": ["Infobox Miniquest"],
+    "equipment_set_page": ["Infobox Set"],
+    "skill_page": ["Infobox Skill"],
+    "weapon_group_page": ["Infobox Weapon Group", "Infobox Ranged Weapon Group"],
+    "armour_group_page": ["Infobox Armour Group"],
+    "shop_page": ["Infobox Shop"],
+    "minigame_page": ["Infobox Minigame"],
+    "currency_page": ["Infobox Currency"]
+  },
+  "activityCandidateTypes": ["activity_page", "minigame_page"],
+  "rules": {
+    "onlyExactRootTemplateMatchesCanClassifyPageType": true,
+    "multipleExplicitTypesRemainMultiple": true,
+    "unmatchedPagesRemainUntyped": true,
+    "pageTypeDoesNotEstablishCanonicalEntityOrVariantIdentity": true,
+    "activityPageTypeDoesNotProveRepeatability": true,
+    "pageTypeDoesNotProveXpTimingRequirementsOrMechanics": true,
+    "currentAccountStateIsForbidden": true,
+    "automaticVerificationAllowed": false
+  }
+}

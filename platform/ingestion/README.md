@@ -38,7 +38,9 @@ node platform/ingestion/ingest-wiki-skill-level-domains.mjs
 node platform/ingestion/ingest-wiki-skill-training-guide-inventory.mjs
 node platform/ingestion/ingest-wiki-skill-level-unlock-inventory.mjs
 node platform/ingestion/ingest-wiki-unlock-linked-page-identities.mjs
+node platform/ingestion/ingest-wiki-unlock-linked-page-source-signatures.mjs
 node platform/transforms/build-unlock-statement-semantic-crosswalk.mjs
+node platform/transforms/build-unlock-linked-page-entity-types.mjs
 ```
 
 Each run writes newline-delimited records and a manifest containing the source,
@@ -100,6 +102,13 @@ record count, creation time, audit result, and SHA-256 content hash.
   resolved independently to revision-pinned Wiki page metadata with redirects
   preserved. Page resolution does not establish entity type or activity
   identity, and unresolved statement forms remain measurable blockers.
+- Linked-page source-signature ingestion retrieves the complete current source
+  for every revision-pinned resolved page, verifies that the retrieved revision
+  still matches the identity snapshot, and records content hashes plus exact
+  root-template and direct-category locators. Source structure is discovery
+  evidence only: it cannot establish a canonical entity, activity,
+  repeatability, mechanics, or optimizer eligibility. Revision drift remains a
+  visible alignment blocker rather than being silently accepted.
 - Training-guide section ingestion inventories every Wiki heading in source
   order. Every method-bearing subsection is retained with its parent, source
   lines, revision, and structural role. New heading depths or parents fail

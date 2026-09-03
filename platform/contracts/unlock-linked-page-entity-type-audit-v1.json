@@ -1,0 +1,13 @@
+{
+  "contract": "sensum.unlock-linked-page-entity-type-audit.v1",
+  "required": ["inputSignatureCoverage", "policyCoverage", "entityTypeCoverage", "pageTypeRoutingComplete", "entityTypeClassificationComplete", "canonicalEntityIdentityCount", "repeatabilityProvenCount", "optimizerEligibleActivityCount", "completeActivityUniverse", "absoluteBestGate", "blockers"],
+  "rules": {
+    "inputAndClassificationTargetSetsMustMatchExactly": true,
+    "policyTemplateSignalsMustBeUnique": true,
+    "classifiedTypesMustMatchExactSourceEvidence": true,
+    "untypedPagesBlockCompleteEntityTypeCoverage": true,
+    "pageTypeCoverageCannotProveCanonicalOrRepeatableActivityIdentity": true,
+    "completeActivityUniverseRequiresIndependentDiscovery": true,
+    "accountSpecificInputsAreForbidden": true
+  }
+}

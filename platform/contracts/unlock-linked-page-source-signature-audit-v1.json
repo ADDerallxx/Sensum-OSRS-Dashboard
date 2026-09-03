@@ -1,0 +1,12 @@
+{
+  "contract": "sensum.unlock-linked-page-source-signature-audit.v1",
+  "required": ["inputIdentityCoverage", "signatureCoverage", "templateCoverage", "sourceSignatureCoverageComplete", "identityRevisionAlignmentComplete", "entityTypeClassificationComplete", "repeatabilityProvenCount", "completeActivityUniverse", "blockers"],
+  "rules": {
+    "inputAndSignatureTargetSetsMustMatchExactly": true,
+    "missingApiResponsesOrSourceProvenanceBlockPublication": true,
+    "revisionDriftIsReportedSeparatelyFromFetchCompleteness": true,
+    "templateAndCategoryCountsCannotProveEntityType": true,
+    "sourceSignatureCompletenessCannotProveActivityUniverseCompleteness": true,
+    "accountSpecificInputsAreForbidden": true
+  }
+}
