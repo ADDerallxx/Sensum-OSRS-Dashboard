@@ -1,4 +1,4 @@
-import {enrichAgilityCandidateConditions,enrichAgilityCandidateEligibility,parseAgilityTrainingGuideCandidates,parseAlKharidTargetConditionEvidence,parseBarbarianFishingEligibility,parseBrimhavenFloorSpikeEligibility} from '../ingestion/agility-training-guide-lib.mjs';
+import {enrichAgilityCandidateConditions,enrichAgilityCandidateEligibility,parseAgilityTrainingGuideCandidates,parseBarbarianFishingEligibility,parseBrimhavenFloorSpikeEligibility,parseRooftopTargetConditionEvidence} from '../ingestion/agility-training-guide-lib.mjs';
 const source=`===Levels 1–26/33: Questing===
 Completing [[The Tourist Trap]], [[Recruitment Drive]], [[The Depths of Despair]], and [[The Grand Tree]] will grant a total of 19,700 experience.
 ===Levels 20–47: Brimhaven Agility Arena===
@@ -31,11 +31,15 @@ Though it is possible to reach dispensers without any [[Agility]] levels, level 
 const alKharidSource=`The '''Al Kharid Rooftop Course''' is a [[Rooftop Agility Course]] located in [[Al Kharid]] that is available to players with an [[Agility]] level of 20 or higher.
 It is possible to fail the ''Cross Tightrope 1'' and ''Teeth-grip Zip Line'' obstacles during the course, taking 1-5 damage each time.
 A player can complete this course in 64.2 seconds (107 ticks).`;
+const varrockSource=`The '''Varrock Rooftop Course''' is a [[Rooftop Agility Course]] located in [[Varrock]] that is available to players with an [[Agility]] level of 30 or higher.
+It is possible to fail during Cross Clothes Line and Balance Wall and get inflicted with 3–8 and 2–5 damage respectively.
+The course takes approximately 1 minute and 10 seconds.`;
 const parsed=parseAgilityTrainingGuideCandidates({title:'Agility training',content:source,sourceRevision:'15324367',sourceTimestamp:'2026-08-29',sourceUrl:'https://example.test'});
 const eligibility=parseBarbarianFishingEligibility({title:'Barbarian Training',content:barbarianSource,sourceRevision:'15292392',sourceTimestamp:'2026-08-11',sourceUrl:'https://example.test/barbarian'});
 const brimhavenEligibility=parseBrimhavenFloorSpikeEligibility({title:'Brimhaven Agility Arena',content:brimhavenSource,sourceRevision:'15293118',sourceTimestamp:'2026-08-11',sourceUrl:'https://example.test/brimhaven'});
-const alKharidCondition=parseAlKharidTargetConditionEvidence({title:'Al Kharid Rooftop Course',content:alKharidSource,sourceRevision:'15319534',sourceTimestamp:'2026-08-25',sourceUrl:'https://example.test/al-kharid'});
-const rows=enrichAgilityCandidateConditions(enrichAgilityCandidateEligibility(parsed,[...eligibility,...brimhavenEligibility]),alKharidCondition),failures=[],check=(ok,message)=>{if(!ok)failures.push(message)},get=key=>rows.find(x=>x.candidate_key===key);
+const alKharidCondition=parseRooftopTargetConditionEvidence({title:'Al Kharid Rooftop Course',content:alKharidSource,sourceRevision:'15319534',sourceTimestamp:'2026-08-25',sourceUrl:'https://example.test/al-kharid'});
+const varrockCondition=parseRooftopTargetConditionEvidence({title:'Varrock Rooftop Course',content:varrockSource,sourceRevision:'15319528',sourceTimestamp:'2026-08-25',sourceUrl:'https://example.test/varrock'});
+const rows=enrichAgilityCandidateConditions(enrichAgilityCandidateEligibility(parsed,[...eligibility,...brimhavenEligibility]),[...alKharidCondition,...varrockCondition]),failures=[],check=(ok,message)=>{if(!ok)failures.push(message)},get=key=>rows.find(x=>x.candidate_key===key);
 check(rows.length===9,'The level-34 guide universe must emit nine source-backed candidates.');
 check(get('guide:questing:early-agility')?.record_kind==='one_time_progression'&&get('guide:questing:early-agility').quests.length===4,'Quest progression must not become a repeatable method.');
 check(get('guide:brimhaven:floor-spikes-active')?.minimum_agility===20&&get('guide:brimhaven:floor-spikes-active').boosted_minimum_base_agility===15,'Brimhaven base and boosted entry levels must remain separate.');
@@ -44,8 +48,11 @@ check(get('guide:brimhaven:floor-spikes-detached')?.eligibility_scope==='floor_s
 check(get('guide:brimhaven:floor-spikes-detached')?.supporting_source_revisions?.includes('15293118'),'The detached-camera eligibility join must retain the Brimhaven source revision.');
 check(get('guide:rooftop:varrock')?.observed_xp_per_hour_range?.maximum===14000,'Rooftop guide ranges must remain ranges.');
 check(get('guide:rooftop:al-kharid')?.observed_xp_per_hour_level_scope?.minimum===20&&get('guide:rooftop:al-kharid')?.observed_xp_per_hour_level_scope?.maximum===30,'The Al Kharid guide rate must retain its source level band.');
-check(get('guide:rooftop:al-kharid')?.failure_possible===true&&get('guide:rooftop:al-kharid')?.target_condition_evidence?.failing_obstacles?.length===2,'The Al Kharid candidate must retain the source-stated failing obstacles without inventing a probability.');
-check(get('guide:rooftop:al-kharid')?.target_condition_evidence?.failure_damage?.minimum===1&&get('guide:rooftop:al-kharid')?.supporting_source_revisions?.includes('15319534'),'Al Kharid condition evidence must retain its damage range and source revision.');
+check(get('guide:rooftop:al-kharid')?.failure_possible===true&&get('guide:rooftop:al-kharid')?.target_condition_evidence?.failure_outcomes?.length===2,'The Al Kharid candidate must retain the source-stated failing obstacles without inventing a probability.');
+check(get('guide:rooftop:al-kharid')?.target_condition_evidence?.failure_outcomes?.[0]?.damage?.minimum===1&&get('guide:rooftop:al-kharid')?.supporting_source_revisions?.includes('15319534'),'Al Kharid condition evidence must retain its damage range and source revision.');
+check(get('guide:rooftop:varrock')?.observed_xp_per_hour_level_scope?.minimum===30&&get('guide:rooftop:varrock')?.observed_xp_per_hour_level_scope?.maximum===40,'The Varrock guide rate must retain its source level band.');
+check(get('guide:rooftop:varrock')?.target_condition_evidence?.failure_outcomes?.[0]?.damage?.maximum===8&&get('guide:rooftop:varrock')?.target_condition_evidence?.failure_outcomes?.[1]?.damage?.maximum===5,'Varrock must preserve each obstacle-specific damage range independently.');
+check(get('guide:rooftop:varrock')?.supporting_source_revisions?.includes('15319528'),'Varrock condition evidence must retain its source revision.');
 check(get('guide:barbarian-fishing')?.guide_example_fishing_range?.minimum===58&&get('guide:barbarian-fishing').other_skill_requirement_unknown===false&&get('guide:barbarian-fishing').agility_rate_missing===true,'A revision-pinned supporting page must resolve hybrid eligibility without pretending the guide example is a requirement.');
 check(get('guide:barbarian-fishing')?.skill_requirements?.Fishing===48&&get('guide:barbarian-fishing').skill_requirements?.Agility===15&&get('guide:barbarian-fishing').skill_requirements?.Strength===15,'Barbarian Fishing must retain all source-stated heavy-rod skill requirements.');
 check(get('guide:barbarian-fishing')?.supporting_source_revisions?.includes('15292392')&&get('guide:barbarian-fishing').supporting_eligibility_evidence?.source_locator?.evidence?.length,'Cross-page eligibility must retain its supporting revision and locator.');

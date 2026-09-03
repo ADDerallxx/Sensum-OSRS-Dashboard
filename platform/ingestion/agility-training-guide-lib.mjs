@@ -49,20 +49,27 @@ export function parseBrimhavenFloorSpikeEligibility({title,content,sourceRevisio
   }];
 }
 
-export function parseAlKharidTargetConditionEvidence({title,content,sourceRevision,sourceTimestamp,sourceUrl}){
-  if(title!=='Al Kharid Rooftop Course')return [];
+export function parseRooftopTargetConditionEvidence({title,content,sourceRevision,sourceTimestamp,sourceUrl}){
+  const candidates={
+    'Al Kharid Rooftop Course':{candidateKey:'guide:rooftop:al-kharid',failurePattern:/possible to fail the ''([^']+)'' and ''([^']+)'' obstacles[\s\S]{0,100}?taking\s+(\d+)[–-](\d+)\s+damage each time/i},
+    'Varrock Rooftop Course':{candidateKey:'guide:rooftop:varrock',failurePattern:/possible to fail during\s+([^\n.]+?)\s+and\s+([^\n.]+?)\s+and get inflicted with\s+(\d+)[–-](\d+)\s+and\s+(\d+)[–-](\d+)\s+damage respectively/i}
+  },candidate=candidates[title];
+  if(!candidate)return [];
   const entry=lineMatch(content,/available to players with an \[\[Agility\]\] level of\s+(\d+)\s+or higher/i);
-  const failure=lineMatch(content,/possible to fail the ''([^']+)'' and ''([^']+)'' obstacles[\s\S]{0,100}?taking\s+(\d+)[–-](\d+)\s+damage each time/i);
+  const failure=lineMatch(content,candidate.failurePattern);
   if(!entry||!failure)return [];
+  const sharedDamage={minimum:number(failure.match[3]),maximum:number(failure.match[4])};
   return [{
     contract:'sensum.agility-candidate-condition-evidence.v1',
-    evidence_key:'condition:al-kharid-rooftop:failure',
-    candidate_key:'guide:rooftop:al-kharid',
+    evidence_key:`condition:${candidate.candidateKey.slice('guide:rooftop:'.length)}-rooftop:failure`,
+    candidate_key:candidate.candidateKey,
     method_variant:'standard_lap',
     entry_level:number(entry.match[1]),
     failure_possible:true,
-    failing_obstacles:[failure.match[1],failure.match[2]],
-    failure_damage:{minimum:number(failure.match[3]),maximum:number(failure.match[4])},
+    failure_outcomes:[
+      {obstacle:failure.match[1],damage:sharedDamage},
+      {obstacle:failure.match[2],damage:failure.match[5]===undefined?sharedDamage:{minimum:number(failure.match[5]),maximum:number(failure.match[6])}}
+    ],
     source_revision:String(sourceRevision||''),
     source_timestamp:sourceTimestamp||null,
     source_url:sourceUrl,
@@ -135,7 +142,7 @@ export function parseAgilityTrainingGuideCandidates({title,content,sourceRevisio
     record(base,{candidate_key:'guide:brimhaven:floor-spikes-detached',name:'Brimhaven Agility Arena — Detached-camera floor spikes',record_kind:'repeatable_method',minimum_agility:number(brimhavenHeading.match[1]),guide_level_maximum:number(brimhavenHeading.match[2]),minimum_agility_source:'section_heading',level_scope_ambiguous:true,intensity:'very_low',client_aid:'Detached Camera plugin',observed_xp_per_hour_approximate:number(brimhavenDetached.match[1]),vector_name_prefix:'Brimhaven Agility Arena — Detached-camera floor spikes',source_locator:locator(brimhavenHeading,brimhavenDetached)}),
     record(base,{candidate_key:'guide:rooftop:draynor',name:'Draynor Village Rooftop Course',record_kind:'repeatable_method',minimum_agility:1,guide_level_maximum:30,observed_xp_per_hour_range:{minimum:number(rooftops.match[3]),maximum:number(rooftops.match[4])},vector_name_prefix:'Draynor Village Rooftop Course',source_locator:locator(rooftops)}),
     record(base,{candidate_key:'guide:rooftop:al-kharid',name:'Al Kharid Rooftop Course',record_kind:'repeatable_method',minimum_agility:20,guide_level_maximum:30,observed_xp_per_hour_range:{minimum:number(rooftops.match[5]),maximum:number(rooftops.match[6])},observed_xp_per_hour_level_scope:{minimum:20,maximum:30},vector_name_prefix:'Al Kharid Rooftop Course',source_locator:locator(rooftops)}),
-    record(base,{candidate_key:'guide:rooftop:varrock',name:'Varrock Rooftop Course',record_kind:'repeatable_method',minimum_agility:30,guide_level_maximum:40,observed_xp_per_hour_range:{minimum:number(rooftops.match[7]),maximum:number(rooftops.match[8])},vector_name_prefix:'Varrock Rooftop Course',source_locator:locator(rooftops)}),
+    record(base,{candidate_key:'guide:rooftop:varrock',name:'Varrock Rooftop Course',record_kind:'repeatable_method',minimum_agility:30,guide_level_maximum:40,observed_xp_per_hour_range:{minimum:number(rooftops.match[7]),maximum:number(rooftops.match[8])},observed_xp_per_hour_level_scope:{minimum:30,maximum:40},vector_name_prefix:'Varrock Rooftop Course',source_locator:locator(rooftops)}),
     record(base,{candidate_key:'guide:edgeville:monkeybars',name:'Edgeville Dungeon monkeybars',record_kind:'repeatable_method',minimum_agility:number(monkeybars.match[1]),guide_level_maximum:number(monkeybars.match[2]),observed_xp_per_hour_upper:number(monkeybars.match[3]),risk_context:['Wilderness','Player killers'],vector_match_terms:['Monkeybars','Edgeville Dungeon'],source_locator:locator(monkeybars)}),
     record(base,{candidate_key:'guide:barbarian-fishing',name:'Barbarian Fishing — passive Agility XP',record_kind:'hybrid_training_method',minimum_agility:number(barbarian.match[1]),guide_level_maximum:number(barbarian.match[2]),guide_example_fishing_range:{minimum:number(barbarian.match[3]),maximum:number(barbarian.match[4])},other_skill_requirement_unknown:true,secondary_xp_skill:'Strength',agility_rate_missing:true,vector_name_prefix:'Barbarian Fishing',source_locator:locator(barbarian)}),
     record(base,{candidate_key:'guide:agility-pyramid',name:'Agility Pyramid',record_kind:'repeatable_method',minimum_agility:number(pyramid.match[1]),guide_level_maximum:number(pyramid.match[4]),observed_completions_per_hour:number(pyramid.match[2]),observed_xp_per_hour:number(pyramid.match[5]),vector_name_prefix:'Agility Pyramid',source_locator:locator(pyramid)})

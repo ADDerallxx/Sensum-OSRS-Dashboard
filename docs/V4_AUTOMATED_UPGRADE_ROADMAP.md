@@ -39,7 +39,7 @@ promise; completing infrastructure or ingesting records alone is not success.
 The plan is complete only when the accuracy gates pass, the replacement has been
 rehearsed, and the user explicitly approves production deployment.
 
-## Latest bounded checkpoint
+## Recent bounded checkpoints
 
 The Al Kharid Rooftop Course target-condition audit is fail-closed. Official Wiki
 revision 15319534 confirms that two obstacles can fail and cause 1–5 damage, but
@@ -47,3 +47,10 @@ does not publish a failure probability for base Agility 34. Training-guide
 revision 15324367 scopes its 11,000–12,000 XP/hour range to levels 20–30. The
 coverage report therefore exposes both missing conditions and does not reuse the
 perfect-lap maximum or the out-of-band guide rate as a level-34 estimate.
+
+The Varrock Rooftop Course now uses the same revision-pinned condition-evidence
+path. Official Wiki revision 15319528 confirms two failing obstacles with
+separate 3–8 and 2–5 damage ranges. Training-guide revision 15324367 scopes the
+11,000–14,000 XP/hour range to levels 30–40, which includes level 34, but neither
+source publishes a level-34 failure probability. Varrock therefore remains
+blocked with that exact missing condition instead of receiving an inferred rate.

@@ -5,15 +5,14 @@
     "method_variant",
     "entry_level",
     "failure_possible",
-    "failing_obstacles",
-    "failure_damage",
+    "failure_outcomes",
     "source_revision",
     "source_locator"
   ],
   "rules": {
     "sourceStatementMayEstablishThatFailureIsPossible": true,
     "failureProbabilityMustNotBeInferredFromFailurePossibility": true,
-    "damageRangeIsNotAFailureProbability": true,
+    "perObstacleDamageRangeIsNotAFailureProbability": true,
     "automaticVerificationAllowed": false
   }
 }
