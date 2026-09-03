@@ -1,0 +1,29 @@
+import {buildSkillTrainingGuideInventory,auditSkillTrainingGuideInventory,parseSkillGuideDeclaration,parseCentralTrainingGuideIndex} from '../ingestion/skill-training-guide-inventory-lib.mjs';
+
+const skills=['Attack','Defence','Hitpoints','Magic','Prayer','Ranged','Strength','Farming','Fishing','Hunter','Mining','Woodcutting','Cooking','Crafting','Fletching','Herblore','Runecraft','Smithing','Agility','Construction','Firemaking','Sailing','Slayer','Thieving'],skillKey=name=>name.toLowerCase(),domains=skills.map(skill=>({skillKey:skillKey(skill),skill,category:'test',minimumBaseLevel:skill==='Hitpoints'?10:1,maximumBaseLevel:99,sourceRevision:'skills-rev',sourceTimestamp:'2026-09-03T00:00:00Z',sourceUrl:'https://example.test/Skills',sourceLocator:{evidence:[{line:1,excerpt:'source'}]}})),page=skill=>({title:skill,content:`{{Has skill guide\n|members=${skill} training\n|free=Free-to-play ${skill} training\n|iron=Ironman Guide/${skill}\n|UIM=Ultimate Ironman Guide/${skill}\n}}`,sourceRevision:`${skill}-rev`,sourceTimestamp:'2026-09-03T00:00:00Z',sourceUrl:`https://example.test/${skill}`}),skillPages=skills.map(page),guideTitles=skills.flatMap(skill=>[`${skill} training`,`Free-to-play ${skill} training`,`Ironman Guide/${skill}`,`Ultimate Ironman Guide/${skill}`]),guideResolutions=guideTitles.map((title,index)=>({requestedTitle:title,redirected:false,page:{title,revisions:[{revid:1000+index,timestamp:'2026-09-03T00:00:00Z'}]}})),indexContent=`==List of guides==\n{|\n${skills.map(skill=>`|-\n|{{SCP|${skill}}}\n|[[${skill} training|${skill}]]\n|[[Free-to-play ${skill} training|${skill}]]\n|[[Ironman Guide/${skill}|${skill}]]\n|[[Ultimate Ironman Guide/${skill}|${skill}]]`).join('\n')}\n|}`,indexPage={title:'Skill training guides',content:indexContent,sourceRevision:'index-rev',sourceTimestamp:'2026-09-03T00:00:00Z',sourceUrl:'https://example.test/index'},failures=[],check=(condition,message)=>{if(!condition)failures.push(message)};
+
+const declaration=parseSkillGuideDeclaration(page('Agility'));
+check(declaration.guides.length===4&&declaration.guides.every(guide=>guide.available),'A multiline Has skill guide declaration must retain all four source-declared channels.');
+check(declaration.source.sourceLocator?.line===1,'The direct skill declaration must retain an exact source line.');
+const central=parseCentralTrainingGuideIndex(indexPage);
+check(central.audit.publishable&&central.rows.length===24,'A central index with one row for every official skill must parse in source order.');
+
+const built=buildSkillTrainingGuideInventory({skillDomains:domains,skillPages,centralIndexPage:indexPage,guideResolutions});
+check(built.records.length===24&&built.audit.inventoryFoundationComplete,'All 24 official skill domains and direct declarations must close the guide-inventory foundation.');
+check(built.records.every(record=>record.accountIndependent&&record.minimumBaseLevel>0&&record.maximumBaseLevel===99),'Every record must be account-independent and retain its complete source-defined base-level domain.');
+check(built.records.find(record=>record.skill==='Hitpoints')?.minimumBaseLevel===10,'The Hitpoints level-10 source exception must survive the guide inventory.');
+check(built.audit.directSkillGuideCoverage.declaredGuideLinks===96&&built.audit.guidePageCoverage.resolvedGuideLinks===96,'Every declared guide link must resolve to revision-pinned page evidence.');
+check(built.audit.completeActivityUniverse===false&&built.audit.blockers.includes('training_guides_do_not_prove_complete_activity_universe'),'Even complete guide discovery must never become proof of a complete activity universe.');
+
+const compositeIndex={...indexPage,content:indexContent.replace(/\|-\n\|\{\{SCP\|Attack\}\}[\s\S]*?Ultimate Ironman Guide\/Attack\|Attack\]\]\n/,'').replace(/\|-\n\|\{\{SCP\|Strength\}\}[\s\S]*?Ultimate Ironman Guide\/Strength\|Strength\]\]\n/,'').replace(/\|-\n\|\{\{SCP\|Hitpoints\}\}[\s\S]*?Ultimate Ironman Guide\/Hitpoints\|Hitpoints\]\]\n/,'').replace('|{{SCP|Defence}}\n|[[Defence training|Defence]]','|{{SCP|Combat}}\n|[[Pay-to-play melee training|Melee]]').replace('[[Agility training|Agility]]','[[Alternate Agility guide|Agility]]')},composite=buildSkillTrainingGuideInventory({skillDomains:domains,skillPages,centralIndexPage:compositeIndex,guideResolutions});
+check(composite.audit.inventoryFoundationComplete===true,'A structurally complete direct per-skill inventory remains publishable review evidence when the central index disagrees.');
+check(composite.audit.centralIndexCoverage.compositeRows.includes('Combat')&&composite.audit.centralIndexCoverage.missingDirectSkillRows.includes('attack'),'Composite central rows and missing direct skill rows must remain explicit.');
+check(composite.audit.blockers.includes('central_index_contains_composite_rows_requiring_explicit_mapping')&&composite.audit.blockers.includes('central_index_and_skill_page_declarations_disagree'),'Cross-source composite and link disagreements must fail closed rather than being silently mapped.');
+
+const unresolved=buildSkillTrainingGuideInventory({skillDomains:domains,skillPages,centralIndexPage:indexPage,guideResolutions:guideResolutions.slice(1)});
+check(unresolved.audit.inventoryFoundationComplete===false&&unresolved.audit.guidePageCoverage.unresolvedGuideLinks.length===1,'An unresolved declared guide page must block the inventory foundation.');
+const accountPolluted=auditSkillTrainingGuideInventory(built.records.map((record,index)=>index?record:{...record,currentBaseLevel:34}),{expectedSkillDomains:domains,centralIndexRows:central.rows});
+check(accountPolluted.inventoryFoundationComplete===false&&accountPolluted.blockers.includes('account_query_state_baked_into_guide_inventory'),'Current account state must never define reusable all-skill discovery evidence.');
+
+if(failures.length){console.error(failures.join('\n'));process.exit(1)}
+console.log('Cross-skill training-guide inventory checks passed.');

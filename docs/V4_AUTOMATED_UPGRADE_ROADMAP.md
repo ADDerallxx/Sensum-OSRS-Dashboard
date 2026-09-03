@@ -43,6 +43,21 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+Cross-skill training-guide discovery now starts from the complete official skill
+domain rather than the current account. Skills revision 15321845 supplies all 24
+skills and their complete base-level domains (normally 1–99, with Hitpoints'
+level-10 start). Each skill's own current page supplies its `Has skill guide`
+declaration, and every one of the 87 declared links resolves to a pinned Wiki
+revision across 81 unique guide pages. No account fields appear in the inventory.
+The independent central index at revision 15231153 has only 22 rows: Attack,
+Strength, and Hitpoints are represented through one composite Combat row, and
+all four Defence guide links disagree with the newer direct Defence-page
+declaration. Those differences remain explicit blockers. The 24-skill guide
+inventory is a complete discovery foundation, not a complete activity universe:
+Wiki training guides intentionally prioritize useful methods and do not prove
+that every repeatable in-game action has been enumerated. Absolute-best claims
+therefore remain blocked while activity discovery expands under a separate gate.
+
 Rockslide pairing coverage now has an independent, fail-closed universe gate.
 The gate requires every official skill to have a complete repeatable-activity
 inventory, every activity to be assessed exactly once, and every relevant

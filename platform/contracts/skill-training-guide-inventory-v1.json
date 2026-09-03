@@ -1,0 +1,34 @@
+{
+  "contract": "sensum.skill-training-guide-inventory.v1",
+  "required": [
+    "skillKey",
+    "skill",
+    "category",
+    "minimumBaseLevel",
+    "maximumBaseLevel",
+    "accountIndependent",
+    "guides",
+    "levelDomainSource",
+    "directDeclarationSource",
+    "centralIndexComparison",
+    "blockers"
+  ],
+  "guideChannels": [
+    "members",
+    "free_to_play",
+    "ironman",
+    "ultimate_ironman"
+  ],
+  "rules": {
+    "everyOfficialSkillMustHaveExactlyOneInventoryRecord": true,
+    "everySkillUsesItsCompleteRevisionPinnedBaseLevelDomain": true,
+    "currentAccountStateCannotDefineOrFilterTheInventory": true,
+    "guideDeclarationsComeFromEachOfficialSkillPage": true,
+    "everyDeclaredGuideMustResolveToARevisionPinnedWikiPage": true,
+    "centralIndexDifferencesRemainVisible": true,
+    "sharedGuidePagesRemainSharedRatherThanDuplicatedAsFacts": true,
+    "trainingGuidesAreDiscoverySourcesNotProofOfEveryActivity": true,
+    "missingStaleContradictoryOrCompositeEvidenceBlocksPromotion": true,
+    "automaticVerificationAllowed": false
+  }
+}

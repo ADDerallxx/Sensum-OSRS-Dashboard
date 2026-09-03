@@ -35,6 +35,7 @@ node platform/ingestion/ingest-wiki-agility-floor-spike-training-variants.mjs
 node platform/ingestion/ingest-wiki-agility-barbarian-fishing-variants.mjs
 node platform/ingestion/ingest-wiki-agility-pyramid-variants.mjs
 node platform/ingestion/ingest-wiki-skill-level-domains.mjs
+node platform/ingestion/ingest-wiki-skill-training-guide-inventory.mjs
 ```
 
 Each run writes newline-delimited records and a manifest containing the source,
@@ -72,6 +73,15 @@ record count, creation time, audit result, and SHA-256 content hash.
   skill categories. The source's Hitpoints starting exception, level-99 maximum,
   and base/effective-level distinction remain revision-located; a partial list or
   missing domain statement makes the snapshot unpublishable.
+- Cross-skill guide discovery starts from every official skill and its complete
+  revision-pinned base-level domain, then reads the `Has skill guide`
+  declaration from each skill page and resolves every declared guide to its own
+  Wiki revision. The central `Skill training guides` index is retained as a
+  separate comparison source. Composite rows and disagreement between that
+  index and direct skill pages remain explicit blockers. A complete guide
+  inventory is only a discovery foundation: training guides prioritize useful
+  methods and can never, by themselves, prove that every repeatable in-game
+  training activity has been enumerated.
 - Training-guide section ingestion inventories every Wiki heading in source
   order. Every method-bearing subsection is retained with its parent, source
   lines, revision, and structural role. New heading depths or parents fail

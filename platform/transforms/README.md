@@ -279,3 +279,19 @@ manual review eligibility checks pass. Varrock revision 15324367 supplies an
 supplies its failing obstacles and damage ranges. The unpublished level-34
 failure probability is not synthesized, and the within-band performance and
 failure mix remains source-unspecified.
+
+`audit-skill-training-guide-inventory.mjs` measures the account-independent
+cross-skill discovery foundation. It requires one record for every official
+skill, retains each complete source-defined base-level domain, resolves every
+directly declared training guide to its current revision, and compares those
+declarations with the separately revision-pinned central guide index. Composite
+rows and cross-source link disagreements remain visible. Passing this audit
+means only that the training-guide discovery seed is complete; it always keeps
+the independently complete repeatable-activity universe and any absolute-best
+claim blocked.
+
+Run:
+
+```text
+node platform/transforms/audit-skill-training-guide-inventory.mjs
+```

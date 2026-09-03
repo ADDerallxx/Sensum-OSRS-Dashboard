@@ -1,0 +1,25 @@
+{
+  "contract": "sensum.skill-training-guide-inventory-audit.v1",
+  "required": [
+    "officialSkillDomain",
+    "directSkillGuideCoverage",
+    "centralIndexCoverage",
+    "guidePageCoverage",
+    "inventoryFoundationComplete",
+    "completeActivityUniverse",
+    "activityUniverseLimitation",
+    "blockers",
+    "inputSnapshot",
+    "contentHash"
+  ],
+  "rules": {
+    "allOfficialSkillsAndLevelDomainsAreMeasured": true,
+    "guideCoverageAndActivityUniverseCoverageRemainSeparate": true,
+    "aCompleteGuideInventoryCannotByItselfProveACompleteActivityUniverse": true,
+    "compositeCentralIndexRowsRequireExplicitMappingEvidence": true,
+    "crossSourceDisagreementsCannotBeSilentlyReconciled": true,
+    "accountSpecificInputsAreForbidden": true,
+    "unresolvedGuidePagesBlockTheInventoryFoundation": true,
+    "absoluteBestClaimsRemainBlocked": true
+  }
+}
