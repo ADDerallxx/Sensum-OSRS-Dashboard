@@ -41,12 +41,17 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
-The Al Kharid Rooftop Course target-condition audit is fail-closed. Official Wiki
-revision 15319534 confirms that two obstacles can fail and cause 1–5 damage, but
-does not publish a failure probability for base Agility 34. Training-guide
-revision 15324367 scopes its 11,000–12,000 XP/hour range to levels 20–30. The
-coverage report therefore exposes both missing conditions and does not reuse the
-perfect-lap maximum or the out-of-band guide rate as a level-34 estimate.
+The Al Kharid Rooftop Course now has a composite, per-obstacle failure-evidence
+model. Course revision 15319534 identifies Tightrope 1 and the zip line as its
+only failing obstacles, confirms 1–5 damage, 216 completion XP, and a 107-tick
+source-stated lap. Tightrope revision 14658399 and zip-line revision 14687253
+independently confirm their level-20 requirements and 36/48 successful XP, but
+neither publishes a success chart or level-34 probability. The course sources
+also do not publish failed-attempt XP or recovery routing and time. The audit
+therefore replaces one generic course probability gap with four precise blockers
+and keeps the guide's level 20–30 rate out of scope at level 34. No aggregate lap
+probability or expected XP/hour is inferred from the generic Wiki formula, the
+damage ranges, or the source-stated 12,100 XP/hour upper bound.
 
 The Varrock Rooftop Course now has a condition-scoped source-observed rate
 interval. Official Wiki revision 15319528 confirms two failing obstacles with

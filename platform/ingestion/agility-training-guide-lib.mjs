@@ -120,6 +120,7 @@ export function enrichAgilityCandidateConditions(records,evidenceRows){
       failure_possible:evidence.failure_possible===true,
       failure_probability_published:evidence.failure_probability_published===true,
       target_condition_blocker:evidence.target_condition_blocker||null,
+      target_condition_blockers:Array.isArray(evidence.target_condition_blockers)?[...evidence.target_condition_blockers]:[],
       success_model_evidence:evidence.success_formula_kind?evidence:null,
       target_condition_evidence:evidence,
       supporting_source_revisions:[...new Set([...(row.supporting_source_revisions||[]),evidence.source_revision,...(evidence.supporting_source_revisions||[])])]

@@ -1,0 +1,13 @@
+{
+  "contract": "sensum.agility-rooftop-multi-obstacle-failure-evidence.v1",
+  "required": ["candidate_key", "entry_level", "target_base_agility", "failure_possible", "failure_outcomes", "aggregate_failure_probability_at_target", "target_condition_blockers", "source_revision", "supporting_source_revisions", "source_locator"],
+  "rules": {
+    "eachFailingObstacleRequiresIndependentProbabilityEvidence": true,
+    "aggregateLapFailureProbabilityMustNotBeInferredFromFailurePossibility": true,
+    "genericSuccessFormulaMustNotBeAppliedWithoutObstacleAssociationAndParameters": true,
+    "successfulObstacleXpMustNotBeAssumedForFailedAttempts": true,
+    "sourceStatedLapTimeMustNotBecomeExpectedFailureInclusiveTimeWhenFailureHandlingIsUnspecified": true,
+    "courseAndObstacleRequirementOrXpDisagreementsMustBlock": true,
+    "automaticVerificationAllowed": false
+  }
+}

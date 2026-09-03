@@ -42,6 +42,11 @@ reviewed as bounded calculations, but they cannot enter a scalar ranking or
 support an absolute-best claim until an explicit interval comparison policy is
 implemented. Peak-only timings never become typical cycle times.
 
+Courses with multiple independently failing obstacles retain one composite
+condition record with per-obstacle requirements, successful XP, probabilities,
+and revisions. Sensum does not derive an aggregate lap probability or expected
+rate unless every obstacle outcome plus failure recovery timing is sourced.
+
 Run:
 
 ```text

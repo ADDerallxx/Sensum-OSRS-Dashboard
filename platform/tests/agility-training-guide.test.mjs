@@ -1,5 +1,6 @@
 import {enrichAgilityCandidateConditions,enrichAgilityCandidateEligibility,parseAgilityTrainingGuideCandidates,parseBarbarianFishingEligibility,parseBrimhavenFloorSpikeEligibility,parseRooftopTargetConditionEvidence} from '../ingestion/agility-training-guide-lib.mjs';
 import {parseBrimhavenFloorSpikeSuccessEvidence} from '../ingestion/agility-floor-spike-success-evidence-lib.mjs';
+import {parseAlKharidMultiObstacleFailureEvidence} from '../ingestion/agility-rooftop-multi-obstacle-evidence-lib.mjs';
 const source=`===Levels 1–26/33: Questing===
 Completing [[The Tourist Trap]], [[Recruitment Drive]], [[The Depths of Despair]], and [[The Grand Tree]] will grant a total of 19,700 experience.
 ===Levels 20–47: Brimhaven Agility Arena===
@@ -30,8 +31,19 @@ This method also grants Strength and Agility experience.
 const brimhavenSource=`The course has no requirements to access other than a 200 [[coins]] fee paid before each entry.
 Though it is possible to reach dispensers without any [[Agility]] levels, level 20 Agility is required to pass the [[pressure pad (Brimhaven Agility Arena)|pressure pad]] and [[Floor spikes (Brimhaven Agility Arena)|floor spike]] obstacles, while level 40 Agility is required for other obstacles.`;
 const alKharidSource=`The '''Al Kharid Rooftop Course''' is a [[Rooftop Agility Course]] located in [[Al Kharid]] that is available to players with an [[Agility]] level of 20 or higher.
+Players get 216 experience points from completing the course.
 It is possible to fail the ''Cross Tightrope 1'' and ''Teeth-grip Zip Line'' obstacles during the course, taking 1-5 damage each time.
-A player can complete this course in 64.2 seconds (107 ticks).`;
+A player can complete this course in 64.2 seconds (107 ticks). Using this course, one can gain up to around 12,100 experience per hour.
+|[[Tightrope (Al Kharid Rooftop Course)#Tightrope_1|Tightrope 1]]
+|{{+=|xp|36|echo=2}}
+| style="text-align:center;" |Yes
+|[[Zip line (Al Kharid Rooftop Course)|Zip line]]
+|{{+=|xp|48|echo=2}}
+| style="text-align:center;" |Yes`;
+const alKharidTightropeSource=`The '''tightrope''' is an [[Agility]] obstacle found within the [[Al Kharid Rooftop Course]]. An Agility level of 20 is required to pass the obstacle. The first Tightrope encountered during the course will award 36 experience, and the second, 18.
+{{Agility info|version1=Tightrope 1|version2=Tightrope 2|name1=Tightrope 1|name2=Tightrope 2|level=20|xp1=36|xp2=18|course=[[Al Kharid Rooftop Course]]|type=Obstacle}}`;
+const alKharidZipLineSource=`The '''zip line''' is an [[Agility]] obstacle found within the [[Al Kharid Rooftop Course]]. An Agility level of 20 is required to pass the obstacle, which will then grant the player 48 Agility experience.
+{{Agility info|name=Zip line|level=20|xp=48|course=[[Al Kharid Rooftop Course]]|type=Obstacle}}`;
 const varrockSource=`The '''Varrock Rooftop Course''' is a [[Rooftop Agility Course]] located in [[Varrock]] that is available to players with an [[Agility]] level of 30 or higher.
 It is possible to fail during Cross Clothes Line and Balance Wall and get inflicted with 3–8 and 2–5 damage respectively.
 The course takes approximately 1 minute and 10 seconds.`;
@@ -45,9 +57,10 @@ const parsed=parseAgilityTrainingGuideCandidates({title:'Agility training',conte
 const eligibility=parseBarbarianFishingEligibility({title:'Barbarian Training',content:barbarianSource,sourceRevision:'15292392',sourceTimestamp:'2026-08-11',sourceUrl:'https://example.test/barbarian'});
 const brimhavenEligibility=parseBrimhavenFloorSpikeEligibility({title:'Brimhaven Agility Arena',content:brimhavenSource,sourceRevision:'15293118',sourceTimestamp:'2026-08-11',sourceUrl:'https://example.test/brimhaven'});
 const alKharidCondition=parseRooftopTargetConditionEvidence({title:'Al Kharid Rooftop Course',content:alKharidSource,sourceRevision:'15319534',sourceTimestamp:'2026-08-25',sourceUrl:'https://example.test/al-kharid'});
+const alKharidComposite=parseAlKharidMultiObstacleFailureEvidence({coursePage:{title:'Al Kharid Rooftop Course',content:alKharidSource,sourceRevision:'15319534',sourceTimestamp:'2026-08-25',sourceUrl:'https://example.test/al-kharid'},tightropePage:{title:'Tightrope (Al Kharid Rooftop Course)',content:alKharidTightropeSource,sourceRevision:'14658399',sourceTimestamp:'2024-05-11',sourceUrl:'https://example.test/tightrope'},zipLinePage:{title:'Zip line (Al Kharid Rooftop Course)',content:alKharidZipLineSource,sourceRevision:'14687253',sourceTimestamp:'2024-06-25',sourceUrl:'https://example.test/zip-line'},targetBaseAgility:34});
 const varrockCondition=parseRooftopTargetConditionEvidence({title:'Varrock Rooftop Course',content:varrockSource,sourceRevision:'15319528',sourceTimestamp:'2026-08-25',sourceUrl:'https://example.test/varrock'});
 const floorSpikeCondition=parseBrimhavenFloorSpikeSuccessEvidence({obstaclePage:{title:'Floor spikes (Brimhaven Agility Arena)',content:floorSpikeSource,sourceRevision:'15329694',sourceTimestamp:'2026-09-03',sourceUrl:'https://example.test/floor-spikes'},formulaPage:{title:'Module:Skilling success chart',content:successFormulaSource,sourceRevision:'15325744',sourceTimestamp:'2026-08-30',sourceUrl:'https://example.test/success-formula'},targetBaseAgility:34});
-const rows=enrichAgilityCandidateConditions(enrichAgilityCandidateEligibility(parsed,[...eligibility,...brimhavenEligibility]),[...alKharidCondition,...varrockCondition,...floorSpikeCondition]),failures=[],check=(ok,message)=>{if(!ok)failures.push(message)},get=key=>rows.find(x=>x.candidate_key===key);
+const rows=enrichAgilityCandidateConditions(enrichAgilityCandidateEligibility(parsed,[...eligibility,...brimhavenEligibility]),[...alKharidCondition,...varrockCondition,...floorSpikeCondition,...alKharidComposite]),failures=[],check=(ok,message)=>{if(!ok)failures.push(message)},get=key=>rows.find(x=>x.candidate_key===key);
 check(rows.length===9,'The level-34 guide universe must emit nine source-backed candidates.');
 check(get('guide:questing:early-agility')?.record_kind==='one_time_progression'&&get('guide:questing:early-agility').quests.length===4,'Quest progression must not become a repeatable method.');
 check(get('guide:brimhaven:floor-spikes-active')?.minimum_agility===20&&get('guide:brimhaven:floor-spikes-active').boosted_minimum_base_agility===15,'Brimhaven base and boosted entry levels must remain separate.');
@@ -67,6 +80,8 @@ check(get('guide:edgeville:monkeybars')?.observed_xp_per_hour_upper_scope?.minim
 check(get('guide:rooftop:al-kharid')?.observed_xp_per_hour_level_scope?.minimum===20&&get('guide:rooftop:al-kharid')?.observed_xp_per_hour_level_scope?.maximum===30,'The Al Kharid guide rate must retain its source level band.');
 check(get('guide:rooftop:al-kharid')?.failure_possible===true&&get('guide:rooftop:al-kharid')?.target_condition_evidence?.failure_outcomes?.length===2,'The Al Kharid candidate must retain the source-stated failing obstacles without inventing a probability.');
 check(get('guide:rooftop:al-kharid')?.target_condition_evidence?.failure_outcomes?.[0]?.damage?.minimum===1&&get('guide:rooftop:al-kharid')?.supporting_source_revisions?.includes('15319534'),'Al Kharid condition evidence must retain its damage range and source revision.');
+check(get('guide:rooftop:al-kharid')?.target_condition_evidence?.contract==='sensum.agility-rooftop-multi-obstacle-failure-evidence.v1'&&get('guide:rooftop:al-kharid')?.supporting_source_revisions?.includes('14658399')&&get('guide:rooftop:al-kharid')?.supporting_source_revisions?.includes('14687253'),'The composite Al Kharid evidence must supersede the generic row while retaining both obstacle revisions.');
+check(get('guide:rooftop:al-kharid')?.target_condition_blockers?.includes('tightrope_1_success_probability_at_base_level_34_not_published')&&get('guide:rooftop:al-kharid')?.target_condition_blockers?.includes('failure_recovery_route_and_time_penalty_not_published'),'The enriched candidate must expose per-obstacle and failure-routing blockers.');
 check(get('guide:rooftop:varrock')?.observed_xp_per_hour_level_scope?.minimum===30&&get('guide:rooftop:varrock')?.observed_xp_per_hour_level_scope?.maximum===40,'The Varrock guide rate must retain its source level band.');
 check(get('guide:rooftop:varrock')?.target_condition_evidence?.failure_outcomes?.[0]?.damage?.maximum===8&&get('guide:rooftop:varrock')?.target_condition_evidence?.failure_outcomes?.[1]?.damage?.maximum===5,'Varrock must preserve each obstacle-specific damage range independently.');
 check(get('guide:rooftop:varrock')?.supporting_source_revisions?.includes('15319528'),'Varrock condition evidence must retain its source revision.');
