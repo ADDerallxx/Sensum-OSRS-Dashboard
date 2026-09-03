@@ -51,6 +51,7 @@ const report=auditSkillProgressionCoverage({
     blockers:['training_guide_parser_covers_only_selected_sections','complete_agility_method_universe_not_audited']
   },
   performanceBreakpointCoverage:{complete:false,blockers:['performance_and_ranking_breakpoints_not_audited']},
+  reusableEvidenceRecords:guide.rows,
   evaluateBaseLevel:baseLevel=>auditAgilityLevelCoverage({guideCandidates:guide.rows,vectors:vectors.rows,targetBaseAgility:baseLevel,guideSnapshot:{dir:guide.directory,revision:guide.rows[0]?.source_revision||null,contentHash:guide.manifest.contentHash},vectorSnapshot:{dir:vectors.directory,contentHash:vectors.report.contentHash}}),
   snapshotRejections:[...domains.rejections,...guide.rejections,...vectors.rejections]
 });
@@ -60,5 +61,5 @@ report.contentHash=hash({...report,contentHash:undefined});
 const output=path.join(root,'skill-progression-coverage-audits',report.generatedAt.replace(/[:.]/g,'-'));
 await fs.mkdir(output,{recursive:true});
 await fs.writeFile(path.join(output,'report.json'),JSON.stringify(report,null,2)+'\n');
-console.log(JSON.stringify({contract:report.contract,generatedAt:report.generatedAt,skill:report.skill,levelDomain:report.levelDomain,levelCoverage:report.levelCoverage,structuralBreakpointCount:report.structuralBreakpoints.length,embeddedQueryLevelDefectCount:report.embeddedQueryLevelDefects.length,fullSkillCoverageSatisfied:report.fullSkillCoverageSatisfied,authoritativeClaimGate:report.authoritativeClaimGate,blockers:report.blockers,inputSnapshots:report.inputSnapshots,contentHash:report.contentHash},null,2));
+console.log(JSON.stringify({contract:report.contract,generatedAt:report.generatedAt,skill:report.skill,levelDomain:report.levelDomain,levelCoverage:report.levelCoverage,structuralBreakpointCount:report.structuralBreakpoints.length,embeddedQueryLevelDefectCount:report.embeddedQueryLevelDefects.length,embeddedAccountQueryEvidenceCount:report.embeddedAccountQueryEvidence.length,fullSkillCoverageSatisfied:report.fullSkillCoverageSatisfied,authoritativeClaimGate:report.authoritativeClaimGate,blockers:report.blockers,inputSnapshots:report.inputSnapshots,contentHash:report.contentHash},null,2));
 if(!report.fullSkillCoverageSatisfied)process.exitCode=2;

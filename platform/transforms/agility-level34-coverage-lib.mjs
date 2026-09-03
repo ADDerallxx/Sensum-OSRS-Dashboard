@@ -1,6 +1,21 @@
 const normalize=value=>String(value||'').toLowerCase().replace(/[^a-z0-9]+/g,' ').trim();
 const finite=value=>value!==null&&value!==undefined&&value!==''&&Number.isFinite(Number(value));
 
+function derivedMultiObstacleBlockers(candidate,target){
+  const evidence=candidate?.target_condition_evidence;
+  if(evidence?.contract!=='sensum.agility-rooftop-multi-obstacle-failure-evidence.v2')return [];
+  const blockers=[];
+  for(const obstacle of evidence.failure_outcomes||[]){
+    if(obstacle.success_probability_evidence_status==='verified')continue;
+    const suffix=obstacle.success_probability_evidence_status==='chart_present_unverified'?'not_verified':'not_published';
+    blockers.push(`${String(obstacle.obstacle_key||'unknown_obstacle').replace(/[^a-z0-9]+/gi,'_')}_success_probability_at_base_level_${target}_${suffix}`);
+  }
+  if(evidence.failure_scope?.failed_attempt_xp_published!==true)blockers.push('failed_obstacle_xp_outcome_not_published');
+  if(evidence.failure_scope?.recovery_route_and_time_published!==true)blockers.push('failure_recovery_route_and_time_penalty_not_published');
+  blockers.push(...(evidence.source_conflicts||[]).map(conflict=>conflict.rule||'source_conflict'));
+  return [...new Set(blockers)];
+}
+
 export function vectorMatchesCandidate(candidate,vector){
   const name=normalize(vector?.name);
   if(candidate.vector_match_terms?.length)return candidate.vector_match_terms.every(term=>name.includes(normalize(term)));
@@ -83,8 +98,12 @@ function guideDetail(candidate,vectors,target){
   if(candidate.failure_possible===true&&blockers.includes('failure_model_with_level_condition')){
     blockers.splice(blockers.indexOf('failure_model_with_level_condition'),1,`failure_probability_at_base_level_${target}_not_published`);
   }
-  const specificTargetBlockers=Array.isArray(candidate.target_condition_blockers)?candidate.target_condition_blockers.filter(Boolean):[];
-  if(specificTargetBlockers.length){
+  const derivedTargetBlockers=derivedMultiObstacleBlockers(candidate,target),specificTargetBlockers=Array.isArray(candidate.target_condition_blockers)?candidate.target_condition_blockers.filter(Boolean):[];
+  if(derivedTargetBlockers.length){
+    const genericFailure=blockers.indexOf(`failure_probability_at_base_level_${target}_not_published`);
+    if(genericFailure>=0)blockers.splice(genericFailure,1);
+    blockers.push(...derivedTargetBlockers);
+  }else if(specificTargetBlockers.length){
     const genericFailure=blockers.indexOf(`failure_probability_at_base_level_${target}_not_published`);
     if(genericFailure>=0)blockers.splice(genericFailure,1);
     blockers.push(...specificTargetBlockers);

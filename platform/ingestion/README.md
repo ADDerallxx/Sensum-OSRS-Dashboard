@@ -66,3 +66,7 @@ record count, creation time, audit result, and SHA-256 content hash.
   skill categories. The source's Hitpoints starting exception, level-99 maximum,
   and base/effective-level distinction remain revision-located; a partial list or
   missing domain statement makes the snapshot unpublishable.
+- Al Kharid multi-obstacle evidence V2 stores the two failing obstacle identities,
+  successful XP, damage, requirements, timing, source revisions, and stable
+  unknown-model states without storing an account level. Level-numbered missing
+  probability blockers are derived only by the downstream coverage query.

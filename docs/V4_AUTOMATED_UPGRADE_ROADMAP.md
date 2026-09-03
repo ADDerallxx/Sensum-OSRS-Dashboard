@@ -42,6 +42,20 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+Al Kharid's composite failure evidence is now account-independent under a V2
+schema. Course revision 15319534 and obstacle revisions 14658399 and 14687253
+still establish the two failing obstacles, their requirements and successful XP,
+damage, course timing, and the same unpublished probability and recovery facts.
+The schema no longer stores `target_base_agility`, null “at target” probabilities,
+or level-numbered ingestion blockers. Coverage derives those blockers at query
+time: the pilot still names both missing level-34 probabilities, while a level-70
+query names both missing level-70 probabilities. The 1–99 audit's embedded-query
+blocker defects fell from 79 to 0. The strengthened field scan separately finds
+two Brimhaven floor-spike records that still store a level-34 target; they remain
+the next account-independence blocker. The broader skill-wide gate remains
+blocked, and no probability, expected rate, or additional candidate coverage was
+invented.
+
 Whole-skill progression coverage is now an explicit gate rather than an implied
 future expansion of the level-34 pilot. Skills revision 15321845 declares 24
 skills, the ordinary level 1 start, Hitpoints' level 10 exception, the level 99

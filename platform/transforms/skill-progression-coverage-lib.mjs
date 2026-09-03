@@ -5,6 +5,25 @@ const normalizeLevelSpecificBlocker=blocker=>String(blocker||'')
   .replace(/(base_level_)\d+(_not_published)/g,'$1{level}$2');
 const sorted=value=>[...value].sort((left,right)=>String(left).localeCompare(String(right)));
 const embeddedQueryLevels=blocker=>[...String(blocker||'').matchAll(/(?:at|cover|identify)_base_level_(\d+)/g)].map(match=>Number(match[1]));
+const queryStateKey=key=>/^(?:target_base_(?:agility|level)|targetBase(?:Agility|Level)|.*_at_target|success_probability_target_base_agility)$/i.test(key);
+
+export function findEmbeddedAccountQueryEvidence(records=[]){
+  const findings=[];
+  const visit=(value,path,found)=>{
+    if(Array.isArray(value)){value.forEach((item,index)=>visit(item,`${path}[${index}]`,found));return}
+    if(!value||typeof value!=='object')return;
+    for(const [key,child] of Object.entries(value)){
+      const childPath=path?`${path}.${key}`:key;
+      if(queryStateKey(key))found.push({path:childPath,value:child});
+      visit(child,childPath,found);
+    }
+  };
+  for(const record of records){
+    const fields=[];visit(record,'',fields);
+    if(fields.length)findings.push({recordKey:record.candidate_key||record.recordKey||record.evidence_key||record.name||'unknown',fields});
+  }
+  return findings;
+}
 
 function validateDomain(skillDomain){
   const blockers=[],minimum=integer(skillDomain?.minimumBaseLevel),maximum=integer(skillDomain?.maximumBaseLevel);
@@ -61,7 +80,7 @@ function changes(previous,current){
   return reasons;
 }
 
-export function auditSkillProgressionCoverage({skillDomain,methodUniverse,evaluateBaseLevel,performanceBreakpointCoverage={complete:false,blockers:['performance_and_ranking_breakpoints_not_audited']},snapshotRejections=[]}){
+export function auditSkillProgressionCoverage({skillDomain,methodUniverse,evaluateBaseLevel,reusableEvidenceRecords=[],performanceBreakpointCoverage={complete:false,blockers:['performance_and_ranking_breakpoints_not_audited']},snapshotRejections=[]}){
   const domain=validateDomain(skillDomain);
   if(domain.blockers.length)return {contract:'sensum.skill-progression-coverage-audit.v1',skill:skillDomain?.skill||null,domainEvidenceValid:false,blockers:domain.blockers,fullSkillCoverageSatisfied:false};
   if(typeof evaluateBaseLevel!=='function')throw new TypeError('evaluateBaseLevel must be a function.');
@@ -72,7 +91,8 @@ export function auditSkillProgressionCoverage({skillDomain,methodUniverse,evalua
   const performanceBlockers=unique(performanceBreakpointCoverage?.blockers||[]),performanceComplete=performanceBreakpointCoverage?.complete===true&&performanceBlockers.length===0;
   const blockedLevels=levels.filter(level=>level.modelCoverageStatus!=='target_model_complete');
   const embeddedQueryLevelDefects=levels.filter(level=>level.foreignQueryLevelBlockers.length).map(level=>({baseLevel:level.baseLevel,blockers:level.foreignQueryLevelBlockers}));
-  const fullSkillCoverageSatisfied=universeComplete&&performanceComplete&&!blockedLevels.length&&!embeddedQueryLevelDefects.length&&!snapshotRejections.length;
+  const embeddedAccountQueryEvidence=findEmbeddedAccountQueryEvidence(reusableEvidenceRecords);
+  const fullSkillCoverageSatisfied=universeComplete&&performanceComplete&&!blockedLevels.length&&!embeddedQueryLevelDefects.length&&!embeddedAccountQueryEvidence.length&&!snapshotRejections.length;
   return {
     contract:'sensum.skill-progression-coverage-audit.v1',
     skill:skillDomain.skill,
@@ -87,9 +107,10 @@ export function auditSkillProgressionCoverage({skillDomain,methodUniverse,evalua
     structuralSpans:spans.map(({structuralSignature,...span})=>span),
     levels:levels.map(({structuralSignature,...level})=>level),
     embeddedQueryLevelDefects,
+    embeddedAccountQueryEvidence,
     snapshotRejections,
     fullSkillCoverageSatisfied,
     authoritativeClaimGate:fullSkillCoverageSatisfied?'eligible_for_skill_wide_golden_review':'blocked_incomplete_full_skill_coverage',
-    blockers:unique([...universeBlockers,...performanceBlockers,...(blockedLevels.length?['one_or_more_base_levels_have_incomplete_target_models']:[]),...(embeddedQueryLevelDefects.length?['account_query_level_baked_into_reusable_evidence']:[]),...(snapshotRejections.length?['one_or_more_input_snapshots_rejected']:[])])
+    blockers:unique([...universeBlockers,...performanceBlockers,...(blockedLevels.length?['one_or_more_base_levels_have_incomplete_target_models']:[]),...(embeddedQueryLevelDefects.length?['account_query_level_baked_into_reusable_evidence']:[]),...(embeddedAccountQueryEvidence.length?['account_query_state_baked_into_reusable_evidence']:[]),...(snapshotRejections.length?['one_or_more_input_snapshots_rejected']:[])])
   };
 }

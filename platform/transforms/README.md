@@ -162,6 +162,13 @@ architectural defect. Full-skill coverage also requires a separately proven
 candidate universe and verified performance/ranking breakpoints; success at one
 account level can never satisfy this gate.
 
+Al Kharid multi-obstacle evidence V2 contains only stable course and obstacle
+facts. It does not store a target level or an “at target” probability. During a
+coverage query, the evaluator derives a separate missing-probability blocker for
+Tightrope 1 and the zip line using that query's base level. The same source record
+therefore produces level-34 blockers in the pilot audit and level-70 blockers in
+a level-70 query without mutating or duplicating evidence.
+
 Werewolf Skullball's approximate route times are converted with the generic
 bounded-cycle formula only when the entire source range earns the same reward.
 The resulting actions/hour and XP/hour remain minimum/maximum ranges: no

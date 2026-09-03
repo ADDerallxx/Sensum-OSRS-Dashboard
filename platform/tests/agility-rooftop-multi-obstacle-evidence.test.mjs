@@ -31,20 +31,21 @@ const zipLine=`The '''zip line''' is an [[Agility]] obstacle found within the [[
 |type = Obstacle
 }}`;
 const page=(title,content,sourceRevision)=>({title,content,sourceRevision,sourceTimestamp:'2026-08-25',sourceUrl:`https://example.test/${encodeURIComponent(title)}`});
-const parse=(overrides={})=>parseAlKharidMultiObstacleFailureEvidence({coursePage:page('Al Kharid Rooftop Course',overrides.course||course,'15319534'),tightropePage:page('Tightrope (Al Kharid Rooftop Course)',overrides.tightrope||tightrope,'14658399'),zipLinePage:page('Zip line (Al Kharid Rooftop Course)',overrides.zipLine||zipLine,'14687253'),targetBaseAgility:34});
+const parse=(overrides={})=>parseAlKharidMultiObstacleFailureEvidence({coursePage:page('Al Kharid Rooftop Course',overrides.course||course,'15319534'),tightropePage:page('Tightrope (Al Kharid Rooftop Course)',overrides.tightrope||tightrope,'14658399'),zipLinePage:page('Zip line (Al Kharid Rooftop Course)',overrides.zipLine||zipLine,'14687253')});
 const failures=[],check=(ok,message)=>{if(!ok)failures.push(message)};
 const [evidence]=parse();
 check(evidence?.failure_outcomes?.length===2,'The composite model must retain both failing obstacles independently.');
 check(evidence?.failure_outcomes?.[0]?.obstacle_key==='tightrope_1'&&evidence.failure_outcomes[0].xp_on_success===36&&evidence.failure_outcomes[0].damage.minimum===1,'Tightrope 1 must retain its own success XP and damage evidence.');
 check(evidence?.failure_outcomes?.[1]?.obstacle_key==='zip_line'&&evidence.failure_outcomes[1].xp_on_success===48&&evidence.failure_outcomes[1].damage.maximum===5,'The zip line must retain its own success XP and damage evidence.');
-check(evidence?.failure_outcomes?.every(row=>row.success_chart_present===false&&row.success_probability_at_target===null),'Absent obstacle success charts must never produce synthetic probabilities.');
-check(evidence?.aggregate_failure_probability_at_target===null&&evidence.failure_probability_published===false,'Two known failure points must not be collapsed into an inferred lap probability.');
-check(evidence?.target_condition_blockers?.includes('tightrope_1_success_probability_at_base_level_34_not_published')&&evidence.target_condition_blockers.includes('zip_line_success_probability_at_base_level_34_not_published'),'Each obstacle must name its own missing target-level probability.');
-check(evidence?.target_condition_blockers?.includes('failed_obstacle_xp_outcome_not_published')&&evidence.target_condition_blockers.includes('failure_recovery_route_and_time_penalty_not_published'),'Unknown failed-attempt XP and recovery timing must remain separate blockers.');
+check(evidence?.contract==='sensum.agility-rooftop-multi-obstacle-failure-evidence.v2'&&evidence.account_independent===true&&!('target_base_agility' in evidence),'Reusable evidence must not contain an account query level.');
+check(evidence?.failure_outcomes?.every(row=>row.success_chart_present===false&&row.success_probability_evidence_status==='not_published'&&!('success_probability_at_target' in row)),'Absent obstacle success charts must remain level-independent unknowns and never produce synthetic probabilities.');
+check(evidence?.aggregate_failure_probability_model?.published===false&&evidence.failure_probability_published===false,'Two known failure points must not be collapsed into an inferred lap probability.');
+check(evidence?.condition_limitations?.includes('per_obstacle_success_probability_model_incomplete')&&!('target_condition_blockers' in evidence),'Evidence must retain the stable model limitation without emitting target-level blockers during ingestion.');
+check(evidence?.condition_limitations?.includes('failed_obstacle_xp_outcome_not_published')&&evidence.condition_limitations.includes('failure_recovery_route_and_time_penalty_not_published'),'Unknown failed-attempt XP and recovery timing must remain separate account-independent limitations.');
 check(evidence?.lap_timing?.ticks===107&&evidence.lap_timing.failure_inclusion_unspecified===true&&evidence.source_stated_xp_per_hour_upper.is_expected===false,'Published timing and upper-bound rate must not become expected failure-inclusive performance.');
 check(evidence?.source_revision==='15319534'&&evidence.supporting_source_revisions.includes('14658399')&&evidence.supporting_source_revisions.includes('14687253'),'The course and both obstacle revisions must survive.');
 const [conflicting]=parse({zipLine:zipLine.replace('|level = 20','|level = 21').replace('level of 20','level of 21')});
-check(conflicting?.source_conflicts?.[0]?.rule==='zip_line_requirement_disagrees_with_course_entry'&&conflicting.target_condition_blockers.includes('zip_line_requirement_disagrees_with_course_entry'),'A cross-page requirement disagreement must fail closed.');
+check(conflicting?.source_conflicts?.[0]?.rule==='zip_line_requirement_disagrees_with_course_entry'&&conflicting.condition_limitations.includes('zip_line_requirement_disagrees_with_course_entry'),'A cross-page requirement disagreement must fail closed.');
 check(parseAlKharidMultiObstacleFailureEvidence({coursePage:page('Al Kharid Rooftop Course',course,'1'),tightropePage:page('Wrong title',tightrope,'2'),zipLinePage:page('Zip line (Al Kharid Rooftop Course)',zipLine,'3')}).length===0,'Wrong or missing source pages must not produce partial composite evidence.');
 if(failures.length){console.error(failures.join('\n'));process.exit(1)}
 console.log('Al Kharid multi-obstacle failure evidence checks passed.');

@@ -69,10 +69,14 @@ against this domain; it can never define or prove the knowledge boundary.
 to every integer Agility base level and compresses only structurally identical
 ranges. It separately gates candidate-universe completeness, target-level model
 coverage, and performance/ranking breakpoints. It also detects a foreign query
-level embedded in reusable evidence. The first report is intentionally blocked:
-the selected-section guide parser is not a complete Agility method universe,
-performance breakpoints are not audited, every level still has at least one
-incomplete candidate, and older Al Kharid evidence still embeds level 34.
+level embedded in reusable evidence. The first report identified 79 Al Kharid
+evaluations contaminated by a stored level-34 query. The V2 obstacle-evidence
+schema removed that query state, and the next report measured zero embedded-level
+blocker defects. A broader field scan still finds two target-scoped Brimhaven
+floor-spike evidence records; they remain explicit blockers for the next schema
+migration. The report is also intentionally blocked because the selected-section
+guide parser is not a complete Agility method universe, performance breakpoints
+are not audited, and every level still has at least one incomplete candidate.
 
 Run:
 

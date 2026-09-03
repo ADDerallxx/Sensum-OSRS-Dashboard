@@ -19,6 +19,7 @@
     "rangesMayCoverManyLevelsOnlyWhenEvidenceOrAFormulaSupportsTheRange": true,
     "structuralBreakpointsComeFromCandidateEligibilityScopeOrBlockerChanges": true,
     "dynamicLevelNumbersDoNotCreateArtificialBreakpoints": true,
+    "reusableEvidenceIsScannedForEmbeddedAccountQueryFields": true,
     "performanceBreakpointsRequireVerifiedFormulasAndCandidateComparison": true,
     "anIncompleteCandidateUniverseBlocksFullSkillCoverage": true,
     "anUnmodeledLevelBlocksFullSkillCoverage": true,

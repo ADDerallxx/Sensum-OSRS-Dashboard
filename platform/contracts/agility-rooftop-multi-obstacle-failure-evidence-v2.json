@@ -1,10 +1,21 @@
 {
-  "contract": "sensum.agility-rooftop-multi-obstacle-failure-evidence.v1",
-  "status": "superseded",
-  "supersededBy": "sensum.agility-rooftop-multi-obstacle-failure-evidence.v2",
-  "required": ["candidate_key", "entry_level", "target_base_agility", "failure_possible", "failure_outcomes", "aggregate_failure_probability_at_target", "target_condition_blockers", "source_revision", "supporting_source_revisions", "source_locator"],
+  "contract": "sensum.agility-rooftop-multi-obstacle-failure-evidence.v2",
+  "required": [
+    "candidate_key",
+    "entry_level",
+    "account_independent",
+    "failure_possible",
+    "failure_outcomes",
+    "aggregate_failure_probability_model",
+    "failure_scope",
+    "source_revision",
+    "supporting_source_revisions",
+    "source_locator"
+  ],
   "rules": {
+    "accountQueryLevelMustNotBeStoredInEvidence": true,
     "eachFailingObstacleRequiresIndependentProbabilityEvidence": true,
+    "missingObstacleProbabilityIsDerivedForTheRequestedLevelAtEvaluationTime": true,
     "aggregateLapFailureProbabilityMustNotBeInferredFromFailurePossibility": true,
     "genericSuccessFormulaMustNotBeAppliedWithoutObstacleAssociationAndParameters": true,
     "successfulObstacleXpMustNotBeAssumedForFailedAttempts": true,
