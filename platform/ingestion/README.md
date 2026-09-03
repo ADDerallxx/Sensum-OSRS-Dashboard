@@ -55,3 +55,8 @@ record count, creation time, audit result, and SHA-256 content hash.
 - Activity evidence is captured from revision-pinned Wiki source. Keyword
   fragments are discovery aids only; they remain candidates until exact values,
   source locators, formulas, and model vectors pass the activity evidence gate.
+- Floor-spike success evidence keeps the generic Wiki interpolation formula
+  separate from obstacle-specific inputs. A page marked `Needs skilling success
+  chart` publishes neither the low nor high roll parameter, so ingestion retains
+  `success_interpolation_low_high_parameters_not_published` and never substitutes
+  the level-50 no-failure threshold for a level-34 probability.

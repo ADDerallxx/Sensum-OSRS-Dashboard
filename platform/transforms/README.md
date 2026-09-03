@@ -88,11 +88,13 @@ Detached-camera floor-spike training is split into standard and Karamja-glove
 variants using the obstacle page, arena table, and training guide as three
 independently revision-pinned sources. Both variants retain the four-tick
 crossing and their 24/26.4 XP rewards, but levels 20–49 stay unmodeled because
-the Wiki has no success-rate chart. The guide's approximate 36,000 XP/hour has
-no stated level or glove condition, so it remains an unscoped claim and cannot
-validate either exact vector. Mechanical calculations may still be emitted for
-fully specified conditions, but a missing comparable observation continues to
-block review.
+the obstacle page has no success-rate chart. The generic success interpolation
+formula is separately pinned, but cannot produce a probability without the
+obstacle's unpublished low/high inputs. The guide's approximate 36,000 XP/hour
+is scoped to levels 20–47 but has no stated glove condition, so it cannot
+validate either equipment variant. Mechanical calculations may still be emitted
+for fully specified conditions, but missing parameters or a comparable
+equipment-scoped observation continue to block review.
 
 Barbarian Fishing is split across six exact Fishing-level benchmarks and three
 interaction policies: AFK drop, three-tick drop, and three-tick cut-eat. Catch

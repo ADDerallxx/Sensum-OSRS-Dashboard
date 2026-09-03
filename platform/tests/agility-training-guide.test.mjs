@@ -1,4 +1,5 @@
 import {enrichAgilityCandidateConditions,enrichAgilityCandidateEligibility,parseAgilityTrainingGuideCandidates,parseBarbarianFishingEligibility,parseBrimhavenFloorSpikeEligibility,parseRooftopTargetConditionEvidence} from '../ingestion/agility-training-guide-lib.mjs';
+import {parseBrimhavenFloorSpikeSuccessEvidence} from '../ingestion/agility-floor-spike-success-evidence-lib.mjs';
 const source=`===Levels 1–26/33: Questing===
 Completing [[The Tourist Trap]], [[Recruitment Drive]], [[The Depths of Despair]], and [[The Grand Tree]] will grant a total of 19,700 experience.
 ===Levels 20–47: Brimhaven Agility Arena===
@@ -34,22 +35,31 @@ A player can complete this course in 64.2 seconds (107 ticks).`;
 const varrockSource=`The '''Varrock Rooftop Course''' is a [[Rooftop Agility Course]] located in [[Varrock]] that is available to players with an [[Agility]] level of 30 or higher.
 It is possible to fail during Cross Clothes Line and Balance Wall and get inflicted with 3–8 and 2–5 damage respectively.
 The course takes approximately 1 minute and 10 seconds.`;
+const floorSpikeSource=`Players will no longer fail this obstacle at level 50 [[Agility]].
+{{Agility info|name=Floor spikes|level=20|type=Obstacle}}
+[[Category:Needs skilling success chart]]`;
+const successFormulaSource=`function p.interp(low, high, level)
+ local value = math.floor(low * (99 - level) / 98 + high * (level - 1) / 98 + 0.5) + 1
+ return math.min(math.max(value / 256, 0), 1)`;
 const parsed=parseAgilityTrainingGuideCandidates({title:'Agility training',content:source,sourceRevision:'15324367',sourceTimestamp:'2026-08-29',sourceUrl:'https://example.test'});
 const eligibility=parseBarbarianFishingEligibility({title:'Barbarian Training',content:barbarianSource,sourceRevision:'15292392',sourceTimestamp:'2026-08-11',sourceUrl:'https://example.test/barbarian'});
 const brimhavenEligibility=parseBrimhavenFloorSpikeEligibility({title:'Brimhaven Agility Arena',content:brimhavenSource,sourceRevision:'15293118',sourceTimestamp:'2026-08-11',sourceUrl:'https://example.test/brimhaven'});
 const alKharidCondition=parseRooftopTargetConditionEvidence({title:'Al Kharid Rooftop Course',content:alKharidSource,sourceRevision:'15319534',sourceTimestamp:'2026-08-25',sourceUrl:'https://example.test/al-kharid'});
 const varrockCondition=parseRooftopTargetConditionEvidence({title:'Varrock Rooftop Course',content:varrockSource,sourceRevision:'15319528',sourceTimestamp:'2026-08-25',sourceUrl:'https://example.test/varrock'});
-const rows=enrichAgilityCandidateConditions(enrichAgilityCandidateEligibility(parsed,[...eligibility,...brimhavenEligibility]),[...alKharidCondition,...varrockCondition]),failures=[],check=(ok,message)=>{if(!ok)failures.push(message)},get=key=>rows.find(x=>x.candidate_key===key);
+const floorSpikeCondition=parseBrimhavenFloorSpikeSuccessEvidence({obstaclePage:{title:'Floor spikes (Brimhaven Agility Arena)',content:floorSpikeSource,sourceRevision:'15329694',sourceTimestamp:'2026-09-03',sourceUrl:'https://example.test/floor-spikes'},formulaPage:{title:'Module:Skilling success chart',content:successFormulaSource,sourceRevision:'15325744',sourceTimestamp:'2026-08-30',sourceUrl:'https://example.test/success-formula'},targetBaseAgility:34});
+const rows=enrichAgilityCandidateConditions(enrichAgilityCandidateEligibility(parsed,[...eligibility,...brimhavenEligibility]),[...alKharidCondition,...varrockCondition,...floorSpikeCondition]),failures=[],check=(ok,message)=>{if(!ok)failures.push(message)},get=key=>rows.find(x=>x.candidate_key===key);
 check(rows.length===9,'The level-34 guide universe must emit nine source-backed candidates.');
 check(get('guide:questing:early-agility')?.record_kind==='one_time_progression'&&get('guide:questing:early-agility').quests.length===4,'Quest progression must not become a repeatable method.');
 check(get('guide:brimhaven:floor-spikes-active')?.minimum_agility===20&&get('guide:brimhaven:floor-spikes-active').boosted_minimum_base_agility===15,'Brimhaven base and boosted entry levels must remain separate.');
 check(get('guide:brimhaven:floor-spikes-active')?.observed_rate_kind==='source_stated_upper_bound'&&get('guide:brimhaven:floor-spikes-active')?.observed_rate_is_expected===false,'The Brimhaven "up to" rate must remain an upper bound and never become an expected rate.');
 check(get('guide:brimhaven:floor-spikes-active')?.observed_xp_per_hour_upper_scope?.minimum===20&&get('guide:brimhaven:floor-spikes-active')?.observed_xp_per_hour_upper_scope?.maximum===47&&get('guide:brimhaven:floor-spikes-active')?.failure_probability_published===false,'The upper bound must retain its guide band and the missing failure probability.');
+check(get('guide:brimhaven:floor-spikes-active')?.target_condition_blocker==='success_interpolation_low_high_parameters_not_published'&&get('guide:brimhaven:floor-spikes-active')?.supporting_source_revisions?.includes('15325744'),'The active method must distinguish the verified generic formula from its missing obstacle parameters.');
 check(get('guide:brimhaven:floor-spikes-detached')?.level_scope_ambiguous===false&&get('guide:brimhaven:floor-spikes-detached').minimum_agility===20,'The detached-camera method must resolve to the source-stated floor-spike requirement.');
 check(get('guide:brimhaven:floor-spikes-detached')?.eligibility_scope==='floor_spike_obstacle'&&get('guide:brimhaven:floor-spikes-detached').requirements?.includes('200 coins entry fee'),'The supporting source must keep arena access and obstacle eligibility distinct.');
 check(get('guide:brimhaven:floor-spikes-detached')?.supporting_source_revisions?.includes('15293118'),'The detached-camera eligibility join must retain the Brimhaven source revision.');
 check(get('guide:brimhaven:floor-spikes-detached')?.observed_xp_per_hour_level_scope?.minimum===20&&get('guide:brimhaven:floor-spikes-detached')?.observed_xp_per_hour_level_scope?.maximum===47,'The Detached Camera rate must inherit the exact guide section band.');
 check(get('guide:brimhaven:floor-spikes-detached')?.observed_rate_equipment_scope_unresolved===true,'The guide must not silently choose standard or Karamja-glove equipment for the 36,000 XP/hour observation.');
+check(get('guide:brimhaven:floor-spikes-detached')?.target_condition_blocker==='success_interpolation_low_high_parameters_not_published'&&get('guide:brimhaven:floor-spikes-detached')?.target_condition_evidence?.source_revision==='15329694','The detached method must retain the exact level-34 parameter gap and obstacle revision.');
 check(get('guide:rooftop:varrock')?.observed_xp_per_hour_range?.maximum===14000,'Rooftop guide ranges must remain ranges.');
 check(get('guide:rooftop:varrock')?.source_locator?.evidence?.some(item=>item.excerpt?.includes('11,000–14,000')),'The Varrock rate must retain its exact table-row locator rather than only the enclosing section.');
 check(get('guide:edgeville:monkeybars')?.observed_rate_kind==='source_stated_upper_bound'&&get('guide:edgeville:monkeybars')?.observed_rate_is_expected===false,'The Edgeville guide rate must remain a non-expected upper bound.');

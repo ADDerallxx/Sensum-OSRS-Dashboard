@@ -74,6 +74,11 @@ function guideDetail(candidate,vectors,target){
   if(candidate.failure_possible===true&&blockers.includes('failure_model_with_level_condition')){
     blockers.splice(blockers.indexOf('failure_model_with_level_condition'),1,`failure_probability_at_base_level_${target}_not_published`);
   }
+  if(candidate.target_condition_blocker){
+    const genericFailure=blockers.indexOf(`failure_probability_at_base_level_${target}_not_published`);
+    if(genericFailure>=0)blockers.splice(genericFailure,1);
+    blockers.push(candidate.target_condition_blocker);
+  }
   if(finite(rateScope?.minimum)&&finite(rateScope?.maximum)&&(target<Number(rateScope.minimum)||target>Number(rateScope.maximum))){
     blockers.push(`observed_rate_scope_${Number(rateScope.minimum)}_to_${Number(rateScope.maximum)}_does_not_cover_base_level_${target}`);
   }

@@ -18,6 +18,7 @@
   "rules": {
     "standardAndKaramjaGloveVariantsRemainSeparate": true,
     "failureProbabilityBelowFailureFreeLevelMustNotBeInferred": true,
+    "genericFormulaWithoutObstacleParametersRetainsExactBlocker": true,
     "sectionScopedEquipmentUnresolvedRateMustNotValidateExactVariant": true,
     "threeSourceMechanicalClaimsMustAgree": true,
     "automaticVerificationAllowed": false

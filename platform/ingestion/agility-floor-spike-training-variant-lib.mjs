@@ -2,7 +2,7 @@ const number=value=>Number(String(value||'').replace(/,/g,''));
 const lineAt=(content,index)=>content.slice(0,index).split(/\r?\n/).length;
 const excerpt=(page,match)=>({sourceRevision:String(page.sourceRevision||''),sourceUrl:page.sourceUrl,line:lineAt(page.content,match.index),excerpt:match[0].slice(0,1600)});
 
-export function parseBrimhavenDetachedFloorSpikeVariants({obstaclePage,arenaPage,guidePage}){
+export function parseBrimhavenDetachedFloorSpikeVariants({obstaclePage,arenaPage,guidePage,successEvidence=[]}){
   if(obstaclePage?.title!=='Floor spikes (Brimhaven Agility Arena)'||arenaPage?.title!=='Brimhaven Agility Arena'||guidePage?.title!=='Agility training')return [];
   const obstacle=obstaclePage.content||'',arena=arenaPage.content||'',guide=guidePage.content||'';
   const info=obstacle.match(/\{\{Agility info[\s\S]{0,600}?\|version1\s*=\s*Standard[\s\S]{0,120}?\|version2\s*=\s*Karamja gloves[\s\S]{0,120}?\|level\s*=\s*(\d+)[\s\S]{0,120}?\|xp1\s*=\s*([\d.]+)[\s\S]{0,120}?\|xp2\s*=\s*([\d.]+)[\s\S]{0,180}?\|type\s*=\s*Obstacle[\s\S]{0,80}?\}\}/i);
@@ -20,12 +20,15 @@ export function parseBrimhavenDetachedFloorSpikeVariants({obstaclePage,arenaPage
   const consistent=entryLevel===arenaLevel&&entryLevel===tableLevel&&entryLevel===guideLevelMinimum&&guideLevelMaximum>=guideLevelMinimum&&standardXp===tableStandardXp&&gloveXp===tableGloveXp&&Math.abs(gloveXp-standardXp*(1+gloveBonus/100))<1e-9&&Math.abs(tableXpPerTick-standardXp/cycleTicks)<1e-9&&failureFreeLevel>entryLevel;
   if(!consistent)return [];
 
+  const targetSuccessEvidence=successEvidence.find(row=>row.candidate_key==='guide:brimhaven:floor-spikes-detached')||null;
+  if(!targetSuccessEvidence)return [];
   const sourceLocator={
     obstacle:{agilityInfo:excerpt(obstaclePage,info),failure:excerpt(obstaclePage,failure),lowAttention:excerpt(obstaclePage,lowAttention)},
     arena:{access:excerpt(arenaPage,access),requirement:excerpt(arenaPage,arenaRequirement),gloves:excerpt(arenaPage,gloves),tableRow:excerpt(arenaPage,table)},
-    guide:{section:excerpt(guidePage,guideHeading),equipmentUnscopedRate:excerpt(guidePage,guideRate)}
+    guide:{section:excerpt(guidePage,guideHeading),equipmentUnscopedRate:excerpt(guidePage,guideRate)},
+    successModel:targetSuccessEvidence.source_locator
   };
-  const supportingSourceRevisions=[String(arenaPage.sourceRevision||''),String(guidePage.sourceRevision||'')].filter(Boolean);
+  const supportingSourceRevisions=[String(arenaPage.sourceRevision||''),String(guidePage.sourceRevision||''),...(targetSuccessEvidence.supporting_source_revisions||[])].filter(Boolean);
   const common={
     contract:'sensum.agility-floor-spike-training-variant.v1',
     parent_name:'Brimhaven Agility Arena',
@@ -39,7 +42,11 @@ export function parseBrimhavenDetachedFloorSpikeVariants({obstaclePage,arenaPage
     action_unit:'obstacle_crossing',
     cycle_ticks:cycleTicks,
     failure_free_level:failureFreeLevel,
-    unmodeled_level_ranges:[{minimum:entryLevel,maximum:failureFreeLevel-1,blocker:'failure_probability_by_level_missing'}],
+    unmodeled_level_ranges:targetSuccessEvidence.failure_probability_at_target===null?[{minimum:entryLevel,maximum:failureFreeLevel-1,blocker:targetSuccessEvidence.target_condition_blocker}]:[],
+    success_model_evidence:targetSuccessEvidence,
+    success_probability_target_base_agility:targetSuccessEvidence.target_base_agility,
+    success_probability_at_target:targetSuccessEvidence.success_probability_at_target,
+    failure_probability_at_target:targetSuccessEvidence.failure_probability_at_target,
     observed_xp_per_hour_equipment_unscoped:equipmentUnscopedRate,
     observed_rate_scope:{agility_level:{minimum:guideLevelMinimum,maximum:guideLevelMaximum},equipment_state:null,approximate:true},
     source_warning:'observed_rate_equipment_state_unspecified',
