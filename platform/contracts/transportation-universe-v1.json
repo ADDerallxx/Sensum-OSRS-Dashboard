@@ -1,0 +1,21 @@
+{
+  "contract": "sensum.transportation-universe.v1",
+  "scope": "all_player_transport_paths_with_requirements_costs_slots_and_timing",
+  "recordContract": "sensum.transportation-path.v1",
+  "required": [
+    "complete",
+    "paths",
+    "rockslideContext",
+    "sourceRefs"
+  ],
+  "rules": {
+    "completeMeansAllMaterialPlayerTransportPathsWereIndependentlyDiscovered": true,
+    "guideExamplesCannotSeedOrLimitTheUniverse": true,
+    "accountAvailabilityCannotFilterTheUniverse": true,
+    "unknownPathMechanicsRemainExplicit": true,
+    "rockslideContextMustReferenceExactlyOneOutboundPath": true,
+    "completenessAndMechanicalReadinessRemainSeparate": true,
+    "revisionPinnedDiscoverySourcesAreRequired": true,
+    "automaticVerificationAllowed": false
+  }
+}

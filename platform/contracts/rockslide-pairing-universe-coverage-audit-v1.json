@@ -1,0 +1,42 @@
+{
+  "contract": "sensum.rockslide-pairing-universe-coverage-audit.v1",
+  "required": [
+    "officialSkillDomain",
+    "rockslideContext",
+    "activityUniverse",
+    "transportationUniverse",
+    "pairingAssessments",
+    "namedGuideRegression",
+    "identityUniverseComplete",
+    "mechanicalCoverageComplete",
+    "blockers",
+    "inputSnapshots",
+    "contentHash"
+  ],
+  "pairingAssessmentRequired": [
+    "activityKey",
+    "decision",
+    "decisionReasons",
+    "evaluatedReturnPathKeys",
+    "compatibleReturnPathKeys",
+    "equipmentConflict",
+    "sourceRefs"
+  ],
+  "rules": {
+    "officialSkillDomainDefinesKnowledgeScope": true,
+    "everyOfficialSkillMustBeCoveredIndependentlyOfTheAccount": true,
+    "everyRepeatableActivityMustBeAssessedExactlyOnce": true,
+    "everyRelevantReturnPathMustBeAssessed": true,
+    "outboundRockslidePathMustExistInTheTransportUniverse": true,
+    "rockslideEquipmentSlotConflictsMustBeAssessedPerActivity": true,
+    "pairingInclusionsAndExclusionsRequireRevisionPinnedEvidence": true,
+    "namedWikiExamplesAreRegressionExpectationsNotUniverseSeeds": true,
+    "curatedOrAllowlistedInputsCannotProveCompleteness": true,
+    "currentAccountStateCannotAppearInReusableUniverseEvidence": true,
+    "identityCompletenessAndMechanicalCompletenessRemainSeparate": true,
+    "missingTimingCostConsumptionSlotConflictOrBankReturnEvidenceBlocksMechanics": true,
+    "snapshotRejectionsBlockCompleteness": true,
+    "absoluteBestRequiresIdentityAndMechanicalCompleteness": true,
+    "automaticVerificationAllowed": false
+  }
+}

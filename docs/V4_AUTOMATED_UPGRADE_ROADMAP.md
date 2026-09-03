@@ -26,7 +26,8 @@ promise; completing infrastructure or ingesting records alone is not success.
 ## Roadmap order
 
 1. Expand composite Agility pages into exact variants.
-2. Close every level-34 Agility eligibility and mechanical-model gap.
+2. Validate the account-independent Agility model across levels 1–99 while
+   closing level 34 as the first account-query certificate slice.
 3. Review and approve exact Agility vectors; issue a reproducible certificate.
 4. Generalize the method engine across every trainable skill family and audit
    each complete base-level domain rather than only the current account level.
@@ -41,6 +42,22 @@ The plan is complete only when the accuracy gates pass, the replacement has been
 rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
+
+Rockslide pairing coverage now has an independent, fail-closed universe gate.
+The gate requires every official skill to have a complete repeatable-activity
+inventory, every activity to be assessed exactly once, and every relevant
+return path to come from a complete transportation graph with explicit timing,
+cost, consumption, equipment-slot, requirement, and bank-return state. Current
+account fields, curated lists, named Wiki examples, and golden-vector corpora
+cannot establish the boundary. The first readiness report measures 24 official
+skill domains and four revision-15324367 Rockslide guide members, but it finds
+no independently closed activity universe, transportation universe, or pairing
+assessment set. The existing 82-vector corpus contains only Agility and is
+reported as review material, not universe evidence. Rockslide therefore remains
+open, the guide composite count remains one, and all 99 Agility levels remain
+blocked. Synthetic complete-universe fixtures prove the gate can pass, while
+missing skills, account-filtered records, unassessed routes, stale guide scope,
+and incomplete travel mechanics fail closed.
 
 The Colossal Wyrm composite now has two independently identified route members,
 Basic and Advanced, and both match exactly one same-guide-revision candidate.

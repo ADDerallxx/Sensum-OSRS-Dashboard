@@ -1,0 +1,34 @@
+{
+  "contract": "sensum.activity-universe.v1",
+  "scope": "all_repeatable_training_activities_across_every_official_trainable_skill",
+  "requiredActivityIdentity": [
+    "activityKey",
+    "name",
+    "skillKeys",
+    "repeatable",
+    "sourceRefs"
+  ],
+  "requiredPairabilityEvidence": [
+    "locations",
+    "cyclePolicy",
+    "requirements",
+    "unresolvedMechanics"
+  ],
+  "requiredSkillCoverage": [
+    "skillKey",
+    "complete",
+    "activityKeys",
+    "sourceRefs"
+  ],
+  "rules": {
+    "everyOfficialTrainableSkillMustHaveAnIndependentCoverageDeclaration": true,
+    "everyActivityMustBeLinkedFromItsSkillCoverageDeclaration": true,
+    "everyDeclaredActivityMustBeRepeatable": true,
+    "currentAccountLevelIsAQueryInputOnly": true,
+    "accountOrPreferenceFilteringCannotDefineTheUniverse": true,
+    "guideExamplesOrCuratedVectorsCannotProveTheUniverse": true,
+    "unknownPairabilityMechanicsRemainExplicit": true,
+    "revisionPinnedSourceRefsAreRequired": true,
+    "automaticVerificationAllowed": false
+  }
+}

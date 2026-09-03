@@ -5,6 +5,8 @@
     "everyNamedMemberMustHaveExactlyOneSameRevisionCandidate": true,
     "unexpectedSectionCandidatesBlock": true,
     "openEndedPairingUniverseCannotPassInternalCoverage": true,
+    "independentCompletePairingUniverseAuditCanCloseOpenEndedGuideLanguage": true,
+    "independentPairingUniverseAuditMustMatchTheNamedGuideRevision": true,
     "namedMemberCoverageDoesNotProvePairingUniverseCompleteness": true,
     "identityCoverageDoesNotProveMechanicalCompleteness": true,
     "automaticVerificationAllowed": false

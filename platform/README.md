@@ -99,6 +99,14 @@ complete section coverage does not by itself prove
 the entire in-game method universe. Performance breakpoints are also not audited,
 and every level still has at least one incomplete candidate.
 
+Rockslide's open-ended hybrid examples now use a separate pairing-universe
+coverage contract. It cannot be closed by the named Ardougne, Hallowed
+Sepulchre, and Runecraft examples, by the current account, or by the existing
+Agility vectors. It requires an independently complete activity inventory for
+every official skill, a complete transport-path graph, and one pairing
+assessment per repeatable activity. Identity coverage is separate from timing,
+cost, consumption, equipment-slot, and bank-return mechanics.
+
 Run:
 
 ```text
@@ -108,6 +116,7 @@ node platform/ingestion/ingest-wiki-agility-rooftop-guide-members.mjs
 node platform/ingestion/ingest-wiki-agility-brimhaven-guide-members.mjs
 node platform/ingestion/ingest-wiki-agility-rockslide-guide-members.mjs
 node platform/ingestion/ingest-wiki-agility-colossal-wyrm-guide-members.mjs
+node platform/transforms/audit-rockslide-pairing-universe-coverage.mjs
 node platform/transforms/audit-agility-rooftop-guide-member-coverage.mjs
 node platform/transforms/audit-agility-brimhaven-guide-member-coverage.mjs
 node platform/transforms/audit-agility-hallowed-guide-member-coverage.mjs

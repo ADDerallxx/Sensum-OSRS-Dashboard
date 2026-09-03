@@ -1,0 +1,31 @@
+{
+  "contract": "sensum.transportation-path.v1",
+  "universeScope": "all_player_transport_paths_with_requirements_costs_slots_and_timing",
+  "requiredIdentity": [
+    "pathKey",
+    "originLocationKey",
+    "destinationLocationKey",
+    "transportKinds",
+    "sourceRefs"
+  ],
+  "requiredMechanicalState": [
+    "timing",
+    "cost",
+    "consumption",
+    "equipmentSlots",
+    "requirements",
+    "bankInteraction",
+    "unresolvedMechanics"
+  ],
+  "rules": {
+    "allMaterialRoutesMustBeEnumeratedBeforeCompleteness": true,
+    "originAndDestinationMustBeCanonicalLocations": true,
+    "ticksCannotBeInferredFromMapDistance": true,
+    "costsChargesAndConsumptionRemainSeparate": true,
+    "equipmentSlotConflictsRemainExplicit": true,
+    "bankReturnReuseRequiresExplicitEvidence": true,
+    "accountOwnershipCannotFilterTheUniverse": true,
+    "revisionPinnedSourceRefsAreRequired": true,
+    "automaticVerificationAllowed": false
+  }
+}
