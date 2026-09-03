@@ -1,0 +1,15 @@
+{
+  "contract": "sensum.agility-colossal-wyrm-guide-member.v1",
+  "required": ["memberKey", "candidateKey", "name", "sourceOrder", "routePolicy", "minimumAgility", "guideSourceRevision", "courseSourceRevision", "agilitySourceRevision", "updateSourceRevision", "sourceLocators"],
+  "rules": {
+    "basicAndAdvancedRoutesRemainIndependent": true,
+    "routeIdentityMustBeCorroboratedAcrossSources": true,
+    "courseObsoleteNoticeMustRemainVisible": true,
+    "conflictingRatesTimingsAndXpRemainSeparateClaims": true,
+    "relativeUpdatePercentagesCannotDeriveExactMechanics": true,
+    "upperBoundsCannotBecomeExpectedRates": true,
+    "clickCountCannotBecomeObstacleSequenceCount": true,
+    "sourceDriftBlocksPublication": true,
+    "automaticVerificationAllowed": false
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "contract": "sensum.agility-colossal-wyrm-guide-member-coverage-audit.v1",
+  "required": ["sectionKey", "guideSourceRevision", "memberCount", "coveredMemberCount", "uncoveredMemberCount", "internalMemberAuditSatisfied", "mechanicalCompletenessProven", "memberDetails", "mechanicalBlockers", "inputSnapshots", "contentHash"],
+  "rules": {
+    "exactlyTwoRouteMembersRequired": true,
+    "everyRouteRequiresExactlyOneSameGuideRevisionCandidate": true,
+    "unexpectedSectionCandidatesBlock": true,
+    "routeIdentityCoverageDoesNotResolveMechanicalConflicts": true,
+    "obsoleteOrContradictoryEvidenceBlocksVerifiedPerformance": true,
+    "automaticVerificationAllowed": false
+  }
+}

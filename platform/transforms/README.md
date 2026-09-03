@@ -217,6 +217,19 @@ Run:
 node platform/transforms/audit-agility-rockslide-guide-member-coverage.mjs
 ```
 
+`audit-agility-colossal-wyrm-guide-member-coverage.mjs` proves only that the
+Basic and Advanced routes each have one same-guide-revision candidate with the
+same level requirement. This can clear the composite identity gate while the
+separate mechanical gate remains blocked by the obsolete course-page notice and
+conflicting lap XP, timing, and Advanced XP/hour claims. Those mechanical
+blockers are also imported into the account-independent Agility 1–99 audit.
+
+Run:
+
+```text
+node platform/transforms/audit-agility-colossal-wyrm-guide-member-coverage.mjs
+```
+
 `audit-agility-progression-coverage.mjs` is the account-independent companion
 gate. It evaluates every source-defined Agility base level from 1 through 99,
 then derives structural spans from changes in candidate eligibility, condition

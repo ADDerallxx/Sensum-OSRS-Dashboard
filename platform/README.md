@@ -88,10 +88,12 @@ section's three ordered strategies each match exactly one same-revision guide
 candidate, with four detailed-vector links reported. The Hallowed Sepulchre
 composite now also links all ten floor/policy decisions to ten same-revision
 vectors and retains all thirteen encounter equipment members independently.
-The Rockslide composite links all four explicitly named members to same-revision
-guide candidates, but its source leaves the activity-pairing universe open.
-Together with the still-unaudited Colossal Wyrm routes, two collection or
-composite sections remain. These identity audits do
+The Colossal Wyrm composite links its Basic and Advanced routes to exactly one
+same-guide-revision candidate each, while retaining conflicting post-update
+mechanics from three Wiki pages and the official update notes. The Rockslide
+composite links all four explicitly named members to same-revision guide
+candidates, but its source leaves the activity-pairing universe open, so one
+collection or composite section remains pending. These identity audits do
 not claim their variants or mechanics are complete. Even
 complete section coverage does not by itself prove
 the entire in-game method universe. Performance breakpoints are also not audited,
@@ -105,10 +107,12 @@ node platform/ingestion/ingest-wiki-agility-training-guide-sections.mjs
 node platform/ingestion/ingest-wiki-agility-rooftop-guide-members.mjs
 node platform/ingestion/ingest-wiki-agility-brimhaven-guide-members.mjs
 node platform/ingestion/ingest-wiki-agility-rockslide-guide-members.mjs
+node platform/ingestion/ingest-wiki-agility-colossal-wyrm-guide-members.mjs
 node platform/transforms/audit-agility-rooftop-guide-member-coverage.mjs
 node platform/transforms/audit-agility-brimhaven-guide-member-coverage.mjs
 node platform/transforms/audit-agility-hallowed-guide-member-coverage.mjs
 node platform/transforms/audit-agility-rockslide-guide-member-coverage.mjs
+node platform/transforms/audit-agility-colossal-wyrm-guide-member-coverage.mjs
 node platform/transforms/audit-agility-training-guide-section-coverage.mjs
 node platform/transforms/audit-agility-progression-coverage.mjs
 ```

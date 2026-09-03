@@ -42,6 +42,23 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+The Colossal Wyrm composite now has two independently identified route members,
+Basic and Advanced, and both match exactly one same-guide-revision candidate.
+Four official sources are retained separately: Agility training revision
+15324367, the course page at revision 15313984, the Agility overview at revision
+15326985, and the August update at revision 15303824. Their level-50 and
+level-62 route identities agree, so the internal-member gate is complete and
+the unaudited composite count falls from two to one. Their mechanics do not
+agree: the course page is marked obsolete for duration and experience, Basic
+lap XP is 633 versus 504.1, Advanced lap XP is 1,053.6 versus 749.6, Advanced
+timing is 60 versus 82.8 seconds, and Advanced rates are 42,000, 43,000, and
+44,000 XP/hour across the sources. The update confirms approximate 25%/40%
+duration increases and matching reward adjustments but publishes no exact
+post-update values. Sensum therefore preserves all claims, blocks verified
+Colossal Wyrm performance, and carries those blockers into every-level Agility
+coverage. Level-34 coverage is unchanged because both routes begin later; all
+99 Agility levels remain blocked from an authoritative skill-wide claim.
+
 The Rockslide + Other Activities section now has a revision-pinned named-member
 audit. Agility training revision 15324367 supplies four explicit identities: the
 core Rockslide detour and pairings with Ardougne Rooftop, Hallowed Sepulchre,
