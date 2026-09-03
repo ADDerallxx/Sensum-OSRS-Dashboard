@@ -27,6 +27,28 @@ export function parseBarbarianFishingEligibility({title,content,sourceRevision,s
   }];
 }
 
+export function parseBrimhavenFloorSpikeEligibility({title,content,sourceRevision,sourceTimestamp,sourceUrl}){
+  if(title!=='Brimhaven Agility Arena')return [];
+  const access=lineMatch(content,/course has no requirements to access other than a\s+([\d,]+)\s+\[\[coins\]\] fee/i);
+  const obstacle=lineMatch(content,/level\s+(\d+)\s+Agility is required to pass[\s\S]{0,260}?\[\[Floor spikes \(Brimhaven Agility Arena\)\|floor spike\]\] obstacles/i);
+  if(!access||!obstacle)return [];
+  const entryLevel=number(obstacle.match[1]),entryFee=number(access.match[1]);
+  return [{
+    contract:'sensum.agility-candidate-eligibility-evidence.v1',
+    evidence_key:'eligibility:brimhaven:detached-floor-spikes',
+    candidate_key:'guide:brimhaven:floor-spikes-detached',
+    method_variant:'detached_camera_floor_spikes',
+    eligibility_scope:'floor_spike_obstacle',
+    skill_requirements:{Agility:entryLevel},
+    requirements:[`${entryFee} coins entry fee`],
+    source_revision:String(sourceRevision||''),
+    source_timestamp:sourceTimestamp||null,
+    source_url:sourceUrl,
+    source_locator:locator(access,obstacle),
+    state:'candidate'
+  }];
+}
+
 export function enrichAgilityCandidateEligibility(records,evidenceRows){
   const evidenceByCandidate=new Map((evidenceRows||[]).map(row=>[row.candidate_key,row]));
   return records.map(row=>{
@@ -43,12 +65,16 @@ export function enrichAgilityCandidateEligibility(records,evidenceRows){
       ...row,
       eligibility_contradictions:contradictions,
       supporting_eligibility_evidence:evidence,
-      other_skill_requirement_unknown:true
+      ...(row.other_skill_requirement_unknown===true?{other_skill_requirement_unknown:true}:{}),
+      ...(row.level_scope_ambiguous===true?{level_scope_ambiguous:true}:{})
     };
+    const resolvesCrossSkill=row.other_skill_requirement_unknown===true,resolvesLevelScope=row.level_scope_ambiguous===true;
     return {
       ...row,
       skill_requirements:{...evidence.skill_requirements},
-      other_skill_requirement_unknown:false,
+      requirements:[...new Set([...(row.requirements||[]),...(evidence.requirements||[])])],
+      ...(resolvesCrossSkill?{other_skill_requirement_unknown:false}:{}),
+      ...(resolvesLevelScope?{level_scope_ambiguous:false,minimum_agility_source:'supporting_obstacle_requirement',eligibility_scope:evidence.eligibility_scope}:{}),
       supporting_source_revisions:[...new Set([...(row.supporting_source_revisions||[]),evidence.source_revision])],
       supporting_eligibility_evidence:evidence
     };
