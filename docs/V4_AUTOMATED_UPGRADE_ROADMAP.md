@@ -54,3 +54,11 @@ separate 3–8 and 2–5 damage ranges. Training-guide revision 15324367 scopes 
 11,000–14,000 XP/hour range to levels 30–40, which includes level 34, but neither
 source publishes a level-34 failure probability. Varrock therefore remains
 blocked with that exact missing condition instead of receiving an inferred rate.
+
+The Shayzien basic-course model now joins its course mechanics to the official
+Agility overview instead of discarding cross-page evidence. Course revision
+15168110 retains the level-1 entry, 153.5 XP, and 51-second minimum. Agility
+revision 15326985 separately retains the approximate 53-second observation,
+8,750 XP/hour practical average, and qualitative “very unlikely” failure claim.
+Because that wording is not a numeric probability at level 34, the vector keeps
+the observation but withholds a calculated rate and names the missing condition.

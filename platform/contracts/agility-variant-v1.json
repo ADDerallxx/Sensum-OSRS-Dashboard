@@ -7,6 +7,8 @@
     "eachVariantHasIndependentMechanics": true,
     "sourceWarningBlocksApproval": true,
     "unknownFailureBehaviorBlocksExpectedRate": true,
+    "qualitativeFailureEvidenceMustRemainQualitative": true,
+    "supportingEvidenceConflictsBlockPublication": true,
     "automaticVerificationAllowed": false
   }
 }

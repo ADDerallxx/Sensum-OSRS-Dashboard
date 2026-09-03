@@ -13,6 +13,9 @@ const noAccessRequirement=resolveEntryAndModeledLevels({explicitEntryLevel:0,bas
 check(noAccessRequirement.entryLevel===0&&noAccessRequirement.modeledMinimumLevel===40,'A zero access requirement must remain known while a level-specific rate keeps its modeled minimum.');
 const timeOutcome=resolveVariantConditionModel({skill_requirements:{Agility:25},outcome_model:'completion_time_reward',random_failure_roll_applicable:false,completion_scope:'all_10_goals_completed'});
 check(timeOutcome.conditionDetails.outcomeModel==='completion_time_reward'&&timeOutcome.conditionDetails.randomFailureRollApplicable===false&&timeOutcome.conditionDetails.completionScope==='all_10_goals_completed','Time-based completion outcomes must survive condition resolution without becoming random success rolls.');
+const qualitative=resolveVariantConditionModel({failure_possible:true,failure_qualifier:'very_unlikely',failure_probability_published:false,supporting_evidence:{source_revision:'9'}});
+check(qualitative.failure===null&&qualitative.conditionDetails.failurePossible===true&&qualitative.conditionDetails.failureQualifier==='very_unlikely'&&qualitative.conditionDetails.failureProbabilityPublished===false,'Qualitative failure evidence must survive without becoming a synthetic probability.');
+check(qualitative.conditionDetails.failureEvidence?.source_revision==='9','The supporting condition revision must survive vector condition resolution.');
 const unknown=resolveEntryAndModeledLevels({explicitEntryLevel:null,inferredEntryLevels:[null,undefined]});
 check(unknown.entryLevel===null&&unknown.modeledMinimumLevel===null&&finiteConditionLevel(null)===null,'Missing levels must not be coerced to zero.');
 if(failures.length){console.error(failures.join('\n'));process.exit(1)}console.log('Activity variant condition checks passed.');

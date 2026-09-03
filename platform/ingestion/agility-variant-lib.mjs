@@ -1,6 +1,47 @@
 const number=value=>Number(String(value||'').replace(/,/g,''));
 const first=(content,patterns)=>{for(const pattern of patterns){const match=content.match(pattern);if(match)return match}return null};
 const excerpt=match=>match?.[0]?.slice(0,700)||null;
+const located=(content,pattern)=>{const match=content.match(pattern);return match?{match,line:content.slice(0,match.index).split(/\r?\n/).length,excerpt:match[0].slice(0,1200)}:null};
+
+export function parseShayzienBasicSupportingEvidence({title,content,sourceRevision,sourceTimestamp,sourceUrl}){
+  if(title!=='Agility')return [];
+  const statement=located(content,/The Shayzien Agility Course is split into two Basic and Advanced course, with the former requiring\s+(\d+)\s+Agility and the latter requiring\s+(\d+)\s+Agility\.[\s\S]{0,300}?basic course takes around\s+([\d.]+)\s+seconds to complete, yields\s+([\d.]+)\s+experience, with it also being very unlikely to fail any of the course's obstacles, making the average Agility experience per hour\s+([\d,]+)/i);
+  if(!statement)return [];
+  return [{
+    contract:'sensum.agility-variant-supporting-evidence.v1',
+    evidence_key:'agility-variant-support:shayzien:basic:practical-rate-and-failure',
+    parent_name:'Shayzien Agility Course',
+    variant_key:'basic',
+    entry_level:number(statement.match[1]),
+    cycle_seconds_observed_approximate:number(statement.match[3]),
+    xp_per_lap:number(statement.match[4]),
+    failure_possible:true,
+    failure_qualifier:'very_unlikely',
+    failure_probability_published:false,
+    observed_xp_per_hour:number(statement.match[5]),
+    observed_rate_kind:'practical_average',
+    observed_rate_approximate:true,
+    source_revision:String(sourceRevision||''),
+    source_timestamp:sourceTimestamp||null,
+    source_url:sourceUrl,
+    source_locator:{line:statement.line,excerpt:statement.excerpt},
+    state:'candidate'
+  }];
+}
+
+export function enrichAgilityVariantsWithSupportingEvidence(records,evidenceRows){
+  const evidenceByVariant=new Map((evidenceRows||[]).map(row=>[`${row.parent_name}:${row.variant_key}`,row]));
+  return records.map(row=>{
+    const evidence=evidenceByVariant.get(`${row.parent_name}:${row.variant_key}`);
+    if(!evidence)return row;
+    const conflicts=[];
+    if(number(row.entry_level)!==number(evidence.entry_level))conflicts.push({rule:'supporting_entry_level_disagrees',primary:row.entry_level,supporting:evidence.entry_level});
+    if(number(row.xp_per_lap)!==number(evidence.xp_per_lap))conflicts.push({rule:'supporting_xp_per_lap_disagrees',primary:row.xp_per_lap,supporting:evidence.xp_per_lap});
+    const common={...row,supporting_evidence:evidence,supporting_source_revisions:[...new Set([...(row.supporting_source_revisions||[]),evidence.source_revision])],source_locator:{...row.source_locator,supportingEvidence:evidence.source_locator}};
+    if(conflicts.length)return {...common,source_warning:'supporting_evidence_conflict',supporting_evidence_conflicts:conflicts};
+    return {...common,cycle_seconds_observed_approximate:evidence.cycle_seconds_observed_approximate,failure_possible:evidence.failure_possible,failure_qualifier:evidence.failure_qualifier,failure_probability_published:evidence.failure_probability_published,observed_xp_per_hour:evidence.observed_xp_per_hour,observed_rate_kind:evidence.observed_rate_kind,observed_rate_approximate:evidence.observed_rate_approximate,observed_comparison_policy:'mechanical_upper_bound_vs_practical_observed'};
+  });
+}
 
 export function parseAgilityVariants({title,content,sourceRevision,sourceTimestamp,sourceUrl}){
   if(!/basic course/i.test(content)||!/advanced course/i.test(content))return [];
