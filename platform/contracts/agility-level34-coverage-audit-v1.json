@@ -9,6 +9,7 @@
     "missingFailureConditionBlocksTargetCoverage": true,
     "targetLevelFailureBlockersMustNameTheMissingLevel": true,
     "outOfScopeObservedRatesMustNotCoverTheTargetLevel": true,
+    "sourceUpperBoundsRemainNonExpectedEvidence": true,
     "higherLevelModelDoesNotCoverTargetLevel": true,
     "benchmarkObservationsAreGroupedByStableCandidateIdentity": true,
     "oneTimeProgressionIsNotRankedAsRepeatableTraining": true,

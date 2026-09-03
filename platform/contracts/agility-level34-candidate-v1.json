@@ -9,6 +9,7 @@
     "oneTimeAndRepeatableMethodsRemainDistinct": true,
     "entryLevelDoesNotImplyTargetPerformanceModel": true,
     "observedRateLevelBandsMustRemainExplicit": true,
+    "sourceUpperBoundsCannotBeUsedAsExpectedRates": true,
     "knownFailureWithoutTargetLevelProbabilityRemainsBlocked": true,
     "ambiguousLevelScopeRemainsBlocked": true,
     "crossPageEligibilityMustBeRevisionPinned": true,

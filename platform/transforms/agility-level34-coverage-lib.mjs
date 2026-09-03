@@ -47,7 +47,7 @@ function mechanicalBlockers(vectors,candidate=null){
 }
 
 function guideDetail(candidate,vectors,target){
-  const readiness=mechanicalReadiness(vectors,target),common={candidateKey:candidate.candidate_key,name:candidate.name,origin:'training_guide',recordKind:candidate.record_kind,minimumAgility:candidate.minimum_agility,sourceRevision:candidate.source_revision,sourceUrl:candidate.source_url,sourceLocator:candidate.source_locator,matchedVectorScenarioKeys:vectors.map(x=>x.scenarioKey),mechanicalReadiness:readiness};
+  const readiness=mechanicalReadiness(vectors,target),upperScope=candidate.observed_xp_per_hour_upper_scope,common={candidateKey:candidate.candidate_key,name:candidate.name,origin:'training_guide',recordKind:candidate.record_kind,minimumAgility:candidate.minimum_agility,sourceRevision:candidate.source_revision,sourceUrl:candidate.source_url,sourceLocator:candidate.source_locator,matchedVectorScenarioKeys:vectors.map(x=>x.scenarioKey),mechanicalReadiness:readiness,observedUpperBound:finite(candidate.observed_xp_per_hour_upper)?{xpPerHour:Number(candidate.observed_xp_per_hour_upper),kind:candidate.observed_rate_kind||null,isExpected:candidate.observed_rate_is_expected===true,levelScope:upperScope||null}:null};
   if(candidate.record_kind==='one_time_progression'&&candidate.aggregate_only)return {...common,status:'authoritative_exclusion',blockers:[],exclusionReason:'aggregate_one_time_progression_not_repeatable_training'};
   if(candidate.level_scope_ambiguous)return {...common,status:'eligibility_unknown',blockers:['guide_level_scope_ambiguous']};
   if(candidate.other_skill_requirement_unknown)return {...common,status:'eligibility_unknown',blockers:['other_skill_requirement_unknown']};
@@ -58,6 +58,12 @@ function guideDetail(candidate,vectors,target){
     return blockers.length||readiness!=='ready_for_golden_review'?{...common,status:'mechanical_model_gap',blockers:blockers.length?blockers:['mechanical_model_incomplete']}:{...common,status:'condition_model_present',blockers:[]};
   }
   const blockers=[...new Set(coverages.flatMap(x=>x.blockers).filter(x=>x!=='entry_level_above_target'))];
+  if(candidate.observed_rate_kind==='source_stated_upper_bound'&&candidate.observed_rate_is_expected===false&&finite(upperScope?.minimum)&&finite(upperScope?.maximum)&&target>=Number(upperScope.minimum)&&target<=Number(upperScope.maximum)){
+    const genericIndex=blockers.indexOf('target_level_model_missing');
+    if(genericIndex>=0)blockers.splice(genericIndex,1);
+    if(candidate.failure_possible===true&&candidate.failure_probability_published===false)blockers.push(`failure_probability_at_base_level_${target}_not_published`);
+    blockers.push(`expected_xp_per_hour_at_base_level_${target}_not_published`);
+  }
   const rateScope=candidate.observed_xp_per_hour_level_scope;
   if(candidate.failure_possible===true&&blockers.includes('failure_model_with_level_condition')){
     blockers.splice(blockers.indexOf('failure_model_with_level_condition'),1,`failure_probability_at_base_level_${target}_not_published`);

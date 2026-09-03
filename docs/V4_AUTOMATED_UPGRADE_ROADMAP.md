@@ -83,3 +83,11 @@ failure rates are unknown. Sensum therefore keeps 25,000 as an approximate,
 failure-inclusive observation rather than manufacturing a level-34 failure
 curve or multiplying completions by successful-lap XP. This closes the Pyramid
 target-condition gap while leaving its vector subject to manual golden review.
+
+The repeated-floor-spike Brimhaven candidate now preserves the guide's wording
+as an upper bound rather than an expected rate. Agility training revision
+15324367 places the method in the level 20–47 section and says players can gain
+“up to” 30,000 XP/hour, but it does not publish a level-34 failure probability
+or expected rate. The audit exposes both missing facts explicitly and retains
+the 30,000 figure only as non-ranking upper-bound evidence. This checkpoint
+improves blocker precision without claiming additional condition coverage.
