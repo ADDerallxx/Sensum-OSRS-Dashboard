@@ -36,6 +36,7 @@ node platform/ingestion/ingest-wiki-agility-barbarian-fishing-variants.mjs
 node platform/ingestion/ingest-wiki-agility-pyramid-variants.mjs
 node platform/ingestion/ingest-wiki-skill-level-domains.mjs
 node platform/ingestion/ingest-wiki-skill-training-guide-inventory.mjs
+node platform/ingestion/ingest-wiki-skill-level-unlock-inventory.mjs
 ```
 
 Each run writes newline-delimited records and a manifest containing the source,
@@ -82,6 +83,13 @@ record count, creation time, audit result, and SHA-256 content hash.
   inventory is only a discovery foundation: training guides prioritize useful
   methods and can never, by themselves, prove that every repeatable in-game
   training activity has been enumerated.
+- Cross-skill level-up-table discovery captures every top-level source parameter
+  and every bullet statement from each of the 24 revision-pinned skill tables.
+  Empty parameters, membership scope, source level, multiline text, links, and
+  exact locators remain visible. These are raw discovery statements only:
+  leading verbs and links do not establish a canonical activity, repeatability,
+  XP mechanics, or optimizer eligibility. Semantic classification and a broader
+  independent universe closure remain separate fail-closed gates.
 - Training-guide section ingestion inventories every Wiki heading in source
   order. Every method-bearing subsection is retained with its parent, source
   lines, revision, and structural role. New heading depths or parents fail

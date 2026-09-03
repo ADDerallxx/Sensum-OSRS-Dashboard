@@ -295,3 +295,17 @@ Run:
 ```text
 node platform/transforms/audit-skill-training-guide-inventory.mjs
 ```
+
+`audit-skill-level-unlock-inventory.mjs` verifies the second cross-skill
+discovery channel. It requires revision-pinned `Level up table` pages for every
+official skill and exact equality between the source bullet count and captured
+statement count on every page. Unknown parameters, missing pages, duplicate
+skills, incomplete provenance, or account fields fail the raw inventory. Even a
+passing raw audit reports zero semantically classified activities and cannot
+close the independent repeatable-activity universe.
+
+Run:
+
+```text
+node platform/transforms/audit-skill-level-unlock-inventory.mjs
+```

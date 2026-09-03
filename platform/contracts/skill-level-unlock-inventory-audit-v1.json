@@ -1,0 +1,25 @@
+{
+  "contract": "sensum.skill-level-unlock-inventory-audit.v1",
+  "required": [
+    "officialSkillDomain",
+    "sourcePageCoverage",
+    "statementCoverage",
+    "rawInventoryComplete",
+    "semanticallyClassifiedActivityCount",
+    "completeActivityUniverse",
+    "absoluteBestGate",
+    "blockers",
+    "inputSnapshot",
+    "contentHash"
+  ],
+  "rules": {
+    "allOfficialSkillPagesMustBeRevisionPinned": true,
+    "sourceAndCapturedBulletCountsMustMatchPerPage": true,
+    "unknownTemplateParametersBlockRawCompleteness": true,
+    "missingOrDuplicateSkillPagesBlockRawCompleteness": true,
+    "rawStatementCoverageIsNotSemanticActivityCoverage": true,
+    "unclassifiedStatementsCannotEnterTheOptimizer": true,
+    "accountStateIsForbidden": true,
+    "absoluteBestClaimsRemainBlockedUntilTheIndependentActivityUniverseCloses": true
+  }
+}

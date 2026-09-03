@@ -1,0 +1,41 @@
+{
+  "contract": "sensum.skill-level-unlock-inventory.v1",
+  "required": [
+    "skillKey",
+    "skill",
+    "category",
+    "minimumBaseLevel",
+    "maximumBaseLevel",
+    "accountIndependent",
+    "sourceRevision",
+    "sourceTimestamp",
+    "sourceUrl",
+    "sourceContentHash",
+    "sourceLocator",
+    "parameters",
+    "sourceBulletCount",
+    "capturedStatementCount",
+    "rawInventoryComplete",
+    "blockers"
+  ],
+  "parameterKinds": [
+    "freeplayall",
+    "membersall",
+    "freeplay<level>",
+    "members<level>"
+  ],
+  "rules": {
+    "oneRevisionPinnedLevelUpTableIsRequiredForEveryOfficialSkill": true,
+    "everyTopLevelTableParameterMustBeCaptured": true,
+    "everySourceBulletStatementMustBeCapturedExactlyOnce": true,
+    "emptyLevelParametersRemainVisible": true,
+    "completeBaseLevelDomainsRemainAttached": true,
+    "currentAccountStateCannotFilterTheInventory": true,
+    "sourceStatementsRemainRawDiscoveryEvidence": true,
+    "linkedTargetsAreDiscoveryPointersNotCanonicalIdentities": true,
+    "semanticActivityClassificationRequiresASeparateGate": true,
+    "repeatabilityCannotBeInferredFromAStatementVerb": true,
+    "levelUpTablesCannotByThemselvesProveTheCompleteActivityUniverse": true,
+    "automaticVerificationAllowed": false
+  }
+}

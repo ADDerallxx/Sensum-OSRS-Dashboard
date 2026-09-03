@@ -43,6 +43,22 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+The second cross-skill discovery channel now captures every revision-pinned
+official `Level up table`. All 24 pages are tied to the Skills revision-15321845
+domain and preserve all 3,870 top-level membership/level parameters, including
+2,111 explicitly empty parameters. The independent lexical count and parsed
+inventory agree at 4,768/4,768 source statements; each statement retains its
+skill, source level, membership scope, raw multiline text, linked discovery
+targets, page revision, content hash, and exact source lines. An initial live
+run exposed 21 inline-on-parameter statements that the independent counter did
+not include; that snapshot failed publication, the counter and regression
+fixture were corrected, and only the subsequent matching snapshot passes. No
+statement has been promoted into a canonical or repeatable activity: semantic
+classification, mechanics, cross-source identity reconciliation, and proof of
+the complete activity universe remain separate blockers. Thus this checkpoint
+substantially expands all-skill breadth without creating optimizer candidates
+or weakening the absolute-best gate.
+
 Cross-skill training-guide discovery now starts from the complete official skill
 domain rather than the current account. Skills revision 15321845 supplies all 24
 skills and their complete base-level domains (normally 1–99, with Hitpoints'
