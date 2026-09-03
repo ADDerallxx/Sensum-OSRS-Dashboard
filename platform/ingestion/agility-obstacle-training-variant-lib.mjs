@@ -30,6 +30,45 @@ function uniqueObstacleMatch(rows,claimName){
   return fallback.length===1?fallback[0]:null;
 }
 
+function parseShortcutTrainingVariant({title,content,sourceRevision,sourceTimestamp,sourceUrl}){
+  const info=content.match(/\{\{Agility info[\s\S]{0,500}?\|level\s*=\s*(\d+)[\s\S]{0,300}?\|xp\s*=\s*([\d.]+)[\s\S]{0,200}?\|type\s*=\s*Shortcut[\s\S]{0,100}?\}\}/i);
+  const claim=content.match(/An Agility level of\s+(\d+)\s+is required[\s\S]{0,700}?This obstacle can not be failed\.[\s\S]{0,180}?up to\s+([\d,]+)\s+experience per hour/i);
+  const risk=content.match(/located in the Wilderness[\s\S]{0,180}?attacked by other players/i);
+  const motionless=content.match(/==\s*Motionless training\s*==[\s\S]{0,500}?requiring no camera rotation or mouse movement/i);
+  if(!info||!claim||!risk||!motionless)return [];
+  const templateLevel=number(info[1]),claimLevel=number(claim[1]);
+  if(templateLevel!==claimLevel)return [];
+  return [{
+    contract:'sensum.agility-obstacle-training-variant.v1',
+    record_key:`agility-obstacle-training:${title}:motionless`,
+    parent_name:title,
+    variant_key:'motionless_training',
+    name:`${title} — Motionless training`,
+    record_kind:'repeatable_method',
+    standalone_training_method:true,
+    axis_coverage:['obstacle_training_method','low_intensity_strategy','risk_context'],
+    entry_level:templateLevel,
+    entry_boostable:null,
+    boost_policy:'not_stated_by_source',
+    skill_requirements:{Agility:templateLevel},
+    xp_per_success:number(info[2]),
+    action_unit:'obstacle_crossing',
+    failure_free_level:templateLevel,
+    observed_rate_minimum_level:templateLevel,
+    observed_xp_per_hour:number(claim[2]),
+    cycle_ticks:null,
+    intensity:'motionless_repeated_click',
+    risk_context:['Wilderness','Player attack','Earth warrior survival'],
+    requirements:['Survive Earth warrior attacks'],
+    inherit_parent_mechanics:false,
+    source_revision:String(sourceRevision||''),
+    source_timestamp:sourceTimestamp||null,
+    source_url:sourceUrl,
+    source_locator:{agilityInfo:excerpt(content,info),mechanicsAndRate:excerpt(content,claim),risk:excerpt(content,risk),method:excerpt(content,motionless)},
+    state:'candidate'
+  }];
+}
+
 export function parseAgilityObstacleTrainingVariants({title,content,sourceRevision,sourceTimestamp,sourceUrl}){
   const rows=obstacleRows(content),records=[];
   const claims=[...content.matchAll(/After level\s+(\d+),\s+clicking the\s+([^\n.]+?)\s+without moving the camera is an?\s+\[\[idle(?:\|[^\]]+)?\]\]\s+training method with rates of up to\s+([\d,]+)\s+experience per hour/gi)];
@@ -65,5 +104,6 @@ export function parseAgilityObstacleTrainingVariants({title,content,sourceRevisi
       state:'candidate'
     });
   }
+  records.push(...parseShortcutTrainingVariant({title,content,sourceRevision,sourceTimestamp,sourceUrl}));
   return records;
 }

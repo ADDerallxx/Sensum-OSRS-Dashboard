@@ -33,5 +33,20 @@ const ambiguous=source.replace('[[Monkeybars (Test Dungeon)|Monkeybars]]','[[Sec
 check(parseAgilityObstacleTrainingVariants({...input,content:ambiguous}).length===0,'Ambiguous obstacle names must fail closed.');
 const mismatched=source.replace('After level 64','After level 63');
 check(parseAgilityObstacleTrainingVariants({...input,content:mismatched}).length===0,'A rate level that contradicts the failure-free threshold must fail closed.');
+const shortcut=`The '''monkeybars''' is an Agility shortcut. An Agility level of 15 is required to traverse these monkey bars. Some people use the monkey bars as a low-intensity way to train Agility. This obstacle can not be failed. Players can gain up to 13,000 experience per hour.
+Be aware that the monkey bars are located in the Wilderness, and the player may be attacked by other players.
+{{Agility info
+|name = Monkey bars
+|level = 15
+|xp = 20
+|type = Shortcut
+}}
+== Motionless training ==
+Players can set a "motionless" training method, requiring no camera rotation or mouse movement.`;
+const shortcutRows=parseAgilityObstacleTrainingVariants({title:'Monkeybars (Edgeville Dungeon)',content:shortcut,sourceRevision:'15161382',sourceTimestamp:'2026-03-30',sourceUrl:'https://example.test/edgeville'}),shortcutRow=shortcutRows[0];
+check(shortcutRows.length===1&&shortcutRow?.standalone_training_method===true,'A complete shortcut training source must emit a standalone candidate.');
+check(shortcutRow?.entry_level===15&&shortcutRow?.xp_per_success===20&&shortcutRow?.failure_free_level===15&&shortcutRow?.observed_xp_per_hour===13000,'Shortcut eligibility, action XP, failure behavior, and observed rate must remain source-bound.');
+check(shortcutRow?.risk_context?.includes('Wilderness')&&shortcutRow?.cycle_ticks===null,'Wilderness risk must be explicit and unstated cycle timing must remain null.');
+check(parseAgilityObstacleTrainingVariants({title:'Monkeybars (Edgeville Dungeon)',content:shortcut.replace('|level = 15','|level = 16'),sourceRevision:'1'}).length===0,'Conflicting narrative and template levels must fail closed.');
 if(failures.length){console.error(failures.join('\n'));process.exit(1)}
 console.log('Agility obstacle-training variant checks passed.');
