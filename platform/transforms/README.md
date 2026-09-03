@@ -24,6 +24,16 @@ families and extracts revision-pinned candidate facts. Regex output is never
 automatically verified. Observed guide rates are retained separately from the
 mechanical inputs used to calculate rates.
 
+Simple lap activities use reusable fact patterns for complete-circuit XP,
+minimum or average lap seconds, and practical average hourly rates. Source
+seconds remain seconds unless the Wiki independently states exact game ticks;
+Sensum never manufactures fractional ticks from a rounded time. A minimum lap
+time produces a mechanical upper bound, which may validly exceed a practical
+average but must block if the observation materially exceeds that bound. This
+currently makes Gnome Stronghold revision 15290118 reviewable at level 1 with
+110.5 XP per lap, a 34-second minimum, no failures, and an approximate practical
+rate of 10,000 XP/hour.
+
 `generate-golden-activity-vectors.mjs` builds reviewable, scenario-scoped test
 vectors from family facts. It checks unit agreement and compares calculated
 rates with observed source ranges. Passing vectors remain proposed until manual

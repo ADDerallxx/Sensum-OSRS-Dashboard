@@ -37,6 +37,9 @@ record count, creation time, audit result, and SHA-256 content hash.
 - A failed fetch never replaces a prior validated snapshot.
 - HTTP 429 and transient server errors use throttled exponential backoff.
 - Every Wiki staging record retains its page URL and revision ID.
+- Evidence fragments retain the complete matched source line; the manifest
+  records the extractor version so source text is never silently cut without a
+  traceable format change.
 - Missing required fields, excess unknowns, or insufficient record counts block
   publication.
 - Staging success means the source was captured completely; canonical
