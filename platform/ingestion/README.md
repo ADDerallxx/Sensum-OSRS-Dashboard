@@ -44,6 +44,10 @@ record count, creation time, audit result, and SHA-256 content hash.
   traceable format change.
 - Missing required fields, excess unknowns, or insufficient record counts block
   publication.
+- A structurally complete record with contradictory source claims remains in a
+  publishable snapshot as `blocked` evidence. This prevents an older clean-looking
+  snapshot from hiding current source drift; downstream verification must retain
+  the exact conflict and cannot rank or approve the record.
 - Staging success means the source was captured completely; canonical
   transformation and formula validation are separate gates.
 - Legacy fallback or review records remain quarantined until independently

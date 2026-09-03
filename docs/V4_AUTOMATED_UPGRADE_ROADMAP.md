@@ -59,13 +59,16 @@ into the vector and review packet. It remains an uncalculated, manually
 reviewed interval that cannot enter scalar ranking or support an exact expected
 rate. This closes Varrock's target-condition gap without claiming verified best.
 
-The Shayzien basic-course model now joins its course mechanics to the official
-Agility overview instead of discarding cross-page evidence. Course revision
-15168110 retains the level-1 entry, 153.5 XP, and 51-second minimum. Agility
-revision 15326985 separately retains the approximate 53-second observation,
-8,750 XP/hour practical average, and qualitative “very unlikely” failure claim.
-Because that wording is not a numeric probability at level 34, the vector keeps
-the observation but withholds a calculated rate and names the missing condition.
+The Shayzien basic-course model now fails closed on a stale cross-page rate.
+Course revision 15168110 retains the level-1 entry, 153.5 XP, 51-second minimum,
+10,000 XP/hour upper bound, and the explicit change from 8,750 to 10,000.
+Agility revision 15326985 still presents 8,750 as a current practical average and
+calls obstacle failure “very unlikely.” Because 8,750 exactly matches the course
+page's superseded value, ingestion no longer attaches it as current rate evidence.
+The conflicted record remains publishable as blocked evidence so downstream
+coverage exposes `supporting_rate_matches_superseded_pre_update_value` instead of
+falling back to an older clean-looking snapshot. The separate unpublished numeric
+failure probability at base level 34 also remains a blocker.
 
 The Penguin Agility Course model now preserves its boostable level-30 entry as
 an entry rule rather than a training-boost assumption. Wiki revision 15239936

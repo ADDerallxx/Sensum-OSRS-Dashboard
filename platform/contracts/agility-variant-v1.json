@@ -8,7 +8,8 @@
     "sourceWarningBlocksApproval": true,
     "unknownFailureBehaviorBlocksExpectedRate": true,
     "qualitativeFailureEvidenceMustRemainQualitative": true,
-    "supportingEvidenceConflictsBlockPublication": true,
+    "supportingEvidenceConflictsBlockRecommendationVerification": true,
+    "conflictedRecordsRemainPublishedAsBlockedEvidence": true,
     "automaticVerificationAllowed": false
   }
 }

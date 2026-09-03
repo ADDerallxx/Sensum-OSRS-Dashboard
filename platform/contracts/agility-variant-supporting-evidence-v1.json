@@ -1,10 +1,11 @@
 {
   "contract": "sensum.agility-variant-supporting-evidence.v1",
-  "required": ["parent_name", "variant_key", "failure_possible", "failure_qualifier", "failure_probability_published", "observed_xp_per_hour", "observed_rate_kind", "source_revision", "source_locator"],
+  "required": ["parent_name", "variant_key", "failure_possible", "failure_qualifier", "failure_probability_published", "observed_xp_per_hour", "observed_rate_kind", "observed_rate_is_expected", "source_revision", "source_locator"],
   "rules": {
     "qualitativeFailureLanguageIsNotAProbability": true,
     "averageRateIsNotMinimumCycleMechanics": true,
     "crossPageEntryAndRewardClaimsMustAgree": true,
+    "supersededRateValuesCannotBeReusedAsCurrentObservations": true,
     "automaticVerificationAllowed": false
   }
 }

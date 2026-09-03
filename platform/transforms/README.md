@@ -122,6 +122,14 @@ boost policy, and preserve compound failure-free conditions. Ape Atoll's
 conflicting 55,200 and 55,100 XP/hour statements remain an explicit verification
 blocker rather than being silently reconciled.
 
+Shayzien Basic also retains cross-page revision drift explicitly. Course revision
+15168110 says its rate changed from 8,750 to 10,000 XP/hour and treats 10,000 as
+an upper bound, while Agility revision 15326985 still presents 8,750 as current.
+Because the latter exactly matches the superseded value, it is excluded from
+current rate candidates and carried into vectors as
+`supporting_rate_matches_superseded_pre_update_value`. The separate qualitative
+failure claim remains non-numeric and cannot create a level-34 failure rate.
+
 Hallowed Sepulchre equipment is modeled as encounter-scoped requirements and
 composable modifiers, not standalone training methods. Exact resource changes
 remain numeric; unquantified “faster” and “better chance” claims remain

@@ -18,19 +18,26 @@ check(basic.failure_free_level===50&&advanced.failure_free_level===62,'Shared ne
 check(rows.every(x=>x.source_warning==='page_marked_obsolete'),'Source warnings must propagate to every variant.');
 const shayzienPage=`==Basic course==
 This course requires 1 Agility and yields 153.5 Agility [[experience]] for completion.
-The basic course takes a minimum of 51.0 seconds to complete, the Agility experience per hour is at most 10,000.
+The basic course takes a minimum of 51.0 seconds to complete, the Agility [[experience]] per hour is at most 10,000.
 ==Advanced course==
 This course requires 45 Agility and yields 507.5 Agility [[experience]] for completion.
-The advanced course takes a minimum 46.2 seconds to complete and the average Agility experience per hour is at most 30,000. Players can expect to stop failing the obstacles that make up the advanced course at around level 64 Agility. A [[crossbow]] and a [[mith grapple]] are required to complete this course.`;
+The advanced course takes a minimum 46.2 seconds to complete and the average Agility experience per hour is at most 30,000. Players can expect to stop failing the obstacles that make up the advanced course at around level 64 Agility. A [[crossbow]] and a [[mith grapple]] are required to complete this course.
+==Changes==
+* The [[experience]] per hour gained at the basic course has been increased from 8,750 to 10,000.`;
 const overview=`===Shayzien Agility Course===
 The Shayzien Agility Course is split into two Basic and Advanced course, with the former requiring 1 Agility and the latter requiring 45 Agility.
 The basic course takes around 53 seconds to complete, yields 153.5 experience, with it also being very unlikely to fail any of the course's obstacles, making the average Agility experience per hour 8,750.
 The advanced course takes around 49 seconds and yields 507.5 experience, making the average Agility experience per hour around 30,000.`;
 const shayzienRaw=parseAgilityVariants({title:'Shayzien Agility Course',content:shayzienPage,sourceRevision:'15168110',sourceTimestamp:'2026-04-07',sourceUrl:'https://example.test/shayzien'}),shayzienEvidence=parseShayzienBasicSupportingEvidence({title:'Agility',content:overview,sourceRevision:'15300000',sourceTimestamp:'2026-08-01',sourceUrl:'https://example.test/agility'}),shayzien=enrichAgilityVariantsWithSupportingEvidence(shayzienRaw,shayzienEvidence),shayzienBasic=shayzien.find(x=>x.variant_key==='basic');
 check(shayzienEvidence[0]?.failure_qualifier==='very_unlikely'&&shayzienEvidence[0]?.failure_probability_published===false,'Qualitative failure language must not become a numeric probability.');
-check(shayzienBasic?.observed_xp_per_hour===8750&&shayzienBasic?.observed_rate_kind==='practical_average'&&shayzienBasic?.observed_rate_approximate===true,'The overview average must remain an approximate practical observation.');
+check(shayzienRaw.find(x=>x.variant_key==='basic')?.published_rate_change?.previous_xp_per_hour===8750&&shayzienRaw.find(x=>x.variant_key==='basic')?.published_rate_change?.current_xp_per_hour===10000,'The course revision must retain its explicit pre-update and current rate values.');
+check(shayzienRaw.find(x=>x.variant_key==='basic')?.observed_rate_kind==='source_stated_upper_bound'&&shayzienRaw.find(x=>x.variant_key==='basic')?.observed_rate_is_expected===false,'The course page at-most rate must remain an upper bound, not an expected rate.');
+check(shayzienBasic?.observed_xp_per_hour===undefined&&shayzienBasic?.state==='blocked','A supporting observation that exactly matches the superseded rate must not be attached as current evidence.');
+check(shayzienBasic?.source_conflicts?.some(x=>x.rule==='supporting_rate_matches_superseded_pre_update_value'),'The stale cross-page rate must remain an explicit source conflict.');
 check(shayzienBasic?.cycle_seconds===51&&shayzienBasic?.cycle_seconds_observed_approximate===53,'Minimum mechanical timing and approximate observed timing must remain separate.');
 check(shayzienBasic?.supporting_source_revisions?.includes('15300000')&&shayzienBasic?.source_locator?.supportingEvidence?.line===2,'Supporting evidence must retain its independent revision and source locator.');
+const alignedOverview=overview.replace('8,750','10,000'),alignedEvidence=parseShayzienBasicSupportingEvidence({title:'Agility',content:alignedOverview,sourceRevision:'15300001',sourceTimestamp:'2026-08-02',sourceUrl:'https://example.test/agility'}),aligned=enrichAgilityVariantsWithSupportingEvidence(shayzienRaw,alignedEvidence).find(x=>x.variant_key==='basic');
+check(aligned?.observed_xp_per_hour===10000&&aligned?.observed_rate_is_expected===true&&aligned?.state==='candidate'&&!aligned?.source_conflicts?.length,'A current supporting rate must remain usable as an expected observation when it agrees with the published post-update value.');
 const conflict=enrichAgilityVariantsWithSupportingEvidence(shayzienRaw,[{...shayzienEvidence[0],xp_per_lap:154}]).find(x=>x.variant_key==='basic');
 check(conflict?.source_warning==='supporting_evidence_conflict'&&conflict?.supporting_evidence_conflicts?.[0]?.rule==='supporting_xp_per_lap_disagrees','Cross-page mechanical disagreement must fail closed.');
 if(failures.length){console.error(failures.join('\n'));process.exit(1)}console.log('Agility variant parser checks passed.');
