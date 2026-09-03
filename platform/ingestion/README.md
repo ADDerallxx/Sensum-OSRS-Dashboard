@@ -27,6 +27,7 @@ node platform/ingestion/ingest-wiki-hallowed-equipment-modifiers.mjs
 node platform/ingestion/ingest-wiki-agility-training-guide.mjs
 node platform/ingestion/ingest-wiki-agility-training-guide-sections.mjs
 node platform/ingestion/ingest-wiki-agility-rooftop-guide-members.mjs
+node platform/ingestion/ingest-wiki-agility-brimhaven-guide-members.mjs
 node platform/ingestion/ingest-wiki-agility-rooftop-observed-variants.mjs
 node platform/ingestion/ingest-wiki-agility-floor-spike-training-variants.mjs
 node platform/ingestion/ingest-wiki-agility-barbarian-fishing-variants.mjs
@@ -85,6 +86,13 @@ record count, creation time, audit result, and SHA-256 content hash.
   into its nine ordered course identities. Missing, new, duplicate, or reordered
   rows block publication. The guide's recommended level labels remain source
   labels rather than being promoted to eligibility formulas.
+- Early-Brimhaven guide-member ingestion expands the composite level 20–47
+  section into its three ordered strategy identities: repeated floor spikes,
+  every-pillar tagging with floor spikes during downtime, and detached-camera
+  floor spikes. Exact-level observations stay exact-level, the unpublished
+  glove-adjusted hourly rate is not synthesized, and optional ticket-dispenser
+  tagging remains a separate unquantified policy axis. Added, removed, duplicate,
+  reordered, or structurally changed section paragraphs block publication.
 - Al Kharid multi-obstacle evidence V2 stores the two failing obstacle identities,
   successful XP, damage, requirements, timing, source revisions, and stable
   unknown-model states without storing an account level. Level-numbered missing

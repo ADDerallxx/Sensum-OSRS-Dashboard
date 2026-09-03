@@ -176,6 +176,20 @@ Run:
 node platform/transforms/audit-agility-rooftop-guide-member-coverage.mjs
 ```
 
+`audit-agility-brimhaven-guide-member-coverage.mjs` applies the same fail-closed
+identity gate to the composite early-Brimhaven guide section. It requires all
+three ordered strategies to match exactly one same-revision guide candidate and
+rejects unexpected section candidates. Detailed-vector links are reported, but
+they cannot prove variant or mechanical completeness; unpublished glove and
+optional-ticket rate effects remain explicit limitations in their respective
+models.
+
+Run:
+
+```text
+node platform/transforms/audit-agility-brimhaven-guide-member-coverage.mjs
+```
+
 `audit-agility-progression-coverage.mjs` is the account-independent companion
 gate. It evaluates every source-defined Agility base level from 1 through 99,
 then derives structural spans from changes in candidate eligibility, condition

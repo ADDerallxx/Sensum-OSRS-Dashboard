@@ -1,0 +1,12 @@
+{
+  "contract": "sensum.agility-brimhaven-guide-member.v1",
+  "required": ["memberKey", "candidateKey", "name", "sourceOrder", "strategyPolicy", "sourceRevision", "sourceTimestamp", "sourceUrl", "sourceLocator"],
+  "rules": {
+    "everyDistinctGuideStrategyMustBeInventoried": true,
+    "optionalPolicyAxesMustRemainExplicit": true,
+    "levelScopedObservationsCannotBeExtrapolated": true,
+    "unpublishedModifierRatesCannotBeSynthesized": true,
+    "newRemovedOrReorderedSectionParagraphsBlockPublication": true,
+    "automaticVerificationAllowed": false
+  }
+}

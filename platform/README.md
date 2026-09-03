@@ -79,12 +79,15 @@ use the source-stated no-failure threshold. The broader field scan now finds zer
 embedded account-query evidence records. The report remains intentionally blocked
 by a measured structural gap rather than a generic selected-parser warning. A
 revision-pinned inventory of Agility training revision 15324367 counts 18 ordered
-headings and 15 material method sections. Nineteen guide candidates now link to
+headings and 15 material method sections. Twenty guide candidates now link to
 all 15 material sections, including ten candidates added for the nine previously
-uncovered sections. The Rooftop collection's nine ordered members now each match
-one structured course and at least one detailed vector (17 vectors total), so
-four collection or composite sections still need internal-member audits. This
-identity audit does not claim their variants or mechanics are complete. Even
+uncovered sections and the previously omitted every-pillar Brimhaven strategy.
+The Rooftop collection's nine ordered members each match one structured course
+and at least one detailed vector (17 vectors total). The early-Brimhaven
+section's three ordered strategies each match exactly one same-revision guide
+candidate, with four detailed-vector links reported. Three collection or
+composite sections still need internal-member audits. These identity audits do
+not claim their variants or mechanics are complete. Even
 complete section coverage does not by itself prove
 the entire in-game method universe. Performance breakpoints are also not audited,
 and every level still has at least one incomplete candidate.
@@ -95,7 +98,9 @@ Run:
 node platform/ingestion/ingest-wiki-skill-level-domains.mjs
 node platform/ingestion/ingest-wiki-agility-training-guide-sections.mjs
 node platform/ingestion/ingest-wiki-agility-rooftop-guide-members.mjs
+node platform/ingestion/ingest-wiki-agility-brimhaven-guide-members.mjs
 node platform/transforms/audit-agility-rooftop-guide-member-coverage.mjs
+node platform/transforms/audit-agility-brimhaven-guide-member-coverage.mjs
 node platform/transforms/audit-agility-training-guide-section-coverage.mjs
 node platform/transforms/audit-agility-progression-coverage.mjs
 ```

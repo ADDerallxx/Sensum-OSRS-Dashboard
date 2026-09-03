@@ -42,6 +42,20 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+The level 20–47 Brimhaven section now has a same-revision internal-member
+identity audit rather than being accepted as one opaque candidate. Agility
+training revision 15324367 contains three ordered strategies: repeated floor
+spikes, every-pillar tagging with floor spikes during downtime, and
+detached-camera floor spikes. All three match exactly one guide candidate; the
+middle strategy was previously absent and is now represented. Four detailed
+vectors are linked, while the unpublished glove-adjusted hourly rate and the
+unquantified optional ticket-dispenser benefit remain explicit limitations.
+This reduces unaudited collection/composite sections from four to three without
+claiming variant or mechanical completeness. The level-34 candidate universe is
+unchanged because the new strategy starts at level 40. The full Agility domain
+was rerun across levels 1–99 and all 99 levels remain blocked from an
+authoritative best claim.
+
 The Rooftop Agility Courses collection now has a same-revision internal-member
 identity audit rather than being treated as complete because its section exists.
 Agility training revision 15324367 supplies nine ordered Rooftop members. Every
