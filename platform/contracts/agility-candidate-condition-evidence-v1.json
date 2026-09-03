@@ -1,0 +1,19 @@
+{
+  "contract": "sensum.agility-candidate-condition-evidence.v1",
+  "required": [
+    "candidate_key",
+    "method_variant",
+    "entry_level",
+    "failure_possible",
+    "failing_obstacles",
+    "failure_damage",
+    "source_revision",
+    "source_locator"
+  ],
+  "rules": {
+    "sourceStatementMayEstablishThatFailureIsPossible": true,
+    "failureProbabilityMustNotBeInferredFromFailurePossibility": true,
+    "damageRangeIsNotAFailureProbability": true,
+    "automaticVerificationAllowed": false
+  }
+}

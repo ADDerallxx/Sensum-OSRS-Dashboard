@@ -7,6 +7,8 @@
     "guideAndCourseCandidatesAreUnioned": true,
     "unknownEntryLevelRemainsInUniverse": true,
     "missingFailureConditionBlocksTargetCoverage": true,
+    "targetLevelFailureBlockersMustNameTheMissingLevel": true,
+    "outOfScopeObservedRatesMustNotCoverTheTargetLevel": true,
     "higherLevelModelDoesNotCoverTargetLevel": true,
     "benchmarkObservationsAreGroupedByStableCandidateIdentity": true,
     "oneTimeProgressionIsNotRankedAsRepeatableTraining": true,

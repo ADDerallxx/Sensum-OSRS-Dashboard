@@ -38,3 +38,12 @@ promise; completing infrastructure or ingesting records alone is not success.
 
 The plan is complete only when the accuracy gates pass, the replacement has been
 rehearsed, and the user explicitly approves production deployment.
+
+## Latest bounded checkpoint
+
+The Al Kharid Rooftop Course target-condition audit is fail-closed. Official Wiki
+revision 15319534 confirms that two obstacles can fail and cause 1–5 damage, but
+does not publish a failure probability for base Agility 34. Training-guide
+revision 15324367 scopes its 11,000–12,000 XP/hour range to levels 20–30. The
+coverage report therefore exposes both missing conditions and does not reuse the
+perfect-lap maximum or the out-of-band guide rate as a level-34 estimate.

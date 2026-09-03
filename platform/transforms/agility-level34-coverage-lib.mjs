@@ -52,7 +52,15 @@ function guideDetail(candidate,vectors,target){
     const blockers=mechanicalBlockers(vectors,candidate);
     return blockers.length||readiness!=='ready_for_golden_review'?{...common,status:'mechanical_model_gap',blockers:blockers.length?blockers:['mechanical_model_incomplete']}:{...common,status:'condition_model_present',blockers:[]};
   }
-  return {...common,status:'target_condition_gap',blockers:[...new Set(coverages.flatMap(x=>x.blockers).filter(x=>x!=='entry_level_above_target'))]};
+  const blockers=[...new Set(coverages.flatMap(x=>x.blockers).filter(x=>x!=='entry_level_above_target'))];
+  const rateScope=candidate.observed_xp_per_hour_level_scope;
+  if(candidate.failure_possible===true&&blockers.includes('failure_model_with_level_condition')){
+    blockers.splice(blockers.indexOf('failure_model_with_level_condition'),1,`failure_probability_at_base_level_${target}_not_published`);
+  }
+  if(finite(rateScope?.minimum)&&finite(rateScope?.maximum)&&(target<Number(rateScope.minimum)||target>Number(rateScope.maximum))){
+    blockers.push(`observed_rate_scope_${Number(rateScope.minimum)}_to_${Number(rateScope.maximum)}_does_not_cover_base_level_${target}`);
+  }
+  return {...common,status:'target_condition_gap',blockers:[...new Set(blockers)],targetConditionEvidence:candidate.target_condition_evidence||null,observedRateLevelScope:rateScope||null};
 }
 
 function vectorGroupDetail(vectors,target){

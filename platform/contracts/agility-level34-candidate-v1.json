@@ -8,6 +8,8 @@
     "aggregateCollectionsAreNotMethods": true,
     "oneTimeAndRepeatableMethodsRemainDistinct": true,
     "entryLevelDoesNotImplyTargetPerformanceModel": true,
+    "observedRateLevelBandsMustRemainExplicit": true,
+    "knownFailureWithoutTargetLevelProbabilityRemainsBlocked": true,
     "ambiguousLevelScopeRemainsBlocked": true,
     "crossPageEligibilityMustBeRevisionPinned": true,
     "contradictorySupportingRequirementsRemainBlocked": true,
