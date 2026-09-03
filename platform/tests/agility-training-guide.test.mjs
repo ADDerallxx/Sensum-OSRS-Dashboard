@@ -1,4 +1,4 @@
-import {parseAgilityTrainingGuideCandidates} from '../ingestion/agility-training-guide-lib.mjs';
+import {enrichAgilityCandidateEligibility,parseAgilityTrainingGuideCandidates,parseBarbarianFishingEligibility} from '../ingestion/agility-training-guide-lib.mjs';
 const source=`===Levels 1–26/33: Questing===
 Completing [[The Tourist Trap]], [[Recruitment Drive]], [[The Depths of Despair]], and [[The Grand Tree]] will grant a total of 19,700 experience.
 ===Levels 20–47: Brimhaven Agility Arena===
@@ -22,12 +22,24 @@ The shortcut offers up to 13,200 experience per hour and is located in the Wilde
 [[Barbarian Fishing]] grants small amounts of passive Agility and [[Strength]] experience. Fishing from level 58 to 99 provides progress.
 === Levels 30+: Agility Pyramid ===
 Roughly 13 completions can be made per hour at early levels (30–50), for 25,000 experience per hour.`;
-const rows=parseAgilityTrainingGuideCandidates({title:'Agility training',content:source,sourceRevision:'15324367',sourceTimestamp:'2026-08-29',sourceUrl:'https://example.test'}),failures=[],check=(ok,message)=>{if(!ok)failures.push(message)},get=key=>rows.find(x=>x.candidate_key===key);
+const barbarianSource=`===Heavy rod fishing===
+{{Needed|[[Barbarian rod]]|skills={{SCP|Fishing|48|link=yes}}, {{SCP|Agility|15|link=yes}}, {{SCP|Strength|15|link=yes}}}}
+This method also grants Strength and Agility experience.
+===Barehanded fishing===`;
+const parsed=parseAgilityTrainingGuideCandidates({title:'Agility training',content:source,sourceRevision:'15324367',sourceTimestamp:'2026-08-29',sourceUrl:'https://example.test'});
+const eligibility=parseBarbarianFishingEligibility({title:'Barbarian Training',content:barbarianSource,sourceRevision:'15292392',sourceTimestamp:'2026-08-11',sourceUrl:'https://example.test/barbarian'});
+const rows=enrichAgilityCandidateEligibility(parsed,eligibility),failures=[],check=(ok,message)=>{if(!ok)failures.push(message)},get=key=>rows.find(x=>x.candidate_key===key);
 check(rows.length===9,'The level-34 guide universe must emit nine source-backed candidates.');
 check(get('guide:questing:early-agility')?.record_kind==='one_time_progression'&&get('guide:questing:early-agility').quests.length===4,'Quest progression must not become a repeatable method.');
 check(get('guide:brimhaven:floor-spikes-active')?.minimum_agility===20&&get('guide:brimhaven:floor-spikes-active').boosted_minimum_base_agility===15,'Brimhaven base and boosted entry levels must remain separate.');
 check(get('guide:brimhaven:floor-spikes-detached')?.level_scope_ambiguous===true,'The detached-camera rate must retain its ambiguous level scope.');
 check(get('guide:rooftop:varrock')?.observed_xp_per_hour_range?.maximum===14000,'Rooftop guide ranges must remain ranges.');
-check(get('guide:barbarian-fishing')?.guide_example_fishing_range?.minimum===58&&get('guide:barbarian-fishing').other_skill_requirement_unknown===true&&get('guide:barbarian-fishing').agility_rate_missing===true,'A guide progression example must not silently become a hybrid-method eligibility requirement.');
+check(get('guide:barbarian-fishing')?.guide_example_fishing_range?.minimum===58&&get('guide:barbarian-fishing').other_skill_requirement_unknown===false&&get('guide:barbarian-fishing').agility_rate_missing===true,'A revision-pinned supporting page must resolve hybrid eligibility without pretending the guide example is a requirement.');
+check(get('guide:barbarian-fishing')?.skill_requirements?.Fishing===48&&get('guide:barbarian-fishing').skill_requirements?.Agility===15&&get('guide:barbarian-fishing').skill_requirements?.Strength===15,'Barbarian Fishing must retain all source-stated heavy-rod skill requirements.');
+check(get('guide:barbarian-fishing')?.supporting_source_revisions?.includes('15292392')&&get('guide:barbarian-fishing').supporting_eligibility_evidence?.source_locator?.evidence?.length,'Cross-page eligibility must retain its supporting revision and locator.');
+const withoutEvidence=enrichAgilityCandidateEligibility(parsed,[]).find(x=>x.candidate_key==='guide:barbarian-fishing');
+check(withoutEvidence?.other_skill_requirement_unknown===true,'Missing supporting evidence must remain explicitly unknown.');
+const conflicting=enrichAgilityCandidateEligibility(parsed,[{...eligibility[0],skill_requirements:{...eligibility[0].skill_requirements,Agility:16}}]).find(x=>x.candidate_key==='guide:barbarian-fishing');
+check(conflicting?.other_skill_requirement_unknown===true&&conflicting.eligibility_contradictions?.length===1,'Contradictory cross-page requirements must fail closed.');
 check(rows.every(x=>x.source_locator?.evidence?.length&&x.state==='candidate'),'Every guide candidate must remain revision-located and unapproved.');
 if(failures.length){console.error(failures.join('\n'));process.exit(1)}console.log('Agility training-guide candidate checks passed.');

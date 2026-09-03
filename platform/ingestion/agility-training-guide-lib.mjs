@@ -3,6 +3,58 @@ const lineMatch=(content,pattern)=>{const match=content.match(pattern);return ma
 const locator=(...evidence)=>({evidence:evidence.filter(Boolean).map(x=>({line:x.line,excerpt:x.text}))});
 const record=(base,data)=>({...base,...data,state:'candidate'});
 
+export function parseBarbarianFishingEligibility({title,content,sourceRevision,sourceTimestamp,sourceUrl}){
+  if(title!=='Barbarian Training')return [];
+  const section=lineMatch(content,/===Heavy rod fishing===[\s\S]{0,900}?\{\{SCP\|Strength\|\d+\|[^}]*\}\}/i);
+  if(!section)return [];
+  const skillRequirements={};
+  for(const skill of ['Fishing','Agility','Strength']){
+    const match=section.text.match(new RegExp(`\\{\\{SCP\\|${skill}\\|(\\d+)\\|[^}]*\\}\\}`,'i'));
+    if(!match)return [];
+    skillRequirements[skill]=number(match[1]);
+  }
+  return [{
+    contract:'sensum.agility-candidate-eligibility-evidence.v1',
+    evidence_key:'eligibility:barbarian-fishing:heavy-rod',
+    candidate_key:'guide:barbarian-fishing',
+    method_variant:'heavy_rod_fishing',
+    skill_requirements:skillRequirements,
+    source_revision:String(sourceRevision||''),
+    source_timestamp:sourceTimestamp||null,
+    source_url:sourceUrl,
+    source_locator:locator(section),
+    state:'candidate'
+  }];
+}
+
+export function enrichAgilityCandidateEligibility(records,evidenceRows){
+  const evidenceByCandidate=new Map((evidenceRows||[]).map(row=>[row.candidate_key,row]));
+  return records.map(row=>{
+    const evidence=evidenceByCandidate.get(row.candidate_key);
+    if(!evidence)return row;
+    const sourceAgility=number(evidence.skill_requirements?.Agility);
+    const contradictions=[];
+    if(!sourceAgility||sourceAgility!==number(row.minimum_agility))contradictions.push({
+      rule:'supporting_agility_requirement_disagrees',
+      guideMinimum:number(row.minimum_agility),
+      supportingMinimum:sourceAgility||null
+    });
+    if(contradictions.length)return {
+      ...row,
+      eligibility_contradictions:contradictions,
+      supporting_eligibility_evidence:evidence,
+      other_skill_requirement_unknown:true
+    };
+    return {
+      ...row,
+      skill_requirements:{...evidence.skill_requirements},
+      other_skill_requirement_unknown:false,
+      supporting_source_revisions:[...new Set([...(row.supporting_source_revisions||[]),evidence.source_revision])],
+      supporting_eligibility_evidence:evidence
+    };
+  });
+}
+
 export function parseAgilityTrainingGuideCandidates({title,content,sourceRevision,sourceTimestamp,sourceUrl}){
   if(title!=='Agility training')return [];
   const base={contract:'sensum.agility-level34-candidate.v1',source_revision:String(sourceRevision||''),source_timestamp:sourceTimestamp||null,source_url:sourceUrl};

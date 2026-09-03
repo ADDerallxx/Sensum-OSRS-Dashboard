@@ -9,6 +9,8 @@
     "oneTimeAndRepeatableMethodsRemainDistinct": true,
     "entryLevelDoesNotImplyTargetPerformanceModel": true,
     "ambiguousLevelScopeRemainsBlocked": true,
+    "crossPageEligibilityMustBeRevisionPinned": true,
+    "contradictorySupportingRequirementsRemainBlocked": true,
     "automaticVerificationAllowed": false
   }
 }
