@@ -91,3 +91,12 @@ as an upper bound rather than an expected rate. Agility training revision
 or expected rate. The audit exposes both missing facts explicitly and retains
 the 30,000 figure only as non-ranking upper-bound evidence. This checkpoint
 improves blocker precision without claiming additional condition coverage.
+
+Brimhaven's four passive policies now separate arena access from benchmark
+scope. Arena revision 15293118 says the course itself has no skill requirement
+and supplies approximate rates only at Agility 40 and 80, across the independent
+Karamja-glove and elite-diary states. The eight observations are now scoped,
+revision-located review candidates at exactly those levels; level 34 reports
+that only level-40/80 benchmarks exist and that its expected rate is unpublished.
+No benchmark is interpolated, and benchmark levels are no longer represented as
+access requirements.

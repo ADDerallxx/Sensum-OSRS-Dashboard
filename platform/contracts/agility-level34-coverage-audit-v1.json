@@ -11,6 +11,7 @@
     "outOfScopeObservedRatesMustNotCoverTheTargetLevel": true,
     "sourceUpperBoundsRemainNonExpectedEvidence": true,
     "higherLevelModelDoesNotCoverTargetLevel": true,
+    "groupedBenchmarkLevelsMustNameTheirExactTargetGap": true,
     "benchmarkObservationsAreGroupedByStableCandidateIdentity": true,
     "oneTimeProgressionIsNotRankedAsRepeatableTraining": true,
     "mechanicalReadinessIsReportedSeparately": true,

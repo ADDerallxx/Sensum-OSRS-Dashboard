@@ -3,6 +3,8 @@
   "required": ["parent_name", "variant_key", "candidate_group_key", "candidate_display_name", "axis_coverage", "entry_level", "requirements", "source_revision", "source_locator"],
   "rules": {
     "levelSpecificRatesCannotBeInterpolated": true,
+    "benchmarkLevelIsNotAnAccessRequirement": true,
+    "exactBenchmarkLevelScopeMustBeMachineReadable": true,
     "benchmarkObservationsShareStableCandidateIdentity": true,
     "baseAndEffectiveLevelsMustRemainSeparate": true,
     "zeroEntryLevelMeansNoSkillAccessRequirement": true,
