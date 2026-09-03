@@ -42,6 +42,17 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+The Rooftop Agility Courses collection now has a same-revision internal-member
+identity audit rather than being treated as complete because its section exists.
+Agility training revision 15324367 supplies nine ordered Rooftop members. Every
+member matches exactly one structured course record and at least one detailed
+activity vector, for 17 linked vectors; three members also have level-34 guide
+candidates. Missing, added, duplicate, or reordered source rows and unexpected
+course/vector identities fail closed. This clears the Rooftop collection member
+gate and reduces unaudited collection/composite sections from five to four, but
+does not prove variant or mechanical completeness. All 99 Agility levels remain
+blocked from a skill-wide authority claim.
+
 Every material section in Agility training revision 15324367 now emits at least
 one revision-located candidate. Ten new candidates cover the nine previously
 unrepresented sections: Wilderness, Hallowed Sepulchre, the Rockslide hybrid

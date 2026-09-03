@@ -163,6 +163,19 @@ section coverage. Covering the guide cannot prove that the guide enumerates the
 entire in-game method universe, so that broader completeness claim remains
 blocked independently.
 
+`audit-agility-rooftop-guide-member-coverage.mjs` expands the Rooftop collection
+gate one level deeper. It requires each of the nine guide members to match
+exactly one structured Rooftop course and at least one detailed activity vector,
+while rejecting unexpected course or vector identities. A complete same-revision
+report clears only this collection's internal-member gate; variant coverage,
+mechanical completeness, and the wider game-universe audit remain independent.
+
+Run:
+
+```text
+node platform/transforms/audit-agility-rooftop-guide-member-coverage.mjs
+```
+
 `audit-agility-progression-coverage.mjs` is the account-independent companion
 gate. It evaluates every source-defined Agility base level from 1 through 99,
 then derives structural spans from changes in candidate eligibility, condition

@@ -81,8 +81,11 @@ by a measured structural gap rather than a generic selected-parser warning. A
 revision-pinned inventory of Agility training revision 15324367 counts 18 ordered
 headings and 15 material method sections. Nineteen guide candidates now link to
 all 15 material sections, including ten candidates added for the nine previously
-uncovered sections. Five collection or composite sections still need
-internal-member audits. Even complete section coverage does not by itself prove
+uncovered sections. The Rooftop collection's nine ordered members now each match
+one structured course and at least one detailed vector (17 vectors total), so
+four collection or composite sections still need internal-member audits. This
+identity audit does not claim their variants or mechanics are complete. Even
+complete section coverage does not by itself prove
 the entire in-game method universe. Performance breakpoints are also not audited,
 and every level still has at least one incomplete candidate.
 
@@ -91,6 +94,8 @@ Run:
 ```text
 node platform/ingestion/ingest-wiki-skill-level-domains.mjs
 node platform/ingestion/ingest-wiki-agility-training-guide-sections.mjs
+node platform/ingestion/ingest-wiki-agility-rooftop-guide-members.mjs
+node platform/transforms/audit-agility-rooftop-guide-member-coverage.mjs
 node platform/transforms/audit-agility-training-guide-section-coverage.mjs
 node platform/transforms/audit-agility-progression-coverage.mjs
 ```

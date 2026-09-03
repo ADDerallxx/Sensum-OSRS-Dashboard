@@ -1,0 +1,11 @@
+{
+  "contract": "sensum.agility-rooftop-guide-member.v1",
+  "required": ["memberKey", "courseName", "sourceOrder", "guideLevelScopeLabel", "sourceRevision", "sourceTimestamp", "sourceUrl", "sourceLocator"],
+  "rules": {
+    "everyGuideTableRowIsOneMember": true,
+    "sourceOrderIsPreserved": true,
+    "guideLevelScopeIsNotAnEligibilityFormula": true,
+    "newRemovedOrDuplicateRowsBlockPublication": true,
+    "automaticVerificationAllowed": false
+  }
+}

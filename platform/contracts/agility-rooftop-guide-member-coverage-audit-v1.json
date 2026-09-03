@@ -1,0 +1,11 @@
+{
+  "contract": "sensum.agility-rooftop-guide-member-coverage-audit.v1",
+  "required": ["guideSourceRevision", "memberCount", "coveredMemberCount", "uncoveredMemberCount", "memberDetails", "internalMemberAuditSatisfied", "blockers", "inputSnapshots", "contentHash"],
+  "rules": {
+    "everyGuideMemberMustHaveExactlyOneStructuredCourseRecord": true,
+    "everyGuideMemberMustHaveAtLeastOneDetailedVector": true,
+    "unexpectedStructuredCoursesOrVectorsBlock": true,
+    "memberIdentityCoverageDoesNotProveVariantOrMechanicalCompleteness": true,
+    "automaticVerificationAllowed": false
+  }
+}

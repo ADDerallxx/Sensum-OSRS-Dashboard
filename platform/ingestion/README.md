@@ -26,6 +26,7 @@ node platform/ingestion/ingest-wiki-agility-access-variants.mjs
 node platform/ingestion/ingest-wiki-hallowed-equipment-modifiers.mjs
 node platform/ingestion/ingest-wiki-agility-training-guide.mjs
 node platform/ingestion/ingest-wiki-agility-training-guide-sections.mjs
+node platform/ingestion/ingest-wiki-agility-rooftop-guide-members.mjs
 node platform/ingestion/ingest-wiki-agility-rooftop-observed-variants.mjs
 node platform/ingestion/ingest-wiki-agility-floor-spike-training-variants.mjs
 node platform/ingestion/ingest-wiki-agility-barbarian-fishing-variants.mjs
@@ -80,6 +81,10 @@ record count, creation time, audit result, and SHA-256 content hash.
   incremental rates, unresolved rate scopes, quests, and equipment requirements
   remain distinct fields. A missing expected section blocks publication rather
   than silently shrinking the universe.
+- Rooftop guide-member ingestion expands the revision-pinned collection table
+  into its nine ordered course identities. Missing, new, duplicate, or reordered
+  rows block publication. The guide's recommended level labels remain source
+  labels rather than being promoted to eligibility formulas.
 - Al Kharid multi-obstacle evidence V2 stores the two failing obstacle identities,
   successful XP, damage, requirements, timing, source revisions, and stable
   unknown-model states without storing an account level. Level-numbered missing

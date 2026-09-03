@@ -18,6 +18,9 @@ V4 is complete only when all of these gates pass:
    weapon, armour piece, equipment effect, monster, boss, location, requirement,
    unlock, quest, diary, supply, tick timing, XP value, and live price needed by
    a recommendation.
+   For every trainable skill, that knowledge spans the complete revision-pinned
+   base-level domain (normally levels 1–99). The player's current level is a
+   query input only and can never define or prove the coverage boundary.
 2. Material facts and formulas retain revision-pinned official OSRS Wiki
    evidence. Automated monitoring detects source drift. Missing, stale,
    contradictory, composite, or condition-mismatched evidence remains an

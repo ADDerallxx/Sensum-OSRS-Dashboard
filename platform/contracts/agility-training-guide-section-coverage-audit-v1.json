@@ -14,6 +14,7 @@
     "multipleCandidatesMayBelongToOneSourceSection": true,
     "orphanCandidatesBlockCoverage": true,
     "collectionAndCompositeInternalsRequireSeparateAudit": true,
+    "completedMemberAuditsMustMatchTheSameGuideRevision": true,
     "officialGuideIsNotAssumedToBeExhaustive": true,
     "uncoveredSectionsRemainNamedAndSourceLocated": true,
     "automaticVerificationAllowed": false
