@@ -151,6 +151,17 @@ higher-level-only models, missing failure conditions, and absent vectors remain
 named blockers. Mechanical readiness is reported separately from condition
 coverage so incomplete rates cannot be mistaken for an eligibility failure.
 
+`audit-agility-progression-coverage.mjs` is the account-independent companion
+gate. It evaluates every source-defined Agility base level from 1 through 99,
+then derives structural spans from changes in candidate eligibility, condition
+scope, or blocker type. Query-level numbers in otherwise identical blockers are
+normalized only for breakpoint comparison, so they do not create artificial
+breakpoints. The unmodified blocker text remains in each level result, and any
+foreign query level embedded in reusable evidence is reported as an explicit
+architectural defect. Full-skill coverage also requires a separately proven
+candidate universe and verified performance/ranking breakpoints; success at one
+account level can never satisfy this gate.
+
 Werewolf Skullball's approximate route times are converted with the generic
 bounded-cycle formula only when the entire source range earns the same reward.
 The resulting actions/hour and XP/hour remain minimum/maximum ranges: no

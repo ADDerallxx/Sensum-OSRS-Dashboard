@@ -1,0 +1,24 @@
+{
+  "contract": "sensum.skill-level-domain.v1",
+  "required": [
+    "skillKey",
+    "skill",
+    "category",
+    "minimumBaseLevel",
+    "maximumBaseLevel",
+    "sourceRevision",
+    "sourceTimestamp",
+    "sourceUrl",
+    "sourceLocator"
+  ],
+  "rules": {
+    "levelDomainComesFromRevisionPinnedOfficialEvidence": true,
+    "everyOfficialSkillMustBeEnumerated": true,
+    "declaredAndParsedSkillCountsMustMatch": true,
+    "baseAndEffectiveLevelsRemainSeparate": true,
+    "temporaryBoostsNeverChangeTheBaseLevel": true,
+    "accountStateMustNotBeStoredInDomainEvidence": true,
+    "missingOrContradictoryDomainEvidenceBlocksCoverage": true,
+    "automaticVerificationAllowed": false
+  }
+}

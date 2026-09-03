@@ -28,7 +28,8 @@ promise; completing infrastructure or ingesting records alone is not success.
 1. Expand composite Agility pages into exact variants.
 2. Close every level-34 Agility eligibility and mechanical-model gap.
 3. Review and approve exact Agility vectors; issue a reproducible certificate.
-4. Generalize the method engine across every trainable skill family.
+4. Generalize the method engine across every trainable skill family and audit
+   each complete base-level domain rather than only the current account level.
 5. Complete item, recipe, equipment, effect, monster, location, and price coverage.
 6. Add adversarial optimizer evaluations, revision-drift checks, and confidence calibration.
 7. Implement the Cloud SQL/API/job architecture behind a compatibility boundary.
@@ -40,6 +41,21 @@ The plan is complete only when the accuracy gates pass, the replacement has been
 rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
+
+Whole-skill progression coverage is now an explicit gate rather than an implied
+future expansion of the level-34 pilot. Skills revision 15321845 declares 24
+skills, the ordinary level 1 start, Hitpoints' level 10 exception, the level 99
+maximum, temporary boosts, and the base/effective-level distinction. The new
+ingestion audit parsed all 24 skills across the four source categories and kept
+those facts revision-located. A generic progression audit now evaluates every
+integer level in a skill's source-defined domain and separates target-model
+coverage, candidate-universe completeness, structural breakpoints, and
+performance/ranking breakpoints. Its first Agility run evaluated levels 1–99
+and correctly withheld skill-wide authority: all 99 levels still contain at
+least one incomplete candidate, the guide parser covers selected sections rather
+than a proven complete universe, performance breakpoints are not audited, and
+79 level evaluations expose older reusable evidence with level 34 baked into it.
+Those are measured blockers, not inferred coverage.
 
 The Al Kharid Rooftop Course now has a composite, per-obstacle failure-evidence
 model. Course revision 15319534 identifies Tightrope 1 and the zip line as its

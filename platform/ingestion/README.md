@@ -29,6 +29,7 @@ node platform/ingestion/ingest-wiki-agility-rooftop-observed-variants.mjs
 node platform/ingestion/ingest-wiki-agility-floor-spike-training-variants.mjs
 node platform/ingestion/ingest-wiki-agility-barbarian-fishing-variants.mjs
 node platform/ingestion/ingest-wiki-agility-pyramid-variants.mjs
+node platform/ingestion/ingest-wiki-skill-level-domains.mjs
 ```
 
 Each run writes newline-delimited records and a manifest containing the source,
@@ -60,3 +61,8 @@ record count, creation time, audit result, and SHA-256 content hash.
   chart` publishes neither the low nor high roll parameter, so ingestion retains
   `success_interpolation_low_high_parameters_not_published` and never substitutes
   the level-50 no-failure threshold for a level-34 probability.
+- Skill-domain ingestion reads the official Skills page instead of hard-coding
+  a player-specific range. The declared skill count must match all four parsed
+  skill categories. The source's Hitpoints starting exception, level-99 maximum,
+  and base/effective-level distinction remain revision-located; a partial list or
+  missing domain statement makes the snapshot unpublishable.

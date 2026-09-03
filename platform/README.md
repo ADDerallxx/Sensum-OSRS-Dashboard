@@ -57,6 +57,30 @@ occurrences remain distinct, and a no-failure claim for one obstacle type cannot
 be applied to another. Coverage evaluates missing probabilities and expected
 rates at query time, allowing the same evidence to serve the full level range.
 
+## Whole-skill progression coverage
+
+Skill knowledge is account-independent. The official Skills page supplies a
+revision-pinned domain for every enumerated skill (normally base levels 1–99,
+with the source-stated Hitpoints starting exception), while temporary effective
+levels remain separate from base levels. A current account level is only a query
+against this domain; it can never define or prove the knowledge boundary.
+
+`audit-agility-progression-coverage.mjs` applies the existing target-level audit
+to every integer Agility base level and compresses only structurally identical
+ranges. It separately gates candidate-universe completeness, target-level model
+coverage, and performance/ranking breakpoints. It also detects a foreign query
+level embedded in reusable evidence. The first report is intentionally blocked:
+the selected-section guide parser is not a complete Agility method universe,
+performance breakpoints are not audited, every level still has at least one
+incomplete candidate, and older Al Kharid evidence still embeds level 34.
+
+Run:
+
+```text
+node platform/ingestion/ingest-wiki-skill-level-domains.mjs
+node platform/transforms/audit-agility-progression-coverage.mjs
+```
+
 Run:
 
 ```text

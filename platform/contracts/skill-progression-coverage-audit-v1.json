@@ -1,0 +1,28 @@
+{
+  "contract": "sensum.skill-progression-coverage-audit.v1",
+  "separationOfConcerns": {
+    "knowledgeScope": "Every integer base level in the revision-pinned skill domain.",
+    "accountQuery": "A current account base level selects one already-audited level; it never limits knowledge ingestion.",
+    "boostPolicy": "Effective-level boosts are evaluated as explicit conditions and never replace base-level coverage."
+  },
+  "coverageDimensions": [
+    "complete candidate universe",
+    "eligibility and unlocks",
+    "condition-correct mechanics",
+    "performance and costs",
+    "structural breakpoints",
+    "performance and ranking breakpoints",
+    "revision-pinned evidence"
+  ],
+  "rules": {
+    "evaluateEveryIntegerBaseLevel": true,
+    "rangesMayCoverManyLevelsOnlyWhenEvidenceOrAFormulaSupportsTheRange": true,
+    "structuralBreakpointsComeFromCandidateEligibilityScopeOrBlockerChanges": true,
+    "dynamicLevelNumbersDoNotCreateArtificialBreakpoints": true,
+    "performanceBreakpointsRequireVerifiedFormulasAndCandidateComparison": true,
+    "anIncompleteCandidateUniverseBlocksFullSkillCoverage": true,
+    "anUnmodeledLevelBlocksFullSkillCoverage": true,
+    "currentAccountCoverageCannotProveWholeSkillCoverage": true,
+    "automaticEvidenceApprovalAllowed": false
+  }
+}
