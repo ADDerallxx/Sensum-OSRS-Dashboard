@@ -1,0 +1,21 @@
+{
+  "contract": "sensum.agility-training-guide-section-coverage-audit.v1",
+  "required": [
+    "sourceRevision",
+    "headingCount",
+    "materialSectionCount",
+    "coveredSectionCount",
+    "uncoveredSectionCount",
+    "sectionDetails",
+    "blockers"
+  ],
+  "rules": {
+    "everyMaterialSectionRequiresCandidateParserCoverage": true,
+    "multipleCandidatesMayBelongToOneSourceSection": true,
+    "orphanCandidatesBlockCoverage": true,
+    "collectionAndCompositeInternalsRequireSeparateAudit": true,
+    "officialGuideIsNotAssumedToBeExhaustive": true,
+    "uncoveredSectionsRemainNamedAndSourceLocated": true,
+    "automaticVerificationAllowed": false
+  }
+}

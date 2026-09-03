@@ -1,0 +1,23 @@
+{
+  "contract": "sensum.agility-training-guide-section-inventory.v1",
+  "required": [
+    "sectionKey",
+    "title",
+    "depth",
+    "sectionRole",
+    "materialToCandidateUniverse",
+    "sourceRevision",
+    "sourceTimestamp",
+    "sourceUrl",
+    "sourceLocator"
+  ],
+  "rules": {
+    "everyWikiHeadingMustBeInventoried": true,
+    "methodBearingSubsectionsAreMaterial": true,
+    "unexpectedHeadingDepthOrParentBlocksPublication": true,
+    "sectionCoverageDoesNotProveInternalMemberCoverage": true,
+    "guideCoverageDoesNotProveCompleteGameUniverse": true,
+    "sourceOrderMustBePreserved": true,
+    "automaticVerificationAllowed": false
+  }
+}

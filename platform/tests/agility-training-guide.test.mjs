@@ -1,4 +1,5 @@
 import {enrichAgilityCandidateConditions,enrichAgilityCandidateEligibility,parseAgilityTrainingGuideCandidates,parseBarbarianFishingEligibility,parseBrimhavenFloorSpikeEligibility,parseRooftopTargetConditionEvidence} from '../ingestion/agility-training-guide-lib.mjs';
+import {agilityGuideSectionKey} from '../ingestion/agility-training-guide-section-inventory-lib.mjs';
 import {parseBrimhavenFloorSpikeSuccessEvidence} from '../ingestion/agility-floor-spike-success-evidence-lib.mjs';
 import {parseAlKharidMultiObstacleFailureEvidence} from '../ingestion/agility-rooftop-multi-obstacle-evidence-lib.mjs';
 const source=`===Levels 1–26/33: Questing===
@@ -62,6 +63,8 @@ const varrockCondition=parseRooftopTargetConditionEvidence({title:'Varrock Rooft
 const floorSpikeCondition=parseBrimhavenFloorSpikeSuccessEvidence({obstaclePage:{title:'Floor spikes (Brimhaven Agility Arena)',content:floorSpikeSource,sourceRevision:'15329694',sourceTimestamp:'2026-09-03',sourceUrl:'https://example.test/floor-spikes'},formulaPage:{title:'Module:Skilling success chart',content:successFormulaSource,sourceRevision:'15325744',sourceTimestamp:'2026-08-30',sourceUrl:'https://example.test/success-formula'}});
 const rows=enrichAgilityCandidateConditions(enrichAgilityCandidateEligibility(parsed,[...eligibility,...brimhavenEligibility]),[...alKharidCondition,...varrockCondition,...floorSpikeCondition,...alKharidComposite]),failures=[],check=(ok,message)=>{if(!ok)failures.push(message)},get=key=>rows.find(x=>x.candidate_key===key);
 check(rows.length===9,'The level-34 guide universe must emit nine source-backed candidates.');
+check(rows.every(row=>row.source_section_key),'Every parsed candidate must link back to one inventoried source section.');
+check(get('guide:questing:early-agility')?.source_section_key===agilityGuideSectionKey('Fastest experience','Levels 1–26/33: Questing')&&get('guide:rooftop:varrock')?.source_section_key===agilityGuideSectionKey('Other methods','Levels 1–99: Rooftop Agility Courses'),'Section links must use the same stable hierarchy keys as the full guide inventory.');
 check(get('guide:questing:early-agility')?.record_kind==='one_time_progression'&&get('guide:questing:early-agility').quests.length===4,'Quest progression must not become a repeatable method.');
 check(get('guide:brimhaven:floor-spikes-active')?.minimum_agility===20&&get('guide:brimhaven:floor-spikes-active').boosted_minimum_base_agility===15,'Brimhaven base and boosted entry levels must remain separate.');
 check(get('guide:brimhaven:floor-spikes-active')?.observed_rate_kind==='source_stated_upper_bound'&&get('guide:brimhaven:floor-spikes-active')?.observed_rate_is_expected===false,'The Brimhaven "up to" rate must remain an upper bound and never become an expected rate.');

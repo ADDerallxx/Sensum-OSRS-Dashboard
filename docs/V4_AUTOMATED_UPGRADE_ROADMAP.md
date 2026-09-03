@@ -42,6 +42,18 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+Agility now has a revision-pinned structural inventory of the complete official
+training-guide page instead of treating a selected parser as an unnamed universe.
+Training-guide revision 15324367 contains 18 ordered headings: 15 material method
+sections, two method-category headings, and one references heading. Existing
+candidates link by stable section key to 6 of the 15 material sections. Nine exact
+sections remain uncovered, and the covered Rooftop collection plus composite
+Brimhaven section still require internal-member audits. The progression gate now
+uses those measured findings at every base level from 1 through 99. It still
+withholds full-skill authority because the official guide is not itself proven to
+enumerate every possible in-game method. No current account state, candidate,
+rate, or eligibility fact was inferred by this inventory.
+
 Brimhaven floor-spike evidence is now account-independent under V2 success and
 training-variant contracts. Floor-spike revision 15329694 still establishes
 level-20 entry and the level-50 no-failure threshold; module revision 15325744

@@ -154,6 +154,15 @@ higher-level-only models, missing failure conditions, and absent vectors remain
 named blockers. Mechanical readiness is reported separately from condition
 coverage so incomplete rates cannot be mistaken for an eligibility failure.
 
+`audit-agility-training-guide-section-coverage.mjs` compares every ordered
+heading in the revision-pinned official Agility training guide with the candidate
+parser's stable section links. It distinguishes material method sections from
+category and references headings, names every uncovered section, rejects orphaned
+candidate links, and keeps collection/composite member coverage separate from
+section coverage. Covering the guide cannot prove that the guide enumerates the
+entire in-game method universe, so that broader completeness claim remains
+blocked independently.
+
 `audit-agility-progression-coverage.mjs` is the account-independent companion
 gate. It evaluates every source-defined Agility base level from 1 through 99,
 then derives structural spans from changes in candidate eligibility, condition

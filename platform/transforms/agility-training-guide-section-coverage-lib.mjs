@@ -1,0 +1,15 @@
+const unique=values=>[...new Set(values)];
+
+export function auditAgilityTrainingGuideSectionCoverage({sections=[],candidates=[]}){
+  const sourceRevisions=unique(sections.map(section=>section.sourceRevision).filter(Boolean)),sectionKeys=new Set(sections.map(section=>section.sectionKey)),orphanCandidates=candidates.filter(candidate=>!candidate.source_section_key||!sectionKeys.has(candidate.source_section_key)).map(candidate=>({candidateKey:candidate.candidate_key||null,name:candidate.name||null,sourceSectionKey:candidate.source_section_key||null})),material=sections.filter(section=>section.materialToCandidateUniverse===true),sectionDetails=material.map(section=>{
+    const matched=candidates.filter(candidate=>candidate.source_section_key===section.sectionKey),covered=matched.length>0;
+    return {sectionKey:section.sectionKey,title:section.title,sourceOrder:section.sourceOrder,sectionRole:section.sectionRole,repeatableTraining:section.repeatableTraining,requiresInternalMemberAudit:section.requiresInternalMemberAudit,candidateParserCovered:covered,candidateKeys:matched.map(candidate=>candidate.candidate_key),status:!covered?'uncovered_by_candidate_parser':section.requiresInternalMemberAudit?'section_covered_internal_members_not_audited':'section_covered',sourceRevision:section.sourceRevision,sourceUrl:section.sourceUrl,sourceLocator:section.sourceLocator};
+  }),uncovered=sectionDetails.filter(section=>!section.candidateParserCovered),internalUnaudited=sectionDetails.filter(section=>section.candidateParserCovered&&section.requiresInternalMemberAudit),unknownSections=sections.filter(section=>section.state==='unknown'),blockers=[];
+  if(sourceRevisions.length!==1)blockers.push('section_inventory_revision_scope_invalid');
+  if(unknownSections.length)blockers.push('one_or_more_guide_sections_require_classification');
+  if(orphanCandidates.length)blockers.push('one_or_more_candidates_are_not_linked_to_an_inventoried_section');
+  if(uncovered.length)blockers.push(`candidate_parser_covers_${material.length-uncovered.length}_of_${material.length}_material_guide_sections`);
+  if(internalUnaudited.length)blockers.push('covered_collection_or_composite_section_members_not_audited');
+  blockers.push('official_training_guide_not_proven_exhaustive_game_universe');
+  return {contract:'sensum.agility-training-guide-section-coverage-audit.v1',sourceRevision:sourceRevisions.length===1?sourceRevisions[0]:null,headingCount:sections.length,materialSectionCount:material.length,coveredSectionCount:material.length-uncovered.length,uncoveredSectionCount:uncovered.length,unknownSectionCount:unknownSections.length,orphanCandidateCount:orphanCandidates.length,internalMemberAuditPendingCount:internalUnaudited.length,candidateParserSectionCoverageSatisfied:uncovered.length===0&&!unknownSections.length&&!orphanCandidates.length,completeGameUniverseProven:false,sectionDetails,uncoveredSections:uncovered,internalMemberAuditsPending:internalUnaudited,orphanCandidates,blockers,absoluteBestGate:'blocked_incomplete_candidate_universe'};
+}

@@ -1,9 +1,10 @@
 {
   "contract": "sensum.agility-level34-candidate.v1",
   "targetBaseAgility": 34,
-  "required": ["candidate_key", "name", "record_kind", "minimum_agility", "source_revision", "source_locator"],
+  "required": ["candidate_key", "source_section_key", "name", "record_kind", "minimum_agility", "source_revision", "source_locator"],
   "rules": {
     "trainingGuideAndCourseCategoryMustBeUnioned": true,
+    "everyCandidateMustLinkToAnInventoriedGuideSection": true,
     "sectionLevelBandsRemainScoped": true,
     "aggregateCollectionsAreNotMethods": true,
     "oneTimeAndRepeatableMethodsRemainDistinct": true,

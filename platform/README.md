@@ -77,14 +77,21 @@ training variants now use account-independent V2 contracts as well: levels
 20–49 derive the unpublished-parameter blocker at query time, while levels 50–99
 use the source-stated no-failure threshold. The broader field scan now finds zero
 embedded account-query evidence records. The report remains intentionally blocked
-because the selected-section guide parser is not a complete Agility method
-universe, performance breakpoints are not audited, and every level still has at
-least one incomplete candidate.
+by a measured structural gap rather than a generic selected-parser warning. A
+revision-pinned inventory of Agility training revision 15324367 counts 18 ordered
+headings and 15 material method sections. Existing candidates link to 6 material
+sections; 9 exact sections are uncovered, and 2 covered collection or composite
+sections still need internal-member audits. Even complete coverage of that guide
+would not by itself prove the entire in-game method universe. Performance
+breakpoints are also not audited, and every level still has at least one
+incomplete candidate.
 
 Run:
 
 ```text
 node platform/ingestion/ingest-wiki-skill-level-domains.mjs
+node platform/ingestion/ingest-wiki-agility-training-guide-sections.mjs
+node platform/transforms/audit-agility-training-guide-section-coverage.mjs
 node platform/transforms/audit-agility-progression-coverage.mjs
 ```
 

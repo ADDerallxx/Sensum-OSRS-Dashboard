@@ -25,6 +25,7 @@ node platform/ingestion/ingest-wiki-agility-condition-variants.mjs
 node platform/ingestion/ingest-wiki-agility-access-variants.mjs
 node platform/ingestion/ingest-wiki-hallowed-equipment-modifiers.mjs
 node platform/ingestion/ingest-wiki-agility-training-guide.mjs
+node platform/ingestion/ingest-wiki-agility-training-guide-sections.mjs
 node platform/ingestion/ingest-wiki-agility-rooftop-observed-variants.mjs
 node platform/ingestion/ingest-wiki-agility-floor-spike-training-variants.mjs
 node platform/ingestion/ingest-wiki-agility-barbarian-fishing-variants.mjs
@@ -67,6 +68,11 @@ record count, creation time, audit result, and SHA-256 content hash.
   skill categories. The source's Hitpoints starting exception, level-99 maximum,
   and base/effective-level distinction remain revision-located; a partial list or
   missing domain statement makes the snapshot unpublishable.
+- Training-guide section ingestion inventories every Wiki heading in source
+  order. Every method-bearing subsection is retained with its parent, source
+  lines, revision, and structural role. New heading depths or parents fail
+  closed, while a new method section automatically becomes a named candidate-
+  parser coverage gap rather than disappearing silently.
 - Al Kharid multi-obstacle evidence V2 stores the two failing obstacle identities,
   successful XP, damage, requirements, timing, source revisions, and stable
   unknown-model states without storing an account level. Level-numbered missing

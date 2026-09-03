@@ -40,23 +40,32 @@ async function latestVectors(){
   throw new Error('No valid activity-vector snapshot exists.');
 }
 
-const [domains,guide,vectors]=await Promise.all([latestRootSnapshot('skill-level-domains'),latestRootSnapshot('agility-level34-candidates'),latestVectors()]);
+async function latestSectionCoverage(){
+  const base=path.join(root,'agility-training-guide-section-coverage-audits'),directories=(await fs.readdir(base,{withFileTypes:true})).filter(entry=>entry.isDirectory()).map(entry=>entry.name).sort().reverse(),rejections=[];
+  for(const directory of directories){
+    try{const report=JSON.parse(await fs.readFile(path.join(base,directory,'report.json'),'utf8')),reasons=[];if(report.contract!=='sensum.agility-training-guide-section-coverage-audit.v1')reasons.push('unexpected_report_contract');if(report.contentHash!==hash({...report,contentHash:undefined}))reasons.push('content_hash_mismatch');if(reasons.length){rejections.push({kind:'agility-training-guide-section-coverage',directory,reasons});continue}return {directory,report,rejections}}catch(error){rejections.push({kind:'agility-training-guide-section-coverage',directory,reasons:['report_validation_error'],message:error.message})}
+  }
+  throw new Error('No valid Agility training-guide section-coverage audit exists.');
+}
+
+const [domains,guide,vectors,sectionCoverage]=await Promise.all([latestRootSnapshot('skill-level-domains'),latestRootSnapshot('agility-level34-candidates'),latestVectors(),latestSectionCoverage()]);
 const agilityDomain=domains.rows.find(record=>record.skill==='Agility');
 if(!agilityDomain)throw new Error('The valid skill-domain snapshot does not contain Agility.');
 const report=auditSkillProgressionCoverage({
   skillDomain:agilityDomain,
   methodUniverse:{
     complete:false,
-    candidateSources:[{kind:'selected_training_guide_sections',snapshot:guide.directory,sourceRevision:guide.rows[0]?.source_revision||null},{kind:'activity_vectors',snapshot:vectors.directory,contentHash:vectors.report.contentHash}],
-    blockers:['training_guide_parser_covers_only_selected_sections','complete_agility_method_universe_not_audited']
+    candidateSources:[{kind:'complete_training_guide_heading_inventory',snapshot:sectionCoverage.report.inputSnapshots.sections.directory,sourceRevision:sectionCoverage.report.sourceRevision,contentHash:sectionCoverage.report.inputSnapshots.sections.contentHash},{kind:'linked_training_guide_candidates',snapshot:guide.directory,sourceRevision:guide.rows[0]?.source_revision||null,contentHash:guide.manifest.contentHash},{kind:'activity_vectors',snapshot:vectors.directory,contentHash:vectors.report.contentHash}],
+    guideSectionCoverage:{auditDirectory:sectionCoverage.directory,contentHash:sectionCoverage.report.contentHash,headingCount:sectionCoverage.report.headingCount,materialSectionCount:sectionCoverage.report.materialSectionCount,coveredSectionCount:sectionCoverage.report.coveredSectionCount,uncoveredSectionCount:sectionCoverage.report.uncoveredSectionCount,uncoveredSectionKeys:sectionCoverage.report.uncoveredSections.map(section=>section.sectionKey),internalMemberAuditPendingCount:sectionCoverage.report.internalMemberAuditPendingCount},
+    blockers:sectionCoverage.report.blockers
   },
   performanceBreakpointCoverage:{complete:false,blockers:['performance_and_ranking_breakpoints_not_audited']},
   reusableEvidenceRecords:guide.rows,
   evaluateBaseLevel:baseLevel=>auditAgilityLevelCoverage({guideCandidates:guide.rows,vectors:vectors.rows,targetBaseAgility:baseLevel,guideSnapshot:{dir:guide.directory,revision:guide.rows[0]?.source_revision||null,contentHash:guide.manifest.contentHash},vectorSnapshot:{dir:vectors.directory,contentHash:vectors.report.contentHash}}),
-  snapshotRejections:[...domains.rejections,...guide.rejections,...vectors.rejections]
+  snapshotRejections:[...domains.rejections,...guide.rejections,...vectors.rejections,...sectionCoverage.rejections,...(sectionCoverage.report.snapshotRejections||[])]
 });
 report.generatedAt=new Date().toISOString();
-report.inputSnapshots={skillDomains:{directory:domains.directory,contentHash:domains.manifest.contentHash},guide:{directory:guide.directory,contentHash:guide.manifest.contentHash},vectors:{directory:vectors.directory,contentHash:vectors.report.contentHash}};
+report.inputSnapshots={skillDomains:{directory:domains.directory,contentHash:domains.manifest.contentHash},guideSections:{directory:sectionCoverage.report.inputSnapshots.sections.directory,contentHash:sectionCoverage.report.inputSnapshots.sections.contentHash},guideSectionCoverage:{directory:sectionCoverage.directory,contentHash:sectionCoverage.report.contentHash},guide:{directory:guide.directory,contentHash:guide.manifest.contentHash},vectors:{directory:vectors.directory,contentHash:vectors.report.contentHash}};
 report.contentHash=hash({...report,contentHash:undefined});
 const output=path.join(root,'skill-progression-coverage-audits',report.generatedAt.replace(/[:.]/g,'-'));
 await fs.mkdir(output,{recursive:true});
