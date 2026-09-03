@@ -16,7 +16,7 @@ function vectorCoverage(vector,target){
   const observedScope=vector?.conditions?.observedRateLevelScope;
   if(finite(observedScope?.minimum)&&finite(observedScope?.maximum)&&(target<Number(observedScope.minimum)||target>Number(observedScope.maximum)))return {status:'target_condition_gap',blockers:[`observed_rate_scope_${Number(observedScope.minimum)}_to_${Number(observedScope.maximum)}_does_not_cover_base_level_${target}`]};
   const uncovered=(vector?.conditions?.unmodeledLevelRanges||[]).filter(range=>finite(range?.minimum)&&finite(range?.maximum)&&Number(range.minimum)<=target&&Number(range.maximum)>=target);
-  if(uncovered.length)return {status:'target_condition_gap',blockers:[...new Set(uncovered.map(range=>range.blocker||'target_level_condition_model_missing'))]};
+  if(uncovered.length)return {status:'target_condition_gap',blockers:[...new Set(uncovered.map(range=>range.blocker==='failure_probability_by_level_missing'?`failure_probability_at_base_level_${target}_not_published`:range.blocker||'target_level_condition_model_missing'))]};
   if(!finite(modeled)||Number(modeled)>target)return {status:'target_condition_gap',blockers:['target_level_model_missing']};
   const targetBlockers=[];
   if(missing.includes('failure_model_with_level_condition'))targetBlockers.push(vector?.conditions?.failurePossible===true&&vector?.conditions?.failureProbabilityPublished===false?`failure_probability_at_base_level_${target}_not_published`:'failure_model_with_level_condition');
@@ -49,7 +49,7 @@ function mechanicalBlockers(vectors,candidate=null){
 }
 
 function guideDetail(candidate,vectors,target){
-  const readiness=mechanicalReadiness(vectors,target),upperScope=candidate.observed_xp_per_hour_upper_scope,common={candidateKey:candidate.candidate_key,name:candidate.name,origin:'training_guide',recordKind:candidate.record_kind,minimumAgility:candidate.minimum_agility,sourceRevision:candidate.source_revision,sourceUrl:candidate.source_url,sourceLocator:candidate.source_locator,matchedVectorScenarioKeys:vectors.map(x=>x.scenarioKey),mechanicalReadiness:readiness,observedUpperBound:finite(candidate.observed_xp_per_hour_upper)?{xpPerHour:Number(candidate.observed_xp_per_hour_upper),kind:candidate.observed_rate_kind||null,isExpected:candidate.observed_rate_is_expected===true,levelScope:upperScope||null}:null};
+  const readiness=mechanicalReadiness(vectors,target),upperScope=candidate.observed_xp_per_hour_upper_scope,rateScope=candidate.observed_xp_per_hour_level_scope,common={candidateKey:candidate.candidate_key,name:candidate.name,origin:'training_guide',recordKind:candidate.record_kind,minimumAgility:candidate.minimum_agility,sourceRevision:candidate.source_revision,sourceUrl:candidate.source_url,sourceLocator:candidate.source_locator,matchedVectorScenarioKeys:vectors.map(x=>x.scenarioKey),mechanicalReadiness:readiness,observedUpperBound:finite(candidate.observed_xp_per_hour_upper)?{xpPerHour:Number(candidate.observed_xp_per_hour_upper),kind:candidate.observed_rate_kind||null,isExpected:candidate.observed_rate_is_expected===true,levelScope:upperScope||null}:null,observedRateEvidence:finite(candidate.observed_xp_per_hour_approximate)?{xpPerHour:Number(candidate.observed_xp_per_hour_approximate),kind:candidate.observed_rate_kind||null,levelScope:rateScope||null,equipmentScopeResolved:candidate.observed_rate_equipment_scope_unresolved!==true}:null};
   if(candidate.record_kind==='one_time_progression'&&candidate.aggregate_only)return {...common,status:'authoritative_exclusion',blockers:[],exclusionReason:'aggregate_one_time_progression_not_repeatable_training'};
   if(candidate.level_scope_ambiguous)return {...common,status:'eligibility_unknown',blockers:['guide_level_scope_ambiguous']};
   if(candidate.other_skill_requirement_unknown)return {...common,status:'eligibility_unknown',blockers:['other_skill_requirement_unknown']};
@@ -66,7 +66,7 @@ function guideDetail(candidate,vectors,target){
     if(candidate.failure_possible===true&&candidate.failure_probability_published===false)blockers.push(`failure_probability_at_base_level_${target}_not_published`);
     blockers.push(`expected_xp_per_hour_at_base_level_${target}_not_published`);
   }
-  const rateScope=candidate.observed_xp_per_hour_level_scope;
+  if(candidate.observed_rate_equipment_scope_unresolved===true)blockers.push(`observed_xp_per_hour_at_base_level_${target}_equipment_state_not_published`);
   if(candidate.failure_possible===true&&blockers.includes('failure_model_with_level_condition')){
     blockers.splice(blockers.indexOf('failure_model_with_level_condition'),1,`failure_probability_at_base_level_${target}_not_published`);
   }

@@ -100,3 +100,14 @@ revision-located review candidates at exactly those levels; level 34 reports
 that only level-40/80 benchmarks exist and that its expected rate is unpublished.
 No benchmark is interpolated, and benchmark levels are no longer represented as
 access requirements.
+
+The Detached Camera floor-spike observation now retains the complete condition
+scope that the sources actually publish. Agility training revision 15324367
+places the approximately 36,000 XP/hour statement inside its levels 20–47
+Brimhaven section. Arena revision 15293118 and floor-spike revision 15201362
+separately establish the level-20 obstacle requirement, standard and
+Karamja-glove XP variants, four-tick cycle, and failures below level 50. The
+guide does not identify which equipment state produced 36,000 XP/hour, and no
+source publishes the failure probability at base level 34. The audit therefore
+names those two unresolved conditions independently and cannot use the observed
+rate to validate or rank either equipment variant.

@@ -21,14 +21,17 @@ level 20 Agility is required to pass the [[pressure pad (Brimhaven Agility Arena
 |6
 |-
 |20`};
-const guidePage={title:'Agility training',sourceRevision:'15324367',sourceTimestamp:'2026-08-29',sourceUrl:'https://example.test/agility-guide',content:`Additionally, the floor spike obstacle can be used, which is very low intensity and can achieve approximately 36,000 experience per hour. Using the "Detached Camera" plugin`};
+const guidePage={title:'Agility training',sourceRevision:'15324367',sourceTimestamp:'2026-08-29',sourceUrl:'https://example.test/agility-guide',content:`===Levels 20–47: Brimhaven Agility Arena===
+Additionally, the floor spike obstacle can be used, which is very low intensity and can achieve approximately 36,000 experience per hour. Using the "Detached Camera" plugin`};
 const input={obstaclePage,arenaPage,guidePage},rows=parseBrimhavenDetachedFloorSpikeVariants(input),standard=rows.find(row=>row.variant_key==='detached_floor_spikes_standard'),gloves=rows.find(row=>row.variant_key==='detached_floor_spikes_karamja_gloves');
 check(rows.length===2&&rows.every(row=>row.standalone_training_method===true),'A complete three-page evidence set must emit standard and glove variants.');
-check(rows.every(row=>row.contract==='sensum.agility-floor-spike-training-variant.v1'),'Floor-spike variants must use the contract that permits only an explicitly unscoped observed-rate claim.');
+check(rows.every(row=>row.contract==='sensum.agility-floor-spike-training-variant.v1'),'Floor-spike variants must use the scoped-but-equipment-unresolved evidence contract.');
 check(standard?.entry_level===20&&standard?.xp_per_success===24&&standard?.cycle_ticks===4&&standard?.failure_free_level===50,'Standard floor-spike mechanics and thresholds must remain source-bound.');
 check(gloves?.xp_per_success===26.4&&gloves?.equipment_requirement?.items?.length===3,'The Karamja glove bonus must remain an explicit equipment variant.');
-check(rows.every(row=>row.unmodeled_level_ranges?.[0]?.blocker==='failure_probability_by_level_missing'&&row.source_warning==='observed_rate_level_and_equipment_scope_unspecified'),'The missing level-34 success rate and unscoped guide rate must remain blockers.');
-check(rows.every(row=>row.unscoped_observed_xp_per_hour===36000&&row.supporting_source_revisions?.includes('15293118')&&row.supporting_source_revisions?.includes('15324367')),'The approximate guide rate must retain both supporting source revisions without being assigned to an exact condition.');
+check(rows.every(row=>row.unmodeled_level_ranges?.[0]?.blocker==='failure_probability_by_level_missing'&&row.source_warning==='observed_rate_equipment_state_unspecified'),'The missing level-34 success rate and equipment-unresolved guide rate must remain blockers.');
+check(rows.every(row=>row.observed_xp_per_hour_equipment_unscoped===36000&&row.observed_rate_scope?.agility_level?.minimum===20&&row.observed_rate_scope?.agility_level?.maximum===47&&row.observed_rate_scope?.equipment_state===null),'The guide heading must scope the observation to levels 20–47 without inventing an equipment state.');
+check(rows.every(row=>row.supporting_source_revisions?.includes('15293118')&&row.supporting_source_revisions?.includes('15324367')),'The approximate guide rate must retain both supporting source revisions.');
+check(parseBrimhavenDetachedFloorSpikeVariants({...input,guidePage:{...guidePage,content:guidePage.content.replace('20–47','21–47')}}).length===0,'A guide band that conflicts with the obstacle entry requirement must fail closed.');
 check(parseBrimhavenDetachedFloorSpikeVariants({...input,arenaPage:{...arenaPage,content:arenaPage.content.replace('|4 t','|5 t')}}).length===0,'A table timing/XP-per-tick contradiction must fail closed.');
 check(parseBrimhavenDetachedFloorSpikeVariants({...input,obstaclePage:{...obstaclePage,content:obstaclePage.content.replace('|xp2 = 26.4','|xp2 = 26.5')}}).length===0,'A glove XP contradiction must fail closed.');
 if(failures.length){console.error(failures.join('\n'));process.exit(1)}

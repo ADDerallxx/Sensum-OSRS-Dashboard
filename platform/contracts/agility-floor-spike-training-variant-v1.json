@@ -9,7 +9,7 @@
     "cycle_ticks",
     "failure_free_level",
     "unmodeled_level_ranges",
-    "unscoped_observed_xp_per_hour",
+    "observed_xp_per_hour_equipment_unscoped",
     "observed_rate_scope",
     "source_revision",
     "supporting_source_revisions",
@@ -18,7 +18,7 @@
   "rules": {
     "standardAndKaramjaGloveVariantsRemainSeparate": true,
     "failureProbabilityBelowFailureFreeLevelMustNotBeInferred": true,
-    "unscopedObservedRateMustNotValidateExactVariant": true,
+    "sectionScopedEquipmentUnresolvedRateMustNotValidateExactVariant": true,
     "threeSourceMechanicalClaimsMustAgree": true,
     "automaticVerificationAllowed": false
   }

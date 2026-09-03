@@ -10,6 +10,7 @@
     "entryLevelDoesNotImplyTargetPerformanceModel": true,
     "observedRateLevelBandsMustRemainExplicit": true,
     "sourceUpperBoundsCannotBeUsedAsExpectedRates": true,
+    "equipmentAmbiguousObservedRatesBlockAccountSpecificUse": true,
     "knownFailureWithoutTargetLevelProbabilityRemainsBlocked": true,
     "ambiguousLevelScopeRemainsBlocked": true,
     "crossPageEligibilityMustBeRevisionPinned": true,

@@ -10,6 +10,7 @@
     "targetLevelFailureBlockersMustNameTheMissingLevel": true,
     "outOfScopeObservedRatesMustNotCoverTheTargetLevel": true,
     "sourceUpperBoundsRemainNonExpectedEvidence": true,
+    "equipmentUnresolvedRatesRemainExplicitBlockers": true,
     "higherLevelModelDoesNotCoverTargetLevel": true,
     "groupedBenchmarkLevelsMustNameTheirExactTargetGap": true,
     "benchmarkObservationsAreGroupedByStableCandidateIdentity": true,

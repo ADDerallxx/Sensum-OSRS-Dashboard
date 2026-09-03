@@ -12,17 +12,18 @@ export function parseBrimhavenDetachedFloorSpikeVariants({obstaclePage,arenaPage
   const arenaRequirement=arena.match(/level\s+(\d+)\s+Agility is required to pass[\s\S]{0,220}?\[\[Floor spikes \(Brimhaven Agility Arena\)\|floor spike\]\] obstacles/i);
   const gloves=arena.match(/Wear \[\[Karamja gloves 2\]\],[\s\S]{0,100}?\[\[Karamja gloves 4\|4\]\] for\s+(\d+)%\s+extra Agility experience from obstacles in the Brimhaven Agility Arena/i);
   const table=arena.match(/\[\[Floor spikes \(Brimhaven Agility Arena\)\|Floor spikes\]\]\s*\n\|\s*([\d.]+)\s*\(([\d.]+)\)\s*\n\|\s*(\d+)\s*t\s*\n\|\s*([\d.]+)\s*\n\|\s*-\s*\n\|\s*(\d+)/i);
+  const guideHeading=guide.match(/===Levels\s+(\d+)[–-](\d+): Brimhaven Agility Arena===/i);
   const guideRate=guide.match(/Additionally, the floor spike obstacle can be used[\s\S]{0,140}?very low intensity[\s\S]{0,140}?approximately\s+([\d,]+)\s+experience per hour[\s\S]{0,220}?"Detached Camera" plugin/i);
-  if(!info||!failure||!lowAttention||!access||!arenaRequirement||!gloves||!table||!guideRate)return [];
+  if(!info||!failure||!lowAttention||!access||!arenaRequirement||!gloves||!table||!guideHeading||!guideRate)return [];
 
-  const entryLevel=number(info[1]),standardXp=number(info[2]),gloveXp=number(info[3]),failureFreeLevel=number(failure[1]),entryFee=number(access[1]),arenaLevel=number(arenaRequirement[1]),gloveBonus=number(gloves[1]),tableStandardXp=number(table[1]),tableGloveXp=number(table[2]),cycleTicks=number(table[3]),tableXpPerTick=number(table[4]),tableLevel=number(table[5]),unscopedRate=number(guideRate[1]);
-  const consistent=entryLevel===arenaLevel&&entryLevel===tableLevel&&standardXp===tableStandardXp&&gloveXp===tableGloveXp&&Math.abs(gloveXp-standardXp*(1+gloveBonus/100))<1e-9&&Math.abs(tableXpPerTick-standardXp/cycleTicks)<1e-9&&failureFreeLevel>entryLevel;
+  const entryLevel=number(info[1]),standardXp=number(info[2]),gloveXp=number(info[3]),failureFreeLevel=number(failure[1]),entryFee=number(access[1]),arenaLevel=number(arenaRequirement[1]),gloveBonus=number(gloves[1]),tableStandardXp=number(table[1]),tableGloveXp=number(table[2]),cycleTicks=number(table[3]),tableXpPerTick=number(table[4]),tableLevel=number(table[5]),guideLevelMinimum=number(guideHeading[1]),guideLevelMaximum=number(guideHeading[2]),equipmentUnscopedRate=number(guideRate[1]);
+  const consistent=entryLevel===arenaLevel&&entryLevel===tableLevel&&entryLevel===guideLevelMinimum&&guideLevelMaximum>=guideLevelMinimum&&standardXp===tableStandardXp&&gloveXp===tableGloveXp&&Math.abs(gloveXp-standardXp*(1+gloveBonus/100))<1e-9&&Math.abs(tableXpPerTick-standardXp/cycleTicks)<1e-9&&failureFreeLevel>entryLevel;
   if(!consistent)return [];
 
   const sourceLocator={
     obstacle:{agilityInfo:excerpt(obstaclePage,info),failure:excerpt(obstaclePage,failure),lowAttention:excerpt(obstaclePage,lowAttention)},
     arena:{access:excerpt(arenaPage,access),requirement:excerpt(arenaPage,arenaRequirement),gloves:excerpt(arenaPage,gloves),tableRow:excerpt(arenaPage,table)},
-    guide:{unscopedRate:excerpt(guidePage,guideRate)}
+    guide:{section:excerpt(guidePage,guideHeading),equipmentUnscopedRate:excerpt(guidePage,guideRate)}
   };
   const supportingSourceRevisions=[String(arenaPage.sourceRevision||''),String(guidePage.sourceRevision||'')].filter(Boolean);
   const common={
@@ -39,10 +40,10 @@ export function parseBrimhavenDetachedFloorSpikeVariants({obstaclePage,arenaPage
     cycle_ticks:cycleTicks,
     failure_free_level:failureFreeLevel,
     unmodeled_level_ranges:[{minimum:entryLevel,maximum:failureFreeLevel-1,blocker:'failure_probability_by_level_missing'}],
-    unscoped_observed_xp_per_hour:unscopedRate,
-    observed_rate_scope:{agility_level:null,equipment_state:null,approximate:true},
-    source_warning:'observed_rate_level_and_equipment_scope_unspecified',
-    source_rate_conflict:{rule:'observed_rate_level_and_equipment_scope_unspecified',severity:'blocker',value:unscopedRate,resolution:'unresolved'},
+    observed_xp_per_hour_equipment_unscoped:equipmentUnscopedRate,
+    observed_rate_scope:{agility_level:{minimum:guideLevelMinimum,maximum:guideLevelMaximum},equipment_state:null,approximate:true},
+    source_warning:'observed_rate_equipment_state_unspecified',
+    source_rate_conflict:{rule:'observed_rate_equipment_state_unspecified',severity:'blocker',value:equipmentUnscopedRate,level_scope:{minimum:guideLevelMinimum,maximum:guideLevelMaximum},resolution:'unresolved'},
     intensity:'very_low_detached_camera',
     client_aid:'Detached Camera plugin',
     requirements:[`${entryFee} coins entry fee`],
