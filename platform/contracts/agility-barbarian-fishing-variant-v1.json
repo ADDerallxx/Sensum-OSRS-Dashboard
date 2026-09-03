@@ -1,0 +1,27 @@
+{
+  "contract": "sensum.agility-barbarian-fishing-variant.v1",
+  "required": [
+    "variant_key",
+    "name",
+    "skill_requirements",
+    "available_catches",
+    "catch_roll_parameters",
+    "catch_probabilities",
+    "catch_probability_formula",
+    "xp_per_attempt",
+    "interaction_policy",
+    "observed_xp_per_hour",
+    "observed_xp_per_hour_by_skill",
+    "source_revision",
+    "supporting_source_revisions",
+    "source_locator"
+  ],
+  "rules": {
+    "fishUnlocksAndRewardsMustAgreeAcrossSources": true,
+    "rateTablesMustAgreeAcrossSources": true,
+    "afkDropThreeTickDropAndCutEatRemainSeparate": true,
+    "cookingRateRequiresSourceBenchmarkCookingLevel": true,
+    "catchProbabilitiesMustUsePinnedWikiModuleFormula": true,
+    "automaticVerificationAllowed": false
+  }
+}

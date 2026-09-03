@@ -30,6 +30,7 @@ const accessVariant=JSON.parse(fs.readFileSync('platform/contracts/agility-acces
 const hallowedEquipment=JSON.parse(fs.readFileSync('platform/contracts/hallowed-equipment-modifier-v1.json','utf8'));
 const level34Candidate=JSON.parse(fs.readFileSync('platform/contracts/agility-level34-candidate-v1.json','utf8'));
 const level34Coverage=JSON.parse(fs.readFileSync('platform/contracts/agility-level34-coverage-audit-v1.json','utf8'));
+const barbarianFishing=JSON.parse(fs.readFileSync('platform/contracts/agility-barbarian-fishing-variant-v1.json','utf8'));
 const variantDiscovery=fs.readFileSync('platform/transforms/variant-snapshot-lib.mjs','utf8');
 const failures=[];const check=(ok,msg)=>{if(!ok)failures.push(msg)};
 for(const table of ['data_sources','data_snapshots','items','equipment','effects','npcs','npc_combat_stats','locations','recipes','price_observations','profiles','account_snapshots','training_methods','optimization_runs','optimization_evidence','validation_findings'])check(new RegExp(`CREATE TABLE ${table} \\(`).test(sql),`Missing canonical table: ${table}`);
@@ -43,7 +44,7 @@ for(const table of ['ingestion_runs','ingestion_records','publication_gates'])ch
 check(/maximum_unknown_ratio/.test(control)&&/require_source_revision/.test(control),'Publication gates must enforce completeness and provenance.');
 for(const file of ['platform/ingestion/lib.mjs','platform/ingestion/ingest-ge.mjs','platform/ingestion/ingest-wiki-domain.mjs','platform/ingestion/audit-local-catalogs.mjs'])check(fs.existsSync(file),`Missing ingestion component: ${file}`);
 for(const table of ['formula_registry','formula_test_vectors','canonicalization_runs','entity_quarantine'])check(new RegExp(`CREATE TABLE ${table} \\(`).test(formulaSql),`Missing formula/canonicalization table: ${table}`);
-check(formulas.formulas.every(x=>x.source&&x.state==='draft'),'New formulas must start source-linked and unverified.');
+check(formulas.formulas.every(x=>x.source&&['draft','candidate'].includes(x.state)&&(x.state!=='candidate'||x.sourceRevision)),'Formulas must remain source-linked and unverified; candidate formulas also require a pinned source revision.');
 check(fs.existsSync('platform/transforms/canonicalize.mjs'),'Canonical transform is missing.');
 for(const file of ['platform/formulas/osrs-v1.mjs','platform/formulas/verify.mjs'])check(fs.existsSync(file),`Missing formula component: ${file}`);
 for(const table of ['activity_methods','activity_locations','activity_requirements','activity_model_vectors'])check(new RegExp(`CREATE TABLE ${table} \\(`).test(activitySql),`Missing activity table: ${table}`);
@@ -104,5 +105,7 @@ check(level34Candidate.targetBaseAgility===34&&level34Candidate.rules.trainingGu
 for(const file of ['platform/ingestion/agility-training-guide-lib.mjs','platform/ingestion/ingest-wiki-agility-training-guide.mjs','platform/tests/agility-training-guide.test.mjs'])check(fs.existsSync(file),`Missing level-34 candidate component: ${file}`);
 check(level34Coverage.targetBaseAgility===34&&level34Coverage.rules.unknownEntryLevelRemainsInUniverse===true&&level34Coverage.rules.higherLevelModelDoesNotCoverTargetLevel===true&&level34Coverage.rules.mechanicalReadinessIsReportedSeparately===true,'Level-34 coverage audits must remain unioned, target-scoped, and fail closed.');
 for(const file of ['platform/transforms/agility-level34-coverage-lib.mjs','platform/transforms/audit-agility-level34-coverage.mjs','platform/tests/agility-level34-coverage.test.mjs'])check(fs.existsSync(file),`Missing level-34 coverage-audit component: ${file}`);
+check(barbarianFishing.rules.catchProbabilitiesMustUsePinnedWikiModuleFormula===true&&barbarianFishing.rules.afkDropThreeTickDropAndCutEatRemainSeparate===true&&barbarianFishing.rules.automaticVerificationAllowed===false,'Barbarian Fishing variants must preserve the pinned catch formula, interaction policies, and manual approval gate.');
+for(const file of ['platform/formulas/skilling-success-v1.mjs','platform/transforms/activity-rate-comparison-lib.mjs','platform/ingestion/agility-barbarian-fishing-variant-lib.mjs','platform/ingestion/ingest-wiki-agility-barbarian-fishing-variants.mjs','platform/tests/skilling-success-formula.test.mjs','platform/tests/activity-rate-comparison.test.mjs','platform/tests/agility-barbarian-fishing-variants.test.mjs'])check(fs.existsSync(file),`Missing Barbarian Fishing model component: ${file}`);
 if(failures.length){console.error(failures.map(x=>'FAIL: '+x).join('\n'));process.exit(1)}
 console.log('V4 foundation checks passed: canonical schema, provenance, coverage, and calculation contracts.');
