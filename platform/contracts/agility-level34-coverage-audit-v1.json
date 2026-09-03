@@ -1,0 +1,15 @@
+{
+  "contract": "sensum.agility-level34-coverage-audit.v1",
+  "targetBaseAgility": 34,
+  "candidateUniverse": ["revision-pinned Agility training guide", "Agility course-family vectors with entry level at or below target", "course-family vectors whose entry level is still unknown"],
+  "statuses": ["condition_model_present", "target_condition_gap", "missing_model", "eligibility_unknown", "authoritative_exclusion"],
+  "rules": {
+    "guideAndCourseCandidatesAreUnioned": true,
+    "unknownEntryLevelRemainsInUniverse": true,
+    "missingFailureConditionBlocksTargetCoverage": true,
+    "higherLevelModelDoesNotCoverTargetLevel": true,
+    "oneTimeProgressionIsNotRankedAsRepeatableTraining": true,
+    "mechanicalReadinessIsReportedSeparately": true,
+    "automaticApprovalAllowed": false
+  }
+}

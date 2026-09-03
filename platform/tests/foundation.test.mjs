@@ -29,6 +29,7 @@ const conditionVariant=JSON.parse(fs.readFileSync('platform/contracts/agility-co
 const accessVariant=JSON.parse(fs.readFileSync('platform/contracts/agility-access-variant-v1.json','utf8'));
 const hallowedEquipment=JSON.parse(fs.readFileSync('platform/contracts/hallowed-equipment-modifier-v1.json','utf8'));
 const level34Candidate=JSON.parse(fs.readFileSync('platform/contracts/agility-level34-candidate-v1.json','utf8'));
+const level34Coverage=JSON.parse(fs.readFileSync('platform/contracts/agility-level34-coverage-audit-v1.json','utf8'));
 const variantDiscovery=fs.readFileSync('platform/transforms/variant-snapshot-lib.mjs','utf8');
 const failures=[];const check=(ok,msg)=>{if(!ok)failures.push(msg)};
 for(const table of ['data_sources','data_snapshots','items','equipment','effects','npcs','npc_combat_stats','locations','recipes','price_observations','profiles','account_snapshots','training_methods','optimization_runs','optimization_evidence','validation_findings'])check(new RegExp(`CREATE TABLE ${table} \\(`).test(sql),`Missing canonical table: ${table}`);
@@ -101,5 +102,7 @@ check(/writeSnapshot\(root,'hallowed-equipment-variants'/.test(fs.readFileSync('
 for(const file of ['platform/transforms/agility-variant-exit-lib.mjs','platform/transforms/verify-agility-variant-expansion.mjs','platform/tests/agility-variant-exit.test.mjs'])check(fs.existsSync(file),`Missing Agility variant exit-gate component: ${file}`);
 check(level34Candidate.targetBaseAgility===34&&level34Candidate.rules.trainingGuideAndCourseCategoryMustBeUnioned===true&&level34Candidate.rules.entryLevelDoesNotImplyTargetPerformanceModel===true&&level34Candidate.rules.ambiguousLevelScopeRemainsBlocked===true,'Level-34 coverage must use a unioned, condition-aware candidate universe.');
 for(const file of ['platform/ingestion/agility-training-guide-lib.mjs','platform/ingestion/ingest-wiki-agility-training-guide.mjs','platform/tests/agility-training-guide.test.mjs'])check(fs.existsSync(file),`Missing level-34 candidate component: ${file}`);
+check(level34Coverage.targetBaseAgility===34&&level34Coverage.rules.unknownEntryLevelRemainsInUniverse===true&&level34Coverage.rules.higherLevelModelDoesNotCoverTargetLevel===true&&level34Coverage.rules.mechanicalReadinessIsReportedSeparately===true,'Level-34 coverage audits must remain unioned, target-scoped, and fail closed.');
+for(const file of ['platform/transforms/agility-level34-coverage-lib.mjs','platform/transforms/audit-agility-level34-coverage.mjs','platform/tests/agility-level34-coverage.test.mjs'])check(fs.existsSync(file),`Missing level-34 coverage-audit component: ${file}`);
 if(failures.length){console.error(failures.map(x=>'FAIL: '+x).join('\n'));process.exit(1)}
 console.log('V4 foundation checks passed: canonical schema, provenance, coverage, and calculation contracts.');

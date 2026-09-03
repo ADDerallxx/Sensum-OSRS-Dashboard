@@ -75,3 +75,9 @@ is not stated by the source.
 `verify-agility-variant-expansion.mjs` is the phase exit gate. It requires every
 detected axis to be expanded, every finding to retain revision-pinned locators,
 and every discovered snapshot to pass integrity validation.
+
+`audit-agility-level34-coverage.mjs` unions the revision-pinned training guide
+with course-family vectors at or possibly at level 34. Unknown entry levels,
+higher-level-only models, missing failure conditions, and absent vectors remain
+named blockers. Mechanical readiness is reported separately from condition
+coverage so incomplete rates cannot be mistaken for an eligibility failure.
