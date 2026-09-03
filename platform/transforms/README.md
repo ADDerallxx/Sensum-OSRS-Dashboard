@@ -70,6 +70,12 @@ Agility from the boosted effective level used for the level-100 pillar reward.
 The active-rate source does not specify a glove state, so the model does not
 silently assign one.
 
+Level-specific observations now also retain a stable decision-candidate key.
+For Brimhaven, level 40 and level 80 remain separate evidence records but group
+under the same exact passive policy (gloves state and diary state). Coverage
+audits therefore count four passive policies rather than eight benchmark rows;
+grouping never interpolates a missing level-34 rate or clears its blocker.
+
 Detached-camera floor-spike training is split into standard and Karamja-glove
 variants using the obstacle page, arena table, and training guide as three
 independently revision-pinned sources. Both variants retain the four-tick

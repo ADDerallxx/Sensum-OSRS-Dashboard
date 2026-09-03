@@ -8,6 +8,11 @@
     "validation": ["observedRange", "differenceRatio", "contradictions", "sourceLocators"]
   },
   "states": ["blocked", "proposed", "approved", "rejected", "stale"],
+  "candidateIdentityPolicy": {
+    "benchmarkSeriesRequireStableCandidateGroupKey": true,
+    "distinctConditionPoliciesCannotShareAGroupKey": true,
+    "ungroupedVectorsRemainIndependentCandidates": true
+  },
   "approvalPolicy": {
     "automaticApprovalAllowed": false,
     "allMechanicalFactsMustBeVerified": true,

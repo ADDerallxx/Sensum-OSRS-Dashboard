@@ -8,6 +8,7 @@
     "unknownEntryLevelRemainsInUniverse": true,
     "missingFailureConditionBlocksTargetCoverage": true,
     "higherLevelModelDoesNotCoverTargetLevel": true,
+    "benchmarkObservationsAreGroupedByStableCandidateIdentity": true,
     "oneTimeProgressionIsNotRankedAsRepeatableTraining": true,
     "mechanicalReadinessIsReportedSeparately": true,
     "automaticApprovalAllowed": false

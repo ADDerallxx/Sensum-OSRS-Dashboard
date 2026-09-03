@@ -1,8 +1,9 @@
 {
   "contract": "sensum.agility-condition-variant.v1",
-  "required": ["parent_name", "variant_key", "axis_coverage", "entry_level", "requirements", "source_revision", "source_locator"],
+  "required": ["parent_name", "variant_key", "candidate_group_key", "candidate_display_name", "axis_coverage", "entry_level", "requirements", "source_revision", "source_locator"],
   "rules": {
     "levelSpecificRatesCannotBeInterpolated": true,
+    "benchmarkObservationsShareStableCandidateIdentity": true,
     "baseAndEffectiveLevelsMustRemainSeparate": true,
     "zeroEntryLevelMeansNoSkillAccessRequirement": true,
     "equipmentAndDiaryEffectsMustRemainIndependent": true,
