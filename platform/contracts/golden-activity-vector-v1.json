@@ -4,8 +4,8 @@
     "identity": ["familyKey", "recordKey", "name", "sourceRevision"],
     "conditions": ["skill", "entryLevel", "modeledMinimumLevel"],
     "mechanics": ["cycle", "xpPerSuccess", "failureModel"],
-    "calculation": ["formulaVersion", "actionsPerHour", "xpPerHour"],
-    "validation": ["observedRange", "differenceRatio", "contradictions", "sourceLocators"]
+    "calculation": ["formulaVersion", "calculationKind", "point estimate or bounded range"],
+    "validation": ["rateValidation", "contradictions", "sourceLocators"]
   },
   "states": ["blocked", "proposed", "approved", "rejected", "stale"],
   "candidateIdentityPolicy": {
@@ -15,6 +15,9 @@
   },
   "timingPolicy": {
     "boundedCycleRangesCannotBecomePointEstimates": true,
+    "boundedCycleRangesProduceOrderedRateRanges": true,
+    "timeDependentRewardsCrossingABoundRequireSeparateModeling": true,
+    "intervalOnlyRatesCannotEnterScalarRanking": true,
     "observedPeakTimingCannotBecomeTypicalTiming": true,
     "timeBasedCompletionOutcomesMayOmitRandomFailureRoll": true,
     "unknownRandomFailureStateRemainsNull": true
@@ -23,7 +26,8 @@
     "automaticApprovalAllowed": false,
     "allMechanicalFactsMustBeVerified": true,
     "conditionsMustBeExplicit": true,
-    "calculationMustMatchObservedRangeWithinTolerance": true,
+    "pointEstimateMustMatchObservedRangeWithinTolerance": true,
+    "boundedRateRequiresSourceTimingAndRewardReview": true,
     "contradictionsBlockApproval": true,
     "sourceRevisionChangeMarksStale": true,
     "approvedVectorMayOpenOnlyItsOwnScenario": true

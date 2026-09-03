@@ -1,6 +1,8 @@
 const finite=(name,value)=>{const n=Number(value);if(!Number.isFinite(n))throw new TypeError(`${name} must be finite`);return n};
 const nonnegative=(name,value)=>Math.max(0,finite(name,value));
 const probability=(name,value)=>Math.min(1,Math.max(0,finite(name,value)));
+const positive=(name,value)=>{const n=finite(name,value);if(n<=0)throw new RangeError(`${name} must be greater than zero`);return n};
+const orderedPositiveRange=(name,value)=>{const minimum=positive(`${name}.minimum`,value?.minimum),maximum=positive(`${name}.maximum`,value?.maximum);if(maximum<minimum)throw new RangeError(`${name}.maximum must be greater than or equal to minimum`);return {minimum,maximum}};
 
 export const TICK_SECONDS=.6;
 
@@ -13,6 +15,12 @@ export function fixedCycleModel({cycleTicks,xpPerCycle,sessionSeconds=3600,setup
   const secondsPerCycle=Math.max(TICK_SECONDS,finite('cycleTicks',cycleTicks)*TICK_SECONDS);
   const cycles=available/secondsPerCycle;
   return {attempts:cycles,successes:cycles,xp:cycles*nonnegative('xpPerCycle',xpPerCycle),availableSeconds:available,bottleneck:'player_cycle'};
+}
+
+export function boundedCycleModel({cycleSecondsRange,xpPerCycle,sessionSeconds=3600,setupSeconds=0}){
+  const available=effectiveSessionSeconds({sessionSeconds,setupSeconds}),cycleSeconds=orderedPositiveRange('cycleSecondsRange',cycleSecondsRange),xp=nonnegative('xpPerCycle',xpPerCycle);
+  const cycles={minimum:available/cycleSeconds.maximum,maximum:available/cycleSeconds.minimum};
+  return {attemptsRange:cycles,successesRange:{...cycles},xpRange:{minimum:cycles.minimum*xp,maximum:cycles.maximum*xp},cycleSecondsRange:cycleSeconds,availableSeconds:available,bottleneck:'player_cycle'};
 }
 
 export function successRollModel({rollTicks,successProbability,xpPerSuccess,sessionSeconds=3600,setupSeconds=0,failurePenaltySeconds=0}){
@@ -49,6 +57,11 @@ export function lapModel({lapSeconds,xpPerLap,failureProbability=0,failurePenalt
 export function hourly(result,{sessionSeconds=3600}={}){
   const scale=3600/Math.max(1,nonnegative('sessionSeconds',sessionSeconds));
   return {attemptsPerHour:result.attempts*scale,successesPerHour:result.successes*scale,xpPerHour:result.xp*scale,bankTripsPerHour:(result.bankTrips||0)*scale,bottleneck:result.bottleneck};
+}
+
+export function hourlyRange(result,{sessionSeconds=3600}={}){
+  const scale=3600/Math.max(1,nonnegative('sessionSeconds',sessionSeconds)),scaled=range=>({minimum:range.minimum*scale,maximum:range.maximum*scale});
+  return {attemptsPerHourRange:scaled(result.attemptsRange),successesPerHourRange:scaled(result.successesRange),xpPerHourRange:scaled(result.xpRange),bottleneck:result.bottleneck};
 }
 
 export function sensitivity(model,input,{successDelta=.05,cycleDelta=.05}={}){

@@ -37,6 +37,11 @@ success probability, cycle time, resource supply, competition, banking,
 movement, failure penalties, and requirements. Unknown material inputs block an
 absolute-best claim instead of being guessed.
 
+Source-provided cycle ranges remain ordered performance intervals. They may be
+reviewed as bounded calculations, but they cannot enter a scalar ranking or
+support an absolute-best claim until an explicit interval comparison policy is
+implemented. Peak-only timings never become typical cycle times.
+
 Run:
 
 ```text

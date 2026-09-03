@@ -130,3 +130,11 @@ with course-family vectors at or possibly at level 34. Unknown entry levels,
 higher-level-only models, missing failure conditions, and absent vectors remain
 named blockers. Mechanical readiness is reported separately from condition
 coverage so incomplete rates cannot be mistaken for an eligibility failure.
+
+Werewolf Skullball's approximate route times are converted with the generic
+bounded-cycle formula only when the entire source range earns the same reward.
+The resulting actions/hour and XP/hour remain minimum/maximum ranges: no
+midpoint is invented. These vectors may proceed to manual source review, while
+recommendation certificates list them as `range_ranking_policy_missing` and
+exclude them from scalar ranking. The optimal 1:45 route remains blocked as a
+peak-only observation rather than being treated as typical performance.

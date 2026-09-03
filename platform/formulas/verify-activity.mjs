@@ -1,4 +1,4 @@
-import {fixedCycleModel,hourly,lapModel,resourceCycleModel,successRollModel} from './activity-v1.mjs';
+import {boundedCycleModel,fixedCycleModel,hourly,hourlyRange,lapModel,resourceCycleModel,successRollModel} from './activity-v1.mjs';
 const tests=[];const test=(name,actual,expected,tolerance=1e-9)=>tests.push({name,actual,expected,tolerance,passed:Math.abs(actual-expected)<=tolerance});
 test('four-tick fixed cycles per hour',hourly(fixedCycleModel({cycleTicks:4,xpPerCycle:10})).successesPerHour,1500);
 test('fixed-cycle XP per hour',hourly(fixedCycleModel({cycleTicks:4,xpPerCycle:10})).xpPerHour,15000);
@@ -6,6 +6,12 @@ test('half-success rolls',hourly(successRollModel({rollTicks:4,successProbabilit
 test('resource supply constrains throughput',hourly(resourceCycleModel({rollTicks:1,successProbability:1,xpPerSuccess:10,spawnCount:1,respawnSeconds:6})).successesPerHour,600);
 test('competition share constrains resource supply',hourly(resourceCycleModel({rollTicks:1,successProbability:1,xpPerSuccess:10,spawnCount:1,respawnSeconds:6,competitionShare:.5})).successesPerHour,300);
 test('one-minute laps',hourly(lapModel({lapSeconds:60,xpPerLap:100})).xpPerHour,6000);
+const bounded=hourlyRange(boundedCycleModel({cycleSecondsRange:{minimum:140,maximum:165},xpPerCycle:750}));
+test('bounded cycles retain slow-end minimum',bounded.successesPerHourRange.minimum,3600/165);
+test('bounded cycles retain fast-end maximum',bounded.successesPerHourRange.maximum,3600/140);
+test('bounded XP retains slow-end minimum',bounded.xpPerHourRange.minimum,3600/165*750);
+test('bounded XP retains fast-end maximum',bounded.xpPerHourRange.maximum,3600/140*750);
+let invalidRangeRejected=false;try{boundedCycleModel({cycleSecondsRange:{minimum:165,maximum:140},xpPerCycle:750})}catch(error){invalidRangeRejected=error instanceof RangeError}tests.push({name:'reversed ranges fail closed',actual:invalidRangeRejected,expected:true,tolerance:0,passed:invalidRangeRejected});
 const computationalTestsPassed=tests.every(x=>x.passed);
 const report={contract:'sensum.activity-formula-verification.v1',generatedAt:new Date().toISOString(),computationalTestsPassed,sourceBackedMethodVectorsApproved:false,absoluteBestActivityGate:'blocked',reason:'No activity-specific source-backed method vectors have been approved yet.',tests};
 console.log(JSON.stringify(report,null,2));if(!computationalTestsPassed)process.exit(1);
