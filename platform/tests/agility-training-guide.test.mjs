@@ -1,0 +1,33 @@
+import {parseAgilityTrainingGuideCandidates} from '../ingestion/agility-training-guide-lib.mjs';
+const source=`===Levels 1–26/33: Questing===
+Completing [[The Tourist Trap]], [[Recruitment Drive]], [[The Depths of Despair]], and [[The Grand Tree]] will grant a total of 19,700 experience.
+===Levels 20–47: Brimhaven Agility Arena===
+[[Brimhaven Agility Arena]] offers the fastest experience. Players must have 200 coins. The [[Floor spikes (Brimhaven Agility Arena)|floor spikes]] trap requires level 20 and can grant up to 30,000 experience per hour as low as level 15 with the use of [[summer pie]]. Bringing food is advised.
+Additionally, the floor spike obstacle can be used, which is very low intensity and can achieve approximately 36,000 experience per hour. Using the "Detached Camera" plugin helps.
+===Levels 1–99: Rooftop Agility Courses===
+| 1–20/30
+| [[Draynor Village Rooftop Course|Draynor Village]]
+| 9,000–10,000
+|-
+| 20–30
+| [[Al Kharid Rooftop Course|Al Kharid]]
+| 11,000–12,000
+|-
+| 30–40
+| [[Varrock Rooftop Course|Varrock]]
+| 11,000–14,000
+===Levels 15–40: Edgeville Dungeon monkeybars===
+The shortcut offers up to 13,200 experience per hour and is located in the Wilderness.
+===Levels 15–74: Barbarian Fishing===
+[[Barbarian Fishing]] grants small amounts of passive Agility and [[Strength]] experience. Fishing from level 58 to 99 provides progress.
+=== Levels 30+: Agility Pyramid ===
+Roughly 13 completions can be made per hour at early levels (30–50), for 25,000 experience per hour.`;
+const rows=parseAgilityTrainingGuideCandidates({title:'Agility training',content:source,sourceRevision:'15324367',sourceTimestamp:'2026-08-29',sourceUrl:'https://example.test'}),failures=[],check=(ok,message)=>{if(!ok)failures.push(message)},get=key=>rows.find(x=>x.candidate_key===key);
+check(rows.length===9,'The level-34 guide universe must emit nine source-backed candidates.');
+check(get('guide:questing:early-agility')?.record_kind==='one_time_progression'&&get('guide:questing:early-agility').quests.length===4,'Quest progression must not become a repeatable method.');
+check(get('guide:brimhaven:floor-spikes-active')?.minimum_agility===20&&get('guide:brimhaven:floor-spikes-active').boosted_minimum_base_agility===15,'Brimhaven base and boosted entry levels must remain separate.');
+check(get('guide:brimhaven:floor-spikes-detached')?.level_scope_ambiguous===true,'The detached-camera rate must retain its ambiguous level scope.');
+check(get('guide:rooftop:varrock')?.observed_xp_per_hour_range?.maximum===14000,'Rooftop guide ranges must remain ranges.');
+check(get('guide:barbarian-fishing')?.guide_example_fishing_range?.minimum===58&&get('guide:barbarian-fishing').other_skill_requirement_unknown===true&&get('guide:barbarian-fishing').agility_rate_missing===true,'A guide progression example must not silently become a hybrid-method eligibility requirement.');
+check(rows.every(x=>x.source_locator?.evidence?.length&&x.state==='candidate'),'Every guide candidate must remain revision-located and unapproved.');
+if(failures.length){console.error(failures.join('\n'));process.exit(1)}console.log('Agility training-guide candidate checks passed.');
