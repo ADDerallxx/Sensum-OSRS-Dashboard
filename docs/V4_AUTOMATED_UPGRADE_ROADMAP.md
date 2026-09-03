@@ -42,6 +42,21 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+The Rockslide + Other Activities section now has a revision-pinned named-member
+audit. Agility training revision 15324367 supplies four explicit identities: the
+core Rockslide detour and pairings with Ardougne Rooftop, Hallowed Sepulchre,
+and a generic Runecraft bank-return example. All four match exactly one
+same-revision guide candidate. The model keeps the shortcut's 100,000–120,000
+"effective" rate separate from its 3,500–4,000 incremental Agility XP/hour,
+does not invent the Ardougne teleport, Hallowed token cost, or a specific
+Runecraft method, and preserves the optional three-minute marks-of-grace timing
+policy. Because the source says “other activities” and “for instance,” it does
+not define a closed pairing universe. The named 4/4 audit therefore remains
+explicitly incomplete, does not reduce the two pending composite-section gates,
+and cannot support an absolute-best claim. The three added pairings begin at
+level 78, so level-34 coverage is unchanged; the complete Agility 1–99 audit was
+rerun and all 99 levels remain blocked.
+
 The Hallowed Sepulchre section now has a cross-source member identity audit.
 Agility training revision 15324367 retains the composite guide candidate and
 its three declared axes. Hallowed Sepulchre revision 15322138 supplies five

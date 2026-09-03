@@ -1,0 +1,12 @@
+{
+  "contract": "sensum.agility-rockslide-guide-member-coverage-audit.v1",
+  "required": ["sectionKey", "guideSourceRevision", "namedMemberCount", "coveredNamedMemberCount", "namedMemberIdentitySatisfied", "pairedActivityUniverseComplete", "internalMemberAuditSatisfied", "memberDetails", "blockers", "inputSnapshots", "contentHash"],
+  "rules": {
+    "everyNamedMemberMustHaveExactlyOneSameRevisionCandidate": true,
+    "unexpectedSectionCandidatesBlock": true,
+    "openEndedPairingUniverseCannotPassInternalCoverage": true,
+    "namedMemberCoverageDoesNotProvePairingUniverseCompleteness": true,
+    "identityCoverageDoesNotProveMechanicalCompleteness": true,
+    "automaticVerificationAllowed": false
+  }
+}

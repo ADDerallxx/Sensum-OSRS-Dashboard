@@ -204,6 +204,19 @@ Run:
 node platform/transforms/audit-agility-hallowed-guide-member-coverage.mjs
 ```
 
+`audit-agility-rockslide-guide-member-coverage.mjs` requires the core detour and
+all three explicitly named pairing examples to match exactly one guide candidate
+from the same revision. It reports that 4/4 identity result separately from the
+broader pairing-universe gate. Because the source is explicitly open-ended, the
+internal member audit remains blocked even when every named member matches; no
+specific unlisted activity, teleport, token cost, or combined rate is inferred.
+
+Run:
+
+```text
+node platform/transforms/audit-agility-rockslide-guide-member-coverage.mjs
+```
+
 `audit-agility-progression-coverage.mjs` is the account-independent companion
 gate. It evaluates every source-defined Agility base level from 1 through 99,
 then derives structural spans from changes in candidate eligibility, condition

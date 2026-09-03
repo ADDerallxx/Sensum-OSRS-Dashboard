@@ -28,6 +28,7 @@ node platform/ingestion/ingest-wiki-agility-training-guide.mjs
 node platform/ingestion/ingest-wiki-agility-training-guide-sections.mjs
 node platform/ingestion/ingest-wiki-agility-rooftop-guide-members.mjs
 node platform/ingestion/ingest-wiki-agility-brimhaven-guide-members.mjs
+node platform/ingestion/ingest-wiki-agility-rockslide-guide-members.mjs
 node platform/ingestion/ingest-wiki-agility-rooftop-observed-variants.mjs
 node platform/ingestion/ingest-wiki-agility-floor-spike-training-variants.mjs
 node platform/ingestion/ingest-wiki-agility-barbarian-fishing-variants.mjs
@@ -98,6 +99,10 @@ record count, creation time, audit result, and SHA-256 content hash.
   remain ten independent decision members, while thirteen encounter equipment
   records remain non-method modifiers or requirements. Their detail-page
   revision is never substituted for the separate training-guide revision.
+- Rockslide guide-member ingestion records the core detour and every explicitly
+  named pairing from the pinned guide revision. Its open-ended “other
+  activities” language remains a coverage limitation; named examples never
+  become proof of a complete pairing universe.
 - Al Kharid multi-obstacle evidence V2 stores the two failing obstacle identities,
   successful XP, damage, requirements, timing, source revisions, and stable
   unknown-model states without storing an account level. Level-numbered missing

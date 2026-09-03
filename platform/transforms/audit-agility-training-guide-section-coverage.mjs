@@ -26,12 +26,13 @@ async function latestReport(domain,contract){
   return {report:null,directory:null,rejections};
 }
 
-const [sections,candidates,rooftopMemberCoverage,brimhavenMemberCoverage,hallowedMemberCoverage]=await Promise.all([
+const [sections,candidates,rooftopMemberCoverage,brimhavenMemberCoverage,hallowedMemberCoverage,rockslideMemberCoverage]=await Promise.all([
   latestRootSnapshot('agility-training-guide-sections'),
   latestRootSnapshot('agility-level34-candidates'),
   latestReport('agility-rooftop-guide-member-coverage-audits','sensum.agility-rooftop-guide-member-coverage-audit.v1'),
   latestReport('agility-brimhaven-guide-member-coverage-audits','sensum.agility-brimhaven-guide-member-coverage-audit.v1'),
-  latestReport('agility-hallowed-guide-member-coverage-audits','sensum.agility-hallowed-guide-member-coverage-audit.v1')
+  latestReport('agility-hallowed-guide-member-coverage-audits','sensum.agility-hallowed-guide-member-coverage-audit.v1'),
+  latestReport('agility-rockslide-guide-member-coverage-audits','sensum.agility-rockslide-guide-member-coverage-audit.v1')
 ]);
 const reportMemberAudit=input=>input.report?{
   sectionKey:input.report.sectionKey,
@@ -43,7 +44,7 @@ const reportMemberAudit=input=>input.report?{
   coveredMemberCount:input.report.coveredMemberCount,
   uncoveredMemberCount:input.report.uncoveredMemberCount
 }:null;
-const memberAudits=[reportMemberAudit(rooftopMemberCoverage),reportMemberAudit(brimhavenMemberCoverage),reportMemberAudit(hallowedMemberCoverage)].filter(Boolean);
+const memberAudits=[reportMemberAudit(rooftopMemberCoverage),reportMemberAudit(brimhavenMemberCoverage),reportMemberAudit(hallowedMemberCoverage),reportMemberAudit(rockslideMemberCoverage)].filter(Boolean);
 const report=auditAgilityTrainingGuideSectionCoverage({sections:sections.rows,candidates:candidates.rows,memberAudits});
 report.generatedAt=new Date().toISOString();
 report.inputSnapshots={
@@ -51,9 +52,10 @@ report.inputSnapshots={
   candidates:{directory:candidates.directory,contentHash:candidates.manifest.contentHash},
   rooftopMemberCoverage:rooftopMemberCoverage.report?{directory:rooftopMemberCoverage.directory,contentHash:rooftopMemberCoverage.report.contentHash,complete:rooftopMemberCoverage.report.internalMemberAuditSatisfied}:null,
   brimhavenMemberCoverage:brimhavenMemberCoverage.report?{directory:brimhavenMemberCoverage.directory,contentHash:brimhavenMemberCoverage.report.contentHash,complete:brimhavenMemberCoverage.report.internalMemberAuditSatisfied}:null,
-  hallowedMemberCoverage:hallowedMemberCoverage.report?{directory:hallowedMemberCoverage.directory,contentHash:hallowedMemberCoverage.report.contentHash,complete:hallowedMemberCoverage.report.internalMemberAuditSatisfied}:null
+  hallowedMemberCoverage:hallowedMemberCoverage.report?{directory:hallowedMemberCoverage.directory,contentHash:hallowedMemberCoverage.report.contentHash,complete:hallowedMemberCoverage.report.internalMemberAuditSatisfied}:null,
+  rockslideMemberCoverage:rockslideMemberCoverage.report?{directory:rockslideMemberCoverage.directory,contentHash:rockslideMemberCoverage.report.contentHash,complete:rockslideMemberCoverage.report.internalMemberAuditSatisfied}:null
 };
-report.snapshotRejections=[...sections.rejections,...candidates.rejections,...rooftopMemberCoverage.rejections,...brimhavenMemberCoverage.rejections,...hallowedMemberCoverage.rejections];
+report.snapshotRejections=[...sections.rejections,...candidates.rejections,...rooftopMemberCoverage.rejections,...brimhavenMemberCoverage.rejections,...hallowedMemberCoverage.rejections,...rockslideMemberCoverage.rejections];
 report.contentHash=hash({...report,contentHash:undefined});
 const output=path.join(root,'agility-training-guide-section-coverage-audits',report.generatedAt.replace(/[:.]/g,'-'));await fs.mkdir(output,{recursive:true});await fs.writeFile(path.join(output,'report.json'),JSON.stringify(report,null,2)+'\n');
 console.log(JSON.stringify({contract:report.contract,generatedAt:report.generatedAt,sourceRevision:report.sourceRevision,headingCount:report.headingCount,materialSectionCount:report.materialSectionCount,coveredSectionCount:report.coveredSectionCount,uncoveredSectionCount:report.uncoveredSectionCount,internalMemberAuditPendingCount:report.internalMemberAuditPendingCount,uncoveredSections:report.uncoveredSections.map(section=>({sectionKey:section.sectionKey,title:section.title,sourceLocator:section.sourceLocator})),blockers:report.blockers,inputSnapshots:report.inputSnapshots,contentHash:report.contentHash},null,2));

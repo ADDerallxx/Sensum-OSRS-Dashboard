@@ -1,0 +1,14 @@
+{
+  "contract": "sensum.agility-rockslide-guide-member.v1",
+  "required": ["memberKey", "candidateKey", "name", "sourceOrder", "pairingPolicy", "sourceOpenEndedPairingUniverse", "sourceRevision", "sourceTimestamp", "sourceUrl", "sourceLocator"],
+  "rules": {
+    "everyNamedPairingMustBeInventoried": true,
+    "genericExamplesCannotBecomeSpecificActivities": true,
+    "effectiveAndIncrementalRatesRemainDistinct": true,
+    "teleportAndConsumableUnknownsRemainExplicit": true,
+    "optionalMarksPolicyRemainsScoped": true,
+    "openEndedPairingLanguageBlocksUniverseCompleteness": true,
+    "newRemovedOrReorderedParagraphsBlockPublication": true,
+    "automaticVerificationAllowed": false
+  }
+}
