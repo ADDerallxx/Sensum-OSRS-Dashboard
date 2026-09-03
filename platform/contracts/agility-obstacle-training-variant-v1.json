@@ -1,0 +1,20 @@
+{
+  "contract": "sensum.agility-obstacle-training-variant.v1",
+  "required": [
+    "parent_name",
+    "variant_key",
+    "name",
+    "entry_level",
+    "xp_per_success",
+    "failure_free_level",
+    "observed_xp_per_hour",
+    "source_revision",
+    "source_locator"
+  ],
+  "rules": {
+    "tableRequirementAndTrainingClaimMustMatchOneObstacle": true,
+    "tableEntryLevelMustRemainSeparateFromObservedRateLevel": true,
+    "missingOrAmbiguousObstacleMatchBlocksPublication": true,
+    "automaticVerificationAllowed": false
+  }
+}
