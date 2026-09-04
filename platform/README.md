@@ -72,6 +72,14 @@ and observation time remain separate from historical render provenance. A
 rendered-only target is never attributed to a particular template and never
 becomes a canonical or optimizer-eligible activity without later evidence.
 
+The rendered-guide/unlock crosswalk joins those two discovery channels only by
+exact official MediaWiki page ID. It retains every rendered observation, every
+matched unlock statement context, and both source revisions. Title similarity,
+page type, and an activity-page classification cannot create a canonical entity,
+prove repeatability, or authorize ranking. Unmatched targets remain explicit so
+the crosswalk can be structurally complete without claiming a complete activity
+universe.
+
 Courses with multiple independently failing obstacles retain one composite
 condition record with per-obstacle requirements, successful XP, probabilities,
 and revisions. Sensum does not derive an aggregate lap probability or expected
@@ -150,6 +158,7 @@ node platform/ingestion/ingest-wiki-skill-training-guide-rendered-links.mjs
 node platform/transforms/build-unlock-statement-semantic-crosswalk.mjs
 node platform/transforms/build-unlock-linked-page-entity-types.mjs
 node platform/transforms/build-unlock-linked-page-wiki-equivalence.mjs
+node platform/transforms/build-skill-training-guide-unlock-page-crosswalk.mjs
 node platform/ingestion/ingest-wiki-agility-training-guide-sections.mjs
 node platform/ingestion/ingest-wiki-agility-rooftop-guide-members.mjs
 node platform/ingestion/ingest-wiki-agility-brimhaven-guide-members.mjs

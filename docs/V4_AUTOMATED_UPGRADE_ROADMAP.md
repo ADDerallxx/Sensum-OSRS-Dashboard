@@ -43,6 +43,21 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+A deterministic cross-source page-identity crosswalk now joins the rendered
+training-guide inventory to the level-unlock inventory only by exact official
+MediaWiki page ID. It preserves all 6,639 rendered target groups and all
+27,092 guide observations without changing their guide, parser-channel, title,
+or provenance context. Exact IDs establish 1,909 cross-source page matches
+covering 6,036 guide observations; all 1,909 use the same retained page revision.
+The matched set contains 1,841 typed pages, 68 explicitly untyped pages, and 29
+activity-page candidates. Another 4,730 rendered targets have no unlock evidence,
+1,565 unlock pages have no rendered-guide match, and five rendered targets remain
+unresolved. Those are measured evidence boundaries, not errors hidden by title
+matching. The crosswalk creates zero canonical entities, canonical activities,
+repeatability proofs, or optimizer candidates. Historical template-expansion
+provenance, semantic identity, mechanics, and the independently complete activity
+universe therefore remain explicit blockers.
+
 A revision-pinned rendered-guide observation audit now covers all 81 retained
 training-guide revisions through the official MediaWiki parser. It preserves
 27,092/27,092 returned target observations across 6,639 stable or exact-title

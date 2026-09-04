@@ -1,0 +1,33 @@
+{
+  "contract": "sensum.skill-training-guide-unlock-page-crosswalk.v1",
+  "required": [
+    "renderedTargetKey",
+    "sourcePageId",
+    "resolvedTitle",
+    "renderedEvidence",
+    "unlockEvidence",
+    "crossSourcePageIdentityEstablished",
+    "revisionRelationship",
+    "semanticRoutingState",
+    "canonicalGameEntityIdentity",
+    "canonicalActivityIdentity",
+    "repeatableTrainingActivity",
+    "optimizerEligible",
+    "accountIndependent",
+    "blockers"
+  ],
+  "rules": {
+    "oneRecordPerRenderedTargetKey": true,
+    "crossSourceMatchingRequiresExactStableOfficialWikiPageId": true,
+    "titleOnlyMatchingIsForbidden": true,
+    "allRenderedGuideObservationsMustBePreserved": true,
+    "allMatchedUnlockReferenceContextsMustBePreserved": true,
+    "bothSourceRevisionsMustRemainVisible": true,
+    "pageTypeEvidenceIsSourceScopedAndNotCanonicalEntityIdentity": true,
+    "activityPageCandidateIsNotRepeatabilityProof": true,
+    "crossSourcePageIdentityDoesNotProveGameEntityOrActivityIdentity": true,
+    "noRecordIsOptimizerEligibleAtThisStage": true,
+    "currentAccountStateIsForbidden": true,
+    "automaticVerificationAllowed": false
+  }
+}

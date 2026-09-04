@@ -339,3 +339,17 @@ Run:
 ```text
 node platform/transforms/build-unlock-linked-page-wiki-equivalence.mjs
 ```
+
+`build-skill-training-guide-unlock-page-crosswalk.mjs` crosswalks every grouped
+rendered training-guide target against the grouped level-unlock evidence. A
+match requires the same stable official MediaWiki page ID; titles are never a
+fallback. The output preserves all guide observations, matched unlock reference
+contexts, page-type evidence, and both source revisions. Structural publication
+does not promote canonical entities or activities, prove repeatability or
+mechanics, or close the independently complete activity-universe gate.
+
+Run:
+
+```text
+node platform/transforms/build-skill-training-guide-unlock-page-crosswalk.mjs
+```

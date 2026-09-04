@@ -1,0 +1,25 @@
+{
+  "contract": "sensum.skill-training-guide-unlock-page-crosswalk-audit.v1",
+  "required": [
+    "renderedTargetCoverage",
+    "unlockEvidenceCoverage",
+    "crossSourceIdentityCoverage",
+    "revisionCoverage",
+    "semanticRoutingCoverage",
+    "crosswalkCoverageComplete",
+    "completeActivityUniverse",
+    "absoluteBestGate",
+    "blockers"
+  ],
+  "rules": {
+    "renderedInputAndCrosswalkTargetSetsMustMatchExactly": true,
+    "everyRenderedObservationMustBePreservedExactlyOnce": true,
+    "everyUnlockMatchMustUseOneExactStablePageId": true,
+    "matchedUnlockReferenceContextsMustRemainExact": true,
+    "sameAndDifferentSourceRevisionsMustBeMeasuredSeparately": true,
+    "unmatchedTargetsMustRemainExplicit": true,
+    "semanticRoutingCannotCreateCanonicalEntityOrActivityIdentity": true,
+    "crosswalkCoverageCannotProveRepeatabilityMechanicsOrCompleteActivityUniverse": true,
+    "accountSpecificInputsAreForbidden": true
+  }
+}
