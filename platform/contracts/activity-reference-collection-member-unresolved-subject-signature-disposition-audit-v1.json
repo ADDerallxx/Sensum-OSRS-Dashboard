@@ -1,0 +1,29 @@
+{
+  "contract": "sensum.activity-reference-collection-member-unresolved-subject-signature-disposition-audit.v1",
+  "required": [
+    "inputCoverage",
+    "policyCoverage",
+    "sourcePageSubjectDispositionCoverage",
+    "semanticPromotionCoverage",
+    "accountStateFindings",
+    "dispositionAttemptCoverageComplete",
+    "sourcePageSubjectDispositionComplete",
+    "collectionActivityIdentityReviewComplete",
+    "linkedSubjectRelationshipReviewComplete",
+    "completeActivityUniverse",
+    "absoluteBestGate",
+    "blockers"
+  ],
+  "rules": {
+    "everyInputSignatureMustBeProcessedExactlyOnce": true,
+    "inputAndOutputSetsHashesIdentityRevisionCollectionMembershipAndAliasContextMustMatchExactly": true,
+    "sourceSignatureStructuralIntegrityMustRemainValid": true,
+    "policyMustNotContainPageSpecificOrCollectionClassificationSelectors": true,
+    "everySupportedDispositionNeedsAtLeastOneExactMappedRootTemplateSignal": true,
+    "multipleDistinctMappedSourcePageClassesMustRemainAConflict": true,
+    "collectionContextCannotSelectAlterOrBreakDispositionTies": true,
+    "sourcePageSubjectCompletenessDoesNotCompleteCollectionActivityIdentityOrRelationshipReview": true,
+    "canonicalIdentityRepeatabilityMembersMechanicsAndOptimizerEligibilityRemainClosed": true,
+    "currentAccountStateIsForbidden": true
+  }
+}

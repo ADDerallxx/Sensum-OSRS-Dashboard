@@ -43,6 +43,23 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+A generic exact-root-template disposition now classifies all three previously
+unresolved linked source pages without using their titles, page IDs, collection
+labels, membership classes, aliases, or links as answers. The existing 23-signal
+entity-type policy maps `Target (Ranging Guild)` revision 15225200 through
+`Infobox Scenery` to `scenery_object_page`, `Vineyard foreman` revision
+14834637 through `Infobox NPC` to `npc_page`, and `Wise Old Man tasks` revision
+14997080 through `Infobox Activity` to `activity_page`. All three input hashes,
+source identities, revisions, collection rows, membership classes, and alias
+contexts match exactly; no conflicting, unresolved, unsupported, duplicate, or
+collection-derived disposition signal exists. Repeated runs produced the same
+output hash. This closes only the source-page structural class: collection-
+activity identity, linked-subject relationships, repeatability, member
+expansion, requirements, XP, timing, mechanics, and optimizer eligibility all
+remain unreviewed and blocked. The next checkpoint should route those three
+source classes to generic relationship and activity-scope evidence work without
+using collection context to choose or modify a route.
+
 The three collection members routed to broader source-signature review now have
 exact-revision structural evidence packets. `Target (Ranging Guild)` revision
 15225200, `Vineyard foreman` revision 14834637, and `Wise Old Man tasks`
