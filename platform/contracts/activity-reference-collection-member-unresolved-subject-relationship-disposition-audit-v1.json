@@ -1,0 +1,30 @@
+{
+  "contract": "sensum.activity-reference-collection-member-unresolved-subject-relationship-disposition-audit.v1",
+  "required": [
+    "inputCoverage",
+    "policyCoverage",
+    "sourceRelationshipDispositionCoverage",
+    "semanticPromotionCoverage",
+    "accountStateFindings",
+    "dispositionAttemptCoverageComplete",
+    "sourceRelationshipDispositionComplete",
+    "collectionActivityIdentityReviewComplete",
+    "linkedSubjectRelationshipReviewComplete",
+    "completeActivityUniverse",
+    "absoluteBestGate",
+    "blockers"
+  ],
+  "rules": {
+    "everyInputRelationshipEvidencePacketMustBeProcessedExactlyOnce": true,
+    "inputAndOutputSetsHashesIdentityRevisionDispositionCollectionMembershipAndAliasContextMustMatchExactly": true,
+    "inputRelationshipEvidenceStructuralIntegrityMustRemainValid": true,
+    "policyMustNotContainPageSpecificOrCollectionClassificationSelectors": true,
+    "everySupportedSourceRelationshipDispositionNeedsAnExactLeadDeclarationSignal": true,
+    "allRequiredPatternsForEachSignalMustMatchRetainedLeadEvidence": true,
+    "multipleDistinctSourceRelationshipClassesMustRemainAConflict": true,
+    "collectionContextLinksLabelsAliasesAndPageIdentityCannotSelectAlterOrBreakDispositionTies": true,
+    "sourceRelationshipDispositionCompletenessDoesNotCompleteCollectionActivityIdentityOrLinkedSubjectRelationshipReview": true,
+    "canonicalIdentityRepeatabilityMembersMechanicsAndOptimizerEligibilityRemainClosed": true,
+    "currentAccountStateIsForbidden": true
+  }
+}

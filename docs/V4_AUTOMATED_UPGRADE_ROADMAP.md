@@ -43,6 +43,29 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+A generic source-declaration disposition now classifies the role each of the
+three linked subjects explicitly plays without treating its collection row,
+display label, link, alias, title, or page ID as the answer. `Target (Ranging
+Guild)` revision 15225200 declares at source lines 14–15 that the targets play a
+central role in a minigame and is classified as an `activity_component`.
+`Vineyard foreman` revision 14834637 declares at lines 19 and 21 both the task
+provider action and that the task can be repeated, yielding `task_provider`.
+`Wise Old Man tasks` revision 14997080 declares at line 17 that it assigns tasks,
+yielding `task_assignment_activity`. The three generic rules require all of
+their exact lead-declaration patterns and the independently established source-
+page class; class alone cannot create a signal. All three inputs receive one
+supported source-role disposition, with four retained declaration matches, no
+conflict, no unresolved result, and no policy shortcut. Regression cases prove
+that collection-label changes cannot alter a result, missing declarations stay
+unresolved, and distinct declarations remain a conflict. Repeated live runs
+produced the same output hash. These source roles do not establish the exact
+collection activity identity, linked-subject membership relationship,
+repeatability, requirements, variants, XP, timing, mechanics, or optimizer
+eligibility; those gates remain closed. The next checkpoint should build
+revision-pinned collection-activity identity evidence from the retained row
+descriptions and source-role declarations before attempting any canonical
+identity or linked-subject relationship decision.
+
 The three queued unresolved collection-member relationship routes now have
 exactly joined, revision-pinned evidence packets. Each route matches one retained
 source-signature record by member key, source-signature content hash, page

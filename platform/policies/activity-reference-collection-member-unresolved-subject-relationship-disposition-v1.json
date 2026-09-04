@@ -1,0 +1,48 @@
+{
+  "policy": "sensum.activity-reference-collection-member-unresolved-subject-relationship-disposition-policy.v1",
+  "inputContract": "sensum.activity-reference-collection-member-unresolved-subject-relationship-evidence.v1",
+  "recordContract": "sensum.activity-reference-collection-member-unresolved-subject-relationship-disposition.v1",
+  "auditContract": "sensum.activity-reference-collection-member-unresolved-subject-relationship-disposition-audit.v1",
+  "relationshipDeclarationRules": [
+    {
+      "ruleKey": "source_declares_activity_component_role",
+      "sourcePageSubjectClasses": ["scenery_object_page"],
+      "relationshipClass": "activity_component",
+      "requiredLeadPatterns": [
+        {"pattern": "\\bplay(?:s)? the central role in [^.]{0,160}\\bminigame\\b", "flags": "i"}
+      ]
+    },
+    {
+      "ruleKey": "source_declares_task_provider_role",
+      "sourcePageSubjectClasses": ["npc_page"],
+      "relationshipClass": "task_provider",
+      "requiredLeadPatterns": [
+        {"pattern": "\\bgives the player [^.]{0,200}\\bto\\b", "flags": "i"},
+        {"pattern": "\\bthe task can be repeated\\b", "flags": "i"}
+      ]
+    },
+    {
+      "ruleKey": "source_declares_task_assignment_activity_role",
+      "sourcePageSubjectClasses": ["activity_page"],
+      "relationshipClass": "task_assignment_activity",
+      "requiredLeadPatterns": [
+        {"pattern": "\\bcan assign various tasks\\b", "flags": "i"}
+      ]
+    }
+  ],
+  "rules": {
+    "policyContainsNoPageIdsTitlesCandidateKeysCollectionClassesOrOverrides": true,
+    "onlyExactLeadDeclarationRulesMaySetSourceRelationshipDisposition": true,
+    "everyRuleRequiresAnExplicitSupportedSourcePageSubjectClass": true,
+    "allRequiredPatternsForARuleMustMatchRetainedLeadEvidence": true,
+    "multipleSignalsMayAgreeOnOneSourceRelationshipClass": true,
+    "distinctSourceRelationshipClassesRemainAConflict": true,
+    "missingOrUnmatchedDeclarationsRemainUnresolved": true,
+    "collectionLabelsMembershipRowsLinksAliasesAndPageIdentityCannotSetAlterOrBreakDispositionTies": true,
+    "sourceRelationshipDispositionDoesNotEstablishCollectionActivityIdentityOrExactMembershipRelationship": true,
+    "sourceRelationshipDispositionDoesNotProveRepeatabilityRequirementsVariantsXpTimingOrMechanics": true,
+    "canonicalIdentityAndOptimizerEligibilityRemainClosed": true,
+    "currentAccountStateIsForbidden": true,
+    "automaticVerificationAllowed": false
+  }
+}
