@@ -1,0 +1,26 @@
+{
+  "policy": "sensum.activity-reference-collection-member-collection-activity-identity-evidence-policy.v1",
+  "inputContract": "sensum.activity-reference-collection-member-unresolved-subject-relationship-disposition.v1",
+  "recordContract": "sensum.activity-reference-collection-member-collection-activity-identity-evidence.v1",
+  "auditContract": "sensum.activity-reference-collection-member-collection-activity-identity-evidence-audit.v1",
+  "evidenceChannels": [
+    "exact_collection_revision_and_row",
+    "all_source_located_collection_row_cells",
+    "all_direct_collection_row_wikilinks",
+    "exact_linked_source_revision",
+    "source_relationship_disposition_and_declarations",
+    "exact_cross_source_link_target_intersections"
+  ],
+  "rules": {
+    "policyContainsNoPageIdsTitlesCandidateKeysCollectionClassesAliasesOrOverrides": true,
+    "everyNonEmptyCollectionRowCellMustRemainSourceLocated": true,
+    "everyDirectCollectionRowWikilinkMustRemainSourceLocated": true,
+    "sourceRelationshipDispositionAndSignalsMustBePreservedExactly": true,
+    "stablePageAlignmentAndSharedLinkTargetsAreCandidateObservationsOnly": true,
+    "irregularOrRepeatedTableHeadersCannotDiscardRowEvidence": true,
+    "collectionActivityIdentityAndLinkedSubjectRelationshipVerdictsRemainNull": true,
+    "canonicalIdentityRepeatabilityMembersMechanicsAndOptimizerEligibilityRemainClosed": true,
+    "currentAccountStateIsForbidden": true,
+    "automaticVerificationAllowed": false
+  }
+}

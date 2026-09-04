@@ -43,6 +43,26 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+The three previously unresolved collection members now have deterministic,
+revision-pinned collection-activity identity evidence packets. The packets join
+the exact source-role dispositions back to all 16 retained `Minigames`
+revision 15327496 row cells, including 15 non-empty source-located cells and 13
+direct row wikilinks; no header name is trusted as a semantic shortcut, so the
+Aldarin Vineyard action text remains preserved even though the source table
+places it under `Activity Classification`. The exact linked pages remain
+`Target (Ranging Guild)` revision 15225200, `Vineyard foreman` revision
+14834637, and `Wise Old Man tasks` revision 14997080. Their three source-role
+signals and four matched lead declarations are retained unchanged. Structural
+observations record three member-link/title alignments, three stable
+page/revision/hash alignments, and four exact shared main-namespace link targets
+(`Ranged`, `grapes`, `grape barrel`, and `Wise Old Man`) without treating
+any of them as identity proof. The packets contain zero activity-identity or
+linked-relationship verdicts and zero semantic promotions, and repeated live
+runs produced the same output hash. The next checkpoint should apply a generic,
+fail-closed collection-activity identity disposition that requires sufficient
+independent collection and source-role evidence, retains ambiguity or conflict,
+and cannot promote repeatability, mechanics, or optimizer eligibility.
+
 A generic source-declaration disposition now classifies the role each of the
 three linked subjects explicitly plays without treating its collection row,
 display label, link, alias, title, or page ID as the answer. `Target (Ranging

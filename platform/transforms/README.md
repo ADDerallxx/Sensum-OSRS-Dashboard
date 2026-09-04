@@ -1,5 +1,25 @@
 # Canonicalization
 
+## Collection-activity identity evidence
+
+`build-activity-reference-collection-member-collection-activity-identity-evidence.mjs`
+builds one review packet for every exact source-relationship disposition. Each
+packet preserves every collection row cell and direct wikilink with its source
+locator, the exact linked source revision, and every matched source-role
+declaration. Irregular table headers cannot discard evidence.
+
+Stable page alignment and shared link targets are candidate observations only.
+The transform cannot create a collection-activity identity, a linked-subject
+relationship, repeatability, mechanics, or optimizer eligibility. Its audit
+fails if evidence is removed, account state appears, a page-specific override is
+introduced, or any identity or relationship verdict is injected.
+
+Run:
+
+```text
+node platform/transforms/build-activity-reference-collection-member-collection-activity-identity-evidence.mjs
+```
+
 ## Activity-candidate subject disposition
 
 `build-activity-candidate-subject-dispositions.mjs` applies a versioned generic

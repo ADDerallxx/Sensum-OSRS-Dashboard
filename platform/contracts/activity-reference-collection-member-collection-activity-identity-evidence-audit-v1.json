@@ -1,0 +1,29 @@
+{
+  "contract": "sensum.activity-reference-collection-member-collection-activity-identity-evidence-audit.v1",
+  "required": [
+    "inputCoverage",
+    "policyCoverage",
+    "collectionActivityEvidenceCoverage",
+    "candidateObservationCoverage",
+    "semanticPromotionCoverage",
+    "accountStateFindings",
+    "identityEvidencePacketCoverageComplete",
+    "collectionActivityIdentityReviewComplete",
+    "linkedSubjectRelationshipReviewComplete",
+    "completeActivityUniverse",
+    "absoluteBestGate",
+    "blockers"
+  ],
+  "rules": {
+    "everyInputSourceRelationshipDispositionMustBeProcessedExactlyOnce": true,
+    "inputAndOutputSetsHashesIdentityRevisionDispositionCollectionMembershipAndAliasContextMustMatchExactly": true,
+    "inputSourceRelationshipDispositionStructuralIntegrityMustRemainValid": true,
+    "policyMustNotContainPageSpecificOrCollectionClassificationSelectors": true,
+    "everyCollectionRowCellAndDirectWikilinkMustMatchTheRetainedSourceExactly": true,
+    "sourceRelationshipDispositionAndMatchedDeclarationsMustMatchExactly": true,
+    "candidateObservationsCannotContainIdentityOrRelationshipVerdicts": true,
+    "collectionActivityIdentityAndLinkedSubjectRelationshipReviewsRemainOpen": true,
+    "canonicalIdentityRepeatabilityMembersMechanicsAndOptimizerEligibilityRemainClosed": true,
+    "currentAccountStateIsForbidden": true
+  }
+}

@@ -152,6 +152,18 @@ links are relationship candidates only; structural publication leaves subject
 identity, relationships, repeatability, members, mechanics, and optimizer
 eligibility unresolved.
 
+Generic source-role disposition uses exact retained lead declarations plus the
+independently established source-page class. It cannot use a collection label,
+row, link, alias, title, or page ID to create or break a source-role result.
+Distinct declarations remain a conflict, and a source role never establishes
+the collection activity identity.
+
+Collection-activity identity evidence then rejoins those source roles to every
+source-located collection row cell and direct row wikilink. It retains irregular
+and repeated table headers exactly, records stable page alignment and exact
+cross-source link-target intersections only as review observations, and leaves
+both activity-identity and linked-subject relationship verdicts null.
+
 Courses with multiple independently failing obstacles retain one composite
 condition record with per-obstacle requirements, successful XP, probabilities,
 and revisions. Sensum does not derive an aggregate lap probability or expected
@@ -244,6 +256,7 @@ node platform/transforms/build-activity-reference-collection-member-unresolved-s
 node platform/transforms/build-activity-reference-collection-member-unresolved-subject-relationship-work-routes.mjs
 node platform/transforms/build-activity-reference-collection-member-unresolved-subject-relationship-evidence.mjs
 node platform/transforms/build-activity-reference-collection-member-unresolved-subject-relationship-dispositions.mjs
+node platform/transforms/build-activity-reference-collection-member-collection-activity-identity-evidence.mjs
 node platform/ingestion/ingest-wiki-agility-training-guide-sections.mjs
 node platform/ingestion/ingest-wiki-agility-rooftop-guide-members.mjs
 node platform/ingestion/ingest-wiki-agility-brimhaven-guide-members.mjs
