@@ -43,6 +43,19 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+The complete cross-skill linked-page set now has an exact direct-category
+fallback for pages without a mapped root-template type. Seventeen explicitly
+mapped direct-category signals classify 64 additional target references while
+root-template evidence remains authoritative whenever present. This increases
+typed targets from 3,357 to 3,421 and reduces untyped stable Wiki pages from 190
+to 137. Stable grouping still preserves all 3,567 targets and 6,375 statement
+references across 3,474 MediaWiki page IDs. Activity-page candidates rise from
+30 to 33 target references and from 29 to 31 stable pages, but remain discovery
+candidates only: no canonical entity, repeatability, mechanics, or optimizer
+eligibility was inferred. The 81 unique training-guide pages have zero exact
+page-title overlap with these linked targets, so guide-content discovery—not
+title matching—is required for the next reconciliation step.
+
 The complete linked-page set now has a stable official Wiki-page equivalence
 boundary. All 3,567 original targets and all 6,375 source-statement references
 are preserved exactly once across 3,474 official MediaWiki page IDs. Fifty-eight

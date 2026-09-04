@@ -42,6 +42,11 @@ reviewed as bounded calculations, but they cannot enter a scalar ranking or
 support an absolute-best claim until an explicit interval comparison policy is
 implemented. Peak-only timings never become typical cycle times.
 
+Cross-skill linked-page routing uses exact root-template evidence first and an
+explicit direct-category fallback only when no mapped root type exists. The
+fallback is a page-type discovery aid, not canonical entity, repeatability,
+mechanics, or optimizer evidence; those gates remain independently blocked.
+
 Courses with multiple independently failing obstacles retain one composite
 condition record with per-obstacle requirements, successful XP, probabilities,
 and revisions. Sensum does not derive an aggregate lap probability or expected

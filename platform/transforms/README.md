@@ -311,11 +311,14 @@ node platform/transforms/audit-skill-level-unlock-inventory.mjs
 ```
 
 `build-unlock-linked-page-entity-types.mjs` classifies every linked page using
-only exact root-template signals from the versioned entity-type policy. It
-preserves multiple page types when the source explicitly supports them and
-keeps unmatched pages untyped. A page typed as an activity is still only a
-discovery candidate: canonical identity, repeatability, requirements, variants,
-mechanics, and optimizer eligibility remain separate evidence gates.
+exact root-template signals from the versioned entity-type policy. When no
+mapped root-template type exists, V2 may use an exact, policy-mapped direct Wiki
+category as fallback evidence. Root-template evidence always wins, so a broad
+category cannot add to or override a stronger page type. Multiple explicit
+types from the selected signal kind remain visible, and unmatched pages remain
+untyped. A page typed as an activity is still only a discovery candidate:
+canonical identity, repeatability, requirements, variants, mechanics, and
+optimizer eligibility remain separate evidence gates.
 
 Run:
 

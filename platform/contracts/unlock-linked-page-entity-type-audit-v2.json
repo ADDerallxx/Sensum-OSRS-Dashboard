@@ -1,0 +1,16 @@
+{
+  "contract": "sensum.unlock-linked-page-entity-type-audit.v2",
+  "supersedes": "sensum.unlock-linked-page-entity-type-audit.v1",
+  "required": ["inputSignatureCoverage", "policyCoverage", "entityTypeCoverage", "pageTypeRoutingComplete", "entityTypeClassificationComplete", "canonicalEntityIdentityCount", "repeatabilityProvenCount", "optimizerEligibleActivityCount", "completeActivityUniverse", "absoluteBestGate", "blockers"],
+  "rules": {
+    "inputAndClassificationTargetSetsMustMatchExactly": true,
+    "policySignalsMustBeUniqueWithinTheirSignalKind": true,
+    "classifiedTypesMustMatchExactSourceEvidence": true,
+    "categoryFallbackCannotOverrideOrExtendRootTemplateEvidence": true,
+    "stableWikiPageIdAndReferenceContextCoverageMustRemainExact": true,
+    "untypedPagesBlockCompleteEntityTypeCoverage": true,
+    "pageTypeCoverageCannotProveCanonicalOrRepeatableActivityIdentity": true,
+    "completeActivityUniverseRequiresIndependentDiscovery": true,
+    "accountSpecificInputsAreForbidden": true
+  }
+}

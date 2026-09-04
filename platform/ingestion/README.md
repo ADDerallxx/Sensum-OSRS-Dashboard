@@ -111,6 +111,10 @@ record count, creation time, audit result, and SHA-256 content hash.
   structure is discovery evidence only: it cannot establish a canonical entity, activity,
   repeatability, mechanics, or optimizer eligibility. Revision drift remains a
   visible alignment blocker rather than being silently accepted.
+- Page-type routing uses exact root-template evidence first. Only a page with no
+  mapped root-template type may use an exact, policy-mapped direct category as a
+  fallback. Category routing cannot override a root type or establish canonical
+  identity, repeatability, mechanics, or optimizer eligibility.
 - Stable Wiki-page equivalence groups those typed references only when their
   official page ID and revision-bound evidence agree. Every original target and
   its statement context remains present. This removes duplicate page fetches;
