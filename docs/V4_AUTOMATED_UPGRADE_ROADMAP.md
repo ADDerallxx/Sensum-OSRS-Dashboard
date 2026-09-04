@@ -43,6 +43,22 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+The two corroborating repeatability-gap packets now have deterministic generic
+dispositions. A candidate page is not treated as the canonical activity merely
+because the activity row or an unresolved signal links to it; an explicit
+positive or negative declaration would still require exact canonical-activity
+scope before it could support a classification. `Archery Competition` is
+therefore blocked as `no explicit declaration in bounded corroborating sources`.
+`Wise Old Man tasks` is blocked as `structural signal without an explicit
+repeatability declaration` because `Wise Old Man` revision 15318848 only says
+that the NPC assigns various tasks. Both input packets and all eight official
+page revisions, hashes, URLs, and discovery contexts are preserved exactly.
+There are zero classifications, upstream disposition mutations, member or
+mechanics reviews, and optimizer promotions. Repeated runs produced the same
+output hash. The next checkpoint should collect revision-pinned independent
+authoritative repeatability sources without interpreting search rank, backlinks,
+categories, titles, or lexical similarity as activity scope.
+
 The two structural-signal repeatability gaps now have complete corroborating
 evidence packets built only from source-authored links on the exact unresolved
 signal lines and exact retained collection rows. Eleven requested titles carry

@@ -1,0 +1,22 @@
+{
+  "policy": "sensum.activity-reference-collection-member-repeatability-gap-disposition-policy.v1",
+  "inputContract": "sensum.activity-reference-collection-member-repeatability-gap-evidence.v1",
+  "recordContract": "sensum.activity-reference-collection-member-repeatability-gap-disposition.v1",
+  "auditContract": "sensum.activity-reference-collection-member-repeatability-gap-disposition-audit.v1",
+  "rules": {
+    "oneDispositionPerCompleteGapEvidencePacket": true,
+    "allUpstreamIdentityRevisionHashAndContextMustBePreserved": true,
+    "onlyExplicitPositiveOrNegativeDeclarationsMaySupportClassification": true,
+    "candidatePageDiscoveryDoesNotEstablishCanonicalActivityScope": true,
+    "unscopedExplicitDeclarationsRemainBlocked": true,
+    "opposingUnscopedDeclarationsRemainBlocked": true,
+    "recurrenceAndSessionSignalsCannotSupportRepeatability": true,
+    "absenceOfDeclarationsCannotSupportNonRepeatability": true,
+    "boundedDiscoveryExhaustionIsNotAnAuthoritativeExclusion": true,
+    "labelsTitlesPageIdsAliasesAndCollectionClassesCannotSelectADisposition": true,
+    "upstreamRepeatabilityDispositionAndReviewMustRemainUnchanged": true,
+    "unresolvedEvidenceRemainsExplicitAndPublishable": true,
+    "memberExpansionMechanicsAndOptimizerEligibilityRemainClosed": true,
+    "currentAccountStateIsForbidden": true
+  }
+}

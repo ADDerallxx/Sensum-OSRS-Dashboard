@@ -1,0 +1,29 @@
+{
+  "contract": "sensum.activity-reference-collection-member-repeatability-gap-disposition-audit.v1",
+  "required": [
+    "inputCoverage",
+    "policyCoverage",
+    "dispositionCoverage",
+    "semanticPromotionCoverage",
+    "accountStateFindings",
+    "repeatabilityGapDispositionAttemptCoverageComplete",
+    "repeatabilityClassificationCoverageComplete",
+    "repeatabilityReviewComplete",
+    "memberExpansionReviewComplete",
+    "mechanicsReviewComplete",
+    "completeActivityUniverse",
+    "absoluteBestGate",
+    "blockers",
+    "publishable"
+  ],
+  "rules": {
+    "everyCompleteGapEvidencePacketProducesExactlyOneDisposition": true,
+    "inputOutputSetsHashesEvidenceAndContextMatchExactly": true,
+    "allDispositionsAreReproducibleFromGenericRules": true,
+    "unscopedAndStructuralSignalsCannotClassifyAnActivity": true,
+    "boundedNoMatchCannotBecomeNonRepeatableOrExcluded": true,
+    "upstreamDispositionAndReviewCannotChange": true,
+    "memberMechanicsAndOptimizerPromotionsAreForbidden": true,
+    "currentAccountStateIsForbidden": true
+  }
+}

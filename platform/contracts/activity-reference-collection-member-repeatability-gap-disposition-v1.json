@@ -1,0 +1,27 @@
+{
+  "contract": "sensum.activity-reference-collection-member-repeatability-gap-disposition.v1",
+  "required": [
+    "memberCandidateKey",
+    "sourceRepeatabilityGapEvidenceContentHash",
+    "canonicalActivityIdentity",
+    "repeatabilityDisposition",
+    "repeatabilityReview",
+    "corroboratingRepeatabilityDisposition",
+    "corroboratingRepeatabilityReview",
+    "repeatabilityGapNextEvidenceWork",
+    "memberExpansionReview",
+    "mechanicsReview",
+    "optimizerEligible",
+    "accountIndependent",
+    "blockers"
+  ],
+  "rules": {
+    "oneDispositionPerCompleteGapEvidencePacket": true,
+    "inputIdentityRevisionHashesEvidenceAndContextRemainExact": true,
+    "candidatePagesAndSignalsRemainEvidenceRatherThanVerdicts": true,
+    "upstreamRepeatabilityDispositionAndReviewRemainExact": true,
+    "noClassificationWithoutExactCanonicalActivityScope": true,
+    "memberMechanicsAndOptimizerPromotionsAreForbidden": true,
+    "currentAccountStateIsForbidden": true
+  }
+}
