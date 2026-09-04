@@ -1,0 +1,25 @@
+{
+  "contract": "sensum.activity-candidate-subject-disposition-audit.v1",
+  "required": [
+    "inputCoverage",
+    "policyCoverage",
+    "dispositionCoverage",
+    "semanticPromotionCoverage",
+    "dispositionAttemptCoverageComplete",
+    "subjectDispositionComplete",
+    "completeActivityUniverse",
+    "absoluteBestGate",
+    "blockers"
+  ],
+  "rules": {
+    "inputAndOutputCandidateSetsMustMatchExactly": true,
+    "everyInputIdentityRevisionHashAndContextMustBePreserved": true,
+    "policyMustNotContainPageSpecificSelectors": true,
+    "everyResolvedDispositionNeedsAtLeastOneExactSourceSignal": true,
+    "conflictingAndUnresolvedCountsMustRemainVisible": true,
+    "newUnmappedInfoboxTypeValuesMustRemainVisibleAndBlocked": true,
+    "repeatabilityAtomicityCanonicalIdentityAndOptimizerEligibilityRemainClosed": true,
+    "structuralPublicationDoesNotMeanSemanticCompleteness": true,
+    "accountSpecificInputsAreForbidden": true
+  }
+}

@@ -96,6 +96,14 @@ manual semantic review. Multiple same-page contexts are consolidated only when
 their revision and content hashes agree. Lexical matches never establish a
 canonical identity, prove repeatability, or enter the optimizer.
 
+Generic subject disposition uses only exact, policy-mapped infobox `type` values
+and declarations in the first lead paragraph. Its policy forbids page IDs,
+titles, candidate keys, and per-page overrides. Matching source signals may
+agree, but distinct explicit dispositions remain a conflict; an unseen infobox
+type blocks even when lead text matches a known rule. A subject disposition is
+not a canonical entity or activity, does not prove repeatability or atomicity,
+and cannot enter the optimizer.
+
 Courses with multiple independently failing obstacles retain one composite
 condition record with per-obstacle requirements, successful XP, probabilities,
 and revisions. Sensum does not derive an aggregate lap probability or expected
@@ -177,6 +185,7 @@ node platform/transforms/build-unlock-linked-page-wiki-equivalence.mjs
 node platform/transforms/build-skill-training-guide-unlock-page-crosswalk.mjs
 node platform/transforms/build-cross-source-entity-activity-candidates.mjs
 node platform/ingestion/ingest-wiki-activity-candidate-source-evidence.mjs
+node platform/transforms/build-activity-candidate-subject-dispositions.mjs
 node platform/ingestion/ingest-wiki-agility-training-guide-sections.mjs
 node platform/ingestion/ingest-wiki-agility-rooftop-guide-members.mjs
 node platform/ingestion/ingest-wiki-agility-brimhaven-guide-members.mjs

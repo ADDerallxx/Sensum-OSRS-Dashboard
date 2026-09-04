@@ -1,0 +1,71 @@
+{
+  "policy": "sensum.activity-candidate-subject-disposition-policy.v1",
+  "recordContract": "sensum.activity-candidate-subject-disposition.v1",
+  "auditContract": "sensum.activity-candidate-subject-disposition-audit.v1",
+  "infoboxTypeDispositions": {
+    "activity": "activity_subject",
+    "boss": "boss_encounter_subject",
+    "minigame": "minigame_subject",
+    "raid": "raid_subject"
+  },
+  "leadDeclarationRules": [
+    {
+      "ruleKey": "lead_declares_barracuda_trial_subject",
+      "disposition": "trial_subject",
+      "pattern": "\\bis an? Barracuda Trial\\b",
+      "flags": "i",
+      "supportedInfobox": "any"
+    },
+    {
+      "ruleKey": "lead_declares_minigame_subject",
+      "disposition": "minigame_subject",
+      "pattern": "\\bis an? [^.]{0,80}\\bminigame\\b",
+      "flags": "i",
+      "supportedInfobox": "any"
+    },
+    {
+      "ruleKey": "lead_declares_activity_subject",
+      "disposition": "activity_subject",
+      "pattern": "\\bis an? [^.]{0,80}\\bactivity\\b",
+      "flags": "i",
+      "supportedInfobox": "any"
+    },
+    {
+      "ruleKey": "lead_declares_raid_subject",
+      "disposition": "raid_subject",
+      "pattern": "\\bis an? [^.]{0,80}\\braid\\b",
+      "flags": "i",
+      "supportedInfobox": "any"
+    },
+    {
+      "ruleKey": "lead_defines_repeatable_game_collection",
+      "disposition": "reference_collection_subject",
+      "pattern": "\\bare small games in which players\\b",
+      "flags": "i",
+      "supportedInfobox": "absent"
+    },
+    {
+      "ruleKey": "lead_describes_assignment_until_completion_system",
+      "disposition": "assignment_system_subject",
+      "pattern": "\\bplayers are assigned an? [^.]{0,120} until an? [^.]{0,120} is received\\b",
+      "flags": "i",
+      "supportedInfobox": "absent"
+    }
+  ],
+  "rules": {
+    "policyContainsNoPageIdsTitlesOrCandidateKeys": true,
+    "onlyExactInfoboxTypeValuesAndFirstLeadParagraphDeclarationsMaySetDisposition": true,
+    "leadRulesOperateOnPlainTextDerivedFromRetainedRawWikitext": true,
+    "multipleSignalsMayAgreeOnOneDisposition": true,
+    "distinctExplicitDispositionsRemainAConflict": true,
+    "missingOrUnmatchedDeclarationsRemainUnresolved": true,
+    "newUnmappedInfoboxTypeValuesRemainBlockedEvenWhenLeadTextMatches": true,
+    "subjectDispositionDoesNotEstablishCanonicalGameEntityIdentity": true,
+    "subjectDispositionDoesNotEstablishCanonicalActivityIdentity": true,
+    "subjectDispositionDoesNotProveRepeatabilityOrAtomicity": true,
+    "memberAndVariantExpansionRequiresSeparateEvidence": true,
+    "noDispositionIsOptimizerEligibleAtThisStage": true,
+    "currentAccountStateIsForbidden": true,
+    "automaticVerificationAllowed": false
+  }
+}

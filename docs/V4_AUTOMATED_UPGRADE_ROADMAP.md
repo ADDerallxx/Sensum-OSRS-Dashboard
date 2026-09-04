@@ -43,6 +43,21 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+A generic, source-declared subject-disposition layer now evaluates all 29
+activity candidates without page IDs, titles, candidate keys, or per-page
+overrides in its policy. Four exact infobox `type` values and six first-lead
+declaration forms give 27 candidates one supported disposition: 18 minigames,
+three trials, two activities, and one each for an assignment system, boss
+encounter, raid, and reference collection. No candidate is unresolved and no
+observed infobox type is unmapped. Hallowed Sepulchre revision 15322138 and
+Stealing valuables revision 15323349 remain blocked because their infobox says
+`Minigame` while their lead explicitly calls the subject an activity. The audit
+preserves that contradiction rather than choosing a preferred source field.
+Subject disposition does not establish canonical identity, repeatability,
+atomicity, member coverage, mechanics, or optimizer eligibility; all of those
+promotion counts remain zero. The next checkpoint must resolve or scope the two
+source conflicts and begin evidence-bound composite/member expansion.
+
 The 29 explicit activity-page candidates now have a revision-pinned semantic
 review evidence packet. Exact revision fetches reconcile all 29 stable Wiki page
 IDs and content hashes against 31 retained source-signature contexts; the two

@@ -1,0 +1,37 @@
+{
+  "contract": "sensum.activity-candidate-subject-disposition.v1",
+  "required": [
+    "candidateKey",
+    "sourcePageId",
+    "resolvedTitle",
+    "skillKeys",
+    "sourceRevision",
+    "sourceTimestamp",
+    "sourceUrl",
+    "sourceContentHash",
+    "sourceEvidenceContentHash",
+    "infoboxTypeAssessment",
+    "dispositionSignals",
+    "subjectDisposition",
+    "repeatabilityReview",
+    "memberExpansionReview",
+    "canonicalGameEntityIdentity",
+    "canonicalActivityIdentity",
+    "optimizerEligible",
+    "accountIndependent",
+    "blockers"
+  ],
+  "rules": {
+    "oneRecordPerRevisionPinnedActivityCandidateEvidenceRecord": true,
+    "inputIdentityRevisionAndHashMustBePreserved": true,
+    "dispositionSignalsMustReferenceExactInfoboxOrLeadEvidence": true,
+    "pageSpecificPolicyKeysAndOverridesAreForbidden": true,
+    "conflictingExplicitSignalsMustRemainAConflict": true,
+    "unmatchedSubjectsMustRemainUnresolved": true,
+    "unmappedInfoboxTypeValuesMustRemainBlocked": true,
+    "subjectDispositionDoesNotProveCanonicalIdentityRepeatabilityOrAtomicity": true,
+    "memberExpansionAndMechanicsRemainSeparateGates": true,
+    "optimizerPromotionIsForbidden": true,
+    "currentAccountStateIsForbidden": true
+  }
+}

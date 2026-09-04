@@ -1,5 +1,23 @@
 # Canonicalization
 
+## Activity-candidate subject disposition
+
+`build-activity-candidate-subject-dispositions.mjs` applies a versioned generic
+policy to the revision-pinned activity-candidate evidence packet. It recognizes
+only exact mapped infobox `type` values and explicit first-lead declaration
+forms. Page IDs, titles, candidate keys, and per-page overrides are forbidden.
+Conflicting source signals and unknown infobox types remain blockers.
+
+This layer describes the source subject only. It never creates a canonical game
+entity or activity, decides repeatability, expands composite members, structures
+mechanics, or authorizes optimizer eligibility.
+
+Run:
+
+```text
+node platform/transforms/build-activity-candidate-subject-dispositions.mjs
+```
+
 `canonicalize.mjs` converts the newest immutable staging snapshots into
 candidate canonical records and a coverage report. It never silently fills a
 missing material value.
