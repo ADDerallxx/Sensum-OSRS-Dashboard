@@ -1,0 +1,25 @@
+{
+  "contract": "sensum.activity-reference-collection-member-canonical-activity-identity-evidence-audit.v1",
+  "required": [
+    "inputCoverage",
+    "evidenceCoverage",
+    "identityObservationCoverage",
+    "semanticPromotionCoverage",
+    "accountStateFindings",
+    "evidencePacketAttemptCoverageComplete",
+    "canonicalActivityIdentityEvidencePacketCoverageComplete",
+    "canonicalActivityIdentityReviewComplete",
+    "completeActivityUniverse",
+    "absoluteBestGate",
+    "blockers"
+  ],
+  "rules": {
+    "everyInputRelationshipDispositionMustBeProcessedExactlyOnce": true,
+    "inputOutputSetsHashesIdentityRevisionEvidenceAndContextMustMatchExactly": true,
+    "everyPacketMustRetainTheCompleteSourceLocatedEvidenceChain": true,
+    "missingOrConflictingEvidenceCannotProduceACompletePacket": true,
+    "lexicalAgreementCannotEstablishCanonicalIdentity": true,
+    "canonicalActivityIdentityVerdictsAndSemanticPromotionsAreForbidden": true,
+    "currentAccountStateIsForbidden": true
+  }
+}

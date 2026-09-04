@@ -62,6 +62,26 @@ Run:
 node platform/transforms/build-activity-reference-collection-member-linked-subject-relationship-dispositions.mjs
 ```
 
+## Canonical-activity identity evidence
+
+`build-activity-reference-collection-member-canonical-activity-identity-evidence.mjs`
+assembles one revision-pinned identity-review packet for every supported linked-
+subject relationship. It retains the exact collection source and row, the
+source-selected narrative cells, direct row links, source-role declarations,
+collection-identity and linked-relationship signals, and stable cross-source
+alignment.
+
+An exact normalized collection-label/source-title match is explicitly only a
+review observation. The packet leaves the canonical-activity verdict null and
+cannot promote canonical identity, repeatability, members, mechanics, or
+optimizer eligibility. Missing evidence makes the packet non-publishable.
+
+Run:
+
+```text
+node platform/transforms/build-activity-reference-collection-member-canonical-activity-identity-evidence.mjs
+```
+
 ## Activity-candidate subject disposition
 
 `build-activity-candidate-subject-dispositions.mjs` applies a versioned generic

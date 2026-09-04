@@ -43,6 +43,24 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+The three collection-defined activity candidates now have complete,
+revision-pinned canonical-activity identity review packets. Every packet
+preserves the exact `Minigames` revision 15327496 collection source, all 16 row
+cells, the three source-selected narrative cells, all 13 direct row links, the
+three collection-identity signals, the three linked-relationship signals, and
+four exact source-role declarations from `Target (Ranging Guild)` revision
+15225200, `Vineyard foreman` revision 14834637, and `Wise Old Man tasks`
+revision 14997080. The evidence records that only `Wise Old Man tasks` has an
+exact normalized collection-label/source-title match and a possible dedicated
+activity-page observation; `Archery Competition` and `Aldarin Vineyard` retain
+their distinct component/provider source titles. Lexical agreement is review
+evidence only and creates zero canonical verdicts. All three packets are
+complete with zero deficiencies, and repeated runs produced the same output
+hash. Canonical identity, repeatability, member expansion, mechanics, and
+optimizer eligibility remain closed. The next checkpoint should apply a
+generic, fail-closed canonical-activity identity disposition that cannot use a
+label, title, page ID, alias, or collection membership alone as proof.
+
 The three collection-defined activity candidates now have an exact generic
 relationship to their independently sourced linked subjects. `Target (Ranging
 Guild)` revision 15225200 is a component of `Archery Competition`; `Vineyard

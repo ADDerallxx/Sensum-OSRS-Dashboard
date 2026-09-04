@@ -181,6 +181,14 @@ dual-source identity evidence, and stable linked-source alignment. It never
 makes the linked page the canonical activity, and it cannot open repeatability,
 member, mechanics, or optimizer gates.
 
+Canonical-activity identity evidence packets preserve the complete source chain
+needed for the subsequent identity decision: exact collection revision and row,
+source-selected narrative, row links, source-role declarations, both prior
+disposition signal sets, and cross-source identity alignment. Exact normalized
+agreement between the collection label and linked source title is recorded only
+as an observation. It never creates a verdict or substitutes the linked source
+page for the collection-defined activity.
+
 Courses with multiple independently failing obstacles retain one composite
 condition record with per-obstacle requirements, successful XP, probabilities,
 and revisions. Sensum does not derive an aggregate lap probability or expected
@@ -276,6 +284,7 @@ node platform/transforms/build-activity-reference-collection-member-unresolved-s
 node platform/transforms/build-activity-reference-collection-member-collection-activity-identity-evidence.mjs
 node platform/transforms/build-activity-reference-collection-member-collection-activity-identity-dispositions.mjs
 node platform/transforms/build-activity-reference-collection-member-linked-subject-relationship-dispositions.mjs
+node platform/transforms/build-activity-reference-collection-member-canonical-activity-identity-evidence.mjs
 node platform/ingestion/ingest-wiki-agility-training-guide-sections.mjs
 node platform/ingestion/ingest-wiki-agility-rooftop-guide-members.mjs
 node platform/ingestion/ingest-wiki-agility-brimhaven-guide-members.mjs
