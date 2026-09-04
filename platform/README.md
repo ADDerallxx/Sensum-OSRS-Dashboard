@@ -206,6 +206,15 @@ structure, and session-boundary candidates remain separate. Matches are review
 evidence only; a missing match is not evidence of non-repeatability, and this
 stage cannot create a repeatability verdict or optimizer candidate.
 
+Repeatability disposition accepts only an explicit declaration that is scoped
+to the canonical activity through an overlapping, already reviewed linked-
+source role declaration or an exact collection narrative cell. Opposing
+declarations conflict, unscoped declarations remain unresolved, and recurrence
+or session structure cannot substitute for explicit repeatability language.
+Unresolved decisions remain publishable blockers so downstream evidence work
+can continue without manufacturing a classification. Member expansion,
+mechanics, and optimizer eligibility remain separate gates.
+
 Courses with multiple independently failing obstacles retain one composite
 condition record with per-obstacle requirements, successful XP, probabilities,
 and revisions. Sensum does not derive an aggregate lap probability or expected
@@ -304,6 +313,7 @@ node platform/transforms/build-activity-reference-collection-member-linked-subje
 node platform/transforms/build-activity-reference-collection-member-canonical-activity-identity-evidence.mjs
 node platform/transforms/build-activity-reference-collection-member-canonical-activity-identity-dispositions.mjs
 node platform/ingestion/ingest-wiki-activity-reference-collection-member-repeatability-evidence.mjs
+node platform/transforms/build-activity-reference-collection-member-repeatability-dispositions.mjs
 node platform/ingestion/ingest-wiki-agility-training-guide-sections.mjs
 node platform/ingestion/ingest-wiki-agility-rooftop-guide-members.mjs
 node platform/ingestion/ingest-wiki-agility-brimhaven-guide-members.mjs

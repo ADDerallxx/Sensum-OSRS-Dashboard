@@ -1,0 +1,43 @@
+{
+  "policy": "sensum.activity-reference-collection-member-repeatability-disposition-policy.v1",
+  "inputContract": "sensum.activity-reference-collection-member-repeatability-evidence.v1",
+  "recordContract": "sensum.activity-reference-collection-member-repeatability-disposition.v1",
+  "auditContract": "sensum.activity-reference-collection-member-repeatability-disposition-audit.v1",
+  "dispositionRules": [
+    {
+      "ruleKey": "source_scoped_explicit_positive_repeatability_declaration",
+      "requiredSignalKind": "explicit_positive_repeatability_declaration_candidate",
+      "classification": "repeatable",
+      "dispositionState": "source_supported_repeatable_activity",
+      "acceptedScopeProofKinds": [
+        "linked_source_role_declaration_overlap",
+        "collection_activity_narrative_cell_overlap"
+      ]
+    },
+    {
+      "ruleKey": "source_scoped_explicit_negative_repeatability_declaration",
+      "requiredSignalKind": "explicit_negative_repeatability_declaration_candidate",
+      "classification": "non_repeatable",
+      "dispositionState": "source_supported_non_repeatable_activity",
+      "acceptedScopeProofKinds": [
+        "linked_source_role_declaration_overlap",
+        "collection_activity_narrative_cell_overlap"
+      ]
+    }
+  ],
+  "rules": {
+    "oneDispositionPerCompleteRepeatabilityEvidencePacket": true,
+    "supportedClassificationRequiresAnExplicitDeclaration": true,
+    "explicitDeclarationMustBeScopedByAReviewedSourceRoleOrCollectionNarrative": true,
+    "sourcePageRevisionHashAndLocatorMustAlign": true,
+    "recurrenceAndSessionSignalsCannotSupportRepeatability": true,
+    "absenceOfSignalsCannotSupportNonRepeatability": true,
+    "unscopedExplicitDeclarationsRemainUnresolved": true,
+    "opposingExplicitDeclarationsRemainAConflict": true,
+    "labelsTitlesPageIdsAliasesAndCollectionClassesCannotSelectADisposition": true,
+    "unresolvedEvidenceRemainsExplicitAndPublishable": true,
+    "memberExpansionMechanicsAndOptimizerEligibilityRemainClosed": true,
+    "currentAccountStateIsForbidden": true,
+    "automaticVerificationAllowed": false
+  }
+}

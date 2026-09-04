@@ -125,6 +125,29 @@ Run:
 node platform/ingestion/ingest-wiki-activity-reference-collection-member-repeatability-evidence.mjs
 ```
 
+## Canonical-activity repeatability disposition
+
+`build-activity-reference-collection-member-repeatability-dispositions.mjs`
+applies two generic rules: one for an explicit positive declaration and one for
+an explicit negative declaration. A declaration supports a classification only
+when its exact source range and hash overlap an already reviewed linked-source
+role declaration or an exact collection narrative cell tied to the canonical
+activity. Names, IDs, labels, aliases, and collection classes cannot select a
+rule.
+
+Opposing declarations remain a conflict. An explicit but unscoped declaration
+remains unresolved. Recurrence structures, session boundaries, and missing
+matches remain insufficient and cannot establish either repeatability or non-
+repeatability. The disposition attempt is publishable with explicit unresolved
+records, while member expansion, mechanics, and optimizer eligibility stay
+closed.
+
+Run:
+
+```text
+node platform/transforms/build-activity-reference-collection-member-repeatability-dispositions.mjs
+```
+
 ## Activity-candidate subject disposition
 
 `build-activity-candidate-subject-dispositions.mjs` applies a versioned generic

@@ -1,0 +1,27 @@
+{
+  "contract": "sensum.activity-reference-collection-member-repeatability-disposition-audit.v1",
+  "required": [
+    "inputCoverage",
+    "policyCoverage",
+    "repeatabilityDispositionCoverage",
+    "semanticPromotionCoverage",
+    "accountStateFindings",
+    "repeatabilityDispositionAttemptCoverageComplete",
+    "repeatabilityClassificationCoverageComplete",
+    "repeatabilityReviewComplete",
+    "completeActivityUniverse",
+    "absoluteBestGate",
+    "blockers",
+    "publishable"
+  ],
+  "rules": {
+    "everyInputEvidencePacketMustBeProcessedExactlyOnce": true,
+    "inputOutputSetsHashesIdentityRevisionEvidenceAndContextMustMatchExactly": true,
+    "everySupportedClassificationMustMatchACompleteGenericRule": true,
+    "everyDispositionSignalMustRetainExactDeclarationAndScopeProof": true,
+    "conflictingUnscopedOrInsufficientEvidenceMustRemainExplicit": true,
+    "unresolvedResultsDoNotBlockPublishingTheDispositionAttempt": true,
+    "memberMechanicsAndOptimizerPromotionsAreForbidden": true,
+    "currentAccountStateIsForbidden": true
+  }
+}

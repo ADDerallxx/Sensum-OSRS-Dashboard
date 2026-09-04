@@ -43,6 +43,27 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+The three collection-defined activities now have one generic, source-scoped
+repeatability disposition attempt each. A classification requires an explicit
+positive or negative declaration whose exact source lines overlap either the
+already reviewed linked-source role declaration or the exact collection
+narrative cell; page names, labels, IDs, aliases, collection classes,
+recurrence structure, session boundaries, and no-match observations cannot
+select a result. `Aldarin Vineyard` is source-supported as repeatable because
+`Vineyard foreman` revision 14834637 says “The task can be repeated” inside the
+same source declaration already reviewed as the task-provider relationship.
+`Archery Competition` remains unresolved because `Target (Ranging Guild)`
+revision 15225200 supplies only an end-of-game session boundary, and `Wise Old
+Man tasks` remains unresolved because revision 14997080 supplies recurring task-
+assignment structure without an explicit repeatability declaration. The audit
+records one supported repeatable classification, zero supported non-repeatable
+classifications, zero conflicts, and two unresolved results. All three evidence
+packets were dispositioned exactly once, and repeated runs produced the same
+output hash. Member expansion, requirements, XP, timing, mechanics, and
+optimizer eligibility remain closed. The next checkpoint should generically
+route supported and unresolved repeatability states to their distinct evidence
+obligations before collecting broader corroboration or member structure.
+
 The three source-supported collection activities now have complete,
 revision-pinned repeatability review packets. The collector refetches the full
 linked source at the exact retained revision and verifies page ID, title,

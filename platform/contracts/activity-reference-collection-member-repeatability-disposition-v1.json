@@ -1,0 +1,28 @@
+{
+  "contract": "sensum.activity-reference-collection-member-repeatability-disposition.v1",
+  "required": [
+    "memberCandidateKey",
+    "sourceRepeatabilityEvidenceContentHash",
+    "canonicalActivityIdentity",
+    "repeatabilityEvidence",
+    "repeatabilityDispositionSignals",
+    "repeatabilityDisposition",
+    "repeatabilityReview",
+    "memberExpansionReview",
+    "mechanicsReview",
+    "optimizerEligible",
+    "accountIndependent",
+    "blockers"
+  ],
+  "rules": {
+    "oneDispositionPerExactInputEvidencePacket": true,
+    "allUpstreamEvidenceIdentityRevisionHashesAndContextMustBePreserved": true,
+    "supportedRepeatabilityRequiresAnExplicitSourceScopedDeclaration": true,
+    "recurrenceAndSessionCandidatesCannotCreateAClassification": true,
+    "absenceOfCandidatesCannotCreateANonRepeatableClassification": true,
+    "opposingDeclarationsMustRemainBlocked": true,
+    "unscopedDeclarationsMustRemainUnresolved": true,
+    "memberExpansionMechanicsAndOptimizerPromotionAreForbidden": true,
+    "currentAccountStateIsForbidden": true
+  }
+}
