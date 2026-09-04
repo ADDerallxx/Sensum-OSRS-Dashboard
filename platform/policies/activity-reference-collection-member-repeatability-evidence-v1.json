@@ -1,0 +1,85 @@
+{
+  "policy": "sensum.activity-reference-collection-member-repeatability-evidence-policy.v1",
+  "inputContract": "sensum.activity-reference-collection-member-canonical-activity-identity-disposition.v1",
+  "recordContract": "sensum.activity-reference-collection-member-repeatability-evidence.v1",
+  "auditContract": "sensum.activity-reference-collection-member-repeatability-evidence-audit.v1",
+  "sourceScan": {
+    "caseInsensitive": true,
+    "unicode": true,
+    "maskCommentsAndProtectedRegions": true,
+    "signalDefinitions": [
+      {
+        "definitionKey": "explicit_positive_can_or_may_be_repeated",
+        "signalKind": "explicit_positive_repeatability_declaration_candidate",
+        "pattern": "\\b(?:can|may)\\s+be\\s+repeated\\b"
+      },
+      {
+        "definitionKey": "explicit_positive_repeatable_adjective",
+        "signalKind": "explicit_positive_repeatability_declaration_candidate",
+        "pattern": "\\brepeatable\\b"
+      },
+      {
+        "definitionKey": "explicit_positive_repeatedly_adverb",
+        "signalKind": "explicit_positive_repeatability_declaration_candidate",
+        "pattern": "\\brepeatedly\\b"
+      },
+      {
+        "definitionKey": "explicit_positive_repeat_named_activity",
+        "signalKind": "explicit_positive_repeatability_declaration_candidate",
+        "pattern": "\\brepeat(?:ed|ing)?\\s+(?:the\\s+)?(?:activity|task|minigame|game|round|session)\\b"
+      },
+      {
+        "definitionKey": "explicit_positive_do_or_play_again",
+        "signalKind": "explicit_positive_repeatability_declaration_candidate",
+        "pattern": "\\b(?:do|play|complete|perform|undertake)(?:s|ed|ing)?\\s+(?:it|the\\s+(?:activity|task|minigame|game|round|session))\\s+again\\b"
+      },
+      {
+        "definitionKey": "explicit_negative_cannot_be_repeated",
+        "signalKind": "explicit_negative_repeatability_declaration_candidate",
+        "pattern": "\\b(?:cannot|can\\s+not|can't)\\s+be\\s+repeated\\b"
+      },
+      {
+        "definitionKey": "explicit_negative_only_once",
+        "signalKind": "explicit_negative_repeatability_declaration_candidate",
+        "pattern": "\\b(?:may|can)\\s+only\\s+be\\s+(?:done|played|completed|performed|undertaken)\\s+once\\b"
+      },
+      {
+        "definitionKey": "explicit_negative_one_time_activity",
+        "signalKind": "explicit_negative_repeatability_declaration_candidate",
+        "pattern": "\\bone[- ]time\\s+(?:activity|task|minigame|game|round|session)\\b"
+      },
+      {
+        "definitionKey": "recurrence_various_or_multiple_assignments",
+        "signalKind": "recurrence_structure_candidate",
+        "pattern": "\\b(?:assign|receive|complete|perform|undertake|play|start|finish)(?:s|ed|ing)?\\s+(?:various|multiple|another|different)\\s+(?:tasks?|games?|rounds?|sessions?|activities)\\b"
+      },
+      {
+        "definitionKey": "recurrence_total_assignable_sessions",
+        "signalKind": "recurrence_structure_candidate",
+        "pattern": "\\b\\d+\\s+(?:tasks?|games?|rounds?|sessions?)\\s+in\\s+total\\s+that\\s+can\\s+be\\s+(?:assigned|played|completed|performed)\\b"
+      },
+      {
+        "definitionKey": "session_end_boundary",
+        "signalKind": "session_boundary_candidate",
+        "pattern": "\\b(?:at|after)\\s+the\\s+end\\s+of\\s+the\\s+(?:game|round|session)\\b"
+      }
+    ]
+  },
+  "rules": {
+    "onePacketPerSupportedCanonicalActivityIdentity": true,
+    "linkedSourceIsFetchedAtTheExactRetainedRevision": true,
+    "pageTitleTimestampUrlAndContentHashMustAlign": true,
+    "completeLinkedSourceAndExactCollectionRowAreScanned": true,
+    "commentsAndProtectedRegionsCannotCreateSignals": true,
+    "everySignalRetainsExactSourceScopeLocationTextRevisionAndHash": true,
+    "lexicalSignalsAreReviewCandidatesOnly": true,
+    "absenceOfALexicalSignalIsNotEvidenceOfNonRepeatability": true,
+    "recurrenceAndSessionSignalsAreNotExplicitRepeatabilityProof": true,
+    "positiveAndNegativeSignalsAreRetainedTogetherAsConflictCandidates": true,
+    "repeatabilityVerdictRemainsNull": true,
+    "repeatabilityReviewMembersMechanicsAndOptimizerEligibilityRemainClosed": true,
+    "missingContradictoryOrConditionMismatchedEvidenceRemainsExplicit": true,
+    "currentAccountStateIsForbidden": true,
+    "automaticVerificationAllowed": false
+  }
+}

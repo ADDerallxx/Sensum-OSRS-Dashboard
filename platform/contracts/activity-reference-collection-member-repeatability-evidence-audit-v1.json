@@ -1,0 +1,29 @@
+{
+  "contract": "sensum.activity-reference-collection-member-repeatability-evidence-audit.v1",
+  "required": [
+    "inputCoverage",
+    "sourceAlignment",
+    "repeatabilityEvidenceCoverage",
+    "candidateObservationCoverage",
+    "semanticPromotionCoverage",
+    "accountStateFindings",
+    "evidencePacketAttemptCoverageComplete",
+    "repeatabilityEvidencePacketCoverageComplete",
+    "repeatabilityReviewComplete",
+    "completeActivityUniverse",
+    "absoluteBestGate",
+    "blockers",
+    "publishable"
+  ],
+  "rules": {
+    "everyInputCanonicalActivityIdentityMustBeProcessedExactlyOnce": true,
+    "inputOutputSetsHashesIdentityRevisionEvidenceAndContextMustMatchExactly": true,
+    "everyFetchedRevisionAndHashMustMatchItsRetainedSourceIdentity": true,
+    "everyPacketMustScanItsCompleteLinkedSourceAndExactCollectionRow": true,
+    "missingOrConflictingEvidenceCannotProduceARepeatabilityVerdict": true,
+    "zeroSignalsCanStillProduceACompleteReviewPacketButNeverANegativeVerdict": true,
+    "positiveNegativeRecurrenceAndSessionCandidatesMustRemainDistinct": true,
+    "repeatabilityVerdictsAndSemanticPromotionsAreForbidden": true,
+    "currentAccountStateIsForbidden": true
+  }
+}

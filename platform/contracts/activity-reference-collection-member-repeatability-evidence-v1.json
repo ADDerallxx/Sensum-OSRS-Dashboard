@@ -1,0 +1,29 @@
+{
+  "contract": "sensum.activity-reference-collection-member-repeatability-evidence.v1",
+  "required": [
+    "memberCandidateKey",
+    "sourceCanonicalActivityIdentityDispositionContentHash",
+    "canonicalActivityIdentity",
+    "repeatabilityEvidence",
+    "repeatabilityCandidateObservations",
+    "repeatabilityReview",
+    "memberExpansionReview",
+    "mechanicsReview",
+    "optimizerEligible",
+    "accountIndependent",
+    "blockers"
+  ],
+  "rules": {
+    "onePacketPerExactInputCanonicalActivityIdentity": true,
+    "allUpstreamEvidenceIdentityRevisionHashesAndContextMustBePreserved": true,
+    "completePacketsRequireExactLinkedSourceRevisionAndHashAlignment": true,
+    "completePacketsScanTheFullLinkedSourceAndExactCollectionRow": true,
+    "everySignalMustBeReproducibleFromTheDeclaredGenericPolicy": true,
+    "commentsAndProtectedRegionsCannotCreateSignals": true,
+    "lexicalAndSessionSignalsRemainCandidateObservationsOnly": true,
+    "absenceOfSignalsCannotEstablishNonRepeatability": true,
+    "repeatabilityVerdictMustRemainNull": true,
+    "repeatabilityMembersMechanicsAndOptimizerPromotionAreForbidden": true,
+    "currentAccountStateIsForbidden": true
+  }
+}

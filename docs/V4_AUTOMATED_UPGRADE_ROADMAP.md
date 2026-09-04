@@ -43,6 +43,27 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+The three source-supported collection activities now have complete,
+revision-pinned repeatability review packets. The collector refetches the full
+linked source at the exact retained revision and verifies page ID, title,
+timestamp, URL, and content hash before scanning it together with the exact
+retained `Minigames` row. Across 15,638 linked-source bytes and 818 collection-
+row bytes, eleven generic signal definitions found four source-located review
+candidates: `Vineyard foreman` revision 14834637 explicitly says the task can
+be repeated; `Target (Ranging Guild)` revision 15225200 contains one game-end
+session boundary; and `Wise Old Man tasks` revision 14997080 contains two
+recurring-assignment structures. Only the first is an explicit positive
+repeatability declaration candidate. The session and assignment observations
+are not promoted into repeatability proof, absence of a match cannot establish
+non-repeatability, and positive/negative conflicts would remain visible.
+Comments and protected source regions cannot create signals. All three packets
+are complete, repeated live runs produced the same output hash, and there are
+zero repeatability verdicts, member reviews, mechanics reviews, or optimizer
+promotions. The next checkpoint should apply a generic, fail-closed
+repeatability disposition that can support only evidence whose semantics and
+canonical-activity scope are sufficient, while leaving all other candidates
+unresolved.
+
 The three unusual collection-defined activity candidates now have stable,
 source-supported canonical activity identities. The generic policy derives each
 key only from the stable `Minigames` page ID 2078, the stable linked-subject page

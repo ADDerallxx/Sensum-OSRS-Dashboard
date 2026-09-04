@@ -197,6 +197,15 @@ identity classes fail closed. The canonical activity remains explicitly
 different from its component, provider, or descriptive source page, and the
 result does not imply repeatability or optimizer eligibility.
 
+Repeatability evidence collection refetches every linked source at its exact
+retained revision, verifies its page identity, timestamp, URL, and content hash,
+then scans the complete source plus the exact retained collection row using a
+versioned generic lexical policy. Every match retains its source scope, lines,
+text, revision, and hashes. Explicit positive, explicit negative, recurrence-
+structure, and session-boundary candidates remain separate. Matches are review
+evidence only; a missing match is not evidence of non-repeatability, and this
+stage cannot create a repeatability verdict or optimizer candidate.
+
 Courses with multiple independently failing obstacles retain one composite
 condition record with per-obstacle requirements, successful XP, probabilities,
 and revisions. Sensum does not derive an aggregate lap probability or expected
@@ -294,6 +303,7 @@ node platform/transforms/build-activity-reference-collection-member-collection-a
 node platform/transforms/build-activity-reference-collection-member-linked-subject-relationship-dispositions.mjs
 node platform/transforms/build-activity-reference-collection-member-canonical-activity-identity-evidence.mjs
 node platform/transforms/build-activity-reference-collection-member-canonical-activity-identity-dispositions.mjs
+node platform/ingestion/ingest-wiki-activity-reference-collection-member-repeatability-evidence.mjs
 node platform/ingestion/ingest-wiki-agility-training-guide-sections.mjs
 node platform/ingestion/ingest-wiki-agility-rooftop-guide-members.mjs
 node platform/ingestion/ingest-wiki-agility-brimhaven-guide-members.mjs

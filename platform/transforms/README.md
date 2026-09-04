@@ -101,6 +101,30 @@ Run:
 node platform/transforms/build-activity-reference-collection-member-canonical-activity-identity-dispositions.mjs
 ```
 
+## Canonical-activity repeatability evidence
+
+`ingest-wiki-activity-reference-collection-member-repeatability-evidence.mjs`
+refetches the complete linked source at the exact revision retained by each
+supported canonical activity. Page ID, title, timestamp, URL, and content hash
+must all align. The exact retained collection row is scanned independently, so
+the evidence boundary is the full linked source plus its source-located
+collection definition rather than only previously extracted lead text.
+
+The generic policy separates explicit positive declarations, explicit negative
+declarations, recurrence structures, and session boundaries. Comments and
+protected source regions are masked without changing source offsets. Every
+match remains a review candidate with exact source locations and hashes;
+session or recurrence language is not repeatability proof, no-match is not a
+negative verdict, and positive/negative candidates remain a visible conflict.
+This evidence stage creates no repeatability, member, mechanics, or optimizer
+promotion.
+
+Run:
+
+```text
+node platform/ingestion/ingest-wiki-activity-reference-collection-member-repeatability-evidence.mjs
+```
+
 ## Activity-candidate subject disposition
 
 `build-activity-candidate-subject-dispositions.mjs` applies a versioned generic
