@@ -43,6 +43,20 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+The exact cross-source page matches now feed a complete semantic-review candidate
+inventory rather than being promoted directly into the optimizer. All 6,639
+crosswalk records retain their source contexts and receive one deterministic
+route. Exactly 1,909 stable, revision-aligned Wiki page identities enter the
+review queue across all 24 skills: 29 explicit activity-page candidates, 1,812
+typed non-activity page candidates, and 68 untyped page candidates. The remaining
+4,725 stable rendered pages lack unlock evidence and five rendered targets remain
+unresolved, so none enters the queue. Candidate keys are stable Wiki page IDs;
+there are no duplicates, revision conflicts, account inputs, inferred facts,
+canonical entity or activity identities, repeatability classifications, or
+optimizer-eligible records. The next evidence step must examine the retained
+source signatures and contexts to establish semantic identities and repeatability
+without treating page type as sufficient proof.
+
 A deterministic cross-source page-identity crosswalk now joins the rendered
 training-guide inventory to the level-unlock inventory only by exact official
 MediaWiki page ID. It preserves all 6,639 rendered target groups and all

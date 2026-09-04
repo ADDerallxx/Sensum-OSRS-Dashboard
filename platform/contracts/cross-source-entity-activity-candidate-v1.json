@@ -1,0 +1,35 @@
+{
+  "contract": "sensum.cross-source-entity-activity-candidate.v1",
+  "required": [
+    "renderedTargetKey",
+    "candidateKey",
+    "candidateKind",
+    "pageIdentity",
+    "sourceContexts",
+    "skillKeys",
+    "statementKeys",
+    "queuedForSemanticReview",
+    "activityDiscoveryCandidate",
+    "reviewStatus",
+    "canonicalGameEntityIdentity",
+    "canonicalActivityIdentity",
+    "repeatabilityClassification",
+    "optimizerEligible",
+    "accountIndependent",
+    "blockers"
+  ],
+  "rules": {
+    "oneRecordPerCrosswalkTarget": true,
+    "semanticReviewQueueRequiresExactCrossSourcePageIdMatch": true,
+    "candidateKeyMustUseStableOfficialWikiPageId": true,
+    "allCrosswalkSourceContextsMustBePreserved": true,
+    "bothSourceRevisionsMustRemainVisible": true,
+    "activityDiscoveryRequiresExplicitSourceScopedActivityPageEvidence": true,
+    "pageTypeDoesNotEstablishCanonicalGameEntityIdentity": true,
+    "activityPageDoesNotEstablishCanonicalActivityIdentity": true,
+    "repeatabilityRequiresIndependentEvidence": true,
+    "noCandidateIsOptimizerEligibleAtThisStage": true,
+    "currentAccountStateIsForbidden": true,
+    "automaticVerificationAllowed": false
+  }
+}

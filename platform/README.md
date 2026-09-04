@@ -80,6 +80,13 @@ prove repeatability, or authorize ranking. Unmatched targets remain explicit so
 the crosswalk can be structurally complete without claiming a complete activity
 universe.
 
+The entity/activity candidate inventory gives every crosswalk record a
+deterministic review route. Exact cross-source page matches receive stable
+Wiki-page candidate keys; activity candidates require explicit source-scoped
+activity-page evidence. Unmatched and unresolved targets cannot enter the queue.
+This makes the semantic backlog measurable across all skills while keeping
+canonical identity, repeatability, mechanics, and optimizer eligibility closed.
+
 Courses with multiple independently failing obstacles retain one composite
 condition record with per-obstacle requirements, successful XP, probabilities,
 and revisions. Sensum does not derive an aggregate lap probability or expected
@@ -159,6 +166,7 @@ node platform/transforms/build-unlock-statement-semantic-crosswalk.mjs
 node platform/transforms/build-unlock-linked-page-entity-types.mjs
 node platform/transforms/build-unlock-linked-page-wiki-equivalence.mjs
 node platform/transforms/build-skill-training-guide-unlock-page-crosswalk.mjs
+node platform/transforms/build-cross-source-entity-activity-candidates.mjs
 node platform/ingestion/ingest-wiki-agility-training-guide-sections.mjs
 node platform/ingestion/ingest-wiki-agility-rooftop-guide-members.mjs
 node platform/ingestion/ingest-wiki-agility-brimhaven-guide-members.mjs

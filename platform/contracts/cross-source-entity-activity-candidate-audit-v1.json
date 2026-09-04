@@ -1,0 +1,24 @@
+{
+  "contract": "sensum.cross-source-entity-activity-candidate-audit.v1",
+  "required": [
+    "inputCoverage",
+    "candidateCoverage",
+    "revisionCoverage",
+    "semanticReviewCoverage",
+    "candidateInventoryComplete",
+    "completeActivityUniverse",
+    "absoluteBestGate",
+    "blockers"
+  ],
+  "rules": {
+    "inputAndCandidateRecordTargetSetsMustMatchExactly": true,
+    "everyInputContextMustBePreservedExactlyOnce": true,
+    "everyQueuedCandidateMustHaveOneExactStablePageIdMatch": true,
+    "unmatchedAndUnresolvedTargetsMustNotEnterSemanticReview": true,
+    "activityCandidateCountsMustComeOnlyFromExplicitPageTypeEvidence": true,
+    "sameAndDifferentRevisionsMustBeMeasuredSeparately": true,
+    "semanticReviewInventoryCannotProveCanonicalIdentityRepeatabilityOrMechanics": true,
+    "candidateInventoryCannotProveCompleteActivityUniverse": true,
+    "accountSpecificInputsAreForbidden": true
+  }
+}

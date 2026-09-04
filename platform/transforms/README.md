@@ -353,3 +353,16 @@ Run:
 ```text
 node platform/transforms/build-skill-training-guide-unlock-page-crosswalk.mjs
 ```
+
+`build-cross-source-entity-activity-candidates.mjs` creates a complete semantic-
+review routing inventory from that crosswalk. Every input target remains present.
+Only an exact cross-source page-ID match receives a candidate key and enters the
+queue; an activity route additionally requires explicit activity-page evidence.
+The queue is intentionally unreviewed and cannot create canonical identities,
+repeatability classifications, mechanics, or optimizer eligibility.
+
+Run:
+
+```text
+node platform/transforms/build-cross-source-entity-activity-candidates.mjs
+```
