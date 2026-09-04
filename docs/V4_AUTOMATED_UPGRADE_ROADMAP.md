@@ -43,6 +43,23 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+A revision-pinned rendered-guide observation audit now covers all 81 retained
+training-guide revisions through the official MediaWiki parser. It preserves
+27,092/27,092 returned target observations across 6,639 stable or exact-title
+groups: 20,858 internal-link, 247 category, and 5,987 image observations. Every
+target has a current Wiki resolution assessment; 27,087 observations resolve
+to current revision-pinned pages and five remain missing. All 10,376 eligible
+direct-source guide/target pairs and all 795 direct page-backed dependency pairs
+reconcile with the parser output. A first live run omitted the parser's separate
+category and image channels and produced 324 false absences; the contract and
+regression fixture were corrected before this checkpoint was accepted. The
+parser reports no image existence flags and no dependency revision IDs, so
+current resolution cannot establish historical template-expansion closure.
+There are 16,284 rendered-only observations whose exact template or generative
+origin is not attributable from this response. No canonical activity,
+repeatability proof, or optimizer candidate was created, and complete activity-
+universe and absolute-best claims remain blocked.
+
 A fail-closed source-dependency audit now covers all 81 retained guide
 revisions. It preserves 19,072/19,072 direct source template invocations across
 1,086 dependency records with balanced delimiters: 90 template

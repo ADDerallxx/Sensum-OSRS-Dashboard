@@ -62,6 +62,16 @@ the inventory does not claim to enumerate links emitted by templates. Missing
 direct links receive current-head, exact-title, log, and search observations;
 search results remain review candidates and can never become automatic repairs.
 
+The rendered-guide observation audit calls the official MediaWiki parser with
+each retained guide `oldid` and separately preserves its `links`, `categories`,
+`images`, and `templates` channels. Each returned target receives a current
+Wiki-page resolution assessment, while every direct-source guide/target and
+guide/dependency pair is reconciled against the parser output. The parser does
+not report image existence or dependency revision IDs, so current resolution
+and observation time remain separate from historical render provenance. A
+rendered-only target is never attributed to a particular template and never
+becomes a canonical or optimizer-eligible activity without later evidence.
+
 Courses with multiple independently failing obstacles retain one composite
 condition record with per-obstacle requirements, successful XP, probabilities,
 and revisions. Sensum does not derive an aggregate lap probability or expected
@@ -136,6 +146,7 @@ node platform/ingestion/ingest-wiki-unlock-linked-page-identities.mjs
 node platform/ingestion/ingest-wiki-unlock-linked-page-source-signatures.mjs
 node platform/ingestion/ingest-wiki-skill-training-guide-direct-links.mjs
 node platform/ingestion/ingest-wiki-skill-training-guide-source-dependencies.mjs
+node platform/ingestion/ingest-wiki-skill-training-guide-rendered-links.mjs
 node platform/transforms/build-unlock-statement-semantic-crosswalk.mjs
 node platform/transforms/build-unlock-linked-page-entity-types.mjs
 node platform/transforms/build-unlock-linked-page-wiki-equivalence.mjs

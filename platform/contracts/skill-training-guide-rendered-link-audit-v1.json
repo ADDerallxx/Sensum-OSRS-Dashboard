@@ -1,0 +1,25 @@
+{
+  "contract": "sensum.skill-training-guide-rendered-link-audit.v1",
+  "required": [
+    "guideRenderCoverage",
+    "renderedLinkCoverage",
+    "parserDependencyCoverage",
+    "directSourceReconciliation",
+    "renderedLinkObservationComplete",
+    "historicalDependencyRevisionClosureComplete",
+    "renderedOnlyOriginAttributionComplete",
+    "completeActivityUniverse",
+    "absoluteBestGate",
+    "blockers"
+  ],
+  "rules": {
+    "everyExpectedPinnedGuideMustHaveOneExactRevisionParserResponse": true,
+    "everyParserReturnedLinkCategoryAndImageMustBePreservedAndAssessed": true,
+    "everyParserReportedDependencyMustBePreservedAndAssessed": true,
+    "directSourceAndRenderedSetsMustBeReconciledPerGuide": true,
+    "renderedOnlyTargetsCannotBeAttributedToATemplateWithoutDependencyLevelEvidence": true,
+    "parserObservationCannotCloseHistoricalDependencyRevisions": true,
+    "renderedLinkCoverageCannotProveTheCompleteActivityUniverse": true,
+    "accountSpecificInputsAreForbidden": true
+  }
+}

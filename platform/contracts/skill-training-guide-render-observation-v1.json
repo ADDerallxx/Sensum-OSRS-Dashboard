@@ -1,0 +1,28 @@
+{
+  "contract": "sensum.skill-training-guide-render-observation.v1",
+  "required": [
+    "guidePageId",
+    "guideTitle",
+    "requestedRevision",
+    "parserReturnedRevision",
+    "observedAt",
+    "renderedLinks",
+    "parserReportedDependencies",
+    "historicalDependencyRevisionClosure",
+    "accountIndependent",
+    "blockers"
+  ],
+  "rules": {
+    "parserMustReceiveThePinnedGuideOldid": true,
+    "parserReturnedRevisionMustEqualRequestedRevision": true,
+    "linksCategoriesImagesAndDependenciesMustBeCollectedFromTheirDistinctParserChannels": true,
+    "everyReturnedTargetAndDependencyMustBePreservedExactlyOnce": true,
+    "everyReturnedTargetMustReceiveAResolutionAssessment": true,
+    "parserObservationTimeMustBeRetained": true,
+    "parserReportedDependenciesWithoutRevisionsCannotProveHistoricalExpansion": true,
+    "imageChannelDoesNotReportExistenceAndMustUseCurrentResolutionAssessment": true,
+    "renderedOnlyLinksDoNotProveTemplateOriginOrActivitySemantics": true,
+    "currentAccountStateIsForbidden": true,
+    "automaticVerificationAllowed": false
+  }
+}

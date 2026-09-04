@@ -132,6 +132,13 @@ record count, creation time, audit result, and SHA-256 content hash.
   graph or establish the links a template emitted. Missing direct links are
   checked against current guide heads and official search results, but candidate
   titles remain manual-review evidence with `automaticReplacement: null`.
+- Training-guide rendered-link ingestion parses every retained guide `oldid`
+  through the official Wiki API and preserves links, categories, images, and
+  template dependencies as distinct parser channels. It resolves every target
+  at observation time and reconciles all eligible direct-source guide/target
+  pairs, but it does not treat a current target or dependency revision as the
+  historical transclusion revision. Rendered-only links retain unattributed
+  origin and remain semantically blocked from optimizer use.
 - Stable Wiki-page equivalence groups those typed references only when their
   official page ID and revision-bound evidence agree. Every original target and
   its statement context remains present. This removes duplicate page fetches;

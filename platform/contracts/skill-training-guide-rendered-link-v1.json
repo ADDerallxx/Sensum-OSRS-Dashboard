@@ -1,0 +1,25 @@
+{
+  "contract": "sensum.skill-training-guide-rendered-link.v1",
+  "required": [
+    "renderedTargetKey",
+    "requestedTitles",
+    "guideObservationCount",
+    "observations",
+    "targetPageIdentity",
+    "sourcePresenceCounts",
+    "canonicalActivityIdentity",
+    "optimizerEligible",
+    "accountIndependent",
+    "blockers"
+  ],
+  "rules": {
+    "stableOfficialWikiPageIdIsPreferredForGrouping": true,
+    "unresolvedTargetsRetainExactMediaWikiTitleSemantics": true,
+    "directSourcePresenceUsesStablePageIdBeforeExactTitleFallback": true,
+    "eachObservationRetainsItsParserChannel": true,
+    "renderedOnlyMeansAbsentFromDirectSourceNotProvenTemplateGenerated": true,
+    "renderedLinksDoNotEstablishRepeatabilityRequirementsMechanicsOrCompleteness": true,
+    "currentAccountStateIsForbidden": true,
+    "automaticVerificationAllowed": false
+  }
+}
