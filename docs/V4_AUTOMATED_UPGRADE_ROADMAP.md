@@ -43,6 +43,24 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+The three collection members routed to broader source-signature review now have
+exact-revision structural evidence packets. `Target (Ranging Guild)` revision
+15225200, `Vineyard foreman` revision 14834637, and `Wise Old Man tasks`
+revision 14997080 each match the retained page ID, title, timestamp, URL, and
+content hash. Across 15,638 source bytes, the packets preserve 21 distinct root
+template signatures, 11 lead paragraphs, 22 headings, and all 73 direct source
+wikilink occurrences, including 65 main-namespace relationship candidates.
+Comments and protected source regions cannot become declarations, and template
+or wikilink imbalance fails publication. Collection display labels remain
+separate from linked page subjects: `Archery Competition` is not substituted
+for `Target (Ranging Guild)`, and `Aldarin Vineyard` is not substituted for
+`Vineyard foreman`. Repeated live runs produced byte-identical output. This is
+stronger review evidence, not a semantic decision: all three subject identities
+and linked relationships remain unreviewed and blocked, with no canonical
+identity, repeatability, member expansion, mechanics, or optimizer promotion.
+The next checkpoint should apply a generic source-signature disposition to
+these three packets without using titles or collection context as answers.
+
 All 69 reference-collection member dispositions now have exactly one generic
 evidence-work route. Sixty source-supported subjects are queued: 43 minigame
 session/mode reviews, six activity action/variant reviews, four boss encounter

@@ -142,6 +142,16 @@ subjects receive type-appropriate evidence obligations. Collection membership,
 labels, titles, aliases, and page IDs cannot select or modify a route. Routing
 does not complete the evidence work or promote an optimizer candidate.
 
+Broader-signature review refetches only the exact revisions attached to those
+unresolved routes. It preserves root templates, direct categories, lead
+paragraphs, headings, and every direct source-authored wikilink in order while
+reconciling page ID, title, timestamp, URL, and content hash. Comments and
+protected source regions cannot become declarations. Collection labels and
+membership stay as context and cannot alter the extracted evidence. Direct
+links are relationship candidates only; structural publication leaves subject
+identity, relationships, repeatability, members, mechanics, and optimizer
+eligibility unresolved.
+
 Courses with multiple independently failing obstacles retain one composite
 condition record with per-obstacle requirements, successful XP, probabilities,
 and revisions. Sensum does not derive an aggregate lap probability or expected
@@ -229,6 +239,7 @@ node platform/ingestion/ingest-wiki-activity-reference-collection-members.mjs
 node platform/ingestion/ingest-wiki-activity-reference-collection-member-source-evidence.mjs
 node platform/transforms/build-activity-reference-collection-member-subject-dispositions.mjs
 node platform/transforms/build-activity-reference-collection-member-evidence-work-routes.mjs
+node platform/ingestion/ingest-wiki-activity-reference-collection-member-unresolved-subject-source-signatures.mjs
 node platform/ingestion/ingest-wiki-agility-training-guide-sections.mjs
 node platform/ingestion/ingest-wiki-agility-rooftop-guide-members.mjs
 node platform/ingestion/ingest-wiki-agility-brimhaven-guide-members.mjs

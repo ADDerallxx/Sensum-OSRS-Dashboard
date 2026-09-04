@@ -1,0 +1,28 @@
+{
+  "contract": "sensum.activity-reference-collection-member-unresolved-subject-source-signature-audit.v1",
+  "required": [
+    "inputCoverage",
+    "sourceAlignment",
+    "structuralEvidenceCoverage",
+    "semanticPromotionCoverage",
+    "accountStateFindings",
+    "sourceSignatureCoverageComplete",
+    "subjectIdentityReviewComplete",
+    "linkedSubjectRelationshipReviewComplete",
+    "completeActivityUniverse",
+    "absoluteBestGate",
+    "blockers"
+  ],
+  "rules": {
+    "everyRoutedUnresolvedSubjectMustBeProcessedExactlyOnce": true,
+    "inputAndOutputMemberCandidateSetsAndContextsMustMatchExactly": true,
+    "everyOutputMustMatchTheRetainedAndFetchedPageIdTitleRevisionTimestampAndHash": true,
+    "everyRootTemplateCategoryLeadHeadingAndDirectLinkMustComeFromTheFetchedExactRevision": true,
+    "sourceDelimiterImbalanceAndEvidenceLossMustBlockPublication": true,
+    "policyMustNotContainPageSpecificOrCollectionClassificationSelectors": true,
+    "collectionContextCannotSelectAlterOrBreakSourceEvidenceTies": true,
+    "structuralPublicationDoesNotCompleteSubjectOrRelationshipReview": true,
+    "canonicalIdentityRepeatabilityMembersMechanicsAndOptimizerEligibilityRemainClosed": true,
+    "currentAccountStateIsForbidden": true
+  }
+}

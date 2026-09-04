@@ -1,0 +1,32 @@
+{
+  "policy": "sensum.activity-reference-collection-member-unresolved-subject-source-signature-policy.v1",
+  "inputContract": "sensum.activity-reference-collection-member-evidence-work-routing.v1",
+  "recordContract": "sensum.activity-reference-collection-member-unresolved-subject-source-signature.v1",
+  "auditContract": "sensum.activity-reference-collection-member-unresolved-subject-source-signature-audit.v1",
+  "inputRoute": {
+    "routeKey": "broader_source_signature_subject_review",
+    "routeState": "blocked_unsupported_subject_declaration",
+    "sourceState": "unresolved_no_supported_source_declaration"
+  },
+  "evidenceScope": [
+    "exact_subject_source_content_at_retained_observed_wiki_revision",
+    "root_template_signatures",
+    "direct_source_category_signatures",
+    "lead_paragraph_and_heading_source_declarations",
+    "every_direct_source_authored_wikilink_occurrence"
+  ],
+  "rules": {
+    "policyContainsNoPageIdsTitlesCandidateKeysCollectionClassesOrOverrides": true,
+    "oneRecordPerRoutedUnresolvedSubject": true,
+    "inputIdentityRevisionHashesCollectionRowMembershipAndAliasContextMustBePreserved": true,
+    "onlyExactRetainedRevisionContentMayEnterThePacket": true,
+    "allRootTemplatesDirectCategoriesLeadParagraphsHeadingsAndSourceAuthoredLinksRemainEvidenceOnly": true,
+    "allDirectWikilinkOccurrencesMustBePreservedInSourceOrder": true,
+    "collectionDisplayLabelMembershipAndAliasesCannotSupplySubjectIdentityOrAlterEvidence": true,
+    "linkedTargetsAreRelationshipCandidatesNotCanonicalRelationships": true,
+    "unresolvedSubjectStateRemainsBlocked": true,
+    "canonicalIdentityRepeatabilityMembersMechanicsAndOptimizerEligibilityRemainClosed": true,
+    "currentAccountStateIsForbidden": true,
+    "automaticVerificationAllowed": false
+  }
+}
