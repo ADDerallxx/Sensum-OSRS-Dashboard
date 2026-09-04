@@ -39,6 +39,7 @@ node platform/ingestion/ingest-wiki-skill-training-guide-inventory.mjs
 node platform/ingestion/ingest-wiki-skill-level-unlock-inventory.mjs
 node platform/ingestion/ingest-wiki-unlock-linked-page-identities.mjs
 node platform/ingestion/ingest-wiki-unlock-linked-page-source-signatures.mjs
+node platform/ingestion/ingest-wiki-skill-training-guide-direct-links.mjs
 node platform/transforms/build-unlock-statement-semantic-crosswalk.mjs
 node platform/transforms/build-unlock-linked-page-entity-types.mjs
 node platform/transforms/build-unlock-linked-page-wiki-equivalence.mjs
@@ -115,6 +116,13 @@ record count, creation time, audit result, and SHA-256 content hash.
   mapped root-template type may use an exact, policy-mapped direct category as a
   fallback. Category routing cannot override a root type or establish canonical
   identity, repeatability, mechanics, or optimizer eligibility.
+- Training-guide direct-link ingestion fetches every declared guide at its
+  retained revision, preserves each direct source wikilink with its line and
+  guide-content hash, and resolves main-namespace targets to stable Wiki page
+  IDs. Comments, literal-code regions, dynamic targets, non-main namespaces,
+  and in-page fragments remain explicitly distinguished. Missing source links,
+  template-generated links, and unlinked semantic mentions stay visible as
+  blockers; exact link overlap never proves a canonical or repeatable activity.
 - Stable Wiki-page equivalence groups those typed references only when their
   official page ID and revision-bound evidence agree. Every original target and
   its statement context remains present. This removes duplicate page fetches;

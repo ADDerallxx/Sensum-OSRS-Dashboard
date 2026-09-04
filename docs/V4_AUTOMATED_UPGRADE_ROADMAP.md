@@ -43,6 +43,22 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+A fail-closed content-link readiness audit now covers all 81 unique
+revision-pinned training-guide pages. It preserves 15,140 direct source
+wikilink occurrences across 4,407 target records: 4,183 main-namespace pages,
+215 non-main targets, eight in-page fragments, and one source-dynamic target.
+All main targets received an API assessment; 4,180 resolve to revision-pinned
+pages and three source-authored links currently point to missing pages:
+`Ash-covered tome` from Ironman Guide/Farming revision 15321988,
+`spirit tree (Farming)/Patches` from Ultimate Ironman Guide/Construction
+revision 15319378, and `Tiny Tempoross` from Ultimate Ironman Guide/Fishing
+revision 15318352. The audit therefore remains non-publishable rather than
+guessing replacements. Exact stable page IDs establish 1,462 intersections
+with the unlock set, covering 6,644 guide-link occurrences, but this creates
+zero canonical activities, repeatability proofs, or optimizer candidates.
+Template-generated links and unlinked semantic mentions remain outside this
+direct-source slice and explicitly block complete activity-universe claims.
+
 The complete cross-skill linked-page set now has an exact direct-category
 fallback for pages without a mapped root-template type. Seventeen explicitly
 mapped direct-category signals classify 64 additional target references while

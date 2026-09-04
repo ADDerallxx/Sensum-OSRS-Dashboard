@@ -47,6 +47,13 @@ explicit direct-category fallback only when no mapped root type exists. The
 fallback is a page-type discovery aid, not canonical entity, repeatability,
 mechanics, or optimizer evidence; those gates remain independently blocked.
 
+Training-guide content discovery now has a separate direct-wikilink readiness
+audit. It fetches each guide at its retained revision, preserves source lines
+and hashes, and intersects targets with unlock evidence only by stable Wiki page
+ID. Missing pages, dynamic targets, template-generated links, and unlinked
+mentions remain explicit limitations; none is guessed or promoted into a
+rankable activity.
+
 Courses with multiple independently failing obstacles retain one composite
 condition record with per-obstacle requirements, successful XP, probabilities,
 and revisions. Sensum does not derive an aggregate lap probability or expected
@@ -119,6 +126,7 @@ node platform/ingestion/ingest-wiki-skill-level-domains.mjs
 node platform/ingestion/ingest-wiki-skill-level-unlock-inventory.mjs
 node platform/ingestion/ingest-wiki-unlock-linked-page-identities.mjs
 node platform/ingestion/ingest-wiki-unlock-linked-page-source-signatures.mjs
+node platform/ingestion/ingest-wiki-skill-training-guide-direct-links.mjs
 node platform/transforms/build-unlock-statement-semantic-crosswalk.mjs
 node platform/transforms/build-unlock-linked-page-entity-types.mjs
 node platform/transforms/build-unlock-linked-page-wiki-equivalence.mjs

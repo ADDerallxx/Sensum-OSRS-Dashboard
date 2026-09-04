@@ -1,0 +1,31 @@
+{
+  "contract": "sensum.skill-training-guide-direct-link.v1",
+  "required": [
+    "targetKey",
+    "requestedTitles",
+    "namespaceClass",
+    "referenceCount",
+    "references",
+    "resolutionAttempted",
+    "resolutionState",
+    "targetPageIdentity",
+    "unlockEquivalence",
+    "canonicalActivityIdentity",
+    "repeatableTrainingActivity",
+    "optimizerEligible",
+    "accountIndependent",
+    "blockers"
+  ],
+  "rules": {
+    "everyDirectSourceWikilinkOccurrenceMustBePreservedExactlyOnce": true,
+    "guideSourceRevisionContentHashAndLineMustBeRetained": true,
+    "sharedGuidePagesAreFetchedAndParsedOnceWithAllSkillContexts": true,
+    "mainNamespaceTargetsRequireStablePageIdResolution": true,
+    "nonMainNamespaceInPageFragmentAndDynamicLinksRemainVisibleButUnresolved": true,
+    "unlockIntersectionUsesStableOfficialWikiPageIdOnly": true,
+    "guideLinksDoNotEstablishCanonicalActivityIdentity": true,
+    "guideLinksDoNotProveRepeatabilityRequirementsMechanicsOrCompleteness": true,
+    "currentAccountStateIsForbidden": true,
+    "automaticVerificationAllowed": false
+  }
+}

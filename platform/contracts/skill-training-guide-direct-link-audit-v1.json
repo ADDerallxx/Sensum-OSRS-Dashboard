@@ -1,0 +1,25 @@
+{
+  "contract": "sensum.skill-training-guide-direct-link-audit.v1",
+  "required": [
+    "guideCoverage",
+    "directLinkCoverage",
+    "resolutionCoverage",
+    "unlockIntersectionCoverage",
+    "inventoryFoundationComplete",
+    "completeActivityUniverse",
+    "absoluteBestGate",
+    "blockers"
+  ],
+  "rules": {
+    "everyExpectedUniqueGuideRevisionMustBeFetchedExactlyOnce": true,
+    "retrievedGuideRevisionMustMatchTheInventoryRevision": true,
+    "everyParsedDirectLinkOccurrenceMustBePreservedExactlyOnce": true,
+    "everyMainNamespaceTargetMustReceiveOneResolutionAssessment": true,
+    "stablePageIdIsRequiredForUnlockIntersection": true,
+    "missingTargetsAndRevisionDriftBlockTheFoundation": true,
+    "directLinksDoNotIncludeTemplateGeneratedOrSemanticMentions": true,
+    "directLinkCoverageCannotProveTheCompleteActivityUniverse": true,
+    "linkIntersectionCannotProveCanonicalIdentityOrRepeatability": true,
+    "accountSpecificInputsAreForbidden": true
+  }
+}
