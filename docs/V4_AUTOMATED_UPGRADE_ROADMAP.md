@@ -43,6 +43,28 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+The three collection-defined activities that previously linked to structurally
+different subjects now have a generic, dual-source identity disposition.
+`Archery Competition`, `Aldarin Vineyard`, and `Wise Old Man tasks` each
+receive one `collection_row_defined_activity_candidate` identity supported by
+the exact `Minigames` revision 15327496 row label and narrative, stable linked
+page/revision/hash alignment, and the independently matched source-role
+declarations from `Target (Ranging Guild)` revision 15225200, `Vineyard
+foreman` revision 14834637, and `Wise Old Man tasks` revision 14997080.
+The single generic rule selects narrative cells by source-located prose rather
+than header name, so Aldarin Vineyard remains supported even though its
+description is stored beneath the irregular `Activity Classification` header.
+All three dispositions are source-supported, with three dual-source signals,
+three narrative cells, and four retained source declarations; none conflicts or
+remains unresolved. Negative tests prove that labels alone, missing narrative,
+missing stable source alignment, conflicting source roles, or competing identity
+classes cannot produce a supported result. This completes only the collection
+activity candidate review: the linked-subject relationship, canonical identity,
+repeatability, members, mechanics, and optimizer gates remain closed. Repeated
+live runs produced the same output hash. The next checkpoint should disposition
+the exact linked-subject relationship for each candidate without treating the
+linked component, provider, or assignment page as the activity itself.
+
 The three previously unresolved collection members now have deterministic,
 revision-pinned collection-activity identity evidence packets. The packets join
 the exact source-role dispositions back to all 16 retained `Minigames`

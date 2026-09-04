@@ -1,0 +1,35 @@
+{
+  "policy": "sensum.activity-reference-collection-member-collection-activity-identity-disposition-policy.v1",
+  "inputContract": "sensum.activity-reference-collection-member-collection-activity-identity-evidence.v1",
+  "recordContract": "sensum.activity-reference-collection-member-collection-activity-identity-disposition.v1",
+  "auditContract": "sensum.activity-reference-collection-member-collection-activity-identity-disposition-audit.v1",
+  "identityDispositionRules": [
+    {
+      "ruleKey": "collection_row_identity_with_independent_supported_linked_subject_role",
+      "acceptedSourceRelationshipClasses": [
+        "activity_component",
+        "task_assignment_activity",
+        "task_provider"
+      ],
+      "identityClass": "collection_row_defined_activity_candidate",
+      "minimumNarrativeWordCount": 6,
+      "requiresMemberLinkSourceTitleAlignment": true,
+      "requiresStableSourceIdentityAlignment": true,
+      "requiresMatchedSourceRelationshipDeclaration": true
+    }
+  ],
+  "rules": {
+    "policyContainsNoPageIdsTitlesCandidateKeysCollectionClassesLabelsAliasesOrOverrides": true,
+    "collectionLabelAloneCannotCreateAnIdentityDisposition": true,
+    "collectionMembershipOrSourceRelationshipClassAloneCannotCreateAnIdentityDisposition": true,
+    "everySignalRequiresSourceLocatedCollectionLabelAndNarrativeEvidence": true,
+    "everySignalRequiresIndependentSourceRoleDeclarationsAndStableLinkedSourceAlignment": true,
+    "irregularOrRepeatedTableHeadersCannotSelectOrSuppressNarrativeEvidence": true,
+    "distinctIdentityClassesRemainAConflict": true,
+    "missingOrInsufficientEvidenceRemainsUnresolved": true,
+    "supportedDispositionIdentifiesOnlyACollectionDefinedActivityCandidate": true,
+    "linkedSubjectRelationshipCanonicalIdentityRepeatabilityMembersMechanicsAndOptimizerEligibilityRemainClosed": true,
+    "currentAccountStateIsForbidden": true,
+    "automaticVerificationAllowed": false
+  }
+}

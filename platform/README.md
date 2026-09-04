@@ -164,6 +164,14 @@ and repeated table headers exactly, records stable page alignment and exact
 cross-source link-target intersections only as review observations, and leaves
 both activity-identity and linked-subject relationship verdicts null.
 
+The generic collection-activity identity disposition requires all of that
+evidence together: a source-located collection label and narrative, a matched
+source-role declaration, the member-link/source-title alignment, and the stable
+page/revision/hash alignment. No individual label, link, membership assertion,
+or source role can create a result. A supported result identifies only the
+collection-defined activity candidate; it cannot equate the linked subject with
+the activity or open canonical, repeatability, mechanics, or optimizer gates.
+
 Courses with multiple independently failing obstacles retain one composite
 condition record with per-obstacle requirements, successful XP, probabilities,
 and revisions. Sensum does not derive an aggregate lap probability or expected
@@ -257,6 +265,7 @@ node platform/transforms/build-activity-reference-collection-member-unresolved-s
 node platform/transforms/build-activity-reference-collection-member-unresolved-subject-relationship-evidence.mjs
 node platform/transforms/build-activity-reference-collection-member-unresolved-subject-relationship-dispositions.mjs
 node platform/transforms/build-activity-reference-collection-member-collection-activity-identity-evidence.mjs
+node platform/transforms/build-activity-reference-collection-member-collection-activity-identity-dispositions.mjs
 node platform/ingestion/ingest-wiki-agility-training-guide-sections.mjs
 node platform/ingestion/ingest-wiki-agility-rooftop-guide-members.mjs
 node platform/ingestion/ingest-wiki-agility-brimhaven-guide-members.mjs

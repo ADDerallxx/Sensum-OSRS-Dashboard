@@ -1,0 +1,28 @@
+{
+  "contract": "sensum.activity-reference-collection-member-collection-activity-identity-disposition-audit.v1",
+  "required": [
+    "inputCoverage",
+    "policyCoverage",
+    "collectionActivityIdentityDispositionCoverage",
+    "semanticPromotionCoverage",
+    "accountStateFindings",
+    "identityDispositionAttemptCoverageComplete",
+    "collectionActivityIdentityReviewComplete",
+    "linkedSubjectRelationshipReviewComplete",
+    "completeActivityUniverse",
+    "absoluteBestGate",
+    "blockers"
+  ],
+  "rules": {
+    "everyInputIdentityEvidencePacketMustBeProcessedExactlyOnce": true,
+    "inputAndOutputSetsHashesIdentityRevisionRelationshipDispositionCollectionMembershipAndAliasContextMustMatchExactly": true,
+    "inputIdentityEvidenceStructuralIntegrityMustRemainValid": true,
+    "policyMustNotContainPageSpecificOrCollectionClassificationSelectors": true,
+    "everySupportedIdentityDispositionMustMatchAllGenericRuleObligations": true,
+    "narrativeEvidenceSelectionCannotDependOnTableHeaderNames": true,
+    "multipleDistinctIdentityClassesMustRemainAConflict": true,
+    "collectionLabelsMembershipSourceRolesAndLinksCannotIndividuallyCreateOrBreakDispositionTies": true,
+    "linkedSubjectRelationshipCanonicalIdentityRepeatabilityMembersMechanicsAndOptimizerEligibilityRemainClosed": true,
+    "currentAccountStateIsForbidden": true
+  }
+}

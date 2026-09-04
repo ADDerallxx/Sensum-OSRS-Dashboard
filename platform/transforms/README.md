@@ -20,6 +20,27 @@ Run:
 node platform/transforms/build-activity-reference-collection-member-collection-activity-identity-evidence.mjs
 ```
 
+## Collection-activity identity disposition
+
+`build-activity-reference-collection-member-collection-activity-identity-dispositions.mjs`
+applies a generic dual-source rule to the identity packets. A supported
+collection activity candidate requires source-located label and narrative
+evidence, stable member-link and page/revision/hash alignment, and at least one
+matched independent source-role declaration. Narrative evidence is selected
+without consulting logical table headers.
+
+Supported results remain collection-defined candidates rather than canonical
+activities. Missing obligations stay unresolved, source-role conflicts remain
+blocked, and multiple identity classes remain a conflict. Linked-subject
+relationships, canonical identity, repeatability, members, mechanics, and
+optimizer eligibility remain closed.
+
+Run:
+
+```text
+node platform/transforms/build-activity-reference-collection-member-collection-activity-identity-dispositions.mjs
+```
+
 ## Activity-candidate subject disposition
 
 `build-activity-candidate-subject-dispositions.mjs` applies a versioned generic
