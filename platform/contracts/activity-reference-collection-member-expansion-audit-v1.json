@@ -1,0 +1,30 @@
+{
+  "contract": "sensum.activity-reference-collection-member-expansion-audit.v1",
+  "required": [
+    "inputCoverage",
+    "sourceRevisionCoverage",
+    "sectionAndTableCoverage",
+    "memberIdentityCoverage",
+    "membershipClassificationCoverage",
+    "semanticPromotionCoverage",
+    "explicitTableMemberExtractionComplete",
+    "memberIdentityResolutionAttemptCoverageComplete",
+    "canonicalMemberExpansionComplete",
+    "completeActivityUniverse",
+    "absoluteBestGate",
+    "blockers"
+  ],
+  "rules": {
+    "everyQueuedCollectionRouteMustBeProcessedExactlyOnce": true,
+    "fetchedCollectionPageIdRevisionTimestampAndContentHashMustMatchTheRoute": true,
+    "everyPolicyMappedSectionMustExistExactlyOnce": true,
+    "everyMappedMemberTableAndEveryDataRowMustBePreserved": true,
+    "everyDataRowMustContainOneSourceLinkedMemberCell": true,
+    "everyDistinctRequestedMemberTitleMustReceiveAResolutionAttempt": true,
+    "missingAmbiguousOrMultiIdentityRowsRemainBlocked": true,
+    "officialAndMinigameLikeCountsMustRemainSeparate": true,
+    "extractionCompletenessCannotProveCanonicalIdentityRepeatabilityOrMechanics": true,
+    "noRecordMayBecomeOptimizerEligible": true,
+    "accountSpecificInputsAreForbidden": true
+  }
+}

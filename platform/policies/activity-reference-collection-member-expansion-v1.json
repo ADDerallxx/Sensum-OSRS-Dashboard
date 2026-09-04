@@ -1,0 +1,57 @@
+{
+  "policy": "sensum.activity-reference-collection-member-expansion-policy.v1",
+  "inputRouteKey": "collection_member_expansion_review",
+  "recordContract": "sensum.activity-reference-collection-member-candidate.v1",
+  "auditContract": "sensum.activity-reference-collection-member-expansion-audit.v1",
+  "sectionRules": [
+    {
+      "sectionHeading": "Combat minigames",
+      "headingLevel": 2,
+      "memberHeader": "Minigame",
+      "membershipClassification": "official_minigame"
+    },
+    {
+      "sectionHeading": "Skilling minigames",
+      "headingLevel": 2,
+      "memberHeader": "Minigame",
+      "membershipClassification": "official_minigame"
+    },
+    {
+      "sectionHeading": "Combat and skilling minigames",
+      "headingLevel": 2,
+      "memberHeader": "Minigame",
+      "membershipClassification": "official_minigame"
+    },
+    {
+      "sectionHeading": "Miscellaneous",
+      "headingLevel": 2,
+      "memberHeader": "Minigame",
+      "membershipClassification": "official_minigame"
+    },
+    {
+      "sectionHeading": "Minigame-like Bosses",
+      "headingLevel": 3,
+      "memberHeader": "Activity",
+      "membershipClassification": "minigame_like_boss"
+    },
+    {
+      "sectionHeading": "Minigame-like activities",
+      "headingLevel": 3,
+      "memberHeader": "Activity",
+      "membershipClassification": "minigame_like_activity"
+    }
+  ],
+  "rules": {
+    "onlyExplicitRowsInMappedRevisionPinnedTablesEstablishMembership": true,
+    "everyMappedSectionAndMemberTableMustBePreserved": true,
+    "memberCellLinksAndAliasesMustBePreservedInSourceOrder": true,
+    "stableWikiPageIdsResolvePageIdentityOnly": true,
+    "officialAndMinigameLikeMembershipMustRemainDistinct": true,
+    "leadExamplesNavigationTemplatesAndCategoriesDoNotExpandMembership": true,
+    "collectionMembershipDoesNotProveCanonicalGameEntityOrActivityIdentity": true,
+    "collectionMembershipDoesNotProveRepeatabilityRequirementsVariantsXpTimingOrMechanics": true,
+    "collectionMembershipCannotCreateOptimizerCandidates": true,
+    "currentAccountStateIsForbidden": true,
+    "automaticVerificationAllowed": false
+  }
+}

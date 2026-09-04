@@ -43,6 +43,23 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+The first routed reference collection is now expanded from exact, source-located
+table evidence. `Minigames` page 2078 revision 15327496 matches the routed page
+ID, timestamp, and content hash exactly. All six mapped tables and all 69 data
+rows are preserved: 49 official minigames, five explicitly separate
+minigame-like bosses, and 15 explicitly separate minigame-like activities. The
+70 member-link occurrences resolve to 69 current stable Wiki page identities;
+the additional occurrence is the preserved `Temple Trekking` / `Burgh de Rott
+Ramble` display alias on one source row. A source-authored missing leading region
+cell and a header-marked data cell exposed by the first failed live audit are
+handled through general Wiki table structure rather than title-specific rules.
+The accepted snapshot is byte-deterministic across two live runs and has no
+missing member cells, links, resolutions, or multi-identity rows. Collection
+membership still does not establish canonical game-entity or activity identity,
+repeatability, requirements, variants, XP, timing, mechanics, or optimizer
+eligibility. The next checkpoint should build revision-pinned semantic evidence
+packets for these 69 member candidates before any such promotion is considered.
+
 All 29 activity-candidate subject records now receive exactly one generic
 evidence-work route while preserving their source revision, content hash,
 signals, and alias/redirect contexts. Twenty-seven supported subjects enter

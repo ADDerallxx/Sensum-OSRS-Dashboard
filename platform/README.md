@@ -112,6 +112,14 @@ blocked reconciliation paths. Routes do not assert that an expansion axis or
 mechanic exists, resolve a source conflict, establish repeatability, or create a
 rankable candidate.
 
+Reference-collection expansion reads only explicit rows from policy-mapped
+tables in the exact revision carried by a queued collection route. It preserves
+section, table, row, cell, alias, fragment, and membership-scope evidence and
+then observes current stable Wiki page identities for every linked member. An
+official minigame remains distinct from a minigame-like boss or activity.
+Collection membership and Wiki page identity do not prove canonical activity
+identity, repeatability, mechanics, or optimizer eligibility.
+
 Courses with multiple independently failing obstacles retain one composite
 condition record with per-obstacle requirements, successful XP, probabilities,
 and revisions. Sensum does not derive an aggregate lap probability or expected
@@ -195,6 +203,7 @@ node platform/transforms/build-cross-source-entity-activity-candidates.mjs
 node platform/ingestion/ingest-wiki-activity-candidate-source-evidence.mjs
 node platform/transforms/build-activity-candidate-subject-dispositions.mjs
 node platform/transforms/build-activity-candidate-evidence-work-routes.mjs
+node platform/ingestion/ingest-wiki-activity-reference-collection-members.mjs
 node platform/ingestion/ingest-wiki-agility-training-guide-sections.mjs
 node platform/ingestion/ingest-wiki-agility-rooftop-guide-members.mjs
 node platform/ingestion/ingest-wiki-agility-brimhaven-guide-members.mjs

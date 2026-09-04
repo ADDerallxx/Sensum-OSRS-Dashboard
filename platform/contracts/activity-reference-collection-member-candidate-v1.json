@@ -1,0 +1,35 @@
+{
+  "contract": "sensum.activity-reference-collection-member-candidate.v1",
+  "required": [
+    "collectionCandidateKey",
+    "memberCandidateKey",
+    "collectionSource",
+    "membershipClassification",
+    "sectionEvidence",
+    "tableEvidence",
+    "rowEvidence",
+    "memberCellEvidence",
+    "memberLinks",
+    "currentWikiIdentityResolutions",
+    "canonicalGameEntityIdentity",
+    "canonicalActivityIdentity",
+    "repeatabilityReview",
+    "mechanicsReview",
+    "optimizerEligible",
+    "accountIndependent",
+    "blockers"
+  ],
+  "rules": {
+    "oneCandidateRecordPerExplicitSourceTableRow": true,
+    "collectionRevisionIdentityAndRoutingHashMustBeRetained": true,
+    "sectionTableRowAndMemberCellSourceLocationsMustBeRetained": true,
+    "everyMemberLinkAliasAndFragmentMustBeRetainedInSourceOrder": true,
+    "multipleLinksToOneStableWikiPageRemainDistinctSourceOccurrences": true,
+    "multipleDistinctWikiPagesInOneRowRemainAnExplicitBlocker": true,
+    "currentWikiResolutionDoesNotRewriteHistoricalCollectionEvidence": true,
+    "officialMinigameAndMinigameLikeMembershipAreNotEquivalent": true,
+    "canonicalIdentityRepeatabilityMechanicsAndOptimizerEligibilityRemainClosed": true,
+    "currentAccountStateIsForbidden": true,
+    "automaticVerificationAllowed": false
+  }
+}
