@@ -43,6 +43,22 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+The 29 explicit activity-page candidates now have a revision-pinned semantic
+review evidence packet. Exact revision fetches reconcile all 29 stable Wiki page
+IDs and content hashes against 31 retained source-signature contexts; the two
+multi-context alias pages preserve every context and have no revision or hash
+conflict. The packet inventories 27 balanced supported infoboxes (26 Activity,
+one Minigame), 351 raw infobox parameter occurrences, 84 lead paragraphs, and
+423 ordered headings. Two pages—`Minigames` and `Hunters' Rumours`—do not use a
+supported activity infobox and remain explicitly visible. A versioned lexical
+policy identifies 1,286 source-located review candidates across subject scope,
+repeatability, requirements, XP/rewards, timing/rates, and variants. Those
+matches are search aids only: all 29 semantic identities and repeatability
+decisions remain unreviewed, and zero canonical entities, canonical activities,
+or optimizer-eligible methods were created. The next step is evidence-bound
+semantic disposition and composite/member expansion, beginning with the
+reference collection, bosses/raid, contract systems, trials, and minigames.
+
 The exact cross-source page matches now feed a complete semantic-review candidate
 inventory rather than being promoted directly into the optimizer. All 6,639
 crosswalk records retain their source contexts and receive one deterministic

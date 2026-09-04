@@ -1,0 +1,42 @@
+{
+  "contract": "sensum.activity-candidate-source-evidence.v1",
+  "required": [
+    "candidateKey",
+    "sourceCandidateContentHash",
+    "sourceSignatureContexts",
+    "sourcePageId",
+    "resolvedTitle",
+    "sourceRevision",
+    "sourceTimestamp",
+    "sourceUrl",
+    "sourceContentHash",
+    "sourceContentBytes",
+    "revisionAlignment",
+    "infoboxEvidence",
+    "leadParagraphEvidence",
+    "headingEvidence",
+    "lexicalReviewCandidates",
+    "semanticIdentityReview",
+    "repeatabilityReview",
+    "canonicalGameEntityIdentity",
+    "canonicalActivityIdentity",
+    "optimizerEligible",
+    "accountIndependent",
+    "blockers"
+  ],
+  "rules": {
+    "oneRecordPerActivityPageCandidate": true,
+    "candidateAndSignatureJoinOnlyByStableOfficialWikiPageId": true,
+    "allSamePageAliasAndFragmentSignatureContextsMustBePreserved": true,
+    "samePageSignatureContextsMustAgreeOnRevisionAndContentHash": true,
+    "fetchedContentMustUseTheRetainedExactRevision": true,
+    "sourceHashMustReconcileWithTheRetainedSignature": true,
+    "balancedInfoboxFieldsPreserveRawWikitextAndSourceLocators": true,
+    "allSourceHeadingsArePreservedInOrder": true,
+    "lexicalMatchesAreReviewCandidatesOnly": true,
+    "semanticIdentityAndRepeatabilityRemainUnreviewed": true,
+    "canonicalIdentityAndOptimizerPromotionAreForbidden": true,
+    "currentAccountStateIsForbidden": true,
+    "automaticVerificationAllowed": false
+  }
+}

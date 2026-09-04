@@ -1,0 +1,117 @@
+{
+  "policy": "sensum.activity-candidate-semantic-evidence-policy.v1",
+  "recordContract": "sensum.activity-candidate-source-evidence.v1",
+  "auditContract": "sensum.activity-candidate-source-evidence-audit.v1",
+  "evidenceScope": [
+    "exact_source_content_at_retained_official_wiki_revision",
+    "balanced_infobox_activity_or_infobox_minigame_invocation",
+    "complete_source_heading_inventory",
+    "source_line_lexical_review_candidates"
+  ],
+  "lexicalSignals": [
+    {
+      "signalKey": "reference_collection_language",
+      "family": "subject_scope",
+      "pattern": "\\bMinigames(?:'{3})?\\s+are\\s+small games\\b",
+      "flags": "i"
+    },
+    {
+      "signalKey": "minigame_subject_language",
+      "family": "subject_scope",
+      "pattern": "\\b(?:is|are)\\s+(?:an?\\s+)?(?:\\[\\[[^\\]]+\\]\\]\\s+)?(?:combat\\s+|non-combat\\s+|Fishing\\s+|Magic\\s+|Construction\\s+|Smithing\\s+|Farming\\s+(?:based\\s+)?)?(?:\\[\\[(?:Minigames(?:\\|minigame)?|minigame)\\]\\]|minigame)\\b",
+      "flags": "i"
+    },
+    {
+      "signalKey": "activity_subject_language",
+      "family": "subject_scope",
+      "pattern": "\\bis\\s+an?\\s+(?:\\[\\[[^\\]]+\\]\\]\\s+)?activity\\b",
+      "flags": "i"
+    },
+    {
+      "signalKey": "raid_subject_language",
+      "family": "subject_scope",
+      "pattern": "\\bis\\s+an?\\s+(?:\\[\\[)?raid(?:\\]\\])?\\b",
+      "flags": "i"
+    },
+    {
+      "signalKey": "boss_encounter_language",
+      "family": "subject_scope",
+      "pattern": "\\b(?:boss(?:es)?|Slayer bosses|pair of \\[\\[[^\\]]+\\]\\])\\b",
+      "flags": "i"
+    },
+    {
+      "signalKey": "contract_system_language",
+      "family": "subject_scope",
+      "pattern": "\\bcontracts?\\s+(?:are given|is assigned|are available|rewards? the player)\\b",
+      "flags": "i"
+    },
+    {
+      "signalKey": "trial_subject_language",
+      "family": "subject_scope",
+      "pattern": "\\bis\\s+an?\\s+\\[\\[Barracuda Trial(?:\\|[^\\]]+)?\\]\\]",
+      "flags": "i"
+    },
+    {
+      "signalKey": "explicit_repeatable_language",
+      "family": "repeatability",
+      "pattern": "\\b(?:can be repeated|repeatable|repeatedly)\\b",
+      "flags": "i"
+    },
+    {
+      "signalKey": "return_for_another_assignment_language",
+      "family": "repeatability",
+      "pattern": "\\b(?:receive|obtain|get|request|assigned)\\s+(?:an)?other\\s+(?:contract|task|assignment|rumour)\\b",
+      "flags": "i"
+    },
+    {
+      "signalKey": "per_entry_language",
+      "family": "repeatability",
+      "pattern": "\\b(?:each|every)\\s+(?:entry|attempt|run|game|voyage|contract|task|kill|time)\\b",
+      "flags": "i"
+    },
+    {
+      "signalKey": "play_again_language",
+      "family": "repeatability",
+      "pattern": "\\b(?:can be played|play again|start another|new game)\\b",
+      "flags": "i"
+    },
+    {
+      "signalKey": "requirement_language",
+      "family": "requirements",
+      "pattern": "\\b(?:requirements?|requires?|required|must have|must complete|completion of|available to players with|no requirements|to participate|to enter|to access)\\b",
+      "flags": "i"
+    },
+    {
+      "signalKey": "experience_language",
+      "family": "rewards_and_xp",
+      "pattern": "\\b(?:experience|xp|XP)\\b",
+      "flags": "i"
+    },
+    {
+      "signalKey": "timing_or_rate_language",
+      "family": "timing_and_rates",
+      "pattern": "\\b(?:ticks?|seconds?|minutes?|hours?|per hour|hourly|experience rates?|xp rates?)\\b",
+      "flags": "i"
+    },
+    {
+      "signalKey": "variant_language",
+      "family": "variants",
+      "pattern": "\\b(?:mode|tier|floor|room|role|wave|route|method|strategy|difficulty|level bracket|contract type)\\b",
+      "flags": "i"
+    }
+  ],
+  "rules": {
+    "onlyExactRetainedRevisionContentMayEnterThePacket": true,
+    "sourcePageIdRevisionTimestampUrlAndContentHashMustMatchTheRetainedSignature": true,
+    "allEquivalentSamePageAliasAndFragmentSignatureContextsMustBePreserved": true,
+    "infoboxParametersRemainRawSourceEvidence": true,
+    "headingsRemainAnInventoryNotACompletenessClaim": true,
+    "lexicalMatchesAreReviewCandidatesNotParsedFacts": true,
+    "pageTypeAndLexicalSignalsCannotEstablishCanonicalIdentity": true,
+    "repeatabilityRequiresSemanticReviewOfSourceEvidence": true,
+    "requirementsVariantsXpTimingAndMechanicsRequireSeparateStructuredEvidence": true,
+    "noCandidateIsOptimizerEligibleAtThisStage": true,
+    "currentAccountStateIsForbidden": true,
+    "automaticVerificationAllowed": false
+  }
+}

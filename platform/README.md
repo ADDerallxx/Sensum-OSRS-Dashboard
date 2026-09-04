@@ -87,6 +87,15 @@ activity-page evidence. Unmatched and unresolved targets cannot enter the queue.
 This makes the semantic backlog measurable across all skills while keeping
 canonical identity, repeatability, mechanics, and optimizer eligibility closed.
 
+The activity-candidate source-evidence packet fetches each retained candidate
+revision by exact revision ID and reconciles its stable page ID, timestamp, URL,
+and content hash with every same-page alias or redirect signature. It preserves
+balanced `Infobox Activity`/`Infobox Minigame` parameters as raw Wikitext, all
+headings in source order, lead paragraphs, and policy-matched source lines for
+manual semantic review. Multiple same-page contexts are consolidated only when
+their revision and content hashes agree. Lexical matches never establish a
+canonical identity, prove repeatability, or enter the optimizer.
+
 Courses with multiple independently failing obstacles retain one composite
 condition record with per-obstacle requirements, successful XP, probabilities,
 and revisions. Sensum does not derive an aggregate lap probability or expected
@@ -167,6 +176,7 @@ node platform/transforms/build-unlock-linked-page-entity-types.mjs
 node platform/transforms/build-unlock-linked-page-wiki-equivalence.mjs
 node platform/transforms/build-skill-training-guide-unlock-page-crosswalk.mjs
 node platform/transforms/build-cross-source-entity-activity-candidates.mjs
+node platform/ingestion/ingest-wiki-activity-candidate-source-evidence.mjs
 node platform/ingestion/ingest-wiki-agility-training-guide-sections.mjs
 node platform/ingestion/ingest-wiki-agility-rooftop-guide-members.mjs
 node platform/ingestion/ingest-wiki-agility-brimhaven-guide-members.mjs

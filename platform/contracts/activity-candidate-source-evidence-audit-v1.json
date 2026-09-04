@@ -1,0 +1,26 @@
+{
+  "contract": "sensum.activity-candidate-source-evidence-audit.v1",
+  "required": [
+    "inputCoverage",
+    "sourceAlignment",
+    "structuralEvidenceCoverage",
+    "lexicalCandidateCoverage",
+    "semanticPromotionCoverage",
+    "sourceEvidenceCoverageComplete",
+    "semanticReviewComplete",
+    "completeActivityUniverse",
+    "absoluteBestGate",
+    "blockers"
+  ],
+  "rules": {
+    "activityCandidateSignaturePageGroupsAndOutputSetsMustMatchExactly": true,
+    "multipleAliasOrFragmentSignaturesForOnePageAreValidOnlyWhenRevisionAndHashAgree": true,
+    "everyOutputMustMatchPageIdRevisionAndContentHash": true,
+    "missingSupportedInfoboxesRemainMeasured": true,
+    "lexicalSignalCountsMustBeReportedByFamilyAndSignal": true,
+    "noLexicalSignalMayBePromotedAutomatically": true,
+    "canonicalIdentityRepeatabilityAndOptimizerEligibilityRemainClosed": true,
+    "structuralPublicationDoesNotMeanSemanticApproval": true,
+    "accountSpecificInputsAreForbidden": true
+  }
+}

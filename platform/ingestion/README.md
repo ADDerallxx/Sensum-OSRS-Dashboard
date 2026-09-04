@@ -144,6 +144,13 @@ record count, creation time, audit result, and SHA-256 content hash.
   its statement context remains present. This removes duplicate page fetches;
   it does not merge section semantics, establish a canonical game entity or
   activity, prove repeatability, or make anything optimizer eligible.
+- Activity-candidate source-evidence ingestion fetches the 29 currently queued
+  activity pages by exact retained revision ID. It preserves all same-page
+  alias/redirect contexts, balanced activity/minigame infobox parameters, lead
+  paragraphs, every heading, and source-located lexical review candidates.
+  Page type and lexical matches remain discovery evidence only; semantic
+  identity, repeatability, mechanics, and optimizer eligibility require later
+  evidence-bound review.
 - Training-guide section ingestion inventories every Wiki heading in source
   order. Every method-bearing subsection is retained with its parent, source
   lines, revision, and structural role. New heading depths or parents fail
