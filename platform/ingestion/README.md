@@ -41,6 +41,7 @@ node platform/ingestion/ingest-wiki-unlock-linked-page-identities.mjs
 node platform/ingestion/ingest-wiki-unlock-linked-page-source-signatures.mjs
 node platform/ingestion/ingest-wiki-skill-training-guide-direct-links.mjs
 node platform/ingestion/ingest-wiki-skill-training-guide-source-dependencies.mjs
+node platform/ingestion/ingest-wiki-activity-reference-collection-member-repeatability-gap-evidence.mjs
 node platform/transforms/build-unlock-statement-semantic-crosswalk.mjs
 node platform/transforms/build-unlock-linked-page-entity-types.mjs
 node platform/transforms/build-unlock-linked-page-wiki-equivalence.mjs
@@ -151,6 +152,14 @@ record count, creation time, audit result, and SHA-256 content hash.
   Page type and lexical matches remain discovery evidence only; semantic
   identity, repeatability, mechanics, and optimizer eligibility require later
   evidence-bound review.
+- Repeatability-gap evidence ingestion expands only blocked structural-signal
+  routes. Candidate pages must be linked on the exact source line containing the
+  unresolved recurrence/session signal or from the exact retained collection
+  row. Every main-namespace candidate is resolved to its current official Wiki
+  revision, redirects collapse by stable page ID without losing discovery
+  contexts, and already scanned source pages remain explicit exclusions. Full
+  candidate revisions are scanned with the existing repeatability policy, but
+  links and lexical matches remain review evidence and create no verdict.
 - Training-guide section ingestion inventories every Wiki heading in source
   order. Every method-bearing subsection is retained with its parent, source
   lines, revision, and structural role. New heading depths or parents fail

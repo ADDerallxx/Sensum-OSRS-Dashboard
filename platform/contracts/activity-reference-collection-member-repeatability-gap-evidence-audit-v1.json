@@ -1,0 +1,32 @@
+{
+  "contract": "sensum.activity-reference-collection-member-repeatability-gap-evidence-audit.v1",
+  "required": [
+    "inputCoverage",
+    "policyCoverage",
+    "candidateDiscoveryCoverage",
+    "sourceAlignmentCoverage",
+    "repeatabilitySignalCoverage",
+    "semanticPromotionCoverage",
+    "accountStateFindings",
+    "evidencePacketAttemptCoverageComplete",
+    "repeatabilityGapEvidencePacketCoverageComplete",
+    "repeatabilityReviewComplete",
+    "memberExpansionReviewComplete",
+    "mechanicsReviewComplete",
+    "completeActivityUniverse",
+    "absoluteBestGate",
+    "blockers",
+    "publishable"
+  ],
+  "rules": {
+    "everyMatchingBlockedRouteMustProduceExactlyOnePacket": true,
+    "inputOutputSetsHashesEvidenceAndContextMustMatchExactly": true,
+    "everyDiscoveryRequestMustComeFromAnAllowedExactSourceContext": true,
+    "everyNonExcludedCandidateMustResolveToARevisionPinnedOfficialWikiPage": true,
+    "duplicateResolvedPagesMustPreserveAllDiscoveryContexts": true,
+    "repeatabilityDispositionAndReviewMustRemainUnchanged": true,
+    "candidateSignalsCannotCreateARepeatabilityVerdict": true,
+    "memberMechanicsAndOptimizerPromotionsAreForbidden": true,
+    "currentAccountStateIsForbidden": true
+  }
+}

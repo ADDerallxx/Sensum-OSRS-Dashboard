@@ -43,6 +43,24 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+The two structural-signal repeatability gaps now have complete corroborating
+evidence packets built only from source-authored links on the exact unresolved
+signal lines and exact retained collection rows. Eleven requested titles carry
+13 discovery contexts; two requests resolve to the already scanned linked
+sources and remain explicit exclusions. The other nine requests collapse by
+stable MediaWiki page ID to eight current revision-pinned official Wiki pages,
+covering 82,433 source bytes. `Archery Competition` contributes five candidate
+pages, including `Competition Judge` revision 14937017, but none contains an
+explicit positive or negative repeatability declaration. `Wise Old Man tasks`
+contributes three candidate pages, including `Wise Old Man` revision 15318848;
+that page repeats the same assignment-structure signal and supplies no explicit
+declaration. All candidates retain exact discovery contexts, redirects, page
+IDs, revisions, timestamps, URLs, hashes, and source-located signal matches.
+There are zero repeatability verdicts, member or mechanics reviews, and
+optimizer promotions. Repeated live runs produced the same output hash. The
+next checkpoint should apply a generic semantic disposition to these packets
+without treating a linked page or lexical match as canonical-activity scope.
+
 Every repeatability disposition state now has one generic downstream evidence-
 work route. The seven-state policy covers supported repeatable, supported non-
 repeatable, conflicting, explicit-but-unscoped, recurrence/session-only, no-

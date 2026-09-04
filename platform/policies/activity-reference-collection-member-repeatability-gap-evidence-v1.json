@@ -1,0 +1,47 @@
+{
+  "policy": "sensum.activity-reference-collection-member-repeatability-gap-evidence-policy.v1",
+  "inputContract": "sensum.activity-reference-collection-member-repeatability-evidence-work-routing.v1",
+  "recordContract": "sensum.activity-reference-collection-member-repeatability-gap-evidence.v1",
+  "auditContract": "sensum.activity-reference-collection-member-repeatability-gap-evidence-audit.v1",
+  "inputRoute": {
+    "routeKey": "broader_repeatability_evidence_discovery_from_structural_signals",
+    "routeState": "blocked_repeatability_evidence_gap",
+    "repeatabilityDispositionState": "unresolved_recurrence_or_session_structure_without_explicit_declaration"
+  },
+  "discovery": {
+    "allowedStructuralSignalKinds": [
+      "recurrence_structure_candidate",
+      "session_boundary_candidate"
+    ],
+    "channels": [
+      "source_signal_line_main_namespace_link",
+      "exact_collection_row_main_namespace_link"
+    ],
+    "namespace": 0,
+    "excludeAlreadyScannedLinkedAndCollectionPages": true,
+    "deduplicateByResolvedMediaWikiPageId": true,
+    "scanCompleteCurrentCandidateRevision": true
+  },
+  "rules": {
+    "onePacketPerMatchingBlockedRoute": true,
+    "candidateSourcesMustComeFromExactSourceAuthoredLinks": true,
+    "sourceSignalLinkMustShareTheExactSourceLineWithAStructuralSignal": true,
+    "collectionLinkMustComeFromTheExactRetainedCollectionRow": true,
+    "onlyMainNamespaceCandidatePagesAreAllowed": true,
+    "candidatePagesMustResolveThroughTheOfficialWikiApi": true,
+    "candidatePageRevisionTimestampUrlAndContentHashMustBePinned": true,
+    "duplicateRedirectsMustCollapseByStableMediaWikiPageIdWithoutLosingContexts": true,
+    "previouslyScannedLinkedAndCollectionPagesRemainExplicitExclusions": true,
+    "completeCandidateRevisionIsScannedWithTheExistingRepeatabilitySignalPolicy": true,
+    "commentsAndProtectedRegionsCannotCreateSignals": true,
+    "candidateLinksAndLexicalSignalsAreReviewEvidenceOnly": true,
+    "recurrenceAndSessionSignalsCannotBecomeRepeatabilityProof": true,
+    "absenceOfSignalsCannotBecomeNonRepeatabilityProof": true,
+    "repeatabilityDispositionAndReviewRemainUnchanged": true,
+    "memberExpansionMechanicsAndOptimizerEligibilityRemainClosed": true,
+    "namesTitlesPageIdsLabelsAliasesAndCollectionClassesCannotSelectARouteOrVerdict": true,
+    "missingContradictoryOrConditionMismatchedEvidenceRemainsExplicit": true,
+    "currentAccountStateIsForbidden": true,
+    "automaticVerificationAllowed": false
+  }
+}

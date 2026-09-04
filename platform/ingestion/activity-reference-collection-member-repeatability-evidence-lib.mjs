@@ -128,7 +128,7 @@ export function compileRepeatabilityEvidencePolicy(policy = {}) {
   };
 }
 
-function scanSource({ text, sourceScope, sourcePageId, sourceRevision, sourceContentHash, scannedTextHash, lineOffset = 0, memberCandidateKey, definitions }) {
+export function scanRepeatabilitySource({ text, sourceScope, sourcePageId, sourceRevision, sourceContentHash, scannedTextHash, lineOffset = 0, memberCandidateKey, definitions }) {
   const original = String(text || '');
   const masked = maskRepeatabilityIgnoredRegions(original);
   const starts = lineStarts(masked);
@@ -203,7 +203,7 @@ function packetFor(input, fetched, policy, contentHash) {
   if (compiled.invalidRules.length || compiled.forbiddenPolicyPaths.length || compiled.duplicateDefinitionKeys.length || compiled.invalidDefinitionKeys.length || compiled.requiredDefinitionKindsMissing.length) deficiencies.push('repeatability_evidence_policy_invalid_or_incomplete');
   const linkedTextHash = typeof linkedContent === 'string' ? contentHash(linkedContent) : null;
   const rowTextHash = rowText ? contentHash(rowText) : null;
-  const linkedSignals = typeof linkedContent === 'string' ? scanSource({
+  const linkedSignals = typeof linkedContent === 'string' ? scanRepeatabilitySource({
     text: linkedContent,
     sourceScope: 'complete_linked_source_revision',
     sourcePageId: input.sourcePageId,
@@ -213,7 +213,7 @@ function packetFor(input, fetched, policy, contentHash) {
     memberCandidateKey: input.memberCandidateKey,
     definitions: compiled.definitions
   }) : [];
-  const rowSignals = rowText ? scanSource({
+  const rowSignals = rowText ? scanRepeatabilitySource({
     text: rowText,
     sourceScope: 'exact_collection_row',
     sourcePageId: collectionSource.pageId,

@@ -315,6 +315,7 @@ node platform/transforms/build-activity-reference-collection-member-canonical-ac
 node platform/ingestion/ingest-wiki-activity-reference-collection-member-repeatability-evidence.mjs
 node platform/transforms/build-activity-reference-collection-member-repeatability-dispositions.mjs
 node platform/transforms/build-activity-reference-collection-member-repeatability-evidence-work-routes.mjs
+node platform/ingestion/ingest-wiki-activity-reference-collection-member-repeatability-gap-evidence.mjs
 node platform/ingestion/ingest-wiki-agility-training-guide-sections.mjs
 node platform/ingestion/ingest-wiki-agility-rooftop-guide-members.mjs
 node platform/ingestion/ingest-wiki-agility-brimhaven-guide-members.mjs

@@ -1,0 +1,28 @@
+{
+  "contract": "sensum.activity-reference-collection-member-repeatability-gap-evidence.v1",
+  "required": [
+    "memberCandidateKey",
+    "sourceRepeatabilityEvidenceWorkRoutingContentHash",
+    "canonicalActivityIdentity",
+    "repeatabilityDisposition",
+    "repeatabilityReview",
+    "corroboratingRepeatabilityEvidence",
+    "corroboratingRepeatabilityCandidateObservations",
+    "memberExpansionReview",
+    "mechanicsReview",
+    "optimizerEligible",
+    "accountIndependent",
+    "blockers"
+  ],
+  "rules": {
+    "onePacketPerExactMatchingBlockedRoute": true,
+    "allUpstreamEvidenceIdentityRevisionHashesAndContextMustBePreserved": true,
+    "everyCandidateSourceMustRetainItsExactSourceLinkDiscoveryContexts": true,
+    "everyFetchedCandidateMustRetainCurrentRevisionTimestampUrlAndContentHash": true,
+    "candidatePageDeduplicationMustPreserveEveryRequestedTitleAndContext": true,
+    "repeatabilitySignalsAreCandidatesOnly": true,
+    "repeatabilityDispositionAndReviewMustRemainUnchanged": true,
+    "memberExpansionMechanicsAndOptimizerPromotionAreForbidden": true,
+    "currentAccountStateIsForbidden": true
+  }
+}
