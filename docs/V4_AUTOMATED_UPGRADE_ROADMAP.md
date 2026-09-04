@@ -43,6 +43,25 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+All 69 reference-collection member dispositions now have exactly one generic
+evidence-work route. Sixty source-supported subjects are queued: 43 minigame
+session/mode reviews, six activity action/variant reviews, four boss encounter
+reviews, four facility member-discovery reviews, and one each for activity-
+collection expansion, fought-entity encounter classification, and skill-
+expansion activity discovery. The six infobox/lead conflicts route to blocked
+source-declaration reconciliation, while Target (Ranging Guild), Vineyard
+foreman, and Wise Old Man tasks route to blocked broader source-signature
+review. The policy defines three blocked-state routes and ten supported-
+disposition routes, has no invalid or duplicate route definitions, and leaves
+no observed state or disposition unmapped. Exact source identity, revision,
+hash, signals, collection row, membership, link, and alias context is preserved
+for all 69 records. Collection context selected or altered zero routes, and the
+output is byte-identical across repeated runs. Routing creates evidence
+obligations only; canonical identity, repeatability, member expansion,
+mechanics, and optimizer eligibility remain at zero. The next checkpoint should
+collect broader root-template and linked-subject evidence for the three
+unresolved pages without using their collection labels as answers.
+
 All 69 revision-pinned reference-collection members now have a generic,
 source-declared subject disposition attempt. Exact input identity, revision,
 hash, collection row, membership, link, and alias context is preserved for all

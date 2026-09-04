@@ -1,0 +1,26 @@
+{
+  "contract": "sensum.activity-reference-collection-member-evidence-work-routing-audit.v1",
+  "required": [
+    "inputCoverage",
+    "policyCoverage",
+    "routingCoverage",
+    "semanticPromotionCoverage",
+    "routingCoverageComplete",
+    "evidenceWorkComplete",
+    "completeActivityUniverse",
+    "absoluteBestGate",
+    "blockers"
+  ],
+  "rules": {
+    "inputAndOutputMemberCandidateSetsMustMatchExactly": true,
+    "everyInputIdentityRevisionHashesDispositionSignalCollectionAndAliasContextMustBePreserved": true,
+    "policyMustNotContainPageSpecificCollectionClassificationOrOverrideSelectors": true,
+    "everyPolicyDispositionAndEveryObservedStateMustHaveExactlyOneRoute": true,
+    "sourceConflictsAndUnresolvedDeclarationsMustRemainVisibleAndBlocked": true,
+    "unmappedStatesAndDispositionsMustRemainVisibleAndBlockPublication": true,
+    "collectionContextCannotSelectAlterOrBreakRouteTies": true,
+    "routingCoverageCannotProveEvidenceWorkOrSemanticCompleteness": true,
+    "canonicalIdentityRepeatabilityMembersMechanicsAndOptimizerEligibilityRemainClosed": true,
+    "accountSpecificInputsAreForbidden": true
+  }
+}

@@ -135,6 +135,13 @@ subjects without a supported declaration remain explicit blockers. These labels
 cannot establish canonical identity, repeatability, atomicity, mechanics, or
 optimizer eligibility.
 
+The subsequent collection-member work router maps blocked source states before
+supported dispositions. It sends conflicts and unsupported declarations to
+blocked reconciliation or broader-signature review, while source-supported
+subjects receive type-appropriate evidence obligations. Collection membership,
+labels, titles, aliases, and page IDs cannot select or modify a route. Routing
+does not complete the evidence work or promote an optimizer candidate.
+
 Courses with multiple independently failing obstacles retain one composite
 condition record with per-obstacle requirements, successful XP, probabilities,
 and revisions. Sensum does not derive an aggregate lap probability or expected
@@ -221,6 +228,7 @@ node platform/transforms/build-activity-candidate-evidence-work-routes.mjs
 node platform/ingestion/ingest-wiki-activity-reference-collection-members.mjs
 node platform/ingestion/ingest-wiki-activity-reference-collection-member-source-evidence.mjs
 node platform/transforms/build-activity-reference-collection-member-subject-dispositions.mjs
+node platform/transforms/build-activity-reference-collection-member-evidence-work-routes.mjs
 node platform/ingestion/ingest-wiki-agility-training-guide-sections.mjs
 node platform/ingestion/ingest-wiki-agility-rooftop-guide-members.mjs
 node platform/ingestion/ingest-wiki-agility-brimhaven-guide-members.mjs

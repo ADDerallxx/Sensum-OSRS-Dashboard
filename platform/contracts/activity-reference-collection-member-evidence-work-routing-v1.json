@@ -1,0 +1,40 @@
+{
+  "contract": "sensum.activity-reference-collection-member-evidence-work-routing.v1",
+  "required": [
+    "memberCandidateKey",
+    "sourceMemberDispositionContentHash",
+    "sourceMemberEvidenceContentHash",
+    "collectionContext",
+    "memberIdentityContexts",
+    "sourcePageId",
+    "resolvedTitle",
+    "membershipClassification",
+    "sourceRevision",
+    "sourceTimestamp",
+    "sourceUrl",
+    "sourceContentHash",
+    "sourceDisposition",
+    "dispositionSignals",
+    "sourceBlockers",
+    "routingDecision",
+    "repeatabilityReview",
+    "memberExpansionReview",
+    "canonicalGameEntityIdentity",
+    "canonicalActivityIdentity",
+    "optimizerEligible",
+    "accountIndependent",
+    "blockers"
+  ],
+  "rules": {
+    "oneRouteRecordPerCollectionMemberDispositionRecord": true,
+    "inputIdentityRevisionHashesDispositionSignalsCollectionRowMembershipAndAliasContextMustBePreserved": true,
+    "blockedSourceStatesMustUseStateRoutesBeforeDispositionRoutes": true,
+    "supportedDispositionsMustUseExactlyOneGenericDispositionRoute": true,
+    "pageTitleCollectionLabelMembershipClassAliasesAndPageIdsCannotSelectOrModifyRoute": true,
+    "routeRequirementsAndExpansionAxesAreEvidenceWorkObligationsNotGameFacts": true,
+    "sourceConflictsAndUnresolvedDeclarationsRemainBlocked": true,
+    "routingCannotProveCanonicalIdentityRepeatabilityAtomicityMembersMechanicsOrEligibility": true,
+    "optimizerPromotionIsForbidden": true,
+    "currentAccountStateIsForbidden": true
+  }
+}

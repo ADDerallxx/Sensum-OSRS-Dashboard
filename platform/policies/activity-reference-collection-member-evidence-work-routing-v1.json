@@ -1,0 +1,102 @@
+{
+  "policy": "sensum.activity-reference-collection-member-evidence-work-routing-policy.v1",
+  "inputContract": "sensum.activity-reference-collection-member-subject-disposition.v1",
+  "recordContract": "sensum.activity-reference-collection-member-evidence-work-routing.v1",
+  "auditContract": "sensum.activity-reference-collection-member-evidence-work-routing-audit.v1",
+  "stateRoutes": {
+    "blocked_conflicting_source_declarations": {
+      "routeKey": "source_declaration_conflict_reconciliation",
+      "routeState": "blocked_source_conflict",
+      "requiredEvidenceDomains": ["field_semantics", "source_declaration_reconciliation", "subject_identity"],
+      "expansionAxes": []
+    },
+    "blocked_unmapped_infobox_type": {
+      "routeKey": "unmapped_source_taxonomy_review",
+      "routeState": "blocked_unmapped_source_taxonomy",
+      "requiredEvidenceDomains": ["field_semantics", "source_taxonomy_mapping", "subject_identity"],
+      "expansionAxes": []
+    },
+    "unresolved_no_supported_source_declaration": {
+      "routeKey": "broader_source_signature_subject_review",
+      "routeState": "blocked_unsupported_subject_declaration",
+      "requiredEvidenceDomains": ["subject_identity", "root_template_signatures", "source_declaration", "linked_subject_relationship"],
+      "expansionAxes": []
+    }
+  },
+  "dispositionRoutes": {
+    "activity_collection_subject": {
+      "routeKey": "activity_collection_member_expansion_review",
+      "routeState": "queued",
+      "requiredEvidenceDomains": ["collection_scope", "member_identity", "repeatability", "requirements", "variants", "xp_rewards", "timing_rates", "mechanics"],
+      "expansionAxes": ["listed_members", "membership_scope", "member_variants"]
+    },
+    "activity_subject": {
+      "routeKey": "activity_action_and_variant_review",
+      "routeState": "queued",
+      "requiredEvidenceDomains": ["action_boundary", "repeatability", "requirements", "variants", "xp_rewards", "timing_rates", "mechanics"],
+      "expansionAxes": ["action_or_route_variants", "interaction_policies"]
+    },
+    "boss_encounter_subject": {
+      "routeKey": "boss_encounter_variant_review",
+      "routeState": "queued",
+      "requiredEvidenceDomains": ["encounter_identity", "combat_or_skilling_requirements", "encounter_cycle", "repeatability", "variants", "xp_rewards", "timing_rates", "mechanics"],
+      "expansionAxes": ["encounter_phases", "encounter_modes", "group_scale"]
+    },
+    "facility_subject": {
+      "routeKey": "facility_activity_member_discovery_review",
+      "routeState": "queued",
+      "requiredEvidenceDomains": ["facility_identity", "contained_activity_members", "access_requirements", "repeatability", "variants", "xp_rewards", "timing_rates", "mechanics"],
+      "expansionAxes": ["contained_activities", "rooms_or_areas", "interaction_points"]
+    },
+    "fought_entity_subject": {
+      "routeKey": "fought_entity_encounter_classification_review",
+      "routeState": "queued",
+      "requiredEvidenceDomains": ["entity_identity", "encounter_classification", "fight_requirements", "encounter_cycle", "repeatability", "variants", "xp_rewards", "timing_rates", "mechanics"],
+      "expansionAxes": ["encounter_forms", "encounter_modes", "group_scale"]
+    },
+    "minigame_subject": {
+      "routeKey": "minigame_session_and_mode_review",
+      "routeState": "queued",
+      "requiredEvidenceDomains": ["session_boundary", "repeatability", "requirements", "roles_or_modes", "variants", "xp_rewards", "timing_rates", "mechanics"],
+      "expansionAxes": ["roles_or_modes", "session_policies", "reward_or_xp_policies"]
+    },
+    "raid_subject": {
+      "routeKey": "raid_composite_and_scale_review",
+      "routeState": "queued",
+      "requiredEvidenceDomains": ["raid_identity", "encounter_members", "path_rules", "scale_rules", "repeatability", "requirements", "variants", "xp_rewards", "timing_rates", "mechanics"],
+      "expansionAxes": ["encounter_members", "paths", "party_scale", "difficulty_or_invocation_policy"]
+    },
+    "skill_expansion_subject": {
+      "routeKey": "skill_expansion_activity_universe_review",
+      "routeState": "queued",
+      "requiredEvidenceDomains": ["expansion_scope", "activity_members", "event_or_variant_members", "requirements", "repeatability", "xp_rewards", "timing_rates", "mechanics"],
+      "expansionAxes": ["activity_members", "event_members", "regional_or_context_variants"]
+    },
+    "task_collection_subject": {
+      "routeKey": "task_collection_member_and_assignment_review",
+      "routeState": "queued",
+      "requiredEvidenceDomains": ["task_collection_scope", "task_members", "assignment_rules", "completion_loop", "repeatability", "requirements", "xp_rewards", "timing_rates", "mechanics"],
+      "expansionAxes": ["task_members", "assignment_policy", "completion_policy"]
+    },
+    "training_method_subject": {
+      "routeKey": "training_method_action_and_variant_review",
+      "routeState": "queued",
+      "requiredEvidenceDomains": ["method_identity", "action_boundary", "repeatability", "requirements", "variants", "xp_rewards", "timing_rates", "mechanics"],
+      "expansionAxes": ["action_variants", "equipment_or_resource_policies"]
+    }
+  },
+  "rules": {
+    "policyContainsNoPageIdsTitlesCandidateKeysCollectionClassesOrOverrides": true,
+    "blockedSourceStatesRouteBeforeSupportedDispositions": true,
+    "everyPolicyDispositionAndEveryObservedStateMustHaveExactlyOneRoute": true,
+    "collectionMembershipLabelsTitlesAliasesAndPageIdsCannotSelectOrAlterRoutes": true,
+    "routesDescribeRequiredEvidenceWorkNotGameFacts": true,
+    "routingCannotResolveSourceConflictsOrUnsupportedDeclarations": true,
+    "routingCannotEstablishCanonicalIdentity": true,
+    "routingCannotProveRepeatabilityAtomicityMembersMechanicsOrEligibility": true,
+    "routingCannotCreateOptimizerCandidates": true,
+    "inputIdentityRevisionHashDispositionSignalsCollectionAndAliasContextMustBePreserved": true,
+    "currentAccountStateIsForbidden": true,
+    "automaticVerificationAllowed": false
+  }
+}
