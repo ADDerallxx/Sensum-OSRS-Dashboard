@@ -43,6 +43,22 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+All 29 activity-candidate subject records now receive exactly one generic
+evidence-work route while preserving their source revision, content hash,
+signals, and alias/redirect contexts. Twenty-seven supported subjects enter
+seven review queues: 18 minigame session/mode reviews, three trial
+objective/completion reviews, two activity action/variant reviews, and one each
+for collection-member expansion, assignment-pool/task expansion, boss encounter
+variants, and raid composite/scale review. Hallowed Sepulchre revision 15322138
+and Stealing valuables revision 15323349 enter a blocked source-declaration
+reconciliation route; routing does not erase or resolve their conflict. The
+policy contains three blocked-state routes and seven supported-disposition
+routes with no page IDs, titles, candidate keys, or overrides. These routes are
+evidence obligations rather than game facts: canonical identity, repeatability,
+member expansion, mechanics, and optimizer eligibility remain at zero. The next
+checkpoint should execute the first evidence-bound expansion queue, beginning
+with the revision-pinned reference collection and its explicit members.
+
 A generic, source-declared subject-disposition layer now evaluates all 29
 activity candidates without page IDs, titles, candidate keys, or per-page
 overrides in its policy. Four exact infobox `type` values and six first-lead

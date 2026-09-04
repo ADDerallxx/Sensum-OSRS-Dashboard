@@ -104,6 +104,14 @@ type blocks even when lead text matches a known rule. A subject disposition is
 not a canonical entity or activity, does not prove repeatability or atomicity,
 and cannot enter the optimizer.
 
+The evidence-work router converts each supported subject disposition or blocked
+source state into exactly one generic review obligation. Collections, assignment
+systems, bosses, raids, minigames, activities, and trials receive separate
+member/variant/mechanics review paths; conflicting or unknown source states use
+blocked reconciliation paths. Routes do not assert that an expansion axis or
+mechanic exists, resolve a source conflict, establish repeatability, or create a
+rankable candidate.
+
 Courses with multiple independently failing obstacles retain one composite
 condition record with per-obstacle requirements, successful XP, probabilities,
 and revisions. Sensum does not derive an aggregate lap probability or expected
@@ -186,6 +194,7 @@ node platform/transforms/build-skill-training-guide-unlock-page-crosswalk.mjs
 node platform/transforms/build-cross-source-entity-activity-candidates.mjs
 node platform/ingestion/ingest-wiki-activity-candidate-source-evidence.mjs
 node platform/transforms/build-activity-candidate-subject-dispositions.mjs
+node platform/transforms/build-activity-candidate-evidence-work-routes.mjs
 node platform/ingestion/ingest-wiki-agility-training-guide-sections.mjs
 node platform/ingestion/ingest-wiki-agility-rooftop-guide-members.mjs
 node platform/ingestion/ingest-wiki-agility-brimhaven-guide-members.mjs

@@ -1,0 +1,83 @@
+{
+  "policy": "sensum.activity-candidate-evidence-work-routing-policy.v1",
+  "inputContract": "sensum.activity-candidate-subject-disposition.v1",
+  "recordContract": "sensum.activity-candidate-evidence-work-routing.v1",
+  "auditContract": "sensum.activity-candidate-evidence-work-routing-audit.v1",
+  "stateRoutes": {
+    "blocked_conflicting_source_declarations": {
+      "routeKey": "source_declaration_conflict_review",
+      "routeState": "blocked_source_conflict",
+      "requiredEvidenceDomains": ["field_semantics", "source_declaration_reconciliation"],
+      "expansionAxes": []
+    },
+    "blocked_unmapped_infobox_type": {
+      "routeKey": "unmapped_source_taxonomy_review",
+      "routeState": "blocked_unmapped_source_taxonomy",
+      "requiredEvidenceDomains": ["field_semantics", "source_taxonomy_mapping"],
+      "expansionAxes": []
+    },
+    "unresolved_no_supported_source_declaration": {
+      "routeKey": "unsupported_subject_declaration_review",
+      "routeState": "blocked_unsupported_subject_declaration",
+      "requiredEvidenceDomains": ["subject_identity", "source_declaration"],
+      "expansionAxes": []
+    }
+  },
+  "dispositionRoutes": {
+    "reference_collection_subject": {
+      "routeKey": "collection_member_expansion_review",
+      "routeState": "queued",
+      "requiredEvidenceDomains": ["collection_membership", "member_identity", "repeatability", "requirements", "variants", "xp_rewards", "timing_rates", "mechanics"],
+      "expansionAxes": ["listed_members", "membership_scope"]
+    },
+    "assignment_system_subject": {
+      "routeKey": "assignment_pool_and_task_expansion_review",
+      "routeState": "queued",
+      "requiredEvidenceDomains": ["assignment_pool", "task_identity", "selection_rules", "completion_loop", "repeatability", "requirements", "variants", "xp_rewards", "timing_rates", "mechanics"],
+      "expansionAxes": ["assignment_types", "task_members", "selection_policy", "completion_policy"]
+    },
+    "boss_encounter_subject": {
+      "routeKey": "boss_encounter_variant_review",
+      "routeState": "queued",
+      "requiredEvidenceDomains": ["encounter_identity", "combat_requirements", "encounter_cycle", "repeatability", "variants", "xp_rewards", "timing_rates", "mechanics"],
+      "expansionAxes": ["encounter_phases", "encounter_modes", "group_scale"]
+    },
+    "raid_subject": {
+      "routeKey": "raid_composite_and_scale_review",
+      "routeState": "queued",
+      "requiredEvidenceDomains": ["raid_identity", "encounter_members", "path_rules", "scale_rules", "repeatability", "requirements", "variants", "xp_rewards", "timing_rates", "mechanics"],
+      "expansionAxes": ["encounter_members", "paths", "party_scale", "difficulty_or_invocation_policy"]
+    },
+    "minigame_subject": {
+      "routeKey": "minigame_session_and_mode_review",
+      "routeState": "queued",
+      "requiredEvidenceDomains": ["session_boundary", "repeatability", "requirements", "roles_or_modes", "variants", "xp_rewards", "timing_rates", "mechanics"],
+      "expansionAxes": ["roles_or_modes", "session_policies", "reward_or_xp_policies"]
+    },
+    "activity_subject": {
+      "routeKey": "activity_action_and_variant_review",
+      "routeState": "queued",
+      "requiredEvidenceDomains": ["action_boundary", "repeatability", "requirements", "variants", "xp_rewards", "timing_rates", "mechanics"],
+      "expansionAxes": ["action_or_route_variants", "interaction_policies"]
+    },
+    "trial_subject": {
+      "routeKey": "trial_objective_and_completion_review",
+      "routeState": "queued",
+      "requiredEvidenceDomains": ["trial_objective", "completion_boundary", "repeatability", "requirements", "variants", "xp_rewards", "timing_rates", "mechanics"],
+      "expansionAxes": ["objective_variants", "completion_policies"]
+    }
+  },
+  "rules": {
+    "policyContainsNoPageIdsTitlesCandidateKeysOrOverrides": true,
+    "blockedSourceStatesRouteBeforeSupportedDispositions": true,
+    "everyObservedSourceStateOrDispositionMustHaveExactlyOneRoute": true,
+    "routesDescribeRequiredEvidenceWorkNotGameFacts": true,
+    "routingCannotResolveSourceConflicts": true,
+    "routingCannotEstablishCanonicalIdentity": true,
+    "routingCannotProveRepeatabilityAtomicityMembersMechanicsOrEligibility": true,
+    "routingCannotCreateOptimizerCandidates": true,
+    "inputIdentityRevisionHashSignalsAndContextsMustBePreserved": true,
+    "currentAccountStateIsForbidden": true,
+    "automaticVerificationAllowed": false
+  }
+}

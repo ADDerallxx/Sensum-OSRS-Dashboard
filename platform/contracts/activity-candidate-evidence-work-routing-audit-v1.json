@@ -1,0 +1,25 @@
+{
+  "contract": "sensum.activity-candidate-evidence-work-routing-audit.v1",
+  "required": [
+    "inputCoverage",
+    "policyCoverage",
+    "routingCoverage",
+    "semanticPromotionCoverage",
+    "routingCoverageComplete",
+    "evidenceWorkComplete",
+    "completeActivityUniverse",
+    "absoluteBestGate",
+    "blockers"
+  ],
+  "rules": {
+    "inputAndOutputCandidateSetsMustMatchExactly": true,
+    "everyInputIdentityRevisionHashSignalAndContextMustBePreserved": true,
+    "policyMustNotContainPageSpecificSelectorsOrOverrides": true,
+    "everyObservedSourceStateOrDispositionMustHaveExactlyOneRoute": true,
+    "sourceConflictsMustRemainVisibleAndBlocked": true,
+    "unmappedStatesAndDispositionsMustRemainVisibleAndBlockPublication": true,
+    "routingCoverageCannotProveEvidenceWorkOrSemanticCompleteness": true,
+    "canonicalIdentityRepeatabilityMembersMechanicsAndOptimizerEligibilityRemainClosed": true,
+    "accountSpecificInputsAreForbidden": true
+  }
+}

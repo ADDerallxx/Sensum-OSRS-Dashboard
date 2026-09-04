@@ -1,0 +1,36 @@
+{
+  "contract": "sensum.activity-candidate-evidence-work-routing.v1",
+  "required": [
+    "candidateKey",
+    "sourcePageId",
+    "resolvedTitle",
+    "skillKeys",
+    "sourceRevision",
+    "sourceTimestamp",
+    "sourceUrl",
+    "sourceContentHash",
+    "sourceDispositionContentHash",
+    "sourceSignatureContexts",
+    "sourceDisposition",
+    "dispositionSignals",
+    "routingDecision",
+    "repeatabilityReview",
+    "memberExpansionReview",
+    "canonicalGameEntityIdentity",
+    "canonicalActivityIdentity",
+    "optimizerEligible",
+    "accountIndependent",
+    "blockers"
+  ],
+  "rules": {
+    "oneRecordPerRevisionPinnedSubjectDispositionRecord": true,
+    "inputIdentityRevisionHashSignalsAndContextsMustBePreserved": true,
+    "oneGenericPolicyRoutePerInputRecord": true,
+    "sourceStateRoutesTakePriorityOverDispositionRoutes": true,
+    "conflictingSourceDeclarationsRemainBlocked": true,
+    "routeRequirementsAreReviewObligationsNotVerifiedFacts": true,
+    "canonicalIdentityRepeatabilityMemberExpansionMechanicsAndEligibilityRemainSeparate": true,
+    "optimizerPromotionIsForbidden": true,
+    "currentAccountStateIsForbidden": true
+  }
+}

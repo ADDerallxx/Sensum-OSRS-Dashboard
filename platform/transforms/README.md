@@ -18,6 +18,20 @@ Run:
 node platform/transforms/build-activity-candidate-subject-dispositions.mjs
 ```
 
+`build-activity-candidate-evidence-work-routes.mjs` maps every supported subject
+disposition or blocked source state to one generic review workflow. The router
+preserves source identity, revision, hashes, signals, and contexts. Its evidence
+domains and expansion axes describe questions that later source work must
+answer; they are not verified facts. Conflicts stay blocked, unknown future
+states or dispositions fail publication, and no route can create a canonical or
+optimizer-eligible activity.
+
+Run:
+
+```text
+node platform/transforms/build-activity-candidate-evidence-work-routes.mjs
+```
+
 `canonicalize.mjs` converts the newest immutable staging snapshots into
 candidate canonical records and a coverage report. It never silently fills a
 missing material value.
