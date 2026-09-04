@@ -127,6 +127,14 @@ and lexical review signals. Missing supported infoboxes and differences between
 collection display labels and linked page titles remain named review inputs;
 they are not repaired, retyped, or promoted automatically.
 
+The collection-member subject-disposition transform applies exact infobox-type
+and first-non-empty-lead declaration rules without consulting collection class,
+display label, resolved title, page ID, or candidate key. Agreement produces a
+source-supported routing label; conflicting declarations, unmapped types, and
+subjects without a supported declaration remain explicit blockers. These labels
+cannot establish canonical identity, repeatability, atomicity, mechanics, or
+optimizer eligibility.
+
 Courses with multiple independently failing obstacles retain one composite
 condition record with per-obstacle requirements, successful XP, probabilities,
 and revisions. Sensum does not derive an aggregate lap probability or expected
@@ -212,6 +220,7 @@ node platform/transforms/build-activity-candidate-subject-dispositions.mjs
 node platform/transforms/build-activity-candidate-evidence-work-routes.mjs
 node platform/ingestion/ingest-wiki-activity-reference-collection-members.mjs
 node platform/ingestion/ingest-wiki-activity-reference-collection-member-source-evidence.mjs
+node platform/transforms/build-activity-reference-collection-member-subject-dispositions.mjs
 node platform/ingestion/ingest-wiki-agility-training-guide-sections.mjs
 node platform/ingestion/ingest-wiki-agility-rooftop-guide-members.mjs
 node platform/ingestion/ingest-wiki-agility-brimhaven-guide-members.mjs

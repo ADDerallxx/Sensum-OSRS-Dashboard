@@ -1,0 +1,41 @@
+{
+  "contract": "sensum.activity-reference-collection-member-subject-disposition.v1",
+  "required": [
+    "memberCandidateKey",
+    "sourceMemberEvidenceContentHash",
+    "collectionContext",
+    "memberIdentityContexts",
+    "sourcePageId",
+    "resolvedTitle",
+    "membershipClassification",
+    "sourceRevision",
+    "sourceTimestamp",
+    "sourceUrl",
+    "sourceContentHash",
+    "infoboxTypeAssessment",
+    "leadParagraphSelection",
+    "dispositionSignals",
+    "subjectDisposition",
+    "repeatabilityReview",
+    "memberExpansionReview",
+    "canonicalGameEntityIdentity",
+    "canonicalActivityIdentity",
+    "optimizerEligible",
+    "accountIndependent",
+    "blockers"
+  ],
+  "rules": {
+    "oneRecordPerRevisionPinnedCollectionMemberEvidenceRecord": true,
+    "inputIdentityRevisionHashCollectionRowMembershipAndAliasContextMustBePreserved": true,
+    "firstNonEmptyLeadSelectionMustRetainRawEvidenceAndSourceLocation": true,
+    "dispositionSignalsMustReferenceExactInfoboxOrLeadEvidence": true,
+    "pageTitleCollectionLabelMembershipClassAndAliasesCannotSetDisposition": true,
+    "pageSpecificPolicyKeysAndOverridesAreForbidden": true,
+    "conflictingExplicitSignalsMustRemainAConflict": true,
+    "unmatchedSubjectsMustRemainUnresolved": true,
+    "unmappedInfoboxTypeValuesMustRemainBlocked": true,
+    "subjectDispositionDoesNotProveCanonicalIdentityRepeatabilityAtomicityOrMechanics": true,
+    "optimizerPromotionIsForbidden": true,
+    "currentAccountStateIsForbidden": true
+  }
+}

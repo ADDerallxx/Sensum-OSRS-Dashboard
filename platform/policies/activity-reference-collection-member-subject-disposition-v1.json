@@ -1,0 +1,108 @@
+{
+  "policy": "sensum.activity-reference-collection-member-subject-disposition-policy.v1",
+  "inputContract": "sensum.activity-reference-collection-member-source-evidence.v1",
+  "recordContract": "sensum.activity-reference-collection-member-subject-disposition.v1",
+  "auditContract": "sensum.activity-reference-collection-member-subject-disposition-audit.v1",
+  "infoboxTypeDispositions": {
+    "activity": "activity_subject",
+    "boss": "boss_encounter_subject",
+    "minigame": "minigame_subject",
+    "raid": "raid_subject"
+  },
+  "leadDeclarationRules": [
+    {
+      "ruleKey": "lead_declares_activity_collection_subject",
+      "disposition": "activity_collection_subject",
+      "pattern": "\\bare an? series of [^.]{0,120}\\bactivities\\b",
+      "flags": "i",
+      "supportedInfobox": "any"
+    },
+    {
+      "ruleKey": "lead_declares_minigame_subject",
+      "disposition": "minigame_subject",
+      "pattern": "\\bis an? [^.]{0,80}\\bminigame(?=[\\s,.]|$)",
+      "flags": "i",
+      "supportedInfobox": "any"
+    },
+    {
+      "ruleKey": "lead_declares_activity_subject",
+      "disposition": "activity_subject",
+      "pattern": "\\bis an? [^.]{0,80}\\bactivity\\b",
+      "flags": "i",
+      "supportedInfobox": "any"
+    },
+    {
+      "ruleKey": "lead_refers_to_subject_as_this_activity",
+      "disposition": "activity_subject",
+      "pattern": "^This activity\\b",
+      "flags": "i",
+      "supportedInfobox": "any"
+    },
+    {
+      "ruleKey": "lead_declares_singular_boss_subject",
+      "disposition": "boss_encounter_subject",
+      "pattern": "\\bis an? [^.]{0,100}\\bboss\\b",
+      "flags": "i",
+      "supportedInfobox": "any"
+    },
+    {
+      "ruleKey": "lead_declares_plural_boss_subject",
+      "disposition": "boss_encounter_subject",
+      "pattern": "\\bare [^.]{0,100}\\bbosses\\b",
+      "flags": "i",
+      "supportedInfobox": "any"
+    },
+    {
+      "ruleKey": "lead_declares_training_method_subject",
+      "disposition": "training_method_subject",
+      "pattern": "\\bis an? [^.]{0,100}\\btraining method\\b",
+      "flags": "i",
+      "supportedInfobox": "any"
+    },
+    {
+      "ruleKey": "lead_declares_fought_entity_subject",
+      "disposition": "fought_entity_subject",
+      "pattern": "\\bis an? [^.]{0,100}\\b(?:demon|creature|monster)\\b[^.]{0,140}\\b(?:is|are) fought\\b",
+      "flags": "i",
+      "supportedInfobox": "any"
+    },
+    {
+      "ruleKey": "lead_declares_facility_subject",
+      "disposition": "facility_subject",
+      "pattern": "\\bis an? [^.]{0,80}\\b(?:library|building|area|arena)\\b",
+      "flags": "i",
+      "supportedInfobox": "absent"
+    },
+    {
+      "ruleKey": "lead_declares_skill_expansion_subject",
+      "disposition": "skill_expansion_subject",
+      "pattern": "\\bis an? [^.]{0,100}\\bexpansion to\\b",
+      "flags": "i",
+      "supportedInfobox": "any"
+    },
+    {
+      "ruleKey": "lead_declares_assigned_task_collection_subject",
+      "disposition": "task_collection_subject",
+      "pattern": "\\bare [^.]{0,100}\\btasks\\b[^.]{0,80}\\bassigned\\b",
+      "flags": "i",
+      "supportedInfobox": "any"
+    }
+  ],
+  "rules": {
+    "policyContainsNoPageIdsTitlesCandidateKeysOrCollectionClasses": true,
+    "onlyExactInfoboxTypeValuesAndFirstNonEmptyLeadDeclarationsMaySetDisposition": true,
+    "collectionMembershipDisplayLabelsAliasesAndResolvedTitlesAreContextNotDispositionSignals": true,
+    "leadRulesOperateOnPlainTextDerivedFromRetainedRawWikitext": true,
+    "hyphenatedMinigameStyleDoesNotDeclareAMinigameSubject": true,
+    "multipleSignalsMayAgreeOnOneDisposition": true,
+    "distinctExplicitDispositionsRemainAConflict": true,
+    "missingOrUnmatchedDeclarationsRemainUnresolved": true,
+    "newUnmappedInfoboxTypeValuesRemainBlockedEvenWhenLeadTextMatches": true,
+    "subjectDispositionDoesNotEstablishCanonicalGameEntityOrActivityIdentity": true,
+    "subjectDispositionDoesNotProveRepeatabilityAtomicityOrMechanics": true,
+    "memberAndVariantExpansionRequiresSeparateEvidence": true,
+    "noDispositionIsOptimizerEligibleAtThisStage": true,
+    "currentAccountStateIsForbidden": true,
+    "automaticVerificationAllowed": false
+  }
+}

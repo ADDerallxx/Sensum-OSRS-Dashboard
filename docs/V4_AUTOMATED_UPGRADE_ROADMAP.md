@@ -43,6 +43,24 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+All 69 revision-pinned reference-collection members now have a generic,
+source-declared subject disposition attempt. Exact input identity, revision,
+hash, collection row, membership, link, and alias context is preserved for all
+69 records. Sixty subjects have exactly one supported disposition: 43
+minigames, six activities, four boss encounters, four facilities, one activity
+collection, one fought entity, and one skill expansion. Six sources expose a
+direct conflict between their infobox and lead declaration: Golem crafting,
+Hallowed Sepulchre, Chompy bird hunting, Dorgesh-Kaan market trading, Keldagrim
+tasks, and Stealing valuables. Three linked subjects remain unresolved: Target
+(Ranging Guild), Vineyard foreman, and Wise Old Man tasks. The policy used 52
+exact infobox-type signals and 60 first-non-empty-lead signals, while using no
+collection class, display label, resolved title, page ID, or candidate key as a
+semantic shortcut. `minigame-style boss` is not misread as a minigame. The
+69-record output is byte-identical across repeated runs. Subject disposition
+does not establish canonical identity, repeatability, atomicity, mechanics, or
+optimizer eligibility. The next checkpoint should route supported, conflicting,
+and unresolved members to generic evidence work without silently breaking ties.
+
 All 69 reference-collection member candidates now have exact-revision semantic
 review packets. The retained member identities yielded 69 distinct revision
 requests; all 69 fetched pages match their page ID, resolved title, revision,

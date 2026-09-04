@@ -1,0 +1,27 @@
+{
+  "contract": "sensum.activity-reference-collection-member-subject-disposition-audit.v1",
+  "required": [
+    "inputCoverage",
+    "policyCoverage",
+    "sourceDeclarationCoverage",
+    "dispositionCoverage",
+    "semanticPromotionCoverage",
+    "dispositionAttemptCoverageComplete",
+    "subjectDispositionComplete",
+    "completeActivityUniverse",
+    "absoluteBestGate",
+    "blockers"
+  ],
+  "rules": {
+    "inputAndOutputMemberCandidateSetsMustMatchExactly": true,
+    "everyInputIdentityRevisionHashCollectionAndAliasContextMustBePreserved": true,
+    "policyMustNotContainPageSpecificOrCollectionClassificationSelectors": true,
+    "everyResolvedDispositionNeedsAtLeastOneExactSourceSignal": true,
+    "conflictingUnresolvedAndUnmappedCountsMustRemainVisible": true,
+    "missingSupportedInfoboxAndMissingTypeCountsMustRemainVisible": true,
+    "collectionMembershipCannotResolveOrBreakDispositionTies": true,
+    "repeatabilityAtomicityCanonicalIdentityMechanicsAndOptimizerEligibilityRemainClosed": true,
+    "structuralPublicationDoesNotMeanSemanticCompleteness": true,
+    "accountSpecificInputsAreForbidden": true
+  }
+}
