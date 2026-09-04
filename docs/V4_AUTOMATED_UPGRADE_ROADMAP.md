@@ -43,6 +43,28 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+The three queued unresolved collection-member relationship routes now have
+exactly joined, revision-pinned evidence packets. Each route matches one retained
+source-signature record by member key, source-signature content hash, page
+identity, revision, timestamp, URL, source hash, collection row, and alias
+context. The packets preserve all three source-authored `Minigames` collection
+rows and their linked source pages: `Target (Ranging Guild)` revision 15225200,
+`Vineyard foreman` revision 14834637, and `Wise Old Man tasks` revision
+14997080. Across 15,638 source bytes they retain 27 root-template occurrences,
+11 lead paragraphs, 22 headings, and all 73 source-authored links, including 65
+main-namespace relationship candidates. The collection rows add three explicit
+link candidates. None of the source links, leads, or headings exactly mentions
+the full collection display label, so the audit records zero exact-label match
+candidates and zero relationship verdicts instead of inferring a relationship
+from the collection row or source-page class. Repeated live runs produced the
+same output hash. Structural packet coverage is complete, but collection-
+activity identity, linked-subject relationships, repeatability, member
+expansion, mechanics, and optimizer eligibility remain unreviewed and blocked.
+The next checkpoint should apply a generic relationship disposition that can
+retain insufficient or contradictory evidence as unresolved and cannot promote
+collection membership, page class, lexical coincidence, or a link into a
+canonical relationship.
+
 All three newly classified source pages now have exactly one generic evidence-
 work route selected only from their supported source-page class. `Target
 (Ranging Guild)` revision 15225200 enters scenery-object-to-collection-activity

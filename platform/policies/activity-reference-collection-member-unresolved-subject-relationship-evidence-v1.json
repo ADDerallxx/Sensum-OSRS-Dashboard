@@ -1,0 +1,29 @@
+{
+  "policy": "sensum.activity-reference-collection-member-unresolved-subject-relationship-evidence-policy.v1",
+  "inputRoutingContract": "sensum.activity-reference-collection-member-unresolved-subject-relationship-work-routing.v1",
+  "inputSourceSignatureContract": "sensum.activity-reference-collection-member-unresolved-subject-source-signature.v1",
+  "recordContract": "sensum.activity-reference-collection-member-unresolved-subject-relationship-evidence.v1",
+  "auditContract": "sensum.activity-reference-collection-member-unresolved-subject-relationship-evidence-audit.v1",
+  "evidenceChannels": [
+    "exact_revision_collection_row_membership_assertion",
+    "exact_collection_row_link_to_source_page",
+    "exact_revision_source_page_structural_evidence",
+    "source_page_main_namespace_link_candidates",
+    "exact_normalized_member_label_link_matches",
+    "exact_normalized_member_label_lead_mentions",
+    "exact_normalized_member_label_heading_mentions"
+  ],
+  "rules": {
+    "policyContainsNoPageIdsTitlesCandidateKeysCollectionClassesOrOverrides": true,
+    "routingAndSourceSignatureRecordsMustJoinByMemberKeyAndExactContentHash": true,
+    "allCollectionRowAndSourcePageEvidenceMustBePreservedFromInputs": true,
+    "onlyExactNormalizedFullMemberLabelMatchesMayCreateLabelMatchCandidates": true,
+    "allSourcePageMainNamespaceLinksRemainUnreviewedRelationshipCandidates": true,
+    "collectionMembershipLinkLabelOrTextCoincidenceDoesNotEstablishRelationship": true,
+    "sourcePageClassDoesNotEstablishCollectionActivityIdentity": true,
+    "relationshipEvidenceCollectionDoesNotProveRepeatabilityOrMechanics": true,
+    "canonicalIdentityRelationshipRepeatabilityMembersMechanicsAndOptimizerEligibilityRemainClosed": true,
+    "currentAccountStateIsForbidden": true,
+    "automaticVerificationAllowed": false
+  }
+}

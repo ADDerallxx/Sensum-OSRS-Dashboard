@@ -1,0 +1,28 @@
+{
+  "contract": "sensum.activity-reference-collection-member-unresolved-subject-relationship-evidence-audit.v1",
+  "required": [
+    "inputCoverage",
+    "evidenceCoverage",
+    "candidateObservationCoverage",
+    "policyCoverage",
+    "semanticPromotionCoverage",
+    "accountStateFindings",
+    "relationshipEvidencePacketCoverageComplete",
+    "collectionActivityIdentityReviewComplete",
+    "linkedSubjectRelationshipReviewComplete",
+    "completeActivityUniverse",
+    "absoluteBestGate",
+    "blockers"
+  ],
+  "rules": {
+    "everyQueuedRelationshipRouteMustJoinExactlyOneSourceSignatureAndProduceOnePacket": true,
+    "allInputSetsHashesIdentityRevisionDispositionSignalCollectionMembershipAndAliasContextMustMatchExactly": true,
+    "collectionRowAndSourcePageEvidenceLossMustBlockPublication": true,
+    "policyMustNotContainPageSpecificOrCollectionClassificationSelectors": true,
+    "mainNamespaceLinksAndExactLabelMatchesMustRemainCandidateObservationsOnly": true,
+    "collectionMembershipLexicalMatchesAndLinksCannotCompleteRelationshipReview": true,
+    "structuralPacketCompletenessDoesNotProveSemanticCompleteness": true,
+    "canonicalIdentityRepeatabilityMembersMechanicsAndOptimizerEligibilityRemainClosed": true,
+    "accountSpecificInputsAreForbidden": true
+  }
+}
