@@ -43,6 +43,26 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+A fail-closed source-dependency audit now covers all 81 retained guide
+revisions. It preserves 19,072/19,072 direct source template invocations across
+1,086 dependency records with balanced delimiters: 90 template
+transclusions, three page transclusions, 687 parser-function forms, 305 dynamic
+names, and one magic word. All 93 page-backed dependencies received official
+Wiki API assessments and current revision provenance. Those current revisions
+do not prove which dependency revisions were used when each historical guide
+revision rendered, and rendered template links remain unenumerated, so
+historical expansion closure is explicitly false. The three missing direct
+links were independently rechecked against the current guide heads; every head
+is still the same pinned revision and every missing link is still present.
+Official search observations produced one revision-pinned review candidate per
+missing title—`Ash covered tome` page 104670 revision 15188494, `Spirit Tree
+(Farming)/Patches` page 263875 revision 15278913, and `Tiny tempor` page 306334
+revision 15190148—but none is an exact MediaWiki title match and no automatic
+replacement was made. The source-dependency inventory is complete for its
+declared direct-source scope, while publication, canonical activity identity,
+optimizer eligibility, and the complete activity-universe claim remain
+blocked.
+
 A fail-closed content-link readiness audit now covers all 81 unique
 revision-pinned training-guide pages. It preserves 15,140 direct source
 wikilink occurrences across 4,407 target records: 4,183 main-namespace pages,

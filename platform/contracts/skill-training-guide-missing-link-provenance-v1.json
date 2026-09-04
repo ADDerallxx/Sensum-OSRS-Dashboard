@@ -1,0 +1,26 @@
+{
+  "contract": "sensum.skill-training-guide-missing-link-provenance.v1",
+  "required": [
+    "targetKey",
+    "requestedTitle",
+    "pinnedReferences",
+    "exactTitleAssessment",
+    "currentGuideHeadAssessments",
+    "exactTitleLogEvents",
+    "searchObservation",
+    "automaticReplacement",
+    "replacementState",
+    "accountIndependent",
+    "blockers"
+  ],
+  "rules": {
+    "onlyPreviouslyAssessedMissingDirectLinksMayEnter": true,
+    "pinnedGuideRevisionLineAndExcerptMustBeRetained": true,
+    "currentGuideHeadMustBeCheckedWithoutReplacingPinnedEvidence": true,
+    "searchResultsAreReviewCandidatesNotReplacementEvidence": true,
+    "titleSimilarityCannotAuthorizeReplacement": true,
+    "automaticReplacementMustRemainNull": true,
+    "missingSourceLinksRemainPublicationBlockers": true,
+    "currentAccountStateIsForbidden": true
+  }
+}

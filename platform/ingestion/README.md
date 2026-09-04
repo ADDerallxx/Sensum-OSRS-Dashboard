@@ -40,6 +40,7 @@ node platform/ingestion/ingest-wiki-skill-level-unlock-inventory.mjs
 node platform/ingestion/ingest-wiki-unlock-linked-page-identities.mjs
 node platform/ingestion/ingest-wiki-unlock-linked-page-source-signatures.mjs
 node platform/ingestion/ingest-wiki-skill-training-guide-direct-links.mjs
+node platform/ingestion/ingest-wiki-skill-training-guide-source-dependencies.mjs
 node platform/transforms/build-unlock-statement-semantic-crosswalk.mjs
 node platform/transforms/build-unlock-linked-page-entity-types.mjs
 node platform/transforms/build-unlock-linked-page-wiki-equivalence.mjs
@@ -123,6 +124,14 @@ record count, creation time, audit result, and SHA-256 content hash.
   and in-page fragments remain explicitly distinguished. Missing source links,
   template-generated links, and unlinked semantic mentions stay visible as
   blockers; exact link overlap never proves a canonical or repeatable activity.
+- Training-guide source-dependency ingestion preserves nested direct template
+  invocations with guide revision, content hash, line, and raw source. It keeps
+  page transclusions, template transclusions, parser functions, magic words,
+  and dynamic names distinct. Current template/module page revisions are only
+  discovery provenance: they cannot close the historical render dependency
+  graph or establish the links a template emitted. Missing direct links are
+  checked against current guide heads and official search results, but candidate
+  titles remain manual-review evidence with `automaticReplacement: null`.
 - Stable Wiki-page equivalence groups those typed references only when their
   official page ID and revision-bound evidence agree. Every original target and
   its statement context remains present. This removes duplicate page fetches;

@@ -1,0 +1,26 @@
+{
+  "contract": "sensum.skill-training-guide-source-dependency-audit.v1",
+  "required": [
+    "guideCoverage",
+    "templateInvocationCoverage",
+    "pageDependencyResolutionCoverage",
+    "missingLinkProvenanceCoverage",
+    "sourceDependencyInventoryComplete",
+    "historicalExpansionClosureComplete",
+    "missingLinkResolutionComplete",
+    "completeActivityUniverse",
+    "absoluteBestGate",
+    "blockers"
+  ],
+  "rules": {
+    "everyExpectedUniqueGuideRevisionMustBeFetchedExactlyOnce": true,
+    "everyParsedInvocationOccurrenceMustBePreservedExactlyOnce": true,
+    "everyPageBackedDependencyMustReceiveOneResolutionAssessment": true,
+    "everyMissingDirectLinkMustReceiveOneProvenanceAssessment": true,
+    "unbalancedSourceDelimitersBlockTheInventory": true,
+    "missingPageDependenciesAndDirectLinksRemainBlockers": true,
+    "currentDependencyRevisionsCannotCloseHistoricalExpansion": true,
+    "sourceDependencyCoverageCannotProveRenderedLinksOrCompleteActivities": true,
+    "accountSpecificInputsAreForbidden": true
+  }
+}

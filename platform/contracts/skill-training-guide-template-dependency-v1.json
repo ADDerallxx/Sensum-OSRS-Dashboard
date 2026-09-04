@@ -1,0 +1,29 @@
+{
+  "contract": "sensum.skill-training-guide-template-dependency.v1",
+  "required": [
+    "dependencyKey",
+    "dependencyClass",
+    "sourceNames",
+    "referenceCount",
+    "references",
+    "resolutionAttempted",
+    "resolutionState",
+    "targetPageIdentity",
+    "renderedLinkOutput",
+    "canonicalActivityIdentity",
+    "optimizerEligible",
+    "accountIndependent",
+    "blockers"
+  ],
+  "rules": {
+    "everyDirectSourceInvocationOccurrenceMustBePreservedExactlyOnce": true,
+    "guideRevisionContentHashAndSourceLineMustBeRetained": true,
+    "templateParametersParserFunctionsMagicWordsAndDynamicNamesRemainDistinct": true,
+    "pageBackedDependenciesRequireStablePageIdAndRevisionResolution": true,
+    "currentTemplateRevisionDoesNotProveHistoricalTransclusionRevision": true,
+    "sourceInvocationInventoryDoesNotProveRenderedLinkOutput": true,
+    "templateDependenciesDoNotEstablishCanonicalActivityIdentity": true,
+    "currentAccountStateIsForbidden": true,
+    "automaticVerificationAllowed": false
+  }
+}

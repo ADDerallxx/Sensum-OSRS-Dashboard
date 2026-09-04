@@ -54,6 +54,14 @@ ID. Missing pages, dynamic targets, template-generated links, and unlinked
 mentions remain explicit limitations; none is guessed or promoted into a
 rankable activity.
 
+The source-dependency audit separately preserves every direct template
+invocation in those pinned guides and resolves page-backed template/module
+dependencies to their current revision identities. Current dependency
+revisions are not treated as proof of the historical transclusion state, and
+the inventory does not claim to enumerate links emitted by templates. Missing
+direct links receive current-head, exact-title, log, and search observations;
+search results remain review candidates and can never become automatic repairs.
+
 Courses with multiple independently failing obstacles retain one composite
 condition record with per-obstacle requirements, successful XP, probabilities,
 and revisions. Sensum does not derive an aggregate lap probability or expected
@@ -127,6 +135,7 @@ node platform/ingestion/ingest-wiki-skill-level-unlock-inventory.mjs
 node platform/ingestion/ingest-wiki-unlock-linked-page-identities.mjs
 node platform/ingestion/ingest-wiki-unlock-linked-page-source-signatures.mjs
 node platform/ingestion/ingest-wiki-skill-training-guide-direct-links.mjs
+node platform/ingestion/ingest-wiki-skill-training-guide-source-dependencies.mjs
 node platform/transforms/build-unlock-statement-semantic-crosswalk.mjs
 node platform/transforms/build-unlock-linked-page-entity-types.mjs
 node platform/transforms/build-unlock-linked-page-wiki-equivalence.mjs
