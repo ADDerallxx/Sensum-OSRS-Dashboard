@@ -43,6 +43,18 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+The complete linked-page set now has a stable official Wiki-page equivalence
+boundary. All 3,567 original targets and all 6,375 source-statement references
+are preserved exactly once across 3,474 official MediaWiki page IDs. Fifty-eight
+pages have multiple aliases or fragments, consolidating 93 duplicate page
+references without discarding their requested title, fragment, redirect, skill,
+or statement context. The grouped set contains 190 still-untyped Wiki pages and
+29 activity-page identities (from 30 original activity references). These are
+page identities only: none establishes a canonical game entity or activity,
+proves repeatability or mechanics, or becomes optimizer eligible. Cross-source
+semantic reconciliation and an independently complete activity universe remain
+required before any authoritative best claim.
+
 The complete cross-skill linked-page set now has revision-pinned source
 signatures and a deterministic, fail-closed page-type routing layer. All 3,567
 resolved pages were fetched at the same revisions retained by the identity

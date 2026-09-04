@@ -1,0 +1,15 @@
+{
+  "contract": "sensum.unlock-linked-page-wiki-equivalence.v1",
+  "required": ["canonicalWikiPageKey", "sourcePageId", "resolvedTitle", "targetReferences", "targetReferenceCount", "entityTypes", "activityPageCandidate", "wikiPageEquivalenceEstablished", "canonicalGameEntityIdentity", "canonicalActivityIdentity", "optimizerEligible", "source", "accountIndependent", "blockers"],
+  "rules": {
+    "oneRecordPerStableOfficialWikiPageId": true,
+    "everyOriginalTargetReferenceMustBePreservedExactlyOnce": true,
+    "redirectAliasesFragmentsSkillsAndStatementsRemainDistinctContexts": true,
+    "sharedPageIdRequiresMatchingRevisionTitleUrlAndContentHash": true,
+    "wikiPageEquivalenceDoesNotEstablishGameEntityIdentity": true,
+    "wikiPageEquivalenceDoesNotMergeSectionSpecificGameSemantics": true,
+    "wikiPageEquivalenceDoesNotProveRepeatabilityOrMechanics": true,
+    "currentAccountStateIsForbidden": true,
+    "automaticVerificationAllowed": false
+  }
+}

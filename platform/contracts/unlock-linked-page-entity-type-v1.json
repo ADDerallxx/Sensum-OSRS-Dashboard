@@ -1,10 +1,11 @@
 {
   "contract": "sensum.unlock-linked-page-entity-type.v1",
-  "required": ["targetKey", "requestedTitle", "resolvedTitle", "entityTypes", "entityTypeEvidence", "classificationState", "canonicalEntityIdentity", "repeatabilityEvidence", "optimizerEligible", "source", "accountIndependent", "blockers"],
+  "required": ["targetKey", "requestedTitle", "requestedFragment", "redirected", "referencedBy", "resolvedTitle", "entityTypes", "entityTypeEvidence", "classificationState", "canonicalEntityIdentity", "repeatabilityEvidence", "optimizerEligible", "source", "accountIndependent", "blockers"],
   "rules": {
     "everySourceSignatureMustReceiveExactlyOneClassificationRecord": true,
     "everyTypeRequiresAnExactPolicyMappedRootTemplate": true,
     "everyEvidenceLocatorRetainsRevisionHashAndSourceLine": true,
+    "stableWikiPageIdAndEveryOriginalReferenceContextArePreserved": true,
     "untypedAndMultiTypedPagesRemainExplicit": true,
     "typedPageIsNotACanonicalEntityOrActivity": true,
     "activityPageCandidateIsNotRepeatabilityProof": true,

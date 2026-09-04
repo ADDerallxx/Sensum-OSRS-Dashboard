@@ -1,9 +1,10 @@
 {
   "contract": "sensum.unlock-linked-page-source-signature.v1",
-  "required": ["targetKey", "requestedTitle", "resolvedTitle", "identitySourceRevision", "sourceRevision", "sourceTimestamp", "sourceUrl", "sourceContentHash", "rootTemplates", "directCategories", "accountIndependent", "blockers"],
+  "required": ["targetKey", "requestedTitle", "requestedFragment", "resolvedTitle", "redirected", "referencedBy", "sourcePageId", "identitySourceRevision", "sourceRevision", "sourceTimestamp", "sourceUrl", "sourceContentHash", "rootTemplates", "directCategories", "accountIndependent", "blockers"],
   "rules": {
     "everyLinkedPageIdentityMustBeFetchedExactlyOnce": true,
     "everyFetchedPageMustRetainRevisionTimestampUrlAndContentHash": true,
+    "stableWikiPageIdAndEveryOriginalReferenceContextMustBeRetained": true,
     "rootTemplatesAndDirectCategoriesAreDiscoverySignalsOnly": true,
     "sourceAndIdentityRevisionDriftRemainsExplicit": true,
     "sourceContentNeedNotBeRepublishedWhenRevisionAndHashAreRetained": true,

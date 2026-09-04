@@ -1,0 +1,13 @@
+{
+  "contract": "sensum.unlock-linked-page-wiki-equivalence-audit.v1",
+  "required": ["inputTargetCoverage", "pageIdentityCoverage", "contextPreservation", "wikiPageEquivalenceComplete", "canonicalGameEntityIdentityCount", "canonicalActivityIdentityCount", "repeatabilityProvenCount", "optimizerEligibleActivityCount", "completeActivityUniverse", "absoluteBestGate", "blockers"],
+  "rules": {
+    "inputAndGroupedTargetSetsMustMatchExactly": true,
+    "everyStablePageIdMustAppearInExactlyOneGroup": true,
+    "conflictingSamePageEvidenceBlocksPublication": true,
+    "aliasConsolidationCannotDiscardAnchorOrStatementContext": true,
+    "pageEquivalenceCannotProveCanonicalGameEntityOrActivity": true,
+    "completeActivityUniverseRequiresIndependentDiscovery": true,
+    "accountSpecificInputsAreForbidden": true
+  }
+}

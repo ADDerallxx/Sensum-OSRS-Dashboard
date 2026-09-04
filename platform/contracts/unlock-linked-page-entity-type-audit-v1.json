@@ -5,6 +5,7 @@
     "inputAndClassificationTargetSetsMustMatchExactly": true,
     "policyTemplateSignalsMustBeUnique": true,
     "classifiedTypesMustMatchExactSourceEvidence": true,
+    "stableWikiPageIdAndReferenceContextCoverageMustRemainExact": true,
     "untypedPagesBlockCompleteEntityTypeCoverage": true,
     "pageTypeCoverageCannotProveCanonicalOrRepeatableActivityIdentity": true,
     "completeActivityUniverseRequiresIndependentDiscovery": true,

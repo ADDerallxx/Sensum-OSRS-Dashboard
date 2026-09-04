@@ -3,6 +3,8 @@
   "required": ["inputIdentityCoverage", "signatureCoverage", "templateCoverage", "sourceSignatureCoverageComplete", "identityRevisionAlignmentComplete", "entityTypeClassificationComplete", "repeatabilityProvenCount", "completeActivityUniverse", "blockers"],
   "rules": {
     "inputAndSignatureTargetSetsMustMatchExactly": true,
+    "everySignatureMustRetainAStableOfficialWikiPageId": true,
+    "requestedAliasFragmentRedirectAndReferenceContextMustBePreserved": true,
     "missingApiResponsesOrSourceProvenanceBlockPublication": true,
     "revisionDriftIsReportedSeparatelyFromFetchCompleteness": true,
     "templateAndCategoryCountsCannotProveEntityType": true,

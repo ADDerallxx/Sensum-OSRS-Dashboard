@@ -41,6 +41,7 @@ node platform/ingestion/ingest-wiki-unlock-linked-page-identities.mjs
 node platform/ingestion/ingest-wiki-unlock-linked-page-source-signatures.mjs
 node platform/transforms/build-unlock-statement-semantic-crosswalk.mjs
 node platform/transforms/build-unlock-linked-page-entity-types.mjs
+node platform/transforms/build-unlock-linked-page-wiki-equivalence.mjs
 ```
 
 Each run writes newline-delimited records and a manifest containing the source,
@@ -104,11 +105,17 @@ record count, creation time, audit result, and SHA-256 content hash.
   identity, and unresolved statement forms remain measurable blockers.
 - Linked-page source-signature ingestion retrieves the complete current source
   for every revision-pinned resolved page, verifies that the retrieved revision
-  still matches the identity snapshot, and records content hashes plus exact
-  root-template and direct-category locators. Source structure is discovery
-  evidence only: it cannot establish a canonical entity, activity,
+  still matches the identity snapshot, and records stable official Wiki page
+  IDs, content hashes, exact root-template and direct-category locators, and the
+  original alias, fragment, redirect, skill, and statement contexts. Source
+  structure is discovery evidence only: it cannot establish a canonical entity, activity,
   repeatability, mechanics, or optimizer eligibility. Revision drift remains a
   visible alignment blocker rather than being silently accepted.
+- Stable Wiki-page equivalence groups those typed references only when their
+  official page ID and revision-bound evidence agree. Every original target and
+  its statement context remains present. This removes duplicate page fetches;
+  it does not merge section semantics, establish a canonical game entity or
+  activity, prove repeatability, or make anything optimizer eligible.
 - Training-guide section ingestion inventories every Wiki heading in source
   order. Every method-bearing subsection is retained with its parent, source
   lines, revision, and structural role. New heading depths or parents fail

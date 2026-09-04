@@ -322,3 +322,17 @@ Run:
 ```text
 node platform/transforms/build-unlock-linked-page-entity-types.mjs
 ```
+
+`build-unlock-linked-page-wiki-equivalence.mjs` consolidates aliases and
+fragment targets only by the official MediaWiki page ID. It requires matching
+resolved title, revision, timestamp, URL, source hash, and type evidence for
+every member of a group. The output preserves every target, fragment, redirect,
+skill, and source-statement reference exactly once. This is a storage and
+identity boundary, not semantic promotion: canonical game entities, canonical
+activities, repeatability, mechanics, and optimizer eligibility remain blocked.
+
+Run:
+
+```text
+node platform/transforms/build-unlock-linked-page-wiki-equivalence.mjs
+```
