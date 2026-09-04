@@ -1,0 +1,27 @@
+{
+  "contract": "sensum.activity-reference-collection-member-canonical-activity-identity-disposition-audit.v1",
+  "required": [
+    "inputCoverage",
+    "policyCoverage",
+    "canonicalActivityIdentityDispositionCoverage",
+    "semanticPromotionCoverage",
+    "accountStateFindings",
+    "identityDispositionAttemptCoverageComplete",
+    "canonicalActivityIdentityReviewComplete",
+    "repeatabilityReviewComplete",
+    "completeActivityUniverse",
+    "absoluteBestGate",
+    "blockers"
+  ],
+  "rules": {
+    "everyInputEvidencePacketMustBeProcessedExactlyOnce": true,
+    "inputOutputSetsHashesIdentityRevisionEvidenceAndContextMustMatchExactly": true,
+    "policyMustBeGenericAndNameIndependent": true,
+    "everySupportedIdentityMustMatchItsGenericRuleAndCompleteEvidenceObligations": true,
+    "stableIdentityKeysMustBeUniqueAcrossTheInputSet": true,
+    "labelsTitlesRevisionsAliasesAndRowOrderCannotCreateOrAlterIdentityKeys": true,
+    "linkedSubjectAndCanonicalActivityMustRemainDistinct": true,
+    "canonicalGameEntityProjectionRepeatabilityMembersMechanicsAndOptimizerPromotionAreForbidden": true,
+    "currentAccountStateIsForbidden": true
+  }
+}

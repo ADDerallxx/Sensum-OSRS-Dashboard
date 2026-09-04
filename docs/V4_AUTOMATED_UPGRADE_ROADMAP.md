@@ -43,6 +43,24 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+The three unusual collection-defined activity candidates now have stable,
+source-supported canonical activity identities. The generic policy derives each
+key only from the stable `Minigames` page ID 2078, the stable linked-subject page
+ID, and the already reviewed relationship class; collection labels, linked-page
+titles, source revisions, aliases, row ordinals, and member keys cannot select
+or alter an identity. This produces separate canonical identities for `Archery
+Competition`, `Aldarin Vineyard`, and `Wise Old Man tasks` while explicitly
+keeping `Target (Ranging Guild)`, `Vineyard foreman`, and the descriptive Wiki
+page distinct from the activity identities. All three identity dispositions are
+supported, their keys are unique, and none conflicts or remains unresolved.
+Tests prove that renamed labels and titles, changed revisions, and moved rows
+retain the same identity, while duplicate anchors and competing identity classes
+fail closed. Repeated live runs produced the same output hash. The checkpoint
+does not establish a general game-entity projection, repeatability, member
+expansion, mechanics, or optimizer eligibility. The next checkpoint should
+assemble revision-pinned repeatability evidence for these three canonical
+activities before any repeatability decision.
+
 The three collection-defined activity candidates now have complete,
 revision-pinned canonical-activity identity review packets. Every packet
 preserves the exact `Minigames` revision 15327496 collection source, all 16 row

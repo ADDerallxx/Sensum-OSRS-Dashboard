@@ -82,6 +82,25 @@ Run:
 node platform/transforms/build-activity-reference-collection-member-canonical-activity-identity-evidence.mjs
 ```
 
+## Canonical-activity identity disposition
+
+`build-activity-reference-collection-member-canonical-activity-identity-dispositions.mjs`
+applies generic relationship-class rules to complete identity-evidence packets.
+Its stable key combines only the collection page ID, linked-subject page ID, and
+reviewed relationship class. Display labels, titles, aliases, source revisions,
+row positions, and member keys are not identity selectors.
+
+Duplicate stable anchors and competing identity classes remain blocked. A
+supported canonical activity explicitly records that its linked component,
+provider, or descriptive page is not the activity itself. Repeatability,
+members, mechanics, and optimizer eligibility remain unreviewed.
+
+Run:
+
+```text
+node platform/transforms/build-activity-reference-collection-member-canonical-activity-identity-dispositions.mjs
+```
+
 ## Activity-candidate subject disposition
 
 `build-activity-candidate-subject-dispositions.mjs` applies a versioned generic

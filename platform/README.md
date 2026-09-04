@@ -189,6 +189,14 @@ agreement between the collection label and linked source title is recorded only
 as an observation. It never creates a verdict or substitutes the linked source
 page for the collection-defined activity.
 
+The canonical-activity identity disposition uses a revision-independent stable
+anchor formed from the collection page ID, linked-subject page ID, and reviewed
+relationship class. Names, aliases, source revisions, row ordinals, and member
+keys cannot create or modify that anchor. Duplicate anchors and competing
+identity classes fail closed. The canonical activity remains explicitly
+different from its component, provider, or descriptive source page, and the
+result does not imply repeatability or optimizer eligibility.
+
 Courses with multiple independently failing obstacles retain one composite
 condition record with per-obstacle requirements, successful XP, probabilities,
 and revisions. Sensum does not derive an aggregate lap probability or expected
@@ -285,6 +293,7 @@ node platform/transforms/build-activity-reference-collection-member-collection-a
 node platform/transforms/build-activity-reference-collection-member-collection-activity-identity-dispositions.mjs
 node platform/transforms/build-activity-reference-collection-member-linked-subject-relationship-dispositions.mjs
 node platform/transforms/build-activity-reference-collection-member-canonical-activity-identity-evidence.mjs
+node platform/transforms/build-activity-reference-collection-member-canonical-activity-identity-dispositions.mjs
 node platform/ingestion/ingest-wiki-agility-training-guide-sections.mjs
 node platform/ingestion/ingest-wiki-agility-rooftop-guide-members.mjs
 node platform/ingestion/ingest-wiki-agility-brimhaven-guide-members.mjs
