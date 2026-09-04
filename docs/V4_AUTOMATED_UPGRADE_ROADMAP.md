@@ -43,6 +43,24 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+All three newly classified source pages now have exactly one generic evidence-
+work route selected only from their supported source-page class. `Target
+(Ranging Guild)` revision 15225200 enters scenery-object-to-collection-activity
+relationship review, `Vineyard foreman` revision 14834637 enters NPC-to-
+collection-activity relationship review, and `Wise Old Man tasks` revision
+14997080 enters activity-page scope, repeatability, and collection-relationship
+review. The policy also defines fail-closed routes for conflicting and unresolved
+source-page classes. All source and pipeline hashes, revision identities,
+disposition signals, collection rows, membership classes, and alias contexts are
+preserved exactly; titles, page IDs, collection labels, membership classes,
+aliases, and links selected or altered zero routes. All three routes are queued,
+none is blocked or unmapped, and repeated runs produced the same output hash.
+Routing supplies evidence obligations only: collection-activity identity, linked
+relationships, repeatability, requirements, variants, XP, timing, mechanics,
+and optimizer eligibility remain unreviewed and blocked. The next checkpoint
+should build revision-pinned relationship-evidence packets for these three
+queues without converting lexical or link coincidence into a canonical fact.
+
 A generic exact-root-template disposition now classifies all three previously
 unresolved linked source pages without using their titles, page IDs, collection
 labels, membership classes, aliases, or links as answers. The existing 23-signal

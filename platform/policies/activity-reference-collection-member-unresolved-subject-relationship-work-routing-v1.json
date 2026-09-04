@@ -1,0 +1,54 @@
+{
+  "policy": "sensum.activity-reference-collection-member-unresolved-subject-relationship-work-routing-policy.v1",
+  "inputContract": "sensum.activity-reference-collection-member-unresolved-subject-signature-disposition.v1",
+  "recordContract": "sensum.activity-reference-collection-member-unresolved-subject-relationship-work-routing.v1",
+  "auditContract": "sensum.activity-reference-collection-member-unresolved-subject-relationship-work-routing-audit.v1",
+  "stateRoutes": {
+    "blocked_conflicting_mapped_root_template_classes": {
+      "routeKey": "source_page_subject_class_conflict_reconciliation",
+      "routeState": "blocked_source_page_class_conflict",
+      "requiredEvidenceDomains": ["root_template_semantics", "source_page_subject_class_reconciliation"],
+      "expansionAxes": []
+    },
+    "unresolved_no_mapped_root_template_class": {
+      "routeKey": "broader_source_page_subject_classification_review",
+      "routeState": "blocked_unsupported_source_page_class",
+      "requiredEvidenceDomains": ["root_template_taxonomy", "direct_source_declarations", "source_page_subject_classification"],
+      "expansionAxes": []
+    }
+  },
+  "subjectClassRoutes": {
+    "activity_page": {
+      "routeKey": "activity_page_scope_repeatability_and_collection_relationship_review",
+      "routeState": "queued",
+      "requiredEvidenceDomains": ["activity_identity", "collection_membership_relationship", "action_boundary", "repeatability", "requirements", "variants", "xp_rewards", "timing_rates", "mechanics"],
+      "expansionAxes": ["actions_or_sessions", "modes_or_variants", "reward_or_xp_policies"]
+    },
+    "npc_page": {
+      "routeKey": "npc_subject_collection_activity_relationship_review",
+      "routeState": "queued",
+      "requiredEvidenceDomains": ["npc_identity", "collection_activity_identity", "npc_to_activity_relationship", "interaction_action_boundary", "repeatability", "requirements", "variants", "xp_rewards", "timing_rates", "mechanics"],
+      "expansionAxes": ["npc_interactions", "assigned_or_triggered_actions", "activity_variants"]
+    },
+    "scenery_object_page": {
+      "routeKey": "scenery_subject_collection_activity_relationship_review",
+      "routeState": "queued",
+      "requiredEvidenceDomains": ["scenery_identity", "collection_activity_identity", "object_to_activity_relationship", "interaction_action_boundary", "repeatability", "requirements", "variants", "xp_rewards", "timing_rates", "mechanics"],
+      "expansionAxes": ["object_interactions", "course_or_facility_context", "activity_variants"]
+    }
+  },
+  "rules": {
+    "policyContainsNoPageIdsTitlesCandidateKeysCollectionClassesOrOverrides": true,
+    "blockedDispositionStatesRouteBeforeSupportedSubjectClasses": true,
+    "everyObservedDispositionStateAndSupportedSubjectClassMustHaveExactlyOneRoute": true,
+    "onlySourcePageSubjectDispositionStateOrClassMaySelectARoute": true,
+    "collectionLabelsMembershipAliasesLinksAndPageIdentityCannotSelectAlterOrBreakRouteTies": true,
+    "routeRequirementsAndExpansionAxesAreEvidenceWorkObligationsNotGameFacts": true,
+    "routingCannotResolveCollectionActivityIdentityOrLinkedSubjectRelationships": true,
+    "routingCannotProveCanonicalIdentityRepeatabilityMembersMechanicsOrEligibility": true,
+    "routingCannotCreateOptimizerCandidates": true,
+    "inputHashesIdentityRevisionDispositionSignalsCollectionAndAliasContextMustBePreserved": true,
+    "currentAccountStateIsForbidden": true,
+    "automaticVerificationAllowed": false
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "contract": "sensum.activity-reference-collection-member-unresolved-subject-relationship-work-routing-audit.v1",
+  "required": [
+    "inputCoverage",
+    "policyCoverage",
+    "routingCoverage",
+    "semanticPromotionCoverage",
+    "accountStateFindings",
+    "routingCoverageComplete",
+    "evidenceWorkComplete",
+    "collectionActivityIdentityReviewComplete",
+    "linkedSubjectRelationshipReviewComplete",
+    "completeActivityUniverse",
+    "absoluteBestGate",
+    "blockers"
+  ],
+  "rules": {
+    "inputAndOutputMemberCandidateSetsMustMatchExactly": true,
+    "everyInputHashIdentityRevisionDispositionSignalCollectionMembershipAndAliasContextMustBePreserved": true,
+    "policyMustNotContainPageSpecificCollectionClassificationOrOverrideSelectors": true,
+    "everyObservedDispositionStateAndSupportedSubjectClassMustHaveExactlyOneRoute": true,
+    "blockedStatesMustRemainVisibleAndBlocked": true,
+    "unmappedStatesAndSubjectClassesMustBlockPublication": true,
+    "collectionContextLinksAndPageIdentityCannotSelectAlterOrBreakRouteTies": true,
+    "routingCoverageCannotProveEvidenceWorkOrSemanticCompleteness": true,
+    "canonicalIdentityRepeatabilityMembersMechanicsAndOptimizerEligibilityRemainClosed": true,
+    "accountSpecificInputsAreForbidden": true
+  }
+}
