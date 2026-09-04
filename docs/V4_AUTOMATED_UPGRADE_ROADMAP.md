@@ -43,6 +43,23 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+All 69 reference-collection member candidates now have exact-revision semantic
+review packets. The retained member identities yielded 69 distinct revision
+requests; all 69 fetched pages match their page ID, resolved title, revision,
+timestamp, and content hash, covering 1,374,078 source bytes. The packets retain
+54 balanced supported activity/minigame infoboxes with 744 raw parameter
+occurrences, 196 lead paragraphs, 954 ordered headings, and 2,454 source-located
+lexical review signals. Fifteen pages have no supported Activity/Minigame
+infobox, and the audit lists their display labels, resolved titles, membership
+classes, and revisions instead of guessing a type. Six collection display labels
+differ materially from the linked page title, including `Aldarin Vineyard`
+linking to `Vineyard foreman`; these contexts remain distinct and visible for
+semantic identity review. The 69-record output is byte-identical across repeated
+live runs. No lexical match, collection class, or page identity established a
+canonical entity, repeatability, mechanics, or optimizer eligibility. The next
+checkpoint should apply a generic, source-declared member disposition that can
+leave facility, NPC, composite, ambiguous, and conflicting identities blocked.
+
 The first routed reference collection is now expanded from exact, source-located
 table evidence. `Minigames` page 2078 revision 15327496 matches the routed page
 ID, timestamp, and content hash exactly. All six mapped tables and all 69 data

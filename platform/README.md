@@ -120,6 +120,13 @@ official minigame remains distinct from a minigame-like boss or activity.
 Collection membership and Wiki page identity do not prove canonical activity
 identity, repeatability, mechanics, or optimizer eligibility.
 
+The collection-member source packet then refetches each retained member revision
+by revision ID and reconciles page ID, title, timestamp, and content hash. It
+preserves supported activity/minigame infoboxes, lead paragraphs, every heading,
+and lexical review signals. Missing supported infoboxes and differences between
+collection display labels and linked page titles remain named review inputs;
+they are not repaired, retyped, or promoted automatically.
+
 Courses with multiple independently failing obstacles retain one composite
 condition record with per-obstacle requirements, successful XP, probabilities,
 and revisions. Sensum does not derive an aggregate lap probability or expected
@@ -204,6 +211,7 @@ node platform/ingestion/ingest-wiki-activity-candidate-source-evidence.mjs
 node platform/transforms/build-activity-candidate-subject-dispositions.mjs
 node platform/transforms/build-activity-candidate-evidence-work-routes.mjs
 node platform/ingestion/ingest-wiki-activity-reference-collection-members.mjs
+node platform/ingestion/ingest-wiki-activity-reference-collection-member-source-evidence.mjs
 node platform/ingestion/ingest-wiki-agility-training-guide-sections.mjs
 node platform/ingestion/ingest-wiki-agility-rooftop-guide-members.mjs
 node platform/ingestion/ingest-wiki-agility-brimhaven-guide-members.mjs

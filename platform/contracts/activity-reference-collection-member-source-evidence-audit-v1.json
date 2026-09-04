@@ -1,0 +1,28 @@
+{
+  "contract": "sensum.activity-reference-collection-member-source-evidence-audit.v1",
+  "required": [
+    "inputCoverage",
+    "sourceAlignment",
+    "structuralEvidenceCoverage",
+    "lexicalCandidateCoverage",
+    "semanticPromotionCoverage",
+    "sourceEvidenceCoverageComplete",
+    "semanticReviewComplete",
+    "repeatabilityReviewComplete",
+    "completeActivityUniverse",
+    "absoluteBestGate",
+    "blockers"
+  ],
+  "rules": {
+    "inputAndOutputMemberCandidateSetsMustMatchExactly": true,
+    "everyInputCollectionRowMembershipAliasAndIdentityContextMustBePreserved": true,
+    "everyMemberCandidateMustHaveOneInternallyEquivalentRetainedWikiIdentity": true,
+    "everyOutputMustMatchTheRetainedAndFetchedPageIdTitleRevisionTimestampAndHash": true,
+    "missingOrUnbalancedSupportedInfoboxesRemainMeasured": true,
+    "lexicalSignalCountsMustBeReportedByFamilyAndSignal": true,
+    "noLexicalSignalMayBePromotedAutomatically": true,
+    "canonicalIdentityRepeatabilityMechanicsAndOptimizerEligibilityRemainClosed": true,
+    "structuralPublicationDoesNotMeanSemanticApproval": true,
+    "accountSpecificInputsAreForbidden": true
+  }
+}
