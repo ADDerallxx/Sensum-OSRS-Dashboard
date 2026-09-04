@@ -43,6 +43,23 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+Every repeatability disposition state now has one generic downstream evidence-
+work route. The seven-state policy covers supported repeatable, supported non-
+repeatable, conflicting, explicit-but-unscoped, recurrence/session-only, no-
+signal, and incomplete-evidence results without using names, titles, page IDs,
+candidate keys, labels, aliases, or collection classes. `Aldarin Vineyard` is
+queued for member-boundary and mechanics evidence. `Archery Competition` and
+`Wise Old Man tasks` remain blocked and route to broader repeatability evidence
+discovery because their session or recurring-assignment structures are not
+explicit repeatability declarations. A supported non-repeatable result would
+route to authoritative exclusion-scope review rather than being excluded
+automatically. All three inputs were routed exactly once, the seven emittable
+states are mapped, upstream dispositions and reviews are unchanged, and
+repeated runs produced the same output hash. Member expansion, mechanics, and
+optimizer eligibility remain at zero. The next checkpoint should build
+revision-pinned corroborating repeatability evidence packets for the two
+structural-signal gaps without promoting recurrence or session structure.
+
 The three collection-defined activities now have one generic, source-scoped
 repeatability disposition attempt each. A classification requires an explicit
 positive or negative declaration whose exact source lines overlap either the

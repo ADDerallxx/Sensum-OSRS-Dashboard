@@ -148,6 +148,28 @@ Run:
 node platform/transforms/build-activity-reference-collection-member-repeatability-dispositions.mjs
 ```
 
+## Canonical-activity repeatability evidence-work routing
+
+`build-activity-reference-collection-member-repeatability-evidence-work-routes.mjs`
+maps every state the repeatability disposition stage can emit to one generic
+evidence obligation. Supported repeatable activities enter member-boundary,
+cycle, requirements, variants, XP, timing, mechanics, and travel/resource
+review. Supported non-repeatable activities enter authoritative exclusion-scope
+review and are not automatically excluded.
+
+Conflicts, incomplete packets, unscoped declarations, recurrence/session-only
+evidence, and no-signal results retain blocked route states. The policy cannot
+use activity names, titles, page IDs, candidate keys, labels, aliases, or
+collection classes. Routing preserves the upstream repeatability decision and
+cannot review members or mechanics, promote optimizer eligibility, or convert
+an evidence obligation into a game fact.
+
+Run:
+
+```text
+node platform/transforms/build-activity-reference-collection-member-repeatability-evidence-work-routes.mjs
+```
+
 ## Activity-candidate subject disposition
 
 `build-activity-candidate-subject-dispositions.mjs` applies a versioned generic

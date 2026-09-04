@@ -1,0 +1,30 @@
+{
+  "contract": "sensum.activity-reference-collection-member-repeatability-evidence-work-routing-audit.v1",
+  "required": [
+    "inputCoverage",
+    "policyCoverage",
+    "routingCoverage",
+    "semanticPromotionCoverage",
+    "accountStateFindings",
+    "routingCoverageComplete",
+    "evidenceWorkComplete",
+    "repeatabilityReviewComplete",
+    "memberExpansionReviewComplete",
+    "mechanicsReviewComplete",
+    "completeActivityUniverse",
+    "absoluteBestGate",
+    "blockers",
+    "publishable"
+  ],
+  "rules": {
+    "everyInputDispositionMustBeRoutedExactlyOnce": true,
+    "inputOutputSetsHashesIdentityRevisionEvidenceAndContextMustMatchExactly": true,
+    "everyEmittableDispositionStateMustHaveOneGenericRoute": true,
+    "everyRoutingDecisionMustMatchTheGenericPolicy": true,
+    "conflictingUnresolvedAndIncompleteStatesMustRemainBlocked": true,
+    "supportedStatesMayOnlyQueueEvidenceWork": true,
+    "repeatabilityDispositionAndReviewMustRemainUnchanged": true,
+    "memberMechanicsAndOptimizerPromotionsAreForbidden": true,
+    "currentAccountStateIsForbidden": true
+  }
+}

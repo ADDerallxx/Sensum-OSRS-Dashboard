@@ -1,0 +1,27 @@
+{
+  "contract": "sensum.activity-reference-collection-member-repeatability-evidence-work-routing.v1",
+  "required": [
+    "memberCandidateKey",
+    "sourceRepeatabilityDispositionContentHash",
+    "canonicalActivityIdentity",
+    "repeatabilityDisposition",
+    "repeatabilityReview",
+    "routingDecision",
+    "memberExpansionReview",
+    "mechanicsReview",
+    "optimizerEligible",
+    "accountIndependent",
+    "blockers"
+  ],
+  "rules": {
+    "oneRoutePerExactInputDisposition": true,
+    "allUpstreamEvidenceIdentityRevisionHashesAndContextMustBePreserved": true,
+    "routeSelectionUsesOnlyTheRepeatabilityDispositionState": true,
+    "supportedRepeatabilityDoesNotCompleteDownstreamEvidenceWork": true,
+    "supportedNonRepeatabilityDoesNotAutomaticallyExcludeAnActivity": true,
+    "unresolvedConflictAndIncompleteStatesRemainBlocked": true,
+    "routingCannotAlterRepeatabilityDispositionOrReview": true,
+    "memberExpansionMechanicsAndOptimizerPromotionAreForbidden": true,
+    "currentAccountStateIsForbidden": true
+  }
+}

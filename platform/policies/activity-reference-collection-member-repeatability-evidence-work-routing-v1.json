@@ -1,0 +1,117 @@
+{
+  "policy": "sensum.activity-reference-collection-member-repeatability-evidence-work-routing-policy.v1",
+  "inputContract": "sensum.activity-reference-collection-member-repeatability-disposition.v1",
+  "recordContract": "sensum.activity-reference-collection-member-repeatability-evidence-work-routing.v1",
+  "auditContract": "sensum.activity-reference-collection-member-repeatability-evidence-work-routing-audit.v1",
+  "stateRoutes": {
+    "source_supported_repeatable_activity": {
+      "routeKey": "repeatable_activity_member_expansion_and_mechanics_review",
+      "routeState": "queued",
+      "requiredEvidenceDomains": [
+        "activity_member_boundary",
+        "repeatable_cycle_boundary",
+        "requirements",
+        "variants",
+        "xp_rewards",
+        "timing_rates",
+        "mechanics",
+        "travel_banking_and_resource_inputs"
+      ],
+      "expansionAxes": [
+        "activity_members",
+        "action_or_route_variants",
+        "session_or_task_policies",
+        "reward_or_xp_policies"
+      ]
+    },
+    "source_supported_non_repeatable_activity": {
+      "routeKey": "non_repeatable_activity_authoritative_exclusion_scope_review",
+      "routeState": "queued",
+      "requiredEvidenceDomains": [
+        "declaration_scope",
+        "finite_completion_or_event_state",
+        "repeatability_prohibition",
+        "requirements",
+        "rewards",
+        "optimizer_exclusion_scope"
+      ],
+      "expansionAxes": [
+        "one_time_completion_states",
+        "event_or_account_restrictions",
+        "post_completion_actions"
+      ]
+    },
+    "blocked_conflicting_explicit_repeatability_declarations": {
+      "routeKey": "repeatability_declaration_conflict_reconciliation",
+      "routeState": "blocked_source_conflict",
+      "requiredEvidenceDomains": [
+        "declaration_scope",
+        "source_revision_chronology",
+        "variant_or_mode_scope",
+        "repeatability_reconciliation"
+      ],
+      "expansionAxes": []
+    },
+    "unresolved_explicit_repeatability_declaration_scope_not_established": {
+      "routeKey": "explicit_repeatability_declaration_scope_review",
+      "routeState": "blocked_repeatability_scope_gap",
+      "requiredEvidenceDomains": [
+        "canonical_activity_scope",
+        "linked_subject_relationship",
+        "declaration_subject",
+        "variant_or_mode_scope"
+      ],
+      "expansionAxes": []
+    },
+    "unresolved_recurrence_or_session_structure_without_explicit_declaration": {
+      "routeKey": "broader_repeatability_evidence_discovery_from_structural_signals",
+      "routeState": "blocked_repeatability_evidence_gap",
+      "requiredEvidenceDomains": [
+        "activity_rules_or_instructions",
+        "session_or_assignment_completion_loop",
+        "reentry_or_reassignment_conditions",
+        "explicit_repeatability_declaration"
+      ],
+      "expansionAxes": []
+    },
+    "unresolved_no_explicit_repeatability_evidence": {
+      "routeKey": "broader_repeatability_evidence_discovery_without_signals",
+      "routeState": "blocked_repeatability_evidence_gap",
+      "requiredEvidenceDomains": [
+        "activity_rules_or_instructions",
+        "completion_loop",
+        "reentry_conditions",
+        "explicit_repeatability_declaration"
+      ],
+      "expansionAxes": []
+    },
+    "unresolved_incomplete_repeatability_evidence": {
+      "routeKey": "repeatability_evidence_packet_repair",
+      "routeState": "blocked_incomplete_input_evidence",
+      "requiredEvidenceDomains": [
+        "exact_revision_source_retrieval",
+        "identity_revision_hash_alignment",
+        "complete_repeatability_signal_scan",
+        "source_scope_evidence"
+      ],
+      "expansionAxes": []
+    }
+  },
+  "rules": {
+    "oneRoutePerRepeatabilityDisposition": true,
+    "everyEmittableDispositionStateMustHaveExactlyOneRoute": true,
+    "supportedRepeatableRoutesToMemberAndMechanicsEvidence": true,
+    "supportedNonRepeatableRoutesToExclusionScopeReviewNotAutomaticExclusion": true,
+    "conflictingUnresolvedAndIncompleteStatesRemainBlocked": true,
+    "recurrenceAndSessionStructureCannotBePromotedToRepeatability": true,
+    "absenceOfEvidenceCannotBePromotedToNonRepeatability": true,
+    "routesDescribeEvidenceObligationsNotGameFacts": true,
+    "namesTitlesPageIdsCandidateKeysLabelsAliasesAndCollectionClassesCannotSelectOrAlterRoutes": true,
+    "inputEvidenceIdentityRevisionHashesAndContextMustBePreserved": true,
+    "routingCannotChangeRepeatabilityDispositionOrReview": true,
+    "routingCannotCompleteMemberExpansionOrMechanics": true,
+    "routingCannotCreateOptimizerCandidates": true,
+    "currentAccountStateIsForbidden": true,
+    "automaticVerificationAllowed": false
+  }
+}
