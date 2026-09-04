@@ -1,0 +1,47 @@
+{
+  "policy": "sensum.activity-reference-collection-member-linked-subject-relationship-disposition-policy.v1",
+  "inputContract": "sensum.activity-reference-collection-member-collection-activity-identity-disposition.v1",
+  "recordContract": "sensum.activity-reference-collection-member-linked-subject-relationship-disposition.v1",
+  "auditContract": "sensum.activity-reference-collection-member-linked-subject-relationship-disposition-audit.v1",
+  "relationshipDispositionRules": [
+    {
+      "ruleKey": "activity_component_belongs_to_collection_activity_candidate",
+      "sourceRelationshipClass": "activity_component",
+      "linkedSubjectRelationshipClass": "component_of_collection_defined_activity_candidate",
+      "requiresSupportedCollectionActivityIdentity": true,
+      "requiresMatchedSourceRelationshipDeclaration": true,
+      "requiresDualSourceIdentitySignal": true,
+      "requiresStableLinkedSourceAlignment": true
+    },
+    {
+      "ruleKey": "task_provider_serves_collection_activity_candidate",
+      "sourceRelationshipClass": "task_provider",
+      "linkedSubjectRelationshipClass": "task_provider_for_collection_defined_activity_candidate",
+      "requiresSupportedCollectionActivityIdentity": true,
+      "requiresMatchedSourceRelationshipDeclaration": true,
+      "requiresDualSourceIdentitySignal": true,
+      "requiresStableLinkedSourceAlignment": true
+    },
+    {
+      "ruleKey": "task_assignment_page_describes_collection_activity_candidate",
+      "sourceRelationshipClass": "task_assignment_activity",
+      "linkedSubjectRelationshipClass": "source_page_describes_collection_defined_activity_candidate",
+      "requiresSupportedCollectionActivityIdentity": true,
+      "requiresMatchedSourceRelationshipDeclaration": true,
+      "requiresDualSourceIdentitySignal": true,
+      "requiresStableLinkedSourceAlignment": true
+    }
+  ],
+  "rules": {
+    "policyContainsNoPageIdsTitlesCandidateKeysCollectionClassesLabelsAliasesOrOverrides": true,
+    "sourceRelationshipClassSelectsOnlyItsGenericRelationshipSemantics": true,
+    "supportedCollectionActivityIdentityAndReviewAreRequired": true,
+    "matchedSourceDeclarationsDualSourceIdentityEvidenceAndStableAlignmentAreRequired": true,
+    "linkedSubjectIsNeverEquatedWithTheCollectionDefinedActivity": true,
+    "distinctRelationshipClassesRemainAConflict": true,
+    "missingContradictoryOrUnsupportedEvidenceRemainsExplicit": true,
+    "canonicalIdentityRepeatabilityMembersMechanicsAndOptimizerEligibilityRemainClosed": true,
+    "currentAccountStateIsForbidden": true,
+    "automaticVerificationAllowed": false
+  }
+}

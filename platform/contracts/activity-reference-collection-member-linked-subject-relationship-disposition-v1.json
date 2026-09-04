@@ -1,0 +1,36 @@
+{
+  "contract": "sensum.activity-reference-collection-member-linked-subject-relationship-disposition.v1",
+  "required": [
+    "memberCandidateKey",
+    "sourceCollectionActivityIdentityDispositionContentHash",
+    "sourcePageId",
+    "resolvedTitle",
+    "sourceRevision",
+    "sourceContentHash",
+    "sourceRelationshipDisposition",
+    "collectionActivityIdentityDisposition",
+    "collectionActivityIdentityReview",
+    "linkedSubjectRelationshipDispositionSignals",
+    "linkedSubjectRelationshipDisposition",
+    "linkedSubjectRelationshipReview",
+    "canonicalGameEntityIdentity",
+    "canonicalActivityIdentity",
+    "repeatabilityReview",
+    "memberExpansionReview",
+    "mechanicsReview",
+    "optimizerEligible",
+    "accountIndependent",
+    "blockers"
+  ],
+  "rules": {
+    "oneRelationshipDispositionPerExactIdentityDispositionRecord": true,
+    "allUpstreamIdentityRevisionEvidenceAndContextMustBePreserved": true,
+    "supportedRelationshipsRequireCompletedCollectionActivityIdentityReview": true,
+    "supportedRelationshipsRequireSourceDeclarationsDualSourceIdentityEvidenceAndStableAlignment": true,
+    "relationshipMeaningComesOnlyFromGenericSourceRoleRules": true,
+    "linkedSubjectCannotBecomeTheCanonicalActivityByRelationshipDisposition": true,
+    "conflictingAndUnresolvedRelationshipsRemainExplicit": true,
+    "canonicalIdentityRepeatabilityMembersMechanicsAndOptimizerPromotionAreForbidden": true,
+    "currentAccountStateIsForbidden": true
+  }
+}

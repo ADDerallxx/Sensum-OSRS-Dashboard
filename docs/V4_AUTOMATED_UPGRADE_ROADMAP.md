@@ -43,6 +43,24 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+The three collection-defined activity candidates now have an exact generic
+relationship to their independently sourced linked subjects. `Target (Ranging
+Guild)` revision 15225200 is a component of `Archery Competition`; `Vineyard
+foreman` revision 14834637 is the task provider for `Aldarin Vineyard`; and
+`Wise Old Man tasks` revision 14997080 is the source page that describes the
+same-named collection activity candidate. Each relationship requires the
+completed collection-activity identity review, the source-role declaration,
+the dual-source identity signal, and stable linked-page/revision/hash alignment.
+The three policy rules use only the generic source-role class; labels, titles,
+page IDs, membership classes, and aliases cannot select or change a result.
+All three relationships are source-supported with zero conflicts or unresolved
+records, and repeated live runs produced the same output hash. This review does
+not equate any linked subject with a canonical activity: canonical identity,
+repeatability, member expansion, mechanics, and optimizer eligibility remain
+closed. The next checkpoint should assemble revision-pinned canonical-activity
+identity evidence for these candidates without treating their collection label
+or newly classified relationship as sufficient proof.
+
 The three collection-defined activities that previously linked to structurally
 different subjects now have a generic, dual-source identity disposition.
 `Archery Competition`, `Aldarin Vineyard`, and `Wise Old Man tasks` each

@@ -172,6 +172,15 @@ or source role can create a result. A supported result identifies only the
 collection-defined activity candidate; it cannot equate the linked subject with
 the activity or open canonical, repeatability, mechanics, or optimizer gates.
 
+The linked-subject relationship disposition then maps each independently
+supported source role to one exact generic relationship: activity components
+belong to the collection-defined candidate, task providers serve it, and a task
+assignment activity page describes it. A supported relationship also requires
+the completed collection-activity identity review, matched source declarations,
+dual-source identity evidence, and stable linked-source alignment. It never
+makes the linked page the canonical activity, and it cannot open repeatability,
+member, mechanics, or optimizer gates.
+
 Courses with multiple independently failing obstacles retain one composite
 condition record with per-obstacle requirements, successful XP, probabilities,
 and revisions. Sensum does not derive an aggregate lap probability or expected
@@ -266,6 +275,7 @@ node platform/transforms/build-activity-reference-collection-member-unresolved-s
 node platform/transforms/build-activity-reference-collection-member-unresolved-subject-relationship-dispositions.mjs
 node platform/transforms/build-activity-reference-collection-member-collection-activity-identity-evidence.mjs
 node platform/transforms/build-activity-reference-collection-member-collection-activity-identity-dispositions.mjs
+node platform/transforms/build-activity-reference-collection-member-linked-subject-relationship-dispositions.mjs
 node platform/ingestion/ingest-wiki-agility-training-guide-sections.mjs
 node platform/ingestion/ingest-wiki-agility-rooftop-guide-members.mjs
 node platform/ingestion/ingest-wiki-agility-brimhaven-guide-members.mjs

@@ -41,6 +41,27 @@ Run:
 node platform/transforms/build-activity-reference-collection-member-collection-activity-identity-dispositions.mjs
 ```
 
+## Linked-subject relationship disposition
+
+`build-activity-reference-collection-member-linked-subject-relationship-dispositions.mjs`
+classifies the exact relationship between a supported collection-defined
+activity candidate and its independently sourced linked subject. Generic rules
+map a source-declared component, task provider, or task-assignment activity to
+its distinct relationship semantics. Every supported result requires the
+completed collection-activity identity review, retained source declarations,
+dual-source identity evidence, and stable linked-source alignment.
+
+Titles, labels, page IDs, aliases, and collection classes cannot select or alter
+a relationship. The linked subject is never equated with the canonical
+activity. Canonical identity, repeatability, member expansion, mechanics, and
+optimizer eligibility remain closed.
+
+Run:
+
+```text
+node platform/transforms/build-activity-reference-collection-member-linked-subject-relationship-dispositions.mjs
+```
+
 ## Activity-candidate subject disposition
 
 `build-activity-candidate-subject-dispositions.mjs` applies a versioned generic
