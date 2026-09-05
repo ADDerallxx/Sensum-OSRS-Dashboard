@@ -1,0 +1,23 @@
+{
+  "policy": "sensum.activity-reference-collection-member-canonical-activity-subject-declaration-discovery-policy.v1",
+  "inputContract": "sensum.activity-reference-collection-member-independent-repeatability-signal-subject-predicate-disposition.v1",
+  "recordContract": "sensum.activity-reference-collection-member-canonical-activity-subject-declaration-discovery.v1",
+  "auditContract": "sensum.activity-reference-collection-member-canonical-activity-subject-declaration-discovery-audit.v1",
+  "inputState": "independent_repeatability_signal_subject_predicate_disposition_reviewed_unresolved",
+  "rules": {
+    "oneCandidateLevelPacketPerCompleteUnresolvedActivityRecord": true,
+    "allUnboundSignalDispositionsAreConsolidatedWithoutLoss": true,
+    "exactSourcePhraseSearchBoundaryMustBeFullyEnumerated": true,
+    "everyExactSearchResultMustHaveAStableResolutionAssessment": true,
+    "everyResolvedSearchCandidateMustHaveRevisionPinnedSourceEvidence": true,
+    "collectionAndLinkedSubjectAnchorsMustRetainExactRevisionsAndHashes": true,
+    "redirectAliasesRemainStructuralObservationsOnly": true,
+    "searchRankSnippetTitleLabelRedirectAndLexicalSimilarityAreDiscoveryOnly": true,
+    "discoveryCannotCreateASubjectBindingScopeOrRepeatabilityVerdict": true,
+    "missingTruncatedContradictoryOrUnpinnedEvidenceRemainsExplicit": true,
+    "upstreamEvidenceRoutingDispositionsReviewsAndIdentitiesRemainUnchanged": true,
+    "memberExpansionMechanicsAndOptimizerEligibilityRemainClosed": true,
+    "activitySpecificNamesTitlesPageIdsLabelsAliasesAndOverridesCannotSelectAVerdict": true,
+    "currentAccountStateIsForbidden": true
+  }
+}

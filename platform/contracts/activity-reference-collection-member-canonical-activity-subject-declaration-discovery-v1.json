@@ -1,0 +1,12 @@
+{
+  "contract": "sensum.activity-reference-collection-member-canonical-activity-subject-declaration-discovery.v1",
+  "required": ["memberCandidateKey", "sourceSignalSubjectPredicateDispositionContentHash", "canonicalActivityIdentity", "canonicalActivitySubjectDeclarationDiscovery", "canonicalActivitySubjectDeclarationReview", "memberExpansionReview", "mechanicsReview", "optimizerEligible", "accountIndependent", "blockers", "state"],
+  "rules": {
+    "onePacketConsolidatesEveryUnboundSignalForOneCanonicalActivity": true,
+    "searchResultsResolveToRevisionPinnedSourcesOrBlockPublication": true,
+    "stableAnchorsRemainSeparateFromCanonicalActivitySubjectProof": true,
+    "allSemanticVerdictsRemainNull": true,
+    "upstreamStateRemainsExact": true,
+    "downstreamPromotionsAreForbidden": true
+  }
+}

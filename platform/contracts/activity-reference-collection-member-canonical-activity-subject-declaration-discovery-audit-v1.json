@@ -1,0 +1,11 @@
+{
+  "contract": "sensum.activity-reference-collection-member-canonical-activity-subject-declaration-discovery-audit.v1",
+  "required": ["inputCoverage", "policyCoverage", "signalConsolidationCoverage", "searchBoundaryCoverage", "revisionCoverage", "semanticPromotionCoverage", "accountStateFindings", "subjectDeclarationDiscoveryAttemptCoverageComplete", "canonicalActivitySubjectDeclarationDiscoveryCoverageComplete", "canonicalActivitySubjectBindingReviewComplete", "repeatabilityReviewComplete", "completeActivityUniverse", "absoluteBestGate", "blockers", "publishable"],
+  "rules": {
+    "everyCompleteInputProducesExactlyOneReproduciblePacket": true,
+    "everyUnboundSignalIsRepresentedExactlyOnce": true,
+    "everyExactSearchResultHasRevisionPinnedEvidence": true,
+    "inputAndSemanticStateCannotChange": true,
+    "semanticAndOptimizerPromotionsAreForbidden": true
+  }
+}

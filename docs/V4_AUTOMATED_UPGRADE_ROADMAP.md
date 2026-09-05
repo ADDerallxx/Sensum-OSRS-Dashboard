@@ -43,6 +43,22 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+The two unresolved canonical activities now have candidate-level, revision-
+pinned subject-declaration discovery packets. The packets consolidate all 47
+unbound signal dispositions without loss: 22 for Archery Competition and 25 for
+Wise Old Man tasks. Both retained exact-source phrase searches are fully
+enumerated, producing 14 search candidates, and all 14 now join to complete
+revision, timestamp, URL, and content-hash evidence. Four collection and linked-
+subject anchor revisions remain separate, while nine redirect aliases are
+recorded only as structural observations. An initial run correctly failed when
+three previously scanned corroborating sources were omitted from the revision
+join; the generic join and regression fixture were repaired before acceptance.
+Search rank, snippets, titles, labels, redirects, and lexical similarity create
+zero subject bindings, scope classifications, repeatability classifications, or
+downstream promotions. Two accepted runs produced the same output hash. The next
+checkpoint should extract exact-revision canonical-activity subject-declaration
+lines from the 14 candidate sources before any semantic disposition.
+
 Every independent repeatability signal subject-predicate evidence packet now has
 one generic, fail-closed disposition. All 47 exact-revision packets were
 dispositioned exactly once: all 47 retain complete line, predicate, link, and
