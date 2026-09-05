@@ -1,0 +1,24 @@
+{
+  "contract": "sensum.cross-skill-unresolved-rendered-target-resolution-evidence-audit.v1",
+  "required": [
+    "inputCoverage",
+    "sourceGuideCoverage",
+    "currentResolutionCoverage",
+    "discoveryCoverage",
+    "logHistoryCoverage",
+    "semanticPromotionCoverage",
+    "accountStateFindings",
+    "resolutionEvidenceCoverageComplete",
+    "canonicalIdentityComplete",
+    "completeActivityUniverse",
+    "absoluteBestGate",
+    "blockers",
+    "publishable"
+  ],
+  "rules": {
+    "publishableMeansEvidencePacketCoverageOnly": true,
+    "missingCurrentTitlesRemainExplicitBlockers": true,
+    "candidateDiscoveryNeverImpliesCanonicalResolution": true,
+    "automaticVerificationAllowed": false
+  }
+}

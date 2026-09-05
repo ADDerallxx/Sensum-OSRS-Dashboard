@@ -1,0 +1,32 @@
+{
+  "contract": "sensum.cross-skill-unresolved-rendered-target-resolution-evidence.v1",
+  "required": [
+    "resolutionEvidenceKey",
+    "sourceRenderedTargetRecordContentHash",
+    "sourceRenderedTargetSnapshotContentHash",
+    "renderedTargetKey",
+    "requestedTitles",
+    "namespaceIds",
+    "guideObservations",
+    "pinnedGuideEvidence",
+    "currentTitleResolutionEvidence",
+    "titleLogEvidence",
+    "discoveryEvidence",
+    "resolutionDisposition",
+    "canonicalGameEntityIdentity",
+    "canonicalActivityIdentity",
+    "repeatabilityClassification",
+    "optimizerEligible",
+    "accountIndependent",
+    "blockers",
+    "state"
+  ],
+  "rules": {
+    "inputAndSnapshotBindingsAreImmutable": true,
+    "currentResolutionAndDiscoverySourcesRetainRevisionProvenance": true,
+    "guideOccurrencesRetainExactRevisionSourceLocationAndMediaWikiFirstLetterNormalization": true,
+    "discoveryCandidatesCannotBecomeResolutionDispositionAutomatically": true,
+    "semanticAndOptimizerFieldsRemainClosed": true,
+    "automaticVerificationAllowed": false
+  }
+}

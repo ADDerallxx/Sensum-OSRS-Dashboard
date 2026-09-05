@@ -1,0 +1,23 @@
+{
+  "policy": "sensum.cross-skill-unresolved-rendered-target-resolution-evidence-policy.v1",
+  "inputContract": "sensum.skill-training-guide-rendered-link.v1",
+  "recordContract": "sensum.cross-skill-unresolved-rendered-target-resolution-evidence.v1",
+  "auditContract": "sensum.cross-skill-unresolved-rendered-target-resolution-evidence-audit.v1",
+  "rules": {
+    "everyUnresolvedRenderedTargetMustProduceExactlyOneEvidencePacket": true,
+    "inputManifestIntrinsicRecordAndObservationHashesMustRevalidate": true,
+    "onlyNullIdentityTargetsWithMissingWikiPageObservationsAreEligible": true,
+    "everyRequestedTitleMustReceiveAnExactCurrentResolutionQuery": true,
+    "normalizationAndRedirectMappingsMustBePreservedWithoutAutomaticBinding": true,
+    "everySourceGuideMustBeFetchedAtItsExactRetainedRevision": true,
+    "everyRenderedObservationMustMatchAPinnedGuideOccurrenceUnderMediaWikiTitleNormalization": true,
+    "discoveryQueriesMustBeDerivedOnlyFromTheExactRequestedTitleAndNamespace": true,
+    "everyDiscoveryCandidateMustRetainItsExactCurrentRevision": true,
+    "exactTitleLogHistoryMustBeFullyEnumerated": true,
+    "searchCandidatesAndLogHistoryAreEvidenceNotIdentityVerdicts": true,
+    "missingTitlesMustRemainMissingUntilASeparateSourceBoundDecision": true,
+    "canonicalIdentityRepeatabilityMechanicsAndOptimizerEligibilityRemainClosed": true,
+    "currentAccountStateIsForbidden": true,
+    "automaticVerificationAllowed": false
+  }
+}

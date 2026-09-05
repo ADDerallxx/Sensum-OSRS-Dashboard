@@ -43,6 +43,24 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+All five rendered-guide targets that lacked stable current Wiki identities now
+have revision-pinned resolution-evidence packets. The collector revalidates the
+6,639-record rendered-link snapshot, all five intrinsic target records, and the
+five original observations before fetching three exact source-guide revisions.
+Every source occurrence reconciles under MediaWiki's documented first-letter
+title normalization. Exact current-title queries confirm that all five titles
+remain missing. Five exhaustive, title-derived namespace searches retain 13
+current revision-pinned discovery candidates: one for `Ash-covered tome`, 11
+for `Spirit tree (Farming)/Patches`, one for `Tiny Tempoross`, and none for the
+two missing category titles. Complete exact-title log-history queries returned
+zero events. These candidates are evidence only; no replacement page, canonical
+identity, activity, repeatability, mechanics, or optimizer state was selected.
+Two official-Wiki runs produced the same five-record snapshot hash, and all 180
+regression tests pass. The next checkpoint should apply a generic fail-closed
+evidence-sufficiency disposition that separates review-ready candidate evidence
+from targets requiring additional evidence without resolving any title
+automatically.
+
 The 68-entry untyped-page review queue now has a fail-closed decision-import
 boundary. Every completed row must preserve its exact queue record, queue
 snapshot, evidence fingerprint, source page ID, revision, content hash, route,
