@@ -43,6 +43,20 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+The complete canonical-activity scope packet now has one generic, fail-closed
+semantic disposition. Five exact lead-source signals establish that the bound
+subject is a composite assigned-task activity: an NPC assigns multiple tasks,
+the source declares 59 total tasks, the described item list may not be
+exhaustive, and assignment is conditioned by the player's current level and
+ability to create requested items. This is a system scope classification, not a
+repeatability or training-performance claim. The one live record classified
+without a name, title, page-ID, or candidate override; its subject binding was
+preserved while repeatability, complete member expansion, mechanics, and
+optimizer eligibility remained closed. Two accepted runs produced the same
+output hash. The next checkpoint should generically route this scoped canonical
+activity to revision-pinned repeatability evidence work without treating plural
+tasks or a declared member count as proof of recurrence.
+
 The routed source-supported canonical activity subject now has a complete,
 revision-pinned scope-evidence packet. The collector refetched the exact bound
 `Wise Old Man tasks` revision `14997080`, retained all 9,959 source bytes and

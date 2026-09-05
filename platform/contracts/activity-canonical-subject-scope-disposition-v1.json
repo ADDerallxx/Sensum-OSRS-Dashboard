@@ -1,0 +1,28 @@
+{
+  "contract": "sensum.activity-canonical-subject-scope-disposition.v1",
+  "required": [
+    "memberCandidateKey",
+    "sourceActivityCanonicalSubjectScopeEvidenceContentHash",
+    "canonicalActivityIdentity",
+    "canonicalActivitySubjectBinding",
+    "canonicalActivityScopeEvidence",
+    "canonicalActivityScopeEvidenceSources",
+    "canonicalActivityScopeDisposition",
+    "canonicalActivityScopeReview",
+    "memberExpansionReview",
+    "mechanicsReview",
+    "optimizerEligible",
+    "accountIndependent",
+    "blockers",
+    "state"
+  ],
+  "rules": {
+    "oneDispositionPerExactInputEvidenceRecord": true,
+    "allUpstreamEvidenceIdentityRevisionHashesAndContextMustBePreserved": true,
+    "supportedScopeMustRetainEveryExactSignalLineHashAndLocator": true,
+    "supportedScopeMustUseTheGenericRuleWithoutSubjectOverrides": true,
+    "repeatabilityVerdictMustRemainNull": true,
+    "memberMechanicsAndOptimizerPromotionAreForbidden": true,
+    "currentAccountStateIsForbidden": true
+  }
+}

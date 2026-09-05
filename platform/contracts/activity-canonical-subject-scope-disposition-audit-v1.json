@@ -1,0 +1,26 @@
+{
+  "contract": "sensum.activity-canonical-subject-scope-disposition-audit.v1",
+  "required": [
+    "inputCoverage",
+    "policyCoverage",
+    "scopeClassificationCoverage",
+    "semanticPromotionCoverage",
+    "accountStateFindings",
+    "dispositionAttemptCoverageComplete",
+    "canonicalActivityScopeReviewComplete",
+    "repeatabilityReviewComplete",
+    "completeActivityUniverse",
+    "absoluteBestGate",
+    "blockers",
+    "publishable"
+  ],
+  "rules": {
+    "inputAndOutputEvidenceRecordSetsAndContextsMustMatchExactly": true,
+    "everyScopeClassificationMustMatchTheGenericSufficiencyRule": true,
+    "missingOrInconsistentEvidenceMustNotProduceAScopeVerdict": true,
+    "upstreamEvidenceMustRemainUnchanged": true,
+    "repeatabilityVerdictsMustRemainNull": true,
+    "memberMechanicsAndOptimizerPromotionsAreForbidden": true,
+    "currentAccountStateIsForbidden": true
+  }
+}

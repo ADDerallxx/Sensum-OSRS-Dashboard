@@ -53,6 +53,7 @@ node platform/ingestion/ingest-wiki-activity-infobox-schema-semantics-evidence.m
 node platform/transforms/build-activity-infobox-schema-semantics-dispositions.mjs
 node platform/transforms/build-activity-canonical-subject-scope-evidence-work-routes.mjs
 node platform/ingestion/ingest-wiki-activity-canonical-subject-scope-evidence.mjs
+node platform/transforms/build-activity-canonical-subject-scope-dispositions.mjs
 node platform/transforms/build-unlock-statement-semantic-crosswalk.mjs
 node platform/transforms/build-unlock-linked-page-entity-types.mjs
 node platform/transforms/build-unlock-linked-page-wiki-equivalence.mjs
@@ -250,6 +251,14 @@ record count, creation time, audit result, and SHA-256 content hash.
   observations only: scope, repeatability, members, requirements, XP, timing,
   mechanics, and optimizer eligibility remain blocked until separate semantic
   disposition and downstream evidence gates pass.
+- Canonical-activity subject scope disposition applies generic exact-line signal
+  rules to a complete scope packet. The current rule distinguishes a composite,
+  conditionally assigned task activity only when all five source signals occur
+  exactly once, including the source-authored positive task count and explicit
+  non-exhaustive-list warning. Missing or duplicate signals publish a blocked
+  disposition rather than a guessed scope. A successful scope classification
+  still cannot establish repeatability, member completeness, mechanics, or
+  optimizer eligibility.
 - Training-guide section ingestion inventories every Wiki heading in source
   order. Every method-bearing subsection is retained with its parent, source
   lines, revision, and structural role. New heading depths or parents fail

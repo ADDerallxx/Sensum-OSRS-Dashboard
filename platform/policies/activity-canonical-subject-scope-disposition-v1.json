@@ -1,0 +1,39 @@
+{
+  "policy": "sensum.activity-canonical-subject-scope-disposition-policy.v1",
+  "inputContract": "sensum.activity-canonical-subject-scope-evidence.v1",
+  "recordContract": "sensum.activity-canonical-subject-scope-disposition.v1",
+  "auditContract": "sensum.activity-canonical-subject-scope-disposition-audit.v1",
+  "inputState": "canonical_activity_scope_evidence_ready_for_semantic_disposition",
+  "requiredEvidenceState": "complete_revision_pinned_canonical_activity_scope_evidence_packet",
+  "scopeRule": {
+    "ruleKey": "revision_pinned_composite_assigned_task_activity_scope",
+    "requiredSourcePacketCount": 1,
+    "requiredSignals": [
+      {"signalKey": "multiple_tasks_assigned", "sourceRegion": "lead", "pattern": "\\bcan\\s+assign\\s+various\\s+tasks\\b", "flags": "i", "cardinality": "exactly_one"},
+      {"signalKey": "bounded_total_task_count", "sourceRegion": "lead", "pattern": "\\bThere\\s+are\\s+([1-9][0-9]*)\\s+tasks\\s+in\\s+total\\s+that\\s+can\\s+be\\s+assigned\\b", "flags": "i", "cardinality": "exactly_one", "positiveIntegerCaptureGroup": 1},
+      {"signalKey": "member_list_not_exhaustive", "sourceRegion": "lead", "pattern": "\\bthis\\s+list\\s+may\\s+not\\s+be\\s+exhaustive\\b", "flags": "i", "cardinality": "exactly_one"},
+      {"signalKey": "assignment_matches_current_level", "sourceRegion": "lead", "pattern": "\\bonly\\s+give\\s+tasks\\s+that\\s+match\\s+the\\s+player(?:'|’)?s\\s+current\\s+level\\b", "flags": "i", "cardinality": "exactly_one"},
+      {"signalKey": "assignment_requires_self_creation_skill", "sourceRegion": "lead", "pattern": "\\bwill\\s+not\\s+request\\s+an\\s+item\\s+if\\s+the\\s+player\\s+lacks\\s+the\\s+skill\\s+to\\s+create\\s+it\\s+themselves\\b", "flags": "i", "cardinality": "exactly_one"}
+    ],
+    "verdict": "source_supported_composite_assigned_task_activity_scope",
+    "scopeClass": "composite_assigned_task_activity",
+    "memberUniverseState": "declared_total_with_non_exhaustive_member_inventory",
+    "assignmentConditionState": "account_level_and_self_creation_skill_conditioned"
+  },
+  "rules": {
+    "oneDispositionPerCompleteScopeEvidenceRecord": true,
+    "scopeClassificationRequiresOneCompleteExactRevisionSourcePacket": true,
+    "scopeClassificationRequiresEveryGenericSignalExactlyOnce": true,
+    "positiveIntegerCapturesMustBeSourceAuthored": true,
+    "sourceLinesHashesLocatorsAndRevisionIdentityMustRemainAligned": true,
+    "scopeClassificationDoesNotClassifyRepeatability": true,
+    "scopeClassificationDoesNotCompleteMemberExpansionOrMechanics": true,
+    "scopeClassificationDoesNotCreateOptimizerCandidates": true,
+    "nonExhaustiveMemberInventoryRemainsAnExplicitBlocker": true,
+    "missingChangedDuplicateContradictoryOrConditionMismatchedEvidenceRemainsBlocked": true,
+    "activityNamesLabelsPageIdsCandidateKeysAliasesCollectionClassesAndOverridesAreForbidden": true,
+    "upstreamEvidenceIdentityRevisionHashesAndContextMustBePreserved": true,
+    "currentAccountStateIsForbidden": true,
+    "automaticVerificationAllowed": false
+  }
+}
