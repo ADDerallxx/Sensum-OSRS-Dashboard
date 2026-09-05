@@ -1,0 +1,43 @@
+{
+  "contract": "sensum.multi-variant-binding-additional-evidence-sufficiency-disposition.v1",
+  "required": [
+    "dispositionKey",
+    "sourceEvidencePacketKey",
+    "sourceEvidencePacketRecordContentHash",
+    "sourceEvidencePacketSnapshotContentHash",
+    "sourceDispositionKey",
+    "structuralCandidateKey",
+    "candidateRole",
+    "candidateDisplayName",
+    "classification",
+    "canonicalSubjectContextEvidenceState",
+    "exactNumberedVariantAlignmentEvidenceState",
+    "reviewRoute",
+    "allowedReviewDecisions",
+    "reviewDecision",
+    "reviewCandidateVariantIndex",
+    "bindingReviewDecision",
+    "boundVariantIndex",
+    "candidateMemberIdentityVerdict",
+    "parentMembershipVerdict",
+    "weightedTaskEntryMembershipVerdict",
+    "repeatabilityVerdict",
+    "mechanicsReviewComplete",
+    "mappingVerdict",
+    "inventoryCompletenessVerdict",
+    "memberUniverseComplete",
+    "optimizerEligible",
+    "automaticVerificationApplied",
+    "accountIndependent",
+    "blockers",
+    "state"
+  ],
+  "rules": {
+    "classificationComesOnlyFromGenericEvidenceSufficiencyRules": true,
+    "canonicalSubjectScopeReviewIsDistinctFromExactVariantReview": true,
+    "reviewRouteDoesNotCreateAReviewOrBindingDecision": true,
+    "noNumberedVariantIsSelectedFromCanonicalContext": true,
+    "allSemanticAndOptimizerGatesRemainClosed": true,
+    "recordIsAccountIndependent": true
+  }
+}

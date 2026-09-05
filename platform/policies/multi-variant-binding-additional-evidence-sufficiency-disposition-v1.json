@@ -1,0 +1,44 @@
+{
+  "policy": "sensum.multi-variant-binding-additional-evidence-sufficiency-disposition-policy.v1",
+  "inputContract": "sensum.multi-variant-binding-additional-evidence-source-discovery.v1",
+  "recordContract": "sensum.multi-variant-binding-additional-evidence-sufficiency-disposition.v1",
+  "auditContract": "sensum.multi-variant-binding-additional-evidence-sufficiency-disposition-audit.v1",
+  "inputState": "revision_pinned_additional_variant_binding_source_discovery_gates_closed",
+  "recordState": "additional_variant_binding_evidence_sufficiency_disposition_gates_closed",
+  "classifications": [
+    "canonical_subject_context_observed_exact_numbered_variant_alignment_absent",
+    "exact_numbered_variant_alignment_observed_review_required",
+    "candidate_context_not_observed_additional_evidence_required"
+  ],
+  "reviewRoutes": [
+    "canonical_subject_scope_review",
+    "exact_numbered_variant_binding_review",
+    "additional_binding_evidence"
+  ],
+  "canonicalSubjectScopeReviewDecisions": [
+    "confirm_parent_occurrence_refers_to_canonical_subject_across_numbered_variants",
+    "require_exact_numbered_variant_binding",
+    "reject_parent_occurrence_subject_relation",
+    "needs_additional_evidence"
+  ],
+  "exactNumberedVariantReviewDecisions": [
+    "confirm_exact_parent_occurrence_to_numbered_variant_binding",
+    "reject_exact_parent_occurrence_to_numbered_variant_binding",
+    "needs_additional_evidence"
+  ],
+  "rules": {
+    "oneDispositionPerSourceDiscoveryPacket": true,
+    "sourcePacketRecordAndSnapshotBindingsMustRevalidate": true,
+    "allPinnedAndDiscoveredSourceIntegrityMustRemainComplete": true,
+    "canonicalContextRequiresCandidateScopedParentContextEvidence": true,
+    "exactVariantReviewRequiresSourceAuthoredNumberedVariantAlignmentEvidence": true,
+    "canonicalContextWithoutExactAlignmentRoutesToCanonicalSubjectScopeReview": true,
+    "missingCanonicalContextRoutesToAdditionalEvidence": true,
+    "normalVariantCannotBeSelectedFromCanonicalContextOrDisplayOrder": true,
+    "reviewReadinessDoesNotRecordAReviewDecision": true,
+    "identityMembershipRepeatabilityMechanicsMappingCompletenessAndOptimizerVerdictsRemainClosed": true,
+    "namesTitlesPageIdsRevisionsCandidateKeysLabelsAliasesAndOverridesCannotAlterClassification": true,
+    "currentAccountStateIsForbidden": true,
+    "automaticVerificationAllowed": false
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "contract": "sensum.multi-variant-binding-additional-evidence-sufficiency-disposition-audit.v1",
+  "required": [
+    "inputCoverage",
+    "policyCoverage",
+    "sourceIntegrityCoverage",
+    "dispositionCoverage",
+    "reviewRoutingCoverage",
+    "semanticPreservationCoverage",
+    "accountStateFindings",
+    "dispositionCoverageComplete",
+    "variantBindingReviewComplete",
+    "optimizerEligibleCount",
+    "completeActivityUniverse",
+    "absoluteBestGate",
+    "blockers",
+    "publishable"
+  ],
+  "rules": {
+    "everyInputPacketMustProduceExactlyOneDisposition": true,
+    "sourcePacketIntegrityMustBeRevalidatedBeforeClassification": true,
+    "classificationAndReviewRouteMustMatchGenericEvidenceState": true,
+    "canonicalContextCannotSelectTheNormalOrAnyOtherNumberedVariant": true,
+    "reviewRoutingCannotCreateSemanticOrOptimizerPromotion": true,
+    "accountStateMustFailPublication": true
+  }
+}

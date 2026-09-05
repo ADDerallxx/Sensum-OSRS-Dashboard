@@ -43,6 +43,21 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+The two ambiguous High Priest and Reldo source-discovery packets now have a
+generic, fail-closed evidence-sufficiency disposition. The transform revalidates
+the packet and snapshot hashes, all three retained pinned sources, all 44 current
+source pages, all 11 complete searches, the observation-to-source bindings, and
+the required evidence-channel states before classification. Both packets contain
+canonical recipient context but no source-authored link from the Wise Old Man
+task occurrence to an exact numbered NPC variant, so both route to a distinct
+canonical-subject-scope human review. Neither routes to exact numbered-variant
+review, and neither selects the `Normal` variant from page order or canonical
+context. Two real-data runs produced the same output hash. No review decision,
+variant index, binding, identity, membership, repeatability, mechanics, mapping,
+completeness, account state, or optimizer eligibility was created. The next
+checkpoint should export these two source-bound canonical-subject-scope review
+items separately from the existing five exact numbered-variant review items.
+
 The two ambiguous High Priest and Reldo parent bindings now have complete
 revision-pinned source-discovery packets. The collector revalidated the three
 distinct pinned subject/parent revisions, fully enumerated 11 source-derived
