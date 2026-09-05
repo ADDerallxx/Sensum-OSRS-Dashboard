@@ -1,0 +1,38 @@
+{
+  "policy": "sensum.weighted-parent-task-entry-membership-evidence-disposition-policy.v1",
+  "inputContract": "sensum.weighted-parent-task-entry-membership-evidence.v1",
+  "recordContract": "sensum.weighted-parent-task-entry-membership-evidence-disposition.v1",
+  "auditContract": "sensum.weighted-parent-task-entry-membership-evidence-disposition-audit.v1",
+  "inputState": "revision_pinned_weighted_parent_task_entry_membership_evidence_captured_verdicts_closed",
+  "outputState": "weighted_parent_task_entry_membership_evidence_disposition_recorded_all_verdicts_closed",
+  "requiredInputChannels": [
+    "exact_revision_source_revalidation",
+    "exact_parent_occurrence_binding",
+    "candidate_scoped_same_line_weight_statement",
+    "parent_global_weight_statement",
+    "candidate_subject_corroboration",
+    "duplicate_alias_and_variant_signals",
+    "weighted_membership_verdict_separation"
+  ],
+  "routes": [
+    "numbered_alias_or_variant_scope_evidence_required",
+    "candidate_scoped_weight_review_ready",
+    "candidate_subject_corroboration_review_ready",
+    "additional_candidate_membership_evidence_required"
+  ],
+  "rules": {
+    "oneDispositionPerCompleteEvidencePacket": true,
+    "inputSnapshotRecordPacketAndSourceIntegrityMustRevalidate": true,
+    "numberedAliasOrVariantSignalsTakeRoutingPrecedence": true,
+    "candidateScopedWeightLanguageMayRouteToReviewButCannotCreateMembership": true,
+    "candidateSubjectCorroborationMayRouteToReviewButCannotCreateMembership": true,
+    "parentGlobalWeightLanguageCannotBecomeCandidateScopedMembership": true,
+    "parentDistributionPercentagesCannotBecomeCandidateWeights": true,
+    "sourceSilenceRoutesToAdditionalEvidenceAndIsNotNegativeEvidence": true,
+    "allRoutesRetainExactPacketSourceAndObservationBindings": true,
+    "membershipIdentityMappingCompletenessRepeatabilityMechanicsAndOptimizerVerdictsRemainClosed": true,
+    "namesTitlesPageIdsRevisionsCandidateKeysLabelsAliasesAndOverridesCannotAlterPolicyBehavior": true,
+    "currentAccountStateIsForbidden": true,
+    "automaticVerificationAllowed": false
+  }
+}

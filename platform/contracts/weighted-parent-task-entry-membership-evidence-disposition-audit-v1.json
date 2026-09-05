@@ -1,0 +1,28 @@
+{
+  "contract": "sensum.weighted-parent-task-entry-membership-evidence-disposition-audit.v1",
+  "required": [
+    "inputCoverage",
+    "policyCoverage",
+    "sourceIntegrityCoverage",
+    "packetIntegrityCoverage",
+    "dispositionCoverage",
+    "routeCoverage",
+    "semanticPreservationCoverage",
+    "accountStateFindings",
+    "dispositionCoverageComplete",
+    "weightedMembershipReviewComplete",
+    "completeActivityUniverse",
+    "absoluteBestGate",
+    "blockers",
+    "publishable"
+  ],
+  "rules": {
+    "eligibleInputAndOutputSetsMustMatchExactly": true,
+    "allSourcesPacketsAndUpstreamFieldsMustRevalidate": true,
+    "everyPacketMustHaveOneDeterministicRoute": true,
+    "variantSignalsMustPrecedeReviewReadiness": true,
+    "candidateScopedAndParentGlobalWeightEvidenceMustRemainSeparate": true,
+    "sourceSilenceMustRemainAnExplicitEvidenceGap": true,
+    "unsupportedPromotionsMutationsAndAccountStateMustFailPublication": true
+  }
+}

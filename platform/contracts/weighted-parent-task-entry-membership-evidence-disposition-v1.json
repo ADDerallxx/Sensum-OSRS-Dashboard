@@ -1,0 +1,25 @@
+{
+  "contract": "sensum.weighted-parent-task-entry-membership-evidence-disposition.v1",
+  "required": [
+    "sourceWeightedParentTaskEntryMembershipEvidenceContentHash",
+    "weightedParentTaskEntryMembershipEvidenceDispositions",
+    "weightedParentTaskEntryMembershipEvidenceDisposition",
+    "weightedParentTaskEntryMembershipEvidenceDispositionReview",
+    "weightedParentTaskEntryMembershipEvidencePackets",
+    "weightedParentTaskEntryMembershipEvidenceSources",
+    "weightedTaskEntryMembershipVerdict",
+    "memberUniverseComplete",
+    "optimizerEligible",
+    "automaticVerificationApplied",
+    "accountIndependent",
+    "blockers",
+    "state"
+  ],
+  "rules": {
+    "allUpstreamFieldsMustBePreserved": true,
+    "everyCompletePacketMustHaveExactlyOneDisposition": true,
+    "variantWeightCorroborationAndSourceSilenceRoutesMustRemainDistinct": true,
+    "reviewReadinessMustNotCreateMembershipOrOtherSemanticVerdicts": true,
+    "noRepeatabilityMechanicsMappingCompletenessOrOptimizerPromotion": true
+  }
+}

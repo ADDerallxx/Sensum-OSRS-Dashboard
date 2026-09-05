@@ -43,6 +43,22 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+All 59 weighted parent-task membership evidence packets now have deterministic,
+fail-closed sufficiency dispositions. The transform revalidated the input
+snapshot hash, all 60 retained exact-revision sources, all 59 packet hashes and
+channel sets, and every packet-to-disposition binding. Eight packets route to
+numbered alias or variant-scope evidence, four route to explicit source-bound
+corroboration review, 47 route to additional candidate-specific membership
+evidence, and none route to candidate-scoped weight review because no such
+statement was observed. Alias or variant ambiguity takes precedence even when a
+different positive signal exists. Parent-wide equal-weight and distribution
+language remains non-candidate evidence, while source silence remains an
+evidence gap rather than a negative fact. Two real transforms produced the same
+output hash, and a tampered-input CLI check exited without writing output. No
+membership, identity, mapping, completeness, repeatability, mechanics, account,
+or optimizer state was created. The next checkpoint should export the three
+populated routes as deterministic, disjoint review and evidence-work queues.
+
 All 59 routed weighted parent-task entry membership obligations now have complete,
 revision-pinned evidence packets. The collector revalidated 60 of 60 exact OSRS
 Wiki revisions and every retained parent occurrence, including eight whole-line

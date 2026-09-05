@@ -161,7 +161,8 @@
         "generic_multi_variant_binding_additional_evidence_sufficiency_disposition",
         "multi_variant_binding_canonical_subject_scope_review_queue_export",
         "multi_variant_binding_canonical_subject_scope_review_decision_import_contract",
-        "revision_pinned_weighted_parent_task_entry_membership_evidence_packets"
+        "revision_pinned_weighted_parent_task_entry_membership_evidence_packets",
+        "generic_weighted_parent_task_entry_membership_evidence_disposition"
       ],
       "remainingWork": [
         "Use the 1,909-entry revision-aligned semantic-review queue to establish canonical game-entity and activity identities from retained source signatures and contexts, then prove repeatability, membership, requirements, variants, XP, timing, mechanics, and authoritative exclusions. Begin with the 29 explicit activity-page candidates, but do not treat activity/minigame page type as repeatability proof; distinguish reference collections and composites from actual trainable method variants. Reconcile 68 queued untyped pages, 4,725 stable rendered pages without unlock evidence, 1,565 unlock pages without rendered-guide evidence, five unresolved rendered targets, the wider unlock set's 137 untyped pages and 31 activity pages, and 51 ambiguous statement forms. Historical template-expansion provenance remains open because dependency revision IDs and the generative origins of 16,284 rendered-only observations are unavailable. Continue independent discovery until every repeatable training activity in every skill is enumerated. The central guide index's composite Combat row and four Defence link disagreements remain explicit. Rockslide pairing still requires complete activity and travel graphs.",
@@ -178,12 +179,23 @@
         "independentGameUniverseDiscoveryPending": true
       },
       "latestCheckpoint": {
-        "id": "revision_pinned_weighted_parent_task_entry_membership_evidence_packets",
-        "result": "59_of_59_packets_complete; 60_of_60_exact_revisions_revalidated; 0_candidate_scoped_weight_statements; 2_unique_global_weight_statements; 3_unique_parent_distribution_statements; 6_candidate_subject_corroborations_across_4_packets; 104_numbered_alias_variant_signals; two_corrected_live_captures_byte_identical; 0_identity_0_membership_0_mapping_0_completeness_0_repeatability_0_mechanics_0_optimizer_promotions",
-        "next": "generic_weighted_parent_task_entry_membership_evidence_disposition"
+        "id": "generic_weighted_parent_task_entry_membership_evidence_disposition",
+        "result": "59_of_59_dispositions_complete; 60_sources_and_59_packets_revalidated; 8_numbered_alias_or_variant_scope_evidence_routes; 0_candidate_scoped_weight_review_routes; 4_candidate_subject_corroboration_review_routes; 47_additional_candidate_membership_evidence_routes; two_real_transforms_byte_identical; tampered_input_exit_2_with_no_output; 0_identity_0_membership_0_mapping_0_completeness_0_repeatability_0_mechanics_0_optimizer_promotions",
+        "next": "weighted_parent_task_entry_membership_review_and_evidence_work_queue_export"
       },
       "latestCoverageDelta": {
         "officialSkillDomainsMeasured": 24,
+        "weightedMembershipEvidenceDispositionRecords": 1,
+        "weightedMembershipEvidenceDispositions": 59,
+        "weightedMembershipDispositionRevalidatedSources": 60,
+        "weightedMembershipDispositionRevalidatedPackets": 59,
+        "numberedAliasOrVariantScopeEvidenceRoutes": 8,
+        "candidateScopedWeightReviewReadyRoutes": 0,
+        "candidateSubjectCorroborationReviewReadyRoutes": 4,
+        "additionalCandidateMembershipEvidenceRoutes": 47,
+        "weightedMembershipDispositionCoverageComplete": true,
+        "weightedMembershipDispositionDeterministicAcrossTwoRealRuns": true,
+        "tamperedInputDispositionOutputSnapshotsWritten": 0,
         "inputWeightedParentTaskMembershipWorkItems": 59,
         "outputWeightedParentTaskMembershipEvidencePackets": 59,
         "requestedExactRevisionSources": 60,
@@ -252,7 +264,34 @@
         "optimizerEligibleActivitiesAdded": 0,
         "currentAccountFieldsAllowed": 0,
         "inventedFacts": 0,
-        "reason": "All 59 weighted parent-task membership obligations now have complete, exact-revision evidence packets. Parent-wide task weights, candidate corroboration, and numbered alias signals remain separate channels, and the absence of candidate-scoped weight statements remains explicit. The first incomplete live capture wrote nothing; two corrected captures were byte-identical. The next generic disposition must route evidence states without inventing membership or promoting parent facts to candidate facts."
+        "reason": "All 59 weighted membership packets now have one deterministic evidence-sufficiency route. Eight variant-ambiguous packets, four corroborated review-ready packets, and 47 source-silent evidence gaps remain distinct; no packet has candidate-scoped weight evidence. Parent-wide facts and source silence were not promoted. The next export must create disjoint review and evidence-work queues without applying any semantic verdict."
+      },
+      "latestWeightedParentTaskEntryMembershipEvidenceDispositionAudit": {
+        "generatedAt": "2026-09-05T18:05:36.006Z",
+        "policy": "sensum.weighted-parent-task-entry-membership-evidence-disposition-policy.v1",
+        "policyContentHash": "5c5a5224969265dc77864435755f3240231f440dd09e05657dd6471d635c7a3c",
+        "inputSnapshotDirectory": "2026-09-05T17-37-35-832Z",
+        "inputSnapshotContentHash": "baeaaf5672f0979dd3a8e19b20befdc8233662a08ed9002d64668febf502af3a",
+        "outputSnapshotDirectory": "2026-09-05T18-05-35-864Z",
+        "outputSnapshotContentHash": "e96edd049a8bd795e8f4b1623508aa7c474099c336d3908f8cfb0de24312cced",
+        "reportContentHash": "f4905aa4c20372508e18b3d84c22f28057da65878f92a62f2ae899df9ef4771d",
+        "inputEvidenceRecordCount": 1,
+        "dispositionRecordCount": 1,
+        "sourceCount": 60,
+        "failedSourceCount": 0,
+        "evidencePacketCount": 59,
+        "failedPacketCount": 0,
+        "dispositionCount": 59,
+        "numberedAliasOrVariantScopeEvidenceRequiredCount": 8,
+        "candidateScopedWeightReviewReadyCount": 0,
+        "candidateSubjectCorroborationReviewReadyCount": 4,
+        "additionalCandidateMembershipEvidenceRequiredCount": 47,
+        "dispositionCoverageComplete": true,
+        "weightedMembershipReviewComplete": false,
+        "optimizerEligibleCount": 0,
+        "completeActivityUniverse": false,
+        "absoluteBestGate": "blocked_incomplete_activity_universe",
+        "publishable": true
       },
       "latestWeightedParentTaskEntryMembershipEvidenceAudit": {
         "generatedAt": "2026-09-05T17:37:35.975Z",
