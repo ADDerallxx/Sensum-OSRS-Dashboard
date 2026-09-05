@@ -43,6 +43,25 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+The three unresolved rendered-target resolution-review templates now have a
+fail-closed decision-import boundary. A completed submission must preserve its
+exact queue record, queue snapshot, disposition, evidence record, both upstream
+snapshot hashes, evidence fingerprint, allowed decisions, and exact field set.
+Confirmation must select exactly one page identity already presented in the
+bound current-page or revision-pinned candidate evidence and cite that identity's
+source hash. Every completed row also requires a non-automated human reviewer,
+review notes, bound evidence keys, and a UTC review time no earlier than the
+newest retained source. Valid partial human batches can be recorded, while
+blank-only, partially completed, duplicated, stale, uncited, unknown, extra-field,
+account-scoped, or tampered batches reject atomically. Recording remains separate
+from applying a resolution and cannot create canonical identity, repeatability,
+mechanics, or optimizer state. The real three-row blank template revalidated all
+three queue records, exited with the expected rejection code, wrote no decision
+snapshot, and applied zero semantic promotions. All 207 regression tests pass.
+The next unattended checkpoint should capture revision-pinned additional
+resolution evidence for the two category-title obligations while the three
+explicit resolution reviews await human decisions.
+
 The five unresolved rendered-target sufficiency dispositions now export into
 two exhaustive, disjoint, source-bound work queues. Three review-ready targets
 retain all 13 revision-pinned candidates, three blank human decision templates,

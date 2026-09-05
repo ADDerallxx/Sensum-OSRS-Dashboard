@@ -1,0 +1,35 @@
+{
+  "policy": "sensum.cross-skill-unresolved-rendered-target-resolution-review-decision-import-policy.v1",
+  "queueContract": "sensum.cross-skill-unresolved-rendered-target-resolution-review-queue-entry.v1",
+  "submissionContract": "sensum.cross-skill-unresolved-rendered-target-resolution-review-decision-template.v1",
+  "recordContract": "sensum.cross-skill-unresolved-rendered-target-resolution-review-decision.v1",
+  "auditContract": "sensum.cross-skill-unresolved-rendered-target-resolution-review-decision-import-audit.v1",
+  "queueState": "pending_explicit_source_bound_resolution_review",
+  "recordState": "recorded_source_bound_resolution_review_decision_pending_resolution_application",
+  "allowedDecisions": [
+    "confirm_exact_current_resolution",
+    "confirm_revision_pinned_candidate_resolution",
+    "reject_all_presented_resolution_candidates",
+    "needs_additional_evidence"
+  ],
+  "rules": {
+    "oneRecordedDecisionPerCompletedSubmission": true,
+    "partialReviewBatchesAreAllowed": true,
+    "blankTemplateRowsAreIgnored": true,
+    "partiallyCompletedRowsAreRejected": true,
+    "anyInvalidRowRejectsTheEntireBatch": true,
+    "queueManifestIntrinsicRecordNestedEvidenceAndSnapshotHashesMustRevalidate": true,
+    "submissionMustMatchEveryImmutableQueueBinding": true,
+    "submissionFieldSetMustExactlyMatchTheBlankTemplate": true,
+    "decisionMustBeExplicitlyAllowedByTheBoundQueueEntry": true,
+    "confirmedResolutionMustSelectExactlyOnePresentedPageIdentity": true,
+    "nonConfirmationDecisionsMustNotSelectAPageIdentity": true,
+    "reviewerReviewedAtNotesAndBoundEvidenceKeysAreRequired": true,
+    "reviewedAtMustNotPrecedeTheNewestBoundSourceTimestamp": true,
+    "obviousAutomaticOrModelReviewerNamesAreRejected": true,
+    "recordingADecisionDoesNotApplyResolutionCanonicalIdentityRepeatabilityRequirementsVariantsXpTimingMechanicsOrOptimizerState": true,
+    "titlesPageIdsRevisionsCandidateNamesAndOverridesCannotAlterPolicyBehavior": true,
+    "currentAccountStateIsForbidden": true,
+    "automaticVerificationAllowed": false
+  }
+}

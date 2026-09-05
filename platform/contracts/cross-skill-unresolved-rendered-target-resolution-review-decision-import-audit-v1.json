@@ -1,0 +1,27 @@
+{
+  "contract": "sensum.cross-skill-unresolved-rendered-target-resolution-review-decision-import-audit.v1",
+  "required": [
+    "queueCoverage",
+    "submissionCoverage",
+    "policyCoverage",
+    "bindingCoverage",
+    "recordCoverage",
+    "semanticPreservationCoverage",
+    "accountStateFindings",
+    "reviewDecisionRecordingComplete",
+    "resolutionApplicationComplete",
+    "completeActivityUniverse",
+    "absoluteBestGate",
+    "blockers",
+    "publishable"
+  ],
+  "rules": {
+    "queueSnapshotAndEveryQueueRecordMustRevalidate": true,
+    "everyCompletedSubmissionMustMatchExactlyOneQueueEntry": true,
+    "blankRowsMayBeIgnoredButPartialRowsMustFail": true,
+    "anyInvalidSubmissionMakesTheBatchAtomicAndUnpublishable": true,
+    "recordedDecisionSetMustExactlyMatchCompletedSubmissionSet": true,
+    "recordingCannotApplyResolutionOrCreateSemanticOrOptimizerPromotion": true,
+    "accountStateMustFailPublication": true
+  }
+}
