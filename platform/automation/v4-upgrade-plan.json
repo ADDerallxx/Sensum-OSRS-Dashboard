@@ -139,7 +139,8 @@
         "generic_independent_scoped_activity_repeatability_evidence_disposition",
         "generic_exact_scoped_independent_repeatability_evidence_work_routing",
         "revision_pinned_exact_scoped_independent_repeatability_evidence_packets",
-        "generic_exact_scoped_independent_repeatability_evidence_disposition"
+        "generic_exact_scoped_independent_repeatability_evidence_disposition",
+        "generic_member_identity_and_authoritative_source_channel_evidence_work_routing"
       ],
       "remainingWork": [
         "Use the 1,909-entry revision-aligned semantic-review queue to establish canonical game-entity and activity identities from retained source signatures and contexts, then prove repeatability, membership, requirements, variants, XP, timing, mechanics, and authoritative exclusions. Begin with the 29 explicit activity-page candidates, but do not treat activity/minigame page type as repeatability proof; distinguish reference collections and composites from actual trainable method variants. Reconcile 68 queued untyped pages, 4,725 stable rendered pages without unlock evidence, 1,565 unlock pages without rendered-guide evidence, five unresolved rendered targets, the wider unlock set's 137 untyped pages and 31 activity pages, and 51 ambiguous statement forms. Historical template-expansion provenance remains open because dependency revision IDs and the generative origins of 16,284 rendered-only observations are unavailable. Continue independent discovery until every repeatable training activity in every skill is enumerated. The central guide index's composite Combat row and four Defence link disagreements remain explicit. Rockslide pairing still requires complete activity and travel graphs.",
@@ -156,27 +157,22 @@
         "independentGameUniverseDiscoveryPending": true
       },
       "latestCheckpoint": {
-        "id": "generic_exact_scoped_independent_repeatability_evidence_disposition",
-        "result": "1_of_1_evidence_packets_dispositioned; 124_source_revision_and_line_sets_reverified; 6_of_6_domains_dispositioned_0_resolved; 5_additional_authoritative_source_channel_routes_1_reviewed_member_identity_route; 0_negative_game_facts_0_repeatability_classifications_0_downstream_promotions; byte_deterministic",
-        "next": "generic_member_identity_and_authoritative_source_channel_evidence_work_routing"
+        "id": "generic_member_identity_and_authoritative_source_channel_evidence_work_routing",
+        "result": "1_of_1_dispositions_routed; 6_of_6_domain_work_items_blocked_0_completed; 1_reviewed_member_identity_branch_5_authoritative_exact_scoped_source_channel_branches; same_line_and_no_join_rules_preserved; 0_evidence_keys_0_repeatability_classifications_0_downstream_promotions; byte_deterministic",
+        "next": "revision_pinned_parent_member_inventory_evidence_packets"
       },
       "latestCoverageDelta": {
         "officialSkillDomainsMeasured": 24,
-        "inputEvidencePacketRecords": 1,
-        "eligibleEvidencePacketRecords": 1,
-        "dispositionRecords": 1,
-        "completeIntegrityCheckedPackets": 1,
-        "retainedSourceRevisionAndLineSetsReverified": 124,
+        "inputDispositionRecords": 1,
+        "eligibleDispositionRecords": 1,
+        "routingRecords": 1,
         "requiredEvidenceDomains": 6,
-        "dispositionedEvidenceDomains": 6,
-        "domainsWithExactCandidates": 0,
-        "noCandidateInCompletedChannelsDomains": 5,
-        "missingReviewedMemberSubjectDomains": 1,
-        "resolvedEvidenceDomains": 0,
-        "negativeGameFactsEstablished": 0,
+        "routedEvidenceDomains": 6,
+        "blockedEvidenceWorkItems": 6,
+        "completedEvidenceWorkItems": 0,
         "memberIdentityExpansionWorkItems": 1,
         "authoritativeSourceChannelExpansionWorkItems": 5,
-        "manualCandidateReviewWorkItems": 0,
+        "evidenceKeysAdded": 0,
         "crossLineCrossSectionCrossPageOrCrossSourceJoinsAllowed": 0,
         "parentAndMemberSeparatedRecords": 1,
         "repeatabilityClassificationsAdded": 0,
@@ -185,7 +181,38 @@
         "optimizerEligibleActivitiesAdded": 0,
         "currentAccountFieldsAllowed": 0,
         "inventedFacts": 0,
-        "reason": "The complete two-channel search result was dispositioned without treating zero candidates as proof of absence. Five domains route to additional authoritative exact-scoped source discovery, while member repeatability first routes to reviewed member identity expansion. All verdict and optimizer gates remain closed."
+        "reason": "The two unresolved work types are now structurally separated: member repeatability first requires a reviewed member inventory, while the other five domains require additional authoritative exact-scoped source channels. Routing adds no evidence and leaves every fact unresolved."
+      },
+      "latestMemberIdentityAndAuthoritativeSourceChannelEvidenceWorkRoutingAudit": {
+        "generatedAt": "2026-09-05T06:19:39.337Z",
+        "policy": "sensum.member-identity-and-authoritative-source-channel-evidence-work-routing-policy.v1",
+        "policyContentHash": "c24e7ec91bdfcafd7cd9657612823c286d1647a4d5a8650edc8d7b422ba3a995",
+        "inputSnapshotDirectory": "2026-09-05T06-09-30-896Z",
+        "inputSnapshotContentHash": "666d9c30eaefd2a0d9723d54f8e4918d26237aeb0300d2a4f1435f4e40fe7e1a",
+        "outputSnapshotDirectory": "2026-09-05T06-19-39-249Z",
+        "outputSnapshotContentHash": "05a610d2fbc392c5e10983421721f77592c6c9f7a54e4b6d4358c310eacdc154",
+        "reportContentHash": "dcd475705a9d33a3b72dfb3c482d3327803f0ce5b23900a9c82896e7fb4c30bd",
+        "inputDispositionRecordCount": 1,
+        "routingRecordCount": 1,
+        "requiredWorkItemCount": 6,
+        "domainWorkItemCount": 6,
+        "memberIdentityWorkItemCount": 1,
+        "authoritativeSourceChannelWorkItemCount": 5,
+        "blockedWorkItemCount": 6,
+        "completedWorkItemCount": 0,
+        "routingCoverageComplete": true,
+        "evidenceWorkComplete": false,
+        "repeatabilityReviewComplete": false,
+        "completeActivityUniverse": false,
+        "absoluteBestGate": "blocked_incomplete_activity_universe",
+        "publishable": true,
+        "blockers": [
+          "member_identity_and_authoritative_source_channel_evidence_work_routed_not_completed",
+          "all_repeatability_evidence_domains_remain_unresolved",
+          "member_expansion_not_reviewed",
+          "requirements_xp_timing_and_mechanics_not_structured",
+          "independent_complete_activity_universe_not_established"
+        ]
       },
       "latestExactScopedIndependentRepeatabilityEvidenceDispositionAudit": {
         "generatedAt": "2026-09-05T06:09:30.978Z",

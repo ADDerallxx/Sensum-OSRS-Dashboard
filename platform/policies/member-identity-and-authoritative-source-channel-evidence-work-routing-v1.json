@@ -1,0 +1,40 @@
+{
+  "policy": "sensum.member-identity-and-authoritative-source-channel-evidence-work-routing-policy.v1",
+  "inputContract": "sensum.exact-scoped-independent-repeatability-evidence-disposition.v1",
+  "recordContract": "sensum.member-identity-and-authoritative-source-channel-evidence-work-routing.v1",
+  "auditContract": "sensum.member-identity-and-authoritative-source-channel-evidence-work-routing-audit.v1",
+  "inputState": "exact_scoped_independent_repeatability_disposition_reviewed_unresolved",
+  "inputRouteKey": "expand_reviewed_member_identity_and_authoritative_exact_scoped_source_channels",
+  "inputRouteState": "blocked_member_identity_and_authoritative_source_channel_coverage_gap",
+  "requiredEvidenceDomains": [
+    "parent_activity_post_completion_reassignment_or_restart",
+    "member_task_reselection_and_repeatability",
+    "cooldown_reset_daily_or_session_limits",
+    "finite_exhaustion_one_time_or_completion_lockout",
+    "availability_and_assignment_eligibility_across_sessions",
+    "independent_source_corroboration_or_conflict"
+  ],
+  "domainWorkDefinitions": [
+    {"domainKey":"parent_activity_post_completion_reassignment_or_restart","inputWorkKind":"additional_authoritative_exact_scoped_source_channel_discovery","branchKey":"authoritative_exact_scoped_source_channel_expansion","evidenceObjective":"Discover an additional authoritative, revision-pinned source channel capable of yielding an exact same-line parent subject and post-completion restart or reassignment predicate.","requiredChannels":["revision_pinned_official_wiki_source","additional_authoritative_source_channel","exact_source_authored_parent_subject","same_line_post_completion_restart_or_reassignment_predicate","complete_defined_channel_scope"]},
+    {"domainKey":"member_task_reselection_and_repeatability","inputWorkKind":"reviewed_member_identity_expansion","branchKey":"reviewed_member_identity_expansion","evidenceObjective":"Establish revision-pinned stable identities for the activity's actual members before seeking member-level reselection or repeatability evidence.","requiredChannels":["revision_pinned_parent_member_inventory_source","stable_member_identity","reviewed_exact_member_subject","member_inventory_completeness_assessment"]},
+    {"domainKey":"cooldown_reset_daily_or_session_limits","inputWorkKind":"additional_authoritative_exact_scoped_source_channel_discovery","branchKey":"authoritative_exact_scoped_source_channel_expansion","evidenceObjective":"Discover an additional authoritative, revision-pinned source channel capable of yielding an exact same-line subject and cooldown, reset, frequency, daily, or session predicate.","requiredChannels":["revision_pinned_official_wiki_source","additional_authoritative_source_channel","exact_source_authored_parent_or_reviewed_member_subject","same_line_limit_or_reset_predicate","complete_defined_channel_scope"]},
+    {"domainKey":"finite_exhaustion_one_time_or_completion_lockout","inputWorkKind":"additional_authoritative_exact_scoped_source_channel_discovery","branchKey":"authoritative_exact_scoped_source_channel_expansion","evidenceObjective":"Discover an additional authoritative, revision-pinned source channel capable of yielding an exact same-line subject and exhaustion, one-time, or completion-lockout predicate.","requiredChannels":["revision_pinned_official_wiki_source","additional_authoritative_source_channel","exact_source_authored_parent_or_reviewed_member_subject","same_line_exhaustion_or_lockout_predicate","complete_defined_channel_scope"]},
+    {"domainKey":"availability_and_assignment_eligibility_across_sessions","inputWorkKind":"additional_authoritative_exact_scoped_source_channel_discovery","branchKey":"authoritative_exact_scoped_source_channel_expansion","evidenceObjective":"Discover an additional authoritative, revision-pinned source channel capable of yielding an exact same-line parent subject and future cross-session availability predicate.","requiredChannels":["revision_pinned_official_wiki_source","additional_authoritative_source_channel","exact_source_authored_parent_subject","same_line_cross_session_availability_predicate","complete_defined_channel_scope"]},
+    {"domainKey":"independent_source_corroboration_or_conflict","inputWorkKind":"additional_authoritative_exact_scoped_source_channel_discovery","branchKey":"authoritative_exact_scoped_source_channel_expansion","evidenceObjective":"Discover an additional authoritative, revision-pinned source channel with an exact same-line subject and repeatability claim for later corroboration or conflict review.","requiredChannels":["revision_pinned_official_wiki_source","additional_authoritative_source_channel","stable_source_identity","same_line_exact_subject_repeatability_predicate","complete_defined_channel_scope"]}
+  ],
+  "rules": {
+    "oneRoutingRecordPerEligibleDisposition": true,
+    "everyDomainReceivesExactlyOneBlockedWorkItem": true,
+    "memberIdentityAndSourceChannelBranchesRemainSeparate": true,
+    "routeSelectionUsesOnlyAuditedDomainDispositionAndWorkKind": true,
+    "sameLineExactSubjectPredicateRequirementCannotBeRelaxed": true,
+    "crossLineCrossSectionCrossPageAndCrossSourceJoinsRemainForbidden": true,
+    "workItemsDescribeEvidenceObligationsNotGameFacts": true,
+    "routingCannotCompleteEvidenceOrCreateAVerdict": true,
+    "inputEvidenceRevisionsDiscoveryAndDispositionMustBePreserved": true,
+    "namesTitlesPageIdsCandidateKeysLabelsAliasesAndOverridesCannotSelectOrAlterTheRoute": true,
+    "memberMechanicsAndOptimizerPromotionAreForbidden": true,
+    "currentAccountStateIsForbidden": true,
+    "automaticVerificationAllowed": false
+  }
+}

@@ -1,0 +1,5 @@
+{
+  "contract": "sensum.member-identity-and-authoritative-source-channel-evidence-work-routing.v1",
+  "required": ["memberCandidateKey","sourceExactScopedIndependentRepeatabilityDispositionContentHash","canonicalActivityIdentity","exactScopedIndependentRepeatabilityDisposition","exactScopedIndependentRepeatabilityNextEvidenceWork","memberIdentityAndAuthoritativeSourceChannelEvidenceWorkRouting","memberExpansionReview","mechanicsReview","optimizerEligible","accountIndependent","blockers","state"],
+  "rules": {"oneRecordPerEligibleDisposition":true,"allUpstreamFieldsMustBePreserved":true,"sixBlockedDomainWorkItemsMustExistInPolicyOrder":true,"memberIdentityAndSourceChannelBranchesMustRemainSeparate":true,"sameLineAndNoJoinRulesCannotBeRelaxed":true,"routingCannotAddEvidenceOrVerdicts":true,"noOptimizerPromotionOrAccountStateIsAllowed":true}
+}

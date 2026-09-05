@@ -43,6 +43,18 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+The reviewed-member identity and authoritative-source gaps now have separate,
+generic work branches. One blocked work item targets revision-pinned parent/member
+inventory and stable member identities. Five blocked work items target additional
+authoritative exact-scoped source channels for the parent or mixed-subject domains.
+All six items retain exact same-line subject/predicate scope, forbid cross-source
+joins, contain no evidence keys, and remain incomplete. The router rejects changed
+work kinds, candidate-bearing inputs, branch swaps, activity-specific overrides,
+automatic verification, and account state. No verdict, mechanic, or optimizer
+promotion was produced. Two accepted transforms produced the same output hash. The
+next checkpoint should collect the revision-pinned parent/member inventory packet,
+preserving any non-exhaustive-list limitation as an explicit blocker.
+
 The exact-scoped independent evidence packets now have a generic semantic
 disposition. The transform recomputed all 124 retained source revisions and line
 hashes, verified all six domain packets, and preserved the zero-candidate result

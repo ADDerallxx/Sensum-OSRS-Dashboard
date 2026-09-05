@@ -1,0 +1,5 @@
+{
+  "contract": "sensum.member-identity-and-authoritative-source-channel-evidence-work-routing-audit.v1",
+  "required": ["inputCoverage","policyCoverage","routingCoverage","semanticPreservationCoverage","accountStateFindings","routingCoverageComplete","evidenceWorkComplete","repeatabilityReviewComplete","memberExpansionComplete","mechanicsReviewComplete","completeActivityUniverse","absoluteBestGate","blockers","publishable"],
+  "rules": {"everyEligibleDispositionMustProduceExactlyOneRoute":true,"allSixWorkItemsMustMatchTheGenericPolicy":true,"branchCountsMustMatchDispositionedNeeds":true,"inputOutputContextMustMatchExactly":true,"unsupportedPromotionsAndAccountStateMustFailClosed":true}
+}
