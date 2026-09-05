@@ -1,0 +1,28 @@
+{
+  "contract": "sensum.multi-variant-binding-canonical-subject-scope-review-queue-export-audit.v1",
+  "required": [
+    "inputCoverage",
+    "policyCoverage",
+    "sourceIntegrityCoverage",
+    "queueCoverage",
+    "artifactCoverage",
+    "semanticPreservationCoverage",
+    "accountStateFindings",
+    "queueExportComplete",
+    "canonicalSubjectScopeReviewComplete",
+    "variantBindingReviewComplete",
+    "optimizerEligibleCount",
+    "completeActivityUniverse",
+    "absoluteBestGate",
+    "blockers",
+    "publishable"
+  ],
+  "rules": {
+    "bothUpstreamSnapshotsMustRevalidate": true,
+    "everyEligibleDispositionMustExportExactlyOnce": true,
+    "nonCanonicalRoutesCannotEnterTheQueue": true,
+    "reviewArtifactsMustMatchTheirMachineRecords": true,
+    "queueExportCannotCreateAReviewBindingSemanticOrOptimizerPromotion": true,
+    "accountStateMustFailPublication": true
+  }
+}

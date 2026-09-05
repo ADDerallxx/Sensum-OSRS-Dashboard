@@ -1,0 +1,36 @@
+{
+  "policy": "sensum.multi-variant-binding-canonical-subject-scope-review-queue-export-policy.v1",
+  "evidencePacketContract": "sensum.multi-variant-binding-additional-evidence-source-discovery.v1",
+  "inputContract": "sensum.multi-variant-binding-additional-evidence-sufficiency-disposition.v1",
+  "queueContract": "sensum.multi-variant-binding-canonical-subject-scope-review-queue-entry.v1",
+  "decisionTemplateContract": "sensum.multi-variant-binding-canonical-subject-scope-review-decision-template.v1",
+  "auditContract": "sensum.multi-variant-binding-canonical-subject-scope-review-queue-export-audit.v1",
+  "evidencePacketState": "revision_pinned_additional_variant_binding_source_discovery_gates_closed",
+  "inputState": "additional_variant_binding_evidence_sufficiency_disposition_gates_closed",
+  "eligibleClassification": "canonical_subject_context_observed_exact_numbered_variant_alignment_absent",
+  "eligibleReviewRoute": "canonical_subject_scope_review",
+  "queueState": "pending_explicit_source_bound_canonical_subject_scope_review",
+  "allowedDecisions": [
+    "confirm_parent_occurrence_refers_to_canonical_subject_across_numbered_variants",
+    "require_exact_numbered_variant_binding",
+    "reject_parent_occurrence_subject_relation",
+    "needs_additional_evidence"
+  ],
+  "rules": {
+    "everyCanonicalSubjectScopeDispositionExportsExactlyOnce": true,
+    "nonCanonicalReviewRoutesRemainOutsideThisQueue": true,
+    "dispositionAndEvidenceSnapshotBindingsMustRevalidate": true,
+    "allPinnedAndDiscoveredSourceIntegrityMustRemainComplete": true,
+    "everyQueueEntryMustBindImmutableEvidenceAndSourceFingerprints": true,
+    "queueOrderMustPreserveEligibleDispositionOrder": true,
+    "markdownMustRetainExactMatchedObservationLinesAndRevisionIdentities": true,
+    "decisionTemplatesMustStartBlank": true,
+    "canonicalSubjectConfirmationCannotSelectANumberedVariant": true,
+    "reviewQueueCannotContainAReviewCandidateVariantIndexOrBoundVariant": true,
+    "exportDoesNotRecordAReviewDecisionReviewerDateNotesEvidenceOrBinding": true,
+    "confirmationDoesNotProveMembershipRepeatabilityRequirementsXpTimingMechanicsMappingCompletenessOrOptimizerEligibility": true,
+    "namesTitlesPageIdsRevisionsCandidateKeysLabelsAliasesAndOverridesCannotAlterPolicyBehavior": true,
+    "currentAccountStateIsForbidden": true,
+    "automaticVerificationAllowed": false
+  }
+}

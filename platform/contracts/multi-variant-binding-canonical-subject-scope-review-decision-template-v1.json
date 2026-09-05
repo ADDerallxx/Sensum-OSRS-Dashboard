@@ -1,0 +1,29 @@
+{
+  "contract": "sensum.multi-variant-binding-canonical-subject-scope-review-decision-template.v1",
+  "required": [
+    "queueEntryKey",
+    "sourceDispositionKey",
+    "sourceDispositionRecordContentHash",
+    "sourceDispositionSnapshotContentHash",
+    "sourceEvidencePacketKey",
+    "sourceEvidencePacketRecordContentHash",
+    "sourceEvidencePacketSnapshotContentHash",
+    "evidenceFingerprint",
+    "reviewCandidateVariantIndex",
+    "boundVariantIndex",
+    "decisionSourceRevisions",
+    "allowedDecisions",
+    "decision",
+    "reviewer",
+    "reviewedAt",
+    "reviewNotes",
+    "state",
+    "templateContentHash"
+  ],
+  "rules": {
+    "templateBindsTheExactQueueEvidence": true,
+    "decisionReviewerDateNotesAndSourcesStartBlank": true,
+    "numberedVariantFieldsMustRemainNull": true,
+    "templateCannotRecordOrImplyAnExactVariantBinding": true
+  }
+}

@@ -43,6 +43,22 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+The two canonical-subject-scope dispositions now have a deterministic,
+source-bound human-review queue that is separate from exact numbered-variant
+review. The exporter independently revalidates the disposition and evidence
+snapshot hashes, both dispositions and packets, all three pinned sources, all
+44 retained current source pages, 13 canonical-context observations, and 13
+numbered-identity observations. Each queue entry preserves the full evidence
+binding while the readable artifact shows only exact source-matched lines with
+their revision, locator, and full-section hash; this keeps the two-item review
+artifact compact without weakening provenance. Both decision templates are
+blank and expose no review-candidate or bound variant. Two real exports produced
+identical queue and artifact hashes. No review, binding, identity, membership,
+repeatability, mechanics, mapping, completeness, account, or optimizer state was
+created. The next checkpoint should add a fail-closed decision-import contract
+for these two canonical-subject-scope templates without treating confirmation as
+an exact numbered-variant binding.
+
 The two ambiguous High Priest and Reldo source-discovery packets now have a
 generic, fail-closed evidence-sufficiency disposition. The transform revalidates
 the packet and snapshot hashes, all three retained pinned sources, all 44 current

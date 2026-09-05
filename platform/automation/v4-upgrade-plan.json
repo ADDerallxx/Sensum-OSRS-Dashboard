@@ -158,7 +158,8 @@
         "multi_variant_binding_review_queue_and_additional_evidence_work_export",
         "multi_variant_binding_review_decision_import_contract",
         "multi_variant_binding_additional_evidence_source_discovery_packets",
-        "generic_multi_variant_binding_additional_evidence_sufficiency_disposition"
+        "generic_multi_variant_binding_additional_evidence_sufficiency_disposition",
+        "multi_variant_binding_canonical_subject_scope_review_queue_export"
       ],
       "remainingWork": [
         "Use the 1,909-entry revision-aligned semantic-review queue to establish canonical game-entity and activity identities from retained source signatures and contexts, then prove repeatability, membership, requirements, variants, XP, timing, mechanics, and authoritative exclusions. Begin with the 29 explicit activity-page candidates, but do not treat activity/minigame page type as repeatability proof; distinguish reference collections and composites from actual trainable method variants. Reconcile 68 queued untyped pages, 4,725 stable rendered pages without unlock evidence, 1,565 unlock pages without rendered-guide evidence, five unresolved rendered targets, the wider unlock set's 137 untyped pages and 31 activity pages, and 51 ambiguous statement forms. Historical template-expansion provenance remains open because dependency revision IDs and the generative origins of 16,284 rendered-only observations are unavailable. Continue independent discovery until every repeatable training activity in every skill is enumerated. The central guide index's composite Combat row and four Defence link disagreements remain explicit. Rockslide pairing still requires complete activity and travel graphs.",
@@ -175,9 +176,9 @@
         "independentGameUniverseDiscoveryPending": true
       },
       "latestCheckpoint": {
-        "id": "generic_multi_variant_binding_additional_evidence_sufficiency_disposition",
-        "result": "2_of_2_source_discovery_packets_revalidated_and_dispositioned; 3_of_3_pinned_sources_44_of_44_current_sources_11_of_11_searches_complete; 2_canonical_subject_context_dispositions_0_exact_numbered_variant_alignments; 2_canonical_subject_scope_review_routes_0_exact_numbered_variant_review_routes_0_additional_evidence_routes; 0_review_decisions_0_variant_indices_0_bindings_0_semantic_verdicts_0_optimizer_promotions; byte_deterministic",
-        "next": "multi_variant_binding_canonical_subject_scope_review_queue_export"
+        "id": "multi_variant_binding_canonical_subject_scope_review_queue_export",
+        "result": "2_of_2_dispositions_2_of_2_source_packets_revalidated; 3_of_3_pinned_sources_44_of_44_current_sources_13_context_observations_13_numbered_identity_observations_0_exact_task_variant_alignments; 2_source_bound_canonical_scope_review_entries_2_blank_templates_0_exact_variant_review_entries; compact_exact_matched_line_artifact_21677_bytes; 0_review_decisions_0_variant_indices_0_bindings_0_semantic_verdicts_0_optimizer_promotions; byte_deterministic",
+        "next": "multi_variant_binding_canonical_subject_scope_review_decision_import_contract"
       },
       "latestCoverageDelta": {
         "officialSkillDomainsMeasured": 24,
@@ -198,6 +199,10 @@
         "canonicalSubjectScopeReviewRoutes": 2,
         "exactNumberedVariantBindingReviewRoutes": 0,
         "remainingAdditionalBindingEvidenceRoutes": 0,
+        "canonicalSubjectScopeReviewQueueEntries": 2,
+        "blankCanonicalSubjectScopeDecisionTemplates": 2,
+        "exactNumberedVariantReviewEntriesInCanonicalQueue": 0,
+        "canonicalSubjectScopeReviewArtifactBytes": 21677,
         "requiredEvidenceChannels": 6,
         "satisfiedEvidenceChannels": 2,
         "lexicalUrlFalsePositivesAllowed": 0,
@@ -220,7 +225,65 @@
         "optimizerEligibleActivitiesAdded": 0,
         "currentAccountFieldsAllowed": 0,
         "inventedFacts": 0,
-        "reason": "Both ambiguous NPC packets generically classify as canonical-subject context with exact numbered-variant alignment absent. They are now ready only for source-bound canonical-subject-scope human review; selecting the Normal or any numbered variant remains an unsupported inference."
+        "reason": "Both ambiguous NPC cases now have compact, source-bound canonical-subject-scope review entries and blank decision templates. The exact numbered-variant queue remains separate; selecting the Normal or any numbered variant remains an unsupported inference."
+      },
+      "latestMultiVariantBindingCanonicalSubjectScopeReviewQueueExportAudit": {
+        "generatedAt": "2026-09-05T10:47:40.043Z",
+        "policy": "sensum.multi-variant-binding-canonical-subject-scope-review-queue-export-policy.v1",
+        "policyContentHash": "7c93a516b1a8102cfc029dc7fde74dcb1fb820b043f881d679643cf82b2c9ec0",
+        "dispositionSnapshotDirectory": "2026-09-05T10-32-48-345Z",
+        "dispositionSnapshotContentHash": "d97a947cd66a2d6e649e273ba59bc48e08ecef315057342fef2abba1275b7aee",
+        "evidenceSnapshotDirectory": "2026-09-05T10-19-15-611Z",
+        "evidenceSnapshotContentHash": "d70709d90f5b21c6671f0aca043818774264714dc3a3e834460186104bbb49ae",
+        "outputSnapshotDirectory": "2026-09-05T10-47-40-038Z",
+        "outputSnapshotContentHash": "ab41bbb9731aa3cea555eb960fb6dcb4c4686de6d9b659dab514a0a19fda12cf",
+        "reviewMarkdownContentHash": "fbe4b2cfc24eec70be0eceae4753caa63cd6297bbf9e3841ebd671ac87d6414d",
+        "decisionTemplateContentHash": "93478f7f51dcb7a9df94d40464d7934b950e5c0dc3ec4cfdb8b9f7cdc23ba9f4",
+        "reportContentHash": "1e4cd31c2024edca7d71d1f562dc463fb7d4043c824abc4ae12d9c4964ac9262",
+        "keySourceRevisions": {
+          "Wise Old Man tasks": "14997080",
+          "High Priest (Entrana)": "15138072",
+          "Reldo": "15286240",
+          "Old man's message": "15188977",
+          "Transcript:High Priest (Entrana)": "15082926",
+          "Transcript:Reldo": "15012327"
+        },
+        "inputDispositionCount": 2,
+        "inputEvidencePacketCount": 2,
+        "revalidatedDispositionCount": 2,
+        "revalidatedEvidencePacketCount": 2,
+        "retainedCurrentSourceCount": 44,
+        "completeCurrentSourceCount": 44,
+        "retainedPinnedSourceCount": 3,
+        "completePinnedSourceCount": 3,
+        "contextObservationCount": 13,
+        "numberedVariantIdentityObservationCount": 13,
+        "exactTaskToNumberedVariantAlignmentObservationCount": 0,
+        "reviewQueueEntryCount": 2,
+        "blankDecisionTemplateCount": 2,
+        "exactNumberedVariantReviewEntriesAllowed": 0,
+        "recordedReviewDecisionCount": 0,
+        "reviewCandidateVariantIndexCount": 0,
+        "boundVariantCount": 0,
+        "semanticVerdictCount": 0,
+        "optimizerEligibleCount": 0,
+        "queueExportComplete": true,
+        "canonicalSubjectScopeReviewComplete": false,
+        "variantBindingReviewComplete": false,
+        "completeActivityUniverse": false,
+        "absoluteBestGate": "blocked_incomplete_activity_universe",
+        "publishable": true,
+        "blockers": [
+          "canonical_subject_scope_review_decisions_pending",
+          "exact_numbered_variant_bindings_not_proven",
+          "candidate_member_identity_and_variant_binding_reviews_not_completed",
+          "weighted_parent_task_entry_membership_not_proven",
+          "one_to_one_mapping_between_structural_candidates_and_declared_total_not_proven",
+          "member_universe_completeness_not_proven",
+          "all_repeatability_evidence_domains_remain_unresolved",
+          "requirements_xp_timing_and_mechanics_not_structured",
+          "independent_complete_activity_universe_not_established"
+        ]
       },
       "latestMultiVariantBindingAdditionalEvidenceSufficiencyDispositionAudit": {
         "generatedAt": "2026-09-05T10:32:48.348Z",
