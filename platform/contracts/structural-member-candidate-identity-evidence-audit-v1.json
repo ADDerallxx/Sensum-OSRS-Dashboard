@@ -1,0 +1,29 @@
+{
+  "contract": "sensum.structural-member-candidate-identity-evidence-audit.v1",
+  "required": [
+    "inputCoverage",
+    "policyCoverage",
+    "requestCoverage",
+    "resolutionCoverage",
+    "parentCandidateAlignmentCoverage",
+    "semanticPreservationCoverage",
+    "accountStateFindings",
+    "evidencePacketAttemptCoverageComplete",
+    "candidateSubjectIdentityEvidencePacketCoverageComplete",
+    "memberIdentityReviewComplete",
+    "memberExpansionComplete",
+    "mechanicsReviewComplete",
+    "completeActivityUniverse",
+    "absoluteBestGate",
+    "blockers",
+    "publishable"
+  ],
+  "rules": {
+    "everyEligibleRoutingRecordMustProduceExactlyOneEvidenceRecord": true,
+    "everyDistinctRequestedSubjectMustHaveExactlyOneApiResolutionAttempt": true,
+    "everyCandidateWorkItemMustHaveExactlyOnePacket": true,
+    "everyCompletePacketMustRetainStableIdentityAndCompleteRevisionText": true,
+    "inputOutputContextMustMatchExactly": true,
+    "unsupportedVerdictsPromotionsAndAccountStateMustFailClosed": true
+  }
+}

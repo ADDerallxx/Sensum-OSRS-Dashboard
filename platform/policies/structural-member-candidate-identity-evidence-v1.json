@@ -1,0 +1,46 @@
+{
+  "policy": "sensum.structural-member-candidate-identity-evidence-policy.v1",
+  "inputContract": "sensum.parent-member-candidate-identity-and-completeness-evidence-work-routing.v1",
+  "recordContract": "sensum.structural-member-candidate-identity-evidence.v1",
+  "auditContract": "sensum.structural-member-candidate-identity-evidence-audit.v1",
+  "inputState": "parent_member_candidate_identity_and_completeness_evidence_work_routed_gates_closed",
+  "inputRouteState": "routed_blocked_candidate_identity_and_parent_completeness_evidence_work_not_completed",
+  "inputBranchKey": "stable_structural_member_candidate_identity_evidence",
+  "inputWorkKind": "revision_pinned_candidate_subject_identity_and_parent_relation_evidence",
+  "requiredCaptureChannels": [
+    "source_authored_requested_subject_resolution",
+    "normalization_and_redirect_chain",
+    "stable_wiki_page_id_and_resolved_title",
+    "current_observed_revision_timestamp_url_and_content_hash",
+    "complete_exact_revision_source_text",
+    "pinned_parent_candidate_source_observation_alignment",
+    "subject_identity_member_identity_parent_membership_entity_type_and_completeness_verdict_separation"
+  ],
+  "sourceResolution": {
+    "namespace": 0,
+    "batchSize": 20,
+    "followRedirects": true,
+    "retainNormalizationChain": true,
+    "retainRedirectChain": true,
+    "retainCompleteCurrentRevisionSourceText": true,
+    "requireStablePageIdentity": true
+  },
+  "rules": {
+    "oneEvidenceRecordPerEligibleRoutingRecord": true,
+    "oneEvidencePacketPerCandidateIdentityWorkItem": true,
+    "everyDistinctRequestedSubjectMustBeSubmittedToTheOfficialWikiApi": true,
+    "normalizationAndRedirectStepsMustBeRetainedWithoutCaseInsensitiveOrFallbackMatching": true,
+    "everyResolvedSubjectMustRetainStablePageIdResolvedTitleCurrentRevisionTimestampUrlHashAndCompleteText": true,
+    "everyPacketMustBindBackToTheExactPinnedParentCandidateObservation": true,
+    "resolvedWikiPageIdentityIsNotAReviewedMemberIdentityOrEntityTypeVerdict": true,
+    "sourceOccurrenceAlignmentIsNotAParentMembershipVerdict": true,
+    "redirectConvergenceAndMatchingCountsCannotProveOneToOneMembershipOrCompleteness": true,
+    "missingAmbiguousCyclicNonMainspaceOrIncompleteRevisionEvidenceRemainsBlocked": true,
+    "parentMappingAndCompleteUniverseWorkItemsMustRemainSeparateAndUnchanged": true,
+    "inputEvidenceRevisionsStructuresDispositionsAndRoutingMustBePreserved": true,
+    "namesTitlesPageIdsCandidateKeysLabelsAliasesAndOverridesCannotAlterPolicyBehavior": true,
+    "memberRepeatabilityMechanicsAndOptimizerPromotionAreForbidden": true,
+    "currentAccountStateIsForbidden": true,
+    "automaticVerificationAllowed": false
+  }
+}

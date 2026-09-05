@@ -1,0 +1,30 @@
+{
+  "contract": "sensum.structural-member-candidate-identity-evidence.v1",
+  "required": [
+    "memberCandidateKey",
+    "sourceParentMemberCandidateIdentityAndCompletenessEvidenceWorkRoutingContentHash",
+    "canonicalActivityIdentity",
+    "parentMemberCandidateIdentityAndCompletenessEvidenceWorkRouting",
+    "structuralMemberCandidateIdentityEvidenceSources",
+    "structuralMemberCandidateIdentityEvidence",
+    "structuralMemberCandidateIdentityEvidenceReview",
+    "parentMemberInventoryDisposition",
+    "parentMemberInventoryDispositionReview",
+    "memberExpansionReview",
+    "mechanicsReview",
+    "optimizerEligible",
+    "accountIndependent",
+    "blockers",
+    "state"
+  ],
+  "rules": {
+    "oneRecordPerEligibleRoutingRecord": true,
+    "allUpstreamFieldsMustBePreserved": true,
+    "oneIdentityEvidencePacketPerCandidateWorkItem": true,
+    "resolvedPacketsMustRetainExactCurrentRevisionEvidence": true,
+    "sourceCandidateAlignmentMustBeExact": true,
+    "resolvedPageIdentityCannotCreateMemberEntityTypeMembershipOrCompletenessVerdicts": true,
+    "parentCompletenessBranchesMustRemainUnchanged": true,
+    "memberRepeatabilityMechanicsOptimizerAndAccountPromotionAreForbidden": true
+  }
+}

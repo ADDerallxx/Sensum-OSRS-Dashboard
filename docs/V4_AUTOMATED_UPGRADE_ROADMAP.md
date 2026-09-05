@@ -43,6 +43,22 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+All 59 routed structural candidates now have a complete revision-pinned subject-
+page identity packet from the official Wiki API. Each packet retains the exact
+source-authored request, normalization and redirect chains, stable page ID,
+resolved title, current observed revision and timestamp, URL, content hash, and
+complete revision source text. One lowercase source request normalized to its
+canonical first-letter capitalization; no request redirected, went missing, or
+produced a resolution issue. All 59 packets also match their exact occurrence in
+the pinned parent source revision. The 59 stable page identities are evidence
+inputs only: none became a reviewed member identity, entity-type verdict, parent-
+membership verdict, one-to-one declared-total mapping, or completeness result.
+The source's non-exhaustive qualification remains active. Two live collections
+produced the same output hash, and the complete 109-test platform suite passed.
+The next checkpoint should apply a generic semantic disposition to these identity
+packets without allowing stable page resolution or occurrence alignment to imply
+parent membership or a complete member universe.
+
 The unresolved parent/member inventory disposition now has a generic split
 evidence-work route. All 59 structural candidates receive one blocked stable
 subject-identity and parent-relation work item. Two additional parent-level
