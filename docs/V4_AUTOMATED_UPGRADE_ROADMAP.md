@@ -44,6 +44,20 @@ rehearsed, and the user explicitly approves production deployment.
 ## Recent bounded checkpoints
 
 Official Wiki target-source signatures are now captured for queue ordinals
+501–750. Two independent exact-revision fetches produced the same 250-record
+hash, and all page IDs, revisions, timestamps, titles, namespaces, URLs, source
+hashes, and byte counts aligned. The shard spans 227 main, one project, 19 file,
+two category, and one calculator page and preserves 1,778,609 source bytes,
+2,500 root templates, 156 direct categories, 599 lead paragraphs, and 1,598
+headings. The first three canonical shards now form one exact, gap-free,
+disjoint ordinal range from 1 through 750 with 750 unique signature keys.
+Cumulative coverage is 750 of 4,725, with 3,975 still pending. No semantic
+review, unlock, canonical identity, activity, repeatability, mechanics,
+automatic verification, or optimizer promotion was created. All 270 regression
+tests pass. The next checkpoint should collect queue ordinals 751–1,000 while
+continuing to treat full-population source coverage as incomplete.
+
+Official Wiki target-source signatures are now captured for queue ordinals
 251–500. Both independent exact-revision fetches produced the same 250-record
 hash, and all 250 page IDs, revisions, timestamps, titles, namespaces, URLs,
 source hashes, and byte counts aligned. This shard spans 233 main, one talk,
