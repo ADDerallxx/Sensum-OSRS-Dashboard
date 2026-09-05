@@ -43,6 +43,17 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+The six unresolved independent repeatability domains now have a generic,
+fail-closed exact-scoped evidence route. Each work order requires an independent,
+revision-pinned source line that contains both the exact canonical activity
+subject and the required predicate. Collection-wide wording, another member's
+statement, backlinks, and cross-line, cross-section, cross-page, or cross-source
+joins are explicitly forbidden. All six work items remain blocked and incomplete;
+the router makes no repeatability classification, optimizer promotion, or account
+claim. Two accepted transforms produced the same output hash. The next checkpoint
+should collect revision-pinned evidence packets for these exact-scoped obligations
+without weakening the route or filling absent evidence.
+
 The independent scoped-activity evidence packet now has a generic semantic
 disposition. All 11 candidate statements were checked against their exact
 revision, line hash, source channel, and separately recorded subject and

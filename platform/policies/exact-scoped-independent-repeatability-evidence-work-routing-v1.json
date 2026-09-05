@@ -1,0 +1,76 @@
+{
+  "policy": "sensum.exact-scoped-independent-repeatability-evidence-work-routing-policy.v1",
+  "inputContract": "sensum.independent-scoped-activity-repeatability-evidence-disposition.v1",
+  "recordContract": "sensum.exact-scoped-independent-repeatability-evidence-work-routing.v1",
+  "auditContract": "sensum.exact-scoped-independent-repeatability-evidence-work-routing-audit.v1",
+  "inputState": "independent_scoped_activity_repeatability_disposition_reviewed_unresolved",
+  "inputDispositionState": "blocked_no_resolved_exact_scoped_independent_repeatability_claim",
+  "requiredSourceRoute": {
+    "routeKey": "collect_revision_pinned_exact_subject_predicate_independent_scoped_activity_repeatability_evidence",
+    "routeState": "blocked_exact_subject_predicate_independent_evidence_gap"
+  },
+  "requiredEvidenceDomains": [
+    "parent_activity_post_completion_reassignment_or_restart",
+    "member_task_reselection_and_repeatability",
+    "cooldown_reset_daily_or_session_limits",
+    "finite_exhaustion_one_time_or_completion_lockout",
+    "availability_and_assignment_eligibility_across_sessions",
+    "independent_source_corroboration_or_conflict"
+  ],
+  "domainWorkDefinitions": [
+    {
+      "domainKey": "parent_activity_post_completion_reassignment_or_restart",
+      "evidenceObjective": "Obtain a revision-pinned source line that names the exact canonical parent activity and explicitly states post-completion restart or reassignment behavior.",
+      "requiredChannels": ["revision_pinned_independent_source", "same_line_exact_canonical_parent_subject", "same_line_post_completion_restart_or_reassignment_predicate"]
+    },
+    {
+      "domainKey": "member_task_reselection_and_repeatability",
+      "evidenceObjective": "Obtain a revision-pinned source line that names one exact identified member and explicitly states reselection or recompletion behavior.",
+      "requiredChannels": ["revision_pinned_independent_source", "same_line_exact_member_subject", "same_line_member_reselection_or_recompletion_predicate"]
+    },
+    {
+      "domainKey": "cooldown_reset_daily_or_session_limits",
+      "evidenceObjective": "Obtain a revision-pinned source line that names the exact parent or member subject and states the applicable cooldown, reset, frequency, daily, or session boundary.",
+      "requiredChannels": ["revision_pinned_independent_source", "same_line_exact_parent_or_member_subject", "same_line_limit_and_reset_boundary"]
+    },
+    {
+      "domainKey": "finite_exhaustion_one_time_or_completion_lockout",
+      "evidenceObjective": "Obtain a revision-pinned source line that names the exact parent or member subject and states whether completion exhausts, locks, or permanently removes it.",
+      "requiredChannels": ["revision_pinned_independent_source", "same_line_exact_parent_or_member_subject", "same_line_completion_exhaustion_or_lockout_predicate"]
+    },
+    {
+      "domainKey": "availability_and_assignment_eligibility_across_sessions",
+      "evidenceObjective": "Obtain a revision-pinned source line that names the exact parent activity and explicitly states future availability across sessions separately from initial eligibility.",
+      "requiredChannels": ["revision_pinned_independent_source", "same_line_exact_canonical_parent_subject", "same_line_cross_session_availability_predicate"]
+    },
+    {
+      "domainKey": "independent_source_corroboration_or_conflict",
+      "evidenceObjective": "Obtain a separately revision-pinned source with an exact same-line subject and repeatability claim, then assess corroboration or conflict without joining other lines.",
+      "requiredChannels": ["revision_pinned_independent_source", "stable_source_identity", "same_line_exact_subject_predicate_scope", "corroboration_or_conflict_assessment"]
+    }
+  ],
+  "forbiddenSubstitutions": [
+    "collection_class_statement_joined_to_separate_member_row",
+    "reciprocal_backlink_joined_to_another_line",
+    "cross_line_cross_section_cross_page_or_cross_source_join",
+    "lexical_candidate_kind_without_exact_subject_scope",
+    "absence_of_limit_lockout_or_availability_wording",
+    "page_title_label_alias_or_page_type",
+    "current_account_observation"
+  ],
+  "rules": {
+    "oneWorkOrderPerEligibleDisposition": true,
+    "everyUnresolvedDomainReceivesExactlyOneBlockedWorkItem": true,
+    "routeSelectionUsesOnlyAuditedStateAndRequiredSourceRoute": true,
+    "sameLineExactSubjectAndPredicateAreMandatory": true,
+    "parentAndMemberEvidenceObligationsRemainSeparate": true,
+    "crossLineCrossSectionCrossPageAndCrossSourceJoinsAreForbidden": true,
+    "workItemsDescribeEvidenceObligationsNotGameFacts": true,
+    "routingCannotCompleteEvidenceOrCreateAVerdict": true,
+    "inputEvidenceRevisionHashesDiscoveryAndDispositionsMustBePreserved": true,
+    "namesTitlesPageIdsCandidateKeysLabelsAliasesAndOverridesCannotSelectOrAlterTheRoute": true,
+    "memberMechanicsAndOptimizerPromotionAreForbidden": true,
+    "currentAccountStateIsForbidden": true,
+    "automaticVerificationAllowed": false
+  }
+}

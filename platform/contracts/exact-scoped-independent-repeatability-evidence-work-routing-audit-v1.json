@@ -1,0 +1,25 @@
+{
+  "contract": "sensum.exact-scoped-independent-repeatability-evidence-work-routing-audit.v1",
+  "required": [
+    "inputCoverage",
+    "policyCoverage",
+    "routingCoverage",
+    "semanticPreservationCoverage",
+    "accountStateFindings",
+    "routingCoverageComplete",
+    "evidenceWorkComplete",
+    "repeatabilityReviewComplete",
+    "memberExpansionComplete",
+    "mechanicsReviewComplete",
+    "completeActivityUniverse",
+    "absoluteBestGate",
+    "blockers",
+    "publishable"
+  ],
+  "rules": {
+    "inputOutputSetsAndContextsMustMatchExactly": true,
+    "everyDomainMustHaveOneExactPolicyDerivedBlockedWorkItem": true,
+    "sameLineAndParentMemberSeparationMustRemainMandatory": true,
+    "unsupportedPromotionAndAccountStateMustFailClosed": true
+  }
+}
