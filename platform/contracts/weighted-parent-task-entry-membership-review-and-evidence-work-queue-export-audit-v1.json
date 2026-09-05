@@ -1,0 +1,27 @@
+{
+  "contract": "sensum.weighted-parent-task-entry-membership-review-and-evidence-work-queue-export-audit.v1",
+  "required": [
+    "inputCoverage",
+    "policyCoverage",
+    "sourcePacketAndDispositionIntegrityCoverage",
+    "queuePartitionCoverage",
+    "artifactCoverage",
+    "semanticPreservationCoverage",
+    "accountStateFindings",
+    "queueExportComplete",
+    "weightedMembershipReviewComplete",
+    "optimizerEligibleCount",
+    "completeActivityUniverse",
+    "absoluteBestGate",
+    "blockers",
+    "publishable"
+  ],
+  "rules": {
+    "eligibleDispositionUnionAndQueueUnionMustMatchExactly": true,
+    "allThreeQueuesMustBePairwiseDisjoint": true,
+    "allSourcesPacketsDispositionsAndBindingsMustRevalidate": true,
+    "queueEntriesTemplatesAndArtifactsMustMatchGenericPolicyOutput": true,
+    "allReviewAndSemanticFieldsMustRemainBlank": true,
+    "unsupportedMutationPromotionOrAccountStateMustFailPublication": true
+  }
+}

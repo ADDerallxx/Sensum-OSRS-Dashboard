@@ -1,0 +1,24 @@
+{
+  "contract": "sensum.weighted-parent-task-entry-membership-additional-evidence-work-queue-entry.v1",
+  "required": [
+    "queueEntryKey",
+    "queueOrdinal",
+    "sourceDispositionRecordContentHash",
+    "sourceEvidenceRecordContentHash",
+    "sourceDispositionKey",
+    "sourceEvidencePacketKey",
+    "sourceEvidencePacketContentHash",
+    "evidenceFingerprint",
+    "structuralCandidateKey",
+    "candidateRole",
+    "candidateDisplay",
+    "retainedEvidenceState",
+    "requiredEvidenceChannels",
+    "sourceSilenceIsNotNegativeEvidence",
+    "weightedTaskEntryMembershipVerdict",
+    "optimizerEligible",
+    "automaticVerificationApplied",
+    "accountIndependent",
+    "state"
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "contract": "sensum.weighted-parent-task-entry-membership-variant-scope-evidence-work-queue-entry.v1",
+  "required": [
+    "queueEntryKey",
+    "queueOrdinal",
+    "sourceDispositionRecordContentHash",
+    "sourceEvidenceRecordContentHash",
+    "sourceDispositionKey",
+    "sourceEvidencePacketKey",
+    "sourceEvidencePacketContentHash",
+    "evidenceFingerprint",
+    "structuralCandidateKey",
+    "candidateRole",
+    "candidateDisplay",
+    "variantScopeEvidence",
+    "requiredEvidenceChannels",
+    "reviewCandidateVariantIndex",
+    "weightedTaskEntryMembershipVerdict",
+    "optimizerEligible",
+    "automaticVerificationApplied",
+    "accountIndependent",
+    "state"
+  ]
+}

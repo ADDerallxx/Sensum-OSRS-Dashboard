@@ -43,6 +43,23 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+The 59 weighted parent-task membership dispositions now export into three
+deterministic, pairwise-disjoint queues. Four corroborated candidates have
+source-bound review entries and four separate blank decision templates; eight
+numbered alias or variant cases have scope-evidence work entries with no
+selected variant index; and 47 source-silent candidates have additional-
+membership-evidence work entries that explicitly preserve silence as a gap, not
+a negative fact. The queue union covers every disposition exactly once in
+source order. The exporter revalidated the disposition snapshot, 60 retained
+exact-revision sources, 59 packets, 59 dispositions, and every packet, channel,
+source, and evidence fingerprint before emitting readable artifacts. Two real
+exports produced identical hashes for all three queue snapshots and all four
+artifacts; a tampered-input CLI test exited without writing output. No review,
+membership, variant selection, identity, mapping, completeness, repeatability,
+mechanics, account, or optimizer state was created. The next checkpoint should
+add a fail-closed import boundary for the four blank review templates while the
+55 evidence-work entries remain pending.
+
 All 59 weighted parent-task membership evidence packets now have deterministic,
 fail-closed sufficiency dispositions. The transform revalidated the input
 snapshot hash, all 60 retained exact-revision sources, all 59 packet hashes and

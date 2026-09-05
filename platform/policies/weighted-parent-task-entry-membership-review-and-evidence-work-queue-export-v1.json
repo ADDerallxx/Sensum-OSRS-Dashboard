@@ -1,0 +1,38 @@
+{
+  "policy": "sensum.weighted-parent-task-entry-membership-review-and-evidence-work-queue-export-policy.v1",
+  "inputContract": "sensum.weighted-parent-task-entry-membership-evidence-disposition.v1",
+  "reviewQueueContract": "sensum.weighted-parent-task-entry-membership-review-queue-entry.v1",
+  "decisionTemplateContract": "sensum.weighted-parent-task-entry-membership-review-decision-template.v1",
+  "variantEvidenceQueueContract": "sensum.weighted-parent-task-entry-membership-variant-scope-evidence-work-queue-entry.v1",
+  "additionalEvidenceQueueContract": "sensum.weighted-parent-task-entry-membership-additional-evidence-work-queue-entry.v1",
+  "auditContract": "sensum.weighted-parent-task-entry-membership-review-and-evidence-work-queue-export-audit.v1",
+  "inputState": "weighted_parent_task_entry_membership_evidence_disposition_recorded_all_verdicts_closed",
+  "reviewRoutes": [
+    "candidate_scoped_weight_review_ready",
+    "candidate_subject_corroboration_review_ready"
+  ],
+  "variantEvidenceRoute": "numbered_alias_or_variant_scope_evidence_required",
+  "additionalEvidenceRoute": "additional_candidate_membership_evidence_required",
+  "allowedDecisions": [
+    "confirm_source_supports_candidate_membership",
+    "reject_source_supports_candidate_membership",
+    "needs_additional_evidence"
+  ],
+  "rules": {
+    "everyDispositionMustEnterExactlyOneOfThreeDisjointQueues": true,
+    "queueOrderMustPreserveSourceDispositionOrderWithinEachRoute": true,
+    "inputRecordSourcePacketDispositionAndChannelHashesMustRevalidate": true,
+    "everyQueueEntryMustBindImmutableEvidenceAndSourceFingerprints": true,
+    "onlyReviewRoutesMayProduceBlankDecisionTemplates": true,
+    "reviewDecisionTemplatesMustStartBlank": true,
+    "variantEvidenceQueueCannotSelectANameVersionOrVariantIndex": true,
+    "additionalEvidenceQueueMustPreserveSourceSilenceAsAnEvidenceGap": true,
+    "parentGlobalWeightAndDistributionEvidenceMustRemainNonCandidateContext": true,
+    "readableArtifactsMustUseOnlyRetainedExactEvidence": true,
+    "exportDoesNotRecordAReviewDecisionReviewerDateNotesEvidenceOrMembership": true,
+    "reviewConfirmationWouldNotProveIdentityMappingCompletenessRepeatabilityMechanicsOrOptimizerEligibility": true,
+    "namesTitlesPageIdsRevisionsCandidateKeysLabelsAliasesAndOverridesCannotAlterPolicyBehavior": true,
+    "currentAccountStateIsForbidden": true,
+    "automaticVerificationAllowed": false
+  }
+}

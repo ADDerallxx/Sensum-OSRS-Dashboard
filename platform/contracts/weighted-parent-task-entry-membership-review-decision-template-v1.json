@@ -1,0 +1,16 @@
+{
+  "contract": "sensum.weighted-parent-task-entry-membership-review-decision-template.v1",
+  "required": [
+    "queueEntryKey",
+    "sourceDispositionKey",
+    "sourceEvidencePacketContentHash",
+    "evidenceFingerprint",
+    "allowedDecisions",
+    "decisionSourceRevisions",
+    "decision",
+    "reviewer",
+    "reviewedAt",
+    "reviewNotes",
+    "state"
+  ]
+}
