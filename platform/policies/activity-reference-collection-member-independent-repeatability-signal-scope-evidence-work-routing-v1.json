@@ -1,0 +1,65 @@
+{
+  "policy": "sensum.activity-reference-collection-member-independent-repeatability-signal-scope-evidence-work-routing-policy.v1",
+  "inputContract": "sensum.activity-reference-collection-member-independent-repeatability-signal-scope-disposition.v1",
+  "recordContract": "sensum.activity-reference-collection-member-independent-repeatability-signal-scope-evidence-work-routing.v1",
+  "auditContract": "sensum.activity-reference-collection-member-independent-repeatability-signal-scope-evidence-work-routing-audit.v1",
+  "stateRoutes": {
+    "blocked_incomplete_signal_scope_evidence": {
+      "routeKey": "repair_incomplete_revision_pinned_signal_scope_evidence",
+      "routeState": "blocked_incomplete_input_evidence",
+      "requiredEvidenceDomains": [
+        "exact_signal_line",
+        "source_authored_main_namespace_links",
+        "revision_pinned_link_resolutions",
+        "stable_identity_comparisons"
+      ]
+    },
+    "blocked_no_exact_line_main_namespace_link_for_scope": {
+      "routeKey": "collect_source_bound_subject_predicate_binding_without_exact_line_link",
+      "routeState": "blocked_semantic_scope_evidence_gap",
+      "requiredEvidenceDomains": [
+        "canonical_activity_subject_declaration",
+        "repeatability_predicate_declaration",
+        "exact_source_grammar_or_equivalent_authoritative_semantic_binding",
+        "variant_or_mode_scope"
+      ]
+    },
+    "blocked_exact_line_links_without_stable_identity_anchor": {
+      "routeKey": "resolve_stable_activity_anchor_then_bind_repeatability_predicate",
+      "routeState": "blocked_identity_and_semantic_scope_evidence_gap",
+      "requiredEvidenceDomains": [
+        "stable_canonical_activity_identity_anchor",
+        "linked_target_relationship_to_canonical_activity",
+        "repeatability_predicate_declaration",
+        "semantic_subject_predicate_binding"
+      ]
+    },
+    "blocked_stable_identity_anchor_observation_without_semantic_subject_binding": {
+      "routeKey": "bind_repeatability_predicate_to_stable_activity_subject",
+      "routeState": "blocked_semantic_subject_binding_gap",
+      "requiredEvidenceDomains": [
+        "stable_canonical_activity_subject",
+        "repeatability_predicate_declaration",
+        "exact_source_grammar_or_equivalent_authoritative_semantic_binding",
+        "variant_or_mode_scope"
+      ]
+    }
+  },
+  "rules": {
+    "oneRoutingRecordPerSignalScopeDispositionRecord": true,
+    "oneNestedRoutePerSignalScopeDisposition": true,
+    "everyEmittableDispositionStateMustHaveExactlyOneRoute": true,
+    "incompleteEvidenceRoutesOnlyToRepair": true,
+    "absenceOfExactLineLinkRoutesToSubjectPredicateEvidenceNotOutOfScope": true,
+    "linksWithoutStableAnchorRouteToIdentityAndSemanticEvidence": true,
+    "stableAnchorWithoutSemanticBindingRoutesToSubjectPredicateBinding": true,
+    "routesDescribeEvidenceObligationsNotGameFacts": true,
+    "namesTitlesPageIdsCandidateKeysLabelsAliasesAndOverridesCannotSelectOrAlterRoutes": true,
+    "inputEvidenceDispositionsIdentityRevisionsHashesAndContextMustBePreserved": true,
+    "routingCannotCreateScopeOrRepeatabilityClassifications": true,
+    "routingCannotCompleteMemberExpansionOrMechanics": true,
+    "routingCannotCreateOptimizerCandidates": true,
+    "currentAccountStateIsForbidden": true,
+    "automaticVerificationAllowed": false
+  }
+}

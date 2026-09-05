@@ -1,0 +1,31 @@
+{
+  "contract": "sensum.activity-reference-collection-member-independent-repeatability-signal-scope-evidence-work-routing.v1",
+  "required": [
+    "memberCandidateKey",
+    "sourceIndependentRepeatabilitySignalScopeDispositionContentHash",
+    "canonicalActivityIdentity",
+    "independentRepeatabilitySignalScopeEvidence",
+    "independentRepeatabilitySignalScopeObservations",
+    "independentRepeatabilitySignalScopeDisposition",
+    "independentRepeatabilitySignalScopeReview",
+    "independentRepeatabilitySignalScopeEvidenceWorkRouting",
+    "independentRepeatabilitySignalScopeEvidenceWorkReview",
+    "repeatabilityDisposition",
+    "repeatabilityReview",
+    "memberExpansionReview",
+    "mechanicsReview",
+    "optimizerEligible",
+    "accountIndependent",
+    "blockers"
+  ],
+  "rules": {
+    "oneOutputPerExactInputDispositionRecord": true,
+    "oneRoutePerExactNestedSignalDisposition": true,
+    "routeSelectionUsesOnlyTheSignalScopeDispositionState": true,
+    "allUpstreamEvidenceDispositionsIdentityRevisionsHashesAndContextRemainExact": true,
+    "allRouteStatesRemainBlockedEvidenceObligations": true,
+    "scopeAndRepeatabilityClassificationsRemainNull": true,
+    "memberExpansionMechanicsAndOptimizerPromotionAreForbidden": true,
+    "currentAccountStateIsForbidden": true
+  }
+}

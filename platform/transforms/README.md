@@ -192,6 +192,28 @@ Run:
 node platform/transforms/build-activity-reference-collection-member-independent-repeatability-signal-scope-dispositions.mjs
 ```
 
+## Independent signal-scope evidence-work routing
+
+`build-activity-reference-collection-member-independent-repeatability-signal-scope-evidence-work-routes.mjs`
+maps every signal-scope disposition state to one generic evidence obligation.
+Incomplete packets route only to repair. Signals without an exact-line link
+route to source-bound canonical-activity subject and repeatability-predicate
+evidence. Linked signals without a reviewed stable activity anchor route to
+identity resolution followed by semantic binding, while an observed anchor
+without binding routes directly to exact subject-predicate review.
+
+Every route remains blocked and describes work rather than a game fact. Route
+selection cannot use activity names, titles, page IDs, candidate keys, labels,
+aliases, or overrides, and cannot create a scope or repeatability classification.
+The audit uses activity-plus-signal composite route keys so shared source signals
+cannot merge separate activity candidates.
+
+Run:
+
+```text
+node platform/transforms/build-activity-reference-collection-member-independent-repeatability-signal-scope-evidence-work-routes.mjs
+```
+
 ## Activity-candidate subject disposition
 
 `build-activity-candidate-subject-dispositions.mjs` applies a versioned generic

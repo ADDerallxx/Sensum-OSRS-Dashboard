@@ -43,6 +43,21 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+Every independent repeatability signal-scope disposition now has one generic
+evidence-work route. All 47 nested dispositions were routed exactly once: 27
+signals without an exact-line main-namespace link require source-bound canonical
+activity subject and repeatability-predicate evidence, while 20 signals whose
+links do not match a reviewed stable activity anchor require identity resolution
+before semantic predicate binding. All 47 routes remain blocked; none is queued
+as verified work, and evidence completion, canonical-activity scope,
+repeatability, member expansion, mechanics, and optimizer eligibility remain at
+zero. The four-state policy forbids activity-specific names, titles, page IDs,
+labels, aliases, and overrides. Tests also preserve distinct route identities
+when separate activity candidates share a source signal key. Two live runs
+produced the same output hash. The next checkpoint should collect revision-
+pinned semantic subject-predicate evidence for these routed obligations without
+treating discovery matches as canonical-activity scope.
+
 Every independent repeatability signal-scope evidence packet now has one
 generic, fail-closed disposition. All 47 signals were dispositioned structurally:
 27 have no source-authored main-namespace link on the exact signal line, and 20

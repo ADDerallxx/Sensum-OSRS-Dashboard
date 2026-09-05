@@ -1,0 +1,30 @@
+{
+  "contract": "sensum.activity-reference-collection-member-independent-repeatability-signal-scope-evidence-work-routing-audit.v1",
+  "required": [
+    "inputCoverage",
+    "policyCoverage",
+    "routingCoverage",
+    "semanticPromotionCoverage",
+    "accountStateFindings",
+    "routingCoverageComplete",
+    "evidenceWorkComplete",
+    "canonicalActivityScopeReviewComplete",
+    "repeatabilityReviewComplete",
+    "memberExpansionReviewComplete",
+    "mechanicsReviewComplete",
+    "completeActivityUniverse",
+    "absoluteBestGate",
+    "blockers",
+    "publishable"
+  ],
+  "rules": {
+    "everyInputRecordAndSignalDispositionIsRoutedExactlyOnce": true,
+    "inputOutputSetsHashesEvidenceDispositionsIdentityRevisionsAndContextMatchExactly": true,
+    "everyEmittableDispositionStateHasOneGenericRoute": true,
+    "everyRoutingDecisionMatchesTheGenericPolicy": true,
+    "allRoutesRemainBlockedUntilTheirEvidenceWorkCompletes": true,
+    "scopeAndRepeatabilityClassificationsCannotBeCreated": true,
+    "memberMechanicsAndOptimizerPromotionsAreForbidden": true,
+    "currentAccountStateIsForbidden": true
+  }
+}
