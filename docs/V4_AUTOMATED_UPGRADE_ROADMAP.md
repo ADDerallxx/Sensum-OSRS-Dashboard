@@ -43,6 +43,19 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+The exact-scoped independent evidence packets now have a generic semantic
+disposition. The transform recomputed all 124 retained source revisions and line
+hashes, verified all six domain packets, and preserved the zero-candidate result
+without converting absence into a negative game fact. Five parent or mixed-subject
+domains require additional authoritative exact-scoped source channels. The member
+task domain separately requires reviewed member identities before member-level
+evidence can be sought. Every next-work item retains the same-line subject/predicate
+requirement and forbids cross-line, cross-section, cross-page, and cross-source
+joins. No repeatability verdict, mechanics review, or optimizer promotion was
+created. Two accepted transforms produced the same output hash. The next checkpoint
+should route member-identity expansion separately from authoritative source-channel
+expansion without implying that either work is complete.
+
 The exact-scoped independent repeatability work orders now have revision-pinned
 evidence packets from two generic discovery channels. The collector exhausted all
 main-namespace backlinks to the exact parent title and all exact-label Wiki search

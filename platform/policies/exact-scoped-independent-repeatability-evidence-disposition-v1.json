@@ -1,0 +1,44 @@
+{
+  "policy": "sensum.exact-scoped-independent-repeatability-evidence-disposition-policy.v1",
+  "inputContract": "sensum.exact-scoped-independent-repeatability-evidence.v1",
+  "recordContract": "sensum.exact-scoped-independent-repeatability-evidence-disposition.v1",
+  "auditContract": "sensum.exact-scoped-independent-repeatability-evidence-disposition-audit.v1",
+  "inputState": "exact_scoped_independent_repeatability_evidence_collected_gates_closed",
+  "requiredEvidenceState": "revision_pinned_exact_scoped_independent_repeatability_evidence_collected_review_required",
+  "requiredReviewState": "unreviewed_exact_scoped_independent_repeatability_evidence_semantic_disposition_required",
+  "requiredEvidenceDomains": [
+    "parent_activity_post_completion_reassignment_or_restart",
+    "member_task_reselection_and_repeatability",
+    "cooldown_reset_daily_or_session_limits",
+    "finite_exhaustion_one_time_or_completion_lockout",
+    "availability_and_assignment_eligibility_across_sessions",
+    "independent_source_corroboration_or_conflict"
+  ],
+  "dispositionClasses": {
+    "exactCandidate": "exact_same_line_subject_predicate_candidate_requires_manual_semantic_review",
+    "noCandidateInCompleteChannels": "no_exact_candidate_in_completed_defined_channels_not_negative_evidence",
+    "missingReviewedMemberSubject": "reviewed_member_subject_prerequisite_missing",
+    "incompletePacket": "evidence_packet_incomplete_or_inconsistent_fail_closed"
+  },
+  "nextEvidenceRoute": {
+    "routeKey": "expand_reviewed_member_identity_and_authoritative_exact_scoped_source_channels",
+    "routeState": "blocked_member_identity_and_authoritative_source_channel_coverage_gap"
+  },
+  "rules": {
+    "oneDispositionPerCompleteEvidencePacket": true,
+    "everyExactCandidateReceivesManualReviewStatus": true,
+    "zeroCandidatesInCompletedChannelsIsNotNegativeEvidence": true,
+    "missingReviewedMemberSubjectRemainsASeparatePrerequisite": true,
+    "allSixDomainsRemainIndependentlyAssessed": true,
+    "parentAndMemberRepeatabilityRemainSeparate": true,
+    "sameLineExactSubjectPredicateRequirementCannotBeRelaxed": true,
+    "crossLineCrossSectionCrossPageAndCrossSourceJoinsRemainForbidden": true,
+    "nextWorkSeparatesMemberIdentityFromSourceChannelExpansion": true,
+    "namesTitlesPageIdsCandidateKeysLabelsAliasesAndOverridesCannotSelectOrAlterADisposition": true,
+    "inputEvidenceRevisionsDiscoveryAndPriorDispositionsMustBePreserved": true,
+    "repeatabilityVerdictsRemainNull": true,
+    "memberMechanicsAndOptimizerPromotionAreForbidden": true,
+    "currentAccountStateIsForbidden": true,
+    "automaticVerificationAllowed": false
+  }
+}

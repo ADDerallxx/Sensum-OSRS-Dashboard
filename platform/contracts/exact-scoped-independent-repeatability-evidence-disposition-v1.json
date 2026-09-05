@@ -1,0 +1,27 @@
+{
+  "contract": "sensum.exact-scoped-independent-repeatability-evidence-disposition.v1",
+  "required": [
+    "memberCandidateKey",
+    "sourceExactScopedIndependentRepeatabilityEvidenceContentHash",
+    "canonicalActivityIdentity",
+    "exactScopedIndependentRepeatabilityEvidence",
+    "exactScopedIndependentRepeatabilityDisposition",
+    "exactScopedIndependentRepeatabilityReview",
+    "exactScopedIndependentRepeatabilityNextEvidenceWork",
+    "memberExpansionReview",
+    "mechanicsReview",
+    "optimizerEligible",
+    "accountIndependent",
+    "blockers",
+    "state"
+  ],
+  "rules": {
+    "oneRecordPerEligibleEvidencePacket": true,
+    "allUpstreamFieldsMustBePreserved": true,
+    "allSixDomainsMustRemainExplicitAndUnresolved": true,
+    "zeroCandidateDispositionCannotBecomeANegativeFact": true,
+    "memberIdentityAndSourceChannelGapsRemainSeparate": true,
+    "sameLineAndNoJoinRulesCannotBeRelaxed": true,
+    "noVerdictOrOptimizerPromotionIsAllowed": true
+  }
+}
