@@ -43,6 +43,18 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+The 51 source-bound structural-candidate identity packets now have a compact,
+deterministic human-review queue and a separate blank machine decision template.
+Every queue entry preserves source packet order, the exact revision-pinned
+subject infobox, the exact parent occurrence and locator, and immutable packet,
+record, and evidence fingerprints. The exporter revalidated all 60 retained
+source revisions and all 51 packet hashes before emitting 51 queue entries and
+51 blank templates. The Markdown, decision-template, and queue snapshot hashes
+matched across two exports. No decision, reviewer, date, note, identity verdict,
+membership claim, or optimizer promotion was created. The next checkpoint should
+define a fail-closed decision-import contract that rejects stale or mismatched
+fingerprints before any reviewed identity disposition can be recorded.
+
 All 51 review-ready structural candidates now have self-contained, source-bound
 identity review packets. Each packet revalidates its exact subject-page source,
 retains the single identity-bearing root infobox and source-authored name

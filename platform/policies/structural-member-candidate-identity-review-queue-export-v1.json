@@ -1,0 +1,29 @@
+{
+  "policy": "sensum.structural-member-candidate-identity-review-queue-export-policy.v1",
+  "inputContract": "sensum.structural-member-candidate-identity-review-packets.v1",
+  "recordContract": "sensum.structural-member-candidate-identity-review-queue-entry.v1",
+  "decisionTemplateContract": "sensum.structural-member-candidate-identity-review-decision-template.v1",
+  "auditContract": "sensum.structural-member-candidate-identity-review-queue-export-audit.v1",
+  "inputState": "structural_member_candidate_identity_review_packets_materialized_decisions_pending_gates_closed",
+  "outputState": "pending_explicit_source_bound_candidate_identity_review",
+  "allowedDecisions": [
+    "confirm_source_page_subject_identity_for_candidate",
+    "reject_source_page_subject_identity_for_candidate",
+    "needs_additional_evidence"
+  ],
+  "rules": {
+    "oneQueueEntryAndDecisionTemplatePerEligibleReviewPacket": true,
+    "inputRecordAndPacketContentHashesMustRevalidate": true,
+    "allRetainedExactRevisionSourcesMustRevalidateBeforeExport": true,
+    "queueOrderMustPreserveSourcePacketOrder": true,
+    "everyEntryMustBindItsPacketAndEvidenceFingerprint": true,
+    "markdownMustRetainExactSubjectInfoboxAndParentOccurrence": true,
+    "decisionTemplateMustStartBlank": true,
+    "decisionTemplateMustBindTheSamePacketAndEvidenceFingerprint": true,
+    "exportDoesNotRecordReviewDecisionReviewerDateOrNotes": true,
+    "confirmedIdentityWouldNotProveMembershipRepeatabilityMechanicsMappingCompletenessOrOptimizerEligibility": true,
+    "namesTitlesPageIdsRevisionsCandidateKeysLabelsAliasesAndOverridesCannotAlterPolicyBehavior": true,
+    "currentAccountStateIsForbidden": true,
+    "automaticVerificationAllowed": false
+  }
+}

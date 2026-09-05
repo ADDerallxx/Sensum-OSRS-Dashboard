@@ -1,0 +1,29 @@
+{
+  "contract": "sensum.structural-member-candidate-identity-review-queue-export-audit.v1",
+  "required": [
+    "inputCoverage",
+    "policyCoverage",
+    "sourceIntegrityCoverage",
+    "packetIntegrityCoverage",
+    "queueCoverage",
+    "artifactCoverage",
+    "semanticPreservationCoverage",
+    "accountStateFindings",
+    "reviewQueueExportComplete",
+    "identityReviewComplete",
+    "optimizerEligibleCount",
+    "completeActivityUniverse",
+    "absoluteBestGate",
+    "blockers",
+    "publishable"
+  ],
+  "rules": {
+    "eligiblePacketQueueAndTemplateSetsMustMatchExactly": true,
+    "allRetainedSourcesAndPacketsMustRevalidate": true,
+    "queueEntriesMustMatchTheGenericExportPolicy": true,
+    "markdownAndDecisionTemplateHashesMustBeReported": true,
+    "allDecisionFieldsMustRemainBlank": true,
+    "unsupportedReviewOrSemanticPromotionMustFailPublication": true,
+    "accountStateMustFailPublication": true
+  }
+}

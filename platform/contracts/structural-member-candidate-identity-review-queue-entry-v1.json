@@ -1,0 +1,33 @@
+{
+  "contract": "sensum.structural-member-candidate-identity-review-queue-entry.v1",
+  "required": [
+    "queueEntryKey",
+    "queueOrdinal",
+    "reviewPacketKey",
+    "sourcePacketRecordContentHash",
+    "sourcePacketContentHash",
+    "evidenceFingerprint",
+    "structuralCandidateKey",
+    "candidateRole",
+    "candidateDisplayName",
+    "candidateDisplayNameSource",
+    "subjectEvidence",
+    "parentOccurrenceEvidence",
+    "reviewScope",
+    "allowedDecisions",
+    "decisionTemplate",
+    "accountIndependent",
+    "state"
+  ],
+  "rules": {
+    "oneEntryPerEligibleReviewPacket": true,
+    "sourceOrderIsPreservedByQueueOrdinal": true,
+    "packetAndEvidenceFingerprintsAreImmutableReviewBindings": true,
+    "displayNameIsSourceAuthoredAndCannotChangePolicyBehavior": true,
+    "subjectEvidenceRetainsExactRevisionIdentityAndInfobox": true,
+    "parentEvidenceRetainsExactRevisionIdentityOccurrenceAndLocator": true,
+    "decisionTemplateStartsWithNullDecisionReviewerDateAndNotes": true,
+    "reviewConfirmationDoesNotProveDownstreamSemantics": true,
+    "noEntryIsOptimizerEligible": true
+  }
+}
