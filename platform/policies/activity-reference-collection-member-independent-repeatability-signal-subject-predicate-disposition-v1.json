@@ -1,0 +1,24 @@
+{
+  "policy": "sensum.activity-reference-collection-member-independent-repeatability-signal-subject-predicate-disposition-policy.v1",
+  "inputContract": "sensum.activity-reference-collection-member-independent-repeatability-signal-subject-predicate-evidence.v1",
+  "recordContract": "sensum.activity-reference-collection-member-independent-repeatability-signal-subject-predicate-disposition.v1",
+  "auditContract": "sensum.activity-reference-collection-member-independent-repeatability-signal-subject-predicate-disposition-audit.v1",
+  "inputState": "independent_repeatability_signal_subject_predicate_evidence_ready_for_semantic_disposition",
+  "rules": {
+    "oneOutputRecordPerCompleteEvidenceRecord": true,
+    "oneNestedDispositionPerExactSubjectPredicateEvidencePacket": true,
+    "allExactRevisionLinePredicateLinkAndAnchorEvidenceRemainsExact": true,
+    "incompleteSubjectPredicateEvidenceRemainsBlocked": true,
+    "absenceOfAStableActivityAnchorRemainsAnUnresolvedEvidenceGap": true,
+    "absenceOfAStableActivityAnchorCannotEstablishOutOfScope": true,
+    "presenceOfAStableActivityAnchorRequiresSeparateSemanticBindingReview": true,
+    "stableActivityAnchorObservationCannotEstablishSemanticBinding": true,
+    "exactLineAndPredicateEvidenceCannotEstablishSemanticMeaningAlone": true,
+    "sourcePageTitleCanonicalLabelLinkTextTargetTitlePageIdAndLexicalSimilarityCannotSelectADisposition": true,
+    "canonicalActivitySubjectScopeAndRepeatabilityClassificationsRemainNull": true,
+    "allUnresolvedSemanticStatesRemainExplicitAndPublishable": true,
+    "upstreamEvidenceRoutingDispositionsReviewsAndIdentitiesRemainUnchanged": true,
+    "memberExpansionMechanicsAndOptimizerEligibilityRemainClosed": true,
+    "currentAccountStateIsForbidden": true
+  }
+}

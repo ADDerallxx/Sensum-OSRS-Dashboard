@@ -43,6 +43,23 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+Every independent repeatability signal subject-predicate evidence packet now has
+one generic, fail-closed disposition. All 47 exact-revision packets were
+dispositioned exactly once: all 47 retain complete line, predicate, link, and
+revision evidence but have no stable canonical-activity subject anchor. That
+absence remains an unresolved evidence gap and cannot establish that a signal
+is out of scope. The policy separately queues structurally anchored packets for
+semantic subject-predicate binding review without allowing the anchor itself to
+create a binding. There are zero incomplete packets, semantic subject bindings,
+canonical-activity scope classifications, repeatability classifications,
+upstream mutations, member or mechanics reviews, and optimizer promotions.
+Activity-specific names, titles, page IDs, labels, aliases, and overrides are
+forbidden, and tests preserve independent identities when two candidate records
+share a signal key. Two live runs produced the same output hash. The next
+checkpoint should collect revision-pinned canonical-activity subject declaration
+evidence for the two unresolved activity identities, consolidating their 47
+unbound signals without treating search results or lexical similarity as proof.
+
 All 47 routed independent repeatability signals now have exact-revision subject-
 predicate evidence packets. The collector refetched 18 unique retained official
 Wiki revisions covering 359,018 source bytes and revalidated all 47 exact source

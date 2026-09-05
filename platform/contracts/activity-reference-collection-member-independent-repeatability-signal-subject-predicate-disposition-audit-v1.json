@@ -1,0 +1,30 @@
+{
+  "contract": "sensum.activity-reference-collection-member-independent-repeatability-signal-subject-predicate-disposition-audit.v1",
+  "required": [
+    "inputCoverage",
+    "policyCoverage",
+    "dispositionCoverage",
+    "semanticPromotionCoverage",
+    "accountStateFindings",
+    "subjectPredicateDispositionAttemptCoverageComplete",
+    "signalSubjectPredicateDispositionCoverageComplete",
+    "semanticSubjectBindingReviewComplete",
+    "canonicalActivityScopeReviewComplete",
+    "repeatabilityReviewComplete",
+    "memberExpansionReviewComplete",
+    "mechanicsReviewComplete",
+    "completeActivityUniverse",
+    "absoluteBestGate",
+    "blockers",
+    "publishable"
+  ],
+  "rules": {
+    "everyCompleteEvidenceRecordProducesExactlyOneOutput": true,
+    "everySubjectPredicateEvidencePacketProducesExactlyOneReproducibleDisposition": true,
+    "inputEvidenceRoutingDispositionsReviewsAndSemanticStateCannotChange": true,
+    "noAnchorAndUnboundAnchorStatesRemainSemanticallyUnresolved": true,
+    "semanticBindingScopeAndRepeatabilityClassificationsCannotBeCreated": true,
+    "memberMechanicsAndOptimizerPromotionsAreForbidden": true,
+    "currentAccountStateIsForbidden": true
+  }
+}

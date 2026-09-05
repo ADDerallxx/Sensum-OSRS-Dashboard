@@ -1,0 +1,28 @@
+{
+  "contract": "sensum.activity-reference-collection-member-independent-repeatability-signal-subject-predicate-disposition.v1",
+  "required": [
+    "memberCandidateKey",
+    "sourceIndependentRepeatabilitySignalSubjectPredicateEvidenceContentHash",
+    "canonicalActivityIdentity",
+    "independentRepeatabilitySignalSubjectPredicateEvidence",
+    "independentRepeatabilitySignalSubjectPredicateObservations",
+    "independentRepeatabilitySignalSubjectPredicateDisposition",
+    "independentRepeatabilitySignalSubjectPredicateReview",
+    "memberExpansionReview",
+    "mechanicsReview",
+    "optimizerEligible",
+    "accountIndependent",
+    "blockers",
+    "state"
+  ],
+  "rules": {
+    "everyInputEvidencePacketProducesExactlyOneDisposition": true,
+    "dispositionUsesOnlyAuditedStructuralEvidenceStates": true,
+    "noAnchorRemainsUnresolvedRatherThanOutOfScope": true,
+    "anchorObservationQueuesSemanticBindingReviewWithoutCreatingAVerdict": true,
+    "semanticSubjectBindingCanonicalActivityScopeAndRepeatabilityClassificationsRemainNull": true,
+    "upstreamEvidenceRoutingDispositionsAndReviewsRemainExact": true,
+    "memberMechanicsAndOptimizerPromotionsAreForbidden": true,
+    "currentAccountStateIsForbidden": true
+  }
+}
