@@ -1,0 +1,28 @@
+{
+  "contract": "sensum.exact-scoped-independent-repeatability-evidence.v1",
+  "required": [
+    "memberCandidateKey",
+    "sourceExactScopedIndependentRepeatabilityEvidenceWorkRoutingContentHash",
+    "canonicalActivityIdentity",
+    "exactScopedIndependentRepeatabilityEvidenceWorkRouting",
+    "exactScopedIndependentRepeatabilityEvidence",
+    "exactScopedIndependentRepeatabilityEvidenceReview",
+    "memberExpansionReview",
+    "mechanicsReview",
+    "optimizerEligible",
+    "accountIndependent",
+    "blockers",
+    "state"
+  ],
+  "rules": {
+    "oneRecordPerExactEligibleWorkOrder": true,
+    "allUpstreamFieldsMustBePreserved": true,
+    "sixDomainPacketsMustExistInPolicyOrder": true,
+    "everyRetainedSourceMustBeRevisionPinnedWithCompleteTextAndLineHashes": true,
+    "signalsRequireSameLineExactSubjectLinkAndPredicate": true,
+    "discoveryMetadataCannotBecomeEvidence": true,
+    "candidateSignalsCannotResolveDomainsOrCreateVerdicts": true,
+    "memberMechanicsAndOptimizerPromotionAreForbidden": true,
+    "currentAccountStateIsForbidden": true
+  }
+}

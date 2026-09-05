@@ -357,6 +357,7 @@ node platform/transforms/build-activity-reference-collection-member-independent-
 node platform/ingestion/ingest-wiki-independent-scoped-activity-repeatability-evidence.mjs
 node platform/transforms/build-independent-scoped-activity-repeatability-evidence-dispositions.mjs
 node platform/transforms/build-exact-scoped-independent-repeatability-evidence-work-routes.mjs
+node platform/ingestion/ingest-wiki-exact-scoped-independent-repeatability-evidence.mjs
 node platform/ingestion/ingest-wiki-agility-training-guide-sections.mjs
 node platform/ingestion/ingest-wiki-agility-rooftop-guide-members.mjs
 node platform/ingestion/ingest-wiki-agility-brimhaven-guide-members.mjs

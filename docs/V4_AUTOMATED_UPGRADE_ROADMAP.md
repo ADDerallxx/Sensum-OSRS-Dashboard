@@ -43,6 +43,21 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+The exact-scoped independent repeatability work orders now have revision-pinned
+evidence packets from two generic discovery channels. The collector exhausted all
+main-namespace backlinks to the exact parent title and all exact-label Wiki search
+results, discovered 126 distinct candidate pages, fetched 126 current observed
+revisions, and retained 124 complete independent sources after excluding the
+primary activity and canonical collection pages. Search snippets and backlink
+metadata were used only for discovery. None of the retained source lines contains
+both an exact source-authored `Wise Old Man tasks` link and a qualifying predicate,
+and no reviewed member subject exists, so all six domains remain unresolved. This
+is a complete negative result for the two defined channels, not proof that the game
+fact is false or that the independent source universe is complete. Two accepted
+runs produced the same output hash. The next checkpoint should generically
+disposition the zero-candidate packets and choose further evidence work without
+weakening the exact same-line standard.
+
 The six unresolved independent repeatability domains now have a generic,
 fail-closed exact-scoped evidence route. Each work order requires an independent,
 revision-pinned source line that contains both the exact canonical activity
