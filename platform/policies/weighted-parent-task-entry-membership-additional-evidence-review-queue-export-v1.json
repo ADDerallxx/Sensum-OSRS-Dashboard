@@ -1,0 +1,33 @@
+{
+  "policy": "sensum.weighted-parent-task-entry-membership-additional-evidence-review-queue-export-policy.v1",
+  "evidencePacketContract": "sensum.weighted-parent-task-entry-membership-additional-evidence-source-discovery.v1",
+  "inputContract": "sensum.weighted-parent-task-entry-membership-additional-evidence-sufficiency-disposition.v1",
+  "queueContract": "sensum.weighted-parent-task-entry-membership-additional-evidence-review-queue-entry.v1",
+  "decisionTemplateContract": "sensum.weighted-parent-task-entry-membership-additional-evidence-review-decision-template.v1",
+  "auditContract": "sensum.weighted-parent-task-entry-membership-additional-evidence-review-queue-export-audit.v1",
+  "evidencePacketState": "revision_pinned_weighted_membership_additional_source_discovery_gates_closed",
+  "inputState": "weighted_membership_additional_evidence_sufficiency_disposition_gates_closed",
+  "eligibleClassification": "exact_candidate_reference_in_pinned_parent_relationship_section_review_required",
+  "eligibleReviewRoute": "exact_parent_section_membership_review",
+  "queueState": "pending_explicit_source_bound_parent_section_membership_review",
+  "allowedDecisions": [
+    "confirm_parent_section_declares_candidate_as_task_member",
+    "reject_parent_section_declares_candidate_as_task_member",
+    "needs_additional_evidence"
+  ],
+  "rules": {
+    "everyInputDispositionMustUseTheEligibleReviewRoute": true,
+    "everyEligibleDispositionExportsExactlyOnce": true,
+    "queueOrderMustPreserveDispositionOrder": true,
+    "dispositionEvidenceAndSnapshotBindingsMustRevalidate": true,
+    "allPinnedAndDiscoveredSourceIntegrityMustRemainComplete": true,
+    "everyQueueEntryMustBindImmutableEvidenceAndSourceFingerprints": true,
+    "readableArtifactMustUseOnlyExactStructuredCandidateLinesFromRetainedPinnedParentSections": true,
+    "decisionTemplatesMustStartBlank": true,
+    "exportDoesNotRecordAReviewDecisionReviewerDateNotesEvidenceOrMembership": true,
+    "confirmationWouldNotProveIdentityWeightMappingCompletenessRepeatabilityMechanicsOrOptimizerEligibility": true,
+    "namesTitlesPageIdsRevisionsCandidateKeysLabelsAliasesAndOverridesCannotAlterPolicyBehavior": true,
+    "currentAccountStateIsForbidden": true,
+    "automaticVerificationAllowed": false
+  }
+}

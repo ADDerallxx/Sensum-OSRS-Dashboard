@@ -43,6 +43,21 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+The 47 exact-parent-section weighted-membership dispositions now export into a
+deterministic, source-bound human-review queue with 47 separate blank decision
+templates. The exporter independently revalidates both upstream snapshot
+hashes, all 47 dispositions and evidence packets, 48 pinned sources, 147
+retained current sources, and every disposition-to-observation binding. The
+readable artifact includes one exact structured candidate-bearing line per
+entry with its pinned revision, source URL, locator, line hash, and full-section
+hash; exact structured matching keeps short candidates such as Beer separate
+from Beer glass. Two real exports produced the same queue, readable-artifact,
+and decision-template hashes. No review, membership verdict, semantic state, or
+optimizer promotion was created, and all 133 regression tests pass. The next
+unattended checkpoint should add a fail-closed import boundary for these 47
+blank review templates without treating a recorded review as an applied
+membership verdict.
+
 All 47 weighted-membership additional-source packets now have generic,
 fail-closed sufficiency dispositions. The transform revalidated every packet,
 48 pinned sources, 147 retained current sources, every exact evidence-text hash,

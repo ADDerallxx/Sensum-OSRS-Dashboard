@@ -1,0 +1,28 @@
+{
+  "contract": "sensum.weighted-parent-task-entry-membership-additional-evidence-review-decision-template.v1",
+  "required": [
+    "queueEntryKey",
+    "sourceDispositionKey",
+    "sourceDispositionRecordContentHash",
+    "sourceDispositionSnapshotContentHash",
+    "sourceEvidencePacketKey",
+    "sourceEvidencePacketRecordContentHash",
+    "sourceEvidencePacketSnapshotContentHash",
+    "evidenceFingerprint",
+    "structuralCandidateKey",
+    "candidateRole",
+    "decisionSourceRevisions",
+    "allowedDecisions",
+    "decision",
+    "reviewer",
+    "reviewedAt",
+    "reviewNotes",
+    "state",
+    "templateContentHash"
+  ],
+  "rules": {
+    "templateBindsTheExactQueueAndEvidence": true,
+    "decisionReviewerDateNotesAndSourcesStartBlank": true,
+    "templateCannotRecordOrImplyMembership": true
+  }
+}

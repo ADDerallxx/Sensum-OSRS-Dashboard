@@ -167,7 +167,8 @@
         "weighted_parent_task_entry_membership_review_decision_import_contract",
         "weighted_parent_task_entry_membership_variant_scope_evidence_crosswalk",
         "weighted_parent_task_entry_membership_additional_evidence_source_discovery_packets",
-        "generic_weighted_parent_task_entry_membership_additional_evidence_sufficiency_disposition"
+        "generic_weighted_parent_task_entry_membership_additional_evidence_sufficiency_disposition",
+        "weighted_parent_task_entry_membership_additional_evidence_review_queue_export"
       ],
       "remainingWork": [
         "Use the 1,909-entry revision-aligned semantic-review queue to establish canonical game-entity and activity identities from retained source signatures and contexts, then prove repeatability, membership, requirements, variants, XP, timing, mechanics, and authoritative exclusions. Begin with the 29 explicit activity-page candidates, but do not treat activity/minigame page type as repeatability proof; distinguish reference collections and composites from actual trainable method variants. Reconcile 68 queued untyped pages, 4,725 stable rendered pages without unlock evidence, 1,565 unlock pages without rendered-guide evidence, five unresolved rendered targets, the wider unlock set's 137 untyped pages and 31 activity pages, and 51 ambiguous statement forms. Historical template-expansion provenance remains open because dependency revision IDs and the generative origins of 16,284 rendered-only observations are unavailable. Continue independent discovery until every repeatable training activity in every skill is enumerated. The central guide index's composite Combat row and four Defence link disagreements remain explicit. Rockslide pairing still requires complete activity and travel graphs.",
@@ -184,12 +185,27 @@
         "independentGameUniverseDiscoveryPending": true
       },
       "latestCheckpoint": {
-        "id": "generic_weighted_parent_task_entry_membership_additional_evidence_sufficiency_disposition",
-        "result": "47_of_47_revision_pinned_additional_source_packets_revalidated_and_disposed; 48_pinned_and_147_current_sources_plus_all_exact_observation_text_and_channel_bindings_revalidated; 47_exact_structured_candidate_references_on_stable_pinned_parent_page_identity_route_to_explicit_parent_section_membership_review; 0_context_only_review_routes_0_additional_evidence_routes; 47_exact_parent_section_and_97_wider_relationship_evidence_bindings_preserved; two_real_runs_same_47_record_output_hash; 0_reviews_0_membership_verdicts_0_optimizer_promotions; 132_of_132_tests_passed",
-        "next": "weighted_parent_task_entry_membership_additional_evidence_review_queue_export"
+        "id": "weighted_parent_task_entry_membership_additional_evidence_review_queue_export",
+        "result": "47_of_47_exact_parent_section_dispositions_and_source_packets_revalidated; 48_pinned_and_147_current_sources_revalidated; 47_source_bound_review_queue_entries_and_47_blank_decision_templates_exported; 47_exact_structured_candidate_bearing_lines_bound_to_pinned_revision_url_locator_line_hash_and_full_section_hash; two_real_runs_same_queue_markdown_and_template_hashes; 0_reviews_0_membership_verdicts_0_semantic_promotions_0_optimizer_promotions; 133_of_133_tests_passed",
+        "next": "weighted_parent_task_entry_membership_additional_evidence_review_decision_import_contract"
       },
       "latestCoverageDelta": {
         "officialSkillDomainsMeasured": 24,
+        "weightedMembershipAdditionalEvidenceReviewQueueInputDispositions": 47,
+        "weightedMembershipAdditionalEvidenceReviewQueueInputEvidencePackets": 47,
+        "weightedMembershipAdditionalEvidenceReviewQueueRevalidatedDispositions": 47,
+        "weightedMembershipAdditionalEvidenceReviewQueueRevalidatedEvidencePackets": 47,
+        "weightedMembershipAdditionalEvidenceReviewQueueEntries": 47,
+        "weightedMembershipAdditionalEvidenceReviewQueueBlankDecisionTemplates": 47,
+        "weightedMembershipAdditionalEvidenceReviewQueueRevalidatedPinnedSources": 48,
+        "weightedMembershipAdditionalEvidenceReviewQueueRevalidatedCurrentSources": 147,
+        "weightedMembershipAdditionalEvidenceReviewQueueExactParentSectionObservations": 47,
+        "weightedMembershipAdditionalEvidenceReviewQueueExactCandidateBearingLines": 47,
+        "weightedMembershipAdditionalEvidenceReviewQueueRecordedReviews": 0,
+        "weightedMembershipAdditionalEvidenceReviewQueueMembershipVerdicts": 0,
+        "weightedMembershipAdditionalEvidenceReviewQueueOptimizerPromotions": 0,
+        "weightedMembershipAdditionalEvidenceReviewQueueDeterministicAcrossTwoRealRuns": true,
+        "weightedMembershipAdditionalEvidenceReviewQueueRegressionTestsPassed": 133,
         "weightedMembershipAdditionalEvidenceDispositionInputPackets": 47,
         "weightedMembershipAdditionalEvidenceDispositionCompletePackets": 47,
         "weightedMembershipAdditionalEvidenceDispositionRecords": 47,
@@ -340,7 +356,39 @@
         "optimizerEligibleActivitiesAdded": 0,
         "currentAccountFieldsAllowed": 0,
         "inventedFacts": 0,
-        "reason": "All 47 weighted-membership additional-source packets now route to explicit source-bound parent-section review because each has an exact structured candidate reference on the stable pinned parent page identity inside the relevant task or letter-delivery section. No context-only or additional-evidence route remains. The 47 exact parent-section and 97 wider relationship bindings remain evidence only: no review, membership verdict, or optimizer promotion was created."
+        "reason": "All 47 exact-parent-section weighted-membership dispositions now have deterministic source-bound review entries and blank decision templates. Every queue entry preserves its disposition and evidence snapshot hashes, exact candidate identity, source revision, URL, locator, exact candidate-bearing line and line hash, and full retained section hash. Two real exports produced identical queue, markdown, and template hashes. No review, membership verdict, semantic promotion, or optimizer promotion was created."
+      },
+      "latestWeightedParentTaskEntryMembershipAdditionalEvidenceReviewQueueExportAudit": {
+        "generatedAt": "2026-09-05T19:38:07.486Z",
+        "policy": "sensum.weighted-parent-task-entry-membership-additional-evidence-review-queue-export-policy.v1",
+        "policyContentHash": "3b5cdd506ae81e95b4e1bbdcaffe92e4966f97b7a3e0f3ed76560d8181065d53",
+        "inputDispositionSnapshotDirectory": "2026-09-05T19-23-10-450Z",
+        "inputDispositionSnapshotContentHash": "21590da0c76bda31d0928aaa44b5dfb53f3ccdcfe339003897d34ee634b801fb",
+        "inputEvidenceSnapshotDirectory": "2026-09-05T19-14-09-138Z",
+        "inputEvidenceSnapshotContentHash": "a2d6a50fb0076df7d32b511c369fa789abcc12be2a3ece9b64f02662115a0584",
+        "outputSnapshotDirectory": "2026-09-05T19-38-07-480Z",
+        "outputSnapshotContentHash": "ac55857f1f3b1d6cdcdae34549ac1ccbf75fd1f4a74f8d7d4b83a3103eb77b2f",
+        "reportContentHash": "17269d9f510fe5c5d7c25ad3f42c4bc0264508713605b1e6ce0c7f977eebef0a",
+        "reviewMarkdownContentHash": "5cff17ef40e4500f178171a8ebe77f2f7558f261e15f1755ee27143ab0694390",
+        "decisionTemplateContentHash": "6bcaa9b92b9923d57532787826dd8c1f1e6ae7d8101bd83acbe838fd3fe3398f",
+        "reviewQueueEntryCount": 47,
+        "blankDecisionTemplateCount": 47,
+        "revalidatedDispositionCount": 47,
+        "revalidatedEvidencePacketCount": 47,
+        "revalidatedPinnedSourceCount": 48,
+        "revalidatedCurrentSourceCount": 147,
+        "exactParentSectionObservationCount": 47,
+        "exactCandidateBearingLineCount": 47,
+        "reviewDecisionCount": 0,
+        "membershipVerdictCount": 0,
+        "optimizerEligibleCount": 0,
+        "deterministicAcrossTwoRealRuns": true,
+        "regressionTestsPassed": 133,
+        "queueExportComplete": true,
+        "weightedMembershipReviewComplete": false,
+        "completeActivityUniverse": false,
+        "absoluteBestGate": "blocked_incomplete_activity_universe",
+        "publishable": true
       },
       "latestWeightedParentTaskEntryMembershipAdditionalEvidenceSufficiencyDispositionAudit": {
         "generatedAt": "2026-09-05T19:23:10.453Z",

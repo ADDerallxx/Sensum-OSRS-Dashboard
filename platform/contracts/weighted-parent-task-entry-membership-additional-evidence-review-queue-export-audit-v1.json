@@ -1,0 +1,26 @@
+{
+  "contract": "sensum.weighted-parent-task-entry-membership-additional-evidence-review-queue-export-audit.v1",
+  "required": [
+    "inputCoverage",
+    "policyCoverage",
+    "sourceIntegrityCoverage",
+    "queueCoverage",
+    "artifactCoverage",
+    "semanticPreservationCoverage",
+    "accountStateFindings",
+    "queueExportComplete",
+    "weightedMembershipReviewComplete",
+    "optimizerEligibleCount",
+    "completeActivityUniverse",
+    "absoluteBestGate",
+    "blockers",
+    "publishable"
+  ],
+  "rules": {
+    "bothUpstreamSnapshotsMustRevalidate": true,
+    "everyInputDispositionMustExportExactlyOnce": true,
+    "reviewArtifactsMustMatchMachineRecords": true,
+    "queueExportCannotCreateReviewOrSemanticState": true,
+    "accountStateMustFailPublication": true
+  }
+}
