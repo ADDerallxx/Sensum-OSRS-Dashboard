@@ -43,6 +43,23 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+The two ambiguous High Priest and Reldo parent bindings now have complete
+revision-pinned source-discovery packets. The collector revalidated the three
+distinct pinned subject/parent revisions, fully enumerated 11 source-derived
+official Wiki searches, and retained all 44 discovered current pages with exact
+revision, timestamp, URL, hash, byte count, and complete source. Thirteen exact
+candidate/parent-context sections and 13 numbered infobox identity observations
+were retained, including both recipient transcripts and the Old man's message
+page. None of the sources provides an exact same-source link from the Wise Old
+Man task to a numbered NPC variant parameter, so both exact variant bindings
+remain blocked instead of being forced to the `Normal` variant. A live first pass
+caught and eliminated a URL-substring false positive before acceptance; two
+corrected collections produced the same output hash. No review candidate,
+binding, identity, membership, repeatability, mechanics, mapping, completeness,
+or optimizer state was created. The next checkpoint should apply a generic
+sufficiency disposition that distinguishes canonical NPC context from exact
+numbered-variant evidence and routes the unresolved scope to explicit review.
+
 The five source-bound multi-variant binding review templates now have a
 fail-closed decision-import boundary. A completed row must match the exact queue
 entry, disposition, evidence-packet hash, evidence fingerprint, proposed-but-

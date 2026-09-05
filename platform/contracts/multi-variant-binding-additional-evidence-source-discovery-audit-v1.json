@@ -1,0 +1,29 @@
+{
+  "contract": "sensum.multi-variant-binding-additional-evidence-source-discovery-audit.v1",
+  "required": [
+    "inputCoverage",
+    "policyCoverage",
+    "pinnedSourceIntegrityCoverage",
+    "discoveryCoverage",
+    "sourceAlignmentCoverage",
+    "requiredChannelCoverage",
+    "semanticPreservationCoverage",
+    "accountStateFindings",
+    "evidencePacketAttemptCoverageComplete",
+    "variantDisambiguationEvidenceComplete",
+    "variantBindingReviewComplete",
+    "optimizerEligibleCount",
+    "completeActivityUniverse",
+    "absoluteBestGate",
+    "blockers",
+    "publishable"
+  ],
+  "rules": {
+    "everyInputWorkEntryMustProduceExactlyOnePacket": true,
+    "pinnedSourcesAndAllDiscoveredCurrentSourcesMustRevalidate": true,
+    "everySearchQueryMustBeFullyEnumerated": true,
+    "sourceObservationsCannotBecomeBindingOrSemanticVerdicts": true,
+    "missingExactVariantAlignmentOrHumanReviewKeepsDisambiguationBlocked": true,
+    "accountStateMustFailPublication": true
+  }
+}

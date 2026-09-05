@@ -1,0 +1,47 @@
+{
+  "policy": "sensum.multi-variant-binding-additional-evidence-source-discovery-policy.v1",
+  "inputContract": "sensum.multi-variant-binding-additional-evidence-work-queue-entry.v1",
+  "recordContract": "sensum.multi-variant-binding-additional-evidence-source-discovery.v1",
+  "auditContract": "sensum.multi-variant-binding-additional-evidence-source-discovery-audit.v1",
+  "inputState": "blocked_pending_additional_variant_disambiguation_evidence",
+  "recordState": "revision_pinned_additional_variant_binding_source_discovery_gates_closed",
+  "discovery": {
+    "apiNamespace": 0,
+    "sourceSearchOperator": "insource",
+    "maximumSearchResultsPerQuery": 500,
+    "requireSearchContinuationExhausted": true,
+    "directSourceRequestKinds": [
+      "pinned_parent_page",
+      "pinned_subject_page",
+      "current_parent_page",
+      "current_subject_page",
+      "current_subject_transcript"
+    ],
+    "numberedVariantIdentityParameterBases": ["id", "version"],
+    "requiredAdditionalEvidenceChannels": [
+      "candidate_scoped_parent_occurrence_context",
+      "source_authored_numbered_variant_identity_alignment",
+      "explicit_human_binding_review"
+    ],
+    "retainCompleteExactRevisionSourceText": true,
+    "deduplicateCurrentPagesByStablePageId": true
+  },
+  "rules": {
+    "onePacketPerAdditionalEvidenceWorkEntry": true,
+    "inputQueueEntryAndContentHashesMustRevalidate": true,
+    "everyPinnedSubjectAndParentRevisionMustRefetchAndRevalidate": true,
+    "queriesMustBeDerivedOnlyFromRevisionBoundParentSubjectAndVariantEvidence": true,
+    "candidateContextAndEveryNumberedVariantIdentityQueryMustBeFullyEnumerated": true,
+    "directSubjectParentAndTranscriptRequestsMustResolveThroughTheOfficialWikiApi": true,
+    "everyDiscoveredPageMustRetainRevisionTimestampUrlHashBytesAndCompleteSource": true,
+    "searchRankSnippetAndLexicalCooccurrenceAreDiscoveryOnly": true,
+    "sectionAndLineObservationsCannotSelectANumberedVariant": true,
+    "canonicalNpcContextCannotBeForcedIntoTheNormalVariant": true,
+    "missingNumberedVariantAlignmentRemainsAnExplicitBlocker": true,
+    "humanBindingReviewRemainsSeparateAndRequired": true,
+    "identityMembershipRepeatabilityMechanicsMappingCompletenessAndOptimizerVerdictsRemainClosed": true,
+    "namesTitlesPageIdsRevisionsCandidateKeysLabelsAliasesAndOverridesCannotSelectAVerdict": true,
+    "currentAccountStateIsForbidden": true,
+    "automaticVerificationAllowed": false
+  }
+}
