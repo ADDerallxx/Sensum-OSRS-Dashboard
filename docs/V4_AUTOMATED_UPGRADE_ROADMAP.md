@@ -43,6 +43,20 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+The source-bound structural-candidate identity review queue now has a fail-closed
+decision-import boundary. It accepts partial review batches but records a row
+only when the decision, reviewer, UTC review timestamp that does not predate the
+pinned evidence, exact evidence-revision
+set, notes, queue key, packet hash, queue hashes, and evidence fingerprint all
+match. Blank rows are ignored; partial, stale, unknown, duplicated, obviously
+automatic/model-authored, or otherwise invalid rows reject the entire batch.
+Recording remains separate from semantic disposition, so an accepted review
+cannot itself create an identity, membership, repeatability, mechanics, mapping,
+completeness, or optimizer verdict. The real 51-row blank template revalidated
+against all 51 queue records, was rejected with zero decisions, and wrote no
+output. The next unattended checkpoint should advance the seven multi-variant
+candidate bindings while these 51 source-bound reviews await explicit decisions.
+
 The 51 source-bound structural-candidate identity packets now have a compact,
 deterministic human-review queue and a separate blank machine decision template.
 Every queue entry preserves source packet order, the exact revision-pinned

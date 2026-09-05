@@ -151,7 +151,8 @@
         "generic_structural_member_candidate_semantic_gap_evidence_disposition",
         "generic_structural_member_candidate_review_ready_identity_and_remaining_gap_work_routing",
         "source_bound_structural_member_candidate_identity_review_packet_materialization",
-        "source_bound_structural_member_candidate_identity_review_queue_export"
+        "source_bound_structural_member_candidate_identity_review_queue_export",
+        "source_bound_structural_member_candidate_identity_review_decision_import_contract"
       ],
       "remainingWork": [
         "Use the 1,909-entry revision-aligned semantic-review queue to establish canonical game-entity and activity identities from retained source signatures and contexts, then prove repeatability, membership, requirements, variants, XP, timing, mechanics, and authoritative exclusions. Begin with the 29 explicit activity-page candidates, but do not treat activity/minigame page type as repeatability proof; distinguish reference collections and composites from actual trainable method variants. Reconcile 68 queued untyped pages, 4,725 stable rendered pages without unlock evidence, 1,565 unlock pages without rendered-guide evidence, five unresolved rendered targets, the wider unlock set's 137 untyped pages and 31 activity pages, and 51 ambiguous statement forms. Historical template-expansion provenance remains open because dependency revision IDs and the generative origins of 16,284 rendered-only observations are unavailable. Continue independent discovery until every repeatable training activity in every skill is enumerated. The central guide index's composite Combat row and four Defence link disagreements remain explicit. Rockslide pairing still requires complete activity and travel graphs.",
@@ -168,23 +169,23 @@
         "independentGameUniverseDiscoveryPending": true
       },
       "latestCheckpoint": {
-        "id": "source_bound_structural_member_candidate_identity_review_queue_export",
-        "result": "1_of_1_packet_records_exported; 60_of_60_sources_and_51_of_51_packets_revalidated; 51_queue_entries_51_blank_decision_templates; packet_record_and_evidence_fingerprints_complete; 0_decisions_0_reviewers_0_dates_0_notes_0_promotions; queue_markdown_and_template_byte_deterministic",
-        "next": "source_bound_structural_member_candidate_identity_review_decision_import_contract"
+        "id": "source_bound_structural_member_candidate_identity_review_decision_import_contract",
+        "result": "51_of_51_real_queue_records_revalidated; 51_blank_rows_recognized; 0_completed_0_invalid_0_recorded; blank_batch_rejected_atomically_and_no_output_written; valid_fixture_import_and_stale_partial_duplicate_unknown_revision_reviewer_timestamp_notes_promotion_account_adversaries_passed; semantic_gates_closed",
+        "next": "multi_variant_structural_member_candidate_parent_occurrence_binding_evidence_packets"
       },
       "latestCoverageDelta": {
         "officialSkillDomainsMeasured": 24,
-        "inputIdentityReviewPacketRecords": 1,
-        "eligibleIdentityReviewPacketRecords": 1,
-        "revalidatedRevisionPinnedSources": 60,
-        "identityReviewPackets": 51,
-        "revalidatedIdentityReviewPackets": 51,
-        "identityReviewQueueEntries": 51,
-        "packetHashBoundQueueEntries": 51,
-        "packetRecordHashBoundQueueEntries": 51,
-        "evidenceFingerprintBoundQueueEntries": 51,
-        "blankDecisionTemplates": 51,
-        "markdownReviewEntries": 51,
+        "realQueueEntriesRevalidated": 51,
+        "realQueueRecordHashFailures": 0,
+        "realSubmissionRows": 51,
+        "realBlankSubmissionRows": 51,
+        "realCompletedSubmissionRows": 0,
+        "realInvalidSubmissionRows": 0,
+        "realRecordedDecisionRows": 0,
+        "realRejectedBatchOutputRows": 0,
+        "realRejectedBatchOutputWritten": false,
+        "validPartialReviewBatchesSupported": true,
+        "invalidBatchAtomicRejectionSupported": true,
         "reviewDecisionsCompleted": 0,
         "reviewersRecorded": 0,
         "reviewDatesRecorded": 0,
@@ -201,7 +202,28 @@
         "optimizerEligibleActivitiesAdded": 0,
         "currentAccountFieldsAllowed": 0,
         "inventedFacts": 0,
-        "reason": "Every source-bound identity packet now has one compact queue entry and one blank decision template bound to exact packet, record, and evidence fingerprints. Export is complete and byte-deterministic, but decisions, reviewers, identity verdicts, membership, mechanics, completeness, and optimizer gates remain closed."
+        "reason": "The queue now has an atomic, fingerprint-bound decision-import boundary. The real blank template was correctly rejected without output, while controlled fixtures prove that only explicit complete reviews can be recorded. Decision recording remains separate from every semantic and optimizer verdict."
+      },
+      "latestStructuralMemberCandidateIdentityReviewDecisionImportSafetyCheck": {
+        "policy": "sensum.structural-member-candidate-identity-review-decision-import-policy.v1",
+        "policyContentHash": "8757d4ba6589fe0825889f5e30ca1c855bf6a81ad789d5d1c587f707270ed97e",
+        "inputSnapshotDirectory": "2026-09-05T09-01-29-957Z",
+        "inputSnapshotContentHash": "1d029e39dfb881d11743916b5c93b9a661e88f6f63cff04284312e624583e472",
+        "submissionContentHash": "565d86a18d374103f181418da913d94540b3f8d5a0f11a8c39db554ec7a8a2db",
+        "queueEntryCount": 51,
+        "completeQueueRecordCount": 51,
+        "submissionRowCount": 51,
+        "completedSubmissionCount": 0,
+        "blankSubmissionCount": 51,
+        "invalidSubmissionCount": 0,
+        "recordedDecisionCount": 0,
+        "reviewDecisionRecordingComplete": false,
+        "identityReviewComplete": false,
+        "outputWritten": false,
+        "completeActivityUniverse": false,
+        "absoluteBestGate": "blocked_incomplete_activity_universe",
+        "publishable": false,
+        "expectedSafetyBlocker": "no_completed_review_decisions_submitted"
       },
       "latestStructuralMemberCandidateIdentityReviewQueueExportAudit": {
         "generatedAt": "2026-09-05T09:01:29.962Z",

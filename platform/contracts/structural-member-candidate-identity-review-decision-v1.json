@@ -1,0 +1,41 @@
+{
+  "contract": "sensum.structural-member-candidate-identity-review-decision.v1",
+  "required": [
+    "decisionKey",
+    "queueEntryKey",
+    "reviewPacketKey",
+    "sourceQueueSnapshotContentHash",
+    "sourceQueueRecordContentHash",
+    "sourceQueueEntryContentHash",
+    "sourcePacketContentHash",
+    "evidenceFingerprint",
+    "structuralCandidateKey",
+    "candidateRole",
+    "decision",
+    "reviewer",
+    "reviewedAt",
+    "decisionSourceRevisions",
+    "reviewNotes",
+    "reviewDecisionRecorded",
+    "semanticDispositionApplied",
+    "candidateMemberIdentityVerdict",
+    "canonicalGameEntityIdentity",
+    "parentMembershipVerdict",
+    "weightedTaskEntryMembershipVerdict",
+    "mappingVerdict",
+    "inventoryCompletenessVerdict",
+    "memberUniverseComplete",
+    "optimizerEligible",
+    "automaticVerificationApplied",
+    "accountIndependent",
+    "state"
+  ],
+  "rules": {
+    "decisionIsBoundToTheExactQueueSnapshotEntryPacketAndEvidenceFingerprint": true,
+    "reviewerTimestampSourceRevisionsAndNotesAreExplicit": true,
+    "reviewTimestampCannotPrecedeThePinnedEvidence": true,
+    "decisionRecordingIsSeparateFromSemanticDisposition": true,
+    "allIdentityMembershipRepeatabilityMechanicsMappingCompletenessAndOptimizerVerdictsRemainClosed": true,
+    "recordIsAccountIndependent": true
+  }
+}

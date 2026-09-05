@@ -1,0 +1,28 @@
+{
+  "contract": "sensum.structural-member-candidate-identity-review-decision-import-audit.v1",
+  "required": [
+    "queueCoverage",
+    "submissionCoverage",
+    "policyCoverage",
+    "bindingCoverage",
+    "recordCoverage",
+    "semanticPreservationCoverage",
+    "accountStateFindings",
+    "reviewDecisionRecordingComplete",
+    "identityReviewComplete",
+    "optimizerEligibleCount",
+    "completeActivityUniverse",
+    "absoluteBestGate",
+    "blockers",
+    "publishable"
+  ],
+  "rules": {
+    "queueSnapshotAndEveryQueueRecordMustRevalidate": true,
+    "everyCompletedSubmissionMustMatchExactlyOneQueueEntry": true,
+    "blankRowsMayBeIgnoredButPartialRowsMustFail": true,
+    "anyInvalidSubmissionMakesTheBatchAtomicAndUnpublishable": true,
+    "recordedDecisionSetMustExactlyMatchTheCompletedSubmissionSet": true,
+    "recordingCannotCreateSemanticOrOptimizerPromotion": true,
+    "accountStateMustFailPublication": true
+  }
+}
