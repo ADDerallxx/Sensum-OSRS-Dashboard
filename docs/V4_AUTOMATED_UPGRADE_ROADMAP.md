@@ -43,6 +43,25 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+The category-resolution review queue now has a fail-closed human decision-import
+boundary. A completed row must retain its exact queue, template, disposition,
+evidence-packet, snapshot, route, classification, allowed-decision, and evidence
+fingerprint bindings. Confirmation can select only the exact bound current
+category page or active redlink-category identity appropriate to that route and
+must cite its current-category evidence. Every completed row also requires a
+non-automated human reviewer, notes, bound evidence keys, and a UTC review time
+no earlier than the newest retained source. Valid partial human batches can be
+recorded, while blank-only, partial, duplicated, stale, uncited, cross-route,
+unknown-field, account-scoped, or tampered batches reject atomically. Recording
+remains separate from resolution application and cannot create canonical
+identity, repeatability, mechanics, automatic verification, or optimizer state.
+The real two-row blank template revalidated both queue records, was rejected as
+expected, wrote no decision snapshot, and applied zero semantic promotions. All
+241 regression tests pass. The next unattended checkpoint should partition the
+4,725 stable rendered pages that lack unlock evidence into generic,
+source-bound reconciliation work while all five unresolved-title decisions
+remain pending explicit human review.
+
 The two review-ready category dispositions now export to an exhaustive,
 source-bound human review queue. Each machine row and readable entry preserves
 the exact disposition and evidence snapshot hashes, category state, exact

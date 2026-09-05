@@ -1,0 +1,37 @@
+{
+  "policy": "sensum.cross-skill-unresolved-rendered-target-additional-resolution-evidence-review-decision-import-policy.v1",
+  "queueContract": "sensum.cross-skill-unresolved-rendered-target-additional-resolution-evidence-review-queue-entry.v1",
+  "submissionContract": "sensum.cross-skill-unresolved-rendered-target-additional-resolution-evidence-review-decision-template.v1",
+  "recordContract": "sensum.cross-skill-unresolved-rendered-target-additional-resolution-evidence-review-decision.v1",
+  "auditContract": "sensum.cross-skill-unresolved-rendered-target-additional-resolution-evidence-review-decision-import-audit.v1",
+  "queueState": "pending_explicit_source_bound_category_target_resolution_review",
+  "templateState": "blank_source_bound_category_target_resolution_review_decision",
+  "recordState": "recorded_source_bound_category_target_resolution_review_decision_pending_resolution_application",
+  "allowedDecisions": [
+    "confirm_exact_current_category_page_resolution",
+    "confirm_active_redlink_category_target",
+    "reject_exact_current_category_page_resolution",
+    "reject_active_redlink_category_target",
+    "needs_additional_evidence"
+  ],
+  "rules": {
+    "oneRecordedDecisionPerCompletedSubmission": true,
+    "partialReviewBatchesAreAllowed": true,
+    "blankTemplateRowsAreIgnored": true,
+    "partiallyCompletedRowsAreRejected": true,
+    "anyInvalidRowRejectsTheEntireBatch": true,
+    "queueManifestIntrinsicRecordTemplateEvidenceAndSnapshotHashesMustRevalidate": true,
+    "submissionMustMatchEveryImmutableQueueBinding": true,
+    "submissionFieldSetMustExactlyMatchTheBlankTemplate": true,
+    "decisionMustBeExplicitlyAllowedByTheBoundQueueEntryAndReviewRoute": true,
+    "confirmedResolutionMustMatchTheExactBoundCategoryIdentity": true,
+    "nonConfirmationDecisionsMustNotSelectAResolution": true,
+    "reviewerReviewedAtNotesAndBoundEvidenceKeysAreRequired": true,
+    "reviewedAtMustNotPrecedeTheNewestBoundSourceTimestamp": true,
+    "obviousAutomaticOrModelReviewerNamesAreRejected": true,
+    "recordingADecisionDoesNotApplyResolutionCanonicalIdentityRepeatabilityRequirementsVariantsXpTimingMechanicsOrOptimizerState": true,
+    "titlesPageIdsRevisionsCategoryNamesAndOverridesCannotAlterPolicyBehavior": true,
+    "currentAccountStateIsForbidden": true,
+    "automaticVerificationAllowed": false
+  }
+}

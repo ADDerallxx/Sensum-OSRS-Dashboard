@@ -1,0 +1,20 @@
+{
+  "contract": "sensum.cross-skill-unresolved-rendered-target-additional-resolution-evidence-review-decision.v1",
+  "required": [
+    "decisionKey", "queueEntryKey", "sourceQueueSnapshotContentHash", "sourceQueueRecordContentHash",
+    "sourceTemplateContentHash", "sourceDispositionKey", "sourceDispositionRecordContentHash",
+    "sourceDispositionSnapshotContentHash", "sourceEvidencePacketKey", "sourceEvidencePacketRecordContentHash",
+    "sourceEvidencePacketSnapshotContentHash", "evidenceFingerprint", "renderedTargetKey", "requestedTitles",
+    "classification", "reviewRoute", "decision", "selectedResolution", "reviewer", "reviewedAt", "reviewNotes",
+    "evidenceKeys", "reviewDecisionRecorded", "resolutionDispositionApplied", "canonicalGameEntityIdentity",
+    "canonicalActivityIdentity", "repeatabilityClassification", "mechanicsReviewComplete", "optimizerEligible",
+    "automaticVerificationApplied", "accountIndependent", "blockers", "state", "recordContentHash"
+  ],
+  "rules": {
+    "recordBindsExactQueueSnapshotRecordTemplateDispositionEvidenceAndFingerprint": true,
+    "decisionMetadataIsExplicitHumanInput": true,
+    "decisionRecordingIsSeparateFromResolutionApplication": true,
+    "canonicalIdentityRepeatabilityMechanicsAndOptimizerStateRemainClosed": true,
+    "currentAccountStateIsForbidden": true
+  }
+}
