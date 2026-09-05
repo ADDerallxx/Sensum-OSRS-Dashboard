@@ -203,6 +203,16 @@ record count, creation time, audit result, and SHA-256 content hash.
   text cannot independently bind the subject. No-candidate records remain
   unresolved and route to independent discovery rather than becoming negative
   existence verdicts.
+- Canonical-activity subject-declaration semantic evidence-work routing consumes
+  only complete structural-context dispositions and routes solely by their
+  generic disposition state. Schema-dependent candidates require pinned
+  activity-infobox field semantics; records without a qualified candidate
+  require independent canonical subject-page discovery; multiple candidates
+  require reconciliation. Run
+  `node platform/transforms/build-activity-reference-collection-member-canonical-activity-subject-declaration-semantic-evidence-work-routes.mjs`.
+  The router preserves every upstream evidence hash, structural signal, and
+  review value while keeping subject binding, scope, repeatability, members,
+  mechanics, and optimizer eligibility closed.
 - Training-guide section ingestion inventories every Wiki heading in source
   order. Every method-bearing subsection is retained with its parent, source
   lines, revision, and structural role. New heading depths or parents fail

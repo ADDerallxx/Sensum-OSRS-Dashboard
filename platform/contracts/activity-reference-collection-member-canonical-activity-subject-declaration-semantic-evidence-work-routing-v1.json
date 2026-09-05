@@ -1,0 +1,29 @@
+{
+  "contract": "sensum.activity-reference-collection-member-canonical-activity-subject-declaration-semantic-evidence-work-routing.v1",
+  "required": [
+    "memberCandidateKey",
+    "sourceCanonicalActivitySubjectDeclarationStructuralContextDispositionContentHash",
+    "canonicalActivityIdentity",
+    "canonicalActivitySubjectDeclarationStructuralDispositionSignals",
+    "canonicalActivitySubjectDeclarationStructuralDisposition",
+    "canonicalActivitySubjectBinding",
+    "canonicalActivitySubjectDeclarationReview",
+    "routingDecision",
+    "memberExpansionReview",
+    "mechanicsReview",
+    "optimizerEligible",
+    "accountIndependent",
+    "blockers",
+    "state"
+  ],
+  "rules": {
+    "oneRoutePerExactInputDisposition": true,
+    "allUpstreamEvidenceIdentityRevisionHashesStructuralSignalsDispositionAndContextMustBePreserved": true,
+    "routeSelectionUsesOnlyTheStructuralDispositionState": true,
+    "allRoutesRemainBlockedUntilTheirEvidenceWorkIsCompleted": true,
+    "noCandidateDoesNotBecomeANegativeSubjectExistenceVerdict": true,
+    "routingCannotAlterSubjectBindingReviewOrSemanticVerdicts": true,
+    "activityScopeRepeatabilityMemberMechanicsAndOptimizerPromotionAreForbidden": true,
+    "currentAccountStateIsForbidden": true
+  }
+}

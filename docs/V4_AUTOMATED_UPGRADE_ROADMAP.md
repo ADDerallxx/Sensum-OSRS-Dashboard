@@ -43,6 +43,20 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+Every complete canonical-activity subject-declaration structural disposition
+now has one generic, state-only semantic evidence-work route. The structurally
+qualified subject candidate routes to revision-pinned activity-infobox schema
+semantics; the record without a qualified candidate routes to independent
+canonical subject-page discovery; a future multiple-candidate state routes to
+conflict reconciliation. All routes remain blocked. Names, labels, page IDs,
+collection context, and account state cannot select or alter them, and they
+create zero subject bindings, scope or repeatability classifications, member or
+mechanics reviews, or optimizer candidates. The two live records routed once
+each, and two accepted runs produced the same output hash. The next checkpoint
+should collect revision-pinned activity-infobox schema-semantics evidence for
+the qualified candidate without treating documentation, templates, or field
+names as a semantic verdict by themselves.
+
 All 19 canonical-activity subject-declaration structural packets now have one
 generic, deterministic semantic-evidence-use disposition. Twelve cross-page
 link references and four cross-page unlinked mentions are explicitly unable to

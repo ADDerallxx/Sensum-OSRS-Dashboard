@@ -1,0 +1,57 @@
+{
+  "policy": "sensum.activity-reference-collection-member-canonical-activity-subject-declaration-semantic-evidence-work-routing-policy.v1",
+  "inputContract": "sensum.activity-reference-collection-member-canonical-activity-subject-declaration-structural-context-disposition.v1",
+  "recordContract": "sensum.activity-reference-collection-member-canonical-activity-subject-declaration-semantic-evidence-work-routing.v1",
+  "auditContract": "sensum.activity-reference-collection-member-canonical-activity-subject-declaration-semantic-evidence-work-routing-audit.v1",
+  "inputState": "canonical_activity_subject_declaration_structural_context_disposed_evidence_work_required",
+  "stateRoutes": {
+    "structurally_qualified_subject_candidate_requires_revision_pinned_schema_semantics": {
+      "routeKey": "collect_revision_pinned_activity_infobox_schema_semantics",
+      "routeState": "blocked_schema_semantics_evidence_gap",
+      "requiredEvidenceDomains": [
+        "activity_infobox_template_documentation_revision",
+        "name_parameter_semantics",
+        "page_subject_declaration_semantics",
+        "template_transclusion_and_scope_behavior",
+        "canonical_activity_subject_binding"
+      ]
+    },
+    "unresolved_no_structurally_qualified_subject_declaration_candidate": {
+      "routeKey": "discover_independent_canonical_activity_subject_page",
+      "routeState": "blocked_canonical_subject_page_gap",
+      "requiredEvidenceDomains": [
+        "exact_canonical_label_search",
+        "main_namespace_backlinks",
+        "redirect_and_alias_resolution",
+        "source_title_and_subject_declaration_alignment",
+        "canonical_activity_subject_binding"
+      ]
+    },
+    "blocked_multiple_structurally_qualified_subject_pages": {
+      "routeKey": "reconcile_multiple_canonical_activity_subject_candidates",
+      "routeState": "blocked_subject_candidate_conflict",
+      "requiredEvidenceDomains": [
+        "candidate_page_revision_chronology",
+        "redirect_and_alias_equivalence",
+        "page_subject_declaration_scope",
+        "canonical_activity_identity_reconciliation"
+      ]
+    }
+  },
+  "rules": {
+    "oneRoutePerCompleteStructuralDispositionRecord": true,
+    "everyEmittableStructuralDispositionStateMustHaveExactlyOneRoute": true,
+    "structurallyQualifiedCandidatesRequireRevisionPinnedSchemaSemantics": true,
+    "absenceOfAStructurallyQualifiedCandidateRoutesToDiscoveryNotANegativeVerdict": true,
+    "multipleQualifiedSubjectPagesRemainAConflict": true,
+    "routesDescribeEvidenceObligationsNotGameFacts": true,
+    "namesTitlesPageIdsCandidateKeysLabelsAliasesCollectionClassesAndOverridesCannotSelectOrAlterRoutes": true,
+    "inputEvidenceIdentityRevisionHashesStructuralSignalsDispositionAndContextMustBePreserved": true,
+    "routingCannotCreateOrAlterSubjectBindingsOrSemanticVerdicts": true,
+    "routingCannotClassifyActivityScopeOrRepeatability": true,
+    "routingCannotCompleteMemberExpansionOrMechanics": true,
+    "routingCannotCreateOptimizerCandidates": true,
+    "currentAccountStateIsForbidden": true,
+    "automaticVerificationAllowed": false
+  }
+}
