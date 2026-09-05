@@ -52,6 +52,7 @@ node platform/transforms/build-activity-reference-collection-member-canonical-ac
 node platform/ingestion/ingest-wiki-activity-infobox-schema-semantics-evidence.mjs
 node platform/transforms/build-activity-infobox-schema-semantics-dispositions.mjs
 node platform/transforms/build-activity-canonical-subject-scope-evidence-work-routes.mjs
+node platform/ingestion/ingest-wiki-activity-canonical-subject-scope-evidence.mjs
 node platform/transforms/build-unlock-statement-semantic-crosswalk.mjs
 node platform/transforms/build-unlock-linked-page-entity-types.mjs
 node platform/transforms/build-unlock-linked-page-wiki-equivalence.mjs
@@ -241,6 +242,14 @@ record count, creation time, audit result, and SHA-256 content hash.
   training scope or repeatability. The route preserves the complete upstream
   binding and remains blocked from scope, repeatability, member, mechanics, and
   optimizer promotion until separate evidence work passes.
+- Canonical-activity subject scope-evidence ingestion refetches each routed
+  subject at the exact revision retained by its binding. It preserves the
+  complete source text plus activity-infobox, lead-paragraph, heading, root-
+  template, direct-category, and line-by-line hash inventories. All six routed
+  evidence domains and eight capture channels must be complete. These are
+  observations only: scope, repeatability, members, requirements, XP, timing,
+  mechanics, and optimizer eligibility remain blocked until separate semantic
+  disposition and downstream evidence gates pass.
 - Training-guide section ingestion inventories every Wiki heading in source
   order. Every method-bearing subsection is retained with its parent, source
   lines, revision, and structural role. New heading depths or parents fail

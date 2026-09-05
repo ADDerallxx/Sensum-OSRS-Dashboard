@@ -1,0 +1,30 @@
+{
+  "contract": "sensum.activity-canonical-subject-scope-evidence-audit.v1",
+  "required": [
+    "inputCoverage",
+    "policyCoverage",
+    "revisionCoverage",
+    "captureCoverage",
+    "semanticPromotionCoverage",
+    "accountStateFindings",
+    "evidencePacketAttemptCoverageComplete",
+    "canonicalActivityScopeEvidenceCoverageComplete",
+    "canonicalActivitySubjectBindingReviewComplete",
+    "canonicalActivityScopeReviewComplete",
+    "repeatabilityReviewComplete",
+    "completeActivityUniverse",
+    "absoluteBestGate",
+    "blockers",
+    "publishable"
+  ],
+  "rules": {
+    "inputAndOutputRouteSetsAndContextsMustMatchExactly": true,
+    "exactRevisionRequestAndFetchSetsMustMatchExactly": true,
+    "everyFetchedSourceMustMatchTheBoundPageIdentityAndRevision": true,
+    "everyRequiredCaptureChannelMustBeCompleted": true,
+    "everySourceLineMustBeRepresentedExactlyOnce": true,
+    "subjectBindingAndSubjectDeclarationVerdictMustRemainUnchanged": true,
+    "scopeRepeatabilityMemberMechanicsAndOptimizerPromotionsAreForbidden": true,
+    "currentAccountStateIsForbidden": true
+  }
+}

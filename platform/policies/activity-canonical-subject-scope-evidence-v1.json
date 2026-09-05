@@ -1,0 +1,45 @@
+{
+  "policy": "sensum.activity-canonical-subject-scope-evidence-policy.v1",
+  "inputContract": "sensum.activity-canonical-subject-scope-evidence-work-routing.v1",
+  "recordContract": "sensum.activity-canonical-subject-scope-evidence.v1",
+  "auditContract": "sensum.activity-canonical-subject-scope-evidence-audit.v1",
+  "inputRouteKey": "collect_revision_pinned_canonical_activity_scope_evidence",
+  "inputRouteState": "blocked_canonical_activity_scope_evidence_gap",
+  "inputState": "bound_canonical_activity_subject_scope_evidence_work_routed_gates_closed",
+  "requiredEvidenceDomains": [
+    "canonical_subject_page_exact_revision",
+    "lead_and_infobox_activity_description",
+    "declared_activity_purpose_and_skill_relationship",
+    "activity_boundary_and_composite_member_relationships",
+    "scope_exclusions_and_condition_boundaries",
+    "separate_repeatability_evidence_obligation"
+  ],
+  "requiredCaptureChannels": [
+    "complete_exact_revision_source_text",
+    "activity_infobox_structure",
+    "lead_paragraph_inventory",
+    "heading_inventory",
+    "root_template_inventory",
+    "direct_category_inventory",
+    "complete_source_line_inventory",
+    "repeatability_verdict_separation"
+  ],
+  "rules": {
+    "oneEvidencePacketPerMatchingScopeEvidenceRoute": true,
+    "everyBoundSubjectSourceIsFetchedAtItsExactBindingRevision": true,
+    "fetchedPageIdTitleRevisionTimestampUrlAndContentHashMustMatchTheBinding": true,
+    "completeExactRevisionSourceTextMustBeRetained": true,
+    "everySourceLineMustBeRetainedWithLocationAndHash": true,
+    "infoboxLeadHeadingTemplateAndCategoryStructureMustBeInventoried": true,
+    "capturedStructureAndLanguageAreObservationsRequiringSemanticDisposition": true,
+    "activityOrMinigamePageTypeDoesNotEstablishTrainingScope": true,
+    "scopeEvidenceDoesNotEstablishRepeatabilityOrMembership": true,
+    "missingChangedContradictoryTruncatedOrConditionMismatchedEvidenceRemainsBlocked": true,
+    "namesTitlesPageIdsCandidateKeysLabelsAliasesCollectionClassesAndOverridesCannotSelectAVerdict": true,
+    "inputEvidenceIdentityRevisionHashesBindingDispositionRoutingAndContextMustBePreserved": true,
+    "subjectBindingAndSubjectDeclarationVerdictMustRemainUnchanged": true,
+    "scopeRepeatabilityMemberMechanicsAndOptimizerPromotionAreForbidden": true,
+    "currentAccountStateIsForbidden": true,
+    "automaticVerificationAllowed": false
+  }
+}

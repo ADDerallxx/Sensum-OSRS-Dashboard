@@ -43,6 +43,18 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+The routed source-supported canonical activity subject now has a complete,
+revision-pinned scope-evidence packet. The collector refetched the exact bound
+`Wise Old Man tasks` revision `14997080`, retained all 9,959 source bytes and
+195 source lines, and captured all six required evidence domains through eight
+structural channels: the complete source, activity infobox, lead paragraphs,
+headings, root templates, direct categories, line-by-line hashes, and an
+explicitly separate repeatability obligation. Two accepted fetches produced the
+same evidence snapshot hash. This capture creates no scope or repeatability
+classification, member or mechanics review, or optimizer candidate. The next
+checkpoint should apply a generic semantic disposition to the retained scope
+evidence while preserving unsupported interpretations as blockers.
+
 Every source-supported canonical activity subject now enters one generic,
 blocked scope-evidence route. The route requires six revision-pinned evidence
 domains covering the exact subject-page revision, lead and infobox description,
