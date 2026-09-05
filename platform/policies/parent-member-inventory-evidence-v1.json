@@ -1,0 +1,68 @@
+{
+  "policy": "sensum.parent-member-inventory-evidence-policy.v1",
+  "inputContract": "sensum.member-identity-and-authoritative-source-channel-evidence-work-routing.v1",
+  "recordContract": "sensum.parent-member-inventory-evidence.v1",
+  "auditContract": "sensum.parent-member-inventory-evidence-audit.v1",
+  "inputState": "member_identity_and_authoritative_source_channel_evidence_work_routed_gates_closed",
+  "inputBranchKey": "reviewed_member_identity_expansion",
+  "inputWorkKind": "reviewed_member_identity_expansion",
+  "requiredCaptureChannels": [
+    "complete_exact_revision_source_text",
+    "prior_source_packet_revision_hash_and_text_alignment",
+    "complete_source_line_inventory",
+    "heading_and_section_boundary_inventory",
+    "top_level_wikitable_row_and_cell_inventory",
+    "source_authored_bullet_entry_inventory",
+    "root_plink_template_inventory",
+    "declared_total_signal_inventory",
+    "non_exhaustive_qualification_signal_inventory",
+    "completeness_and_member_identity_verdict_separation"
+  ],
+  "sourceScan": {
+    "caseInsensitive": true,
+    "unicode": true,
+    "declaredTotalDefinitions": [
+      {
+        "definitionKey": "exact_declared_total",
+        "quantityClass": "exact_source_authored_total_observation",
+        "pattern": "\\b([1-9][0-9]*)\\s+(tasks?|members?|entries|items?|activities|methods?|assignments?)\\s+in\\s+total\\b"
+      },
+      {
+        "definitionKey": "approximate_declared_total",
+        "quantityClass": "approximate_source_authored_total_observation",
+        "pattern": "\\b(?:about|approximately|roughly)\\s+([1-9][0-9]*)\\s+(tasks?|members?|entries|items?|activities|methods?|assignments?)\\b"
+      }
+    ],
+    "nonExhaustiveDefinitions": [
+      {
+        "definitionKey": "list_may_not_be_exhaustive",
+        "qualificationClass": "source_authored_non_exhaustive_inventory_warning",
+        "pattern": "\\b(?:this\\s+)?list\\s+may\\s+not\\s+be\\s+exhaustive\\b"
+      },
+      {
+        "definitionKey": "list_is_not_exhaustive",
+        "qualificationClass": "source_authored_non_exhaustive_inventory_warning",
+        "pattern": "\\b(?:this\\s+)?list\\s+is\\s+not\\s+exhaustive\\b|\\bnon[- ]exhaustive\\b|\\bnot\\s+an\\s+exhaustive\\s+list\\b"
+      }
+    ]
+  },
+  "rules": {
+    "oneEvidencePacketPerEligibleMemberIdentityBranch": true,
+    "sourceIsFetchedAtTheExactCanonicalSubjectBindingRevision": true,
+    "fetchedPageIdTitleRevisionTimestampUrlAndContentHashMustMatchTheBinding": true,
+    "priorSourcePacketMustMatchTheSameExactRevisionHashAndSourceText": true,
+    "completeExactRevisionSourceTextMustBeRetained": true,
+    "everySourceLineMustBeRetainedWithLocationAndHash": true,
+    "headingsTablesCellsBulletsAndRootPlinkTemplatesAreStructuralObservationsOnly": true,
+    "declaredTotalsAndNonExhaustiveQualificationsRemainSeparateExactSourceSignals": true,
+    "matchingAnObservedStructureToADeclaredTotalCannotProveACompleteMemberUniverse": true,
+    "observedItemsRecipientsHeadingsAndNarrativeClassesCannotBecomeReviewedMemberIdentitiesAutomatically": true,
+    "missingChangedContradictoryTruncatedCompositeAmbiguousOrConditionMismatchedEvidenceRemainsBlocked": true,
+    "namesTitlesPageIdsCandidateKeysLabelsAliasesAndOverridesCannotSelectOrCompleteMembers": true,
+    "inputEvidenceRevisionsDiscoveryDispositionAndRoutingMustBePreserved": true,
+    "repeatabilityMemberMechanicsAndOptimizerVerdictsRemainUnchanged": true,
+    "memberIdentityAndInventoryCompletenessVerdictsRemainNull": true,
+    "currentAccountStateIsForbidden": true,
+    "automaticVerificationAllowed": false
+  }
+}

@@ -43,6 +43,23 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+The routed member-identity branch now has a revision-pinned parent/member
+inventory evidence packet. The collector refetched `Wise Old Man tasks`
+revision `14997080`, matched its page ID, title, timestamp, URL, and content
+hash, and retained all 9,959 source bytes across 195 hashed lines. Ten generic
+capture channels inventoried 13 headings, two top-level Wiki tables with 20
+rows and 54 structural cells, 51 root `plink` observations, seven source-authored
+bullet entries, two distinct declared-total signals, and one exact
+non-exhaustive-list qualification. The source states both `59 tasks in total`
+and, inside its citation, `about 59 entries`, while the fetch-item list says it
+may not be exhaustive. Those statements remain separate observations; they were
+not reconciled into a complete member universe. No observed item, recipient, or
+narrative heading became a reviewed member identity, and no repeatability,
+mechanics, or optimizer verdict was produced. Two accepted source collections
+produced the same output hash. The next checkpoint should apply a generic
+semantic disposition to the inventory packet without treating matching counts,
+table membership, headings, or source silence as completeness proof.
+
 The reviewed-member identity and authoritative-source gaps now have separate,
 generic work branches. One blocked work item targets revision-pinned parent/member
 inventory and stable member identities. Five blocked work items target additional

@@ -1,0 +1,5 @@
+{
+  "contract": "sensum.parent-member-inventory-evidence-audit.v1",
+  "required": ["inputCoverage","policyCoverage","revisionCoverage","captureCoverage","observationCoverage","semanticPreservationCoverage","accountStateFindings","evidencePacketAttemptCoverageComplete","inventoryEvidencePacketCoverageComplete","memberIdentityReviewComplete","memberExpansionComplete","mechanicsReviewComplete","completeActivityUniverse","absoluteBestGate","blockers","publishable"],
+  "rules": {"everyEligibleMemberIdentityBranchMustProduceExactlyOnePacket":true,"exactRevisionFetchSetMustMatch":true,"allRequiredCaptureChannelsMustBeComplete":true,"sourceQualificationsAndDeclaredTotalsMustRemainSeparate":true,"inputOutputContextMustMatchExactly":true,"unsupportedVerdictsPromotionsAndAccountStateMustFailClosed":true}
+}
