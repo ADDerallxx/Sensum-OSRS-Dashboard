@@ -1,0 +1,13 @@
+{
+  "contract": "sensum.structural-member-candidate-identity-review-packets.v1",
+  "required": ["memberCandidateKey","sourceStructuralMemberCandidateReviewReadyIdentityAndRemainingGapWorkRoutingContentHash","structuralMemberCandidateIdentityReviewPackets","structuralMemberCandidateIdentityReviewPacketMaterialization","structuralMemberCandidateReviewReadyIdentityAndRemainingGapWorkRouting","memberExpansionReview","mechanicsReview","optimizerEligible","accountIndependent","blockers","state"],
+  "rules": {
+    "oneRecordPerEligibleRoutingRecord": true,
+    "allUpstreamFieldsMustBePreserved": true,
+    "onePacketPerReviewReadyIdentityWorkItem": true,
+    "eachPacketMustContainExactRevisionSubjectInfoboxAndParentOccurrenceEvidence": true,
+    "allPacketsMustStartPendingWithNullDecisionAndReviewer": true,
+    "packetMaterializationMayCompleteWithoutCompletingIdentityReview": true,
+    "noMembershipRepeatabilityMechanicsMappingCompletenessOptimizerOrAccountPromotion": true
+  }
+}

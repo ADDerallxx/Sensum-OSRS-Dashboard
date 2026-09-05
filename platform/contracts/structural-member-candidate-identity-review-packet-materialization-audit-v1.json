@@ -1,0 +1,12 @@
+{
+  "contract": "sensum.structural-member-candidate-identity-review-packet-materialization-audit.v1",
+  "required": ["inputCoverage","policyCoverage","sourceIntegrityCoverage","reviewPacketCoverage","reviewEvidenceCoverage","semanticPreservationCoverage","accountStateFindings","reviewPacketMaterializationComplete","identityReviewComplete","memberExpansionComplete","mechanicsReviewComplete","completeActivityUniverse","absoluteBestGate","blockers","publishable"],
+  "rules": {
+    "eligibleInputAndOutputSetsMustMatchExactly": true,
+    "reviewWorkItemAndPacketSetsMustMatchExactly": true,
+    "subjectAndParentEvidenceMustRevalidateAgainstPinnedSources": true,
+    "packetContentMustMatchTheGenericMaterializationPolicy": true,
+    "packetGenerationCannotCreateAReviewDecisionOrIdentityVerdict": true,
+    "unsupportedMutationsPromotionsAndAccountStateMustFailPublication": true
+  }
+}

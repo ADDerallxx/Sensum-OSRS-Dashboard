@@ -43,6 +43,19 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+All 51 review-ready structural candidates now have self-contained, source-bound
+identity review packets. Each packet revalidates its exact subject-page source,
+retains the single identity-bearing root infobox and source-authored name
+fields, matches exactly one upstream candidate disposition, and revalidates the
+exact parent-page occurrence against its pinned revision, content hash, and
+line locator. Packet scope explicitly excludes weighted membership,
+repeatability, requirements, XP, timing, mechanics, mapping, completeness, and
+optimizer eligibility. All 60 retained exact revisions revalidated. Packet
+materialization is complete, but all 51 decisions, reviewers, identity verdicts,
+and canonical identities remain null. Two transforms produced the same output
+hash. The next checkpoint should export the packets as a deterministic human-
+review queue without changing any decision state.
+
 The 121 structural-candidate semantic dispositions now have one generic work
 route with exact disposition-reference coverage. The router produced 120 work
 items because the one nested-subject candidate's identity and page-type
