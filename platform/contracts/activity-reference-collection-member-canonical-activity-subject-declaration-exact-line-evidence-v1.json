@@ -1,0 +1,12 @@
+{
+  "contract": "sensum.activity-reference-collection-member-canonical-activity-subject-declaration-exact-line-evidence.v1",
+  "required": ["memberCandidateKey", "sourceCanonicalActivitySubjectDeclarationDiscoveryContentHash", "canonicalActivityIdentity", "canonicalActivitySubjectDeclarationExactLineEvidence", "canonicalActivitySubjectDeclarationExactLineObservations", "canonicalActivitySubjectDeclarationReview", "memberExpansionReview", "mechanicsReview", "optimizerEligible", "accountIndependent", "blockers", "state"],
+  "rules": {
+    "oneCandidatePacketPerRevisionPinnedSearchSource": true,
+    "everyOccurrenceRetainsExactRevisionAndSourceLocation": true,
+    "protectedOccurrencesRemainExplicitlyNonActive": true,
+    "allSemanticVerdictsRemainNull": true,
+    "upstreamStateRemainsExact": true,
+    "downstreamPromotionsAreForbidden": true
+  }
+}

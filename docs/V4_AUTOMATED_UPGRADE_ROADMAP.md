@@ -43,6 +43,24 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+The two unresolved canonical activities now have complete exact-line evidence
+packets for every source returned by their bounded discovery searches. Thirteen
+unique official Wiki revisions covering 115,304 source bytes were fetched at
+their retained revision IDs and revalidated by page ID, title, timestamp, URL,
+and content hash. All 14 candidate-source contexts are preserved exactly once.
+The literal canonical-activity phrases occur 19 times: four occurrences across
+the four Archery Competition sources and 15 across the ten Wise Old Man tasks
+sources. All 19 are in active source text, 16 preserve exact label casing, and
+none occurs only in a comment or protected region. Every occurrence retains its
+exact line range, columns, raw source text, line hash, and source-authored link
+keys on the same lines. These observations include declarations, links,
+incidental prose, redirects, infobox parameters, and disambiguation entries, so
+an occurrence alone still creates zero subject bindings, scope classifications,
+repeatability classifications, or downstream promotions. Two accepted live
+runs produced the same output hash. The next checkpoint should collect the
+revision-pinned structural parent context needed to distinguish a page-subject
+declaration from an incidental mention before applying semantic disposition.
+
 The two unresolved canonical activities now have candidate-level, revision-
 pinned subject-declaration discovery packets. The packets consolidate all 47
 unbound signal dispositions without loss: 22 for Archery Competition and 25 for

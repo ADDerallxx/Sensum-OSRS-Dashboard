@@ -1,0 +1,12 @@
+{
+  "contract": "sensum.activity-reference-collection-member-canonical-activity-subject-declaration-exact-line-evidence-audit.v1",
+  "required": ["inputCoverage", "policyCoverage", "revisionCoverage", "candidateCoverage", "occurrenceCoverage", "semanticPromotionCoverage", "accountStateFindings", "exactLineEvidenceAttemptCoverageComplete", "canonicalActivitySubjectDeclarationExactLineEvidenceCoverageComplete", "canonicalActivitySubjectBindingReviewComplete", "repeatabilityReviewComplete", "completeActivityUniverse", "absoluteBestGate", "blockers", "publishable"],
+  "rules": {
+    "everyCompleteInputProducesExactlyOneReproduciblePacket": true,
+    "everyCandidatePairIsRepresentedExactlyOnce": true,
+    "everyExpectedRevisionIsFetchedExactlyOnce": true,
+    "everyRawOccurrenceIsReproducibleFromThePinnedSource": true,
+    "inputAndSemanticStateCannotChange": true,
+    "semanticAndOptimizerPromotionsAreForbidden": true
+  }
+}

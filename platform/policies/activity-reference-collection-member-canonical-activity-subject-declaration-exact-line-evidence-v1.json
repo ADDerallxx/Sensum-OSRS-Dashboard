@@ -1,0 +1,26 @@
+{
+  "policy": "sensum.activity-reference-collection-member-canonical-activity-subject-declaration-exact-line-evidence-policy.v1",
+  "inputContract": "sensum.activity-reference-collection-member-canonical-activity-subject-declaration-discovery.v1",
+  "recordContract": "sensum.activity-reference-collection-member-canonical-activity-subject-declaration-exact-line-evidence.v1",
+  "auditContract": "sensum.activity-reference-collection-member-canonical-activity-subject-declaration-exact-line-evidence-audit.v1",
+  "inputState": "canonical_activity_subject_declaration_discovery_ready_for_exact_line_review",
+  "evidenceChannel": "complete_exact_revision_source_phrase_occurrence_inventory",
+  "rules": {
+    "onePacketPerCompleteSubjectDeclarationDiscoveryRecord": true,
+    "everyCandidateSourceRevisionIsFetchedExactlyOnce": true,
+    "fetchedPageIdTitleRevisionTimestampUrlAndContentHashMustAlign": true,
+    "searchPhraseMustMatchTheRevisionBoundCanonicalActivityLabel": true,
+    "everyRawExactPhraseOccurrenceIsRetainedWithExactLinesColumnsTextAndHash": true,
+    "commentsAndProtectedRegionsRemainVisibleButCannotBecomeActiveEvidence": true,
+    "activeAndProtectedOccurrenceSetsMustBeCompleteAndDisjoint": true,
+    "sourceAuthoredLinksOnExactOccurrenceLinesAreStructuralObservationsOnly": true,
+    "absenceOfAnExactPhraseAfterRevisionFetchBlocksPublication": true,
+    "exactPhraseOccurrenceDoesNotEstablishSemanticSubjectScopeOrRepeatability": true,
+    "titlesLabelsLinksTemplatesHeadingsTablesAndLexicalProximityCannotSelectAVerdict": true,
+    "upstreamEvidenceIdentitiesDispositionsAndReviewsRemainUnchanged": true,
+    "memberExpansionMechanicsAndOptimizerEligibilityRemainClosed": true,
+    "missingContradictoryTruncatedOrConditionMismatchedEvidenceRemainsExplicit": true,
+    "activitySpecificNamesTitlesPageIdsLabelsAliasesAndOverridesCannotSelectAVerdict": true,
+    "currentAccountStateIsForbidden": true
+  }
+}

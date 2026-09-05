@@ -45,6 +45,8 @@ node platform/ingestion/ingest-wiki-activity-reference-collection-member-repeata
 node platform/transforms/build-activity-reference-collection-member-repeatability-gap-dispositions.mjs
 node platform/ingestion/ingest-wiki-activity-reference-collection-member-independent-repeatability-source-evidence.mjs
 node platform/ingestion/ingest-wiki-activity-reference-collection-member-independent-repeatability-signal-scope-evidence.mjs
+node platform/ingestion/ingest-wiki-activity-reference-collection-member-independent-repeatability-signal-subject-predicate-evidence.mjs
+node platform/ingestion/ingest-wiki-activity-reference-collection-member-canonical-activity-subject-declaration-exact-line-evidence.mjs
 node platform/transforms/build-unlock-statement-semantic-crosswalk.mjs
 node platform/transforms/build-unlock-linked-page-entity-types.mjs
 node platform/transforms/build-unlock-linked-page-wiki-equivalence.mjs
@@ -174,6 +176,14 @@ record count, creation time, audit result, and SHA-256 content hash.
   redirects preserve every occurrence context. A target match or missing link
   cannot create canonical-activity scope, repeatability, member, mechanics, or
   optimizer conclusions.
+- Canonical-activity subject-declaration exact-line ingestion refetches every
+  discovery candidate at its retained revision and inventories every literal
+  canonical-label occurrence with exact lines, columns, source text, hashes,
+  and same-line link keys. Comments and protected regions remain visible but
+  non-active. A phrase occurrence, link, title, template parameter, heading,
+  table cell, redirect, or incidental mention never establishes the declared
+  subject, activity scope, repeatability, mechanics, or optimizer eligibility;
+  those require a separate structural-context and semantic disposition.
 - Training-guide section ingestion inventories every Wiki heading in source
   order. Every method-bearing subsection is retained with its parent, source
   lines, revision, and structural role. New heading depths or parents fail
