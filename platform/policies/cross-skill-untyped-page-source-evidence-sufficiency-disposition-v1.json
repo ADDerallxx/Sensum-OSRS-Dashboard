@@ -1,0 +1,26 @@
+{
+  "policy": "sensum.cross-skill-untyped-page-source-evidence-sufficiency-disposition-policy.v1",
+  "inputContract": "sensum.cross-skill-untyped-page-source-evidence.v1",
+  "recordContract": "sensum.cross-skill-untyped-page-source-evidence-sufficiency-disposition.v1",
+  "auditContract": "sensum.cross-skill-untyped-page-source-evidence-sufficiency-disposition-audit.v1",
+  "disposition": "source_evidence_sufficient_for_explicit_page_type_review",
+  "reviewRoutes": {
+    "mainNamespace": "explicit_main_namespace_page_type_review",
+    "nonMainNamespace": "explicit_non_main_namespace_scope_review"
+  },
+  "rules": {
+    "policyContainsNoPageIdsTitlesCandidateKeysTemplatesCategoriesOrCandidateOverrides": true,
+    "everyCompleteInputProducesExactlyOneDisposition": true,
+    "inputSnapshotAndIntrinsicRecordHashesMustRevalidate": true,
+    "everySourceAlignmentFlagMustRemainTrue": true,
+    "sourceIdentityStructuralCountsAndEvidenceFingerprintMustBePreserved": true,
+    "onlyTheExactMediaWikiNamespaceMaySelectTheReviewRoute": true,
+    "namespaceZeroRoutesToMainNamespaceReview": true,
+    "everyOtherIntegerNamespaceRoutesToNonMainNamespaceReview": true,
+    "titlesTemplatesCategoriesLeadAndHeadingsCannotSelectDispositionOrRoute": true,
+    "sufficiencyDispositionDoesNotClassifyPageTypeOrCanonicalIdentity": true,
+    "repeatabilityRequirementsVariantsXpTimingMechanicsAndOptimizerEligibilityRemainClosed": true,
+    "currentAccountStateIsForbidden": true,
+    "automaticVerificationAllowed": false
+  }
+}

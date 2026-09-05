@@ -43,6 +43,20 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+All 68 exact-revision untyped-page source packets now have generic,
+fail-closed evidence-sufficiency dispositions. The transform independently
+revalidates every intrinsic record hash, source snapshot, candidate and source
+identity, revision-alignment flag, retained structural count, and evidence
+fingerprint. Exact MediaWiki namespace is the only routing input: 67 main-space
+pages route to explicit page-type review and one file-space page routes to
+explicit non-main-namespace scope review. Titles, templates, categories, lead
+paragraphs, and headings cannot select a route or semantic result. Two real
+transforms produced the same 68-record output hash, and a corrupted-manifest
+test wrote no output. No page type, canonical identity, repeatability,
+mechanics, account state, or optimizer promotion was created. All 160
+regression tests pass. The next checkpoint should export these dispositions as
+a deterministic, source-bound human-review queue with blank decision templates.
+
 All 68 cross-skill pages that remained untyped now have complete,
 revision-pinned source-evidence packets. The collector revalidated the 68
 candidate records, 74 retained alias or fragment contexts, and all intrinsic

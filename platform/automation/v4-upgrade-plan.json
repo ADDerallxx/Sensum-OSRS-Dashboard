@@ -170,7 +170,8 @@
         "generic_weighted_parent_task_entry_membership_additional_evidence_sufficiency_disposition",
         "weighted_parent_task_entry_membership_additional_evidence_review_queue_export",
         "weighted_parent_task_entry_membership_additional_evidence_review_decision_import_contract",
-        "cross_skill_untyped_page_revision_pinned_source_evidence_packets"
+        "cross_skill_untyped_page_revision_pinned_source_evidence_packets",
+        "generic_cross_skill_untyped_page_source_evidence_sufficiency_disposition"
       ],
       "remainingWork": [
         "Use the 1,909-entry revision-aligned semantic-review queue to establish canonical game-entity and activity identities from retained source signatures and contexts, then prove repeatability, membership, requirements, variants, XP, timing, mechanics, and authoritative exclusions. Begin with the 29 explicit activity-page candidates, but do not treat activity/minigame page type as repeatability proof; distinguish reference collections and composites from actual trainable method variants. Reconcile 68 queued untyped pages, 4,725 stable rendered pages without unlock evidence, 1,565 unlock pages without rendered-guide evidence, five unresolved rendered targets, the wider unlock set's 137 untyped pages and 31 activity pages, and 51 ambiguous statement forms. Historical template-expansion provenance remains open because dependency revision IDs and the generative origins of 16,284 rendered-only observations are unavailable. Continue independent discovery until every repeatable training activity in every skill is enumerated. The central guide index's composite Combat row and four Defence link disagreements remain explicit. Rockslide pairing still requires complete activity and travel graphs.",
@@ -187,9 +188,9 @@
         "independentGameUniverseDiscoveryPending": true
       },
       "latestCheckpoint": {
-        "id": "cross_skill_untyped_page_revision_pinned_source_evidence_packets",
-        "result": "68_of_68_untyped_candidates_have_revision_pinned_source_evidence; 74_of_74_alias_or_fragment_signature_contexts_preserved; 68_of_68_exact_revisions_page_ids_timestamps_titles_hashes_bytes_template_inventories_and_category_inventories_aligned; 649701_source_bytes_192_lead_paragraphs_406_headings_180_unique_root_templates_12_unique_direct_categories; two_real_runs_same_68_record_output_hash; tampered_upstream_cli_wrote_0_outputs; 0_page_type_verdicts_0_canonical_identities_0_repeatability_classifications_0_optimizer_promotions; 148_of_148_tests_passed",
-        "next": "generic_cross_skill_untyped_page_source_evidence_sufficiency_disposition"
+        "id": "generic_cross_skill_untyped_page_source_evidence_sufficiency_disposition",
+        "result": "68_of_68_complete_source_evidence_packets_revalidated_and_routed; 67_exact_namespace_zero_pages_to_explicit_main_namespace_page_type_review; 1_exact_namespace_six_page_to_explicit_non_main_namespace_scope_review; titles_templates_categories_lead_and_headings_not_used_as_semantic_selectors; two_real_runs_same_68_record_output_hash; tampered_upstream_cli_wrote_0_outputs; 0_page_type_verdicts_0_canonical_identities_0_repeatability_classifications_0_optimizer_promotions; 160_of_160_tests_passed",
+        "next": "cross_skill_untyped_page_source_bound_review_queue_export"
       },
       "latestCoverageDelta": {
         "officialSkillDomainsMeasured": 24,
@@ -216,6 +217,21 @@
         "crossSkillUntypedPageDeterministicAcrossTwoRealRuns": true,
         "crossSkillUntypedPageTamperedInputOutputSnapshotsWritten": 0,
         "crossSkillUntypedPageRegressionTestsPassed": 148,
+        "crossSkillUntypedPageSufficiencyInputRecords": 68,
+        "crossSkillUntypedPageSufficiencyDispositionRecords": 68,
+        "crossSkillUntypedPageSufficiencyMainNamespaceReviewRoutes": 67,
+        "crossSkillUntypedPageSufficiencyNonMainNamespaceReviewRoutes": 1,
+        "crossSkillUntypedPageSufficiencyInvalidOrUnalignedInputs": 0,
+        "crossSkillUntypedPageSufficiencyBindingMismatches": 0,
+        "crossSkillUntypedPageSufficiencyInvalidRoutes": 0,
+        "crossSkillUntypedPageSufficiencyPageTypeReviewsCompleted": 0,
+        "crossSkillUntypedPageSufficiencyCanonicalEntityIdentities": 0,
+        "crossSkillUntypedPageSufficiencyCanonicalActivityIdentities": 0,
+        "crossSkillUntypedPageSufficiencyRepeatabilityClassifications": 0,
+        "crossSkillUntypedPageSufficiencyOptimizerPromotions": 0,
+        "crossSkillUntypedPageSufficiencyDeterministicAcrossTwoRealRuns": true,
+        "crossSkillUntypedPageSufficiencyTamperedInputOutputSnapshotsWritten": 0,
+        "crossSkillUntypedPageSufficiencyRegressionTestsPassed": 160,
         "weightedMembershipAdditionalEvidenceReviewDecisionQueueEntries": 47,
         "weightedMembershipAdditionalEvidenceReviewDecisionCompleteQueueRecords": 47,
         "weightedMembershipAdditionalEvidenceReviewDecisionSubmissionRows": 47,
@@ -394,7 +410,38 @@
         "optimizerEligibleActivitiesAdded": 0,
         "currentAccountFieldsAllowed": 0,
         "inventedFacts": 0,
-        "reason": "All 68 previously untyped cross-skill pages now have exact-revision source-evidence packets with every candidate, alias or fragment context, source identity, content hash, byte count, namespace, root-template inventory, direct-category inventory, lead paragraph, and heading preserved. Two real collections produced the same output hash. Structural page shape remains evidence only: no page type, canonical identity, repeatability, mechanics, or optimizer state was inferred or promoted."
+        "reason": "All 68 exact-revision untyped-page source packets passed intrinsic, snapshot, source-identity, alignment, and evidence-fingerprint revalidation and now have generic review dispositions. Exact namespace alone routes 67 main-space pages to explicit page-type review and one file-space page to explicit namespace-scope review. Two real transforms produced the same output hash. Titles, templates, categories, lead text, and headings remain evidence only; no page type, canonical identity, repeatability, mechanics, account state, or optimizer state was inferred or promoted."
+      },
+      "latestCrossSkillUntypedPageSourceEvidenceSufficiencyDispositionAudit": {
+        "generatedAt": "2026-09-05T20:13:28.152Z",
+        "policy": "sensum.cross-skill-untyped-page-source-evidence-sufficiency-disposition-policy.v1",
+        "policyContentHash": "833dd4405521ec738859a472c132c907ceb83427f62838ddc21fce476aa5950f",
+        "inputSnapshotDirectory": "2026-09-05T20-01-12-230Z",
+        "inputSnapshotContentHash": "66875e3ed0c4a8cd8d5dcc90bccc7d8409d134a4b9502d9b976e45b1e1d664b6",
+        "firstOutputSnapshotDirectory": "2026-09-05T20-13-20-002Z",
+        "secondOutputSnapshotDirectory": "2026-09-05T20-13-28-154Z",
+        "outputSnapshotContentHash": "1519c3d60ccf73f76f3b5a9bb44d21a4fee77288e1bcb1004a9f12b35a9cb52b",
+        "reportContentHash": "543a15e416cc86ecd460113b383f1ecdbd0b5d46931edae98ef038cadcc10984",
+        "inputEvidenceRecordCount": 68,
+        "dispositionRecordCount": 68,
+        "mainNamespaceReviewRouteCount": 67,
+        "nonMainNamespaceReviewRouteCount": 1,
+        "invalidOrUnalignedInputCount": 0,
+        "snapshotIdentityOrEvidenceBindingMismatchCount": 0,
+        "invalidRouteCount": 0,
+        "pageTypeReviewedCount": 0,
+        "canonicalGameEntityIdentityCount": 0,
+        "canonicalActivityIdentityCount": 0,
+        "repeatabilityClassifiedCount": 0,
+        "optimizerEligibleCount": 0,
+        "deterministicAcrossTwoRealRuns": true,
+        "tamperedInputOutputSnapshotsWritten": 0,
+        "regressionTestsPassed": 160,
+        "dispositionCoverageComplete": true,
+        "pageTypeReviewComplete": false,
+        "completeActivityUniverse": false,
+        "absoluteBestGate": "blocked_incomplete_activity_universe",
+        "publishable": true
       },
       "latestCrossSkillUntypedPageSourceEvidenceAudit": {
         "generatedAt": "2026-09-05T20:01:12.234Z",

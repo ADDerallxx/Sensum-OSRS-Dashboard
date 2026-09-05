@@ -1,0 +1,36 @@
+{
+  "contract": "sensum.cross-skill-untyped-page-source-evidence-sufficiency-disposition.v1",
+  "required": [
+    "candidateKey",
+    "sourcePageId",
+    "resolvedTitle",
+    "sourceNamespaceId",
+    "sourceRevision",
+    "sourceTimestamp",
+    "sourceUrl",
+    "sourceContentHash",
+    "sourceEvidenceContentHash",
+    "sourceEvidenceSnapshotContentHash",
+    "sourceSignatureContexts",
+    "evidenceFingerprint",
+    "evidenceSummary",
+    "evidenceSufficiencyDisposition",
+    "reviewRoute",
+    "pageTypeReview",
+    "canonicalGameEntityIdentity",
+    "canonicalActivityIdentity",
+    "repeatabilityClassification",
+    "optimizerEligible",
+    "accountIndependent",
+    "blockers"
+  ],
+  "rules": {
+    "oneRecordPerCompleteUntypedPageSourceEvidencePacket": true,
+    "inputSnapshotRecordIdentityAndEvidenceFingerprintAreImmutable": true,
+    "onlyNamespaceZeroVersusNonzeroMaySelectReviewRoute": true,
+    "allSourceShapesRemainEvidenceForReviewOnly": true,
+    "pageTypeAndCanonicalIdentityRemainUnreviewed": true,
+    "repeatabilityMechanicsAndOptimizerPromotionAreForbidden": true,
+    "currentAccountStateIsForbidden": true
+  }
+}

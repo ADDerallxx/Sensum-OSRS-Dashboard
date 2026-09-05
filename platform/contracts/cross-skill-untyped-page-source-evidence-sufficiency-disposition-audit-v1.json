@@ -1,0 +1,24 @@
+{
+  "contract": "sensum.cross-skill-untyped-page-source-evidence-sufficiency-disposition-audit.v1",
+  "required": [
+    "inputCoverage",
+    "policyCoverage",
+    "dispositionCoverage",
+    "semanticPreservationCoverage",
+    "accountStateFindings",
+    "dispositionCoverageComplete",
+    "pageTypeReviewComplete",
+    "completeActivityUniverse",
+    "absoluteBestGate",
+    "blockers",
+    "publishable"
+  ],
+  "rules": {
+    "inputAndOutputCandidateSetsMustMatchExactly": true,
+    "inputSnapshotIntrinsicRecordAndEvidenceFingerprintsMustRevalidate": true,
+    "routeMustDeriveOnlyFromExactNamespace": true,
+    "pageSpecificPolicyAndCandidateOverridesAreForbidden": true,
+    "pageTypeCanonicalIdentityRepeatabilityMechanicsAndOptimizerEligibilityRemainClosed": true,
+    "accountSpecificInputsAreForbidden": true
+  }
+}
