@@ -1,0 +1,27 @@
+{
+  "policy": "sensum.activity-reference-collection-member-independent-repeatability-signal-scope-evidence-policy.v1",
+  "inputContract": "sensum.activity-reference-collection-member-independent-repeatability-source-evidence.v1",
+  "recordContract": "sensum.activity-reference-collection-member-independent-repeatability-signal-scope-evidence.v1",
+  "auditContract": "sensum.activity-reference-collection-member-independent-repeatability-signal-scope-evidence-audit.v1",
+  "inputState": "independent_repeatability_source_evidence_ready_for_semantic_disposition",
+  "scopeEvidenceChannel": "source_authored_main_namespace_links_on_exact_signal_lines",
+  "rules": {
+    "oneOutputRecordPerCompleteInputEvidencePacket": true,
+    "oneNestedScopePacketPerRetainedSourceLocatedSignal": true,
+    "candidateSourcePageRevisionHashAndSignalLocatorRemainExact": true,
+    "onlySourceAuthoredMainNamespaceLinksOnTheExactSignalLineAreInScope": true,
+    "everySelectedLinkOccurrenceIsPreservedExactlyOnce": true,
+    "everySelectedRequestedTitleIsResolvedThroughTheOfficialWikiApi": true,
+    "resolvedTargetPageRevisionTimestampUrlAndContentHashArePinned": true,
+    "redirectsDeduplicateByStablePageIdWithoutLosingOccurrenceContexts": true,
+    "stableIdentityComparisonsAreObservationsOnly": true,
+    "aLinkedTargetDoesNotEstablishCanonicalActivityScope": true,
+    "absenceOfALinkDoesNotEstablishOutOfScope": true,
+    "sourcePageTitleLinkTextTargetTitlePageIdAndLexicalSimilarityCannotSelectAScopeVerdict": true,
+    "scopeEvidenceCannotCreateARepeatabilityVerdict": true,
+    "upstreamDispositionsReviewsAndEvidenceRemainUnchanged": true,
+    "memberExpansionMechanicsAndOptimizerEligibilityRemainClosed": true,
+    "missingContradictoryOrConditionMismatchedEvidenceRemainsExplicit": true,
+    "currentAccountStateIsForbidden": true
+  }
+}

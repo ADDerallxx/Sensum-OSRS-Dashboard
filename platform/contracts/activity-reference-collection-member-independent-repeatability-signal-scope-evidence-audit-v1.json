@@ -1,0 +1,33 @@
+{
+  "contract": "sensum.activity-reference-collection-member-independent-repeatability-signal-scope-evidence-audit.v1",
+  "required": [
+    "inputCoverage",
+    "policyCoverage",
+    "signalCoverage",
+    "exactLineLinkCoverage",
+    "resolutionCoverage",
+    "stableIdentityComparisonCoverage",
+    "semanticPromotionCoverage",
+    "accountStateFindings",
+    "signalScopeEvidenceAttemptCoverageComplete",
+    "independentSignalScopeEvidenceCoverageComplete",
+    "canonicalActivityScopeReviewComplete",
+    "repeatabilityReviewComplete",
+    "memberExpansionReviewComplete",
+    "mechanicsReviewComplete",
+    "completeActivityUniverse",
+    "absoluteBestGate",
+    "blockers",
+    "publishable"
+  ],
+  "rules": {
+    "everyCompleteInputProducesExactlyOneOutput": true,
+    "everyRetainedSignalProducesExactlyOneScopePacket": true,
+    "everyExactLineMainNamespaceLinkOccurrenceIsPreservedAndResolved": true,
+    "redirectsPreserveContextsWhileStablePagesAreDeduplicated": true,
+    "inputEvidenceAndSemanticStateCannotChange": true,
+    "scopeAndRepeatabilityVerdictsCannotBeCreated": true,
+    "memberMechanicsAndOptimizerPromotionsAreForbidden": true,
+    "currentAccountStateIsForbidden": true
+  }
+}

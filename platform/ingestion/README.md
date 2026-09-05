@@ -44,6 +44,7 @@ node platform/ingestion/ingest-wiki-skill-training-guide-source-dependencies.mjs
 node platform/ingestion/ingest-wiki-activity-reference-collection-member-repeatability-gap-evidence.mjs
 node platform/transforms/build-activity-reference-collection-member-repeatability-gap-dispositions.mjs
 node platform/ingestion/ingest-wiki-activity-reference-collection-member-independent-repeatability-source-evidence.mjs
+node platform/ingestion/ingest-wiki-activity-reference-collection-member-independent-repeatability-signal-scope-evidence.mjs
 node platform/transforms/build-unlock-statement-semantic-crosswalk.mjs
 node platform/transforms/build-unlock-linked-page-entity-types.mjs
 node platform/transforms/build-unlock-linked-page-wiki-equivalence.mjs
@@ -162,6 +163,17 @@ record count, creation time, audit result, and SHA-256 content hash.
   contexts, and already scanned source pages remain explicit exclusions. Full
   candidate revisions are scanned with the existing repeatability policy, but
   links and lexical matches remain review evidence and create no verdict.
+- Independent repeatability-source ingestion exhausts exact canonical-label
+  source searches and main-namespace backlinks to the stable linked subject.
+  Every candidate is pinned to a current official Wiki revision and every
+  source-authored link is retained. Search rank, snippets, backlink presence,
+  page names, and lexical signals remain discovery-only observations.
+- Independent repeatability signal-scope ingestion selects only
+  source-authored main-namespace links occurring on each exact retained signal
+  line. Every target is resolved to a stable page ID and current revision;
+  redirects preserve every occurrence context. A target match or missing link
+  cannot create canonical-activity scope, repeatability, member, mechanics, or
+  optimizer conclusions.
 - Training-guide section ingestion inventories every Wiki heading in source
   order. Every method-bearing subsection is retained with its parent, source
   lines, revision, and structural role. New heading depths or parents fail

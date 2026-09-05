@@ -1,0 +1,31 @@
+{
+  "contract": "sensum.activity-reference-collection-member-independent-repeatability-signal-scope-evidence.v1",
+  "required": [
+    "memberCandidateKey",
+    "sourceIndependentRepeatabilitySourceEvidenceContentHash",
+    "canonicalActivityIdentity",
+    "repeatabilityDisposition",
+    "repeatabilityReview",
+    "corroboratingRepeatabilityDisposition",
+    "corroboratingRepeatabilityReview",
+    "independentRepeatabilitySourceEvidence",
+    "independentRepeatabilityCandidateObservations",
+    "independentRepeatabilitySignalScopeEvidence",
+    "independentRepeatabilitySignalScopeObservations",
+    "memberExpansionReview",
+    "mechanicsReview",
+    "optimizerEligible",
+    "accountIndependent",
+    "blockers"
+  ],
+  "rules": {
+    "everyInputSignalProducesExactlyOneNestedScopePacket": true,
+    "exactSignalAndLinkOccurrenceEvidenceIsPreserved": true,
+    "everyResolvedTargetUsesStableOfficialWikiIdentityAndRevisionProvenance": true,
+    "noLinkAndLinkedTargetStatesRemainEvidenceOnly": true,
+    "canonicalActivityScopeAndRepeatabilityVerdictsRemainNull": true,
+    "upstreamEvidenceDispositionsAndReviewsRemainExact": true,
+    "memberMechanicsAndOptimizerPromotionsAreForbidden": true,
+    "currentAccountStateIsForbidden": true
+  }
+}

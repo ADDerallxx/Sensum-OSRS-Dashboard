@@ -43,6 +43,22 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+All 47 independent repeatability signals now have exact-line, revision-pinned
+canonical-activity scope evidence packets. Twenty signal lines contain 45
+source-authored main-namespace link occurrences spanning 22 requested titles;
+all 45 occurrences resolve to current official Wiki revisions and seven retain
+redirect provenance. The other 27 signals have no source-authored
+main-namespace link on their exact line, which is retained as a limitation and
+not interpreted as out-of-scope evidence. Stable identity comparisons found
+zero signal-source or link-target matches to either activity's linked-subject
+or collection anchor. Page names, link text, target titles, stable page IDs,
+and lexical similarity therefore remain observations only. There are zero
+canonical-activity scope verdicts, repeatability verdicts, upstream mutations,
+member or mechanics reviews, and optimizer promotions. Repeated live runs
+produced the same output hash. The next checkpoint should apply a generic,
+fail-closed scope disposition that cannot turn an unrelated exact-line link or
+the absence of a link into a scope verdict.
+
 The two unresolved activities now have complete independent official-Wiki
 discovery packets. The collector fully enumerated two exact-source phrase
 searches (14 results) and two main-namespace backlink sets (238 results),
