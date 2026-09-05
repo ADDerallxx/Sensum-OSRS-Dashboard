@@ -70,7 +70,7 @@ function expectedSignature(queue, fetched, policy, queueSnapshotContentHash, con
     fetchedRevisionMatches: String(revision?.revid || '') === String(identity.sourceRevision || ''),
     fetchedTimestampMatches: revision?.timestamp === identity.sourceTimestamp,
     fetchedTitleMatches: page?.title === identity.resolvedTitle,
-    fetchedNamespaceObserved: Number.isInteger(page?.ns) && queue.namespaceIds?.includes(page.ns),
+    fetchedNamespaceObserved: Number.isInteger(page?.ns) && (queue.namespaceIds?.includes(page.ns) || identity.redirected === true),
     fetchedContentPresent: typeof content === 'string',
     sourceUrlRetained: typeof identity.sourceUrl === 'string' && identity.sourceUrl.startsWith('https://oldschool.runescape.wiki/')
   };
@@ -133,7 +133,7 @@ export function buildRenderedPageWithoutUnlockTargetSourceSignatureShard({ queue
   }) : [];
   const firstAudit = auditRenderedPageWithoutUnlockTargetSourceSignatureShard(records, { queueRecords, fetchedPages, policy, queueSnapshotContentHash, startOrdinal, limit, contentHash });
   if (firstAudit.publishable) return { records, audit: firstAudit };
-  return { records: [], audit: auditRenderedPageWithoutUnlockTargetSourceSignatureShard([], { queueRecords, fetchedPages, policy, queueSnapshotContentHash, startOrdinal, limit, contentHash }) };
+  return { records: [], audit: firstAudit };
 }
 
 export function auditRenderedPageWithoutUnlockTargetSourceSignatureShard(records = [], { queueRecords = [], fetchedPages = [], policy = {}, queueSnapshotContentHash = '', startOrdinal = 1, limit = 250, contentHash = value => value } = {}) {

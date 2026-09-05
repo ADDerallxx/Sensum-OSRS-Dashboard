@@ -653,6 +653,13 @@ semantic and optimizer fields closed. Shards are limited to 250 entries; a
 successful shard is not full-population coverage. Use explicit `--start` and
 `--limit` values so collection can resume deterministically, then consolidate
 and revalidate every shard before claiming complete signature coverage.
+Observed namespaces describe the link or parser observation retained by the
+queue. The resolved source namespace is recorded independently from the exact
+Wiki revision. A queue-bound identity explicitly marked as redirected may cross
+that namespace boundary when its page ID, revision, timestamp, and resolved
+title still match exactly; an unredirected namespace mismatch rejects the whole
+shard. Rejected attempts return their attempted alignment audit while writing no
+snapshot, so the specific failed queue entry remains visible.
 
 Run:
 

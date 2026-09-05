@@ -57,6 +57,10 @@ const contents = {
 const fetchedPages = queueRecords.map(row => ({ pageid: row.stableWikiPageIdentity.sourcePageId, ns: 0, title: row.stableWikiPageIdentity.resolvedTitle, revisions: [{ revid: Number(row.stableWikiPageIdentity.sourceRevision), timestamp: row.stableWikiPageIdentity.sourceTimestamp, slots: { main: { content: contents[row.stableWikiPageIdentity.sourceRevision] } } }] }));
 const source = { queueRecords, fetchedPages, policy, queueSnapshotContentHash: queueSnapshotHash, startOrdinal: 1, limit: 2, contentHash: hash };
 const cloneSource = () => ({ queueRecords: structuredClone(queueRecords), fetchedPages: structuredClone(fetchedPages), policy: structuredClone(policy), queueSnapshotContentHash: queueSnapshotHash, startOrdinal: 1, limit: 2, contentHash: hash });
+const rehashQueueRecord = row => {
+  row.recordContentHash = hash(without(row, 'contentHash', 'recordContentHash'));
+  row.contentHash = hash(without(row, 'contentHash'));
+};
 
 test('policy and contracts are fail closed and shard bounded', () => {
   assert.deepEqual(compileRenderedPageWithoutUnlockTargetSourceSignaturePolicy(policy), { valid: true, invalidRules: [] });
@@ -93,6 +97,31 @@ test('captures exact-revision source signatures without semantic promotion', () 
 
 test('identical exact-revision inputs produce deterministic signatures and audit', () => {
   assert.deepEqual(buildRenderedPageWithoutUnlockTargetSourceSignatureShard(source), buildRenderedPageWithoutUnlockTargetSourceSignatureShard(cloneSource()));
+});
+
+test('accepts an exact redirected identity across namespaces while retaining both namespaces', () => {
+  const changed = cloneSource();
+  changed.queueRecords[0].stableWikiPageIdentity.redirected = true;
+  changed.queueRecords[0].stableWikiPageIdentity.resolvedTitle = 'Guide:Target 1';
+  changed.queueRecords[0].stableWikiPageIdentity.sourceUrl = 'https://oldschool.runescape.wiki/w/Guide%3ATarget_1';
+  rehashQueueRecord(changed.queueRecords[0]);
+  changed.fetchedPages[0].ns = 3002;
+  changed.fetchedPages[0].title = 'Guide:Target 1';
+  const built = buildRenderedPageWithoutUnlockTargetSourceSignatureShard(changed);
+  assert.equal(built.audit.publishable, true);
+  assert.equal(built.records[0].sourceNamespaceId, 3002);
+  assert.deepEqual(built.records[0].observedNamespaceIds, [0]);
+  assert.equal(built.records[0].revisionAlignment.fetchedNamespaceObserved, true);
+});
+
+test('rejects an unredirected namespace mismatch and reports the failed queue entry', () => {
+  const changed = cloneSource();
+  changed.fetchedPages[0].ns = 3002;
+  const built = buildRenderedPageWithoutUnlockTargetSourceSignatureShard(changed);
+  assert.equal(built.audit.publishable, false);
+  assert.equal(built.records.length, 0);
+  assert.equal(built.audit.fetchCoverage.fetchedExactRevisionCount, 2);
+  assert.deepEqual(built.audit.sourceAlignment.failedQueueEntryKeys, [changed.queueRecords[0].workQueueEntryKey]);
 });
 
 for (const [name, mutate] of [
