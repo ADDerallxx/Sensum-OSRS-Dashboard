@@ -223,6 +223,14 @@ exhaustion, member-reselection, or availability signal is not negative evidence.
 Every unresolved domain routes to independent revision-pinned evidence work;
 parent and member verdicts remain null and downstream gates stay closed.
 
+The repeatability-gap work router expands that unresolved result into six
+independent, blocked evidence tasks. Each task records its exact proof objective
+and required source channels while forbidding structural wording, eligibility,
+citations, silence, labels, or account observations as substitutes. Routing is
+not evidence: every task remains incomplete, all repeatability verdicts remain
+null, and member, mechanics, and optimizer gates remain closed until a later
+collector and semantic review satisfy the evidence obligations.
+
 Courses with multiple independently failing obstacles retain one composite
 condition record with per-obstacle requirements, successful XP, probabilities,
 and revisions. Sensum does not derive an aggregate lap probability or expected

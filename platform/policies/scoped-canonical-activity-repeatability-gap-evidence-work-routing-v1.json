@@ -1,0 +1,84 @@
+{
+  "policy": "sensum.scoped-canonical-activity-repeatability-gap-evidence-work-routing-policy.v1",
+  "inputContract": "sensum.scoped-canonical-activity-repeatability-evidence-disposition.v1",
+  "recordContract": "sensum.scoped-canonical-activity-repeatability-gap-evidence-work-routing.v1",
+  "auditContract": "sensum.scoped-canonical-activity-repeatability-gap-evidence-work-routing-audit.v1",
+  "eligibleInputState": "scoped_canonical_activity_repeatability_disposition_reviewed_unresolved",
+  "eligibleDispositionState": "blocked_parent_and_member_repeatability_not_proven",
+  "requiredSourceRoute": {
+    "routeKey": "collect_revision_pinned_independent_scoped_activity_repeatability_evidence",
+    "routeState": "blocked_independent_scoped_activity_repeatability_evidence_gap"
+  },
+  "route": {
+    "routeKey": "collect_revision_pinned_independent_scoped_activity_repeatability_evidence",
+    "routeState": "blocked_independent_scoped_activity_repeatability_evidence_gap",
+    "domainWorkState": "blocked_pending_revision_pinned_independent_evidence",
+    "requiredEvidenceDomains": [
+      "parent_activity_post_completion_reassignment_or_restart",
+      "member_task_reselection_and_repeatability",
+      "cooldown_reset_daily_or_session_limits",
+      "finite_exhaustion_one_time_or_completion_lockout",
+      "availability_and_assignment_eligibility_across_sessions",
+      "independent_source_corroboration_or_conflict"
+    ]
+  },
+  "domainWorkDefinitions": [
+    {
+      "domainKey": "parent_activity_post_completion_reassignment_or_restart",
+      "evidenceObjective": "Establish whether the canonical parent activity can be restarted or reassigned after completion.",
+      "requiredChannels": ["independent_revision_pinned_source", "exact_parent_subject_predicate", "post_completion_boundary"]
+    },
+    {
+      "domainKey": "member_task_reselection_and_repeatability",
+      "evidenceObjective": "Establish whether an exact identified member task can be selected or completed again.",
+      "requiredChannels": ["independent_revision_pinned_source", "exact_member_identity", "member_reselection_or_recompletion_predicate"]
+    },
+    {
+      "domainKey": "cooldown_reset_daily_or_session_limits",
+      "evidenceObjective": "Establish any cooldown, reset, frequency, daily, or session limit and its exact activity scope.",
+      "requiredChannels": ["independent_revision_pinned_source", "exact_limit_subject", "limit_and_reset_boundary"]
+    },
+    {
+      "domainKey": "finite_exhaustion_one_time_or_completion_lockout",
+      "evidenceObjective": "Establish whether completion exhausts, locks, or permanently removes the parent activity or an exact member.",
+      "requiredChannels": ["independent_revision_pinned_source", "exact_exhaustion_subject", "completion_lockout_predicate"]
+    },
+    {
+      "domainKey": "availability_and_assignment_eligibility_across_sessions",
+      "evidenceObjective": "Establish future availability across sessions separately from initial assignment eligibility.",
+      "requiredChannels": ["independent_revision_pinned_source", "exact_availability_subject", "cross_session_boundary"]
+    },
+    {
+      "domainKey": "independent_source_corroboration_or_conflict",
+      "evidenceObjective": "Obtain an independently revision-pinned exact claim that corroborates or conflicts with the scoped repeatability proposition.",
+      "requiredChannels": ["independent_revision_pinned_source", "stable_source_identity", "exact_subject_predicate_scope", "corroboration_or_conflict_assessment"]
+    }
+  ],
+  "forbiddenSubstitutions": [
+    "assignment_universe_count",
+    "plural_task_wording",
+    "assignment_eligibility_condition",
+    "citation_presence_without_exact_independent_source",
+    "absence_of_limit_or_lockout_wording",
+    "title_label_alias_or_page_type",
+    "current_account_observation"
+  ],
+  "rules": {
+    "oneWorkOrderPerEligibleDisposition": true,
+    "everyUnresolvedDomainReceivesExactlyOneWorkItem": true,
+    "routeSelectionUsesOnlyTheAuditedDispositionStateAndRequiredSourceRoute": true,
+    "workItemsDescribeEvidenceObligationsNotGameFacts": true,
+    "independentEvidenceMustRetainExactRevisionIdentityAndSubjectPredicateScope": true,
+    "parentAndMemberRepeatabilityRemainSeparate": true,
+    "structuralEligibilityCitationAndSilenceSubstitutionsAreForbidden": true,
+    "allRoutesAndWorkItemsRemainBlockedUntilEvidenceIsCollectedAndReviewed": true,
+    "namesTitlesPageIdsCandidateKeysLabelsAliasesScopeClassesAndOverridesCannotSelectOrAlterTheRoute": true,
+    "inputEvidenceIdentityRevisionHashesScopeDispositionAndContextMustBePreserved": true,
+    "routingCannotAlterScopeOrRepeatabilityDispositionOrReview": true,
+    "routingCannotCreateRepeatabilityVerdicts": true,
+    "routingCannotCompleteMemberExpansionOrMechanics": true,
+    "routingCannotCreateOptimizerCandidates": true,
+    "currentAccountStateIsForbidden": true,
+    "automaticVerificationAllowed": false
+  }
+}

@@ -43,6 +43,23 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+Every unresolved scoped canonical-activity repeatability disposition now enters
+one generic independent-evidence work order. The one live disposition routed
+exactly once and produced six blocked domain work items covering parent restart
+or reassignment, exact-member reselection, cooldown/reset limits, finite
+exhaustion or lockout, cross-session availability, and independent
+corroboration or conflict. Each work item requires a revision-pinned source and
+an exact subject/predicate boundary; assignment counts, plural wording,
+eligibility conditions, citation presence, silence, page labels, and account
+observations are explicitly forbidden substitutes. The complete upstream
+evidence and scope/repeatability dispositions were preserved, all verdicts stayed
+null, and member, mechanics, and optimizer gates stayed closed. Multi-record,
+renaming, tampering, policy-specificity, automatic-verification, mutation,
+promotion, and account-state tests passed. Two accepted live runs produced the
+same output hash, and the complete 99-test suite passed. The next checkpoint
+should collect the routed independent revision-pinned evidence without allowing
+the existence of a work order to imply that any evidence domain is resolved.
+
 The complete scoped canonical-activity repeatability packet now has a generic,
 fail-closed semantic disposition. All five source-located signals were assigned
 exactly one policy-derived evidence role: two assignment-universe structures,

@@ -1,0 +1,31 @@
+{
+  "contract": "sensum.scoped-canonical-activity-repeatability-gap-evidence-work-routing.v1",
+  "required": [
+    "memberCandidateKey",
+    "sourceScopedCanonicalActivityRepeatabilityEvidenceDispositionContentHash",
+    "canonicalActivityIdentity",
+    "canonicalActivityScopeDisposition",
+    "canonicalActivityScopeReview",
+    "canonicalActivityRepeatabilityDisposition",
+    "canonicalActivityRepeatabilityReview",
+    "canonicalActivityRepeatabilityNextEvidenceWork",
+    "canonicalActivityRepeatabilityGapEvidenceWorkRouting",
+    "canonicalActivityRepeatabilityGapEvidenceWorkReview",
+    "memberExpansionReview",
+    "mechanicsReview",
+    "optimizerEligible",
+    "accountIndependent",
+    "blockers",
+    "state"
+  ],
+  "rules": {
+    "oneWorkOrderPerExactEligibleDisposition": true,
+    "allUpstreamEvidenceIdentityRevisionHashesScopeDispositionAndContextMustBePreserved": true,
+    "everyUnresolvedDomainMustHaveExactlyOneBlockedEvidenceWorkItem": true,
+    "routeSelectionUsesOnlyTheAuditedDispositionStateAndRequiredSourceRoute": true,
+    "scopeAndRepeatabilityVerdictsMustRemainUnchanged": true,
+    "evidenceWorkCannotBeMarkedCompleteByRouting": true,
+    "memberMechanicsAndOptimizerPromotionAreForbidden": true,
+    "currentAccountStateIsForbidden": true
+  }
+}
