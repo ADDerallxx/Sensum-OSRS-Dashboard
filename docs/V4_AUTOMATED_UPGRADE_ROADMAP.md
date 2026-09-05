@@ -43,6 +43,23 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+The 59 structural candidate identity packets now have a generic, fail-closed
+semantic disposition. All 59 exact source revisions, hashes, byte counts,
+candidate work-item bindings, and pinned parent occurrences revalidated. Exact
+root-template evidence classified 58 source pages: 51 item pages, seven NPC
+pages, and 15 of the item pages also retain the separate equipment-page type.
+The remaining switch-infobox page is explicitly untyped because its monster and
+NPC infoboxes are nested variants rather than root declarations; no title-based
+exception or nested-template guess was added. All 59 source structures support
+their generic item-delivery, message-recipient, or narrative-assignment
+relationship with zero role/type mismatches. Those are structural relationships,
+not reviewed member identities, parent membership, weighted task entries, or a
+complete universe. The non-exhaustive source qualification and one-to-one total
+mapping gap remain active. Two transforms produced the same output hash and the
+complete 110-test platform suite passed. The next checkpoint should generically
+route the remaining page-type, member-identity, weighted-membership, mapping, and
+universe-completeness evidence gaps as separate work without page-specific rules.
+
 All 59 routed structural candidates now have a complete revision-pinned subject-
 page identity packet from the official Wiki API. Each packet retains the exact
 source-authored request, normalization and redirect chains, stable page ID,

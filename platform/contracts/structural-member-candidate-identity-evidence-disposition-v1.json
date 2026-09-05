@@ -1,0 +1,29 @@
+{
+  "contract": "sensum.structural-member-candidate-identity-evidence-disposition.v1",
+  "required": [
+    "memberCandidateKey",
+    "sourceStructuralMemberCandidateIdentityEvidenceContentHash",
+    "structuralMemberCandidateIdentityEvidenceSources",
+    "structuralMemberCandidateIdentityDispositionSignals",
+    "structuralMemberCandidateIdentityDispositions",
+    "structuralMemberCandidateIdentityDisposition",
+    "structuralMemberCandidateIdentityDispositionReview",
+    "parentMemberCandidateIdentityAndCompletenessEvidenceWorkRouting",
+    "memberExpansionReview",
+    "mechanicsReview",
+    "optimizerEligible",
+    "accountIndependent",
+    "blockers",
+    "state"
+  ],
+  "rules": {
+    "oneRecordPerEligibleIdentityEvidenceRecord": true,
+    "allUpstreamFieldsMustBePreserved": true,
+    "oneDispositionPerCompleteCandidateIdentityEvidencePacket": true,
+    "pageTypesMustComeFromExactRevisionRootTemplatesAndGenericPolicy": true,
+    "multiplePageTypesMustRemainMultipleAndUntypedPagesMustRemainExplicit": true,
+    "structuralParentRelationshipsCannotEstablishMembershipOrCompleteness": true,
+    "canonicalIdentityMembershipMappingCompletenessRepeatabilityMechanicsAndOptimizerPromotionAreForbidden": true,
+    "parentCompletenessBranchesMustRemainUnchanged": true
+  }
+}

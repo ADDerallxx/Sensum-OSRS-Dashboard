@@ -1,0 +1,33 @@
+{
+  "contract": "sensum.structural-member-candidate-identity-evidence-disposition-audit.v1",
+  "required": [
+    "inputCoverage",
+    "policyCoverage",
+    "sourceEvidenceIntegrityCoverage",
+    "stableSubjectIdentityCoverage",
+    "sourcePageEntityTypeCoverage",
+    "structuralParentRelationshipCoverage",
+    "semanticPreservationCoverage",
+    "accountStateFindings",
+    "semanticDispositionAttemptCoverageComplete",
+    "stableSubjectIdentityDispositionComplete",
+    "sourcePageEntityTypeDispositionComplete",
+    "structuralParentRelationshipDispositionComplete",
+    "memberIdentityReviewComplete",
+    "memberExpansionComplete",
+    "mechanicsReviewComplete",
+    "optimizerEligibleCount",
+    "completeActivityUniverse",
+    "absoluteBestGate",
+    "blockers",
+    "publishable"
+  ],
+  "rules": {
+    "everyEligibleIdentityEvidenceRecordMustProduceExactlyOneDispositionRecord": true,
+    "everyCompletePacketMustProduceExactlyOneSemanticDisposition": true,
+    "exactSourceEvidenceMustRevalidate": true,
+    "sourcePageTypesAndStructuralRelationshipsMustRemainSeparateFromMemberIdentityAndMembership": true,
+    "inputOutputContextMustMatchExactly": true,
+    "unsupportedVerdictsPromotionsAndAccountStateMustFailClosed": true
+  }
+}
