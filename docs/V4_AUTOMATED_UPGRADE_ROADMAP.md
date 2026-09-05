@@ -43,6 +43,24 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+The 121 structural-candidate semantic-gap packets now have a generic, fail-
+closed sufficiency disposition. All 60 exact source revisions and all 121
+packets revalidated before disposition. Of 59 candidate identity packets, 51
+have exactly one identity-bearing root infobox type, a source-authored name
+field, no multi-entry numbered `name`/`id`/`version` series, and a coherent
+parent structural relationship; they are review-ready but still have null
+identity verdicts. Seven typed pages remain blocked because their primary
+infoboxes contain multiple numbered entity variants, and one remains blocked
+because its monster and NPC infoboxes are nested under an unbound switch
+container. All 59 candidate-scoped weight/membership dispositions, the one-to-
+one mapping disposition, and the complete-universe disposition remain blocked.
+No source silence, global weight wording, arithmetic count equality, page type,
+or review-readiness state became a game fact. Two transforms produced the same
+output hash. The next checkpoint should generically route the 51 review-ready
+identity decisions separately from the seven variant-binding gaps, the one
+nested subject-binding gap, and the still-blocked membership and completeness
+branches.
+
 All 121 routed structural-candidate semantic obligations now have revision-
 pinned evidence capture packets. The collector deduplicated 59 candidate
 subject pages plus the parent inventory page into 60 exact Wiki revisions,

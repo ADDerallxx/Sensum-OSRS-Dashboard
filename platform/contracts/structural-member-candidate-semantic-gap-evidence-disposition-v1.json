@@ -1,0 +1,26 @@
+{
+  "contract": "sensum.structural-member-candidate-semantic-gap-evidence-disposition.v1",
+  "required": [
+    "memberCandidateKey",
+    "sourceStructuralMemberCandidateSemanticGapEvidenceContentHash",
+    "structuralMemberCandidateSemanticGapEvidenceDispositions",
+    "structuralMemberCandidateSemanticGapEvidenceDisposition",
+    "structuralMemberCandidateSemanticGapEvidenceDispositionReview",
+    "structuralMemberCandidateSemanticGapEvidencePackets",
+    "structuralMemberCandidateSemanticGapEvidenceWorkRouting",
+    "memberExpansionReview",
+    "mechanicsReview",
+    "optimizerEligible",
+    "accountIndependent",
+    "blockers",
+    "state"
+  ],
+  "rules": {
+    "allUpstreamFieldsMustBePreserved": true,
+    "everyCompletePacketMustHaveOneBranchDisposition": true,
+    "identityReviewReadyAndVariantBlockedStatesMustRemainDistinct": true,
+    "reviewReadinessCannotCreateACanonicalEntityOrMemberIdentity": true,
+    "membershipMappingAndUniverseDispositionsMustRemainSeparate": true,
+    "noRepeatabilityMechanicsOrOptimizerPromotion": true
+  }
+}

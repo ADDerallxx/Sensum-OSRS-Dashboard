@@ -1,0 +1,29 @@
+{
+  "policy": "sensum.structural-member-candidate-semantic-gap-evidence-disposition-policy.v1",
+  "inputContract": "sensum.structural-member-candidate-semantic-gap-evidence.v1",
+  "recordContract": "sensum.structural-member-candidate-semantic-gap-evidence-disposition.v1",
+  "auditContract": "sensum.structural-member-candidate-semantic-gap-evidence-disposition-audit.v1",
+  "inputState": "structural_member_candidate_semantic_gap_revision_pinned_evidence_captured_semantic_reviews_pending_gates_closed",
+  "sourcePageEntityTypePolicy": "sensum.unlock-linked-page-entity-type-policy.v2",
+  "supplementaryPageTypes": ["equipment_page"],
+  "rules": {
+    "oneDispositionPerCompleteEvidencePacket": true,
+    "exactRevisionSourceIdentityHashBytesAndTextMustRevalidate": true,
+    "identityReviewReadinessRequiresOneIdentityBearingRootInfoboxType": true,
+    "supplementaryPageTypesDoNotCreateAdditionalEntityIdentities": true,
+    "multipleNumberedNameIdOrVersionIndicesBlockExactVariantScope": true,
+    "untypedOrNestedOnlyInfoboxesRemainBlocked": true,
+    "reviewReadinessIsNotAReviewedIdentityVerdict": true,
+    "globalWeightAndCandidateOccurrenceCannotBeJoinedIntoMembershipProof": true,
+    "missingDuplicateAliasOrVariantTreatmentBlocksWeightedMembership": true,
+    "arithmeticCountEqualityCannotProveOneToOneMapping": true,
+    "nonExhaustiveSourceLanguageBlocksCompleteUniverseDisposition": true,
+    "sourceSilenceCannotBecomeANegativeGameFact": true,
+    "allIdentityPageTypeRelationshipMembershipMappingAndCompletenessVerdictsRemainNull": true,
+    "inputEvidenceSourcesPacketsRoutingAndPriorDispositionsMustBePreserved": true,
+    "namesTitlesPageIdsCandidateKeysLabelsAliasesAndOverridesCannotAlterPolicyBehavior": true,
+    "memberRepeatabilityMechanicsAndOptimizerPromotionAreForbidden": true,
+    "currentAccountStateIsForbidden": true,
+    "automaticVerificationAllowed": false
+  }
+}

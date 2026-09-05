@@ -1,0 +1,30 @@
+{
+  "contract": "sensum.structural-member-candidate-semantic-gap-evidence-disposition-audit.v1",
+  "required": [
+    "inputCoverage",
+    "policyCoverage",
+    "sourceIntegrityCoverage",
+    "packetDispositionCoverage",
+    "identityReviewReadinessCoverage",
+    "branchDispositionCoverage",
+    "semanticPreservationCoverage",
+    "accountStateFindings",
+    "semanticDispositionCoverageComplete",
+    "semanticEvidenceWorkComplete",
+    "memberIdentityReviewComplete",
+    "memberExpansionComplete",
+    "mechanicsReviewComplete",
+    "completeActivityUniverse",
+    "absoluteBestGate",
+    "blockers",
+    "publishable"
+  ],
+  "rules": {
+    "eligibleInputAndOutputSetsMustMatchExactly": true,
+    "sourceAndPacketIntegrityMustRevalidate": true,
+    "everyPacketMustHaveExactlyOneDeterministicBranchDisposition": true,
+    "numberedVariantSeriesMustRemainBlockedWithoutExactVariantBinding": true,
+    "reviewReadyPacketsMustRetainNullSemanticVerdicts": true,
+    "unsupportedPromotionsMutationsAndAccountStateMustFailPublication": true
+  }
+}
