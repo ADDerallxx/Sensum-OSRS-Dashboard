@@ -1,0 +1,32 @@
+{
+  "policy": "sensum.multi-variant-binding-review-decision-import-policy.v1",
+  "queueContract": "sensum.multi-variant-binding-review-queue-entry.v1",
+  "submissionContract": "sensum.multi-variant-binding-review-decision-template.v1",
+  "recordContract": "sensum.multi-variant-binding-review-decision.v1",
+  "auditContract": "sensum.multi-variant-binding-review-decision-import-audit.v1",
+  "queueState": "pending_explicit_source_bound_variant_binding_review",
+  "recordState": "recorded_source_bound_variant_binding_review_decision_pending_semantic_disposition",
+  "allowedDecisions": [
+    "confirm_exact_parent_occurrence_to_numbered_variant_binding",
+    "reject_exact_parent_occurrence_to_numbered_variant_binding",
+    "needs_additional_evidence"
+  ],
+  "rules": {
+    "oneRecordedDecisionPerCompletedSubmission": true,
+    "partialReviewBatchesAreAllowed": true,
+    "blankTemplateRowsAreIgnored": true,
+    "partiallyCompletedRowsAreRejected": true,
+    "anyInvalidRowRejectsTheEntireBatch": true,
+    "queueRecordManifestEntryAndContentHashesMustRevalidate": true,
+    "submissionMustMatchQueueDispositionPacketEvidenceAndVariantBindings": true,
+    "decisionMustBeExplicitlyAllowed": true,
+    "reviewerReviewedAtSourceRevisionsAndNotesAreRequired": true,
+    "reviewedAtMustNotPrecedePinnedEvidenceTimestamps": true,
+    "decisionSourceRevisionsMustExactlyMatchTheQueueEvidenceScope": true,
+    "obviousAutomaticOrModelReviewerNamesAreRejected": true,
+    "recordingADecisionDoesNotBindAVariantOrApplyIdentityMembershipRepeatabilityMechanicsMappingCompletenessOrOptimizerVerdicts": true,
+    "namesTitlesPageIdsRevisionsCandidateKeysLabelsAliasesAndOverridesCannotAlterPolicyBehavior": true,
+    "currentAccountStateIsForbidden": true,
+    "automaticVerificationAllowed": false
+  }
+}

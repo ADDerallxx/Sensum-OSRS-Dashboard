@@ -155,7 +155,8 @@
         "source_bound_structural_member_candidate_identity_review_decision_import_contract",
         "multi_variant_structural_member_candidate_parent_occurrence_binding_evidence_packets",
         "generic_multi_variant_structural_member_candidate_parent_occurrence_binding_evidence_disposition",
-        "multi_variant_binding_review_queue_and_additional_evidence_work_export"
+        "multi_variant_binding_review_queue_and_additional_evidence_work_export",
+        "multi_variant_binding_review_decision_import_contract"
       ],
       "remainingWork": [
         "Use the 1,909-entry revision-aligned semantic-review queue to establish canonical game-entity and activity identities from retained source signatures and contexts, then prove repeatability, membership, requirements, variants, XP, timing, mechanics, and authoritative exclusions. Begin with the 29 explicit activity-page candidates, but do not treat activity/minigame page type as repeatability proof; distinguish reference collections and composites from actual trainable method variants. Reconcile 68 queued untyped pages, 4,725 stable rendered pages without unlock evidence, 1,565 unlock pages without rendered-guide evidence, five unresolved rendered targets, the wider unlock set's 137 untyped pages and 31 activity pages, and 51 ambiguous statement forms. Historical template-expansion provenance remains open because dependency revision IDs and the generative origins of 16,284 rendered-only observations are unavailable. Continue independent discovery until every repeatable training activity in every skill is enumerated. The central guide index's composite Combat row and four Defence link disagreements remain explicit. Rockslide pairing still requires complete activity and travel graphs.",
@@ -172,24 +173,23 @@
         "independentGameUniverseDiscoveryPending": true
       },
       "latestCheckpoint": {
-        "id": "multi_variant_binding_review_queue_and_additional_evidence_work_export",
-        "result": "1_of_1_disposition_records; 8_of_8_exact_revisions_7_of_7_packets_7_of_7_dispositions_revalidated; 5_review_entries_and_blank_templates; 2_additional_evidence_work_entries; exact_disjoint_union_7_of_7; 0_decisions_0_evidence_0_bound_variants_0_promotions; byte_deterministic",
-        "next": "multi_variant_binding_review_decision_import_contract"
+        "id": "multi_variant_binding_review_decision_import_contract",
+        "result": "5_of_5_queue_records_revalidated; valid_partial_human_batches_recordable; blank_partial_stale_unknown_duplicate_machine_authored_account_scoped_and_tampered_batches_fail_closed; real_5_row_blank_template_rejected; 0_decisions_0_output_snapshots_0_bound_variants_0_promotions; 121_of_121_tests_passed",
+        "next": "multi_variant_binding_additional_evidence_source_discovery_packets"
       },
       "latestCoverageDelta": {
         "officialSkillDomainsMeasured": 24,
-        "inputBindingEvidenceDispositionRecords": 1,
-        "revalidatedExactRevisionSources": 8,
-        "revalidatedVariantBindingEvidencePackets": 7,
-        "revalidatedVariantBindingEvidenceDispositions": 7,
+        "inputVariantBindingReviewQueueEntries": 5,
+        "revalidatedVariantBindingReviewQueueEntries": 5,
         "reviewQueueEntries": 5,
         "blankReviewDecisionTemplates": 5,
         "additionalEvidenceWorkQueueEntries": 2,
-        "blankAdditionalEvidenceWorkEntries": 2,
-        "queueUnionCount": 7,
-        "crossQueueDispositionCount": 0,
-        "missingQueueDispositionCount": 0,
-        "unexpectedQueueDispositionCount": 0,
+        "realBlankTemplateRowsValidated": 5,
+        "realBlankTemplateRowsRejectedAsInvalid": 0,
+        "realBlankTemplateCompletedDecisions": 0,
+        "decisionOutputSnapshotsWritten": 0,
+        "validPartialHumanBatchBehaviorTested": 1,
+        "atomicInvalidBatchBehaviorsTested": 15,
         "reviewDecisionsCompleted": 0,
         "reviewersRecorded": 0,
         "reviewDatesRecorded": 0,
@@ -206,7 +206,31 @@
         "optimizerEligibleActivitiesAdded": 0,
         "currentAccountFieldsAllowed": 0,
         "inventedFacts": 0,
-        "reason": "Every multi-variant binding disposition now appears exactly once in a deterministic route-specific queue. Five source-bound item matches have blank review templates; High Priest and Reldo have blank additional-evidence work items and no proposed variant. No review, evidence, binding, or semantic verdict was recorded."
+        "reason": "The five source-bound variant review rows now have an atomic import boundary. The real blank template proved safe with no output; tests prove that only fully completed, exact-evidence, explicitly human submissions can be recorded, and recording cannot itself bind a variant or promote any semantic or optimizer state."
+      },
+      "latestMultiVariantBindingReviewDecisionImportSafetyCheck": {
+        "policy": "sensum.multi-variant-binding-review-decision-import-policy.v1",
+        "policyContentHash": "b01291ce270b9796fe870a14de241c08c7aa2ee5ff47ea25e4da07ebc8b9c5ed",
+        "inputSnapshotDirectory": "2026-09-05T09-46-28-449Z",
+        "inputSnapshotContentHash": "d3a0724771ed222219ec866556c5f5e20814df07bcdc2a8dd2c1b4eafb6a2e04",
+        "submissionContentHash": "4e9e6f870650a1cff6b86ea24999502419cd6080ee959bd51672075de004d46c",
+        "queueEntryCount": 5,
+        "completeQueueRecordCount": 5,
+        "submissionRowCount": 5,
+        "completedSubmissionCount": 0,
+        "blankSubmissionCount": 5,
+        "invalidSubmissionCount": 0,
+        "recordedDecisionCount": 0,
+        "reviewDecisionRecordingComplete": false,
+        "variantBindingReviewComplete": false,
+        "outputWritten": false,
+        "decisionOutputSnapshotCountBefore": 0,
+        "decisionOutputSnapshotCountAfter": 0,
+        "optimizerEligibleCount": 0,
+        "completeActivityUniverse": false,
+        "absoluteBestGate": "blocked_incomplete_activity_universe",
+        "publishable": false,
+        "expectedSafetyBlocker": "no_completed_review_decisions_submitted"
       },
       "latestMultiVariantBindingReviewAndAdditionalEvidenceQueueExportAudit": {
         "generatedAt": "2026-09-05T09:46:28.454Z",

@@ -43,6 +43,22 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+The five source-bound multi-variant binding review templates now have a
+fail-closed decision-import boundary. A completed row must match the exact queue
+entry, disposition, evidence-packet hash, evidence fingerprint, proposed-but-
+unbound variant index, and complete two-revision evidence scope, and must include
+an explicit human reviewer, non-predating UTC timestamp, and notes. Valid partial
+human batches can be recorded, while blank-only, partially completed, stale,
+unknown, duplicated, machine-authored, account-scoped, or tampered batches reject
+atomically. Recording remains separate from semantic disposition: even a
+confirmed submission leaves the binding decision and bound variant null, with
+identity, membership, repeatability, mechanics, mapping, completeness, and
+optimizer gates closed. The real five-row blank template revalidated all five
+queue records, was rejected with zero decisions, and wrote no output. The next
+checkpoint should pursue revision-pinned additional binding evidence for High
+Priest and Reldo while the five review-ready bindings await explicit human
+decisions.
+
 The seven multi-variant binding dispositions now export into two deterministic,
 disjoint queues. Five review-ready item bindings retain the exact subject
 infobox, parent occurrence, proposed-but-unbound numbered variant, evidence
