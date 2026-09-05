@@ -1,0 +1,5 @@
+{
+  "contract": "sensum.parent-member-inventory-evidence-disposition.v1",
+  "required": ["memberCandidateKey","sourceParentMemberInventoryEvidenceContentHash","canonicalActivityIdentity","parentMemberInventoryEvidence","parentMemberInventoryDispositionSignals","parentMemberInventoryDisposition","parentMemberInventoryDispositionReview","memberExpansionReview","mechanicsReview","optimizerEligible","accountIndependent","blockers","state"],
+  "rules": {"oneRecordPerEligibleEvidencePacket":true,"allUpstreamFieldsMustBePreserved":true,"allCandidateRolesMustRetainExactSourceLocations":true,"arithmeticCountAlignmentCannotEstablishMembershipOrCompleteness":true,"nonExhaustiveSourceInventoryMustRemainBlocked":true,"memberIdentityAndCompletenessVerdictsMustRemainNull":true,"noRepeatabilityMechanicsOptimizerOrAccountPromotionIsAllowed":true}
+}

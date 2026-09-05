@@ -1,0 +1,52 @@
+{
+  "policy": "sensum.parent-member-inventory-evidence-disposition-policy.v1",
+  "inputContract": "sensum.parent-member-inventory-evidence.v1",
+  "recordContract": "sensum.parent-member-inventory-evidence-disposition.v1",
+  "auditContract": "sensum.parent-member-inventory-evidence-disposition-audit.v1",
+  "inputState": "parent_member_inventory_evidence_ready_for_semantic_disposition",
+  "sectionRoleDefinitions": [
+    {
+      "definitionKey": "item_delivery_section",
+      "candidateRole": "item_delivery_target_candidate",
+      "pattern": "^(?:item|object|material)s?\\s+delivery$"
+    },
+    {
+      "definitionKey": "message_delivery_section",
+      "candidateRole": "message_delivery_recipient_candidate",
+      "pattern": "^(?:letter|message|parcel)\\s+delivery$"
+    }
+  ],
+  "narrativeAssignmentDefinitions": [
+    {
+      "definitionKey": "source_authored_narrative_assignment",
+      "candidateRole": "narrative_assigned_task_class_candidate",
+      "pattern": "\\b(?:will|may|can)\\s+(?:occasionally\\s+)?ask\\s+the\\s+player\\s+to\\b"
+    }
+  ],
+  "distributionDefinitions": [
+    {
+      "definitionKey": "approximate_section_task_share",
+      "observationClass": "source_authored_approximate_section_task_share",
+      "pattern": "\\b(?:make|makes)\\s+up\\s+(?:approximately|about|roughly)\\s+([0-9]+(?:\\.[0-9]+)?)%\\s+of\\s+all\\s+tasks\\b"
+    }
+  ],
+  "rules": {
+    "oneDispositionPerCompleteInventoryEvidencePacket": true,
+    "allSourceRevisionsHashesLinesAndStructuralObservationsMustRevalidate": true,
+    "sectionRolesAreSelectedOnlyByGenericPolicyDefinitions": true,
+    "itemTemplatesBecomeStructuralCandidatesNotReviewedMemberIdentities": true,
+    "deliveryBulletsBecomeStructuralCandidatesNotReviewedMemberIdentities": true,
+    "narrativeAssignmentLanguageCreatesOnlyAClassCandidate": true,
+    "declaredTotalsApproximateTotalsPercentagesAndNonExhaustiveQualificationsRemainSeparate": true,
+    "candidateCountMatchingADeclaredTotalIsArithmeticOnlyAndCannotProveOneToOneMembership": true,
+    "nonExhaustiveQualificationPreventsCompleteInventoryAndMemberUniverseVerdicts": true,
+    "unclassifiedObservedStructuresRemainExplicit": true,
+    "missingChangedContradictoryTruncatedCompositeAmbiguousOrConditionMismatchedEvidenceRemainsBlocked": true,
+    "namesTitlesPageIdsCandidateKeysLabelsAliasesAndOverridesCannotSelectOrCompleteMembers": true,
+    "inputEvidenceRevisionsDiscoveryDispositionAndRoutingMustBePreserved": true,
+    "repeatabilityMemberMechanicsAndOptimizerVerdictsRemainUnchanged": true,
+    "memberIdentityAndInventoryCompletenessVerdictsRemainNull": true,
+    "currentAccountStateIsForbidden": true,
+    "automaticVerificationAllowed": false
+  }
+}

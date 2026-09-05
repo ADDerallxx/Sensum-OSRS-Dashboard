@@ -43,6 +43,22 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+The parent/member inventory packet now has a generic, fail-closed semantic
+disposition. All source structures and hashes were revalidated before 59 unique
+structural candidates were classified: 51 item-delivery targets, seven
+message-delivery recipients, and one narrative assigned-task class. The source's
+82%, 16%, and 2% section-share observations remain separate from the exact
+`59 tasks` statement and the cited `about 59 entries` wording. Although the 59
+structural candidates numerically equal the exact declared total, that equality
+is recorded as arithmetic only: it cannot prove that each observation maps
+one-to-one to a weighted task entry or that the inventory is complete. The
+source-authored item-list qualification still prevents a completeness verdict.
+No candidate became a reviewed member identity, and member, repeatability,
+mechanics, optimizer, and account-state gates remain closed. Two accepted
+transforms produced the same output hash. The next checkpoint should generically
+route stable candidate-identity evidence separately from complete-universe
+reconciliation evidence.
+
 The routed member-identity branch now has a revision-pinned parent/member
 inventory evidence packet. The collector refetched `Wise Old Man tasks`
 revision `14997080`, matched its page ID, title, timestamp, URL, and content
