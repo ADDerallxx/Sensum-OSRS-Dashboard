@@ -1,0 +1,29 @@
+{
+  "policy": "sensum.cross-skill-unresolved-rendered-target-resolution-evidence-sufficiency-disposition-policy.v1",
+  "inputContract": "sensum.cross-skill-unresolved-rendered-target-resolution-evidence.v1",
+  "recordContract": "sensum.cross-skill-unresolved-rendered-target-resolution-evidence-sufficiency-disposition.v1",
+  "auditContract": "sensum.cross-skill-unresolved-rendered-target-resolution-evidence-sufficiency-disposition-audit.v1",
+  "allowedDispositions": [
+    "exact_current_resolution_review_ready",
+    "source_derived_candidate_resolution_review_ready",
+    "mixed_resolution_or_candidate_coverage_requires_additional_evidence",
+    "no_resolution_candidate_evidence_requires_additional_evidence"
+  ],
+  "reviewRoutes": {
+    "reviewReady": "explicit_source_bound_resolution_review",
+    "additionalEvidence": "additional_source_bound_resolution_evidence"
+  },
+  "rules": {
+    "everyEvidencePacketMustProduceExactlyOneDisposition": true,
+    "inputManifestIntrinsicRecordAndNestedEvidenceHashesMustRevalidate": true,
+    "sourceSnapshotAndEvidenceFingerprintBindingsMustBePreserved": true,
+    "dispositionDependsOnlyOnExactResolutionAndRevisionPinnedCandidateCoverage": true,
+    "allExactCurrentPagesRouteToExplicitReviewWithoutAutomaticBinding": true,
+    "allMissingTitlesWithCandidatesRouteToExplicitReviewWithoutAutomaticBinding": true,
+    "mixedOrAbsentCandidateCoverageRoutesToAdditionalEvidence": true,
+    "titlesPageIdsRevisionsAndCandidateNamesCannotOverrideRouting": true,
+    "resolutionReviewIdentityRepeatabilityMechanicsAndOptimizerEligibilityRemainClosed": true,
+    "currentAccountStateIsForbidden": true,
+    "automaticVerificationAllowed": false
+  }
+}

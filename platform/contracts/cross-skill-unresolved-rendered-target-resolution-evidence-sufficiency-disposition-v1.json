@@ -1,0 +1,33 @@
+{
+  "contract": "sensum.cross-skill-unresolved-rendered-target-resolution-evidence-sufficiency-disposition.v1",
+  "required": [
+    "dispositionKey",
+    "resolutionEvidenceKey",
+    "sourceEvidenceRecordContentHash",
+    "sourceEvidenceSnapshotContentHash",
+    "evidenceFingerprint",
+    "renderedTargetKey",
+    "requestedTitleCount",
+    "currentResolvedTitleCount",
+    "currentMissingTitleCount",
+    "titleWithCandidateCount",
+    "revisionPinnedCandidateCount",
+    "evidenceSufficiencyDisposition",
+    "reviewRoute",
+    "resolutionReview",
+    "canonicalGameEntityIdentity",
+    "canonicalActivityIdentity",
+    "repeatabilityClassification",
+    "optimizerEligible",
+    "accountIndependent",
+    "blockers",
+    "state"
+  ],
+  "rules": {
+    "dispositionIsEvidenceShapeOnly": true,
+    "sourceEvidenceBindingsAreImmutable": true,
+    "reviewRouteCannotApplyResolution": true,
+    "semanticAndOptimizerFieldsRemainClosed": true,
+    "automaticVerificationAllowed": false
+  }
+}

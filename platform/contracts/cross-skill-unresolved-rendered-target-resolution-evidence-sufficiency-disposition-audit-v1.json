@@ -1,0 +1,23 @@
+{
+  "contract": "sensum.cross-skill-unresolved-rendered-target-resolution-evidence-sufficiency-disposition-audit.v1",
+  "required": [
+    "inputCoverage",
+    "policyCoverage",
+    "dispositionCoverage",
+    "bindingCoverage",
+    "semanticPreservationCoverage",
+    "accountStateFindings",
+    "dispositionCoverageComplete",
+    "resolutionReviewComplete",
+    "canonicalIdentityComplete",
+    "completeActivityUniverse",
+    "absoluteBestGate",
+    "blockers",
+    "publishable"
+  ],
+  "rules": {
+    "publishableMeansDispositionCoverageOnly": true,
+    "reviewAndSemanticGatesRemainExplicitlyIncomplete": true,
+    "automaticVerificationAllowed": false
+  }
+}

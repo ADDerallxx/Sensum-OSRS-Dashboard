@@ -43,6 +43,21 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+The five unresolved rendered-target resolution packets now have generic,
+fail-closed evidence-sufficiency dispositions. Routing uses only complete exact
+current-title resolution coverage and the presence of fully revision-pinned
+title-derived candidates; titles, page IDs, revisions, and candidate names
+cannot override it. Three packets with 13 candidates route to explicit
+source-bound resolution review, while the two missing category titles with no
+candidates route to additional source-bound evidence. No current title resolved,
+no mixed-coverage route was needed, and all five source snapshot and evidence
+fingerprint bindings revalidated. Two real transforms produced the same
+five-record output hash. No review, replacement page, canonical identity,
+repeatability, mechanics, or optimizer state was applied, and all 190 regression
+tests pass. The next checkpoint should export the three review-ready packets and
+two additional-evidence obligations into separate, exhaustive, source-bound work
+queues without allowing either queue to select an identity.
+
 All five rendered-guide targets that lacked stable current Wiki identities now
 have revision-pinned resolution-evidence packets. The collector revalidates the
 6,639-record rendered-link snapshot, all five intrinsic target records, and the
