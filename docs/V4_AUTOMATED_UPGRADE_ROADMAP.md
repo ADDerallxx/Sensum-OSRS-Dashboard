@@ -43,6 +43,22 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+All eight weighted-membership variant-scope tasks now have a deterministic
+crosswalk to existing source-bound review evidence. Exact structural candidate
+keys are the only join key; names, aliases, page IDs, and titles cannot create a
+match. Five item candidates reuse exact parent-occurrence-to-numbered-variant
+review packets, Logs reuses its independently captured single-root-infobox
+identity packet, and High Priest plus Reldo reuse canonical-subject packets that
+still explicitly lack an exact numbered-variant alignment. All 51 single-variant
+identity review entries, five exact-variant review entries, two canonical-subject
+entries, and eight weighted queue records revalidated before matching. Two
+final-shape real runs produced the same eight-record output hash with no missing,
+duplicate, cross-channel, order, identity, or revision mismatches. No review was
+recorded and no variant was selected or bound. The next unattended checkpoint
+should pursue revision-pinned source discovery for the 47 weighted-membership
+entries that still lack candidate-specific membership evidence while all eight
+variant-scope cases await explicit human review.
+
 The four weighted parent-task membership review templates now have a fail-closed
 decision-import boundary. The queue records and blank templates retain the exact
 disposition-record, evidence-record, packet, candidate, source-identity,

@@ -164,7 +164,8 @@
         "revision_pinned_weighted_parent_task_entry_membership_evidence_packets",
         "generic_weighted_parent_task_entry_membership_evidence_disposition",
         "weighted_parent_task_entry_membership_review_and_evidence_work_queue_export",
-        "weighted_parent_task_entry_membership_review_decision_import_contract"
+        "weighted_parent_task_entry_membership_review_decision_import_contract",
+        "weighted_parent_task_entry_membership_variant_scope_evidence_crosswalk"
       ],
       "remainingWork": [
         "Use the 1,909-entry revision-aligned semantic-review queue to establish canonical game-entity and activity identities from retained source signatures and contexts, then prove repeatability, membership, requirements, variants, XP, timing, mechanics, and authoritative exclusions. Begin with the 29 explicit activity-page candidates, but do not treat activity/minigame page type as repeatability proof; distinguish reference collections and composites from actual trainable method variants. Reconcile 68 queued untyped pages, 4,725 stable rendered pages without unlock evidence, 1,565 unlock pages without rendered-guide evidence, five unresolved rendered targets, the wider unlock set's 137 untyped pages and 31 activity pages, and 51 ambiguous statement forms. Historical template-expansion provenance remains open because dependency revision IDs and the generative origins of 16,284 rendered-only observations are unavailable. Continue independent discovery until every repeatable training activity in every skill is enumerated. The central guide index's composite Combat row and four Defence link disagreements remain explicit. Rockslide pairing still requires complete activity and travel graphs.",
@@ -181,12 +182,29 @@
         "independentGameUniverseDiscoveryPending": true
       },
       "latestCheckpoint": {
-        "id": "weighted_parent_task_entry_membership_review_decision_import_contract",
-        "result": "4_of_4_real_queue_records_revalidated_with_exact_manifest_record_template_disposition_packet_candidate_source_identity_revision_timestamp_and_fingerprint_bindings; real_4_row_blank_template_rejected_exit_2; 0_complete_4_blank_0_invalid_0_decisions_0_output_snapshots_before_and_after; partial_valid_human_batches_supported_but_partial_invalid_rows_reject_atomically; obvious_automatic_reviewers_early_timestamps_stale_or_extra_fields_account_state_and_semantic_promotions_rejected; 129_of_129_tests_passed; 0_semantic_disposition_0_weighted_membership_0_identity_0_mapping_0_completeness_0_repeatability_0_mechanics_0_optimizer_promotions",
-        "next": "weighted_parent_task_entry_membership_variant_scope_evidence_crosswalk"
+        "id": "weighted_parent_task_entry_membership_variant_scope_evidence_crosswalk",
+        "result": "8_of_8_weighted_variant_scope_tasks_crosswalked_in_source_order_by_exact_structural_candidate_key_only; 5_reuse_exact_numbered_variant_binding_review_evidence; 1_logs_reuses_single_root_infobox_identity_review_evidence; 2_reuse_canonical_subject_scope_evidence_but_exact_numbered_variant_remains_unresolved; 0_without_compatible_existing_evidence; 51_of_51_single_variant_5_of_5_exact_variant_2_of_2_canonical_subject_and_8_of_8_input_records_revalidated; two_final_shape_real_runs_same_output_hash; 0_missing_0_duplicate_0_cross_channel_0_role_or_pinned_identity_mismatch_0_review_decisions_0_selected_or_bound_variants_0_membership_0_optimizer_promotions; 130_of_130_tests_passed",
+        "next": "weighted_parent_task_entry_membership_additional_evidence_source_discovery_packets"
       },
       "latestCoverageDelta": {
         "officialSkillDomainsMeasured": 24,
+        "weightedMembershipVariantScopeCrosswalkInputEntries": 8,
+        "weightedMembershipVariantScopeCrosswalkRecords": 8,
+        "revalidatedSingleVariantIdentityReviewEntries": 51,
+        "revalidatedExactVariantBindingReviewEntries": 5,
+        "revalidatedCanonicalSubjectScopeReviewEntries": 2,
+        "reusableExactVariantBindingEvidenceEntries": 5,
+        "reusableSingleVariantIdentityEvidenceEntries": 1,
+        "reusableCanonicalSubjectScopeEvidenceEntries": 2,
+        "variantScopeEntriesWithoutCompatibleExistingEvidence": 0,
+        "variantScopeCrosswalkMissingKeys": 0,
+        "variantScopeCrosswalkDuplicateKeys": 0,
+        "variantScopeCrosswalkCrossChannelKeys": 0,
+        "variantScopeCrosswalkCandidateRoleOrPinnedIdentityMismatches": 0,
+        "variantScopeCrosswalkDeterministicAcrossTwoFinalShapeRuns": true,
+        "variantScopeReviewDecisionsRecorded": 0,
+        "variantScopeSelectedOrBoundVariants": 0,
+        "weightedMembershipVariantScopeCrosswalkRegressionTestsPassed": 130,
         "weightedMembershipReviewDecisionQueueEntries": 4,
         "weightedMembershipReviewDecisionCompleteQueueRecords": 4,
         "weightedMembershipReviewDecisionSubmissionRows": 4,
@@ -289,7 +307,39 @@
         "optimizerEligibleActivitiesAdded": 0,
         "currentAccountFieldsAllowed": 0,
         "inventedFacts": 0,
-        "reason": "The four weighted-membership review templates now have a fail-closed import boundary bound to the exact queue record, disposition, evidence packet, candidate, source identities, revisions, timestamps, and fingerprints. The real blank template was rejected with exit code 2 and wrote no decision snapshot. Valid partial human batches can be recorded, but blank-only, partial, stale, automatic, account-scoped, tampered, or semantically promoted inputs fail atomically. Decision recording remains separate from applying membership. The next checkpoint should crosswalk the eight variant-scope evidence tasks against existing exact-variant evidence before collecting anything new."
+        "reason": "All eight weighted-membership variant-scope tasks now reuse the strongest compatible existing source-bound evidence by exact structural candidate key: five exact numbered-variant review packets, one single-root-infobox identity packet for Logs, and two canonical-subject packets whose numbered variants remain unresolved. No duplicate evidence collection is needed for these eight cases, but every review remains pending and no variant or membership verdict was created. The next checkpoint should perform source discovery for the 47 remaining candidate-specific membership evidence gaps."
+      },
+      "latestWeightedParentTaskEntryMembershipVariantScopeEvidenceCrosswalkAudit": {
+        "generatedAt": "2026-09-05T18:52:04.605Z",
+        "policy": "sensum.weighted-parent-task-entry-membership-variant-scope-evidence-crosswalk-policy.v1",
+        "policyContentHash": "b9efad32ba0ffb180272e437844f9b82ae42e8b9829f9433316080989923e1b0",
+        "inputVariantScopeQueueSnapshotDirectory": "2026-09-05T18-24-09-402Z",
+        "inputVariantScopeQueueSnapshotContentHash": "ea6212d2591e92dd3f4178c32cbc048da2d406780431885ff4b4eb726eb8fc9c",
+        "inputExactVariantReviewQueueSnapshotDirectory": "2026-09-05T09-46-28-449Z",
+        "inputExactVariantReviewQueueSnapshotContentHash": "d3a0724771ed222219ec866556c5f5e20814df07bcdc2a8dd2c1b4eafb6a2e04",
+        "inputSingleVariantIdentityReviewQueueSnapshotDirectory": "2026-09-05T09-01-29-957Z",
+        "inputSingleVariantIdentityReviewQueueSnapshotContentHash": "1d029e39dfb881d11743916b5c93b9a661e88f6f63cff04284312e624583e472",
+        "inputCanonicalSubjectReviewQueueSnapshotDirectory": "2026-09-05T10-47-40-038Z",
+        "inputCanonicalSubjectReviewQueueSnapshotContentHash": "ab41bbb9731aa3cea555eb960fb6dcb4c4686de6d9b659dab514a0a19fda12cf",
+        "outputSnapshotDirectory": "2026-09-05T18-52-04-596Z",
+        "outputSnapshotContentHash": "9232a608c1cfd1a88f59ac6a6a468bd3c196fe47e8fa7027736ed4fb7b525ae2",
+        "reportContentHash": "03d8f90ee9c3ad1f641a5ad8ab71a6ff46067e96b9f9cddd42d8247890fb0784",
+        "inputQueueEntryCount": 8,
+        "crosswalkRecordCount": 8,
+        "reusableExactVariantEvidenceCount": 5,
+        "reusableSingleVariantIdentityEvidenceCount": 1,
+        "reusableCanonicalSubjectEvidenceCount": 2,
+        "noCompatibleExistingEvidenceCount": 0,
+        "reviewDecisionRecordedCount": 0,
+        "selectedOrBoundVariantCount": 0,
+        "weightedMembershipVerdictCount": 0,
+        "optimizerEligibleCount": 0,
+        "crosswalkComplete": true,
+        "variantScopeEvidenceComplete": false,
+        "weightedMembershipReviewComplete": false,
+        "completeActivityUniverse": false,
+        "absoluteBestGate": "blocked_incomplete_activity_universe",
+        "publishable": true
       },
       "latestWeightedParentTaskEntryMembershipReviewDecisionImportSafetyCheck": {
         "policy": "sensum.weighted-parent-task-entry-membership-review-decision-import-policy.v1",

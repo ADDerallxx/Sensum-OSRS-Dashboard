@@ -1,0 +1,19 @@
+{
+  "contract": "sensum.weighted-parent-task-entry-membership-variant-scope-evidence-crosswalk-audit.v1",
+  "required": [
+    "inputQueueCoverage",
+    "existingEvidenceCoverage",
+    "crosswalkCoverage",
+    "semanticPreservationCoverage",
+    "policyCoverage",
+    "accountStateFindings",
+    "crosswalkComplete",
+    "variantScopeEvidenceComplete",
+    "weightedMembershipReviewComplete",
+    "optimizerEligibleCount",
+    "completeActivityUniverse",
+    "absoluteBestGate",
+    "blockers",
+    "publishable"
+  ]
+}

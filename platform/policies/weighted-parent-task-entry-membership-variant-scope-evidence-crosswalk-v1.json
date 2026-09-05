@@ -1,0 +1,35 @@
+{
+  "policy": "sensum.weighted-parent-task-entry-membership-variant-scope-evidence-crosswalk-policy.v1",
+  "inputQueueContract": "sensum.weighted-parent-task-entry-membership-variant-scope-evidence-work-queue-entry.v1",
+  "exactVariantReviewContract": "sensum.multi-variant-binding-review-queue-entry.v1",
+  "singleVariantIdentityReviewContract": "sensum.structural-member-candidate-identity-review-queue-entry.v1",
+  "canonicalSubjectReviewContract": "sensum.multi-variant-binding-canonical-subject-scope-review-queue-entry.v1",
+  "outputContract": "sensum.weighted-parent-task-entry-membership-variant-scope-evidence-crosswalk.v1",
+  "auditContract": "sensum.weighted-parent-task-entry-membership-variant-scope-evidence-crosswalk-audit.v1",
+  "inputQueueState": "blocked_pending_numbered_alias_or_variant_scope_evidence",
+  "exactVariantReviewState": "pending_explicit_source_bound_variant_binding_review",
+  "singleVariantIdentityReviewState": "pending_explicit_source_bound_candidate_identity_review",
+  "canonicalSubjectReviewState": "pending_explicit_source_bound_canonical_subject_scope_review",
+  "classifications": [
+    "reusable_exact_variant_binding_review_evidence_pending_human_decision",
+    "reusable_single_infobox_variant_identity_review_evidence_pending_human_decision",
+    "reusable_canonical_subject_scope_evidence_exact_variant_still_unresolved",
+    "no_compatible_existing_variant_scope_evidence"
+  ],
+  "rules": {
+    "matchOnlyByExactStructuralCandidateKey": true,
+    "candidateRoleAndPinnedSubjectAndParentIdentitiesMustMatch": true,
+    "exactVariantReviewSourceRevisionSetMustMatchExactly": true,
+    "singleVariantIdentityReviewMustExplicitlyScopeOneRootInfoboxVariant": true,
+    "canonicalSubjectReviewMustContainEveryInputQueueRevision": true,
+    "oneExistingEvidenceChannelAtMostPerCandidate": true,
+    "everyInputQueueEntryProducesExactlyOneCrosswalkRecordInQueueOrder": true,
+    "existingEvidenceMayBeReusedButNeverTreatedAsAReviewDecision": true,
+    "proposedVariantIndexMayBeRetainedOnlyAsUnboundEvidence": true,
+    "noVariantMayBeSelectedOrBound": true,
+    "crosswalkCannotApplyMembershipIdentityMappingCompletenessRepeatabilityRequirementsXpTimingMechanicsOrOptimizerVerdicts": true,
+    "namesTitlesPageIdsRevisionsLabelsAliasesAndOverridesCannotAlterMatchPolicy": true,
+    "currentAccountStateIsForbidden": true,
+    "automaticVerificationAllowed": false
+  }
+}
