@@ -296,6 +296,15 @@ every official skill, a complete transport-path graph, and one pairing
 assessment per repeatable activity. Identity coverage is separate from timing,
 cost, consumption, equipment-slot, and bank-return mechanics.
 
+Independent scoped-activity repeatability evidence uses only two bounded,
+auditable discovery channels: the activity's already pinned collection anchor
+and source-authored main-namespace links from its exact subject revision that
+link back in source text. Every accepted source is retained in full and pinned
+at the revision observed. Rendered links, backlinks by themselves, broad class
+claims, unrelated same-page wording, and missing statements cannot resolve a
+repeatability domain. The collector emits all six domain packets with null
+verdicts for a later generic semantic disposition.
+
 Run:
 
 ```text
@@ -337,6 +346,7 @@ node platform/ingestion/ingest-wiki-activity-reference-collection-member-indepen
 node platform/ingestion/ingest-wiki-activity-reference-collection-member-independent-repeatability-signal-scope-evidence.mjs
 node platform/transforms/build-activity-reference-collection-member-independent-repeatability-signal-scope-dispositions.mjs
 node platform/transforms/build-activity-reference-collection-member-independent-repeatability-signal-scope-evidence-work-routes.mjs
+node platform/ingestion/ingest-wiki-independent-scoped-activity-repeatability-evidence.mjs
 node platform/ingestion/ingest-wiki-agility-training-guide-sections.mjs
 node platform/ingestion/ingest-wiki-agility-rooftop-guide-members.mjs
 node platform/ingestion/ingest-wiki-agility-brimhaven-guide-members.mjs

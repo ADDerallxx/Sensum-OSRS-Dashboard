@@ -1,0 +1,106 @@
+{
+  "policy": "sensum.independent-scoped-activity-repeatability-evidence-policy.v1",
+  "inputContract": "sensum.scoped-canonical-activity-repeatability-gap-evidence-work-routing.v1",
+  "recordContract": "sensum.independent-scoped-activity-repeatability-evidence.v1",
+  "auditContract": "sensum.independent-scoped-activity-repeatability-evidence-audit.v1",
+  "inputState": "scoped_canonical_activity_repeatability_gap_evidence_work_routed_gates_closed",
+  "inputRouteKey": "collect_revision_pinned_independent_scoped_activity_repeatability_evidence",
+  "inputRouteState": "blocked_independent_scoped_activity_repeatability_evidence_gap",
+  "requiredEvidenceDomains": [
+    "parent_activity_post_completion_reassignment_or_restart",
+    "member_task_reselection_and_repeatability",
+    "cooldown_reset_daily_or_session_limits",
+    "finite_exhaustion_one_time_or_completion_lockout",
+    "availability_and_assignment_eligibility_across_sessions",
+    "independent_source_corroboration_or_conflict"
+  ],
+  "discoveryChannels": [
+    "exact_revision_canonical_collection_anchor",
+    "source_authored_reciprocal_main_namespace_link"
+  ],
+  "sourceDiscovery": {
+    "maximumDirectMainNamespaceLinks": 500,
+    "requireExactPrimaryRevisionForLinkDiscovery": true,
+    "requireExactCollectionRevision": true,
+    "requireReciprocalSourceAuthoredLinkToPrimary": true,
+    "excludePrimarySubjectAsIndependentSource": true,
+    "renderedLinksAreNotSourceAuthoredLinks": true
+  },
+  "signalDefinitions": [
+    {
+      "definitionKey": "post_completion_parent_restart_or_reassignment_candidate",
+      "evidenceDomain": "parent_activity_post_completion_reassignment_or_restart",
+      "signalKind": "post_completion_parent_recurrence_candidate_not_verdict",
+      "pattern": "\\bafter\\s+(?:complet(?:e|ed|ing|ion)|finish(?:ed|ing)?)\\b[^.\\n]{0,160}\\b(?:again|another|new|reassign|restart|repeat)\\b|\\b(?:reassign|restart|repeat)\\b[^.\\n]{0,120}\\b(?:task|activity|assignment|session)\\b"
+    },
+    {
+      "definitionKey": "general_parent_recurrence_wording_candidate",
+      "evidenceDomain": "parent_activity_post_completion_reassignment_or_restart",
+      "signalKind": "general_recurrence_wording_candidate_not_post_completion_proof",
+      "pattern": "\\b(?:again|another\\s+(?:task|assignment)|new\\s+(?:task|assignment)|seemingly\\s+never[- ]ending|repeat(?:ed|able|ing)?)\\b"
+    },
+    {
+      "definitionKey": "exact_member_reselection_or_recompletion_candidate",
+      "evidenceDomain": "member_task_reselection_and_repeatability",
+      "signalKind": "member_reselection_or_recompletion_candidate_not_verdict",
+      "pattern": "\\b(?:same|individual|each|specific)\\s+(?:task|assignment|member)\\b[^.\\n]{0,140}\\b(?:again|repeat|reselect|reassign|more\\s+than\\s+once)\\b"
+    },
+    {
+      "definitionKey": "cooldown_reset_frequency_or_session_limit_candidate",
+      "evidenceDomain": "cooldown_reset_daily_or_session_limits",
+      "signalKind": "cooldown_reset_frequency_or_session_limit_candidate_not_verdict",
+      "pattern": "\\b(?:cooldown|reset|daily|weekly|per\\s+(?:day|week|session)|once\\s+(?:a|per)\\s+(?:day|week|session)|every\\s+[1-9][0-9]*\\s+(?:ticks?|minutes?|hours?|days?)|wait\\s+[1-9][0-9]*\\s+(?:ticks?|minutes?|hours?|days?))\\b"
+    },
+    {
+      "definitionKey": "finite_exhaustion_one_time_or_lockout_candidate",
+      "evidenceDomain": "finite_exhaustion_one_time_or_completion_lockout",
+      "signalKind": "finite_exhaustion_or_lockout_candidate_not_verdict",
+      "pattern": "\\b(?:one[- ]time|only\\s+once|cannot\\s+be\\s+repeated|can\\s+not\\s+be\\s+repeated|can't\\s+be\\s+repeated|no\\s+longer\\s+(?:available|assigned|offered)|never[- ]ending|exhaust(?:ed|ion)?)\\b"
+    },
+    {
+      "definitionKey": "future_or_cross_session_availability_candidate",
+      "evidenceDomain": "availability_and_assignment_eligibility_across_sessions",
+      "signalKind": "future_or_cross_session_availability_candidate_not_verdict",
+      "pattern": "\\b(?:try\\s+again\\s+later|come\\s+back\\s+later|next\\s+(?:time|session|day)|subsequent(?:ly)?|future\\s+(?:task|assignment|session)|available\\s+again)\\b"
+    },
+    {
+      "definitionKey": "generic_class_repeatability_declaration_candidate",
+      "evidenceDomain": "independent_source_corroboration_or_conflict",
+      "signalKind": "generic_class_repeatability_candidate_requires_member_applicability_review",
+      "pattern": "\\b(?:activities|tasks?|minigames?|games?|rounds?|sessions?)\\s+(?:can|may)\\s+be\\s+repeated\\b|\\bcan\\s+be\\s+repeated\\b"
+    },
+    {
+      "definitionKey": "explicit_nonrepeatability_or_conflict_candidate",
+      "evidenceDomain": "independent_source_corroboration_or_conflict",
+      "signalKind": "explicit_nonrepeatability_or_conflict_candidate_not_verdict",
+      "pattern": "\\b(?:cannot|can\\s+not|can't)\\s+be\\s+repeated\\b|\\bonly\\s+(?:be\\s+)?(?:done|completed|performed)\\s+once\\b"
+    }
+  ],
+  "forbiddenSubstitutions": [
+    "generic_collection_class_statement_without_exact_member_applicability_review",
+    "reciprocal_link_presence_without_exact_claim",
+    "general_recurrence_wording_without_post_completion_boundary",
+    "absence_of_limit_or_lockout_wording",
+    "page_title_or_page_type",
+    "rendered_link_without_source_authored_link",
+    "current_account_observation"
+  ],
+  "rules": {
+    "oneEvidenceRecordPerEligibleWorkOrder": true,
+    "allSixDomainPacketsAlwaysExist": true,
+    "primaryAndCollectionAnchorsMustMatchExactPinnedRevisions": true,
+    "reciprocalSourcesMustBeSourceAuthoredAndPinnedAtObservedRevision": true,
+    "completeRetainedSourceTextAndLineHashesAreRequired": true,
+    "signalsMustRetainExactSourceAndLocator": true,
+    "subjectAndPredicateBoundariesAreRecordedSeparately": true,
+    "candidateSignalsDoNotResolveEvidenceDomains": true,
+    "absenceOfCandidateSignalsIsNotNegativeEvidence": true,
+    "parentAndMemberRepeatabilityRemainSeparate": true,
+    "allRepeatabilityVerdictsRemainNull": true,
+    "discoveryScopeCompletenessDoesNotProveCompleteIndependentSourceUniverse": true,
+    "inputEvidenceAndAllPriorDispositionsMustBePreserved": true,
+    "memberMechanicsAndOptimizerPromotionAreForbidden": true,
+    "currentAccountStateIsForbidden": true,
+    "automaticVerificationAllowed": false
+  }
+}

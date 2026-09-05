@@ -1,0 +1,29 @@
+{
+  "contract": "sensum.independent-scoped-activity-repeatability-evidence-audit.v1",
+  "required": [
+    "inputCoverage",
+    "policyCoverage",
+    "revisionCoverage",
+    "discoveryCoverage",
+    "packetCoverage",
+    "semanticPreservationCoverage",
+    "accountStateFindings",
+    "evidencePacketAttemptCoverageComplete",
+    "independentEvidenceDiscoveryScopeComplete",
+    "repeatabilityReviewComplete",
+    "memberExpansionComplete",
+    "mechanicsReviewComplete",
+    "completeActivityUniverse",
+    "absoluteBestGate",
+    "blockers",
+    "publishable"
+  ],
+  "rules": {
+    "everyEligibleWorkOrderMustProduceExactlyOneRecord": true,
+    "exactPinnedAnchorRevisionSetMustMatch": true,
+    "everyAcceptedReciprocalSourceMustHaveAStableRevisionAndSourceAuthoredBacklink": true,
+    "allSixDomainPacketsMustBeCapturedWithoutVerdicts": true,
+    "inputOutputContextMustMatchExactly": true,
+    "unsupportedPromotionsAndAccountStateMustFailClosed": true
+  }
+}

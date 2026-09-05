@@ -43,6 +43,24 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+The routed scoped activity now has a generic independent-source evidence
+packet. The collector refetched the exact `Wise Old Man tasks` subject revision
+`14997080` and its exact `Minigames` collection revision `15327496`, discovered
+all 31 distinct source-authored main-namespace links in the subject source, and
+fetched every linked page before applying a reciprocal source-link test. Four
+reciprocal pages were retained at their observed revisions: `Draynor Village`
+`15266411`, `Wise Old Man` `15318848`, `Old man's message` `15188977`, and
+`Thing under the bed` `15265911`. Together with the collection anchor, all five
+retained sources preserve complete source text, line hashes, stable page IDs,
+timestamps, URLs, and discovery paths. Eight generic scans found 11 candidate
+statements, but none has a complete same-line activity subject and predicate
+boundary. All six evidence domains therefore remain unresolved, and generic
+collection claims, backlinks, unrelated cooldowns, and recurrence wording are
+not treated as repeatability proof. Two accepted live collections produced the
+same output hash. The next checkpoint should apply a generic semantic
+disposition to these independent packets without joining page-level or
+cross-line context automatically.
+
 Every unresolved scoped canonical-activity repeatability disposition now enters
 one generic independent-evidence work order. The one live disposition routed
 exactly once and produced six blocked domain work items covering parent restart
