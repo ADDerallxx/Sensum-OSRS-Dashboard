@@ -1,0 +1,33 @@
+{
+  "policy": "sensum.multi-variant-structural-member-candidate-parent-occurrence-binding-evidence-policy.v1",
+  "inputContract": "sensum.structural-member-candidate-review-ready-identity-and-remaining-gap-work-routing.v1",
+  "recordContract": "sensum.multi-variant-structural-member-candidate-parent-occurrence-binding-evidence.v1",
+  "auditContract": "sensum.multi-variant-structural-member-candidate-parent-occurrence-binding-evidence-audit.v1",
+  "inputState": "structural_member_candidate_review_ready_identity_and_remaining_gap_work_routed_gates_closed",
+  "routeKey": "exact_parent_variant_binding_evidence",
+  "sourceCapture": {
+    "apiNamespace": 0,
+    "revisionBatchSize": 20,
+    "retainCompleteExactRevisionSourceText": true,
+    "requirePageIdRevisionTimestampTitleUrlHashAndBytes": true,
+    "deduplicateExactPageRevisionSources": true
+  },
+  "variantIdentityParameterBases": ["name", "id", "version", "bucketname"],
+  "rules": {
+    "oneEvidencePacketPerRoutedMultiVariantWorkItem": true,
+    "everyDistinctPinnedSubjectAndParentRevisionMustBeRefetchedFromTheOfficialWikiApi": true,
+    "exactRevisionIdentityHashBytesTimestampAndTextMustRevalidate": true,
+    "oneExpectedRootInfoboxMustBeParsedAtItsExactLine": true,
+    "everyNumberedVariantIndexAndTopLevelFieldMustBePreserved": true,
+    "parentOccurrenceHashLocatorAndExactTextMustRevalidate": true,
+    "parentSubjectLinkTargetsAndLabelsMustBeParsedFromExactSourceText": true,
+    "onlyAUniqueExactNumberedNameMatchMayBecomeReviewReadyBindingEvidence": true,
+    "sharedUnnumberedNamesCannotSelectANumberedVariant": true,
+    "pageTitleWithoutAnExactNumberedNameMatchCannotSelectAVariant": true,
+    "bindingEvidenceDoesNotRecordAReviewDecisionOrBoundVariant": true,
+    "identityMembershipRepeatabilityMechanicsMappingCompletenessAndOptimizerVerdictsRemainClosed": true,
+    "namesTitlesPageIdsRevisionsCandidateKeysLabelsAliasesAndOverridesCannotAlterPolicyBehavior": true,
+    "currentAccountStateIsForbidden": true,
+    "automaticVerificationAllowed": false
+  }
+}

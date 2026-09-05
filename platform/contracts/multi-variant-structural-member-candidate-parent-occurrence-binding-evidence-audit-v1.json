@@ -1,0 +1,28 @@
+{
+  "contract": "sensum.multi-variant-structural-member-candidate-parent-occurrence-binding-evidence-audit.v1",
+  "required": [
+    "inputCoverage",
+    "policyCoverage",
+    "revisionRequestCoverage",
+    "sourceCoverage",
+    "packetCoverage",
+    "bindingEvidenceCoverage",
+    "semanticPreservationCoverage",
+    "accountStateFindings",
+    "evidenceCaptureComplete",
+    "variantBindingReviewComplete",
+    "optimizerEligibleCount",
+    "completeActivityUniverse",
+    "absoluteBestGate",
+    "blockers",
+    "publishable"
+  ],
+  "rules": {
+    "eligibleInputAndOutputSetsMustMatchExactly": true,
+    "exactRevisionRequestAndResponseSetsMustMatch": true,
+    "everyRequiredSourceAndPacketMustRevalidate": true,
+    "variantInventoryAndParentOccurrenceMustMatchGenericParsing": true,
+    "reviewReadyEvidenceCannotBecomeAnAutomaticBindingVerdict": true,
+    "unsupportedMutationPromotionOrAccountStateMustFailPublication": true
+  }
+}

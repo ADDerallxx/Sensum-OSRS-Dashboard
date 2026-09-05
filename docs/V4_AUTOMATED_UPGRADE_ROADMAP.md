@@ -43,6 +43,20 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+All seven routed multi-variant structural candidates now have revision-pinned
+parent-occurrence binding evidence. The collector refetched and revalidated the
+seven subject revisions plus their shared parent revision, retained every
+numbered variant and top-level infobox field, and parsed the exact parent link
+target and display text. Five item occurrences uniquely match the base variant's
+numbered `name1` field and are ready for explicit binding review. The High Priest
+and Reldo occurrences match only an unnumbered name shared across two NPC
+variants, so neither occurrence can select a numbered variant. Both remain
+explicitly blocked. Two collections produced the same output hash. No variant
+binding, identity decision, membership claim, or optimizer promotion was
+created. The next checkpoint should apply a generic sufficiency disposition that
+routes the five unique matches to explicit review and the two shared-name cases
+to additional binding evidence work.
+
 The source-bound structural-candidate identity review queue now has a fail-closed
 decision-import boundary. It accepts partial review batches but records a row
 only when the decision, reviewer, UTC review timestamp that does not predate the

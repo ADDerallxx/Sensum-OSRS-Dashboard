@@ -1,0 +1,22 @@
+{
+  "contract": "sensum.multi-variant-structural-member-candidate-parent-occurrence-binding-evidence.v1",
+  "required": [
+    "memberCandidateKey",
+    "sourceRoutingRecordContentHash",
+    "exactRevisionSources",
+    "variantBindingEvidencePackets",
+    "variantBindingEvidenceSummary",
+    "accountIndependent",
+    "blockers",
+    "state"
+  ],
+  "rules": {
+    "oneRecordPerEligibleRoutingRecord": true,
+    "onePacketPerRoutedMultiVariantWorkItem": true,
+    "sourcePoolContainsOnlyExactRequiredSubjectAndParentRevisions": true,
+    "eachPacketRetainsExactRootInfoboxAndParentOccurrenceEvidence": true,
+    "allNumberedVariantFieldsRemainSourceAuthoredEvidence": true,
+    "reviewReadinessIsNotAVariantBindingDecision": true,
+    "noIdentityMembershipRepeatabilityMechanicsMappingCompletenessOrOptimizerPromotion": true
+  }
+}

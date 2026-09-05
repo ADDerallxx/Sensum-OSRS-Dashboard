@@ -152,7 +152,8 @@
         "generic_structural_member_candidate_review_ready_identity_and_remaining_gap_work_routing",
         "source_bound_structural_member_candidate_identity_review_packet_materialization",
         "source_bound_structural_member_candidate_identity_review_queue_export",
-        "source_bound_structural_member_candidate_identity_review_decision_import_contract"
+        "source_bound_structural_member_candidate_identity_review_decision_import_contract",
+        "multi_variant_structural_member_candidate_parent_occurrence_binding_evidence_packets"
       ],
       "remainingWork": [
         "Use the 1,909-entry revision-aligned semantic-review queue to establish canonical game-entity and activity identities from retained source signatures and contexts, then prove repeatability, membership, requirements, variants, XP, timing, mechanics, and authoritative exclusions. Begin with the 29 explicit activity-page candidates, but do not treat activity/minigame page type as repeatability proof; distinguish reference collections and composites from actual trainable method variants. Reconcile 68 queued untyped pages, 4,725 stable rendered pages without unlock evidence, 1,565 unlock pages without rendered-guide evidence, five unresolved rendered targets, the wider unlock set's 137 untyped pages and 31 activity pages, and 51 ambiguous statement forms. Historical template-expansion provenance remains open because dependency revision IDs and the generative origins of 16,284 rendered-only observations are unavailable. Continue independent discovery until every repeatable training activity in every skill is enumerated. The central guide index's composite Combat row and four Defence link disagreements remain explicit. Rockslide pairing still requires complete activity and travel graphs.",
@@ -169,23 +170,22 @@
         "independentGameUniverseDiscoveryPending": true
       },
       "latestCheckpoint": {
-        "id": "source_bound_structural_member_candidate_identity_review_decision_import_contract",
-        "result": "51_of_51_real_queue_records_revalidated; 51_blank_rows_recognized; 0_completed_0_invalid_0_recorded; blank_batch_rejected_atomically_and_no_output_written; valid_fixture_import_and_stale_partial_duplicate_unknown_revision_reviewer_timestamp_notes_promotion_account_adversaries_passed; semantic_gates_closed",
-        "next": "multi_variant_structural_member_candidate_parent_occurrence_binding_evidence_packets"
+        "id": "multi_variant_structural_member_candidate_parent_occurrence_binding_evidence_packets",
+        "result": "1_of_1_route_records; 8_of_8_exact_revisions_revalidated; 7_of_7_packets_complete; 5_unique_exact_numbered_name_matches_review_ready; 2_shared_unnumbered_npc_names_non_discriminating_blocked; 0_binding_decisions_0_bound_variants_0_promotions; byte_deterministic",
+        "next": "generic_multi_variant_structural_member_candidate_parent_occurrence_binding_evidence_disposition"
       },
       "latestCoverageDelta": {
         "officialSkillDomainsMeasured": 24,
-        "realQueueEntriesRevalidated": 51,
-        "realQueueRecordHashFailures": 0,
-        "realSubmissionRows": 51,
-        "realBlankSubmissionRows": 51,
-        "realCompletedSubmissionRows": 0,
-        "realInvalidSubmissionRows": 0,
-        "realRecordedDecisionRows": 0,
-        "realRejectedBatchOutputRows": 0,
-        "realRejectedBatchOutputWritten": false,
-        "validPartialReviewBatchesSupported": true,
-        "invalidBatchAtomicRejectionSupported": true,
+        "inputMultiVariantWorkItems": 7,
+        "distinctRevisionPinnedSources": 8,
+        "completeExactRevisionSources": 8,
+        "variantBindingEvidencePackets": 7,
+        "completeVariantBindingEvidencePackets": 7,
+        "uniqueExactNumberedNameMatches": 5,
+        "reviewReadyVariantBindingEvidencePackets": 5,
+        "sharedUnnumberedNameAmbiguities": 2,
+        "ambiguousMultipleNumberedNameMatches": 0,
+        "noUniqueVariantSignals": 0,
         "reviewDecisionsCompleted": 0,
         "reviewersRecorded": 0,
         "reviewDatesRecorded": 0,
@@ -202,7 +202,44 @@
         "optimizerEligibleActivitiesAdded": 0,
         "currentAccountFieldsAllowed": 0,
         "inventedFacts": 0,
-        "reason": "The queue now has an atomic, fingerprint-bound decision-import boundary. The real blank template was correctly rejected without output, while controlled fixtures prove that only explicit complete reviews can be recorded. Decision recording remains separate from every semantic and optimizer verdict."
+        "reason": "Every routed multi-variant candidate now has exact subject-infobox and parent-occurrence evidence. Five item links uniquely match one numbered source-authored name and can proceed to explicit review; two NPC links expose only a shared unnumbered name and remain non-discriminating. No binding verdict was inferred."
+      },
+      "latestMultiVariantStructuralMemberCandidateParentOccurrenceBindingEvidenceAudit": {
+        "generatedAt": "2026-09-05T09:24:11.663Z",
+        "policy": "sensum.multi-variant-structural-member-candidate-parent-occurrence-binding-evidence-policy.v1",
+        "policyContentHash": "474dbefd370b77b3f0b4254f1e906a84482b7a68b5b0c683dd5574f71eccf1b2",
+        "inputSnapshotDirectory": "2026-09-05T08-36-10-308Z",
+        "inputSnapshotContentHash": "f3205d3d0e24401c07866abd52663b8d11ce80f6097fdc4de5cfb1c2d87a1b31",
+        "outputSnapshotDirectory": "2026-09-05T09-24-11-660Z",
+        "outputSnapshotContentHash": "de732fd7fa612fb00cf3191d487c3df6ca38fbc78698bef4b6adc025b92706df",
+        "reportContentHash": "786bb3b9eda6a6d54ab8faca79d06eb74d8287063adb354302ba7131a67e7320",
+        "sourceRevisions": ["14997080", "15138072", "15182782", "15182801", "15286240", "15318130", "15320184", "15320201"],
+        "sourceCount": 8,
+        "completeSourceCount": 8,
+        "routedWorkItemCount": 7,
+        "evidencePacketCount": 7,
+        "completeCapturePacketCount": 7,
+        "uniqueExactNumberedNameMatchCount": 5,
+        "reviewReadyBindingEvidenceCount": 5,
+        "sharedUnnumberedNameAmbiguityCount": 2,
+        "bindingDecisionCount": 0,
+        "boundVariantCount": 0,
+        "evidenceCaptureComplete": true,
+        "variantBindingReviewComplete": false,
+        "completeActivityUniverse": false,
+        "absoluteBestGate": "blocked_incomplete_activity_universe",
+        "publishable": true,
+        "blockers": [
+          "multi_variant_parent_occurrence_binding_evidence_captured_reviews_pending",
+          "one_or_more_parent_occurrences_do_not_uniquely_discriminate_a_numbered_variant",
+          "candidate_member_identity_and_variant_binding_reviews_pending",
+          "weighted_parent_task_entry_membership_not_proven",
+          "one_to_one_mapping_between_structural_candidates_and_declared_total_not_proven",
+          "member_universe_completeness_not_proven",
+          "all_repeatability_evidence_domains_remain_unresolved",
+          "requirements_xp_timing_and_mechanics_not_structured",
+          "independent_complete_activity_universe_not_established"
+        ]
       },
       "latestStructuralMemberCandidateIdentityReviewDecisionImportSafetyCheck": {
         "policy": "sensum.structural-member-candidate-identity-review-decision-import-policy.v1",
