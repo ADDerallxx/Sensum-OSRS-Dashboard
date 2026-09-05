@@ -1,0 +1,25 @@
+{
+  "contract": "sensum.cross-skill-untyped-page-source-bound-review-queue-export-audit.v1",
+  "required": [
+    "inputCoverage",
+    "policyCoverage",
+    "sourceIntegrityCoverage",
+    "queueCoverage",
+    "artifactCoverage",
+    "semanticPreservationCoverage",
+    "accountStateFindings",
+    "queueExportComplete",
+    "pageTypeReviewComplete",
+    "completeActivityUniverse",
+    "absoluteBestGate",
+    "blockers",
+    "publishable"
+  ],
+  "rules": {
+    "bothUpstreamSnapshotsMustRevalidate": true,
+    "everyDispositionExportsExactlyOnce": true,
+    "reviewArtifactsMustMatchMachineRecords": true,
+    "queueExportCannotCreateReviewOrSemanticState": true,
+    "accountStateMustFailPublication": true
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "contract": "sensum.cross-skill-untyped-page-source-bound-review-queue-entry.v1",
+  "required": [
+    "queueEntryKey",
+    "candidateKey",
+    "sourceDispositionRecordContentHash",
+    "sourceDispositionSnapshotContentHash",
+    "sourceEvidenceRecordContentHash",
+    "sourceEvidenceSnapshotContentHash",
+    "evidenceFingerprint",
+    "queueEntryEvidenceFingerprint",
+    "sourcePageIdentity",
+    "skillKeys",
+    "statementKeys",
+    "sourceSignatureContexts",
+    "structuralEvidence",
+    "reviewRoute",
+    "allowedDecisions",
+    "allowedPageTypes",
+    "reviewDecision",
+    "reviewedPageTypes",
+    "reviewer",
+    "reviewedAt",
+    "reviewNotes",
+    "reviewEvidenceKeys",
+    "canonicalGameEntityIdentity",
+    "canonicalActivityIdentity",
+    "repeatabilityClassification",
+    "optimizerEligible",
+    "accountIndependent",
+    "blockers",
+    "state"
+  ],
+  "rules": {
+    "oneEntryPerEligibleDisposition": true,
+    "bothInputSnapshotsAndRecordsAreContentAddressed": true,
+    "allRevisionPinnedReviewEvidenceIsPreserved": true,
+    "reviewFieldsStartBlank": true,
+    "semanticAndOptimizerStateRemainClosed": true,
+    "currentAccountStateIsForbidden": true
+  }
+}

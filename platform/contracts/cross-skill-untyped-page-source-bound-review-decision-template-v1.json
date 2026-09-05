@@ -1,0 +1,31 @@
+{
+  "contract": "sensum.cross-skill-untyped-page-source-bound-review-decision-template.v1",
+  "required": [
+    "queueEntryKey",
+    "queueEntryEvidenceFingerprint",
+    "candidateKey",
+    "sourceDispositionRecordContentHash",
+    "sourceDispositionSnapshotContentHash",
+    "sourceEvidenceRecordContentHash",
+    "sourceEvidenceSnapshotContentHash",
+    "sourcePageId",
+    "sourceRevision",
+    "sourceContentHash",
+    "reviewRoute",
+    "allowedDecisions",
+    "allowedPageTypes",
+    "decision",
+    "selectedPageTypes",
+    "reviewer",
+    "reviewedAt",
+    "reviewNotes",
+    "evidenceKeys",
+    "state",
+    "templateContentHash"
+  ],
+  "rules": {
+    "templateBindsTheExactQueueAndBothUpstreamSnapshots": true,
+    "decisionPageTypesReviewerDateNotesAndEvidenceKeysStartBlank": true,
+    "templateCannotRecordOrImplyPageTypeCanonicalIdentityRepeatabilityOrOptimizerEligibility": true
+  }
+}

@@ -1,0 +1,58 @@
+{
+  "policy": "sensum.cross-skill-untyped-page-source-bound-review-queue-export-policy.v1",
+  "evidenceContract": "sensum.cross-skill-untyped-page-source-evidence.v1",
+  "inputContract": "sensum.cross-skill-untyped-page-source-evidence-sufficiency-disposition.v1",
+  "queueContract": "sensum.cross-skill-untyped-page-source-bound-review-queue-entry.v1",
+  "decisionTemplateContract": "sensum.cross-skill-untyped-page-source-bound-review-decision-template.v1",
+  "auditContract": "sensum.cross-skill-untyped-page-source-bound-review-queue-export-audit.v1",
+  "inputDisposition": "source_evidence_sufficient_for_explicit_page_type_review",
+  "reviewRoutes": {
+    "mainNamespace": "explicit_main_namespace_page_type_review",
+    "nonMainNamespace": "explicit_non_main_namespace_scope_review"
+  },
+  "allowedDecisions": [
+    "assign_one_or_more_existing_page_types",
+    "confirm_non_entity_support_reference_or_file_page",
+    "needs_additional_evidence"
+  ],
+  "allowedPageTypes": [
+    "achievement_diary_page",
+    "activity_page",
+    "armour_group_page",
+    "construction_object_page",
+    "currency_page",
+    "equipment_page",
+    "equipment_set_page",
+    "item_page",
+    "location_page",
+    "minigame_page",
+    "miniquest_page",
+    "monster_page",
+    "npc_page",
+    "player_owned_house_room_page",
+    "prayer_page",
+    "quest_page",
+    "scenery_object_page",
+    "ship_part_page",
+    "shop_page",
+    "skill_page",
+    "spell_page",
+    "weapon_group_page"
+  ],
+  "queueState": "pending_explicit_source_bound_untyped_page_review",
+  "rules": {
+    "everyDispositionAndEvidenceRecordMustRevalidate": true,
+    "inputDispositionAndEvidenceSetsMustMatchExactly": true,
+    "everyEligibleDispositionExportsExactlyOnceInSourceOrder": true,
+    "queueEntriesBindBothInputSnapshotsAndIntrinsicRecords": true,
+    "queueEntriesPreserveAllSourceContextsAndStructuralEvidence": true,
+    "readableArtifactMustRenderOnlyBoundEvidence": true,
+    "decisionTemplatesMustStartBlank": true,
+    "pageTypesMustComeOnlyFromTheExistingGenericPageTypeVocabulary": true,
+    "exportDoesNotRecordAReviewDecisionOrSemanticDisposition": true,
+    "pageTypeWouldNotProveCanonicalIdentityRepeatabilityRequirementsVariantsXpTimingMechanicsOrOptimizerEligibility": true,
+    "namesTitlesPageIdsRevisionsTemplatesCategoriesAliasesAndOverridesCannotAlterPolicyBehavior": true,
+    "currentAccountStateIsForbidden": true,
+    "automaticVerificationAllowed": false
+  }
+}

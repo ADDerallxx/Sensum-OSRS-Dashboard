@@ -43,6 +43,21 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+The 68 untyped-page sufficiency dispositions now export into an ordered,
+source-bound human-review queue with 68 separate blank decision templates. The
+exporter revalidates both upstream snapshots, every intrinsic disposition and
+evidence record, and all identity, revision, content-hash, evidence-fingerprint,
+context, and structural-evidence bindings. The readable packet preserves 74
+source contexts, 732 root-template occurrences, 17 direct-category occurrences,
+192 lead paragraphs, 406 headings, exact source links, and the existing generic
+22-type page vocabulary. Two real exports produced identical machine-queue,
+Markdown, and decision-template hashes; a corrupted-manifest test wrote no
+output. No review, page type, canonical identity, repeatability, mechanics,
+account state, or optimizer promotion was created. All 166 regression tests
+pass. The next checkpoint should add a fail-closed import boundary for completed
+decision rows without treating a recorded page-type review as canonical entity
+identity, repeatability, mechanics, or optimizer eligibility.
+
 All 68 exact-revision untyped-page source packets now have generic,
 fail-closed evidence-sufficiency dispositions. The transform independently
 revalidates every intrinsic record hash, source snapshot, candidate and source
