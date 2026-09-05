@@ -1,0 +1,11 @@
+{
+  "contract": "sensum.activity-reference-collection-member-canonical-activity-subject-declaration-structural-context-disposition.v1",
+  "required": ["memberCandidateKey", "sourceCanonicalActivitySubjectDeclarationStructuralContextEvidenceContentHash", "canonicalActivityIdentity", "canonicalActivitySubjectDeclarationStructuralDispositionSignals", "canonicalActivitySubjectDeclarationStructuralDisposition", "canonicalActivitySubjectBinding", "canonicalActivitySubjectDeclarationReview", "memberExpansionReview", "mechanicsReview", "optimizerEligible", "accountIndependent", "blockers", "state"],
+  "rules": {
+    "everyStructuralOccurrenceIsDispositionedExactlyOnce": true,
+    "qualifiedCandidatesRemainCandidatesPendingSchemaEvidence": true,
+    "absenceDoesNotBecomeANegativeExistenceVerdict": true,
+    "allMaterialSemanticVerdictsRemainNull": true,
+    "downstreamPromotionsAreForbidden": true
+  }
+}

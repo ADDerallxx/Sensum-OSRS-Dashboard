@@ -43,6 +43,24 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+All 19 canonical-activity subject-declaration structural packets now have one
+generic, deterministic semantic-evidence-use disposition. Twelve cross-page
+link references and four cross-page unlinked mentions are explicitly unable to
+bind a canonical subject; two title-aligned occurrences remain supporting only.
+One exact-case, active, pre-heading `Infobox Activity` `name` value on a source
+whose title equals the dynamic canonical label is retained as a structurally
+qualified page-subject candidate. It is not a subject binding: the infobox
+schema's meaning is not yet revision-pinned. Consequently Wise Old Man tasks has
+one schema-evidence route, while Archery Competition has no qualified subject-
+page candidate and needs independent canonical-page discovery. Absence remains
+unresolved rather than becoming a negative existence verdict. There are zero
+subject bindings, subject-declaration verdicts, scope or repeatability
+classifications, member or mechanics reviews, and optimizer promotions. The
+policy contains no activity-specific names, titles, page IDs, labels, aliases,
+or overrides, and two runs produced the same output hash. The next checkpoint
+should generically route the schema-semantics and missing-subject-page evidence
+work without allowing either route to select a verdict.
+
 Every retained exact-line occurrence now has a revision-pinned structural-
 parent evidence packet. The collector refetched the same 13 exact official Wiki
 revisions covering 115,304 source bytes and revalidated all 19 occurrences by

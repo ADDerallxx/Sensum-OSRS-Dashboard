@@ -1,0 +1,36 @@
+{
+  "policy": "sensum.activity-reference-collection-member-canonical-activity-subject-declaration-structural-context-disposition-policy.v1",
+  "inputContract": "sensum.activity-reference-collection-member-canonical-activity-subject-declaration-structural-context-evidence.v1",
+  "recordContract": "sensum.activity-reference-collection-member-canonical-activity-subject-declaration-structural-context-disposition.v1",
+  "auditContract": "sensum.activity-reference-collection-member-canonical-activity-subject-declaration-structural-context-disposition-audit.v1",
+  "inputState": "canonical_activity_subject_declaration_structural_context_evidence_ready_for_semantic_disposition",
+  "subjectCandidateRule": {
+    "ruleKey": "title_aligned_lead_activity_infobox_name_candidate",
+    "requiredSourceRegionState": "active_source_text",
+    "requiresCanonicalLabelSourceTitleEquality": true,
+    "requiresExactCanonicalLabelCase": true,
+    "requiresBeforeFirstHeading": true,
+    "requiredOutermostTemplate": "Infobox Activity",
+    "requiredTemplateOccurrenceRole": "named_parameter_value",
+    "requiredTemplateParameter": "name",
+    "semanticClass": "structurally_qualified_page_subject_declaration_candidate"
+  },
+  "rules": {
+    "oneDispositionPerCompleteStructuralContextEvidenceRecord": true,
+    "everyInputOccurrenceReceivesExactlyOneSemanticEvidenceUseClass": true,
+    "subjectCandidateRequiresTheCompleteRevisionPinnedStructuralEvidenceChain": true,
+    "subjectCandidateRequiresDynamicCanonicalLabelAndSourceTitleEquality": true,
+    "subjectCandidateRequiresExactCaseActiveLeadActivityInfoboxNameValue": true,
+    "titleAlignedNonCandidateOccurrencesRemainSupportingOnly": true,
+    "crossPageLinksAndMentionsRemainReferenceOnly": true,
+    "protectedOrMixedOccurrencesCannotSupportSubjectBinding": true,
+    "activityInfoboxSchemaMeaningRequiresSeparateRevisionPinnedEvidence": true,
+    "absenceOfAStructurallyQualifiedCandidateDoesNotProveNonexistence": true,
+    "structuralDispositionCannotCreateSubjectScopeOrRepeatabilityVerdicts": true,
+    "upstreamEvidenceIdentityOccurrencesAndReviewsRemainUnchangedExceptDispositionReviewState": true,
+    "memberExpansionMechanicsAndOptimizerEligibilityRemainClosed": true,
+    "missingContradictoryOrConditionMismatchedEvidenceRemainsExplicit": true,
+    "activitySpecificNamesTitlesPageIdsLabelsAliasesAndOverridesAreForbidden": true,
+    "currentAccountStateIsForbidden": true
+  }
+}

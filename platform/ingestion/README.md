@@ -48,6 +48,7 @@ node platform/ingestion/ingest-wiki-activity-reference-collection-member-indepen
 node platform/ingestion/ingest-wiki-activity-reference-collection-member-independent-repeatability-signal-subject-predicate-evidence.mjs
 node platform/ingestion/ingest-wiki-activity-reference-collection-member-canonical-activity-subject-declaration-exact-line-evidence.mjs
 node platform/ingestion/ingest-wiki-activity-reference-collection-member-canonical-activity-subject-declaration-structural-context-evidence.mjs
+node platform/transforms/build-activity-reference-collection-member-canonical-activity-subject-declaration-structural-context-dispositions.mjs
 node platform/transforms/build-unlock-statement-semantic-crosswalk.mjs
 node platform/transforms/build-unlock-linked-page-entity-types.mjs
 node platform/transforms/build-unlock-linked-page-wiki-equivalence.mjs
@@ -193,6 +194,15 @@ record count, creation time, audit result, and SHA-256 content hash.
   structures remain observations only and cannot create a subject binding,
   activity-scope or repeatability verdict, member or mechanics review, or
   optimizer eligibility without a separate semantic disposition.
+- Canonical-activity subject-declaration structural-context disposition assigns
+  every occurrence exactly one generic evidence-use class. Only an active,
+  exact-case, pre-heading activity-infobox `name` value on a dynamically title-
+  aligned source becomes a page-subject candidate, and that candidate remains
+  unbound until the infobox schema semantics are revision-pinned. Title-aligned
+  supporting occurrences, cross-page links, cross-page mentions, and protected
+  text cannot independently bind the subject. No-candidate records remain
+  unresolved and route to independent discovery rather than becoming negative
+  existence verdicts.
 - Training-guide section ingestion inventories every Wiki heading in source
   order. Every method-bearing subsection is retained with its parent, source
   lines, revision, and structural role. New heading depths or parents fail

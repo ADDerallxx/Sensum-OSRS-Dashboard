@@ -1,0 +1,11 @@
+{
+  "contract": "sensum.activity-reference-collection-member-canonical-activity-subject-declaration-structural-context-disposition-audit.v1",
+  "required": ["inputCoverage", "policyCoverage", "occurrenceDispositionCoverage", "subjectCandidateCoverage", "semanticPromotionCoverage", "accountStateFindings", "structuralContextDispositionAttemptCoverageComplete", "canonicalActivitySubjectDeclarationStructuralContextDispositionCoverageComplete", "canonicalActivitySubjectBindingReviewComplete", "repeatabilityReviewComplete", "completeActivityUniverse", "absoluteBestGate", "blockers", "publishable"],
+  "rules": {
+    "everyCompleteInputProducesExactlyOneReproducibleDisposition": true,
+    "everyInputOccurrenceHasExactlyOneReproducibleEvidenceUseClass": true,
+    "candidateEvidenceRetainsItsExactSourcePacket": true,
+    "inputAndMaterialSemanticStateCannotChange": true,
+    "subjectAndOptimizerPromotionsAreForbidden": true
+  }
+}
