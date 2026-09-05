@@ -1,0 +1,25 @@
+{
+  "contract": "sensum.cross-skill-untyped-page-source-evidence-audit.v1",
+  "required": [
+    "inputCoverage",
+    "sourceAlignment",
+    "structuralEvidenceCoverage",
+    "semanticPromotionCoverage",
+    "accountStateFindings",
+    "sourceEvidenceCoverageComplete",
+    "pageTypeReviewComplete",
+    "completeActivityUniverse",
+    "absoluteBestGate",
+    "blockers",
+    "publishable"
+  ],
+  "rules": {
+    "inputAndOutputCandidateSetsMustMatchExactly": true,
+    "candidateSignatureContextsAndExactRevisionFetchesMustBeComplete": true,
+    "everySourceIdentityAndStructuralInventoryMustReconcile": true,
+    "missingOrConflictingEvidenceMustBlockPublication": true,
+    "structuralEvidenceCannotAutomaticallyClassifyPageType": true,
+    "canonicalIdentityRepeatabilityMechanicsAndOptimizerEligibilityRemainClosed": true,
+    "accountSpecificInputsAreForbidden": true
+  }
+}

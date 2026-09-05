@@ -1,0 +1,41 @@
+{
+  "contract": "sensum.cross-skill-untyped-page-source-evidence.v1",
+  "required": [
+    "candidateKey",
+    "sourceCandidateContentHash",
+    "sourceSignatureContexts",
+    "sourcePageId",
+    "resolvedTitle",
+    "sourceNamespaceId",
+    "sourceRevision",
+    "sourceTimestamp",
+    "sourceUrl",
+    "sourceContentHash",
+    "sourceContentBytes",
+    "sourceLineCount",
+    "revisionAlignment",
+    "rootTemplateEvidence",
+    "directCategoryEvidence",
+    "leadParagraphEvidence",
+    "headingEvidence",
+    "pageTypeReview",
+    "canonicalGameEntityIdentity",
+    "canonicalActivityIdentity",
+    "repeatabilityClassification",
+    "optimizerEligible",
+    "accountIndependent",
+    "blockers"
+  ],
+  "rules": {
+    "oneRecordPerUntypedPageCandidate": true,
+    "allCandidateAndSignatureBindingsAreContentAddressed": true,
+    "allSamePageSourceContextsArePreserved": true,
+    "exactRevisionSourceMustMatchRetainedPageIdentityAndContentHash": true,
+    "rootTemplatesAndDirectCategoriesAreReparsedFromExactSource": true,
+    "leadParagraphsAndHeadingsRetainRawSourceAndLineLocators": true,
+    "pageTypeReviewRemainsUnreviewed": true,
+    "canonicalIdentityRepeatabilityAndOptimizerPromotionAreForbidden": true,
+    "currentAccountStateIsForbidden": true,
+    "automaticVerificationAllowed": false
+  }
+}

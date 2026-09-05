@@ -43,6 +43,22 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+All 68 cross-skill pages that remained untyped now have complete,
+revision-pinned source-evidence packets. The collector revalidated the 68
+candidate records, 74 retained alias or fragment contexts, and all intrinsic
+candidate, signature, snapshot, page-ID, revision, timestamp, title, URL,
+content-hash, byte-count, root-template, and direct-category bindings before
+publication. Exact retained revisions supplied 649,701 source bytes, 192 lead
+paragraphs, 406 headings, 180 distinct root templates, and 12 distinct direct
+categories; 67 pages are main-space and one is a file page. Those shapes remain
+evidence rather than page-type verdicts. Two official-Wiki runs produced the
+same 68-record output hash, and a tampered-upstream CLI check wrote no output.
+No page type, canonical entity, canonical activity, repeatability,
+mechanics, or optimizer state was created. All 148 regression tests pass. The
+next checkpoint should apply a generic fail-closed evidence-sufficiency
+disposition that routes these 68 packets without treating namespace, title,
+templates, categories, or prose as automatic semantic classification.
+
 The 47 exact-parent-section weighted-membership review templates now have a
 fail-closed decision-import boundary. A completed row must preserve the queue
 snapshot, intrinsic queue-record, upstream disposition, evidence-packet,

@@ -1,0 +1,30 @@
+{
+  "policy": "sensum.cross-skill-untyped-page-source-evidence-policy.v1",
+  "inputCandidateContract": "sensum.cross-source-entity-activity-candidate.v1",
+  "inputSignatureContract": "sensum.unlock-linked-page-source-signature.v1",
+  "recordContract": "sensum.cross-skill-untyped-page-source-evidence.v1",
+  "auditContract": "sensum.cross-skill-untyped-page-source-evidence-audit.v1",
+  "candidateKind": "untyped_page_identity_candidate",
+  "evidenceScope": [
+    "exact_source_content_at_retained_official_wiki_revision",
+    "mediawiki_namespace",
+    "root_template_inventory",
+    "direct_category_inventory",
+    "lead_paragraphs_before_first_heading",
+    "complete_source_heading_inventory"
+  ],
+  "rules": {
+    "everyUntypedCandidateMustProduceExactlyOnePacket": true,
+    "candidateAndSignatureJoinOnlyByStableOfficialWikiPageId": true,
+    "allSamePageAliasAndFragmentSignatureContextsMustBePreserved": true,
+    "candidateSignatureAndSnapshotIntrinsicHashesMustRevalidate": true,
+    "fetchedContentMustUseTheRetainedExactRevision": true,
+    "pageIdRevisionTimestampTitleUrlContentHashAndBytesMustReconcile": true,
+    "fetchedRootTemplatesAndDirectCategoriesMustMatchRetainedSignatures": true,
+    "namespaceTemplatesCategoriesLeadAndHeadingsRemainEvidenceNotVerdicts": true,
+    "fileTemplateCategoryRedirectOrTitleShapeCannotAutomaticallyClassifyPageType": true,
+    "canonicalIdentityRepeatabilityMechanicsAndOptimizerEligibilityRemainClosed": true,
+    "currentAccountStateIsForbidden": true,
+    "automaticVerificationAllowed": false
+  }
+}
