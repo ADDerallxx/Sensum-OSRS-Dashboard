@@ -259,6 +259,16 @@ record count, creation time, audit result, and SHA-256 content hash.
   disposition rather than a guessed scope. A successful scope classification
   still cannot establish repeatability, member completeness, mechanics, or
   optimizer eligibility.
+- Scoped canonical-activity repeatability evidence-work routing consumes only a
+  reviewed, source-supported scope disposition and routes it exactly once to six
+  generic evidence obligations. Run
+  `node platform/transforms/build-scoped-canonical-activity-repeatability-evidence-work-routes.mjs`.
+  Parent recurrence, member recurrence, cooldowns/resets, finite exhaustion,
+  future cross-session availability, and independent corroboration remain
+  separate. Plural tasks, declared counts, non-exhaustive lists, names, titles,
+  page IDs, and account state cannot select the route or produce a repeatability
+  verdict. Publication proves only complete deterministic routing; it does not
+  make the activity, its members, or its mechanics optimizer-eligible.
 - Training-guide section ingestion inventories every Wiki heading in source
   order. Every method-bearing subsection is retained with its parent, source
   lines, revision, and structural role. New heading depths or parents fail

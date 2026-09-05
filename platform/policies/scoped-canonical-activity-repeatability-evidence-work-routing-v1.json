@@ -1,0 +1,40 @@
+{
+  "policy": "sensum.scoped-canonical-activity-repeatability-evidence-work-routing-policy.v1",
+  "inputContract": "sensum.activity-canonical-subject-scope-disposition.v1",
+  "recordContract": "sensum.scoped-canonical-activity-repeatability-evidence-work-routing.v1",
+  "auditContract": "sensum.scoped-canonical-activity-repeatability-evidence-work-routing-audit.v1",
+  "eligibleInputState": "canonical_activity_scope_disposed_composite_assigned_tasks_repeatability_unresolved",
+  "eligibleScopeVerdict": "source_supported_composite_assigned_task_activity_scope",
+  "route": {
+    "routeKey": "collect_revision_pinned_scoped_canonical_activity_repeatability_evidence",
+    "routeState": "blocked_scoped_canonical_activity_repeatability_evidence_gap",
+    "requiredEvidenceDomains": [
+      "parent_activity_post_completion_reassignment_or_restart",
+      "member_task_reselection_and_repeatability",
+      "cooldown_reset_daily_or_session_limits",
+      "finite_exhaustion_one_time_or_completion_lockout",
+      "availability_and_assignment_eligibility_across_sessions",
+      "independent_source_corroboration_or_conflict"
+    ]
+  },
+  "rules": {
+    "oneRoutePerSourceSupportedScopedCanonicalActivity": true,
+    "everyEligibleScopedActivityMustBeRoutedExactlyOnce": true,
+    "onlyReviewedSourceSupportedScopesAreEligible": true,
+    "routeSelectionUsesOnlyTheAuditedScopeState": true,
+    "routeDescribesEvidenceObligationsNotGameFacts": true,
+    "parentAndMemberRepeatabilityRequireSeparateEvidence": true,
+    "cooldownResetAndSessionLimitsRequireExplicitEvidence": true,
+    "finiteExhaustionAndCompletionLockoutRequireExplicitEvidence": true,
+    "futureAvailabilityAcrossSessionsRequiresExplicitEvidence": true,
+    "pluralTasksDeclaredCountsAndNonExhaustiveListsDoNotProveRepeatability": true,
+    "namesTitlesPageIdsCandidateKeysLabelsAliasesScopeClassesAndOverridesCannotSelectOrAlterTheRoute": true,
+    "inputEvidenceIdentityRevisionHashesBindingScopeDispositionAndContextMustBePreserved": true,
+    "routingCannotAlterSubjectBindingsOrScopeVerdicts": true,
+    "routingCannotClassifyParentOrMemberRepeatability": true,
+    "routingCannotCompleteMemberExpansionOrMechanics": true,
+    "routingCannotCreateOptimizerCandidates": true,
+    "currentAccountStateIsForbidden": true,
+    "automaticVerificationAllowed": false
+  }
+}

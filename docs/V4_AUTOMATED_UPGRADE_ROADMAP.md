@@ -43,6 +43,21 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+Every source-supported scoped canonical activity now enters one generic,
+blocked repeatability-evidence route. The route separates six revision-pinned
+proof obligations: restarting or receiving the parent activity after
+completion, reselecting individual members, cooldown/reset/session limits,
+finite exhaustion or completion lockout, future availability across sessions,
+and independent corroboration or conflict. Plural wording, a declared member
+count, and a non-exhaustive member list cannot establish recurrence. The one
+live scoped record routed exactly once; its complete evidence, revision hashes,
+subject binding, and scope classification remained unchanged while parent and
+member repeatability, member expansion, mechanics, and optimizer eligibility
+remained closed. Two accepted runs produced the same output hash. The next
+checkpoint should collect the routed revision-pinned repeatability evidence
+without merging parent recurrence with member recurrence or treating silence as
+a negative fact.
+
 The complete canonical-activity scope packet now has one generic, fail-closed
 semantic disposition. Five exact lead-source signals establish that the bound
 subject is a composite assigned-task activity: an NPC assigns multiple tasks,

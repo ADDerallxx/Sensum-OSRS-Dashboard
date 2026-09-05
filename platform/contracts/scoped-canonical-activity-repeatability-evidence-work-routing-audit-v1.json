@@ -1,0 +1,30 @@
+{
+  "contract": "sensum.scoped-canonical-activity-repeatability-evidence-work-routing-audit.v1",
+  "required": [
+    "inputCoverage",
+    "policyCoverage",
+    "routingCoverage",
+    "semanticPreservationCoverage",
+    "accountStateFindings",
+    "routingCoverageComplete",
+    "evidenceWorkComplete",
+    "canonicalActivityScopeReviewComplete",
+    "repeatabilityReviewComplete",
+    "memberExpansionComplete",
+    "mechanicsReviewComplete",
+    "completeActivityUniverse",
+    "absoluteBestGate",
+    "blockers",
+    "publishable"
+  ],
+  "rules": {
+    "everyEligibleScopedActivityMustBeRoutedExactlyOnce": true,
+    "inputOutputSetsHashesEvidenceIdentityBindingScopeDispositionAndContextMustMatchExactly": true,
+    "routingDecisionMustMatchTheGenericPolicy": true,
+    "everyRouteMustRemainBlocked": true,
+    "scopeVerdictAndReviewMustRemainUnchanged": true,
+    "parentAndMemberRepeatabilityVerdictsMustRemainNull": true,
+    "memberMechanicsAndOptimizerPromotionsAreForbidden": true,
+    "currentAccountStateIsForbidden": true
+  }
+}
