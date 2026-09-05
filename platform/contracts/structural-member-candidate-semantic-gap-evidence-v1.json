@@ -1,0 +1,26 @@
+{
+  "contract": "sensum.structural-member-candidate-semantic-gap-evidence.v1",
+  "required": [
+    "memberCandidateKey",
+    "sourceStructuralMemberCandidateSemanticGapEvidenceWorkRoutingContentHash",
+    "structuralMemberCandidateSemanticGapEvidenceSources",
+    "structuralMemberCandidateSemanticGapEvidencePackets",
+    "structuralMemberCandidateSemanticGapEvidence",
+    "structuralMemberCandidateSemanticGapEvidenceReview",
+    "structuralMemberCandidateSemanticGapEvidenceWorkRouting",
+    "memberExpansionReview",
+    "mechanicsReview",
+    "optimizerEligible",
+    "accountIndependent",
+    "blockers",
+    "state"
+  ],
+  "rules": {
+    "allUpstreamFieldsMustBePreserved": true,
+    "everyRoutedWorkItemMustHaveOneCapturePacket": true,
+    "everySourceMustRetainCompleteExactRevisionTextAndIdentity": true,
+    "channelObservationsMustRemainNonVerdictEvidence": true,
+    "captureCompleteAndSemanticWorkCompleteMustRemainSeparate": true,
+    "noIdentityMembershipMappingCompletenessRepeatabilityMechanicsOrOptimizerPromotion": true
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "contract": "sensum.structural-member-candidate-semantic-gap-evidence-audit.v1",
+  "required": [
+    "inputCoverage",
+    "policyCoverage",
+    "revisionRequestCoverage",
+    "sourceCoverage",
+    "workItemPacketCoverage",
+    "channelObservationCoverage",
+    "semanticPreservationCoverage",
+    "accountStateFindings",
+    "evidenceCaptureCoverageComplete",
+    "semanticEvidenceWorkComplete",
+    "memberIdentityReviewComplete",
+    "memberExpansionComplete",
+    "mechanicsReviewComplete",
+    "completeActivityUniverse",
+    "absoluteBestGate",
+    "blockers",
+    "publishable"
+  ],
+  "rules": {
+    "eligibleInputsAndOutputsMustMatchExactly": true,
+    "revisionRequestsMustMatchTheDistinctPinnedSourceSetExactly": true,
+    "everyExactSourceMustRevalidateAgainstTheOfficialWikiResponse": true,
+    "workItemPacketKeysMustMatchTheRoutedWorkItemKeysExactly": true,
+    "everyRequiredChannelMustHaveExactlyOneExplicitObservation": true,
+    "unsupportedVerdictsPromotionsMutationsAndAccountStateMustFailPublication": true
+  }
+}

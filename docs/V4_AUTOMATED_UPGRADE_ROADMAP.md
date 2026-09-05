@@ -43,6 +43,22 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+All 121 routed structural-candidate semantic obligations now have revision-
+pinned evidence capture packets. The collector deduplicated 59 candidate
+subject pages plus the parent inventory page into 60 exact Wiki revisions,
+refetched every revision from the official API, and revalidated page ID, title,
+revision, timestamp, URL, complete source text, content hash, and byte count.
+Every work item has exactly four explicit channel observations, producing 484
+observations in total: 62 record that authoritative evidence was not observed
+in the defined source set, 64 retain insufficient or unresolved evidence, and
+121 retain a pending semantic review decision. Capture completeness remains
+separate from semantic completeness; all identity, page-type, relationship,
+membership, mapping, completeness, repeatability, mechanics, and optimizer
+verdicts remain closed. Two live collections produced the same output hash.
+The next checkpoint should apply a generic fail-closed semantic disposition to
+the packets without converting missing evidence, source silence, global weight
+language, or arithmetic count equality into a game fact.
+
 The remaining structural-candidate semantic gaps now have a generic six-branch
 evidence-work route. All 59 candidates receive a separate reviewed identity and
 variant-scope obligation. The one untyped switch-infobox page receives a page-
