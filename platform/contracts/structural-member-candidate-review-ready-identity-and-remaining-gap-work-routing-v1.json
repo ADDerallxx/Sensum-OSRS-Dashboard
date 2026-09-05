@@ -1,0 +1,14 @@
+{
+  "contract": "sensum.structural-member-candidate-review-ready-identity-and-remaining-gap-work-routing.v1",
+  "required": ["memberCandidateKey","sourceStructuralMemberCandidateSemanticGapEvidenceDispositionContentHash","structuralMemberCandidateReviewReadyIdentityAndRemainingGapWorkRouting","structuralMemberCandidateSemanticGapEvidenceDispositions","structuralMemberCandidateSemanticGapEvidenceDispositionReview","memberExpansionReview","mechanicsReview","optimizerEligible","accountIndependent","blockers","state"],
+  "rules": {
+    "oneRecordPerEligibleDispositionRecord": true,
+    "allUpstreamFieldsMustBePreserved": true,
+    "everyInputDispositionMustBeReferencedExactlyOnce": true,
+    "nestedIdentityAndPageTypeDispositionsMayShareOneWorkItemOnlyWhenCandidateKeysMatch": true,
+    "reviewReadyAndEvidenceGapRoutesMustRemainDistinct": true,
+    "identityRelationshipMembershipMappingAndUniverseBranchesMustRemainSeparate": true,
+    "allWorkStartsIncompleteWithNullVerdicts": true,
+    "noIdentityMembershipCompletenessRepeatabilityMechanicsOptimizerOrAccountPromotion": true
+  }
+}

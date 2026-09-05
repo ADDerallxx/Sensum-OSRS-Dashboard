@@ -1,0 +1,35 @@
+{
+  "policy": "sensum.structural-member-candidate-review-ready-identity-and-remaining-gap-work-routing-policy.v1",
+  "inputContract": "sensum.structural-member-candidate-semantic-gap-evidence-disposition.v1",
+  "recordContract": "sensum.structural-member-candidate-review-ready-identity-and-remaining-gap-work-routing.v1",
+  "auditContract": "sensum.structural-member-candidate-review-ready-identity-and-remaining-gap-work-routing-audit.v1",
+  "inputState": "structural_member_candidate_semantic_gap_evidence_disposition_recorded_gates_closed",
+  "routes": {
+    "reviewReadyIdentity": {"routeKey":"source_bound_candidate_identity_review","workKind":"source_bound_candidate_identity_and_exact_variant_scope_review","requiredChannels":["exact_revision_subject_infobox","source_authored_identity_name","candidate_role_type_and_parent_relation","explicit_source_bound_identity_review_decision"]},
+    "multiVariantIdentity": {"routeKey":"exact_parent_variant_binding_evidence","workKind":"exact_parent_occurrence_to_numbered_source_variant_binding_evidence","requiredChannels":["exact_parent_occurrence_scope","numbered_source_variant_inventory","parent_occurrence_to_variant_mapping","variant_binding_review"]},
+    "nestedSubjectBinding": {"routeKey":"nested_subject_and_page_type_binding_evidence","workKind":"explicit_nested_variant_subject_and_page_type_binding_evidence","requiredChannels":["root_subject_container_semantics","nested_variant_subject_identity","candidate_role_and_parent_relation","subject_and_page_type_binding_review"]},
+    "otherIdentityGap": {"routeKey":"other_candidate_identity_readiness_gap_evidence","workKind":"remaining_candidate_identity_readiness_gap_evidence","requiredChannels":["failed_readiness_condition","condition_matched_authoritative_evidence","candidate_scope_reconciliation","identity_readiness_review"]},
+    "structuralRelationshipGap": {"routeKey":"structural_parent_relationship_reconciliation_evidence","workKind":"structural_parent_relationship_reconciliation_evidence","requiredChannels":["candidate_occurrence_context","candidate_role_semantics","parent_relation_semantics","structural_relationship_review"]},
+    "weightedMembership": {"routeKey":"weighted_parent_task_entry_membership_evidence","workKind":"candidate_scoped_weight_alias_and_variant_membership_evidence","requiredChannels":["candidate_scoped_weight_statement","duplicate_alias_treatment","variant_membership_treatment","weighted_membership_review"]},
+    "declaredTotalMapping": {"routeKey":"declared_total_one_to_one_member_mapping_evidence","workKind":"explicit_parent_total_to_member_mapping_evidence","requiredChannels":["explicit_parent_member_mapping","declared_total_scope","duplicate_alias_and_variant_treatment","one_to_one_mapping_review"]},
+    "completeUniverse": {"routeKey":"complete_member_universe_reconciliation_evidence","workKind":"complete_member_universe_and_source_limitation_reconciliation_evidence","requiredChannels":["complete_parent_member_enumeration","source_limitation_reconciliation","independent_authoritative_coverage_check","complete_universe_review"]}
+  },
+  "rules": {
+    "oneRoutingRecordPerEligibleDispositionRecord": true,
+    "everyInputDispositionMustBeReferencedExactlyOnce": true,
+    "reviewReadyIdentityRoutesToExplicitHumanReviewNotAVerdict": true,
+    "multiVariantIdentityRoutesToExactParentVariantBinding": true,
+    "nestedIdentityAndPageTypeDispositionsMayMergeOnlyForTheSameCandidate": true,
+    "mergedNestedSubjectWorkMustReferenceBothSourceDispositions": true,
+    "unrecognizedIdentityReadinessFailuresRemainExplicitGenericWork": true,
+    "relationshipMembershipMappingAndUniverseBranchesRemainSeparate": true,
+    "existingRevisionPinnedEvidenceMayBeReferencedButNotReinterpreted": true,
+    "sourceSilenceArithmeticEqualityAndGlobalWeightLanguageCannotCompleteWork": true,
+    "allSemanticVerdictsReviewDecisionsAndCanonicalIdentitiesRemainNull": true,
+    "upstreamEvidenceDispositionsReviewsAndHashesMustBePreserved": true,
+    "namesTitlesPageIdsRevisionsCandidateKeysLabelsAliasesAndOverridesCannotAlterRoutingPolicy": true,
+    "repeatabilityMechanicsMemberExpansionAndOptimizerPromotionAreForbidden": true,
+    "currentAccountStateIsForbidden": true,
+    "automaticVerificationAllowed": false
+  }
+}

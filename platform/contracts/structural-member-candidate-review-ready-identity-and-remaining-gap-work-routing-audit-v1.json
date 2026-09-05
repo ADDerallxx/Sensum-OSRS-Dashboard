@@ -1,0 +1,13 @@
+{
+  "contract": "sensum.structural-member-candidate-review-ready-identity-and-remaining-gap-work-routing-audit.v1",
+  "required": ["inputCoverage","policyCoverage","sourceIntegrityCoverage","routingCoverage","dispositionReferenceCoverage","branchSeparationCoverage","semanticPreservationCoverage","accountStateFindings","routingCoverageComplete","identityReviewComplete","evidenceWorkComplete","memberExpansionComplete","mechanicsReviewComplete","completeActivityUniverse","absoluteBestGate","blockers","publishable"],
+  "rules": {
+    "eligibleInputAndOutputSetsMustMatchExactly": true,
+    "allExactRevisionSourcesMustRevalidate": true,
+    "everyInputDispositionMustBeReferencedExactlyOnce": true,
+    "mergedNestedSubjectWorkMustReferenceExactlyOneIdentityAndOnePageTypeDispositionForTheSameCandidate": true,
+    "reviewReadyRoutingCannotCreateAReviewDecisionOrIdentityVerdict": true,
+    "unexpectedIdentityFailuresMustRemainVisible": true,
+    "unsupportedMutationsPromotionsAndAccountStateMustFailPublication": true
+  }
+}

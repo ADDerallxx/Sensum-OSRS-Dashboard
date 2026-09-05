@@ -43,6 +43,21 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+The 121 structural-candidate semantic dispositions now have one generic work
+route with exact disposition-reference coverage. The router produced 120 work
+items because the one nested-subject candidate's identity and page-type
+dispositions were correctly merged into one same-candidate binding task while
+both source disposition keys remained referenced exactly once. Fifty-one
+single-identity cases route to explicit source-bound review, seven numbered-
+variant cases route to exact parent-occurrence/variant binding evidence, and
+the merged nested case routes to explicit subject/page-type binding evidence.
+The 59 weighted-membership, one declared-total mapping, and one complete-
+universe obligations remain separate. All 60 exact source revisions
+revalidated; no review decision, identity verdict, game fact, member-universe
+claim, or optimizer promotion was created. Two transforms produced the same
+output hash. The next checkpoint should materialize source-bound review packets
+for the 51 review-ready identities without approving them automatically.
+
 The 121 structural-candidate semantic-gap packets now have a generic, fail-
 closed sufficiency disposition. All 60 exact source revisions and all 121
 packets revalidated before disposition. Of 59 candidate identity packets, 51
