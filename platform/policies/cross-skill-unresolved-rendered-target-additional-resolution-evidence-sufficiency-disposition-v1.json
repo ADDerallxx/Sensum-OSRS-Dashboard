@@ -1,0 +1,46 @@
+{
+  "policy": "sensum.cross-skill-unresolved-rendered-target-additional-resolution-evidence-sufficiency-disposition-policy.v1",
+  "inputContract": "sensum.cross-skill-unresolved-rendered-target-additional-resolution-evidence-source-discovery.v1",
+  "recordContract": "sensum.cross-skill-unresolved-rendered-target-additional-resolution-evidence-sufficiency-disposition.v1",
+  "auditContract": "sensum.cross-skill-unresolved-rendered-target-additional-resolution-evidence-sufficiency-disposition-audit.v1",
+  "inputState": "revision_pinned_unresolved_rendered_target_additional_resolution_evidence_gates_closed",
+  "recordState": "unresolved_rendered_target_additional_resolution_evidence_sufficiency_disposition_gates_closed",
+  "classifications": [
+    "described_category_page_resolution_review_ready",
+    "active_redlink_category_target_resolution_review_ready",
+    "category_target_additional_evidence_required"
+  ],
+  "reviewRoutes": [
+    "explicit_source_bound_described_category_page_resolution_review",
+    "explicit_source_bound_redlink_category_target_resolution_review",
+    "additional_source_bound_category_resolution_evidence"
+  ],
+  "describedCategoryReviewDecisions": [
+    "confirm_exact_current_category_page_resolution",
+    "reject_exact_current_category_page_resolution",
+    "needs_additional_evidence"
+  ],
+  "redlinkCategoryReviewDecisions": [
+    "confirm_active_redlink_category_target",
+    "reject_active_redlink_category_target",
+    "needs_additional_evidence"
+  ],
+  "rules": {
+    "oneDispositionPerAdditionalResolutionEvidencePacket": true,
+    "sourcePacketRecordSnapshotAndUpstreamBindingsMustRevalidate": true,
+    "allNestedEvidenceHashesAndExactSourceOccurrencesMustRevalidate": true,
+    "classificationDependsOnlyOnCompleteCategoryEvidenceShape": true,
+    "describedCategoryReviewRequiresAnExactCurrentRevisionPinnedCategoryPage": true,
+    "redlinkCategoryReviewRequiresMissingDescriptionActiveCategoryStateExactPrefixAndRevisionPinnedMembership": true,
+    "memberInventoryMustReconcileWithReportedCategoryInfo": true,
+    "incompleteOrInconsistentCategoryEvidenceRequiresAdditionalEvidence": true,
+    "redlinkCategoryEvidenceIsNotMissingCategoryIdentityEvidence": true,
+    "reviewReadinessDoesNotSelectOrApplyAResolution": true,
+    "categoryTargetResolutionDoesNotEstablishCanonicalGameEntityOrActivityIdentity": true,
+    "sourceSilenceIsNotNegativeEvidence": true,
+    "titlesPageIdsRevisionsMemberNamesAliasesAndOverridesCannotAlterClassification": true,
+    "canonicalIdentityRepeatabilityMechanicsAndOptimizerEligibilityRemainClosed": true,
+    "currentAccountStateIsForbidden": true,
+    "automaticVerificationAllowed": false
+  }
+}

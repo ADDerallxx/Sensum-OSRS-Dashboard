@@ -1,0 +1,33 @@
+{
+  "contract": "sensum.cross-skill-unresolved-rendered-target-additional-resolution-evidence-sufficiency-disposition.v1",
+  "required": [
+    "dispositionKey",
+    "sourceEvidencePacketKey",
+    "sourceEvidencePacketRecordContentHash",
+    "sourceEvidencePacketSnapshotContentHash",
+    "sourceWorkQueueEntryKey",
+    "sourceDispositionKey",
+    "sourceDispositionRecordContentHash",
+    "sourceEvidenceRecordContentHash",
+    "evidenceFingerprint",
+    "renderedTargetKey",
+    "requestedTitles",
+    "evidenceShape",
+    "classification",
+    "reviewRoute",
+    "allowedReviewDecisions",
+    "evidenceBindings",
+    "resolutionReview",
+    "selectedResolution",
+    "canonicalGameEntityIdentity",
+    "canonicalActivityIdentity",
+    "repeatabilityClassification",
+    "mechanicsReviewComplete",
+    "optimizerEligible",
+    "automaticVerificationApplied",
+    "accountIndependent",
+    "blockers",
+    "state",
+    "recordContentHash"
+  ]
+}

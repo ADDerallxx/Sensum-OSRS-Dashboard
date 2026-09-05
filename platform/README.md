@@ -321,6 +321,15 @@ other lines on that page activity-specific. Candidate kinds remain lexical
 observations, all six domains remain independent, and the disposition itself
 cannot create a repeatability verdict.
 
+Unresolved rendered-link category targets use a separate evidence-sufficiency
+boundary. It revalidates the source-discovery packet, exact category occurrence,
+official category-namespace state, exhaustive member reconciliation, current
+revision sources, namespace searches, and title history. A complete described
+category page and a complete active redlink category take distinct source-bound
+review routes; incomplete or inconsistent evidence returns to evidence work.
+The transform never selects a resolution or promotes category evidence into an
+activity, repeatability, mechanics, or optimizer result.
+
 Run:
 
 ```text
@@ -332,6 +341,7 @@ node platform/ingestion/ingest-wiki-skill-training-guide-direct-links.mjs
 node platform/ingestion/ingest-wiki-skill-training-guide-source-dependencies.mjs
 node platform/ingestion/ingest-wiki-skill-training-guide-rendered-links.mjs
 node platform/ingestion/ingest-wiki-cross-skill-unresolved-rendered-target-additional-resolution-evidence-source-discovery.mjs
+node platform/transforms/build-cross-skill-unresolved-rendered-target-additional-resolution-evidence-sufficiency-dispositions.mjs
 node platform/transforms/build-unlock-statement-semantic-crosswalk.mjs
 node platform/transforms/build-unlock-linked-page-entity-types.mjs
 node platform/transforms/build-unlock-linked-page-wiki-equivalence.mjs

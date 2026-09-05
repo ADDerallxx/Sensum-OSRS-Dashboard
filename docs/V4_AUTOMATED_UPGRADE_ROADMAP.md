@@ -43,6 +43,22 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+The two namespace-aware category packets now have a generic, fail-closed
+evidence-sufficiency disposition. Routing depends only on a complete category
+evidence shape: an exact current revision-pinned description page, an active
+redlink category with exact prefix and revision-pinned reconciled membership,
+or insufficient/inconsistent evidence. Both current obligations take the
+active-redlink review route. Their two member occurrences and two pinned-guide
+revalidations bind exactly to the source-discovery snapshot; names, titles,
+page IDs, revisions, aliases, and account state cannot change the route.
+Review readiness does not select a category resolution and cannot establish a
+canonical game entity, activity, repeatability class, mechanics verdict, or
+optimizer eligibility. Two real transforms produced the identical two-record
+hash `2d98823a8ad87d269144b95d428bc525faa0593d1af4dc980363c176ef8f99f3`.
+All 225 regression tests pass. The next unattended checkpoint should export
+the two source-bound redlink-category resolution-review entries and blank
+decision templates without applying either resolution.
+
 The two unresolved category-title obligations now have namespace-aware,
 source-bound additional-resolution-evidence packets. Official Wiki namespace
 metadata confirms namespace 14 as `Category`; exact current queries preserve
