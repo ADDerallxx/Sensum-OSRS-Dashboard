@@ -43,6 +43,22 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+All 59 routed weighted parent-task entry membership obligations now have complete,
+revision-pinned evidence packets. The collector revalidated 60 of 60 exact OSRS
+Wiki revisions and every retained parent occurrence, including eight whole-line
+locators, then kept candidate-scoped statements separate from parent-wide facts.
+The sources contain zero candidate-scoped weight statements, two unique global
+task-weight statements, three unique parent distribution statements, six
+candidate-subject corroborations across four packets, and 104 numbered alias or
+variant signals. Those observations are evidence, not membership verdicts: no
+identity, membership, mapping, completeness, repeatability, mechanics, account,
+or optimizer state was created. The first live pass correctly wrote no snapshot
+when the eight whole-line locators were not yet handled; after that validation
+path was corrected, two complete live captures produced the same output hash.
+The next unattended checkpoint should apply a generic, fail-closed disposition
+that routes corroborated, alias-ambiguous, and source-silent packets without
+promoting parent-wide weights to candidate-specific facts.
+
 The canonical-subject-scope review queue now has a fail-closed decision-import
 boundary. A completed row must preserve the exact queue, disposition,
 evidence-packet, evidence-fingerprint, and source-revision bindings; it must

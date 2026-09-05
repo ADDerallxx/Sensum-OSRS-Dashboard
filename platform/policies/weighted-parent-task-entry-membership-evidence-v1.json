@@ -1,0 +1,64 @@
+{
+  "policy": "sensum.weighted-parent-task-entry-membership-evidence-policy.v1",
+  "inputContract": "sensum.structural-member-candidate-review-ready-identity-and-remaining-gap-work-routing.v1",
+  "recordContract": "sensum.weighted-parent-task-entry-membership-evidence.v1",
+  "auditContract": "sensum.weighted-parent-task-entry-membership-evidence-audit.v1",
+  "inputState": "structural_member_candidate_review_ready_identity_and_remaining_gap_work_routed_gates_closed",
+  "inputRouteState": "review_ready_identities_and_remaining_semantic_gaps_routed_all_verdicts_closed",
+  "inputRouteKey": "weighted_parent_task_entry_membership_evidence",
+  "inputWorkKind": "candidate_scoped_weight_alias_and_variant_membership_evidence",
+  "outputState": "revision_pinned_weighted_parent_task_entry_membership_evidence_captured_verdicts_closed",
+  "requiredChannels": [
+    "exact_revision_source_revalidation",
+    "exact_parent_occurrence_binding",
+    "candidate_scoped_same_line_weight_statement",
+    "parent_global_weight_statement",
+    "candidate_subject_corroboration",
+    "duplicate_alias_and_variant_signals",
+    "weighted_membership_verdict_separation"
+  ],
+  "sourceScan": {
+    "caseInsensitive": true,
+    "unicode": true,
+    "weightDefinitions": [
+      {
+        "definitionKey": "all_entries_equal_weight",
+        "observationClass": "source_authored_global_equal_weight_statement",
+        "pattern": "\\beach\\s+of\\s+which\\s+is\\s+allotted\\s+an\\s+equal\\s+weight\\b"
+      },
+      {
+        "definitionKey": "all_tasks_same_chance",
+        "observationClass": "source_authored_global_equal_chance_statement",
+        "pattern": "\\beach\\s+task\\s+has\\s+the\\s+same\\s+chance\\b"
+      }
+    ],
+    "distributionDefinitions": [
+      {
+        "definitionKey": "approximate_task_share",
+        "observationClass": "source_authored_approximate_task_share",
+        "pattern": "\\b(?:make|makes)\\s+up\\s+approximately\\s+([0-9]{1,3})%\\s+of\\s+all\\s+tasks\\b"
+      }
+    ],
+    "relationshipLexemes": ["task", "tasks", "request", "requests", "message", "deliver", "delivery", "fight"],
+    "parentTitleAnchorStopwords": ["task", "tasks", "activity", "activities", "guide", "training"]
+  },
+  "rules": {
+    "oneEvidencePacketPerWeightedMembershipWorkItem": true,
+    "allReferencedSourceKeysMustResolveExactlyOnce": true,
+    "allReferencedSourcesMustBeRefetchedAtTheirExactRevision": true,
+    "fetchedPageIdTitleRevisionTimestampUrlBytesAndContentHashMustMatch": true,
+    "upstreamExactSourceTextAndHashMustRevalidate": true,
+    "exactParentOccurrenceMustMatchItsPinnedLocatorAndHash": true,
+    "candidateScopedWeightRequiresWeightLanguageOnTheExactCandidateOccurrenceLine": true,
+    "parentGlobalWeightLanguageIsNotCandidateScopedMembershipProof": true,
+    "parentDistributionPercentagesAreScopeObservationsNotPerEntryWeights": true,
+    "candidateSubjectCorroborationRequiresParentTitleAnchorAndRelationshipLanguageOnOneExactLine": true,
+    "sourceSilenceIsNotNegativeEvidence": true,
+    "duplicateAliasAndVariantSignalsAreObservationsNotMembershipVerdicts": true,
+    "captureCompletenessDoesNotEstablishSemanticCompleteness": true,
+    "weightedMembershipIdentityMappingCompletenessRepeatabilityMechanicsAndOptimizerVerdictsRemainClosed": true,
+    "namesTitlesPageIdsRevisionsCandidateKeysLabelsAliasesAndOverridesCannotAlterPolicyBehavior": true,
+    "currentAccountStateIsForbidden": true,
+    "automaticVerificationAllowed": false
+  }
+}

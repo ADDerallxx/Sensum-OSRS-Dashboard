@@ -1,0 +1,26 @@
+{
+  "contract": "sensum.weighted-parent-task-entry-membership-evidence-audit.v1",
+  "required": [
+    "inputCoverage",
+    "policyCoverage",
+    "revisionCoverage",
+    "packetCoverage",
+    "observationCoverage",
+    "semanticPreservationCoverage",
+    "accountStateFindings",
+    "evidencePacketCaptureComplete",
+    "weightedMembershipReviewComplete",
+    "completeActivityUniverse",
+    "absoluteBestGate",
+    "blockers",
+    "publishable"
+  ],
+  "rules": {
+    "eligibleInputAndWeightedWorkItemSetsMustBeComplete": true,
+    "exactRevisionRequestAndResponseSetsMustMatch": true,
+    "everyRequiredChannelMustBeRepresentedInEveryPacket": true,
+    "candidateScopedAndGlobalWeightEvidenceMustNeverBeConflated": true,
+    "sourceSilenceMustRemainExplicit": true,
+    "unsupportedVerdictsPromotionsOrAccountStateMustFailClosed": true
+  }
+}

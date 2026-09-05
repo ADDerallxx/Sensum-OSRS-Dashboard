@@ -1,0 +1,24 @@
+{
+  "contract": "sensum.weighted-parent-task-entry-membership-evidence.v1",
+  "required": [
+    "sourceRoutingRecordContentHash",
+    "weightedParentTaskEntryMembershipEvidenceSources",
+    "weightedParentTaskEntryMembershipEvidencePackets",
+    "weightedParentTaskEntryMembershipEvidenceReview",
+    "weightedTaskEntryMembershipVerdict",
+    "memberUniverseComplete",
+    "optimizerEligible",
+    "automaticVerificationApplied",
+    "accountIndependent",
+    "blockers",
+    "state"
+  ],
+  "rules": {
+    "allUpstreamFieldsArePreserved": true,
+    "allReferencedExactRevisionSourcesAreRevalidatedAndRetained": true,
+    "everyWeightedMembershipWorkItemHasOneSourceBoundPacket": true,
+    "globalWeightAndDistributionStatementsRemainSeparateFromCandidateScopedEvidence": true,
+    "candidateSourceSilenceAndVariantSignalsRemainExplicit": true,
+    "noSemanticMembershipIdentityMappingCompletenessRepeatabilityMechanicsOrOptimizerPromotionIsAllowed": true
+  }
+}

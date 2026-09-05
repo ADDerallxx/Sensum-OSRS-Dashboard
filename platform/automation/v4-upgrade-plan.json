@@ -160,7 +160,8 @@
         "multi_variant_binding_additional_evidence_source_discovery_packets",
         "generic_multi_variant_binding_additional_evidence_sufficiency_disposition",
         "multi_variant_binding_canonical_subject_scope_review_queue_export",
-        "multi_variant_binding_canonical_subject_scope_review_decision_import_contract"
+        "multi_variant_binding_canonical_subject_scope_review_decision_import_contract",
+        "revision_pinned_weighted_parent_task_entry_membership_evidence_packets"
       ],
       "remainingWork": [
         "Use the 1,909-entry revision-aligned semantic-review queue to establish canonical game-entity and activity identities from retained source signatures and contexts, then prove repeatability, membership, requirements, variants, XP, timing, mechanics, and authoritative exclusions. Begin with the 29 explicit activity-page candidates, but do not treat activity/minigame page type as repeatability proof; distinguish reference collections and composites from actual trainable method variants. Reconcile 68 queued untyped pages, 4,725 stable rendered pages without unlock evidence, 1,565 unlock pages without rendered-guide evidence, five unresolved rendered targets, the wider unlock set's 137 untyped pages and 31 activity pages, and 51 ambiguous statement forms. Historical template-expansion provenance remains open because dependency revision IDs and the generative origins of 16,284 rendered-only observations are unavailable. Continue independent discovery until every repeatable training activity in every skill is enumerated. The central guide index's composite Combat row and four Defence link disagreements remain explicit. Rockslide pairing still requires complete activity and travel graphs.",
@@ -177,12 +178,28 @@
         "independentGameUniverseDiscoveryPending": true
       },
       "latestCheckpoint": {
-        "id": "multi_variant_binding_canonical_subject_scope_review_decision_import_contract",
-        "result": "2_of_2_queue_records_revalidated; real_2_row_blank_template_rejected_atomically_with_expected_exit_2; 0_completed_2_blank_0_invalid_submissions_0_recorded_decisions; 0_output_snapshots_before_and_after; 0_canonical_scope_0_variant_0_identity_0_membership_0_repeatability_0_mechanics_0_mapping_0_completeness_0_optimizer_promotions",
-        "next": "revision_pinned_weighted_parent_task_entry_membership_evidence_packets"
+        "id": "revision_pinned_weighted_parent_task_entry_membership_evidence_packets",
+        "result": "59_of_59_packets_complete; 60_of_60_exact_revisions_revalidated; 0_candidate_scoped_weight_statements; 2_unique_global_weight_statements; 3_unique_parent_distribution_statements; 6_candidate_subject_corroborations_across_4_packets; 104_numbered_alias_variant_signals; two_corrected_live_captures_byte_identical; 0_identity_0_membership_0_mapping_0_completeness_0_repeatability_0_mechanics_0_optimizer_promotions",
+        "next": "generic_weighted_parent_task_entry_membership_evidence_disposition"
       },
       "latestCoverageDelta": {
         "officialSkillDomainsMeasured": 24,
+        "inputWeightedParentTaskMembershipWorkItems": 59,
+        "outputWeightedParentTaskMembershipEvidencePackets": 59,
+        "requestedExactRevisionSources": 60,
+        "fetchedExactRevisionSources": 60,
+        "completelyRevalidatedExactRevisionSources": 60,
+        "revalidatedParentOccurrences": 59,
+        "candidateScopedWeightStatements": 0,
+        "uniqueGlobalParentWeightStatements": 2,
+        "uniqueParentDistributionStatements": 3,
+        "candidateSubjectCorroborationObservations": 6,
+        "candidateSubjectCorroboratedPackets": 4,
+        "candidateSubjectCorroborationAbsentPackets": 55,
+        "numberedAliasVariantSignals": 104,
+        "weightedMembershipEvidencePacketCaptureComplete": true,
+        "weightedMembershipReviewComplete": false,
+        "deterministicOutputHashMatchesAcrossTwoLiveCaptures": true,
         "canonicalSubjectScopeReviewDecisionQueueEntries": 2,
         "canonicalSubjectScopeReviewDecisionCompleteQueueRecords": 2,
         "canonicalSubjectScopeReviewDecisionSubmissionRows": 2,
@@ -235,7 +252,39 @@
         "optimizerEligibleActivitiesAdded": 0,
         "currentAccountFieldsAllowed": 0,
         "inventedFacts": 0,
-        "reason": "The canonical-subject-scope queue now has an atomic, source-bound human decision-import boundary. The real blank template was rejected without output; no review or semantic state was fabricated. Automated work can now advance the 59 weighted parent-task entry membership obligations while the explicit human reviews remain pending."
+        "reason": "All 59 weighted parent-task membership obligations now have complete, exact-revision evidence packets. Parent-wide task weights, candidate corroboration, and numbered alias signals remain separate channels, and the absence of candidate-scoped weight statements remains explicit. The first incomplete live capture wrote nothing; two corrected captures were byte-identical. The next generic disposition must route evidence states without inventing membership or promoting parent facts to candidate facts."
+      },
+      "latestWeightedParentTaskEntryMembershipEvidenceAudit": {
+        "generatedAt": "2026-09-05T17:37:35.975Z",
+        "policy": "sensum.weighted-parent-task-entry-membership-evidence-policy.v1",
+        "policyContentHash": "4f9d38a641161309f87547c4eadb2329a85f7feb0ba535bc6ea1e195089f0dae",
+        "inputSnapshotDirectory": "2026-09-05T08-36-10-308Z",
+        "inputSnapshotContentHash": "f3205d3d0e24401c07866abd52663b8d11ce80f6097fdc4de5cfb1c2d87a1b31",
+        "outputSnapshotDirectory": "2026-09-05T17-37-35-832Z",
+        "outputSnapshotContentHash": "baeaaf5672f0979dd3a8e19b20befdc8233662a08ed9002d64668febf502af3a",
+        "reportContentHash": "fe8756124c7800b2cc7956f73e73c17ac75197b39f0e14d16f5c6d83f9f0b57b",
+        "weightedMembershipWorkItemCount": 59,
+        "exactRevisionRequestCount": 60,
+        "completeSourceRevalidationCount": 60,
+        "evidencePacketCount": 59,
+        "completeEvidencePacketCount": 59,
+        "candidateScopedWeightStatementCount": 0,
+        "globalWeightStatementCount": 118,
+        "uniqueGlobalWeightStatementCount": 2,
+        "parentDistributionStatementCount": 177,
+        "uniqueParentDistributionStatementCount": 3,
+        "candidateSubjectCorroborationCount": 6,
+        "candidateSubjectCorroboratedPacketCount": 4,
+        "candidateSubjectCorroborationAbsentPacketCount": 55,
+        "aliasVariantSignalCount": 104,
+        "weightedMembershipVerdictCount": 0,
+        "identityMappingOrCompletenessVerdictCount": 0,
+        "optimizerEligibleCount": 0,
+        "evidencePacketCaptureComplete": true,
+        "weightedMembershipReviewComplete": false,
+        "completeActivityUniverse": false,
+        "absoluteBestGate": "blocked_incomplete_activity_universe",
+        "publishable": true
       },
       "latestMultiVariantBindingCanonicalSubjectScopeReviewDecisionImportSafetyCheck": {
         "policy": "sensum.multi-variant-binding-canonical-subject-scope-review-decision-import-policy.v1",
