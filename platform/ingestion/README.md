@@ -269,6 +269,17 @@ record count, creation time, audit result, and SHA-256 content hash.
   page IDs, and account state cannot select the route or produce a repeatability
   verdict. Publication proves only complete deterministic routing; it does not
   make the activity, its members, or its mechanics optimizer-eligible.
+- Scoped canonical-activity repeatability evidence ingestion refetches the exact
+  subject-binding revision and requires byte-for-byte agreement with both the
+  binding and prior scope packet. Run
+  `node platform/ingestion/ingest-wiki-scoped-canonical-activity-repeatability-evidence.mjs`.
+  It retains the complete source and line hashes, masks comments and protected
+  regions, and partitions source-located candidates across parent recurrence,
+  member recurrence, cooldown/reset, exhaustion/lockout, availability, and
+  independent-reference domains. Zero signals remain valid capture results but
+  never become negative facts. Plural/count structures and citations remain
+  candidates only; all repeatability verdicts stay null until a separate
+  semantic disposition.
 - Training-guide section ingestion inventories every Wiki heading in source
   order. Every method-bearing subsection is retained with its parent, source
   lines, revision, and structural role. New heading depths or parents fail

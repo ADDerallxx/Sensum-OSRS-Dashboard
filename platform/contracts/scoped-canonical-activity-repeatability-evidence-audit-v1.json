@@ -1,0 +1,30 @@
+{
+  "contract": "sensum.scoped-canonical-activity-repeatability-evidence-audit.v1",
+  "required": [
+    "inputCoverage",
+    "policyCoverage",
+    "revisionCoverage",
+    "captureCoverage",
+    "candidateObservationCoverage",
+    "semanticPreservationCoverage",
+    "accountStateFindings",
+    "evidencePacketAttemptCoverageComplete",
+    "repeatabilityEvidencePacketCoverageComplete",
+    "repeatabilityReviewComplete",
+    "completeActivityUniverse",
+    "absoluteBestGate",
+    "blockers",
+    "publishable"
+  ],
+  "rules": {
+    "inputAndOutputRouteSetsAndContextsMustMatchExactly": true,
+    "exactRevisionRequestAndFetchSetsMustMatchExactly": true,
+    "everyFetchedSourceMustMatchTheBoundIdentityAndPriorScopePacket": true,
+    "everyRequiredCaptureChannelAndEvidenceDomainMustBeCompleted": true,
+    "everySourceLineAndSignalMustBeReproducibleExactly": true,
+    "zeroSignalsCannotCreateANegativeVerdict": true,
+    "parentMemberLimitAvailabilityAndReferenceCandidatesMustRemainDistinct": true,
+    "repeatabilityVerdictsAndDownstreamPromotionsAreForbidden": true,
+    "currentAccountStateIsForbidden": true
+  }
+}

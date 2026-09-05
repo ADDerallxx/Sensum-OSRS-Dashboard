@@ -43,6 +43,21 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+The routed scoped canonical activity now has a complete revision-pinned
+repeatability-evidence packet. The collector refetched `Wise Old Man tasks`
+revision `14997080`, matched page ID, title, timestamp, URL, content hash, and
+the prior scope packet, and retained all 9,959 source bytes across 195 hashed
+lines. Six evidence domains were captured through eight channels. Generic scans
+found two parent-level recurrence structures, no explicit repeatability
+declaration, no member-task recurrence statement, no cooldown/reset or
+exhaustion statement, one assignment-eligibility condition, and two citation
+candidates. Counts, plural tasks, and citation presence remain observations—not
+proof. Parent and member repeatability verdicts remain null; member expansion,
+mechanics, and optimizer eligibility remain closed. Two accepted fetches
+produced the same output hash. The next checkpoint should apply a generic
+semantic disposition to this packet, retaining every unsupported domain as a
+blocker and routing any remaining independent-evidence need explicitly.
+
 Every source-supported scoped canonical activity now enters one generic,
 blocked repeatability-evidence route. The route separates six revision-pinned
 proof obligations: restarting or receiving the parent activity after
