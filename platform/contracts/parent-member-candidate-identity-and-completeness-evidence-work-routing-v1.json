@@ -1,0 +1,5 @@
+{
+  "contract": "sensum.parent-member-candidate-identity-and-completeness-evidence-work-routing.v1",
+  "required": ["memberCandidateKey","sourceParentMemberInventoryEvidenceDispositionContentHash","canonicalActivityIdentity","parentMemberInventoryDisposition","parentMemberCandidateIdentityAndCompletenessEvidenceWorkRouting","parentMemberInventoryDispositionReview","memberExpansionReview","mechanicsReview","optimizerEligible","accountIndependent","blockers","state"],
+  "rules": {"oneRecordPerEligibleDisposition":true,"allUpstreamFieldsMustBePreserved":true,"oneIdentityWorkItemPerStructuralCandidate":true,"exactlyTwoParentCompletenessWorkItemsMustExist":true,"allWorkItemsMustStartBlockedAndEmpty":true,"candidateIdentityMappingAndUniverseCompletenessMustRemainSeparate":true,"noIdentityCompletenessRepeatabilityMechanicsOptimizerOrAccountPromotionIsAllowed":true}
+}

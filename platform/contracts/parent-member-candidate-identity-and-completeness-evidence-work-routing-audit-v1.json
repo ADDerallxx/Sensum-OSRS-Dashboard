@@ -1,0 +1,5 @@
+{
+  "contract": "sensum.parent-member-candidate-identity-and-completeness-evidence-work-routing-audit.v1",
+  "required": ["inputCoverage","policyCoverage","routingCoverage","semanticPreservationCoverage","accountStateFindings","routingCoverageComplete","evidenceWorkComplete","memberIdentityReviewComplete","memberExpansionComplete","mechanicsReviewComplete","completeActivityUniverse","absoluteBestGate","blockers","publishable"],
+  "rules": {"everyEligibleDispositionMustProduceExactlyOneRoute":true,"candidateIdentityWorkCountMustMatchStructuralCandidateCount":true,"bothParentCompletenessBranchesMustExist":true,"inputOutputContextMustMatchExactly":true,"unsupportedEvidenceVerdictsPromotionsAndAccountStateMustFailClosed":true}
+}

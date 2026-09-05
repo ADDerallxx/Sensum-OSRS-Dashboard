@@ -43,6 +43,20 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+The unresolved parent/member inventory disposition now has a generic split
+evidence-work route. All 59 structural candidates receive one blocked stable
+subject-identity and parent-relation work item. Two additional parent-level
+items keep declared-total one-to-one mapping separate from complete-universe and
+source-limitation reconciliation, producing 61 blocked items in total. Every
+work item starts with zero evidence keys and null identity, membership, mapping,
+and completeness verdicts. The candidate count's arithmetic equality with 59
+cannot complete any route, and the non-exhaustive qualification remains active.
+No input evidence or disposition changed, no account state entered the route,
+and member, repeatability, mechanics, and optimizer gates remain closed. Two
+accepted transforms produced the same output hash. The next checkpoint should
+collect revision-pinned stable subject identities for all routed structural
+candidates without treating resolved Wiki pages as proof of parent membership.
+
 The parent/member inventory packet now has a generic, fail-closed semantic
 disposition. All source structures and hashes were revalidated before 59 unique
 structural candidates were classified: 51 item-delivery targets, seven

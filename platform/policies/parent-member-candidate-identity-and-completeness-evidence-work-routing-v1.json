@@ -1,0 +1,48 @@
+{
+  "policy": "sensum.parent-member-candidate-identity-and-completeness-evidence-work-routing-policy.v1",
+  "inputContract": "sensum.parent-member-inventory-evidence-disposition.v1",
+  "recordContract": "sensum.parent-member-candidate-identity-and-completeness-evidence-work-routing.v1",
+  "auditContract": "sensum.parent-member-candidate-identity-and-completeness-evidence-work-routing-audit.v1",
+  "inputState": "parent_member_inventory_disposition_reviewed_unresolved",
+  "candidateIdentityBranch": {
+    "branchKey": "stable_structural_member_candidate_identity_evidence",
+    "workKind": "revision_pinned_candidate_subject_identity_and_parent_relation_evidence",
+    "requiredChannels": [
+      "source_authored_subject_target_resolution",
+      "stable_wiki_page_id_and_resolved_title",
+      "revision_timestamp_url_and_content_hash",
+      "candidate_role_and_parent_relation_evidence"
+    ]
+  },
+  "completenessBranches": [
+    {
+      "branchKey": "declared_total_one_to_one_member_mapping_evidence",
+      "workKind": "authoritative_parent_total_to_member_mapping_evidence",
+      "evidenceObjective": "Obtain revision-pinned authoritative evidence that explicitly maps each parent member entry to the declared total without deriving membership from arithmetic equality.",
+      "requiredChannels": ["explicit_parent_member_mapping","declared_total_scope_and_revision","duplicate_alias_and_variant_treatment","one_to_one_mapping_review"]
+    },
+    {
+      "branchKey": "complete_member_universe_reconciliation_evidence",
+      "workKind": "authoritative_complete_member_universe_and_source_limitation_reconciliation",
+      "evidenceObjective": "Obtain revision-pinned authoritative evidence that resolves non-exhaustive, missing, contradictory, composite, and condition-scoped inventory limitations before completeness can be reviewed.",
+      "requiredChannels": ["complete_parent_member_enumeration","source_limitation_reconciliation","independent_authoritative_coverage_check","complete_universe_review"]
+    }
+  ],
+  "rules": {
+    "oneRoutingRecordPerEligibleInventoryDisposition": true,
+    "oneStableIdentityWorkItemPerStructuralCandidate": true,
+    "candidateIdentityAndParentCompletenessBranchesRemainSeparate": true,
+    "oneToOneMappingAndCompleteUniverseReconciliationRemainSeparate": true,
+    "routingUsesOnlyAuditedDispositionStateCandidateRolesAndSourceObservations": true,
+    "sourceRequestedTitlesAreDiscoveryInputsNotIdentityVerdicts": true,
+    "arithmeticCountAlignmentCannotCompleteAnyWorkItem": true,
+    "nonExhaustiveQualificationCannotBeClearedByRouting": true,
+    "everyWorkItemStartsBlockedWithoutEvidenceKeysOrVerdicts": true,
+    "routingCannotCompleteEvidenceIdentityMembershipOrCompleteness": true,
+    "inputEvidenceRevisionsStructuresAndDispositionMustBePreserved": true,
+    "namesTitlesPageIdsCandidateKeysLabelsAliasesAndOverridesCannotAlterTheRoute": true,
+    "repeatabilityMemberMechanicsAndOptimizerVerdictsRemainUnchanged": true,
+    "currentAccountStateIsForbidden": true,
+    "automaticVerificationAllowed": false
+  }
+}
