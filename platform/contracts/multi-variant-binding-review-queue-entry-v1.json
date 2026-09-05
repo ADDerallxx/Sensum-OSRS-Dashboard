@@ -1,0 +1,30 @@
+{
+  "contract": "sensum.multi-variant-binding-review-queue-entry.v1",
+  "required": [
+    "queueEntryKey",
+    "queueOrdinal",
+    "sourceDispositionRecordContentHash",
+    "sourceEvidencePacketContentHash",
+    "sourceDispositionKey",
+    "evidenceFingerprint",
+    "structuralCandidateKey",
+    "candidateRole",
+    "candidateDisplayName",
+    "subjectEvidence",
+    "parentOccurrenceEvidence",
+    "variantBindingReviewEvidence",
+    "reviewScope",
+    "allowedDecisions",
+    "decisionTemplate",
+    "accountIndependent",
+    "state"
+  ],
+  "rules": {
+    "oneEntryPerReviewReadyDisposition": true,
+    "sourceDispositionOrderIsPreserved": true,
+    "reviewCandidateVariantIndexRemainsUnbound": true,
+    "exactRevisionSubjectAndParentEvidenceIsRetained": true,
+    "decisionTemplateStartsBlank": true,
+    "noEntryIsOptimizerEligible": true
+  }
+}

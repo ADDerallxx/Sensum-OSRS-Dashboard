@@ -1,0 +1,28 @@
+{
+  "contract": "sensum.multi-variant-binding-review-and-additional-evidence-queue-export-audit.v1",
+  "required": [
+    "inputCoverage",
+    "policyCoverage",
+    "sourceIntegrityCoverage",
+    "packetAndDispositionIntegrityCoverage",
+    "queuePartitionCoverage",
+    "artifactCoverage",
+    "semanticPreservationCoverage",
+    "accountStateFindings",
+    "queueExportComplete",
+    "variantBindingReviewComplete",
+    "optimizerEligibleCount",
+    "completeActivityUniverse",
+    "absoluteBestGate",
+    "blockers",
+    "publishable"
+  ],
+  "rules": {
+    "eligibleDispositionUnionAndQueueUnionMustMatchExactly": true,
+    "reviewAndAdditionalEvidenceQueuesMustBeDisjoint": true,
+    "allSourcesPacketsAndDispositionsMustRevalidate": true,
+    "queueEntriesAndArtifactsMustMatchGenericPolicyOutput": true,
+    "allDecisionEvidenceAndSemanticFieldsMustRemainBlank": true,
+    "unsupportedMutationPromotionOrAccountStateMustFailPublication": true
+  }
+}

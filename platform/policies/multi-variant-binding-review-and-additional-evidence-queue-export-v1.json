@@ -1,0 +1,35 @@
+{
+  "policy": "sensum.multi-variant-binding-review-and-additional-evidence-queue-export-policy.v1",
+  "inputContract": "sensum.multi-variant-structural-member-candidate-parent-occurrence-binding-evidence-disposition.v1",
+  "reviewQueueContract": "sensum.multi-variant-binding-review-queue-entry.v1",
+  "decisionTemplateContract": "sensum.multi-variant-binding-review-decision-template.v1",
+  "additionalEvidenceQueueContract": "sensum.multi-variant-binding-additional-evidence-work-queue-entry.v1",
+  "auditContract": "sensum.multi-variant-binding-review-and-additional-evidence-queue-export-audit.v1",
+  "inputState": "multi_variant_parent_occurrence_binding_evidence_sufficiency_disposition_recorded_all_verdicts_closed",
+  "reviewReadyRouteKey": "source_bound_explicit_variant_binding_review",
+  "additionalEvidenceRouteKey": "additional_parent_occurrence_variant_disambiguation_evidence",
+  "reviewQueueState": "pending_explicit_source_bound_variant_binding_review",
+  "additionalEvidenceQueueState": "blocked_pending_additional_variant_disambiguation_evidence",
+  "allowedDecisions": [
+    "confirm_exact_parent_occurrence_to_numbered_variant_binding",
+    "reject_exact_parent_occurrence_to_numbered_variant_binding",
+    "needs_additional_evidence"
+  ],
+  "rules": {
+    "everyDispositionMustEnterExactlyOneOfTwoDisjointQueues": true,
+    "queueOrderMustPreserveSourceDispositionOrderWithinEachRoute": true,
+    "inputRecordSourcePacketAndDispositionHashesMustRevalidate": true,
+    "allRetainedExactRevisionSourcesMustRevalidateBeforeExport": true,
+    "everyQueueEntryMustBindImmutableEvidenceAndSourceFingerprints": true,
+    "reviewQueueRequiresExactlyOneUnboundReviewCandidateVariantIndex": true,
+    "reviewDecisionTemplatesMustStartBlank": true,
+    "additionalEvidenceQueueCannotContainAReviewCandidateVariantIndex": true,
+    "additionalEvidenceQueueMustRetainWhyTheParentOccurrenceIsNonDiscriminating": true,
+    "markdownMustRetainExactSubjectInfoboxAndParentOccurrence": true,
+    "exportDoesNotRecordAReviewDecisionReviewerDateNotesEvidenceOrBoundVariant": true,
+    "confirmationWouldNotProveIdentityMembershipRepeatabilityMechanicsMappingCompletenessOrOptimizerEligibility": true,
+    "namesTitlesPageIdsRevisionsCandidateKeysLabelsAliasesAndOverridesCannotAlterPolicyBehavior": true,
+    "currentAccountStateIsForbidden": true,
+    "automaticVerificationAllowed": false
+  }
+}

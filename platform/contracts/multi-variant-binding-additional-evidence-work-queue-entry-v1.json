@@ -1,0 +1,31 @@
+{
+  "contract": "sensum.multi-variant-binding-additional-evidence-work-queue-entry.v1",
+  "required": [
+    "workQueueEntryKey",
+    "queueOrdinal",
+    "sourceDispositionRecordContentHash",
+    "sourceEvidencePacketContentHash",
+    "sourceDispositionKey",
+    "evidenceFingerprint",
+    "structuralCandidateKey",
+    "candidateRole",
+    "candidateDisplayName",
+    "subjectEvidence",
+    "parentOccurrenceEvidence",
+    "insufficiencyEvidence",
+    "requiredAdditionalEvidenceChannels",
+    "newEvidenceKeys",
+    "reviewCandidateVariantIndex",
+    "boundVariantIndex",
+    "accountIndependent",
+    "state"
+  ],
+  "rules": {
+    "oneEntryPerAdditionalEvidenceDisposition": true,
+    "sourceDispositionOrderIsPreserved": true,
+    "insufficiencyReasonAndExactEvidenceAreRetained": true,
+    "newEvidenceStartsEmpty": true,
+    "noReviewCandidateOrBoundVariantIsRecorded": true,
+    "noEntryIsOptimizerEligible": true
+  }
+}

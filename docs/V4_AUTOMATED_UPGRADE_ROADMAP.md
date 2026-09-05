@@ -43,6 +43,20 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+The seven multi-variant binding dispositions now export into two deterministic,
+disjoint queues. Five review-ready item bindings retain the exact subject
+infobox, parent occurrence, proposed-but-unbound numbered variant, evidence
+fingerprint, and blank decision template. High Priest and Reldo remain in a
+separate additional-evidence queue with no review-candidate index and no new
+evidence. The queue union covers all seven dispositions exactly once, preserves
+source order within each route, and revalidates all eight retained revisions,
+seven packet hashes, and seven dispositions. Two successful exports produced
+identical queue and artifact hashes. No review, evidence, binding, identity,
+membership, repeatability, mechanics, mapping, completeness, or optimizer state
+was created. The next checkpoint should add a fail-closed decision-import
+boundary for the five blank review templates without consuming the two blocked
+evidence-work entries.
+
 All seven multi-variant parent-occurrence evidence packets now have a generic,
 fail-closed sufficiency disposition. The transform revalidated all eight retained
 exact Wiki revisions, all seven packet hashes, the retained root infoboxes, and

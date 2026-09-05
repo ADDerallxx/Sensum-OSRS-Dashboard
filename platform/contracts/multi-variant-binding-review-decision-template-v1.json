@@ -1,0 +1,22 @@
+{
+  "contract": "sensum.multi-variant-binding-review-decision-template.v1",
+  "required": [
+    "queueEntryKey",
+    "sourceDispositionKey",
+    "sourceEvidencePacketContentHash",
+    "evidenceFingerprint",
+    "reviewCandidateVariantIndex",
+    "decisionSourceRevisions",
+    "allowedDecisions",
+    "decision",
+    "reviewer",
+    "reviewedAt",
+    "reviewNotes",
+    "state"
+  ],
+  "rules": {
+    "decisionReviewerDateNotesAndDecisionRevisionsStartBlank": true,
+    "templateBindsTheExactQueueEvidenceFingerprint": true,
+    "reviewCandidateVariantIndexIsNotABoundVariant": true
+  }
+}
