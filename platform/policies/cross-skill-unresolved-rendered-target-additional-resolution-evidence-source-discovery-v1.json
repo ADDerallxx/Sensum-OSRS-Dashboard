@@ -1,0 +1,51 @@
+{
+  "policy": "sensum.cross-skill-unresolved-rendered-target-additional-resolution-evidence-source-discovery-policy.v1",
+  "inputContract": "sensum.cross-skill-unresolved-rendered-target-resolution-additional-evidence-work-queue-entry.v1",
+  "recordContract": "sensum.cross-skill-unresolved-rendered-target-additional-resolution-evidence-source-discovery.v1",
+  "auditContract": "sensum.cross-skill-unresolved-rendered-target-additional-resolution-evidence-source-discovery-audit.v1",
+  "inputState": "blocked_pending_additional_source_bound_resolution_evidence",
+  "recordState": "revision_pinned_unresolved_rendered_target_additional_resolution_evidence_gates_closed",
+  "discovery": {
+    "categoryNamespaceId": 14,
+    "categoryNamespaceCanonicalName": "Category",
+    "maximumResultsPerQuery": 500,
+    "requireContinuationExhausted": true,
+    "retainCompleteCurrentRevisionSource": true,
+    "requiredAdditionalEvidenceChannels": [
+      "independent_revision_pinned_official_wiki_source_discovery",
+      "exact_title_redirect_move_and_deletion_history",
+      "pinned_guide_context_resolution"
+    ],
+    "queryKinds": [
+      "exact_current_category_info",
+      "complete_category_member_inventory",
+      "exact_category_prefix_inventory",
+      "namespace_title_phrase_search_without_prefix",
+      "namespace_text_phrase_search_without_prefix",
+      "complete_exact_title_log_history",
+      "exact_pinned_guide_revision_revalidation"
+    ]
+  },
+  "rules": {
+    "onePacketPerAdditionalEvidenceWorkEntry": true,
+    "inputQueueRecordAndSnapshotHashesMustRevalidate": true,
+    "onlyCategoryNamespaceTargetsUseThisCollector": true,
+    "namespaceMetadataMustComeFromTheOfficialWikiApi": true,
+    "exactCurrentCategoryInfoMustPreserveMissingPageAndCategoryInfoSeparately": true,
+    "categoryMembershipMustBeFullyEnumerated": true,
+    "everyCategoryMemberMustRetainItsCurrentRevisionAndExactCategoryOccurrence": true,
+    "categoryPrefixEnumerationMustBeFullyEnumerated": true,
+    "namespaceSearchesMustRemoveOnlyTheVerifiedNamespacePrefix": true,
+    "namespaceSearchCandidatesMustRetainTheirCurrentRevisions": true,
+    "exactTitleLogHistoryMustBeFullyEnumerated": true,
+    "everyPinnedGuideRevisionAndOccurrenceMustRefetchAndRevalidate": true,
+    "redlinkCategoryEvidenceIsNotMissingCategoryIdentityEvidence": true,
+    "discoveryEvidenceCannotSelectAResolutionOrCanonicalIdentity": true,
+    "sourceSilenceIsNotNegativeEvidence": true,
+    "explicitSourceBoundDispositionRemainsSeparateAndRequired": true,
+    "canonicalIdentityRepeatabilityMechanicsAndOptimizerEligibilityRemainClosed": true,
+    "namesTitlesPageIdsRevisionsAliasesAndOverridesCannotSelectAVerdict": true,
+    "currentAccountStateIsForbidden": true,
+    "automaticVerificationAllowed": false
+  }
+}

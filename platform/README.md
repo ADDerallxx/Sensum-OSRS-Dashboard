@@ -80,6 +80,14 @@ prove repeatability, or authorize ranking. Unmatched targets remain explicit so
 the crosswalk can be structurally complete without claiming a complete activity
 universe.
 
+Unresolved rendered category targets use a separate namespace-aware evidence
+collector. It preserves an absent category description page independently from
+MediaWiki's category state, fully enumerates category members and category-name
+prefixes, searches namespace 14 using only the prefix-stripped title, and
+refetches every member and retained guide at an exact revision. A redlink
+category with revision-pinned member source is evidence that the category is in
+use; it is not permission to select a canonical game entity or activity.
+
 The entity/activity candidate inventory gives every crosswalk record a
 deterministic review route. Exact cross-source page matches receive stable
 Wiki-page candidate keys; activity candidates require explicit source-scoped
@@ -323,6 +331,7 @@ node platform/ingestion/ingest-wiki-unlock-linked-page-source-signatures.mjs
 node platform/ingestion/ingest-wiki-skill-training-guide-direct-links.mjs
 node platform/ingestion/ingest-wiki-skill-training-guide-source-dependencies.mjs
 node platform/ingestion/ingest-wiki-skill-training-guide-rendered-links.mjs
+node platform/ingestion/ingest-wiki-cross-skill-unresolved-rendered-target-additional-resolution-evidence-source-discovery.mjs
 node platform/transforms/build-unlock-statement-semantic-crosswalk.mjs
 node platform/transforms/build-unlock-linked-page-entity-types.mjs
 node platform/transforms/build-unlock-linked-page-wiki-equivalence.mjs

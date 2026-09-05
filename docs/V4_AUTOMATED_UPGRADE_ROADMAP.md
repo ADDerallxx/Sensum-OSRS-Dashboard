@@ -43,6 +43,28 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+The two unresolved category-title obligations now have namespace-aware,
+source-bound additional-resolution-evidence packets. Official Wiki namespace
+metadata confirms namespace 14 as `Category`; exact current queries preserve
+the distinction between a missing category description page and an active
+category API identity. Both `Category:Farming guides` and
+`Category:Ironman Mode guides` are redlink categories with one fully enumerated
+member each. That member is `Ironman Guide/Farming`, whose current revision is
+the already retained revision 15321988; its complete source independently
+contains the corresponding exact category link and revalidates source hash
+`be01a84ef931ba5555d4e2e543da7bcfea13eb5c5de886ad092e4898a1649e30`.
+Two exact prefix inventories contain both category names, four prefix-stripped
+namespace searches are complete, and both exact-title log histories remain
+empty. Two independent official-Wiki runs produced the identical two-record
+snapshot hash
+`9d930f0f2065f3400e53e4cdcbb1cd135f83ccf8f4ee4a0a759a7dccf9536893`.
+No resolution, review, canonical identity, repeatability classification,
+mechanics verdict, or optimizer promotion was created. All 216 regression tests
+pass. The next unattended checkpoint should apply a generic fail-closed
+evidence-sufficiency disposition to these two packets, recognizing redlink
+category evidence without allowing the title, member, or category name to
+select a semantic result.
+
 The three unresolved rendered-target resolution-review templates now have a
 fail-closed decision-import boundary. A completed submission must preserve its
 exact queue record, queue snapshot, disposition, evidence record, both upstream

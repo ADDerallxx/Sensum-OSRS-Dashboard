@@ -1,0 +1,23 @@
+{
+  "contract": "sensum.cross-skill-unresolved-rendered-target-additional-resolution-evidence-source-discovery-audit.v1",
+  "required": [
+    "inputCoverage",
+    "policyCoverage",
+    "pinnedGuideIntegrityCoverage",
+    "namespaceMetadataCoverage",
+    "categoryIdentityCoverage",
+    "categoryMemberCoverage",
+    "categoryPrefixCoverage",
+    "namespaceSearchCoverage",
+    "titleHistoryCoverage",
+    "requiredChannelCoverage",
+    "semanticPreservationCoverage",
+    "accountStateFindings",
+    "evidencePacketCaptureComplete",
+    "resolutionEvidenceSufficiencyDispositionComplete",
+    "completeActivityUniverse",
+    "absoluteBestGate",
+    "blockers",
+    "publishable"
+  ]
+}
