@@ -1,0 +1,25 @@
+{
+  "contract": "sensum.structural-member-candidate-semantic-gap-evidence-work-routing.v1",
+  "required": [
+    "memberCandidateKey",
+    "sourceStructuralMemberCandidateIdentityEvidenceDispositionContentHash",
+    "structuralMemberCandidateIdentityDispositions",
+    "structuralMemberCandidateSemanticGapEvidenceWorkRouting",
+    "parentMemberCandidateIdentityAndCompletenessEvidenceWorkRouting",
+    "memberExpansionReview",
+    "mechanicsReview",
+    "optimizerEligible",
+    "accountIndependent",
+    "blockers",
+    "state"
+  ],
+  "rules": {
+    "oneRecordPerEligibleSemanticDisposition": true,
+    "allUpstreamFieldsMustBePreserved": true,
+    "candidateIdentityTypeRelationshipAndMembershipWorkMustRemainSeparate": true,
+    "parentMappingAndCompleteUniverseWorkMustRemainSeparate": true,
+    "allWorkItemsMustStartBlockedEmptyAndWithoutVerdicts": true,
+    "routingCannotPromoteIdentityPageTypeRelationshipMembershipCompletenessRepeatabilityMechanicsOrOptimizerEligibility": true,
+    "priorEvidenceWorkRoutingMustRemainUnchanged": true
+  }
+}

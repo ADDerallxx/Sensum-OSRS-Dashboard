@@ -43,6 +43,21 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+The remaining structural-candidate semantic gaps now have a generic six-branch
+evidence-work route. All 59 candidates receive a separate reviewed identity and
+variant-scope obligation. The one untyped switch-infobox page receives a page-
+type obligation; all 59 supported structural relationships receive a distinct
+weighted parent-entry membership obligation; no relationship-reconciliation
+item is needed for the current packet. Declared-total one-to-one mapping and
+complete-universe reconciliation remain two separate parent-level obligations.
+The resulting 121 work items are all blocked, carry zero evidence keys and zero
+verdicts, and cannot complete identity, page type, relationship, membership,
+mapping, completeness, repeatability, mechanics, or optimizer gates. Two
+transforms produced the same output hash and the complete 111-test platform
+suite passed. The next checkpoint should collect revision-pinned evidence
+packets for the routed obligations without treating packet availability as a
+review verdict or complete member universe.
+
 The 59 structural candidate identity packets now have a generic, fail-closed
 semantic disposition. All 59 exact source revisions, hashes, byte counts,
 candidate work-item bindings, and pinned parent occurrences revalidated. Exact

@@ -1,0 +1,68 @@
+{
+  "policy": "sensum.structural-member-candidate-semantic-gap-evidence-work-routing-policy.v1",
+  "inputContract": "sensum.structural-member-candidate-identity-evidence-disposition.v1",
+  "recordContract": "sensum.structural-member-candidate-semantic-gap-evidence-work-routing.v1",
+  "auditContract": "sensum.structural-member-candidate-semantic-gap-evidence-work-routing-audit.v1",
+  "inputState": "structural_member_candidate_identity_semantic_disposition_recorded_gates_closed",
+  "candidateBranches": [
+    {
+      "branchKey": "reviewed_structural_candidate_member_identity_and_variant_scope_evidence",
+      "workKind": "revision_pinned_candidate_member_identity_and_variant_scope_evidence",
+      "selector": "all_candidate_dispositions",
+      "evidenceObjective": "Establish the reviewed candidate member identity and exact variant scope from revision-pinned authoritative evidence without treating a stable Wiki page or source-page type as canonical game-entity identity.",
+      "requiredChannels": ["exact_subject_declaration","variant_and_multi_type_scope","source_role_to_subject_binding","reviewed_member_identity_decision"]
+    },
+    {
+      "branchKey": "unresolved_source_page_entity_type_evidence",
+      "workKind": "variant_aware_source_page_entity_type_evidence",
+      "selector": "untyped_source_page",
+      "evidenceObjective": "Resolve an untyped source page through generic variant-aware source structure and exact subject binding without title-specific rules or nested-template promotion.",
+      "requiredChannels": ["variant_container_structure","nested_subject_variant_binding","exact_top_level_subject_scope","reviewed_source_page_type_decision"]
+    },
+    {
+      "branchKey": "structural_parent_relationship_reconciliation_evidence",
+      "workKind": "exact_parent_structure_role_and_subject_reconciliation_evidence",
+      "selector": "unsupported_structural_parent_relationship",
+      "evidenceObjective": "Reconcile an unsupported candidate role and parent-source relationship using exact revision-pinned structure before any membership question is considered.",
+      "requiredChannels": ["exact_parent_occurrence","candidate_role_scope","source_page_type_coherence","reviewed_structural_relationship_decision"]
+    },
+    {
+      "branchKey": "weighted_parent_task_entry_membership_evidence",
+      "workKind": "authoritative_weighted_parent_task_entry_membership_evidence",
+      "selector": "supported_structural_parent_relationship",
+      "evidenceObjective": "Establish whether the structurally related candidate is one weighted parent task entry, including duplicate, alias, variant, and selection-weight treatment, without deriving membership from structure or arithmetic equality.",
+      "requiredChannels": ["explicit_weighted_entry_membership","parent_selection_scope","duplicate_alias_and_variant_treatment","reviewed_weighted_membership_decision"]
+    }
+  ],
+  "parentBranches": [
+    {
+      "branchKey": "declared_total_one_to_one_member_mapping_evidence",
+      "workKind": "authoritative_parent_total_to_member_mapping_evidence",
+      "evidenceObjective": "Obtain revision-pinned authoritative evidence that explicitly maps each reviewed weighted member entry to the declared total without using arithmetic equality as proof.",
+      "requiredChannels": ["explicit_parent_member_mapping","declared_total_scope_and_revision","duplicate_alias_and_variant_treatment","one_to_one_mapping_review"]
+    },
+    {
+      "branchKey": "complete_member_universe_reconciliation_evidence",
+      "workKind": "authoritative_complete_member_universe_and_source_limitation_reconciliation",
+      "evidenceObjective": "Resolve non-exhaustive, missing, contradictory, composite, and condition-scoped source limitations before the complete member universe can be reviewed.",
+      "requiredChannels": ["complete_parent_member_enumeration","source_limitation_reconciliation","independent_authoritative_coverage_check","complete_universe_review"]
+    }
+  ],
+  "rules": {
+    "oneRoutingRecordPerEligibleSemanticDisposition": true,
+    "everyCandidateReceivesOneIdentityAndVariantScopeWorkItem": true,
+    "onlyUntypedPagesReceiveSourcePageTypeWork": true,
+    "supportedStructuralRelationshipsReceiveWeightedMembershipWorkNotMembershipVerdicts": true,
+    "unsupportedStructuralRelationshipsReceiveReconciliationWorkBeforeMembershipWork": true,
+    "candidateIdentityPageTypeRelationshipMembershipMappingAndUniverseBranchesRemainSeparate": true,
+    "oneToOneMappingAndCompleteUniverseReconciliationRemainSeparate": true,
+    "routingUsesOnlyAuditedGenericDispositionStatesAndPreservedSourceContext": true,
+    "routeSelectionCannotUseNamesTitlesPageIdsCandidateKeysLabelsAliasesOrOverrides": true,
+    "everyWorkItemStartsBlockedWithoutEvidenceKeysOrVerdicts": true,
+    "routingCannotCompleteEvidenceIdentityPageTypeRelationshipMembershipMappingOrCompleteness": true,
+    "inputEvidenceRevisionsStructuresDispositionsAndPriorRoutingMustBePreserved": true,
+    "repeatabilityMemberExpansionMechanicsAndOptimizerVerdictsRemainUnchanged": true,
+    "currentAccountStateIsForbidden": true,
+    "automaticVerificationAllowed": false
+  }
+}

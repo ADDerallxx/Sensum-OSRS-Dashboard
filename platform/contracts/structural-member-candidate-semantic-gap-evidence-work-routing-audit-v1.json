@@ -1,0 +1,28 @@
+{
+  "contract": "sensum.structural-member-candidate-semantic-gap-evidence-work-routing-audit.v1",
+  "required": [
+    "inputCoverage",
+    "policyCoverage",
+    "routingCoverage",
+    "branchSeparationCoverage",
+    "semanticPreservationCoverage",
+    "accountStateFindings",
+    "routingCoverageComplete",
+    "evidenceWorkComplete",
+    "memberIdentityReviewComplete",
+    "memberExpansionComplete",
+    "mechanicsReviewComplete",
+    "optimizerEligibleCount",
+    "completeActivityUniverse",
+    "absoluteBestGate",
+    "blockers",
+    "publishable"
+  ],
+  "rules": {
+    "everyEligibleSemanticDispositionMustProduceExactlyOneRoute": true,
+    "workItemCountsMustMatchGenericDispositionStateSelectors": true,
+    "allSixSemanticBranchesMustRemainDistinct": true,
+    "inputOutputContextMustMatchExactly": true,
+    "unsupportedEvidenceVerdictsPromotionsAndAccountStateMustFailClosed": true
+  }
+}
