@@ -1,0 +1,27 @@
+{
+  "policy": "sensum.cross-skill-rendered-page-without-unlock-evidence-target-source-signature-policy.v1",
+  "inputQueueContract": "sensum.cross-skill-rendered-page-without-unlock-evidence-reconciliation-work-queue-entry.v1",
+  "recordContract": "sensum.cross-skill-rendered-page-without-unlock-evidence-target-source-signature.v1",
+  "auditContract": "sensum.cross-skill-rendered-page-without-unlock-evidence-target-source-signature-shard-audit.v1",
+  "maximumShardSize": 250,
+  "evidenceScope": [
+    "exact_source_content_at_queue_bound_official_wiki_revision",
+    "mediawiki_namespace",
+    "root_template_inventory",
+    "direct_category_inventory",
+    "lead_paragraphs_before_first_heading",
+    "complete_source_heading_inventory"
+  ],
+  "rules": {
+    "queueShardMustBeContiguousInQueueOrder": true,
+    "queueSnapshotAndEntryIntrinsicHashesMustRevalidate": true,
+    "everySelectedQueueEntryMustProduceExactlyOneSignature": true,
+    "fetchedContentMustUseTheQueueBoundExactRevisionId": true,
+    "pageIdRevisionTimestampTitleNamespaceUrlHashAndBytesMustReconcile": true,
+    "sourceStructureRemainsEvidenceNotSemanticVerdict": true,
+    "shardCompletionCannotClaimPopulationCompletion": true,
+    "canonicalIdentityRepeatabilityMechanicsAndOptimizerEligibilityRemainClosed": true,
+    "currentAccountStateIsForbidden": true,
+    "automaticVerificationAllowed": false
+  }
+}

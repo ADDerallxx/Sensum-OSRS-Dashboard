@@ -43,6 +43,22 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+The no-unlock-evidence target-source collector now has a bounded, deterministic,
+fail-closed shard boundary, and official Wiki signatures are captured for queue
+ordinals 1–250. Every packet binds the exact queue snapshot and entry, stable
+page ID, retained revision, timestamp, title, namespace, URL, full-source hash,
+byte and line counts, root templates, direct categories, lead paragraphs, and
+complete heading inventory. All 250 exact revisions aligned; they span 233 main,
+16 file, and one category page and preserve 1,802,041 source bytes, 2,905 root
+templates, 162 direct categories, 675 lead paragraphs, and 1,860 headings. Two
+official-Wiki fetches produced the same 250-record hash. The shard is complete,
+but the population is explicitly incomplete: 4,475 queue entries remain. No
+semantic review, unlock, canonical identity, activity, repeatability, mechanics,
+automatic verification, or optimizer promotion was created. All 270 regression
+tests pass. The next checkpoint should collect the same exact-revision evidence
+for queue ordinals 251–500; full source-signature coverage must not be claimed
+until all shards are consolidated and revalidated.
+
 The complete 4,725-page no-unlock-evidence inventory now exports as an exact,
 source-bound reconciliation work queue. Every entry binds its partition record,
 original candidate record, both snapshot hashes, stable Wiki page and revision,

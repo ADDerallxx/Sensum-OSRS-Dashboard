@@ -644,3 +644,18 @@ Run:
 ```text
 node platform/transforms/export-cross-skill-rendered-page-without-unlock-evidence-reconciliation-work-queue.mjs
 ```
+
+`ingest-wiki-cross-skill-rendered-page-without-unlock-evidence-target-source-signature-shard.mjs`
+fetches a bounded contiguous queue range by exact retained revision ID. Every
+packet records the page identity, namespace, full-source hash and size, root
+templates, direct categories, lead paragraphs, and headings while leaving all
+semantic and optimizer fields closed. Shards are limited to 250 entries; a
+successful shard is not full-population coverage. Use explicit `--start` and
+`--limit` values so collection can resume deterministically, then consolidate
+and revalidate every shard before claiming complete signature coverage.
+
+Run:
+
+```text
+node platform/ingestion/ingest-wiki-cross-skill-rendered-page-without-unlock-evidence-target-source-signature-shard.mjs --start=1 --limit=250
+```

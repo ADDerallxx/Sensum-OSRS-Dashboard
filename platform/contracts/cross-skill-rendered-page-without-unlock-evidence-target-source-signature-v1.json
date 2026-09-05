@@ -1,0 +1,24 @@
+{
+  "contract": "sensum.cross-skill-rendered-page-without-unlock-evidence-target-source-signature.v1",
+  "required": [
+    "signatureKey", "sourceWorkQueueEntryKey", "sourceWorkQueueEntryContentHash",
+    "sourceWorkQueueEntryIntrinsicContentHash", "sourceWorkQueueSnapshotContentHash",
+    "queueOrdinal", "partitionOrdinal", "provenancePartition", "renderedTargetKey",
+    "requestedTitles", "observedNamespaceIds", "sourcePageId", "sourceNamespaceId",
+    "resolvedTitle", "sourceRevision", "sourceTimestamp", "sourceUrl", "sourceContentHash",
+    "sourceContentBytes", "sourceLineCount", "revisionAlignment", "rootTemplateEvidence",
+    "directCategoryEvidence", "leadParagraphEvidence", "headingEvidence",
+    "sourceScopedSemanticRelevanceReview", "unlockEvidencePresent", "canonicalGameEntityIdentity",
+    "canonicalActivityIdentity", "repeatabilityClassification", "mechanicsReviewComplete",
+    "optimizerEligible", "automaticVerificationApplied", "accountIndependent", "blockers",
+    "state", "recordContentHash"
+  ],
+  "rules": {
+    "oneSignaturePerSelectedQueueEntry": true,
+    "signatureBindsTheExactQueueSnapshotAndEntry": true,
+    "sourceContentUsesTheExactQueueBoundRevision": true,
+    "sourceHashAndStructuralEvidenceAreReproducible": true,
+    "semanticReviewStartsBlank": true,
+    "semanticAndOptimizerGatesRemainClosed": true
+  }
+}
