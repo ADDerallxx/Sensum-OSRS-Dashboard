@@ -1,0 +1,31 @@
+{
+  "policy": "sensum.cross-skill-rendered-page-without-unlock-evidence-reconciliation-work-queue-export-policy.v1",
+  "inputPartitionContract": "sensum.cross-skill-rendered-page-without-unlock-evidence-partition.v1",
+  "inputCandidateContract": "sensum.cross-source-entity-activity-candidate.v1",
+  "outputContract": "sensum.cross-skill-rendered-page-without-unlock-evidence-reconciliation-work-queue-entry.v1",
+  "auditContract": "sensum.cross-skill-rendered-page-without-unlock-evidence-reconciliation-work-queue-export-audit.v1",
+  "partitionOrder": [
+    "direct_source_only",
+    "mixed_direct_and_unattributed_rendered",
+    "rendered_only_origin_unattributed"
+  ],
+  "evidenceChannels": [
+    "revision_pinned_target_source_signature",
+    "source_scoped_semantic_relevance_disposition",
+    "level_unlock_corpus_absence_reconciliation",
+    "historical_rendered_expansion_dependency_attribution"
+  ],
+  "rules": {
+    "everyValidPartitionRecordMustEnterTheQueueExactlyOnce": true,
+    "partitionCandidateAndBothSnapshotHashesMustRevalidate": true,
+    "queueOrderMustBePartitionThenRenderedTargetKey": true,
+    "requiredEvidenceChannelsMustExactlyPreserveThePartitionRoute": true,
+    "everyEntryMustRetainStableWikiIdentityAndSourcePopulationBindings": true,
+    "evidenceCollectionMustStartEmpty": true,
+    "historicalAttributionIsRequiredOnlyWhenThePartitionRequiresIt": true,
+    "titlesNamespacesPageIdsParserChannelsAndOverridesCannotAlterWorkRouting": true,
+    "queueExportCannotEstablishUnlockSemanticIdentityRepeatabilityMechanicsOrOptimizerState": true,
+    "currentAccountStateIsForbidden": true,
+    "automaticVerificationAllowed": false
+  }
+}

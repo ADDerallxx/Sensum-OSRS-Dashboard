@@ -43,6 +43,23 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+The complete 4,725-page no-unlock-evidence inventory now exports as an exact,
+source-bound reconciliation work queue. Every entry binds its partition record,
+original candidate record, both snapshot hashes, stable Wiki page and revision,
+requested titles, namespaces, per-page observation-set hash, and guide-binding
+hash. Queue ordering is deterministic by provenance partition and target key.
+All entries require revision-pinned target-source signatures, source-scoped
+semantic relevance, and level-unlock-corpus absence reconciliation; only the
+2,637 mixed or rendered-only entries also require historical rendered-expansion
+dependency attribution. Evidence collection starts empty. Two real exports
+produced identical 4,725-record and readable-queue hashes while preserving
+21,051 observations and 81 distinct guide revisions. No unlock, semantic
+disposition, canonical identity, activity, repeatability, mechanics, automatic
+verification, or optimizer state was created. All 258 regression tests pass.
+The next checkpoint should collect revision-pinned target-source signature
+packets from this exact queue while retaining unresolved semantic and historical
+attribution work as explicit blockers.
+
 The 4,725 stable rendered pages without matching unlock evidence now have an
 exact, generic provenance partition. All 21,051 retained guide observations and
 81 guide-revision bindings revalidate against the source candidate snapshot:

@@ -629,3 +629,18 @@ Run:
 ```text
 node platform/transforms/partition-cross-skill-rendered-pages-without-unlock-evidence.mjs
 ```
+
+`export-cross-skill-rendered-page-without-unlock-evidence-reconciliation-work-queue.mjs`
+turns that complete partition into one deterministic, source-bound work entry
+per page. Each entry binds the partition and original candidate snapshots,
+stable Wiki identity and revision, observation-set and guide-binding hashes,
+and the exact evidence channels required by its provenance route. The readable
+queue mirrors all machine entries. Evidence fields start empty, and the export
+cannot establish an unlock, semantic identity, activity, repeatability result,
+mechanics verdict, automatic verification, or optimizer state.
+
+Run:
+
+```text
+node platform/transforms/export-cross-skill-rendered-page-without-unlock-evidence-reconciliation-work-queue.mjs
+```
