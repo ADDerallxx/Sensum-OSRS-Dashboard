@@ -43,6 +43,21 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+The canonical-subject-scope review queue now has a fail-closed decision-import
+boundary. A completed row must preserve the exact queue, disposition,
+evidence-packet, evidence-fingerprint, and source-revision bindings; it must
+also provide an explicit human reviewer, a non-predating UTC review timestamp,
+and review notes. Partial human batches are allowed, while partially completed,
+stale, unknown, duplicated, machine-authored, account-scoped, variant-selecting,
+or tampered rows reject the entire batch. Recording a review remains separate
+from applying its semantic disposition, and cannot itself select a numbered
+variant or create identity, membership, repeatability, mechanics, mapping,
+completeness, or optimizer state. The real two-row blank template revalidated
+both queue records, was rejected with zero decisions, and wrote no output. The
+next unattended checkpoint should pivot to revision-pinned evidence packets for
+the 59 weighted parent-task entry membership obligations while the explicit
+human review queues remain pending.
+
 The two canonical-subject-scope dispositions now have a deterministic,
 source-bound human-review queue that is separate from exact numbered-variant
 review. The exporter independently revalidates the disposition and evidence

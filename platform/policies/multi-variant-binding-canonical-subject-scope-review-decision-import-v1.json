@@ -1,0 +1,35 @@
+{
+  "policy": "sensum.multi-variant-binding-canonical-subject-scope-review-decision-import-policy.v1",
+  "queueContract": "sensum.multi-variant-binding-canonical-subject-scope-review-queue-entry.v1",
+  "submissionContract": "sensum.multi-variant-binding-canonical-subject-scope-review-decision-template.v1",
+  "recordContract": "sensum.multi-variant-binding-canonical-subject-scope-review-decision.v1",
+  "auditContract": "sensum.multi-variant-binding-canonical-subject-scope-review-decision-import-audit.v1",
+  "queueState": "pending_explicit_source_bound_canonical_subject_scope_review",
+  "recordState": "recorded_source_bound_canonical_subject_scope_review_decision_pending_semantic_disposition",
+  "allowedDecisions": [
+    "confirm_parent_occurrence_refers_to_canonical_subject_across_numbered_variants",
+    "require_exact_numbered_variant_binding",
+    "reject_parent_occurrence_subject_relation",
+    "needs_additional_evidence"
+  ],
+  "rules": {
+    "oneRecordedDecisionPerCompletedSubmission": true,
+    "partialReviewBatchesAreAllowed": true,
+    "blankTemplateRowsAreIgnored": true,
+    "partiallyCompletedRowsAreRejected": true,
+    "anyInvalidRowRejectsTheEntireBatch": true,
+    "queueManifestRecordAndTemplateHashesMustRevalidate": true,
+    "submissionMustMatchEveryImmutableQueueDispositionPacketAndEvidenceBinding": true,
+    "decisionMustBeExplicitlyAllowed": true,
+    "reviewerReviewedAtSourceRevisionsAndNotesAreRequired": true,
+    "reviewedAtMustNotPrecedeTheNewestBoundEvidenceTimestamp": true,
+    "decisionSourceRevisionsMustExactlyMatchTheQueueEvidenceScope": true,
+    "obviousAutomaticOrModelReviewerNamesAreRejected": true,
+    "reviewCandidateAndBoundVariantMustRemainNull": true,
+    "canonicalSubjectConfirmationDoesNotBindANumberedVariant": true,
+    "recordingADecisionDoesNotApplyCanonicalScopeIdentityMembershipRepeatabilityRequirementsXpTimingMechanicsMappingCompletenessOrOptimizerVerdicts": true,
+    "namesTitlesPageIdsRevisionsCandidateKeysLabelsAliasesAndOverridesCannotAlterPolicyBehavior": true,
+    "currentAccountStateIsForbidden": true,
+    "automaticVerificationAllowed": false
+  }
+}

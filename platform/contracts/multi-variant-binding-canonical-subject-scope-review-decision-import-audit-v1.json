@@ -1,0 +1,29 @@
+{
+  "contract": "sensum.multi-variant-binding-canonical-subject-scope-review-decision-import-audit.v1",
+  "required": [
+    "queueCoverage",
+    "submissionCoverage",
+    "policyCoverage",
+    "bindingCoverage",
+    "recordCoverage",
+    "semanticPreservationCoverage",
+    "accountStateFindings",
+    "reviewDecisionRecordingComplete",
+    "canonicalSubjectScopeReviewComplete",
+    "variantBindingReviewComplete",
+    "optimizerEligibleCount",
+    "completeActivityUniverse",
+    "absoluteBestGate",
+    "blockers",
+    "publishable"
+  ],
+  "rules": {
+    "queueSnapshotAndEveryQueueRecordMustRevalidate": true,
+    "everyCompletedSubmissionMustMatchExactlyOneQueueEntry": true,
+    "blankRowsMayBeIgnoredButPartialRowsMustFail": true,
+    "anyInvalidSubmissionMakesTheBatchAtomicAndUnpublishable": true,
+    "recordedDecisionSetMustExactlyMatchTheCompletedSubmissionSet": true,
+    "recordingCannotApplyCanonicalScopeOrCreateVariantSemanticOrOptimizerPromotion": true,
+    "accountStateMustFailPublication": true
+  }
+}

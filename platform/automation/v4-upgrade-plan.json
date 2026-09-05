@@ -159,7 +159,8 @@
         "multi_variant_binding_review_decision_import_contract",
         "multi_variant_binding_additional_evidence_source_discovery_packets",
         "generic_multi_variant_binding_additional_evidence_sufficiency_disposition",
-        "multi_variant_binding_canonical_subject_scope_review_queue_export"
+        "multi_variant_binding_canonical_subject_scope_review_queue_export",
+        "multi_variant_binding_canonical_subject_scope_review_decision_import_contract"
       ],
       "remainingWork": [
         "Use the 1,909-entry revision-aligned semantic-review queue to establish canonical game-entity and activity identities from retained source signatures and contexts, then prove repeatability, membership, requirements, variants, XP, timing, mechanics, and authoritative exclusions. Begin with the 29 explicit activity-page candidates, but do not treat activity/minigame page type as repeatability proof; distinguish reference collections and composites from actual trainable method variants. Reconcile 68 queued untyped pages, 4,725 stable rendered pages without unlock evidence, 1,565 unlock pages without rendered-guide evidence, five unresolved rendered targets, the wider unlock set's 137 untyped pages and 31 activity pages, and 51 ambiguous statement forms. Historical template-expansion provenance remains open because dependency revision IDs and the generative origins of 16,284 rendered-only observations are unavailable. Continue independent discovery until every repeatable training activity in every skill is enumerated. The central guide index's composite Combat row and four Defence link disagreements remain explicit. Rockslide pairing still requires complete activity and travel graphs.",
@@ -176,12 +177,21 @@
         "independentGameUniverseDiscoveryPending": true
       },
       "latestCheckpoint": {
-        "id": "multi_variant_binding_canonical_subject_scope_review_queue_export",
-        "result": "2_of_2_dispositions_2_of_2_source_packets_revalidated; 3_of_3_pinned_sources_44_of_44_current_sources_13_context_observations_13_numbered_identity_observations_0_exact_task_variant_alignments; 2_source_bound_canonical_scope_review_entries_2_blank_templates_0_exact_variant_review_entries; compact_exact_matched_line_artifact_21677_bytes; 0_review_decisions_0_variant_indices_0_bindings_0_semantic_verdicts_0_optimizer_promotions; byte_deterministic",
-        "next": "multi_variant_binding_canonical_subject_scope_review_decision_import_contract"
+        "id": "multi_variant_binding_canonical_subject_scope_review_decision_import_contract",
+        "result": "2_of_2_queue_records_revalidated; real_2_row_blank_template_rejected_atomically_with_expected_exit_2; 0_completed_2_blank_0_invalid_submissions_0_recorded_decisions; 0_output_snapshots_before_and_after; 0_canonical_scope_0_variant_0_identity_0_membership_0_repeatability_0_mechanics_0_mapping_0_completeness_0_optimizer_promotions",
+        "next": "revision_pinned_weighted_parent_task_entry_membership_evidence_packets"
       },
       "latestCoverageDelta": {
         "officialSkillDomainsMeasured": 24,
+        "canonicalSubjectScopeReviewDecisionQueueEntries": 2,
+        "canonicalSubjectScopeReviewDecisionCompleteQueueRecords": 2,
+        "canonicalSubjectScopeReviewDecisionSubmissionRows": 2,
+        "canonicalSubjectScopeReviewDecisionCompletedSubmissions": 0,
+        "canonicalSubjectScopeReviewDecisionBlankSubmissions": 2,
+        "canonicalSubjectScopeReviewDecisionInvalidSubmissions": 0,
+        "canonicalSubjectScopeReviewDecisionsRecorded": 0,
+        "canonicalSubjectScopeReviewDecisionOutputSnapshotsBefore": 0,
+        "canonicalSubjectScopeReviewDecisionOutputSnapshotsAfter": 0,
         "inputAdditionalEvidenceWorkQueueEntries": 2,
         "outputAdditionalEvidenceSourcePackets": 2,
         "inputAdditionalEvidenceSourcePackets": 2,
@@ -225,7 +235,33 @@
         "optimizerEligibleActivitiesAdded": 0,
         "currentAccountFieldsAllowed": 0,
         "inventedFacts": 0,
-        "reason": "Both ambiguous NPC cases now have compact, source-bound canonical-subject-scope review entries and blank decision templates. The exact numbered-variant queue remains separate; selecting the Normal or any numbered variant remains an unsupported inference."
+        "reason": "The canonical-subject-scope queue now has an atomic, source-bound human decision-import boundary. The real blank template was rejected without output; no review or semantic state was fabricated. Automated work can now advance the 59 weighted parent-task entry membership obligations while the explicit human reviews remain pending."
+      },
+      "latestMultiVariantBindingCanonicalSubjectScopeReviewDecisionImportSafetyCheck": {
+        "policy": "sensum.multi-variant-binding-canonical-subject-scope-review-decision-import-policy.v1",
+        "policyContentHash": "744a51cfcba3865d2345ec668f31c0ad2ab4b10e1b4553b830f250da289ae448",
+        "inputSnapshotDirectory": "2026-09-05T10-47-40-038Z",
+        "inputSnapshotContentHash": "ab41bbb9731aa3cea555eb960fb6dcb4c4686de6d9b659dab514a0a19fda12cf",
+        "submissionContentHash": "93478f7f51dcb7a9df94d40464d7934b950e5c0dc3ec4cfdb8b9f7cdc23ba9f4",
+        "queueEntryCount": 2,
+        "completeQueueRecordCount": 2,
+        "submissionRowCount": 2,
+        "completedSubmissionCount": 0,
+        "blankSubmissionCount": 2,
+        "invalidSubmissionCount": 0,
+        "recordedDecisionCount": 0,
+        "reviewDecisionRecordingComplete": false,
+        "canonicalSubjectScopeReviewComplete": false,
+        "variantBindingReviewComplete": false,
+        "semanticDispositionAppliedCount": 0,
+        "decisionOutputSnapshotCountBefore": 0,
+        "decisionOutputSnapshotCountAfter": 0,
+        "outputWritten": false,
+        "optimizerEligibleCount": 0,
+        "completeActivityUniverse": false,
+        "absoluteBestGate": "blocked_incomplete_activity_universe",
+        "publishable": false,
+        "expectedSafetyBlocker": "no_completed_review_decisions_submitted"
       },
       "latestMultiVariantBindingCanonicalSubjectScopeReviewQueueExportAudit": {
         "generatedAt": "2026-09-05T10:47:40.043Z",
