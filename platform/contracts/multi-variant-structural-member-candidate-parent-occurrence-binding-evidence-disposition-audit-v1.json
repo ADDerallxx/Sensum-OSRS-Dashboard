@@ -1,0 +1,26 @@
+{
+  "contract": "sensum.multi-variant-structural-member-candidate-parent-occurrence-binding-evidence-disposition-audit.v1",
+  "required": [
+    "inputCoverage",
+    "policyCoverage",
+    "sourceEvidenceIntegrityCoverage",
+    "packetDispositionCoverage",
+    "sufficiencyDispositionCoverage",
+    "semanticPreservationCoverage",
+    "accountStateFindings",
+    "dispositionCoverageComplete",
+    "variantBindingReviewComplete",
+    "optimizerEligibleCount",
+    "completeActivityUniverse",
+    "absoluteBestGate",
+    "blockers",
+    "publishable"
+  ],
+  "rules": {
+    "eligibleInputAndOutputSetsMustMatchExactly": true,
+    "allRetainedSourcesPacketsAndUpstreamEvidenceMustRevalidate": true,
+    "eachPacketMustReceiveExactlyOneGenericDisposition": true,
+    "reviewReadinessMustMatchOnlyTheGenericExactUniqueMatchRule": true,
+    "unsupportedMutationDecisionPromotionOrAccountStateMustFailPublication": true
+  }
+}

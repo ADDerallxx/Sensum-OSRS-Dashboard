@@ -153,7 +153,8 @@
         "source_bound_structural_member_candidate_identity_review_packet_materialization",
         "source_bound_structural_member_candidate_identity_review_queue_export",
         "source_bound_structural_member_candidate_identity_review_decision_import_contract",
-        "multi_variant_structural_member_candidate_parent_occurrence_binding_evidence_packets"
+        "multi_variant_structural_member_candidate_parent_occurrence_binding_evidence_packets",
+        "generic_multi_variant_structural_member_candidate_parent_occurrence_binding_evidence_disposition"
       ],
       "remainingWork": [
         "Use the 1,909-entry revision-aligned semantic-review queue to establish canonical game-entity and activity identities from retained source signatures and contexts, then prove repeatability, membership, requirements, variants, XP, timing, mechanics, and authoritative exclusions. Begin with the 29 explicit activity-page candidates, but do not treat activity/minigame page type as repeatability proof; distinguish reference collections and composites from actual trainable method variants. Reconcile 68 queued untyped pages, 4,725 stable rendered pages without unlock evidence, 1,565 unlock pages without rendered-guide evidence, five unresolved rendered targets, the wider unlock set's 137 untyped pages and 31 activity pages, and 51 ambiguous statement forms. Historical template-expansion provenance remains open because dependency revision IDs and the generative origins of 16,284 rendered-only observations are unavailable. Continue independent discovery until every repeatable training activity in every skill is enumerated. The central guide index's composite Combat row and four Defence link disagreements remain explicit. Rockslide pairing still requires complete activity and travel graphs.",
@@ -170,22 +171,20 @@
         "independentGameUniverseDiscoveryPending": true
       },
       "latestCheckpoint": {
-        "id": "multi_variant_structural_member_candidate_parent_occurrence_binding_evidence_packets",
-        "result": "1_of_1_route_records; 8_of_8_exact_revisions_revalidated; 7_of_7_packets_complete; 5_unique_exact_numbered_name_matches_review_ready; 2_shared_unnumbered_npc_names_non_discriminating_blocked; 0_binding_decisions_0_bound_variants_0_promotions; byte_deterministic",
-        "next": "generic_multi_variant_structural_member_candidate_parent_occurrence_binding_evidence_disposition"
+        "id": "generic_multi_variant_structural_member_candidate_parent_occurrence_binding_evidence_disposition",
+        "result": "1_of_1_evidence_records; 8_of_8_exact_revisions_revalidated; 7_of_7_packets_revalidated_and_dispositioned; 5_routed_to_explicit_source_bound_review; 2_shared_unnumbered_npc_names_routed_to_additional_evidence; 0_binding_decisions_0_bound_variants_0_promotions; byte_deterministic",
+        "next": "multi_variant_binding_review_queue_and_additional_evidence_work_export"
       },
       "latestCoverageDelta": {
         "officialSkillDomainsMeasured": 24,
-        "inputMultiVariantWorkItems": 7,
-        "distinctRevisionPinnedSources": 8,
-        "completeExactRevisionSources": 8,
-        "variantBindingEvidencePackets": 7,
-        "completeVariantBindingEvidencePackets": 7,
-        "uniqueExactNumberedNameMatches": 5,
-        "reviewReadyVariantBindingEvidencePackets": 5,
-        "sharedUnnumberedNameAmbiguities": 2,
-        "ambiguousMultipleNumberedNameMatches": 0,
-        "noUniqueVariantSignals": 0,
+        "inputBindingEvidenceRecords": 1,
+        "revalidatedExactRevisionSources": 8,
+        "revalidatedVariantBindingEvidencePackets": 7,
+        "variantBindingEvidenceDispositions": 7,
+        "reviewReadyVariantBindingDispositions": 5,
+        "additionalEvidenceRequiredDispositions": 2,
+        "sharedUnnumberedNameBlockedDispositions": 2,
+        "incorrectlyRoutedDispositions": 0,
         "reviewDecisionsCompleted": 0,
         "reviewersRecorded": 0,
         "reviewDatesRecorded": 0,
@@ -202,7 +201,45 @@
         "optimizerEligibleActivitiesAdded": 0,
         "currentAccountFieldsAllowed": 0,
         "inventedFacts": 0,
-        "reason": "Every routed multi-variant candidate now has exact subject-infobox and parent-occurrence evidence. Five item links uniquely match one numbered source-authored name and can proceed to explicit review; two NPC links expose only a shared unnumbered name and remain non-discriminating. No binding verdict was inferred."
+        "reason": "Generic sufficiency logic dispositioned every complete multi-variant binding-evidence packet. Five unique exact numbered-name matches route to explicit source-bound review with an unbound review-candidate index; the High Priest and Reldo shared-name cases route to additional evidence. No review or semantic verdict was inferred."
+      },
+      "latestMultiVariantStructuralMemberCandidateParentOccurrenceBindingEvidenceDispositionAudit": {
+        "generatedAt": "2026-09-05T09:34:38.173Z",
+        "policy": "sensum.multi-variant-structural-member-candidate-parent-occurrence-binding-evidence-disposition-policy.v1",
+        "policyContentHash": "8b116c6a2560b0570eea1f20f9b9bf2b3d2439cd49a512ce38f45485c27a2249",
+        "inputSnapshotDirectory": "2026-09-05T09-24-11-660Z",
+        "inputSnapshotContentHash": "de732fd7fa612fb00cf3191d487c3df6ca38fbc78698bef4b6adc025b92706df",
+        "outputSnapshotDirectory": "2026-09-05T09-34-38-170Z",
+        "outputSnapshotContentHash": "9bb8bb0c95cd6fabfebc501125e4326a18806fbe00af238c3451238d49746234",
+        "reportContentHash": "8568a0cb8de7fb7bde858ce8423b6c0f725908694e16ec9f9db35039745ab6d7",
+        "sourceRevisions": ["14997080", "15138072", "15182782", "15182801", "15286240", "15318130", "15320184", "15320201"],
+        "sourceCount": 8,
+        "revalidatedSourceCount": 8,
+        "bindingEvidencePacketCount": 7,
+        "revalidatedBindingEvidencePacketCount": 7,
+        "dispositionCount": 7,
+        "reviewReadyCount": 5,
+        "additionalEvidenceRequiredCount": 2,
+        "sharedUnnumberedNameBlockedCount": 2,
+        "bindingDecisionCount": 0,
+        "boundVariantCount": 0,
+        "dispositionCoverageComplete": true,
+        "variantBindingReviewComplete": false,
+        "completeActivityUniverse": false,
+        "absoluteBestGate": "blocked_incomplete_activity_universe",
+        "publishable": true,
+        "blockers": [
+          "multi_variant_binding_evidence_sufficiency_disposition_recorded_explicit_reviews_pending",
+          "one_or_more_variant_bindings_ready_for_explicit_source_bound_review",
+          "one_or_more_variant_bindings_require_additional_disambiguating_evidence",
+          "candidate_member_identity_and_variant_binding_reviews_pending",
+          "weighted_parent_task_entry_membership_not_proven",
+          "one_to_one_mapping_between_structural_candidates_and_declared_total_not_proven",
+          "member_universe_completeness_not_proven",
+          "all_repeatability_evidence_domains_remain_unresolved",
+          "requirements_xp_timing_and_mechanics_not_structured",
+          "independent_complete_activity_universe_not_established"
+        ]
       },
       "latestMultiVariantStructuralMemberCandidateParentOccurrenceBindingEvidenceAudit": {
         "generatedAt": "2026-09-05T09:24:11.663Z",

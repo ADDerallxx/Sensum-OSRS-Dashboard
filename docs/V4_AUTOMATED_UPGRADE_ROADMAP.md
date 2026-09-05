@@ -43,6 +43,18 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+All seven multi-variant parent-occurrence evidence packets now have a generic,
+fail-closed sufficiency disposition. The transform revalidated all eight retained
+exact Wiki revisions, all seven packet hashes, the retained root infoboxes, and
+the exact parent occurrences before routing five unique numbered-name matches to
+explicit source-bound review. The exposed review-candidate index is evidence for
+a reviewer, not a binding decision or bound variant. The two shared unnumbered
+NPC names remain blocked and route to additional disambiguating evidence. Two
+transforms produced the same output hash. No identity, membership, repeatability,
+mechanics, mapping, completeness, or optimizer verdict was created. The next
+checkpoint should export the five review-ready dispositions and the two blocked
+dispositions as deterministic, separate work queues without approving either.
+
 All seven routed multi-variant structural candidates now have revision-pinned
 parent-occurrence binding evidence. The collector refetched and revalidated the
 seven subject revisions plus their shared parent revision, retained every

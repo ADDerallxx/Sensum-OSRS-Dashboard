@@ -1,0 +1,24 @@
+{
+  "policy": "sensum.multi-variant-structural-member-candidate-parent-occurrence-binding-evidence-disposition-policy.v1",
+  "inputContract": "sensum.multi-variant-structural-member-candidate-parent-occurrence-binding-evidence.v1",
+  "recordContract": "sensum.multi-variant-structural-member-candidate-parent-occurrence-binding-evidence-disposition.v1",
+  "auditContract": "sensum.multi-variant-structural-member-candidate-parent-occurrence-binding-evidence-disposition-audit.v1",
+  "inputState": "multi_variant_structural_member_candidate_parent_occurrence_binding_evidence_captured_reviews_pending_gates_closed",
+  "reviewReadyRouteKey": "source_bound_explicit_variant_binding_review",
+  "additionalEvidenceRouteKey": "additional_parent_occurrence_variant_disambiguation_evidence",
+  "rules": {
+    "oneDispositionPerCompleteBindingEvidencePacket": true,
+    "everyRetainedExactRevisionSourceIdentityHashBytesAndTextMustRevalidate": true,
+    "packetHashSourceReferencesInfoboxAndParentOccurrenceMustRevalidate": true,
+    "reviewReadinessRequiresExactlyOneMatchingNumberedVariantIndex": true,
+    "reviewReadinessRequiresAUniqueExactParentDisplayToNumberedNameMatch": true,
+    "sharedUnnumberedNamesCannotBecomeReviewReady": true,
+    "ambiguousMultipleMatchesAndNoUniqueSignalsRequireAdditionalEvidence": true,
+    "reviewCandidateVariantIndexIsNotABindingDecisionOrBoundVariant": true,
+    "reviewReadinessCannotCreateIdentityMembershipRepeatabilityMechanicsMappingCompletenessOrOptimizerVerdicts": true,
+    "inputEvidenceSourcesPacketsAndHashesMustBePreserved": true,
+    "namesTitlesPageIdsRevisionsCandidateKeysLabelsAliasesAndOverridesCannotAlterPolicyBehavior": true,
+    "currentAccountStateIsForbidden": true,
+    "automaticVerificationAllowed": false
+  }
+}

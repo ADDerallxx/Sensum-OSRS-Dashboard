@@ -1,0 +1,23 @@
+{
+  "contract": "sensum.multi-variant-structural-member-candidate-parent-occurrence-binding-evidence-disposition.v1",
+  "required": [
+    "memberCandidateKey",
+    "sourceBindingEvidenceContentHash",
+    "exactRevisionSources",
+    "variantBindingEvidencePackets",
+    "variantBindingEvidenceDispositions",
+    "variantBindingEvidenceDispositionSummary",
+    "variantBindingEvidenceDispositionReview",
+    "accountIndependent",
+    "blockers",
+    "state"
+  ],
+  "rules": {
+    "oneRecordPerEligibleEvidenceRecord": true,
+    "oneDispositionPerCompleteEvidencePacket": true,
+    "reviewReadyAndAdditionalEvidenceRoutesAreMutuallyExclusive": true,
+    "reviewCandidateVariantIndexDoesNotBindTheVariant": true,
+    "allSemanticVerdictsRemainClosed": true,
+    "upstreamEvidenceIsPreservedExactly": true
+  }
+}
