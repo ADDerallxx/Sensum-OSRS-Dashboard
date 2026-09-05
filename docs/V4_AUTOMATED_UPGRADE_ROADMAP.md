@@ -43,6 +43,26 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+The 47 exact-parent-section weighted-membership review templates now have a
+fail-closed decision-import boundary. A completed row must preserve the queue
+snapshot, intrinsic queue-record, upstream disposition, evidence-packet,
+candidate, exact parent-section observation, source-revision, timestamp, and
+evidence-fingerprint bindings; it must also provide one allowed decision, an
+explicit human reviewer, a non-predating UTC timestamp, the exact source
+revision set, and review notes. Valid partial human batches can be recorded,
+while blank-only, partially completed, duplicated, machine-authored,
+account-scoped, stale, extra-field, or tampered batches reject atomically.
+Recording a decision remains separate from applying the weighted-membership
+semantic disposition and cannot create identity, mapping, completeness,
+repeatability, requirements, XP, timing, mechanics, or optimizer state. The
+real 47-row blank template revalidated all 47 queue records, exited with the
+expected rejection code, left the decision-snapshot count at zero, and applied
+zero semantic promotions. All 134 regression tests pass. With all 59 weighted
+membership obligations now waiting on explicit human decisions, the next
+unattended checkpoint should return to the broader cross-skill universe and
+capture revision-pinned evidence for the 68 still-untyped linked pages without
+inferring a page or activity type.
+
 The 47 exact-parent-section weighted-membership dispositions now export into a
 deterministic, source-bound human-review queue with 47 separate blank decision
 templates. The exporter independently revalidates both upstream snapshot

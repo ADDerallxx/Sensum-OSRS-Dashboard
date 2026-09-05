@@ -168,7 +168,8 @@
         "weighted_parent_task_entry_membership_variant_scope_evidence_crosswalk",
         "weighted_parent_task_entry_membership_additional_evidence_source_discovery_packets",
         "generic_weighted_parent_task_entry_membership_additional_evidence_sufficiency_disposition",
-        "weighted_parent_task_entry_membership_additional_evidence_review_queue_export"
+        "weighted_parent_task_entry_membership_additional_evidence_review_queue_export",
+        "weighted_parent_task_entry_membership_additional_evidence_review_decision_import_contract"
       ],
       "remainingWork": [
         "Use the 1,909-entry revision-aligned semantic-review queue to establish canonical game-entity and activity identities from retained source signatures and contexts, then prove repeatability, membership, requirements, variants, XP, timing, mechanics, and authoritative exclusions. Begin with the 29 explicit activity-page candidates, but do not treat activity/minigame page type as repeatability proof; distinguish reference collections and composites from actual trainable method variants. Reconcile 68 queued untyped pages, 4,725 stable rendered pages without unlock evidence, 1,565 unlock pages without rendered-guide evidence, five unresolved rendered targets, the wider unlock set's 137 untyped pages and 31 activity pages, and 51 ambiguous statement forms. Historical template-expansion provenance remains open because dependency revision IDs and the generative origins of 16,284 rendered-only observations are unavailable. Continue independent discovery until every repeatable training activity in every skill is enumerated. The central guide index's composite Combat row and four Defence link disagreements remain explicit. Rockslide pairing still requires complete activity and travel graphs.",
@@ -185,12 +186,25 @@
         "independentGameUniverseDiscoveryPending": true
       },
       "latestCheckpoint": {
-        "id": "weighted_parent_task_entry_membership_additional_evidence_review_queue_export",
-        "result": "47_of_47_exact_parent_section_dispositions_and_source_packets_revalidated; 48_pinned_and_147_current_sources_revalidated; 47_source_bound_review_queue_entries_and_47_blank_decision_templates_exported; 47_exact_structured_candidate_bearing_lines_bound_to_pinned_revision_url_locator_line_hash_and_full_section_hash; two_real_runs_same_queue_markdown_and_template_hashes; 0_reviews_0_membership_verdicts_0_semantic_promotions_0_optimizer_promotions; 133_of_133_tests_passed",
-        "next": "weighted_parent_task_entry_membership_additional_evidence_review_decision_import_contract"
+        "id": "weighted_parent_task_entry_membership_additional_evidence_review_decision_import_contract",
+        "result": "47_of_47_queue_records_and_blank_templates_revalidated; real_blank_submission_47_rows_0_completed_47_blank_0_invalid_expected_exit_2; decision_output_snapshots_0_before_0_after; 0_recorded_decisions_0_membership_verdicts_0_semantic_promotions_0_optimizer_promotions; stale_tampered_partial_duplicate_machine_authored_account_scoped_and_semantically_overreaching_submissions_reject_atomically; 134_of_134_tests_passed",
+        "next": "cross_skill_untyped_page_revision_pinned_source_evidence_packets"
       },
       "latestCoverageDelta": {
         "officialSkillDomainsMeasured": 24,
+        "weightedMembershipAdditionalEvidenceReviewDecisionQueueEntries": 47,
+        "weightedMembershipAdditionalEvidenceReviewDecisionCompleteQueueRecords": 47,
+        "weightedMembershipAdditionalEvidenceReviewDecisionSubmissionRows": 47,
+        "weightedMembershipAdditionalEvidenceReviewDecisionCompletedSubmissions": 0,
+        "weightedMembershipAdditionalEvidenceReviewDecisionBlankSubmissions": 47,
+        "weightedMembershipAdditionalEvidenceReviewDecisionInvalidSubmissions": 0,
+        "weightedMembershipAdditionalEvidenceReviewDecisionsRecorded": 0,
+        "weightedMembershipAdditionalEvidenceReviewDecisionOutputSnapshotsBefore": 0,
+        "weightedMembershipAdditionalEvidenceReviewDecisionOutputSnapshotsAfter": 0,
+        "weightedMembershipAdditionalEvidenceReviewDecisionImportExpectedRejectionExitCode": 2,
+        "weightedMembershipAdditionalEvidenceReviewDecisionSemanticPromotions": 0,
+        "weightedMembershipAdditionalEvidenceReviewDecisionOptimizerPromotions": 0,
+        "weightedMembershipAdditionalEvidenceReviewDecisionImportRegressionTestsPassed": 134,
         "weightedMembershipAdditionalEvidenceReviewQueueInputDispositions": 47,
         "weightedMembershipAdditionalEvidenceReviewQueueInputEvidencePackets": 47,
         "weightedMembershipAdditionalEvidenceReviewQueueRevalidatedDispositions": 47,
@@ -356,7 +370,37 @@
         "optimizerEligibleActivitiesAdded": 0,
         "currentAccountFieldsAllowed": 0,
         "inventedFacts": 0,
-        "reason": "All 47 exact-parent-section weighted-membership dispositions now have deterministic source-bound review entries and blank decision templates. Every queue entry preserves its disposition and evidence snapshot hashes, exact candidate identity, source revision, URL, locator, exact candidate-bearing line and line hash, and full retained section hash. Two real exports produced identical queue, markdown, and template hashes. No review, membership verdict, semantic promotion, or optimizer promotion was created."
+        "reason": "All 47 exact-parent-section weighted-membership review templates now have an atomic fail-closed decision-import boundary. The real blank template revalidated every queue and evidence binding, rejected all 47 blank rows with the expected exit code, wrote no decision snapshot, and created no membership, semantic, or optimizer state. Valid source-bound human decisions can be recorded separately from semantic disposition; stale, tampered, partial, duplicate, machine-authored, account-scoped, and semantically overreaching submissions reject atomically."
+      },
+      "latestWeightedParentTaskEntryMembershipAdditionalEvidenceReviewDecisionImportSafetyCheck": {
+        "generatedAt": "2026-09-05T19:52:11.815Z",
+        "policy": "sensum.weighted-parent-task-entry-membership-additional-evidence-review-decision-import-policy.v1",
+        "policyContentHash": "ea3de347ed44f4e53950586081a4d3d40ab77fe69173825b0678f106c3925031",
+        "inputQueueSnapshotDirectory": "2026-09-05T19-38-07-480Z",
+        "inputQueueSnapshotContentHash": "ac55857f1f3b1d6cdcdae34549ac1ccbf75fd1f4a74f8d7d4b83a3103eb77b2f",
+        "inputDecisionTemplate": ".platform-data/2026-09-05T19-38-07-480Z/decision-template.ndjson",
+        "inputDecisionTemplateContentHash": "6bcaa9b92b9923d57532787826dd8c1f1e6ae7d8101bd83acbe838fd3fe3398f",
+        "queueEntryCount": 47,
+        "completeQueueRecordCount": 47,
+        "submissionRowCount": 47,
+        "completedSubmissionCount": 0,
+        "blankSubmissionCount": 47,
+        "invalidSubmissionCount": 0,
+        "recordedDecisionCount": 0,
+        "semanticDispositionAppliedCount": 0,
+        "weightedMembershipVerdictCount": 0,
+        "optimizerEligibleCount": 0,
+        "decisionOutputSnapshotCountBefore": 0,
+        "decisionOutputSnapshotCountAfter": 0,
+        "expectedRejectionExitCode": 2,
+        "observedExitCode": 2,
+        "outputWritten": false,
+        "regressionTestsPassed": 134,
+        "reviewDecisionRecordingComplete": false,
+        "weightedMembershipReviewComplete": false,
+        "completeActivityUniverse": false,
+        "absoluteBestGate": "blocked_incomplete_activity_universe",
+        "publishable": false
       },
       "latestWeightedParentTaskEntryMembershipAdditionalEvidenceReviewQueueExportAudit": {
         "generatedAt": "2026-09-05T19:38:07.486Z",

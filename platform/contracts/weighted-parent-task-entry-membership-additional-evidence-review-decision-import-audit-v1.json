@@ -1,0 +1,28 @@
+{
+  "contract": "sensum.weighted-parent-task-entry-membership-additional-evidence-review-decision-import-audit.v1",
+  "required": [
+    "queueCoverage",
+    "submissionCoverage",
+    "policyCoverage",
+    "bindingCoverage",
+    "recordCoverage",
+    "semanticPreservationCoverage",
+    "accountStateFindings",
+    "reviewDecisionRecordingComplete",
+    "weightedMembershipReviewComplete",
+    "optimizerEligibleCount",
+    "completeActivityUniverse",
+    "absoluteBestGate",
+    "blockers",
+    "publishable"
+  ],
+  "rules": {
+    "queueSnapshotAndEveryQueueRecordMustRevalidate": true,
+    "everyCompletedSubmissionMustMatchExactlyOneQueueEntry": true,
+    "blankRowsMayBeIgnoredButPartialRowsMustFail": true,
+    "anyInvalidSubmissionMakesTheBatchAtomicAndUnpublishable": true,
+    "recordedDecisionSetMustExactlyMatchCompletedSubmissionSet": true,
+    "recordingCannotApplyMembershipOrCreateSemanticOrOptimizerPromotion": true,
+    "accountStateMustFailPublication": true
+  }
+}
