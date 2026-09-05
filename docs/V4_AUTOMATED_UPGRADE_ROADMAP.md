@@ -43,6 +43,19 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+The activity-infobox schema route now has a complete revision-pinned evidence
+packet. It preserves the current `Template:Infobox Activity` invocation, its
+documentation subpage, and `Module:Infobox Activity` as three separately hashed
+official sources. Seven exact observations establish only what the sources say
+and do: the template invokes the module and local documentation, the docs label
+`name` as the activity name, and the module defines and renders `name` as the
+infobox header. Missing, duplicate, renamed, namespace-mismatched, or unpinned
+sources and observations fail closed. The evidence packet creates no subject
+binding, scope or repeatability classification, member or mechanics review, or
+optimizer candidate. Two live fetches returned the same three revisions and
+the same output hash. The next checkpoint should generically disposition this
+schema evidence together with the already qualified structural candidate.
+
 Every complete canonical-activity subject-declaration structural disposition
 now has one generic, state-only semantic evidence-work route. The structurally
 qualified subject candidate routes to revision-pinned activity-infobox schema

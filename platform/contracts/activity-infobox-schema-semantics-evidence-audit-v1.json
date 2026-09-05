@@ -1,0 +1,28 @@
+{
+  "contract": "sensum.activity-infobox-schema-semantics-evidence-audit.v1",
+  "required": [
+    "inputCoverage",
+    "policyCoverage",
+    "sourceRevisionCoverage",
+    "observationCoverage",
+    "semanticPromotionCoverage",
+    "accountStateFindings",
+    "evidencePacketAttemptCoverageComplete",
+    "activityInfoboxSchemaSemanticsEvidenceCoverageComplete",
+    "canonicalActivitySubjectBindingReviewComplete",
+    "completeActivityUniverse",
+    "absoluteBestGate",
+    "blockers",
+    "publishable"
+  ],
+  "rules": {
+    "inputAndOutputRouteSetsAndContextsMustMatchExactly": true,
+    "requiredSchemaSourceSetMustMatchExactly": true,
+    "allFetchedSourcesMustHaveStablePageRevisionTimestampUrlAndContentHash": true,
+    "allRequiredObservationsMustMatchExactlyOnce": true,
+    "changedOrMissingSchemaEvidenceMustRemainVisible": true,
+    "subjectBindingAndSemanticReviewMustRemainUnchanged": true,
+    "scopeRepeatabilityMemberMechanicsAndOptimizerPromotionsAreForbidden": true,
+    "currentAccountStateIsForbidden": true
+  }
+}

@@ -213,6 +213,15 @@ record count, creation time, audit result, and SHA-256 content hash.
   The router preserves every upstream evidence hash, structural signal, and
   review value while keeping subject binding, scope, repeatability, members,
   mechanics, and optimizer eligibility closed.
+- Activity-infobox schema-semantics ingestion fetches the current exact revisions
+  of `Template:Infobox Activity`, its `/doc` subpage, and
+  `Module:Infobox Activity`. It source-locates the template invocation and doc
+  transclusion, the documented `name` meaning, and the module's `name` handler,
+  infobox identity, and header rendering. Run
+  `node platform/ingestion/ingest-wiki-activity-infobox-schema-semantics-evidence.mjs`.
+  Missing, duplicate, changed, unpinned, or namespace-mismatched evidence stays
+  blocked. Complete schema evidence still requires a separate semantic
+  disposition and cannot independently bind the page subject.
 - Training-guide section ingestion inventories every Wiki heading in source
   order. Every method-bearing subsection is retained with its parent, source
   lines, revision, and structural role. New heading depths or parents fail

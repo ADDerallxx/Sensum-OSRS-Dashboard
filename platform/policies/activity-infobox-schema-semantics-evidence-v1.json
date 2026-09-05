@@ -1,0 +1,36 @@
+{
+  "policy": "sensum.activity-infobox-schema-semantics-evidence-policy.v1",
+  "inputContract": "sensum.activity-reference-collection-member-canonical-activity-subject-declaration-semantic-evidence-work-routing.v1",
+  "recordContract": "sensum.activity-infobox-schema-semantics-evidence.v1",
+  "auditContract": "sensum.activity-infobox-schema-semantics-evidence-audit.v1",
+  "inputRouteKey": "collect_revision_pinned_activity_infobox_schema_semantics",
+  "inputRouteState": "blocked_schema_semantics_evidence_gap",
+  "requiredSources": [
+    { "sourceKey": "activity_infobox_template", "requestedTitle": "Template:Infobox Activity", "namespace": 10 },
+    { "sourceKey": "activity_infobox_documentation", "requestedTitle": "Template:Infobox Activity/doc", "namespace": 10 },
+    { "sourceKey": "activity_infobox_module", "requestedTitle": "Module:Infobox Activity", "namespace": 828 }
+  ],
+  "requiredObservations": [
+    { "observationKey": "template_invokes_activity_infobox_module", "sourceKey": "activity_infobox_template", "matchMode": "literal_substring", "literal": "{{#invoke:Infobox Activity|main}}" },
+    { "observationKey": "template_transcludes_local_documentation", "sourceKey": "activity_infobox_template", "matchMode": "literal_substring", "literal": "{{/doc}}" },
+    { "observationKey": "documentation_declares_name_parameter", "sourceKey": "activity_infobox_documentation", "matchMode": "exact_trimmed_line", "literal": "===name===" },
+    { "observationKey": "documentation_describes_name_as_activity_name", "sourceKey": "activity_infobox_documentation", "matchMode": "exact_trimmed_line", "literal": "Name of the activity." },
+    { "observationKey": "module_defines_name_parameter_handler", "sourceKey": "activity_infobox_module", "matchMode": "literal_substring", "literal": "{ name = 'name', func = 'name' }" },
+    { "observationKey": "module_renders_name_as_infobox_header", "sourceKey": "activity_infobox_module", "matchMode": "literal_substring", "literal": "content = 'name', class='infobox-header'" },
+    { "observationKey": "module_declares_infobox_activity_identity", "sourceKey": "activity_infobox_module", "matchMode": "literal_substring", "literal": "ret:defineName('Infobox Activity')" }
+  ],
+  "rules": {
+    "oneEvidencePacketPerMatchingSchemaEvidenceRoute": true,
+    "everyRequiredSchemaSourceMustBeFetchedAtOneCurrentExactRevision": true,
+    "everyRequiredObservationMustRetainExactSourceLocationAndRevision": true,
+    "templateDocumentationAndModuleImplementationAreSeparateEvidenceSources": true,
+    "observedFieldMeaningAndRenderingDoNotAutomaticallyBindThePageSubject": true,
+    "missingChangedDuplicateOrContradictorySchemaEvidenceRemainsBlocked": true,
+    "schemaSourcesAreFixedByTheGenericInfoboxSchemaNotByAnActivityIdentity": true,
+    "activityNamesLabelsPageIdsCandidateKeysAliasesAndOverridesAreForbidden": true,
+    "inputEvidenceIdentityRevisionHashesDispositionRoutingAndContextMustBePreserved": true,
+    "activityScopeRepeatabilityMemberMechanicsAndOptimizerPromotionAreForbidden": true,
+    "currentAccountStateIsForbidden": true,
+    "automaticVerificationAllowed": false
+  }
+}
