@@ -43,6 +43,24 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+The 68-entry untyped-page review queue now has a fail-closed decision-import
+boundary. Every completed row must preserve its exact queue record, queue
+snapshot, evidence fingerprint, source page ID, revision, content hash, route,
+allowed decisions, and the bound 22-type page vocabulary. It also requires an
+explicit human reviewer, a non-predating UTC review time, review notes, and at
+least one retained evidence key. Valid partial human batches can be recorded,
+while blank-only, partially completed, duplicated, machine-authored, stale,
+extra-field, account-scoped, or tampered batches reject atomically. Recording a
+decision remains separate from applying a page-type disposition and cannot
+create canonical identity, repeatability, requirements, variants, XP, timing,
+mechanics, or optimizer state. The real 68-row blank template revalidated all
+68 queue records, exited with the expected rejection code, wrote no decision
+snapshot, and applied zero semantic promotions. All 174 regression tests pass.
+Those 68 source-bound reviews still require explicit human decisions, so the
+next unattended checkpoint should return to the broader cross-skill universe
+and capture revision-pinned resolution evidence for the five rendered-guide
+targets that remain unresolved.
+
 The 68 untyped-page sufficiency dispositions now export into an ordered,
 source-bound human-review queue with 68 separate blank decision templates. The
 exporter revalidates both upstream snapshots, every intrinsic disposition and

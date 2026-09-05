@@ -1,0 +1,34 @@
+{
+  "policy": "sensum.cross-skill-untyped-page-source-bound-review-decision-import-policy.v1",
+  "queueContract": "sensum.cross-skill-untyped-page-source-bound-review-queue-entry.v1",
+  "submissionContract": "sensum.cross-skill-untyped-page-source-bound-review-decision-template.v1",
+  "recordContract": "sensum.cross-skill-untyped-page-source-bound-review-decision.v1",
+  "auditContract": "sensum.cross-skill-untyped-page-source-bound-review-decision-import-audit.v1",
+  "queueState": "pending_explicit_source_bound_untyped_page_review",
+  "recordState": "recorded_source_bound_untyped_page_review_decision_pending_semantic_application",
+  "allowedDecisions": [
+    "assign_one_or_more_existing_page_types",
+    "confirm_non_entity_support_reference_or_file_page",
+    "needs_additional_evidence"
+  ],
+  "rules": {
+    "oneRecordedDecisionPerCompletedSubmission": true,
+    "partialReviewBatchesAreAllowed": true,
+    "blankTemplateRowsAreIgnored": true,
+    "partiallyCompletedRowsAreRejected": true,
+    "anyInvalidRowRejectsTheEntireBatch": true,
+    "queueManifestIntrinsicRecordTemplateSnapshotAndEvidenceHashesMustRevalidate": true,
+    "submissionMustMatchEveryImmutableQueueBinding": true,
+    "submissionFieldSetMustExactlyMatchTheBlankTemplate": true,
+    "decisionMustBeExplicitlyAllowed": true,
+    "assignedPageTypesMustBeNonemptyUniqueAndFromTheBoundVocabulary": true,
+    "nonAssignmentDecisionsMustHaveNoSelectedPageTypes": true,
+    "reviewerReviewedAtNotesAndBoundEvidenceKeysAreRequired": true,
+    "reviewedAtMustNotPrecedeTheBoundSourceTimestamp": true,
+    "obviousAutomaticOrModelReviewerNamesAreRejected": true,
+    "recordingADecisionDoesNotApplyPageTypeCanonicalIdentityRepeatabilityRequirementsVariantsXpTimingMechanicsOrOptimizerState": true,
+    "namesTitlesPageIdsRevisionsTemplatesCategoriesAliasesAndOverridesCannotAlterPolicyBehavior": true,
+    "currentAccountStateIsForbidden": true,
+    "automaticVerificationAllowed": false
+  }
+}

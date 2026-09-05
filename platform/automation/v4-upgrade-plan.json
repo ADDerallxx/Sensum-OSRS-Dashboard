@@ -172,7 +172,8 @@
         "weighted_parent_task_entry_membership_additional_evidence_review_decision_import_contract",
         "cross_skill_untyped_page_revision_pinned_source_evidence_packets",
         "generic_cross_skill_untyped_page_source_evidence_sufficiency_disposition",
-        "cross_skill_untyped_page_source_bound_review_queue_export"
+        "cross_skill_untyped_page_source_bound_review_queue_export",
+        "cross_skill_untyped_page_source_bound_review_decision_import_contract"
       ],
       "remainingWork": [
         "Use the 1,909-entry revision-aligned semantic-review queue to establish canonical game-entity and activity identities from retained source signatures and contexts, then prove repeatability, membership, requirements, variants, XP, timing, mechanics, and authoritative exclusions. Begin with the 29 explicit activity-page candidates, but do not treat activity/minigame page type as repeatability proof; distinguish reference collections and composites from actual trainable method variants. Reconcile 68 queued untyped pages, 4,725 stable rendered pages without unlock evidence, 1,565 unlock pages without rendered-guide evidence, five unresolved rendered targets, the wider unlock set's 137 untyped pages and 31 activity pages, and 51 ambiguous statement forms. Historical template-expansion provenance remains open because dependency revision IDs and the generative origins of 16,284 rendered-only observations are unavailable. Continue independent discovery until every repeatable training activity in every skill is enumerated. The central guide index's composite Combat row and four Defence link disagreements remain explicit. Rockslide pairing still requires complete activity and travel graphs.",
@@ -189,9 +190,9 @@
         "independentGameUniverseDiscoveryPending": true
       },
       "latestCheckpoint": {
-        "id": "cross_skill_untyped_page_source_bound_review_queue_export",
-        "result": "68_of_68_dispositions_and_68_of_68_evidence_packets_revalidated; ordered_source_bound_review_queue_has_68_entries_and_68_blank_decision_templates; 67_main_namespace_review_entries_1_non_main_namespace_scope_entry; 74_source_contexts_732_root_template_occurrences_17_direct_category_occurrences_192_lead_paragraphs_406_headings_preserved; two_real_exports_same_queue_markdown_and_template_hashes; corrupt_manifest_cli_wrote_0_outputs; 0_reviews_0_page_types_0_canonical_identities_0_repeatability_classifications_0_optimizer_promotions; 166_of_166_tests_passed",
-        "next": "cross_skill_untyped_page_source_bound_review_decision_import_contract"
+        "id": "cross_skill_untyped_page_source_bound_review_decision_import_contract",
+        "result": "68_of_68_queue_records_revalidated; real_68_row_blank_submission_has_0_completed_68_blank_0_invalid_rows; expected_exit_2_observed_and_0_decision_snapshots_written; valid_source_bound_partial_human_batches_and_all_3_allowed_decisions_proven_in_tests; blank_partial_duplicate_machine_authored_stale_uncited_unknown_account_scoped_and_tampered_inputs_reject_atomically; 0_page_type_applications_0_canonical_identities_0_repeatability_classifications_0_optimizer_promotions; 174_of_174_tests_passed",
+        "next": "cross_skill_unresolved_rendered_target_revision_pinned_resolution_evidence_packets"
       },
       "latestCoverageDelta": {
         "officialSkillDomainsMeasured": 24,
@@ -256,6 +257,21 @@
         "crossSkillUntypedPageReviewQueueDeterministicAcrossTwoRealRuns": true,
         "crossSkillUntypedPageReviewQueueTamperedInputOutputSnapshotsWritten": 0,
         "crossSkillUntypedPageReviewQueueRegressionTestsPassed": 166,
+        "crossSkillUntypedPageReviewDecisionQueueEntries": 68,
+        "crossSkillUntypedPageReviewDecisionCompleteQueueRecords": 68,
+        "crossSkillUntypedPageReviewDecisionSubmissionRows": 68,
+        "crossSkillUntypedPageReviewDecisionCompletedSubmissions": 0,
+        "crossSkillUntypedPageReviewDecisionBlankSubmissions": 68,
+        "crossSkillUntypedPageReviewDecisionInvalidSubmissions": 0,
+        "crossSkillUntypedPageReviewDecisionsRecorded": 0,
+        "crossSkillUntypedPageReviewDecisionOutputSnapshotsBefore": 0,
+        "crossSkillUntypedPageReviewDecisionOutputSnapshotsAfter": 0,
+        "crossSkillUntypedPageReviewDecisionImportExpectedRejectionExitCode": 2,
+        "crossSkillUntypedPageReviewDecisionPageTypeApplications": 0,
+        "crossSkillUntypedPageReviewDecisionCanonicalEntityPromotions": 0,
+        "crossSkillUntypedPageReviewDecisionRepeatabilityPromotions": 0,
+        "crossSkillUntypedPageReviewDecisionOptimizerPromotions": 0,
+        "crossSkillUntypedPageReviewDecisionImportRegressionTestsPassed": 174,
         "weightedMembershipAdditionalEvidenceReviewDecisionQueueEntries": 47,
         "weightedMembershipAdditionalEvidenceReviewDecisionCompleteQueueRecords": 47,
         "weightedMembershipAdditionalEvidenceReviewDecisionSubmissionRows": 47,
@@ -434,7 +450,39 @@
         "optimizerEligibleActivitiesAdded": 0,
         "currentAccountFieldsAllowed": 0,
         "inventedFacts": 0,
-        "reason": "All 68 untyped-page sufficiency dispositions and their 68 exact-revision evidence packets now export into an ordered, source-bound human-review queue with 68 blank decision templates. The readable packet preserves 74 source contexts, 732 root-template occurrences, 17 direct-category occurrences, 192 lead paragraphs, 406 headings, exact revisions, URLs, and content hashes. Two real exports produced identical machine, Markdown, and template hashes. No review, page type, canonical identity, repeatability, mechanics, account state, or optimizer state was recorded or promoted."
+        "reason": "The 68-entry untyped-page queue now has an atomic, source-bound human decision-import contract. The real blank template revalidated all 68 queue records, exited with the expected rejection code, wrote no output, and applied no page type or semantic state. Tests prove valid partial human batches can be recorded while malformed, machine-authored, stale, uncited, account-scoped, or tampered batches reject atomically. The 68 reviews remain pending and no canonical identity, repeatability, mechanics, or optimizer state was promoted."
+      },
+      "latestCrossSkillUntypedPageSourceBoundReviewDecisionImportSafetyCheck": {
+        "generatedAt": "2026-09-05T20:37:11.844Z",
+        "policy": "sensum.cross-skill-untyped-page-source-bound-review-decision-import-policy.v1",
+        "policyContentHash": "ee10405be1d002ecac856234be11ee6a1d48ab8a9210035087db8d24fb4b3352",
+        "inputQueueSnapshotDirectory": "2026-09-05T20-23-19-287Z",
+        "inputQueueSnapshotContentHash": "6da2739419f242ee57abe882fb11e98237e0d68e2f05b896730dcfa1df6ba647",
+        "inputDecisionTemplate": ".platform-data/2026-09-05T20-23-19-287Z/decision-template.ndjson",
+        "inputDecisionTemplateContentHash": "8cfae3ec5f1d8cc4ba2f0e79be4b6ddbb7bfb90cb3a3925cc4e7bc96939314b3",
+        "queueEntryCount": 68,
+        "completeQueueRecordCount": 68,
+        "submissionRowCount": 68,
+        "completedSubmissionCount": 0,
+        "blankSubmissionCount": 68,
+        "invalidSubmissionCount": 0,
+        "recordedDecisionCount": 0,
+        "pageTypeDispositionAppliedCount": 0,
+        "canonicalGameEntityIdentityCount": 0,
+        "canonicalActivityIdentityCount": 0,
+        "repeatabilityClassifiedCount": 0,
+        "optimizerEligibleCount": 0,
+        "decisionOutputSnapshotCountBefore": 0,
+        "decisionOutputSnapshotCountAfter": 0,
+        "expectedRejectionExitCode": 2,
+        "observedExitCode": 2,
+        "outputWritten": false,
+        "regressionTestsPassed": 174,
+        "reviewDecisionRecordingComplete": false,
+        "pageTypeReviewComplete": false,
+        "completeActivityUniverse": false,
+        "absoluteBestGate": "blocked_incomplete_activity_universe",
+        "publishable": false
       },
       "latestCrossSkillUntypedPageSourceBoundReviewQueueExportAudit": {
         "generatedAt": "2026-09-05T20:23:19.294Z",
