@@ -1,0 +1,20 @@
+{
+  "contract": "sensum.cross-skill-rendered-page-without-unlock-evidence-partition.v1",
+  "required": [
+    "partitionKey", "sourceCandidateContentHash", "sourceCandidateSnapshotContentHash", "renderedTargetKey",
+    "stableWikiPageIdentity", "requestedTitles", "namespaceIds", "guideObservationCount", "guideSourceBindingCount",
+    "guideSourceBindingsContentHash", "renderedObservationSetContentHash", "parserChannelCounts", "sourcePresenceCounts",
+    "directSourceObservationCount", "renderedOnlyUnattributedObservationCount", "provenancePartition",
+    "requiredNextEvidenceChannels", "unlockEvidencePresent", "semanticDisposition", "canonicalGameEntityIdentity",
+    "canonicalActivityIdentity", "repeatabilityClassification", "mechanicsReviewComplete", "optimizerEligible",
+    "automaticVerificationApplied", "accountIndependent", "blockers", "state", "recordContentHash"
+  ],
+  "rules": {
+    "recordBindsExactInputSnapshotAndCandidate": true,
+    "observationAndGuideBindingHashesPreserveTheExactSourcePopulation": true,
+    "partitionIsProvenanceOnly": true,
+    "missingUnlockEvidenceRemainsExplicit": true,
+    "semanticAndOptimizerGatesRemainClosed": true,
+    "currentAccountStateIsForbidden": true
+  }
+}

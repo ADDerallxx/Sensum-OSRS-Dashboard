@@ -612,3 +612,20 @@ Run:
 ```text
 node platform/transforms/build-cross-source-entity-activity-candidates.mjs
 ```
+
+`partition-cross-skill-rendered-pages-without-unlock-evidence.mjs` takes the
+stable rendered-page candidates that have no matching level-unlock evidence and
+routes every one into exactly one provenance partition: direct-source only,
+mixed direct and unattributed rendered, or rendered-only with unattributed
+origin. The transform revalidates the candidate snapshot, intrinsic hashes,
+stable Wiki identities and revisions, every retained observation, and the exact
+guide-revision binding set. Partition selection cannot use titles, namespaces,
+page IDs, or parser channels as semantic evidence. The output is a bounded work
+inventory only: it does not establish an unlock, canonical entity or activity,
+repeatability, mechanics, automatic verification, or optimizer eligibility.
+
+Run:
+
+```text
+node platform/transforms/partition-cross-skill-rendered-pages-without-unlock-evidence.mjs
+```

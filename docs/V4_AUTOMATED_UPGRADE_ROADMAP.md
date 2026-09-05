@@ -43,6 +43,24 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+The 4,725 stable rendered pages without matching unlock evidence now have an
+exact, generic provenance partition. All 21,051 retained guide observations and
+81 guide-revision bindings revalidate against the source candidate snapshot:
+2,088 pages are direct-source only, 388 mix direct and historically unattributed
+rendered observations, and 2,249 are rendered-only with unattributed origin.
+The contract uses only those provenance shapes; titles, page IDs, namespaces,
+and parser channels cannot choose semantic meaning. It also preserves the
+intentional distinction between link/category observations that report target
+existence and image observations whose existence field is unreported while the
+resolved target identity remains revision-pinned. The first real run caught
+that distinction and failed closed without writing output; after correcting the
+generic validator, two complete runs produced the same 4,725-record hash. This
+checkpoint creates no unlock mapping, canonical identity, activity,
+repeatability, mechanics, automatic verification, or optimizer promotion. All
+248 regression tests pass. The next checkpoint should export the three exact
+partitions as source-bound reconciliation work, keeping historical rendered
+dependency attribution explicit wherever it is required.
+
 The category-resolution review queue now has a fail-closed human decision-import
 boundary. A completed row must retain its exact queue, template, disposition,
 evidence-packet, snapshot, route, classification, allowed-decision, and evidence

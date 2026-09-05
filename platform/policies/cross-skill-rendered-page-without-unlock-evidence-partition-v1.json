@@ -1,0 +1,58 @@
+{
+  "policy": "sensum.cross-skill-rendered-page-without-unlock-evidence-partition-policy.v1",
+  "inputContract": "sensum.cross-source-entity-activity-candidate.v1",
+  "outputContract": "sensum.cross-skill-rendered-page-without-unlock-evidence-partition.v1",
+  "auditContract": "sensum.cross-skill-rendered-page-without-unlock-evidence-partition-audit.v1",
+  "inputCandidateKind": "rendered_page_without_unlock_match",
+  "inputSemanticRoutingState": "rendered_stable_page_without_unlock_evidence",
+  "sourcePresenceVocabulary": [
+    "direct_source_exact_mediawiki_title",
+    "direct_source_stable_page_id",
+    "rendered_only_origin_unattributed"
+  ],
+  "parserChannelVocabulary": [
+    "links",
+    "categories",
+    "images"
+  ],
+  "partitions": {
+    "direct_source_only": {
+      "requiredNextEvidenceChannels": [
+        "revision_pinned_target_source_signature",
+        "source_scoped_semantic_relevance_disposition",
+        "level_unlock_corpus_absence_reconciliation"
+      ]
+    },
+    "mixed_direct_and_unattributed_rendered": {
+      "requiredNextEvidenceChannels": [
+        "revision_pinned_target_source_signature",
+        "source_scoped_semantic_relevance_disposition",
+        "level_unlock_corpus_absence_reconciliation",
+        "historical_rendered_expansion_dependency_attribution"
+      ]
+    },
+    "rendered_only_origin_unattributed": {
+      "requiredNextEvidenceChannels": [
+        "historical_rendered_expansion_dependency_attribution",
+        "revision_pinned_target_source_signature",
+        "source_scoped_semantic_relevance_disposition",
+        "level_unlock_corpus_absence_reconciliation"
+      ]
+    }
+  },
+  "rules": {
+    "onePartitionRecordPerEligibleInput": true,
+    "inputSnapshotAndIntrinsicRecordHashesMustRevalidate": true,
+    "stableCurrentWikiPageIdentityAndRevisionAreRequired": true,
+    "unlockEvidenceMustBeAbsent": true,
+    "allRenderedObservationsAndCountsMustReconcile": true,
+    "imageChannelExistenceMayBeUnreportedButResolvedIdentityMustRemainPinned": true,
+    "partitionUsesOnlyDirectVersusUnattributedObservationPresence": true,
+    "titlesNamespacesParserChannelsAndPageIdsCannotSelectSemanticMeaning": true,
+    "directObservationDoesNotProveUnlockSemanticIdentityOrActivity": true,
+    "renderedObservationDoesNotProveHistoricalDependencyOrigin": true,
+    "partitionCannotCreateSemanticIdentityRepeatabilityMechanicsOrOptimizerState": true,
+    "currentAccountStateIsForbidden": true,
+    "automaticVerificationAllowed": false
+  }
+}

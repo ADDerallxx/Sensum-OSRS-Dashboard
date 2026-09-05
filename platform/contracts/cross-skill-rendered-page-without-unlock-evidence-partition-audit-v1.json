@@ -1,0 +1,16 @@
+{
+  "contract": "sensum.cross-skill-rendered-page-without-unlock-evidence-partition-audit.v1",
+  "required": [
+    "inputCoverage", "sourceIntegrityCoverage", "partitionCoverage", "semanticPreservationCoverage",
+    "accountStateFindings", "partitionComplete", "unlockEvidenceReconciled", "completeActivityUniverse",
+    "absoluteBestGate", "blockers", "publishable"
+  ],
+  "rules": {
+    "eligibleInputAndOutputSetsMustMatchExactly": true,
+    "everyEligibleInputAndDerivedObservationCountMustRevalidate": true,
+    "everyEligibleInputMustEnterExactlyOneDisjointPartition": true,
+    "unknownSourcePresenceOrParserChannelsFailClosed": true,
+    "partitionCannotEstablishUnlockSemanticIdentityRepeatabilityOrMechanics": true,
+    "accountStateOrSemanticPromotionFailsPublication": true
+  }
+}
