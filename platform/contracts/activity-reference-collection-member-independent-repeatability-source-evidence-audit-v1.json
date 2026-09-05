@@ -1,0 +1,32 @@
+{
+  "contract": "sensum.activity-reference-collection-member-independent-repeatability-source-evidence-audit.v1",
+  "required": [
+    "inputCoverage",
+    "policyCoverage",
+    "discoveryCoverage",
+    "sourceAlignmentCoverage",
+    "repeatabilitySignalCoverage",
+    "semanticPromotionCoverage",
+    "accountStateFindings",
+    "evidencePacketAttemptCoverageComplete",
+    "independentSourceEvidenceCoverageComplete",
+    "repeatabilityReviewComplete",
+    "memberExpansionReviewComplete",
+    "mechanicsReviewComplete",
+    "completeActivityUniverse",
+    "absoluteBestGate",
+    "blockers",
+    "publishable"
+  ],
+  "rules": {
+    "everyMatchingRouteProducesExactlyOnePacket": true,
+    "inputOutputSetsHashesEvidenceAndContextMatchExactly": true,
+    "searchAndBacklinkBoundariesAreCompleteOrFailClosed": true,
+    "everyNonExcludedCandidateResolvesToAPinnedOfficialWikiRevision": true,
+    "duplicatesAndRedirectsPreserveAllDiscoveryContexts": true,
+    "candidateSignalsCannotCreateCanonicalScopeOrVerdicts": true,
+    "upstreamDispositionsAndReviewsCannotChange": true,
+    "memberMechanicsAndOptimizerPromotionsAreForbidden": true,
+    "currentAccountStateIsForbidden": true
+  }
+}

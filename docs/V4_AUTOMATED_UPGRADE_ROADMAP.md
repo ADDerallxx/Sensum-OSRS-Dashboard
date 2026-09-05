@@ -43,6 +43,23 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+The two unresolved activities now have complete independent official-Wiki
+discovery packets. The collector fully enumerated two exact-source phrase
+searches (14 results) and two main-namespace backlink sets (238 results),
+retaining 240 unique title requests and 252 discovery contexts. Sixteen
+requests resolved to already scanned sources and remain explicit exclusions;
+the remaining requests produced 224 unique current revision-pinned pages,
+3,592,402 source bytes, and 25,749 source-authored link occurrences with no
+unbalanced link sources. The existing repeatability policy found 47 lexical
+candidates: 35 positive, zero negative, four recurrence, and eight session
+boundary signals. Backlink results include navigation-generated and unrelated
+pages, so search rank, snippets, backlink status, titles, and lexical matches
+remain discovery evidence only. There are zero canonical-activity scope or
+repeatability verdicts and zero downstream promotions. Repeated live runs
+produced the same output hash. The next checkpoint should resolve only the
+source-authored links on exact signal lines to stable Wiki page IDs and build
+revision-pinned canonical-activity scope evidence packets.
+
 The two corroborating repeatability-gap packets now have deterministic generic
 dispositions. A candidate page is not treated as the canonical activity merely
 because the activity row or an unresolved signal links to it; an explicit

@@ -43,6 +43,7 @@ node platform/ingestion/ingest-wiki-skill-training-guide-direct-links.mjs
 node platform/ingestion/ingest-wiki-skill-training-guide-source-dependencies.mjs
 node platform/ingestion/ingest-wiki-activity-reference-collection-member-repeatability-gap-evidence.mjs
 node platform/transforms/build-activity-reference-collection-member-repeatability-gap-dispositions.mjs
+node platform/ingestion/ingest-wiki-activity-reference-collection-member-independent-repeatability-source-evidence.mjs
 node platform/transforms/build-unlock-statement-semantic-crosswalk.mjs
 node platform/transforms/build-unlock-linked-page-entity-types.mjs
 node platform/transforms/build-unlock-linked-page-wiki-equivalence.mjs

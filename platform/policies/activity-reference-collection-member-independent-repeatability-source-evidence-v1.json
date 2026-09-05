@@ -1,0 +1,43 @@
+{
+  "policy": "sensum.activity-reference-collection-member-independent-repeatability-source-evidence-policy.v1",
+  "inputContract": "sensum.activity-reference-collection-member-repeatability-gap-disposition.v1",
+  "recordContract": "sensum.activity-reference-collection-member-independent-repeatability-source-evidence.v1",
+  "auditContract": "sensum.activity-reference-collection-member-independent-repeatability-source-evidence-audit.v1",
+  "inputRoute": "independent_authoritative_repeatability_source_discovery",
+  "discovery": {
+    "channels": [
+      "exact_source_phrase_search",
+      "main_namespace_backlinks_to_stable_linked_subject"
+    ],
+    "namespace": 0,
+    "sourceSearchOperator": "insource",
+    "maximumSearchResultsPerActivity": 5000,
+    "maximumBacklinkResultsPerActivity": 5000,
+    "requireSearchContinuationExhausted": true,
+    "requireBacklinkContinuationExhausted": true,
+    "excludeAllPreviouslyScannedPages": true,
+    "deduplicateByResolvedMediaWikiPageId": true,
+    "scanCompleteCurrentCandidateRevision": true
+  },
+  "rules": {
+    "onePacketPerMatchingIndependentDiscoveryRoute": true,
+    "searchPhraseMustComeFromTheRevisionBoundCanonicalActivityLabel": true,
+    "backlinkAnchorMustComeFromTheRevisionBoundLinkedSubjectTitle": true,
+    "searchAndBacklinkEnumerationMustBeCompleteOrExplicitlyBlocked": true,
+    "onlyMainNamespaceCandidatesAreAllowed": true,
+    "allPreviouslyScannedPagesRemainExplicitExclusions": true,
+    "candidatePagesMustResolveThroughTheOfficialWikiApi": true,
+    "candidateRevisionTimestampUrlAndContentHashMustBePinned": true,
+    "redirectsMustDeduplicateByStablePageIdWithoutLosingContexts": true,
+    "completeCandidateRevisionUsesTheExistingRepeatabilitySignalPolicy": true,
+    "candidateSourceAuthoredLinksAreRetainedForLaterExactScopeReview": true,
+    "searchRankSnippetBacklinkStatusTitleAndLexicalSimilarityAreDiscoveryOnly": true,
+    "candidateSignalsDoNotEstablishCanonicalActivityScope": true,
+    "recurrenceSessionAndNoMatchCannotCreateARepeatabilityVerdict": true,
+    "upstreamDispositionsAndReviewsRemainUnchanged": true,
+    "memberExpansionMechanicsAndOptimizerEligibilityRemainClosed": true,
+    "namesTitlesPageIdsLabelsAliasesAndCollectionClassesCannotSelectAVerdict": true,
+    "missingContradictoryTruncatedOrConditionMismatchedEvidenceRemainsExplicit": true,
+    "currentAccountStateIsForbidden": true
+  }
+}
