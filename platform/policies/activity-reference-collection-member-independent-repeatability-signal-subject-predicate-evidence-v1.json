@@ -1,0 +1,30 @@
+{
+  "policy": "sensum.activity-reference-collection-member-independent-repeatability-signal-subject-predicate-evidence-policy.v1",
+  "inputContract": "sensum.activity-reference-collection-member-independent-repeatability-signal-scope-evidence-work-routing.v1",
+  "recordContract": "sensum.activity-reference-collection-member-independent-repeatability-signal-subject-predicate-evidence.v1",
+  "auditContract": "sensum.activity-reference-collection-member-independent-repeatability-signal-subject-predicate-evidence-audit.v1",
+  "inputState": "independent_repeatability_signal_scope_evidence_work_routed_but_scope_unresolved",
+  "evidenceChannel": "exact_revision_source_line_predicate_span_and_stable_identity_anchor_observations",
+  "supportedRouteKeys": [
+    "collect_source_bound_subject_predicate_binding_without_exact_line_link",
+    "resolve_stable_activity_anchor_then_bind_repeatability_predicate"
+  ],
+  "rules": {
+    "oneOutputRecordPerCompleteRoutingRecord": true,
+    "oneNestedEvidencePacketPerRoutedSignal": true,
+    "everyUniqueSignalSourceRevisionIsFetchedExactly": true,
+    "fetchedPageRevisionTimestampUrlAndContentHashMustMatchTheRetainedSource": true,
+    "exactSourceLineAndPredicateSpanMustRevalidate": true,
+    "exactLineSourceAuthoredLinkSetMustRevalidate": true,
+    "stablePageIdentityMatchesAreStructuralObservationsOnly": true,
+    "sourcePageTitleCanonicalLabelLexicalProximityAndSearchContextCannotBindTheSubject": true,
+    "absenceOfAStableAnchorCannotEstablishOutOfScope": true,
+    "presenceOfAStableAnchorCannotEstablishSemanticSubjectBindingWithoutDisposition": true,
+    "pronounAntecedentImplicitSubjectCrossSentenceCoreferenceAndVariantScopeCannotBeInferred": true,
+    "canonicalActivitySubjectPredicateScopeAndRepeatabilityVerdictsRemainNull": true,
+    "upstreamEvidenceRoutesDispositionsReviewsAndIdentitiesRemainUnchanged": true,
+    "memberExpansionMechanicsAndOptimizerEligibilityRemainClosed": true,
+    "missingContradictoryOrConditionMismatchedEvidenceRemainsExplicit": true,
+    "currentAccountStateIsForbidden": true
+  }
+}

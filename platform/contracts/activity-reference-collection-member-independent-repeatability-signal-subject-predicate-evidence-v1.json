@@ -1,0 +1,26 @@
+{
+  "contract": "sensum.activity-reference-collection-member-independent-repeatability-signal-subject-predicate-evidence.v1",
+  "required": [
+    "memberCandidateKey",
+    "sourceIndependentRepeatabilitySignalScopeEvidenceWorkRoutingContentHash",
+    "canonicalActivityIdentity",
+    "independentRepeatabilitySignalScopeEvidenceWorkRouting",
+    "independentRepeatabilitySignalSubjectPredicateEvidence",
+    "independentRepeatabilitySignalSubjectPredicateObservations",
+    "memberExpansionReview",
+    "mechanicsReview",
+    "optimizerEligible",
+    "accountIndependent",
+    "blockers",
+    "state"
+  ],
+  "rules": {
+    "everyRoutedSignalProducesExactlyOneEvidencePacket": true,
+    "exactRevisionLinePredicateAndLinkEvidenceIsPreserved": true,
+    "stableIdentityAnchorMatchesRemainStructuralObservations": true,
+    "semanticBindingAndRepeatabilityVerdictsRemainNull": true,
+    "upstreamEvidenceRoutingDispositionsAndReviewsRemainExact": true,
+    "memberMechanicsAndOptimizerPromotionsAreForbidden": true,
+    "currentAccountStateIsForbidden": true
+  }
+}

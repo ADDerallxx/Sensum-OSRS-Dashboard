@@ -43,6 +43,23 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+All 47 routed independent repeatability signals now have exact-revision subject-
+predicate evidence packets. The collector refetched 18 unique retained official
+Wiki revisions covering 359,018 source bytes and revalidated all 47 exact source
+lines, all 47 predicate spans, and all 45 source-authored main-namespace link
+occurrences. Every revision, page identity, timestamp, URL, and content hash
+matches the retained evidence. Stable-identity comparison found zero source-page
+or exact-line link-target matches to either reviewed canonical activity anchor,
+so all 47 packets retain the exact grammar but no semantic subject binding,
+canonical-activity scope verdict, or repeatability verdict. Page titles,
+canonical labels, lexical proximity, search context, implicit subjects, pronoun
+antecedents, and cross-sentence coreference cannot create a binding. There were
+zero upstream mutations, member or mechanics reviews, and optimizer promotions.
+Two live runs produced the same output hash. The next checkpoint should apply a
+generic, fail-closed subject-predicate evidence disposition that preserves the
+absence of a stable anchor as an unresolved evidence gap rather than treating it
+as proof that a signal is out of scope.
+
 Every independent repeatability signal-scope disposition now has one generic
 evidence-work route. All 47 nested dispositions were routed exactly once: 27
 signals without an exact-line main-namespace link require source-bound canonical

@@ -1,0 +1,33 @@
+{
+  "contract": "sensum.activity-reference-collection-member-independent-repeatability-signal-subject-predicate-evidence-audit.v1",
+  "required": [
+    "inputCoverage",
+    "policyCoverage",
+    "revisionCoverage",
+    "signalCoverage",
+    "sourceLineCoverage",
+    "stableIdentityObservationCoverage",
+    "semanticPromotionCoverage",
+    "accountStateFindings",
+    "subjectPredicateEvidenceAttemptCoverageComplete",
+    "independentSignalSubjectPredicateEvidenceCoverageComplete",
+    "canonicalActivityScopeReviewComplete",
+    "repeatabilityReviewComplete",
+    "memberExpansionReviewComplete",
+    "mechanicsReviewComplete",
+    "completeActivityUniverse",
+    "absoluteBestGate",
+    "blockers",
+    "publishable"
+  ],
+  "rules": {
+    "everyCompleteInputProducesExactlyOneOutput": true,
+    "everyRoutedSignalProducesExactlyOneEvidencePacket": true,
+    "everyUniqueRetainedSignalSourceRevisionIsFetchedAndAligned": true,
+    "everyExactSourceLinePredicateSpanAndLinkSetIsRevalidated": true,
+    "inputEvidenceRoutingAndSemanticStateCannotChange": true,
+    "semanticBindingScopeAndRepeatabilityVerdictsCannotBeCreated": true,
+    "memberMechanicsAndOptimizerPromotionsAreForbidden": true,
+    "currentAccountStateIsForbidden": true
+  }
+}
