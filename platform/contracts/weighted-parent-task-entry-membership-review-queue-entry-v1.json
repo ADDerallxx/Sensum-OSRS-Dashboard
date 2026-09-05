@@ -12,6 +12,8 @@
     "structuralCandidateKey",
     "candidateRole",
     "candidateDisplay",
+    "evidenceSourceIdentities",
+    "sourceRevisions",
     "reviewEvidence",
     "allowedDecisions",
     "decisionTemplate",

@@ -43,6 +43,23 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+The four weighted parent-task membership review templates now have a fail-closed
+decision-import boundary. The queue records and blank templates retain the exact
+disposition-record, evidence-record, packet, candidate, source-identity,
+revision, timestamp, and evidence-fingerprint bindings needed to detect stale or
+altered submissions. A completed row must provide an allowed decision, an
+explicit human reviewer, a UTC timestamp no earlier than the newest bound source,
+the exact revision set, and review notes. Valid partial human batches may be
+recorded, while blank-only, partially completed, duplicated, automatic-reviewer,
+account-scoped, stale, extra-field, or tampered batches fail atomically. Recording
+a decision still cannot apply a membership disposition or create identity,
+mapping, completeness, repeatability, mechanics, or optimizer state. The real
+four-row blank template revalidated all four queue entries, exited with the
+expected rejection code, and left the decision-snapshot count at zero. All 129
+regression tests pass. The next checkpoint should crosswalk the eight
+variant-scope evidence tasks against existing exact-variant evidence before any
+new evidence is collected or any variant is selected.
+
 The 59 weighted parent-task membership dispositions now export into three
 deterministic, pairwise-disjoint queues. Four corroborated candidates have
 source-bound review entries and four separate blank decision templates; eight

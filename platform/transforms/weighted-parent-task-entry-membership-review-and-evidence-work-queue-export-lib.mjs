@@ -240,13 +240,19 @@ function evidenceBinding(record, disposition, packet, contentHash = hash) {
   };
 }
 
-function blankDecisionTemplate(queueEntryKey, disposition, packet, evidenceFingerprint, policy) {
-  return {
+function blankDecisionTemplate(queueEntryKey, disposition, packet, evidenceFingerprint, evidenceSourceIdentities, record, policy, contentHash = hash) {
+  const base = {
     contract: policy.decisionTemplateContract,
     queueEntryKey,
+    sourceDispositionRecordContentHash: record.contentHash,
+    sourceEvidenceRecordContentHash: record.sourceWeightedParentTaskEntryMembershipEvidenceContentHash,
     sourceDispositionKey: disposition.dispositionKey,
+    sourceEvidencePacketKey: packet.packetKey,
     sourceEvidencePacketContentHash: packet.recordContentHash,
     evidenceFingerprint,
+    structuralCandidateKey: disposition.structuralCandidateKey,
+    candidateRole: disposition.candidateRole,
+    evidenceSourceIdentityFingerprint: contentHash(evidenceSourceIdentities),
     allowedDecisions: [...policy.allowedDecisions],
     decisionSourceRevisions: [],
     decision: null,
@@ -255,9 +261,17 @@ function blankDecisionTemplate(queueEntryKey, disposition, packet, evidenceFinge
     reviewNotes: null,
     state: 'blank_source_bound_weighted_membership_review_decision'
   };
+  return { ...base, templateContentHash: contentHash(base) };
 }
 
 function commonEntry(record, disposition, packet, queueEntryKey, ordinal, evidenceFingerprint) {
+  const keys = new Set(packet.sourceEvidenceKeys || []);
+  const evidenceSourceIdentities = (record.weightedParentTaskEntryMembershipEvidenceSources || [])
+    .filter(source => keys.has(source.sourceKey)).map(source => ({
+      sourceKey: source.sourceKey,
+      roles: [...source.roles],
+      ...source.sourcePageIdentity
+    }));
   return {
     queueEntryKey,
     queueOrdinal: ordinal,
@@ -270,6 +284,7 @@ function commonEntry(record, disposition, packet, queueEntryKey, ordinal, eviden
     structuralCandidateKey: disposition.structuralCandidateKey,
     candidateRole: disposition.candidateRole,
     candidateDisplay: candidateDisplay(record, packet),
+    evidenceSourceIdentities,
     sourceRevisions: sourceRevisions(record, packet),
     weightedTaskEntryMembershipVerdict: null,
     memberUniverseComplete: false,
@@ -282,7 +297,10 @@ function commonEntry(record, disposition, packet, queueEntryKey, ordinal, eviden
 function reviewEntry(record, disposition, packet, ordinal, policy, contentHash = hash) {
   const queueEntryKey = `${disposition.dispositionKey}|review-queue-entry`;
   const evidenceFingerprint = contentHash(evidenceBinding(record, disposition, packet, contentHash));
-  const decisionTemplate = blankDecisionTemplate(queueEntryKey, disposition, packet, evidenceFingerprint, policy);
+  const keys = new Set(packet.sourceEvidenceKeys || []);
+  const evidenceSourceIdentities = (record.weightedParentTaskEntryMembershipEvidenceSources || [])
+    .filter(source => keys.has(source.sourceKey)).map(source => ({ sourceKey: source.sourceKey, roles: [...source.roles], ...source.sourcePageIdentity }));
+  const decisionTemplate = blankDecisionTemplate(queueEntryKey, disposition, packet, evidenceFingerprint, evidenceSourceIdentities, record, policy, contentHash);
   return {
     contract: policy.reviewQueueContract,
     ...commonEntry(record, disposition, packet, queueEntryKey, ordinal, evidenceFingerprint),

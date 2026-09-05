@@ -1,0 +1,37 @@
+{
+  "policy": "sensum.weighted-parent-task-entry-membership-review-decision-import-policy.v1",
+  "queueContract": "sensum.weighted-parent-task-entry-membership-review-queue-entry.v1",
+  "submissionContract": "sensum.weighted-parent-task-entry-membership-review-decision-template.v1",
+  "recordContract": "sensum.weighted-parent-task-entry-membership-review-decision.v1",
+  "auditContract": "sensum.weighted-parent-task-entry-membership-review-decision-import-audit.v1",
+  "queueState": "pending_explicit_source_bound_weighted_membership_review",
+  "recordState": "recorded_source_bound_weighted_membership_review_decision_pending_semantic_disposition",
+  "allowedReviewRoutes": [
+    "candidate_scoped_weight_review_ready",
+    "candidate_subject_corroboration_review_ready"
+  ],
+  "allowedDecisions": [
+    "confirm_source_supports_candidate_membership",
+    "reject_source_supports_candidate_membership",
+    "needs_additional_evidence"
+  ],
+  "rules": {
+    "oneRecordedDecisionPerCompletedSubmission": true,
+    "partialReviewBatchesAreAllowed": true,
+    "blankTemplateRowsAreIgnored": true,
+    "partiallyCompletedRowsAreRejected": true,
+    "anyInvalidRowRejectsTheEntireBatch": true,
+    "queueManifestRecordTemplateAndEvidenceHashesMustRevalidate": true,
+    "submissionMustMatchEveryImmutableQueueDispositionPacketAndEvidenceBinding": true,
+    "submissionFieldSetMustExactlyMatchTheBlankTemplate": true,
+    "decisionMustBeExplicitlyAllowed": true,
+    "reviewerReviewedAtSourceRevisionsAndNotesAreRequired": true,
+    "reviewedAtMustNotPrecedeTheNewestBoundEvidenceTimestamp": true,
+    "decisionSourceRevisionsMustExactlyMatchTheQueueEvidenceScope": true,
+    "obviousAutomaticOrModelReviewerNamesAreRejected": true,
+    "recordingADecisionDoesNotApplyMembershipIdentityMappingCompletenessRepeatabilityRequirementsXpTimingMechanicsOrOptimizerVerdicts": true,
+    "namesTitlesPageIdsRevisionsCandidateKeysLabelsAliasesAndOverridesCannotAlterPolicyBehavior": true,
+    "currentAccountStateIsForbidden": true,
+    "automaticVerificationAllowed": false
+  }
+}
