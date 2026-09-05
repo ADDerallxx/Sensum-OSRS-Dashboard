@@ -1,0 +1,29 @@
+{
+  "contract": "sensum.scoped-canonical-activity-repeatability-evidence-disposition.v1",
+  "required": [
+    "memberCandidateKey",
+    "sourceScopedCanonicalActivityRepeatabilityEvidenceContentHash",
+    "canonicalActivityIdentity",
+    "canonicalActivityScopeDisposition",
+    "canonicalActivityScopeReview",
+    "canonicalActivityRepeatabilityDispositionSignals",
+    "canonicalActivityRepeatabilityDisposition",
+    "canonicalActivityRepeatabilityReview",
+    "canonicalActivityRepeatabilityNextEvidenceWork",
+    "memberExpansionReview",
+    "mechanicsReview",
+    "optimizerEligible",
+    "accountIndependent",
+    "blockers",
+    "state"
+  ],
+  "rules": {
+    "oneDispositionPerExactCompleteInputPacket": true,
+    "allUpstreamEvidenceIdentityRevisionHashesBindingScopeDispositionRoutingAndContextMustBePreserved": true,
+    "everySignalRoleMustBeReproducibleFromTheGenericPolicy": true,
+    "unresolvedDomainsRemainExplicitAndRouted": true,
+    "parentAndMemberRepeatabilityVerdictsMustRemainNull": true,
+    "memberMechanicsAndOptimizerPromotionAreForbidden": true,
+    "currentAccountStateIsForbidden": true
+  }
+}

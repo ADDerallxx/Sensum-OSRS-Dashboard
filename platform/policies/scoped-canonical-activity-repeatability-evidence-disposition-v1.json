@@ -1,0 +1,61 @@
+{
+  "policy": "sensum.scoped-canonical-activity-repeatability-evidence-disposition-policy.v1",
+  "inputContract": "sensum.scoped-canonical-activity-repeatability-evidence.v1",
+  "recordContract": "sensum.scoped-canonical-activity-repeatability-evidence-disposition.v1",
+  "auditContract": "sensum.scoped-canonical-activity-repeatability-evidence-disposition-audit.v1",
+  "inputState": "scoped_canonical_activity_repeatability_evidence_ready_for_semantic_disposition",
+  "requiredEvidenceState": "complete_revision_pinned_scoped_canonical_activity_repeatability_evidence_packet",
+  "signalRoleRules": [
+    {
+      "signalKind": "explicit_repeatability_declaration_candidate",
+      "dispositionClass": "explicit_declaration_candidate_requires_exact_subject_predicate_and_recurrence_boundary_review"
+    },
+    {
+      "signalKind": "recurrence_structure_candidate_not_repeatability_proof",
+      "dispositionClass": "assignment_universe_structure_not_post_completion_recurrence_proof"
+    },
+    {
+      "signalKind": "member_repeatability_declaration_candidate",
+      "dispositionClass": "member_declaration_candidate_requires_exact_member_identity_and_reselection_review"
+    },
+    {
+      "signalKind": "cooldown_reset_or_frequency_limit_candidate",
+      "dispositionClass": "limit_candidate_requires_exact_activity_applicability_review"
+    },
+    {
+      "signalKind": "finite_exhaustion_or_lockout_candidate",
+      "dispositionClass": "exhaustion_candidate_requires_exact_activity_applicability_review"
+    },
+    {
+      "signalKind": "availability_or_assignment_condition_candidate",
+      "dispositionClass": "assignment_eligibility_condition_not_cross_session_availability_proof"
+    },
+    {
+      "signalKind": "independent_source_reference_candidate_not_corroboration",
+      "dispositionClass": "reference_candidate_requires_independent_exact_source_and_predicate_evidence"
+    }
+  ],
+  "nextEvidenceRoute": {
+    "routeKey": "collect_revision_pinned_independent_scoped_activity_repeatability_evidence",
+    "routeState": "blocked_independent_scoped_activity_repeatability_evidence_gap"
+  },
+  "rules": {
+    "oneDispositionPerCompleteRepeatabilityEvidencePacket": true,
+    "everySourceLocatedSignalReceivesExactlyOneGenericEvidenceRole": true,
+    "signalRolesAreSelectedOnlyByTheAuditedSignalKind": true,
+    "recurrenceStructuresDeclaredCountsAndPluralTasksCannotSupportRepeatability": true,
+    "assignmentEligibilityDoesNotSupportCrossSessionAvailability": true,
+    "citationPresenceDoesNotSupportIndependentCorroboration": true,
+    "absenceOfMemberLimitExhaustionOrAvailabilitySignalsIsNotNegativeEvidence": true,
+    "parentAndMemberRepeatabilityRemainSeparate": true,
+    "missingExplicitPostCompletionRecurrenceRemainsBlocked": true,
+    "missingExactMemberReselectionEvidenceRemainsBlocked": true,
+    "everyUnresolvedDomainIsRoutedToIndependentEvidenceWork": true,
+    "namesTitlesPageIdsCandidateKeysLabelsAliasesScopeClassesAndOverridesCannotSelectOrAlterADisposition": true,
+    "inputEvidenceIdentityRevisionHashesBindingScopeDispositionRoutingAndContextMustBePreserved": true,
+    "repeatabilityVerdictsRemainNull": true,
+    "memberMechanicsAndOptimizerPromotionAreForbidden": true,
+    "currentAccountStateIsForbidden": true,
+    "automaticVerificationAllowed": false
+  }
+}

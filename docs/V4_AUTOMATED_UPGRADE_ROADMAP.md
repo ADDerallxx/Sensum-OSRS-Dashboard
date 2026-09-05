@@ -43,6 +43,22 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+The complete scoped canonical-activity repeatability packet now has a generic,
+fail-closed semantic disposition. All five source-located signals were assigned
+exactly one policy-derived evidence role: two assignment-universe structures,
+one assignment-eligibility condition, and two unverified reference candidates.
+None can prove post-completion recurrence, exact member reselection,
+cooldown/reset behavior, exhaustion, cross-session availability, or independent
+corroboration. All six domains therefore remain explicitly unresolved and route
+to one independent revision-pinned evidence obligation. Parent and member
+repeatability verdicts remain null; scope is preserved while member expansion,
+mechanics, and optimizer eligibility remain closed. A multi-record regression
+also proves the audit counts six domains per packet. Two accepted live runs
+produced the same output hash, and the complete 98-test platform suite passed.
+The next checkpoint should generically route the unresolved independent scoped
+repeatability evidence work without treating structural wording, eligibility,
+citations, or silence as proof.
+
 The routed scoped canonical activity now has a complete revision-pinned
 repeatability-evidence packet. The collector refetched `Wise Old Man tasks`
 revision `14997080`, matched page ID, title, timestamp, URL, content hash, and

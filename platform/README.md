@@ -215,6 +215,14 @@ Unresolved decisions remain publishable blockers so downstream evidence work
 can continue without manufacturing a classification. Member expansion,
 mechanics, and optimizer eligibility remain separate gates.
 
+Scoped canonical-activity repeatability disposition assigns every captured
+signal one generic evidence role before any verdict is possible. Assignment
+counts and recurrence structure, eligibility conditions, and citation references
+remain distinct from proof of post-completion recurrence. A missing cooldown,
+exhaustion, member-reselection, or availability signal is not negative evidence.
+Every unresolved domain routes to independent revision-pinned evidence work;
+parent and member verdicts remain null and downstream gates stay closed.
+
 Courses with multiple independently failing obstacles retain one composite
 condition record with per-obstacle requirements, successful XP, probabilities,
 and revisions. Sensum does not derive an aggregate lap probability or expected
