@@ -1,0 +1,31 @@
+{
+  "contract": "sensum.cross-skill-unresolved-rendered-target-resolution-review-queue-entry.v1",
+  "required": [
+    "queueEntryKey",
+    "queueOrdinal",
+    "sourceDispositionKey",
+    "sourceDispositionRecordContentHash",
+    "sourceEvidenceRecordContentHash",
+    "sourceDispositionSnapshotContentHash",
+    "sourceEvidenceSnapshotContentHash",
+    "evidenceFingerprint",
+    "renderedTargetKey",
+    "requestedTitles",
+    "resolutionEvidence",
+    "allowedDecisions",
+    "decisionTemplate",
+    "canonicalGameEntityIdentity",
+    "canonicalActivityIdentity",
+    "repeatabilityClassification",
+    "optimizerEligible",
+    "accountIndependent",
+    "state"
+  ],
+  "rules": {
+    "oneEntryPerReviewReadyDisposition": true,
+    "allRevisionPinnedEvidenceIsRetained": true,
+    "decisionTemplateStartsBlank": true,
+    "noResolutionOrIdentityIsSelected": true,
+    "noEntryIsOptimizerEligible": true
+  }
+}

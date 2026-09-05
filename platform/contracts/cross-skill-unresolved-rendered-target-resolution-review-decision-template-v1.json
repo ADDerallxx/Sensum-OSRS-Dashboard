@@ -1,0 +1,27 @@
+{
+  "contract": "sensum.cross-skill-unresolved-rendered-target-resolution-review-decision-template.v1",
+  "required": [
+    "queueEntryKey",
+    "queueEntryContentHash",
+    "sourceDispositionKey",
+    "sourceDispositionRecordContentHash",
+    "sourceEvidenceRecordContentHash",
+    "sourceDispositionSnapshotContentHash",
+    "sourceEvidenceSnapshotContentHash",
+    "evidenceFingerprint",
+    "allowedDecisions",
+    "decision",
+    "selectedPageId",
+    "selectedTitle",
+    "evidenceKeys",
+    "reviewer",
+    "reviewedAt",
+    "reviewNotes",
+    "state"
+  ],
+  "rules": {
+    "allReviewFieldsStartBlank": true,
+    "templateCannotApplyAResolution": true,
+    "sourceBindingsAreImmutable": true
+  }
+}

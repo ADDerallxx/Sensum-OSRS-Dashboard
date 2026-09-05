@@ -1,0 +1,26 @@
+{
+  "contract": "sensum.cross-skill-unresolved-rendered-target-resolution-review-and-additional-evidence-work-queue-export-audit.v1",
+  "required": [
+    "inputCoverage",
+    "policyCoverage",
+    "bindingCoverage",
+    "queuePartitionCoverage",
+    "artifactCoverage",
+    "semanticPreservationCoverage",
+    "accountStateFindings",
+    "queueExportComplete",
+    "resolutionReviewComplete",
+    "completeActivityUniverse",
+    "absoluteBestGate",
+    "blockers",
+    "publishable"
+  ],
+  "rules": {
+    "inputAndQueueUnionsMustMatchExactly": true,
+    "reviewAndAdditionalEvidenceQueuesMustBeDisjoint": true,
+    "allUpstreamRecordsEvidenceAndSnapshotBindingsMustRevalidate": true,
+    "queueEntriesAndArtifactsMustMatchGenericPolicyOutput": true,
+    "allReviewIdentityAndOptimizerFieldsMustRemainBlankOrClosed": true,
+    "unsupportedMutationPromotionOrAccountStateMustFailPublication": true
+  }
+}

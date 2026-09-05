@@ -1,0 +1,36 @@
+{
+  "policy": "sensum.cross-skill-unresolved-rendered-target-resolution-review-and-additional-evidence-work-queue-export-policy.v1",
+  "inputDispositionContract": "sensum.cross-skill-unresolved-rendered-target-resolution-evidence-sufficiency-disposition.v1",
+  "inputEvidenceContract": "sensum.cross-skill-unresolved-rendered-target-resolution-evidence.v1",
+  "reviewQueueContract": "sensum.cross-skill-unresolved-rendered-target-resolution-review-queue-entry.v1",
+  "decisionTemplateContract": "sensum.cross-skill-unresolved-rendered-target-resolution-review-decision-template.v1",
+  "additionalEvidenceQueueContract": "sensum.cross-skill-unresolved-rendered-target-resolution-additional-evidence-work-queue-entry.v1",
+  "auditContract": "sensum.cross-skill-unresolved-rendered-target-resolution-review-and-additional-evidence-work-queue-export-audit.v1",
+  "reviewReadyRoute": "explicit_source_bound_resolution_review",
+  "additionalEvidenceRoute": "additional_source_bound_resolution_evidence",
+  "allowedDecisions": [
+    "confirm_exact_current_resolution",
+    "confirm_revision_pinned_candidate_resolution",
+    "reject_all_presented_resolution_candidates",
+    "needs_additional_evidence"
+  ],
+  "additionalEvidenceChannels": [
+    "independent_revision_pinned_official_wiki_source_discovery",
+    "exact_title_redirect_move_and_deletion_history",
+    "pinned_guide_context_resolution"
+  ],
+  "rules": {
+    "everyDispositionMustEnterExactlyOneOfTwoDisjointQueues": true,
+    "queueOrderMustPreserveDispositionOrderWithinEachRoute": true,
+    "dispositionEvidenceAndBothSnapshotHashesMustRevalidate": true,
+    "everyQueueEntryMustRetainAllRevisionPinnedResolutionEvidence": true,
+    "reviewQueueRequiresCurrentOrCandidateEvidence": true,
+    "reviewDecisionTemplatesMustStartBlank": true,
+    "additionalEvidenceQueueMustStartWithoutNewEvidence": true,
+    "queueExportCannotSelectAResolutionOrIdentity": true,
+    "confirmationCannotProveActivityIdentityRepeatabilityMechanicsOrOptimizerEligibility": true,
+    "titlesPageIdsRevisionsCandidateNamesAndOverridesCannotAlterPolicyBehavior": true,
+    "currentAccountStateIsForbidden": true,
+    "automaticVerificationAllowed": false
+  }
+}

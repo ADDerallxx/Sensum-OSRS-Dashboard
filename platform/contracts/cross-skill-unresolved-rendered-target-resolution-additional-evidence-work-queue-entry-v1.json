@@ -1,0 +1,33 @@
+{
+  "contract": "sensum.cross-skill-unresolved-rendered-target-resolution-additional-evidence-work-queue-entry.v1",
+  "required": [
+    "workQueueEntryKey",
+    "queueOrdinal",
+    "sourceDispositionKey",
+    "sourceDispositionRecordContentHash",
+    "sourceEvidenceRecordContentHash",
+    "sourceDispositionSnapshotContentHash",
+    "sourceEvidenceSnapshotContentHash",
+    "evidenceFingerprint",
+    "renderedTargetKey",
+    "requestedTitles",
+    "resolutionEvidence",
+    "insufficiencyDisposition",
+    "requiredAdditionalEvidenceChannels",
+    "newEvidenceKeys",
+    "resolutionReview",
+    "canonicalGameEntityIdentity",
+    "canonicalActivityIdentity",
+    "repeatabilityClassification",
+    "optimizerEligible",
+    "accountIndependent",
+    "state"
+  ],
+  "rules": {
+    "oneEntryPerAdditionalEvidenceDisposition": true,
+    "allExistingRevisionPinnedEvidenceIsRetained": true,
+    "newEvidenceStartsEmpty": true,
+    "noResolutionReviewOrIdentityIsApplied": true,
+    "noEntryIsOptimizerEligible": true
+  }
+}

@@ -43,6 +43,22 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+The five unresolved rendered-target sufficiency dispositions now export into
+two exhaustive, disjoint, source-bound work queues. Three review-ready targets
+retain all 13 revision-pinned candidates, three blank human decision templates,
+and their exact current-title, guide-occurrence, and title-log evidence. The two
+missing category targets retain their existing evidence and route to a separate
+three-channel additional-evidence queue with no new evidence prefilled. All five
+disposition records, evidence records, snapshot hashes, evidence fingerprints,
+and pinned guide occurrences revalidated before export. Two final-code runs
+produced identical review-queue, additional-evidence-queue, Markdown, and
+decision-template hashes. No review, selected resolution, canonical identity,
+repeatability classification, or optimizer promotion was created, and all 199
+regression tests pass. The next checkpoint should add a fail-closed import
+boundary for the three blank resolution-review templates without treating a
+recorded title resolution as game-entity identity, activity identity,
+repeatability, mechanics, or optimizer eligibility.
+
 The five unresolved rendered-target resolution packets now have generic,
 fail-closed evidence-sufficiency dispositions. Routing uses only complete exact
 current-title resolution coverage and the presence of fully revision-pinned
