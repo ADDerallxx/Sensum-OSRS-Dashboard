@@ -1,0 +1,19 @@
+{
+  "contract": "sensum.weighted-parent-task-entry-membership-additional-evidence-sufficiency-disposition-audit.v1",
+  "required": [
+    "inputCoverage",
+    "policyCoverage",
+    "sourceIntegrityCoverage",
+    "dispositionCoverage",
+    "reviewRoutingCoverage",
+    "semanticPreservationCoverage",
+    "accountStateFindings",
+    "dispositionCoverageComplete",
+    "weightedMembershipReviewComplete",
+    "optimizerEligibleCount",
+    "completeActivityUniverse",
+    "absoluteBestGate",
+    "blockers",
+    "publishable"
+  ]
+}

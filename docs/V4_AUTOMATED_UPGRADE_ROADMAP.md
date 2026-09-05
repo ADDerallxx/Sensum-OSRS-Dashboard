@@ -43,6 +43,21 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+All 47 weighted-membership additional-source packets now have generic,
+fail-closed sufficiency dispositions. The transform revalidated every packet,
+48 pinned sources, 147 retained current sources, every exact evidence-text hash,
+and each source/channel binding before classification. Every candidate has one
+exact structured reference on the stable pinned-parent page identity inside its
+source-authored task or letter-delivery section, so all 47 route to explicit
+parent-section membership review; none remains on the weaker context-only or
+additional-evidence routes. The dispositions bind 47 exact parent-section
+observations and preserve 97 wider relationship observations without treating
+either as a membership verdict. Two real runs produced the same 47-record
+output hash. Zero reviews, membership verdicts, or optimizer promotions were
+created, and all 132 regression tests pass. The next unattended checkpoint
+should export a deterministic source-bound review queue and blank decision
+templates for these 47 dispositions.
+
 All 47 weighted-membership candidates that lacked candidate-specific evidence
 now have revision-pinned additional-source discovery packets. The collector
 revalidated every queue record and 48 distinct pinned candidate/parent sources,

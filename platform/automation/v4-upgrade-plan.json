@@ -166,7 +166,8 @@
         "weighted_parent_task_entry_membership_review_and_evidence_work_queue_export",
         "weighted_parent_task_entry_membership_review_decision_import_contract",
         "weighted_parent_task_entry_membership_variant_scope_evidence_crosswalk",
-        "weighted_parent_task_entry_membership_additional_evidence_source_discovery_packets"
+        "weighted_parent_task_entry_membership_additional_evidence_source_discovery_packets",
+        "generic_weighted_parent_task_entry_membership_additional_evidence_sufficiency_disposition"
       ],
       "remainingWork": [
         "Use the 1,909-entry revision-aligned semantic-review queue to establish canonical game-entity and activity identities from retained source signatures and contexts, then prove repeatability, membership, requirements, variants, XP, timing, mechanics, and authoritative exclusions. Begin with the 29 explicit activity-page candidates, but do not treat activity/minigame page type as repeatability proof; distinguish reference collections and composites from actual trainable method variants. Reconcile 68 queued untyped pages, 4,725 stable rendered pages without unlock evidence, 1,565 unlock pages without rendered-guide evidence, five unresolved rendered targets, the wider unlock set's 137 untyped pages and 31 activity pages, and 51 ambiguous statement forms. Historical template-expansion provenance remains open because dependency revision IDs and the generative origins of 16,284 rendered-only observations are unavailable. Continue independent discovery until every repeatable training activity in every skill is enumerated. The central guide index's composite Combat row and four Defence link disagreements remain explicit. Rockslide pairing still requires complete activity and travel graphs.",
@@ -183,12 +184,27 @@
         "independentGameUniverseDiscoveryPending": true
       },
       "latestCheckpoint": {
-        "id": "weighted_parent_task_entry_membership_additional_evidence_source_discovery_packets",
-        "result": "47_of_47_additional_membership_evidence_work_entries_revalidated_and_captured; 48_of_48_distinct_pinned_candidate_and_parent_sources_revalidated; 141_of_141_source_derived_official_wiki_searches_fully_enumerated; 147_of_147_requested_distinct_current_sources_revision_pinned_with_complete_text; 170_candidate_parent_contexts_97_exact_candidate_occurrences_in_relationship_labeled_sections_and_0_candidate_scoped_weight_statements_retained; first_pass_item_weight_false_signals_and_short_name_collisions_removed_before_acceptance; two_final_shape_live_runs_same_47_record_output_hash; 0_reviews_0_membership_verdicts_0_optimizer_promotions; 131_of_131_tests_passed",
-        "next": "generic_weighted_parent_task_entry_membership_additional_evidence_sufficiency_disposition"
+        "id": "generic_weighted_parent_task_entry_membership_additional_evidence_sufficiency_disposition",
+        "result": "47_of_47_revision_pinned_additional_source_packets_revalidated_and_disposed; 48_pinned_and_147_current_sources_plus_all_exact_observation_text_and_channel_bindings_revalidated; 47_exact_structured_candidate_references_on_stable_pinned_parent_page_identity_route_to_explicit_parent_section_membership_review; 0_context_only_review_routes_0_additional_evidence_routes; 47_exact_parent_section_and_97_wider_relationship_evidence_bindings_preserved; two_real_runs_same_47_record_output_hash; 0_reviews_0_membership_verdicts_0_optimizer_promotions; 132_of_132_tests_passed",
+        "next": "weighted_parent_task_entry_membership_additional_evidence_review_queue_export"
       },
       "latestCoverageDelta": {
         "officialSkillDomainsMeasured": 24,
+        "weightedMembershipAdditionalEvidenceDispositionInputPackets": 47,
+        "weightedMembershipAdditionalEvidenceDispositionCompletePackets": 47,
+        "weightedMembershipAdditionalEvidenceDispositionRecords": 47,
+        "weightedMembershipAdditionalEvidenceDispositionRevalidatedPinnedSources": 48,
+        "weightedMembershipAdditionalEvidenceDispositionRevalidatedCurrentSources": 147,
+        "weightedMembershipAdditionalEvidenceExactParentSectionReviewRoutes": 47,
+        "weightedMembershipAdditionalEvidenceContextOnlyReviewRoutes": 0,
+        "weightedMembershipAdditionalEvidenceRemainingEvidenceRoutes": 0,
+        "weightedMembershipAdditionalEvidenceExactParentSectionBindings": 47,
+        "weightedMembershipAdditionalEvidenceRelationshipBindings": 97,
+        "weightedMembershipAdditionalEvidenceDispositionReviewsRecorded": 0,
+        "weightedMembershipAdditionalEvidenceDispositionMembershipVerdictsRecorded": 0,
+        "weightedMembershipAdditionalEvidenceDispositionOptimizerPromotions": 0,
+        "weightedMembershipAdditionalEvidenceDispositionDeterministicAcrossTwoRealRuns": true,
+        "weightedMembershipAdditionalEvidenceDispositionRegressionTestsPassed": 132,
         "weightedMembershipAdditionalEvidenceDiscoveryInputEntries": 47,
         "weightedMembershipAdditionalEvidenceDiscoveryOutputPackets": 47,
         "weightedMembershipAdditionalEvidenceDiscoveryRevalidatedPinnedSources": 48,
@@ -324,7 +340,34 @@
         "optimizerEligibleActivitiesAdded": 0,
         "currentAccountFieldsAllowed": 0,
         "inventedFacts": 0,
-        "reason": "All 47 weighted-membership candidates that lacked candidate-specific evidence now retain complete revision-pinned discovery packets. Every queue record and 48 pinned sources revalidated; all 141 source-derived searches were exhausted; 147 distinct current sources were retained; and source-authored task or delivery section context was observed for every candidate. Ordinary item-weight fields were removed from task-weight observations before acceptance, leaving zero candidate-scoped weight statements. This is evidence for disposition and explicit human review only: no membership verdict or optimizer promotion was created."
+        "reason": "All 47 weighted-membership additional-source packets now route to explicit source-bound parent-section review because each has an exact structured candidate reference on the stable pinned parent page identity inside the relevant task or letter-delivery section. No context-only or additional-evidence route remains. The 47 exact parent-section and 97 wider relationship bindings remain evidence only: no review, membership verdict, or optimizer promotion was created."
+      },
+      "latestWeightedParentTaskEntryMembershipAdditionalEvidenceSufficiencyDispositionAudit": {
+        "generatedAt": "2026-09-05T19:23:10.453Z",
+        "policy": "sensum.weighted-parent-task-entry-membership-additional-evidence-sufficiency-disposition-policy.v1",
+        "policyContentHash": "3c6c7e9e85f84b43e447a9e81486b17a25d5fa3452675946de1f6a93391c61d4",
+        "inputEvidenceSnapshotDirectory": "2026-09-05T19-14-09-138Z",
+        "inputEvidenceSnapshotContentHash": "a2d6a50fb0076df7d32b511c369fa789abcc12be2a3ece9b64f02662115a0584",
+        "outputSnapshotDirectory": "2026-09-05T19-23-10-450Z",
+        "outputSnapshotContentHash": "21590da0c76bda31d0928aaa44b5dfb53f3ccdcfe339003897d34ee634b801fb",
+        "reportContentHash": "2ebc870aa91c8d5f4f7c2810d117dbda2c3b779a74f9f9552f162f68419ef3bb",
+        "inputEvidencePacketCount": 47,
+        "completeEvidencePacketCount": 47,
+        "dispositionCount": 47,
+        "revalidatedPinnedSourceCount": 48,
+        "revalidatedCurrentSourceCount": 147,
+        "exactParentSectionMembershipReviewRoutes": 47,
+        "candidateRelationshipContextReviewRoutes": 0,
+        "additionalCandidateMembershipEvidenceRoutes": 0,
+        "exactParentSectionEvidenceBindingCount": 47,
+        "candidateRelationshipEvidenceBindingCount": 97,
+        "reviewDecisionCount": 0,
+        "membershipVerdictCount": 0,
+        "optimizerEligibleCount": 0,
+        "weightedMembershipReviewComplete": false,
+        "completeActivityUniverse": false,
+        "absoluteBestGate": "blocked_incomplete_activity_universe",
+        "publishable": true
       },
       "latestWeightedParentTaskEntryMembershipAdditionalEvidenceSourceDiscoveryAudit": {
         "generatedAt": "2026-09-05T19:14:09.293Z",
