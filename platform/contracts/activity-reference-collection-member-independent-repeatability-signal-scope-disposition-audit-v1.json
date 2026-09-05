@@ -1,0 +1,29 @@
+{
+  "contract": "sensum.activity-reference-collection-member-independent-repeatability-signal-scope-disposition-audit.v1",
+  "required": [
+    "inputCoverage",
+    "policyCoverage",
+    "dispositionCoverage",
+    "semanticPromotionCoverage",
+    "accountStateFindings",
+    "signalScopeDispositionAttemptCoverageComplete",
+    "canonicalActivityScopeClassificationCoverageComplete",
+    "canonicalActivityScopeReviewComplete",
+    "repeatabilityReviewComplete",
+    "memberExpansionReviewComplete",
+    "mechanicsReviewComplete",
+    "completeActivityUniverse",
+    "absoluteBestGate",
+    "blockers",
+    "publishable"
+  ],
+  "rules": {
+    "everyCompleteEvidenceRecordProducesExactlyOneOutput": true,
+    "everySignalScopePacketProducesExactlyOneReproducibleDisposition": true,
+    "inputEvidenceAndSemanticStateCannotChange": true,
+    "noLinkNoAnchorAndUnboundAnchorStatesRemainUnresolved": true,
+    "scopeAndRepeatabilityClassificationsCannotBeCreated": true,
+    "memberMechanicsAndOptimizerPromotionsAreForbidden": true,
+    "currentAccountStateIsForbidden": true
+  }
+}

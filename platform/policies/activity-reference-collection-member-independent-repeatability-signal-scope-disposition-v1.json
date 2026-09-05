@@ -1,0 +1,21 @@
+{
+  "policy": "sensum.activity-reference-collection-member-independent-repeatability-signal-scope-disposition-policy.v1",
+  "inputContract": "sensum.activity-reference-collection-member-independent-repeatability-signal-scope-evidence.v1",
+  "recordContract": "sensum.activity-reference-collection-member-independent-repeatability-signal-scope-disposition.v1",
+  "auditContract": "sensum.activity-reference-collection-member-independent-repeatability-signal-scope-disposition-audit.v1",
+  "rules": {
+    "oneDispositionPerCompleteSignalScopeEvidenceRecord": true,
+    "oneNestedDispositionPerExactSignalScopeEvidencePacket": true,
+    "allUpstreamIdentityRevisionHashEvidenceAndContextRemainExact": true,
+    "incompleteScopeEvidenceRemainsBlocked": true,
+    "absenceOfAnExactLineLinkCannotEstablishOutOfScope": true,
+    "exactLineLinksWithoutAStableAnchorCannotEstablishScope": true,
+    "stableAnchorObservationWithoutSemanticSubjectBindingCannotEstablishScope": true,
+    "sourcePageTitleLinkTextTargetTitlePageIdAndLexicalSimilarityCannotSelectADisposition": true,
+    "noScopeDispositionCanCreateARepeatabilityClassification": true,
+    "allUnresolvedScopeStatesRemainExplicitAndPublishable": true,
+    "upstreamDispositionsReviewsAndEvidenceRemainUnchanged": true,
+    "memberExpansionMechanicsAndOptimizerEligibilityRemainClosed": true,
+    "currentAccountStateIsForbidden": true
+  }
+}

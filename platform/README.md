@@ -319,6 +319,7 @@ node platform/ingestion/ingest-wiki-activity-reference-collection-member-repeata
 node platform/transforms/build-activity-reference-collection-member-repeatability-gap-dispositions.mjs
 node platform/ingestion/ingest-wiki-activity-reference-collection-member-independent-repeatability-source-evidence.mjs
 node platform/ingestion/ingest-wiki-activity-reference-collection-member-independent-repeatability-signal-scope-evidence.mjs
+node platform/transforms/build-activity-reference-collection-member-independent-repeatability-signal-scope-dispositions.mjs
 node platform/ingestion/ingest-wiki-agility-training-guide-sections.mjs
 node platform/ingestion/ingest-wiki-agility-rooftop-guide-members.mjs
 node platform/ingestion/ingest-wiki-agility-brimhaven-guide-members.mjs

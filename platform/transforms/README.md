@@ -170,6 +170,28 @@ Run:
 node platform/transforms/build-activity-reference-collection-member-repeatability-evidence-work-routes.mjs
 ```
 
+## Independent repeatability signal-scope disposition
+
+`build-activity-reference-collection-member-independent-repeatability-signal-scope-dispositions.mjs`
+applies one generic structural disposition to every exact signal-scope evidence
+packet. An absent exact-line link cannot establish that a signal is out of
+scope. An exact-line link without a reviewed stable activity identity anchor
+cannot establish scope. Even a stable-anchor observation remains blocked until
+separate authoritative evidence binds the repeatability predicate to the exact
+canonical activity subject.
+
+The policy forbids activity names, titles, page IDs, labels, aliases, and
+per-activity overrides. Every scope and repeatability classification remains
+null, while member expansion, mechanics, and optimizer eligibility stay closed.
+Unresolved dispositions are publishable because they precisely identify the
+missing evidence without inventing a game fact.
+
+Run:
+
+```text
+node platform/transforms/build-activity-reference-collection-member-independent-repeatability-signal-scope-dispositions.mjs
+```
+
 ## Activity-candidate subject disposition
 
 `build-activity-candidate-subject-dispositions.mjs` applies a versioned generic

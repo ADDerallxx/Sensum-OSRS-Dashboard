@@ -43,6 +43,21 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+Every independent repeatability signal-scope evidence packet now has one
+generic, fail-closed disposition. All 47 signals were dispositioned structurally:
+27 have no source-authored main-namespace link on the exact signal line, and 20
+have exact-line links that do not reference either reviewed stable activity
+identity anchor. Neither condition establishes that the signal is in or out of
+the canonical activity's scope. There are zero incomplete packets, zero
+canonical-activity scope classifications, zero repeatability classifications,
+zero semantic-subject bindings, zero upstream mutations, and zero member,
+mechanics, or optimizer promotions. The policy forbids activity-specific names,
+titles, page IDs, labels, aliases, and overrides, and tests prove renamed display
+data cannot change a disposition. Two live runs produced the same output hash.
+The next checkpoint should route every unresolved structural state to its exact
+semantic-subject evidence obligation without converting that obligation into a
+game fact.
+
 All 47 independent repeatability signals now have exact-line, revision-pinned
 canonical-activity scope evidence packets. Twenty signal lines contain 45
 source-authored main-namespace link occurrences spanning 22 requested titles;
