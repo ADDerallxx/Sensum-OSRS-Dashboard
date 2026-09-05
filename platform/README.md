@@ -330,6 +330,13 @@ review routes; incomplete or inconsistent evidence returns to evidence work.
 The transform never selects a resolution or promotes category evidence into an
 activity, repeatability, mechanics, or optimizer result.
 
+Review-ready category dispositions export to a deterministic human review
+queue with a readable Markdown packet and blank NDJSON decision templates.
+Every entry binds both upstream snapshots and the exact category evidence
+fingerprint. The export accepts described-category and active-redlink-category
+review routes, rejects insufficient-evidence routes, and records no review or
+resolution itself.
+
 Run:
 
 ```text
@@ -342,6 +349,7 @@ node platform/ingestion/ingest-wiki-skill-training-guide-source-dependencies.mjs
 node platform/ingestion/ingest-wiki-skill-training-guide-rendered-links.mjs
 node platform/ingestion/ingest-wiki-cross-skill-unresolved-rendered-target-additional-resolution-evidence-source-discovery.mjs
 node platform/transforms/build-cross-skill-unresolved-rendered-target-additional-resolution-evidence-sufficiency-dispositions.mjs
+node platform/transforms/export-cross-skill-unresolved-rendered-target-additional-resolution-evidence-review-queue.mjs
 node platform/transforms/build-unlock-statement-semantic-crosswalk.mjs
 node platform/transforms/build-unlock-linked-page-entity-types.mjs
 node platform/transforms/build-unlock-linked-page-wiki-equivalence.mjs

@@ -1,0 +1,26 @@
+{
+  "contract": "sensum.cross-skill-unresolved-rendered-target-additional-resolution-evidence-review-decision-template.v1",
+  "required": [
+    "queueEntryKey",
+    "sourceDispositionKey",
+    "sourceDispositionRecordContentHash",
+    "sourceDispositionSnapshotContentHash",
+    "sourceEvidencePacketKey",
+    "sourceEvidencePacketRecordContentHash",
+    "sourceEvidencePacketSnapshotContentHash",
+    "evidenceFingerprint",
+    "renderedTargetKey",
+    "requestedTitles",
+    "classification",
+    "reviewRoute",
+    "allowedDecisions",
+    "decision",
+    "reviewer",
+    "reviewedAt",
+    "reviewNotes",
+    "evidenceKeys",
+    "selectedResolution",
+    "state",
+    "templateContentHash"
+  ]
+}

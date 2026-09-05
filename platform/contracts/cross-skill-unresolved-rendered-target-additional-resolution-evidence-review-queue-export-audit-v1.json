@@ -1,0 +1,20 @@
+{
+  "contract": "sensum.cross-skill-unresolved-rendered-target-additional-resolution-evidence-review-queue-export-audit.v1",
+  "required": [
+    "inputCoverage",
+    "policyCoverage",
+    "sourceIntegrityCoverage",
+    "queueCoverage",
+    "artifactCoverage",
+    "semanticPreservationCoverage",
+    "accountStateFindings",
+    "queueExportComplete",
+    "categoryResolutionReviewComplete",
+    "resolutionApplicationComplete",
+    "canonicalIdentityComplete",
+    "completeActivityUniverse",
+    "absoluteBestGate",
+    "blockers",
+    "publishable"
+  ]
+}

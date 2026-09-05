@@ -43,6 +43,22 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+The two review-ready category dispositions now export to an exhaustive,
+source-bound human review queue. Each machine row and readable entry preserves
+the exact disposition and evidence snapshot hashes, category state, exact
+prefix result, reconciled member inventory, revision-pinned member occurrence,
+pinned-guide revalidation, namespace-search inventory, title history, and an
+immutable evidence fingerprint. Both current entries are active redlink
+categories, and both decision templates are blank. The exporter also supports
+the separately tested exact-described-category shape and rejects the
+insufficient-evidence route. Two real exports produced identical two-record,
+Markdown, and decision-template hashes. No review, resolution, canonical
+identity, repeatability classification, mechanics verdict, automatic
+verification, or optimizer promotion was created. All 234 regression tests
+pass. The next unattended checkpoint should add a fail-closed import boundary
+for completed category-resolution decisions while rejecting the current blank
+templates and keeping resolution application separate.
+
 The two namespace-aware category packets now have a generic, fail-closed
 evidence-sufficiency disposition. Routing depends only on a complete category
 evidence shape: an exact current revision-pinned description page, an active

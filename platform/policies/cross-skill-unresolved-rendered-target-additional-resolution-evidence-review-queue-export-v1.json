@@ -1,0 +1,50 @@
+{
+  "policy": "sensum.cross-skill-unresolved-rendered-target-additional-resolution-evidence-review-queue-export-policy.v1",
+  "evidencePacketContract": "sensum.cross-skill-unresolved-rendered-target-additional-resolution-evidence-source-discovery.v1",
+  "inputContract": "sensum.cross-skill-unresolved-rendered-target-additional-resolution-evidence-sufficiency-disposition.v1",
+  "queueContract": "sensum.cross-skill-unresolved-rendered-target-additional-resolution-evidence-review-queue-entry.v1",
+  "decisionTemplateContract": "sensum.cross-skill-unresolved-rendered-target-additional-resolution-evidence-review-decision-template.v1",
+  "auditContract": "sensum.cross-skill-unresolved-rendered-target-additional-resolution-evidence-review-queue-export-audit.v1",
+  "evidencePacketState": "revision_pinned_unresolved_rendered_target_additional_resolution_evidence_gates_closed",
+  "inputState": "unresolved_rendered_target_additional_resolution_evidence_sufficiency_disposition_gates_closed",
+  "eligibleClassifications": [
+    "described_category_page_resolution_review_ready",
+    "active_redlink_category_target_resolution_review_ready"
+  ],
+  "eligibleReviewRoutes": [
+    "explicit_source_bound_described_category_page_resolution_review",
+    "explicit_source_bound_redlink_category_target_resolution_review"
+  ],
+  "classificationReviewRoutes": {
+    "described_category_page_resolution_review_ready": "explicit_source_bound_described_category_page_resolution_review",
+    "active_redlink_category_target_resolution_review_ready": "explicit_source_bound_redlink_category_target_resolution_review"
+  },
+  "classificationAllowedDecisions": {
+    "described_category_page_resolution_review_ready": [
+      "confirm_exact_current_category_page_resolution",
+      "reject_exact_current_category_page_resolution",
+      "needs_additional_evidence"
+    ],
+    "active_redlink_category_target_resolution_review_ready": [
+      "confirm_active_redlink_category_target",
+      "reject_active_redlink_category_target",
+      "needs_additional_evidence"
+    ]
+  },
+  "queueState": "pending_explicit_source_bound_category_target_resolution_review",
+  "rules": {
+    "everyInputDispositionMustUseAReviewReadyCategoryRoute": true,
+    "everyEligibleDispositionExportsExactlyOnce": true,
+    "queueOrderMustPreserveDispositionOrder": true,
+    "dispositionEvidenceAndBothSnapshotBindingsMustRevalidate": true,
+    "allNestedEvidenceHashesSourcesOccurrencesAndMemberCountsMustRevalidate": true,
+    "everyQueueEntryMustBindImmutableEvidenceAndSourceFingerprints": true,
+    "readableArtifactMustUseOnlyRetainedRevisionPinnedCategoryEvidence": true,
+    "decisionTemplatesMustStartBlank": true,
+    "exportDoesNotRecordAReviewDecisionReviewerDateNotesEvidenceOrResolution": true,
+    "confirmationWouldNotProveGameEntityActivityRepeatabilityMechanicsOrOptimizerEligibility": true,
+    "namesTitlesPageIdsRevisionsMemberNamesAliasesAndOverridesCannotAlterPolicyBehavior": true,
+    "currentAccountStateIsForbidden": true,
+    "automaticVerificationAllowed": false
+  }
+}
