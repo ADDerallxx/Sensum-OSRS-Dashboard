@@ -43,6 +43,21 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+The activity-infobox schema-semantics disposition now has a generic, fail-closed
+rule for canonical page-subject binding. A record binds only when exactly one
+structurally qualified candidate passes all ten retained structural checks, its
+canonical label exactly matches the revision-pinned source title and `name`
+value, and all seven required observations from the activity-infobox template,
+documentation, and module are present exactly once. The one live input met that
+rule, so its canonical activity subject is now source-supported. This promotes
+only the subject declaration: scope, repeatability, member expansion,
+requirements, XP, timing, mechanics, optimizer eligibility, and the complete
+activity universe remain explicitly blocked. Missing observations, title drift,
+multiple candidates, account state, policy overrides, automatic verification,
+and downstream promotion all fail closed. Two accepted runs produced the same
+output hash, and the next checkpoint should generically route the bound subject
+to revision-pinned canonical activity-scope evidence work.
+
 The activity-infobox schema route now has a complete revision-pinned evidence
 packet. It preserves the current `Template:Infobox Activity` invocation, its
 documentation subpage, and `Module:Infobox Activity` as three separately hashed

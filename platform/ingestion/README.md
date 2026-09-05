@@ -49,6 +49,8 @@ node platform/ingestion/ingest-wiki-activity-reference-collection-member-indepen
 node platform/ingestion/ingest-wiki-activity-reference-collection-member-canonical-activity-subject-declaration-exact-line-evidence.mjs
 node platform/ingestion/ingest-wiki-activity-reference-collection-member-canonical-activity-subject-declaration-structural-context-evidence.mjs
 node platform/transforms/build-activity-reference-collection-member-canonical-activity-subject-declaration-structural-context-dispositions.mjs
+node platform/ingestion/ingest-wiki-activity-infobox-schema-semantics-evidence.mjs
+node platform/transforms/build-activity-infobox-schema-semantics-dispositions.mjs
 node platform/transforms/build-unlock-statement-semantic-crosswalk.mjs
 node platform/transforms/build-unlock-linked-page-entity-types.mjs
 node platform/transforms/build-unlock-linked-page-wiki-equivalence.mjs
@@ -222,6 +224,14 @@ record count, creation time, audit result, and SHA-256 content hash.
   Missing, duplicate, changed, unpinned, or namespace-mismatched evidence stays
   blocked. Complete schema evidence still requires a separate semantic
   disposition and cannot independently bind the page subject.
+- Activity-infobox schema-semantics disposition binds a canonical activity
+  subject only when exactly one structurally qualified candidate passes all ten
+  structural checks, its label, source title, and infobox `name` value align
+  exactly, and all seven revision-pinned schema observations occur exactly once.
+  Run `node platform/transforms/build-activity-infobox-schema-semantics-dispositions.mjs`.
+  The disposition promotes only the canonical subject declaration; activity
+  scope, repeatability, membership, requirements, XP, timing, mechanics, and
+  optimizer eligibility remain separate evidence gates.
 - Training-guide section ingestion inventories every Wiki heading in source
   order. Every method-bearing subsection is retained with its parent, source
   lines, revision, and structural role. New heading depths or parents fail

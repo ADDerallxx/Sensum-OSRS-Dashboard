@@ -1,0 +1,53 @@
+{
+  "policy": "sensum.activity-infobox-schema-semantics-disposition-policy.v1",
+  "inputContract": "sensum.activity-infobox-schema-semantics-evidence.v1",
+  "recordContract": "sensum.activity-infobox-schema-semantics-disposition.v1",
+  "auditContract": "sensum.activity-infobox-schema-semantics-disposition-audit.v1",
+  "inputState": "activity_infobox_schema_semantics_evidence_ready_for_disposition",
+  "requiredEvidenceState": "complete_revision_pinned_activity_infobox_schema_semantics_evidence_packet",
+  "subjectBindingRule": {
+    "ruleKey": "revision_pinned_title_aligned_activity_infobox_name_subject_binding",
+    "requiredStructuralDispositionState": "structurally_qualified_subject_candidate_requires_revision_pinned_schema_semantics",
+    "requiredCandidateCount": 1,
+    "requiredCandidateChecks": [
+      "completeStructuralPacket",
+      "activeSourceText",
+      "canonicalLabelSourceTitleEqual",
+      "exactCanonicalLabelCase",
+      "beforeFirstHeading",
+      "outermostTemplateMatches",
+      "occurrenceRoleMatches",
+      "templateParameterMatches",
+      "revisionIdentityComplete",
+      "exactOccurrenceRevalidated"
+    ],
+    "requiredSchemaObservations": [
+      "template_invokes_activity_infobox_module",
+      "template_transcludes_local_documentation",
+      "documentation_declares_name_parameter",
+      "documentation_describes_name_as_activity_name",
+      "module_defines_name_parameter_handler",
+      "module_renders_name_as_infobox_header",
+      "module_declares_infobox_activity_identity"
+    ],
+    "bindingClass": "revision_pinned_title_aligned_activity_infobox_name_subject",
+    "verdict": "source_supported_canonical_activity_subject_declaration"
+  },
+  "rules": {
+    "oneDispositionPerCompleteSchemaEvidencePacket": true,
+    "subjectBindingRequiresTheCompleteStructuralAndSchemaEvidenceChain": true,
+    "subjectBindingRequiresExactlyOneQualifiedCandidatePage": true,
+    "subjectBindingRequiresEveryStructuralCheckAndSchemaObservation": true,
+    "candidatePageIdentityRevisionTitleAndOccurrenceMustRemainAligned": true,
+    "schemaEvidenceMeaningIsAppliedOnlyToTheExactQualifiedInfoboxOccurrence": true,
+    "subjectBindingIsAnExplicitAuditableSemanticDisposition": true,
+    "subjectBindingDoesNotClassifyActivityScopeOrRepeatability": true,
+    "subjectBindingDoesNotCompleteMemberExpansionOrMechanics": true,
+    "subjectBindingDoesNotCreateOptimizerCandidates": true,
+    "missingChangedDuplicateContradictoryOrConditionMismatchedEvidenceRemainsBlocked": true,
+    "activityNamesLabelsPageIdsCandidateKeysAliasesCollectionClassesAndOverridesAreForbidden": true,
+    "upstreamEvidenceIdentityRevisionHashesStructuralSignalsAndContextMustBePreserved": true,
+    "currentAccountStateIsForbidden": true,
+    "automaticVerificationAllowed": false
+  }
+}

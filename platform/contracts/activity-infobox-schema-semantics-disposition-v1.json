@@ -1,0 +1,29 @@
+{
+  "contract": "sensum.activity-infobox-schema-semantics-disposition.v1",
+  "required": [
+    "memberCandidateKey",
+    "sourceActivityInfoboxSchemaSemanticsEvidenceContentHash",
+    "canonicalActivityIdentity",
+    "canonicalActivitySubjectDeclarationStructuralDisposition",
+    "activityInfoboxSchemaSemanticsEvidence",
+    "canonicalActivitySubjectDeclarationDisposition",
+    "canonicalActivitySubjectBinding",
+    "canonicalActivitySubjectDeclarationReview",
+    "activityInfoboxSchemaSemanticsReview",
+    "memberExpansionReview",
+    "mechanicsReview",
+    "optimizerEligible",
+    "accountIndependent",
+    "blockers",
+    "state"
+  ],
+  "rules": {
+    "oneDispositionPerExactInputEvidencePacket": true,
+    "allUpstreamEvidenceIdentityRevisionHashesStructuralSignalsAndContextMustBePreserved": true,
+    "supportedBindingMustMatchTheExactQualifiedCandidatePageAndOccurrence": true,
+    "supportedBindingMustRetainAllStructuralAndSchemaEvidenceKeys": true,
+    "subjectDeclarationDispositionCannotCreateScopeOrRepeatabilityVerdicts": true,
+    "memberMechanicsAndOptimizerPromotionAreForbidden": true,
+    "currentAccountStateIsForbidden": true
+  }
+}

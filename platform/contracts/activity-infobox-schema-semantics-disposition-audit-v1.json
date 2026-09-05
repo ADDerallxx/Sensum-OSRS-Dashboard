@@ -1,0 +1,27 @@
+{
+  "contract": "sensum.activity-infobox-schema-semantics-disposition-audit.v1",
+  "required": [
+    "inputCoverage",
+    "policyCoverage",
+    "bindingCoverage",
+    "semanticPromotionCoverage",
+    "accountStateFindings",
+    "dispositionAttemptCoverageComplete",
+    "canonicalActivitySubjectBindingReviewComplete",
+    "canonicalActivityScopeReviewComplete",
+    "repeatabilityReviewComplete",
+    "completeActivityUniverse",
+    "absoluteBestGate",
+    "blockers",
+    "publishable"
+  ],
+  "rules": {
+    "inputAndOutputEvidencePacketSetsAndContextsMustMatchExactly": true,
+    "everyBindingMustMatchTheGenericSufficiencyRule": true,
+    "missingOrInconsistentEvidenceMustNotProduceABinding": true,
+    "upstreamStructuralAndSchemaEvidenceMustRemainUnchanged": true,
+    "scopeAndRepeatabilityVerdictsMustRemainNull": true,
+    "memberMechanicsAndOptimizerPromotionsAreForbidden": true,
+    "currentAccountStateIsForbidden": true
+  }
+}
