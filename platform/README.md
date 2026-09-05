@@ -305,6 +305,14 @@ claims, unrelated same-page wording, and missing statements cannot resolve a
 repeatability domain. The collector emits all six domain packets with null
 verdicts for a later generic semantic disposition.
 
+The independent-evidence disposition requires the canonical activity subject
+and candidate predicate on the same exact source line before a statement can
+even become a usable claim candidate. A collection-wide class statement cannot
+be joined to a separate member row, and a reciprocal backlink cannot make
+other lines on that page activity-specific. Candidate kinds remain lexical
+observations, all six domains remain independent, and the disposition itself
+cannot create a repeatability verdict.
+
 Run:
 
 ```text
@@ -347,6 +355,7 @@ node platform/ingestion/ingest-wiki-activity-reference-collection-member-indepen
 node platform/transforms/build-activity-reference-collection-member-independent-repeatability-signal-scope-dispositions.mjs
 node platform/transforms/build-activity-reference-collection-member-independent-repeatability-signal-scope-evidence-work-routes.mjs
 node platform/ingestion/ingest-wiki-independent-scoped-activity-repeatability-evidence.mjs
+node platform/transforms/build-independent-scoped-activity-repeatability-evidence-dispositions.mjs
 node platform/ingestion/ingest-wiki-agility-training-guide-sections.mjs
 node platform/ingestion/ingest-wiki-agility-rooftop-guide-members.mjs
 node platform/ingestion/ingest-wiki-agility-brimhaven-guide-members.mjs

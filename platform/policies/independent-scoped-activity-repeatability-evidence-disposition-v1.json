@@ -1,0 +1,47 @@
+{
+  "policy": "sensum.independent-scoped-activity-repeatability-evidence-disposition-policy.v1",
+  "inputContract": "sensum.independent-scoped-activity-repeatability-evidence.v1",
+  "recordContract": "sensum.independent-scoped-activity-repeatability-evidence-disposition.v1",
+  "auditContract": "sensum.independent-scoped-activity-repeatability-evidence-disposition-audit.v1",
+  "inputState": "independent_scoped_activity_repeatability_evidence_collected_gates_closed",
+  "requiredEvidenceState": "revision_pinned_independent_scoped_activity_repeatability_evidence_collected_review_required",
+  "requiredReviewState": "unreviewed_independent_scoped_activity_repeatability_evidence_semantic_disposition_required",
+  "requiredEvidenceDomains": [
+    "parent_activity_post_completion_reassignment_or_restart",
+    "member_task_reselection_and_repeatability",
+    "cooldown_reset_daily_or_session_limits",
+    "finite_exhaustion_one_time_or_completion_lockout",
+    "availability_and_assignment_eligibility_across_sessions",
+    "independent_source_corroboration_or_conflict"
+  ],
+  "dispositionClasses": {
+    "exactScopedCandidate": "exact_same_line_subject_predicate_candidate_requires_semantic_claim_review",
+    "unscopedCollectionCandidate": "collection_class_or_other_member_statement_not_scoped_to_canonical_activity",
+    "unscopedReciprocalCandidate": "reciprocal_page_statement_without_same_line_canonical_activity_subject",
+    "unknownSourceCandidate": "candidate_source_channel_not_recognized_fail_closed"
+  },
+  "nextEvidenceRoute": {
+    "routeKey": "collect_revision_pinned_exact_subject_predicate_independent_scoped_activity_repeatability_evidence",
+    "routeState": "blocked_exact_subject_predicate_independent_evidence_gap"
+  },
+  "rules": {
+    "oneDispositionPerCompleteIndependentEvidencePacket": true,
+    "everyCandidateSignalReceivesExactlyOneStructuralEvidenceRole": true,
+    "sameLineExactSubjectAndPredicateAreRequiredForAUsableClaimCandidate": true,
+    "collectionClassClaimsCannotBeJoinedToASeparateCollectionMemberRow": true,
+    "reciprocalPageBacklinksCannotScopeOtherLinesToTheActivity": true,
+    "crossLineCrossSectionCrossPageAndCrossSourceJoinsAreForbidden": true,
+    "unrelatedCollectionMembersAndExamplesCannotSupplyActivityLimits": true,
+    "absenceOfCandidateOrScopedClaimsIsNotNegativeEvidence": true,
+    "lexicalCandidateKindsDoNotCreateSemanticVerdicts": true,
+    "allSixDomainsRemainIndependentlyAssessed": true,
+    "parentAndMemberRepeatabilityRemainSeparate": true,
+    "everyUnresolvedDomainRoutesToExactScopedEvidenceWork": true,
+    "namesTitlesPageIdsCandidateKeysLabelsAliasesAndOverridesCannotSelectOrAlterADisposition": true,
+    "inputEvidenceRevisionHashesDiscoveryAndPriorDispositionsMustBePreserved": true,
+    "repeatabilityVerdictsRemainNull": true,
+    "memberMechanicsAndOptimizerPromotionAreForbidden": true,
+    "currentAccountStateIsForbidden": true,
+    "automaticVerificationAllowed": false
+  }
+}

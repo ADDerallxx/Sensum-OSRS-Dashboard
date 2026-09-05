@@ -43,6 +43,20 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+The independent scoped-activity evidence packet now has a generic semantic
+disposition. All 11 candidate statements were checked against their exact
+revision, line hash, source channel, and separately recorded subject and
+predicate boundaries. Seven collection-page statements were classified as
+unscoped class or other-member context, and four reciprocal-page statements as
+unscoped page context. None contains the canonical activity and candidate
+predicate on the same exact source line. The disposition therefore performs no
+cross-line, cross-section, cross-page, or cross-source join, resolves zero of
+six domains, and creates no repeatability verdict or downstream promotion. All
+six unresolved domains now route to exact subject/predicate evidence work. Two
+accepted transforms produced the same output hash. The next checkpoint should
+generically route those exact-scoped evidence obligations without allowing the
+route itself to imply evidence or a verdict.
+
 The routed scoped activity now has a generic independent-source evidence
 packet. The collector refetched the exact `Wise Old Man tasks` subject revision
 `14997080` and its exact `Minigames` collection revision `15327496`, discovered

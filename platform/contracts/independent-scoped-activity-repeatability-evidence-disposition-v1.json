@@ -1,0 +1,27 @@
+{
+  "contract": "sensum.independent-scoped-activity-repeatability-evidence-disposition.v1",
+  "required": [
+    "memberCandidateKey",
+    "sourceIndependentScopedActivityRepeatabilityEvidenceContentHash",
+    "canonicalActivityIdentity",
+    "independentScopedActivityRepeatabilityEvidence",
+    "independentScopedActivityRepeatabilityDispositionSignals",
+    "independentScopedActivityRepeatabilityDisposition",
+    "independentScopedActivityRepeatabilityReview",
+    "independentScopedActivityRepeatabilityNextEvidenceWork",
+    "memberExpansionReview",
+    "mechanicsReview",
+    "optimizerEligible",
+    "accountIndependent",
+    "blockers",
+    "state"
+  ],
+  "rules": {
+    "allInputEvidenceAndPriorDispositionsMustBePreserved": true,
+    "everyCandidateSignalMustHaveExactlyOnePolicyDerivedRole": true,
+    "allSixDomainAssessmentsMustRemainUnresolved": true,
+    "noCrossLineOrCrossSourceSubjectPredicateJoinIsAllowed": true,
+    "repeatabilityMemberMechanicsAndOptimizerPromotionAreForbidden": true,
+    "currentAccountStateIsForbidden": true
+  }
+}

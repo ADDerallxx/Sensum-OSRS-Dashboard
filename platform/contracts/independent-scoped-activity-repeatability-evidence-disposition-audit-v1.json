@@ -1,0 +1,28 @@
+{
+  "contract": "sensum.independent-scoped-activity-repeatability-evidence-disposition-audit.v1",
+  "required": [
+    "inputCoverage",
+    "policyCoverage",
+    "packetIntegrityCoverage",
+    "signalDispositionCoverage",
+    "domainDispositionCoverage",
+    "semanticPreservationCoverage",
+    "accountStateFindings",
+    "dispositionAttemptCoverageComplete",
+    "repeatabilityClassificationCoverageComplete",
+    "repeatabilityReviewComplete",
+    "memberExpansionComplete",
+    "mechanicsReviewComplete",
+    "completeActivityUniverse",
+    "absoluteBestGate",
+    "blockers",
+    "publishable"
+  ],
+  "rules": {
+    "inputOutputSetsAndContextsMustMatchExactly": true,
+    "everyInputPacketMustPassRevisionAndLocatorIntegrity": true,
+    "everySignalMustReceiveTheExactStructuralRole": true,
+    "everyDomainMustRemainUnresolvedAndRouted": true,
+    "unsupportedPromotionAndAccountStateMustFailClosed": true
+  }
+}
