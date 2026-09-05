@@ -1,0 +1,12 @@
+{
+  "contract": "sensum.activity-reference-collection-member-canonical-activity-subject-declaration-structural-context-evidence.v1",
+  "required": ["memberCandidateKey", "sourceCanonicalActivitySubjectDeclarationExactLineEvidenceContentHash", "canonicalActivityIdentity", "canonicalActivitySubjectDeclarationStructuralContextEvidence", "canonicalActivitySubjectDeclarationStructuralContextObservations", "canonicalActivitySubjectDeclarationReview", "memberExpansionReview", "mechanicsReview", "optimizerEligible", "accountIndependent", "blockers", "state"],
+  "rules": {
+    "oneStructuralPacketPerExactLineOccurrence": true,
+    "everyPacketRetainsExactRevisionAndOccurrenceIdentity": true,
+    "allStructuralContainersAreSourceBoundObservations": true,
+    "allSemanticVerdictsRemainNull": true,
+    "upstreamStateRemainsExact": true,
+    "downstreamPromotionsAreForbidden": true
+  }
+}

@@ -47,6 +47,7 @@ node platform/ingestion/ingest-wiki-activity-reference-collection-member-indepen
 node platform/ingestion/ingest-wiki-activity-reference-collection-member-independent-repeatability-signal-scope-evidence.mjs
 node platform/ingestion/ingest-wiki-activity-reference-collection-member-independent-repeatability-signal-subject-predicate-evidence.mjs
 node platform/ingestion/ingest-wiki-activity-reference-collection-member-canonical-activity-subject-declaration-exact-line-evidence.mjs
+node platform/ingestion/ingest-wiki-activity-reference-collection-member-canonical-activity-subject-declaration-structural-context-evidence.mjs
 node platform/transforms/build-unlock-statement-semantic-crosswalk.mjs
 node platform/transforms/build-unlock-linked-page-entity-types.mjs
 node platform/transforms/build-unlock-linked-page-wiki-equivalence.mjs
@@ -184,6 +185,14 @@ record count, creation time, audit result, and SHA-256 content hash.
   table cell, redirect, or incidental mention never establishes the declared
   subject, activity scope, repeatability, mechanics, or optimizer eligibility;
   those require a separate structural-context and semantic disposition.
+- Canonical-activity subject-declaration structural-context ingestion refetches
+  those same retained revisions, revalidates every exact occurrence by named
+  locator fields rather than JSON property order, and preserves its heading,
+  lead, source-block, list, table-row, link-segment, template, parameter, and
+  protected-region context. Balanced source delimiters are mandatory. All
+  structures remain observations only and cannot create a subject binding,
+  activity-scope or repeatability verdict, member or mechanics review, or
+  optimizer eligibility without a separate semantic disposition.
 - Training-guide section ingestion inventories every Wiki heading in source
   order. Every method-bearing subsection is retained with its parent, source
   lines, revision, and structural role. New heading depths or parents fail

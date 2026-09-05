@@ -43,6 +43,28 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+Every retained exact-line occurrence now has a revision-pinned structural-
+parent evidence packet. The collector refetched the same 13 exact official Wiki
+revisions covering 115,304 source bytes and revalidated all 19 occurrences by
+absolute offsets, lines, columns, matched text, exact-line hash, case state, and
+protected-region state. It then preserved each occurrence's complete heading
+hierarchy, lead position, contiguous nonblank source block, list marker, table
+and row, enclosing links and link-segment role, enclosing templates and
+parameter role, parameter references, and delimiter audit. The overlapping
+inventory contains 12 pre-heading occurrences, seven heading-scoped
+occurrences, seven template-contained occurrences, 13 link-contained
+occurrences, four table-contained occurrences, and two list-marked occurrences;
+all 19 are active source text. The first live run failed closed because locator
+objects serialized in a different property order even though all six locator
+values matched. The comparator was corrected to compare named numeric fields,
+an order-adversarial regression was added, and two accepted runs then produced
+the same output hash. Structural position, template or parameter names, link
+roles, headings, and page position create zero subject bindings, scope or
+repeatability classifications, member or mechanics reviews, and optimizer
+promotions. The next checkpoint should apply a generic semantic disposition to
+these complete packets while retaining unresolved or competing interpretations
+as blockers.
+
 The two unresolved canonical activities now have complete exact-line evidence
 packets for every source returned by their bounded discovery searches. Thirteen
 unique official Wiki revisions covering 115,304 source bytes were fetched at

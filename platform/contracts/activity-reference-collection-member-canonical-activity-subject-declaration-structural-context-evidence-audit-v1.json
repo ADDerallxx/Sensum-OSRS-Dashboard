@@ -1,0 +1,12 @@
+{
+  "contract": "sensum.activity-reference-collection-member-canonical-activity-subject-declaration-structural-context-evidence-audit.v1",
+  "required": ["inputCoverage", "policyCoverage", "revisionCoverage", "occurrenceCoverage", "structuralCoverage", "semanticPromotionCoverage", "accountStateFindings", "structuralContextEvidenceAttemptCoverageComplete", "canonicalActivitySubjectDeclarationStructuralContextEvidenceCoverageComplete", "canonicalActivitySubjectBindingReviewComplete", "repeatabilityReviewComplete", "completeActivityUniverse", "absoluteBestGate", "blockers", "publishable"],
+  "rules": {
+    "everyCompleteInputProducesExactlyOneReproduciblePacket": true,
+    "everyInputOccurrenceIsRepresentedExactlyOnce": true,
+    "everyExpectedRevisionIsFetchedExactlyOnce": true,
+    "everyStructuralPacketIsReproducibleFromThePinnedSource": true,
+    "inputAndSemanticStateCannotChange": true,
+    "semanticAndOptimizerPromotionsAreForbidden": true
+  }
+}

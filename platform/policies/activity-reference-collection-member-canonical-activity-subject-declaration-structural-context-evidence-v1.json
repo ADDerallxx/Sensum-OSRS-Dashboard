@@ -1,0 +1,24 @@
+{
+  "policy": "sensum.activity-reference-collection-member-canonical-activity-subject-declaration-structural-context-evidence-policy.v1",
+  "inputContract": "sensum.activity-reference-collection-member-canonical-activity-subject-declaration-exact-line-evidence.v1",
+  "recordContract": "sensum.activity-reference-collection-member-canonical-activity-subject-declaration-structural-context-evidence.v1",
+  "auditContract": "sensum.activity-reference-collection-member-canonical-activity-subject-declaration-structural-context-evidence-audit.v1",
+  "inputState": "canonical_activity_subject_declaration_exact_line_evidence_ready_for_semantic_disposition",
+  "evidenceChannel": "revision_pinned_exact_occurrence_structural_parent_inventory",
+  "rules": {
+    "onePacketPerCompleteExactLineEvidenceRecord": true,
+    "everyRetainedCandidateRevisionIsFetchedExactlyOnce": true,
+    "fetchedPageIdentityRevisionTimestampUrlAndHashMustAlign": true,
+    "everyInputOccurrenceMustRevalidateAtItsExactOffsetsLinesColumnsTextAndHash": true,
+    "everyOccurrenceRetainsHeadingLeadParagraphListTableLinkTemplateAndParameterContext": true,
+    "balancedLinkTemplateAndTableDelimitersAreRequired": true,
+    "commentsAndProtectedRegionsRemainExplicitlyNonActive": true,
+    "structuralContextIsObservationOnlyAndCannotSelectSemanticVerdicts": true,
+    "templateNamesParameterNamesHeadingsMarkersAndPagePositionCannotSelectAVerdict": true,
+    "upstreamEvidenceIdentityOccurrencesDispositionsAndReviewsRemainUnchanged": true,
+    "memberExpansionMechanicsAndOptimizerEligibilityRemainClosed": true,
+    "missingContradictoryTruncatedOrConditionMismatchedEvidenceRemainsExplicit": true,
+    "activitySpecificNamesTitlesPageIdsLabelsAliasesAndOverridesCannotSelectAVerdict": true,
+    "currentAccountStateIsForbidden": true
+  }
+}
