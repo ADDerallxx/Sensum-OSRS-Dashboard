@@ -12,6 +12,14 @@ const stageFields = new Set([
   'canonicalActivitySubjectDeclarationReview',
   'activityInfoboxSchemaSemanticsReview'
 ]);
+const resolvedSubjectBindingBlockers = new Set([
+  'activity_infobox_schema_evidence_requires_semantic_disposition',
+  'schema_evidence_does_not_independently_bind_canonical_activity_subject',
+  'activity_infobox_name_schema_semantics_not_revision_pinned',
+  'source_subject_disposition_still_unresolved',
+  'no_stable_canonical_activity_subject_anchor_observed',
+  'canonical_activity_subject_binding_unresolved'
+]);
 
 const preservedInput = record => Object.fromEntries(Object.entries(record || {}).filter(([key]) => !stageFields.has(key)));
 
@@ -182,11 +190,7 @@ function expectedRecord(input, policy) {
     },
     accountIndependent: true,
     blockers: unique([
-      ...(input.blockers || []).filter(blocker => ![
-        'activity_infobox_schema_evidence_requires_semantic_disposition',
-        'schema_evidence_does_not_independently_bind_canonical_activity_subject',
-        'canonical_activity_subject_binding_unresolved'
-      ].includes(blocker)),
+      ...(input.blockers || []).filter(blocker => !resolvedSubjectBindingBlockers.has(blocker)),
       ...basis.deficiencies.map(deficiency => `subject_binding_sufficiency_failed:${deficiency}`),
       ...(binding ? [] : ['canonical_activity_subject_binding_unresolved']),
       'canonical_activity_scope_review_incomplete',
@@ -238,6 +242,9 @@ export function auditActivityInfoboxSchemaSemanticsDispositions(records = [], { 
     || record.canonicalActivitySubjectDeclarationDisposition?.verdict !== compiled.bindingRule.verdict
     || record.canonicalActivitySubjectDeclarationReview?.canonicalActivitySubjectDeclarationVerdict !== compiled.bindingRule.verdict
     || record.activityInfoboxSchemaSemanticsReview?.canonicalActivitySubjectDeclarationVerdict !== compiled.bindingRule.verdict).map(record => record.memberCandidateKey);
+  const resolvedSubjectBlockerLeaks = supportedBindings.filter(record =>
+    (record.blockers || []).some(blocker => resolvedSubjectBindingBlockers.has(blocker))
+  ).map(record => record.memberCandidateKey);
   const downstreamPromotions = records.filter(record => {
     const input = inputByKey.get(record.memberCandidateKey);
     return !input || record.canonicalActivitySubjectDeclarationDisposition?.canonicalActivityScopeVerdict !== null
@@ -260,6 +267,7 @@ export function auditActivityInfoboxSchemaSemanticsDispositions(records = [], { 
   if (compiled.invalidRules.length || compiled.forbiddenPolicyPaths.length || compiled.invalidBindingRule.length) structuralBlockers.push('activity_infobox_schema_semantics_disposition_policy_invalid_or_activity_specific');
   if (invalidInputs.length) structuralBlockers.push('one_or_more_schema_evidence_inputs_fail_subject_binding_sufficiency');
   if (dispositionMismatches.length || invalidBindings.length) structuralBlockers.push('one_or_more_subject_binding_dispositions_do_not_match_policy');
+  if (resolvedSubjectBlockerLeaks.length) structuralBlockers.push('source_supported_subject_binding_retains_resolved_subject_or_schema_blocker');
   if (downstreamPromotions.length) structuralBlockers.push('unsupported_scope_repeatability_member_mechanics_or_optimizer_promotion');
   if (accountStateFindings.length) structuralBlockers.push('account_query_state_baked_into_activity_infobox_schema_semantics_disposition');
   const dispositionAttemptCoverageComplete = expectedKeys.length > 0 && structuralBlockers.length === 0;
@@ -291,6 +299,7 @@ export function auditActivityInfoboxSchemaSemanticsDispositions(records = [], { 
       sourceSupportedBindingCount: supportedBindings.length,
       blockedBindingCount: records.length - supportedBindings.length,
       invalidBindingMemberCandidateKeys: invalidBindings,
+      resolvedSubjectBlockerLeakMemberCandidateKeys: resolvedSubjectBlockerLeaks,
       dispositionMismatchMemberCandidateKeys: dispositionMismatches,
       bindingClasses: Object.fromEntries(supportedBindings.map(record => [record.memberCandidateKey, record.canonicalActivitySubjectBinding.bindingClass]))
     },

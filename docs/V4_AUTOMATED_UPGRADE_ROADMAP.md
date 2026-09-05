@@ -43,6 +43,23 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+Every source-supported canonical activity subject now enters one generic,
+blocked scope-evidence route. The route requires six revision-pinned evidence
+domains covering the exact subject-page revision, lead and infobox description,
+declared purpose and skill relationship, activity and composite boundaries,
+scope exclusions and conditions, and a separate repeatability obligation. The
+one live bound subject routed exactly once. The route is selected only by its
+audited binding state; names, titles, page IDs, collection context, and account
+state cannot select or alter it. Subject identity and its evidence chain remain
+unchanged, while scope, repeatability, members, mechanics, and optimizer
+eligibility remain closed. This checkpoint also corrected the upstream binding
+record so resolved subject/schema blockers cannot survive a successful binding;
+the strengthened audit now rejects such contradictory state. Two accepted runs
+of both the repaired upstream disposition and the new router produced identical
+output hashes. The next checkpoint should collect the routed revision-pinned
+canonical activity-scope evidence without conflating page type, subject identity,
+repeatability, or training eligibility.
+
 The activity-infobox schema-semantics disposition now has a generic, fail-closed
 rule for canonical page-subject binding. A record binds only when exactly one
 structurally qualified candidate passes all ten retained structural checks, its

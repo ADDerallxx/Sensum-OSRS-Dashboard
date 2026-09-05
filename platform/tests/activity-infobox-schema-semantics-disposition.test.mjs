@@ -93,7 +93,14 @@ function evidenceRecord({ key = '1', label = `Activity ${key}` } = {}) {
     mechanicsReview: { state: 'unreviewed', evidenceKeys: [] },
     optimizerEligible: false,
     accountIndependent: true,
-    blockers: ['activity_infobox_schema_evidence_requires_semantic_disposition', 'canonical_activity_subject_binding_unresolved'],
+    blockers: [
+      'activity_infobox_schema_evidence_requires_semantic_disposition',
+      'schema_evidence_does_not_independently_bind_canonical_activity_subject',
+      'activity_infobox_name_schema_semantics_not_revision_pinned',
+      'source_subject_disposition_still_unresolved',
+      'no_stable_canonical_activity_subject_anchor_observed',
+      'canonical_activity_subject_binding_unresolved'
+    ],
     state: policy.inputState,
     contentHash: `schema-evidence-${key}`
   };
@@ -120,6 +127,10 @@ assert.equal(output.memberExpansionReview.state, 'unreviewed');
 assert.equal(output.mechanicsReview.state, 'unreviewed');
 assert.equal(output.optimizerEligible, false);
 assert.ok(!output.blockers.includes('canonical_activity_subject_binding_unresolved'));
+assert.ok(!output.blockers.includes('activity_infobox_name_schema_semantics_not_revision_pinned'));
+assert.ok(!output.blockers.includes('source_subject_disposition_still_unresolved'));
+assert.ok(!output.blockers.includes('no_stable_canonical_activity_subject_anchor_observed'));
+assert.deepEqual(built.audit.bindingCoverage.resolvedSubjectBlockerLeakMemberCandidateKeys, []);
 for (const field of recordContract.required) assert.ok(Object.hasOwn(output, field), `Missing required record field: ${field}`);
 for (const field of auditContract.required) assert.ok(Object.hasOwn(built.audit, field), `Missing required audit field: ${field}`);
 
@@ -164,6 +175,12 @@ const altered = structuredClone(built.records);
 altered[0].canonicalActivitySubjectBinding.sourcePageIdentity.sourceRevision = '999';
 const alteredAudit = auditActivityInfoboxSchemaSemanticsDispositions(altered, { evidenceRecords: [input], policy });
 assert.equal(alteredAudit.publishable, false);
+
+const staleBlocker = structuredClone(built.records);
+staleBlocker[0].blockers.push('activity_infobox_name_schema_semantics_not_revision_pinned');
+const staleBlockerAudit = auditActivityInfoboxSchemaSemanticsDispositions(staleBlocker, { evidenceRecords: [input], policy });
+assert.equal(staleBlockerAudit.publishable, false);
+assert.ok(staleBlockerAudit.blockers.includes('source_supported_subject_binding_retains_resolved_subject_or_schema_blocker'));
 assert.ok(alteredAudit.blockers.includes('one_or_more_subject_binding_dispositions_do_not_match_policy'));
 
 const promoted = structuredClone(built.records);

@@ -51,6 +51,7 @@ node platform/ingestion/ingest-wiki-activity-reference-collection-member-canonic
 node platform/transforms/build-activity-reference-collection-member-canonical-activity-subject-declaration-structural-context-dispositions.mjs
 node platform/ingestion/ingest-wiki-activity-infobox-schema-semantics-evidence.mjs
 node platform/transforms/build-activity-infobox-schema-semantics-dispositions.mjs
+node platform/transforms/build-activity-canonical-subject-scope-evidence-work-routes.mjs
 node platform/transforms/build-unlock-statement-semantic-crosswalk.mjs
 node platform/transforms/build-unlock-linked-page-entity-types.mjs
 node platform/transforms/build-unlock-linked-page-wiki-equivalence.mjs
@@ -232,6 +233,14 @@ record count, creation time, audit result, and SHA-256 content hash.
   The disposition promotes only the canonical subject declaration; activity
   scope, repeatability, membership, requirements, XP, timing, mechanics, and
   optimizer eligibility remain separate evidence gates.
+- Canonical-activity subject scope-evidence routing consumes only complete,
+  source-supported subject bindings and routes each exactly once to six generic,
+  revision-pinned scope-evidence obligations. Run
+  `node platform/transforms/build-activity-canonical-subject-scope-evidence-work-routes.mjs`.
+  Page type, identity, and the existence of an activity infobox do not establish
+  training scope or repeatability. The route preserves the complete upstream
+  binding and remains blocked from scope, repeatability, member, mechanics, and
+  optimizer promotion until separate evidence work passes.
 - Training-guide section ingestion inventories every Wiki heading in source
   order. Every method-bearing subsection is retained with its parent, source
   lines, revision, and structural role. New heading depths or parents fail

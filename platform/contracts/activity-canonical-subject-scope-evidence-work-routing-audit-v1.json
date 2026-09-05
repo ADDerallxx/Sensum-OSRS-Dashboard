@@ -1,0 +1,28 @@
+{
+  "contract": "sensum.activity-canonical-subject-scope-evidence-work-routing-audit.v1",
+  "required": [
+    "inputCoverage",
+    "policyCoverage",
+    "routingCoverage",
+    "semanticPromotionCoverage",
+    "accountStateFindings",
+    "routingCoverageComplete",
+    "evidenceWorkComplete",
+    "canonicalActivitySubjectBindingReviewComplete",
+    "canonicalActivityScopeReviewComplete",
+    "repeatabilityReviewComplete",
+    "completeActivityUniverse",
+    "absoluteBestGate",
+    "blockers",
+    "publishable"
+  ],
+  "rules": {
+    "everyEligibleBindingMustBeRoutedExactlyOnce": true,
+    "inputOutputSetsHashesEvidenceIdentityBindingDispositionAndContextMustMatchExactly": true,
+    "routingDecisionMustMatchTheGenericPolicy": true,
+    "everyRouteMustRemainBlocked": true,
+    "subjectBindingAndSubjectDeclarationVerdictMustRemainUnchanged": true,
+    "scopeRepeatabilityMemberMechanicsAndOptimizerPromotionsAreForbidden": true,
+    "currentAccountStateIsForbidden": true
+  }
+}
