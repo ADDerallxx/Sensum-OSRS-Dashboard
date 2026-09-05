@@ -1,0 +1,21 @@
+{
+  "contract": "sensum.weighted-parent-task-entry-membership-additional-evidence-source-discovery-audit.v1",
+  "required": [
+    "inputCoverage",
+    "policyCoverage",
+    "pinnedSourceIntegrityCoverage",
+    "discoveryCoverage",
+    "sourceObservationCoverage",
+    "requiredChannelCoverage",
+    "semanticPreservationCoverage",
+    "accountStateFindings",
+    "evidencePacketAttemptCoverageComplete",
+    "candidateSpecificMembershipEvidenceComplete",
+    "weightedMembershipReviewComplete",
+    "optimizerEligibleCount",
+    "completeActivityUniverse",
+    "absoluteBestGate",
+    "blockers",
+    "publishable"
+  ]
+}

@@ -165,7 +165,8 @@
         "generic_weighted_parent_task_entry_membership_evidence_disposition",
         "weighted_parent_task_entry_membership_review_and_evidence_work_queue_export",
         "weighted_parent_task_entry_membership_review_decision_import_contract",
-        "weighted_parent_task_entry_membership_variant_scope_evidence_crosswalk"
+        "weighted_parent_task_entry_membership_variant_scope_evidence_crosswalk",
+        "weighted_parent_task_entry_membership_additional_evidence_source_discovery_packets"
       ],
       "remainingWork": [
         "Use the 1,909-entry revision-aligned semantic-review queue to establish canonical game-entity and activity identities from retained source signatures and contexts, then prove repeatability, membership, requirements, variants, XP, timing, mechanics, and authoritative exclusions. Begin with the 29 explicit activity-page candidates, but do not treat activity/minigame page type as repeatability proof; distinguish reference collections and composites from actual trainable method variants. Reconcile 68 queued untyped pages, 4,725 stable rendered pages without unlock evidence, 1,565 unlock pages without rendered-guide evidence, five unresolved rendered targets, the wider unlock set's 137 untyped pages and 31 activity pages, and 51 ambiguous statement forms. Historical template-expansion provenance remains open because dependency revision IDs and the generative origins of 16,284 rendered-only observations are unavailable. Continue independent discovery until every repeatable training activity in every skill is enumerated. The central guide index's composite Combat row and four Defence link disagreements remain explicit. Rockslide pairing still requires complete activity and travel graphs.",
@@ -182,12 +183,28 @@
         "independentGameUniverseDiscoveryPending": true
       },
       "latestCheckpoint": {
-        "id": "weighted_parent_task_entry_membership_variant_scope_evidence_crosswalk",
-        "result": "8_of_8_weighted_variant_scope_tasks_crosswalked_in_source_order_by_exact_structural_candidate_key_only; 5_reuse_exact_numbered_variant_binding_review_evidence; 1_logs_reuses_single_root_infobox_identity_review_evidence; 2_reuse_canonical_subject_scope_evidence_but_exact_numbered_variant_remains_unresolved; 0_without_compatible_existing_evidence; 51_of_51_single_variant_5_of_5_exact_variant_2_of_2_canonical_subject_and_8_of_8_input_records_revalidated; two_final_shape_real_runs_same_output_hash; 0_missing_0_duplicate_0_cross_channel_0_role_or_pinned_identity_mismatch_0_review_decisions_0_selected_or_bound_variants_0_membership_0_optimizer_promotions; 130_of_130_tests_passed",
-        "next": "weighted_parent_task_entry_membership_additional_evidence_source_discovery_packets"
+        "id": "weighted_parent_task_entry_membership_additional_evidence_source_discovery_packets",
+        "result": "47_of_47_additional_membership_evidence_work_entries_revalidated_and_captured; 48_of_48_distinct_pinned_candidate_and_parent_sources_revalidated; 141_of_141_source_derived_official_wiki_searches_fully_enumerated; 147_of_147_requested_distinct_current_sources_revision_pinned_with_complete_text; 170_candidate_parent_contexts_97_exact_candidate_occurrences_in_relationship_labeled_sections_and_0_candidate_scoped_weight_statements_retained; first_pass_item_weight_false_signals_and_short_name_collisions_removed_before_acceptance; two_final_shape_live_runs_same_47_record_output_hash; 0_reviews_0_membership_verdicts_0_optimizer_promotions; 131_of_131_tests_passed",
+        "next": "generic_weighted_parent_task_entry_membership_additional_evidence_sufficiency_disposition"
       },
       "latestCoverageDelta": {
         "officialSkillDomainsMeasured": 24,
+        "weightedMembershipAdditionalEvidenceDiscoveryInputEntries": 47,
+        "weightedMembershipAdditionalEvidenceDiscoveryOutputPackets": 47,
+        "weightedMembershipAdditionalEvidenceDiscoveryRevalidatedPinnedSources": 48,
+        "weightedMembershipAdditionalEvidenceDiscoverySourceDerivedQueries": 141,
+        "weightedMembershipAdditionalEvidenceDiscoveryFullyEnumeratedQueries": 141,
+        "weightedMembershipAdditionalEvidenceDiscoveryRequestedCurrentSources": 147,
+        "weightedMembershipAdditionalEvidenceDiscoveryCapturedCurrentSources": 147,
+        "weightedMembershipAdditionalEvidenceDiscoveryCandidateParentContexts": 170,
+        "weightedMembershipAdditionalEvidenceDiscoveryMembershipSignals": 97,
+        "weightedMembershipAdditionalEvidenceDiscoveryCandidateScopedWeightStatements": 0,
+        "weightedMembershipAdditionalEvidenceDiscoveryAllNonHumanEvidenceChannelsObserved": true,
+        "weightedMembershipAdditionalEvidenceDiscoveryHumanReviewsRecorded": 0,
+        "weightedMembershipAdditionalEvidenceDiscoveryMembershipVerdictsRecorded": 0,
+        "weightedMembershipAdditionalEvidenceDiscoveryOptimizerPromotions": 0,
+        "weightedMembershipAdditionalEvidenceDiscoveryDeterministicAcrossTwoFinalShapeRuns": true,
+        "weightedMembershipAdditionalEvidenceDiscoveryRegressionTestsPassed": 131,
         "weightedMembershipVariantScopeCrosswalkInputEntries": 8,
         "weightedMembershipVariantScopeCrosswalkRecords": 8,
         "revalidatedSingleVariantIdentityReviewEntries": 51,
@@ -307,7 +324,32 @@
         "optimizerEligibleActivitiesAdded": 0,
         "currentAccountFieldsAllowed": 0,
         "inventedFacts": 0,
-        "reason": "All eight weighted-membership variant-scope tasks now reuse the strongest compatible existing source-bound evidence by exact structural candidate key: five exact numbered-variant review packets, one single-root-infobox identity packet for Logs, and two canonical-subject packets whose numbered variants remain unresolved. No duplicate evidence collection is needed for these eight cases, but every review remains pending and no variant or membership verdict was created. The next checkpoint should perform source discovery for the 47 remaining candidate-specific membership evidence gaps."
+        "reason": "All 47 weighted-membership candidates that lacked candidate-specific evidence now retain complete revision-pinned discovery packets. Every queue record and 48 pinned sources revalidated; all 141 source-derived searches were exhausted; 147 distinct current sources were retained; and source-authored task or delivery section context was observed for every candidate. Ordinary item-weight fields were removed from task-weight observations before acceptance, leaving zero candidate-scoped weight statements. This is evidence for disposition and explicit human review only: no membership verdict or optimizer promotion was created."
+      },
+      "latestWeightedParentTaskEntryMembershipAdditionalEvidenceSourceDiscoveryAudit": {
+        "generatedAt": "2026-09-05T19:14:09.293Z",
+        "policy": "sensum.weighted-parent-task-entry-membership-additional-evidence-source-discovery-policy.v1",
+        "policyContentHash": "def02a9e058b861b50f1d6f43ddd272cc89be27d5c81677c1a4a973528972094",
+        "inputQueueSnapshotDirectory": "2026-09-05T18-24-09-404Z",
+        "inputQueueSnapshotContentHash": "d8992175c5cc8a59a174669c37d997f051581b38420c930b34c593189f3ef0db",
+        "outputSnapshotDirectory": "2026-09-05T19-14-09-138Z",
+        "outputSnapshotContentHash": "a2d6a50fb0076df7d32b511c369fa789abcc12be2a3ece9b64f02662115a0584",
+        "reportContentHash": "d2d9487e0d897dc3414ccba6b58c3ef1d5d63e07154309af6c5c70b6c9a0ee02",
+        "inputWorkQueueEntryCount": 47,
+        "outputEvidencePacketCount": 47,
+        "revalidatedPinnedSourceCount": 48,
+        "fullyEnumeratedSearchQueryCount": 141,
+        "capturedDistinctCurrentSourceCount": 147,
+        "candidateParentContextObservationCount": 170,
+        "candidateScopedMembershipSignalObservationCount": 97,
+        "candidateScopedWeightSignalObservationCount": 0,
+        "allNonHumanEvidenceChannelsObserved": true,
+        "allChannelsSatisfied": false,
+        "weightedMembershipReviewComplete": false,
+        "optimizerEligibleCount": 0,
+        "completeActivityUniverse": false,
+        "absoluteBestGate": "blocked_incomplete_activity_universe",
+        "publishable": true
       },
       "latestWeightedParentTaskEntryMembershipVariantScopeEvidenceCrosswalkAudit": {
         "generatedAt": "2026-09-05T18:52:04.605Z",

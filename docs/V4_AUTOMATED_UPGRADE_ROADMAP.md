@@ -43,6 +43,26 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+All 47 weighted-membership candidates that lacked candidate-specific evidence
+now have revision-pinned additional-source discovery packets. The collector
+revalidated every queue record and 48 distinct pinned candidate/parent sources,
+fully exhausted 141 source-derived official Wiki searches, and retained 147
+distinct current source pages with revision, timestamp, URL, hash, byte count,
+and complete source. The packets preserve 170 candidate/parent contexts and 97
+candidate occurrences inside source-authored task or delivery sections for
+explicit review. A first-pass inspection caught ordinary item-weight fields
+being over-labelled as possible task-weight evidence; the final policy requires
+same-line relationship or parent context and exact structured references keep
+short names such as Beer and Leather from inheriting longer-name evidence. The
+accepted packets correctly retain zero
+candidate-scoped weight statements. Two corrected live runs produced the same
+47-record output hash. Search results and structural context remain evidence for
+review only: zero reviews, membership verdicts, or optimizer promotions were
+created. All 131 regression tests pass. The next unattended checkpoint should
+apply a generic fail-closed sufficiency disposition to route the 47 packets
+without treating structural context or source silence as an automatic
+membership decision.
+
 All eight weighted-membership variant-scope tasks now have a deterministic
 crosswalk to existing source-bound review evidence. Exact structural candidate
 keys are the only join key; names, aliases, page IDs, and titles cannot create a

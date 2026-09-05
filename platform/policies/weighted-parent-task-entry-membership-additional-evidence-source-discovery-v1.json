@@ -1,0 +1,65 @@
+{
+  "policy": "sensum.weighted-parent-task-entry-membership-additional-evidence-source-discovery-policy.v1",
+  "inputContract": "sensum.weighted-parent-task-entry-membership-additional-evidence-work-queue-entry.v1",
+  "recordContract": "sensum.weighted-parent-task-entry-membership-additional-evidence-source-discovery.v1",
+  "auditContract": "sensum.weighted-parent-task-entry-membership-additional-evidence-source-discovery-audit.v1",
+  "inputState": "blocked_pending_additional_candidate_specific_membership_evidence",
+  "recordState": "revision_pinned_weighted_membership_additional_source_discovery_gates_closed",
+  "discovery": {
+    "apiNamespace": 0,
+    "sourceSearchOperator": "insource",
+    "maximumSearchResultsPerQuery": 500,
+    "requireSearchContinuationExhausted": true,
+    "retainCompleteExactRevisionSourceText": true,
+    "deduplicateCurrentPagesByStablePageId": true,
+    "deriveSectionContextFromPinnedParentOccurrence": true,
+    "directSourceRequestKinds": [
+      "current_parent_page",
+      "current_candidate_page",
+      "current_candidate_transcript_when_role_is_recipient"
+    ],
+    "requiredAdditionalEvidenceChannels": [
+      "candidate_subject_parent_task_relationship_statement",
+      "candidate_scoped_weight_or_membership_statement",
+      "explicit_source_bound_human_review"
+    ],
+    "relationshipSignalTokens": [
+      "task",
+      "tasks",
+      "request",
+      "requested",
+      "bring",
+      "deliver",
+      "delivery",
+      "letter",
+      "message",
+      "recipient",
+      "reward"
+    ],
+    "weightSignalTokens": [
+      "weight",
+      "chance",
+      "probability",
+      "percent",
+      "%"
+    ]
+  },
+  "rules": {
+    "onePacketPerAdditionalEvidenceWorkEntry": true,
+    "inputQueueRecordAndSnapshotHashesMustRevalidate": true,
+    "everyPinnedCandidateAndParentRevisionMustRefetchAndRevalidate": true,
+    "queriesMustBeDerivedOnlyFromRevisionBoundCandidateParentAndSectionEvidence": true,
+    "allDerivedQueriesMustBeFullyEnumerated": true,
+    "directCandidateParentAndRoleApplicableTranscriptRequestsUseOfficialWikiApi": true,
+    "everyDiscoveredPageRetainsRevisionTimestampUrlHashBytesAndCompleteSource": true,
+    "searchRankSnippetAndLexicalSignalsAreDiscoveryOnly": true,
+    "parentSectionContextMaySupportReviewButCannotCreateMembership": true,
+    "sourceSilenceIsNotNegativeEvidence": true,
+    "missingCandidateSpecificEvidenceRemainsAnExplicitBlocker": true,
+    "explicitHumanReviewRemainsSeparateAndRequired": true,
+    "identityMembershipRepeatabilityMechanicsMappingCompletenessAndOptimizerVerdictsRemainClosed": true,
+    "namesTitlesPageIdsRevisionsCandidateKeysLabelsAliasesAndOverridesCannotSelectAVerdict": true,
+    "currentAccountStateIsForbidden": true,
+    "automaticVerificationAllowed": false
+  }
+}
