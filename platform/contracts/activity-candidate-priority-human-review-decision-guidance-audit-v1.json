@@ -1,0 +1,27 @@
+{
+  "contract": "sensum.activity-candidate-priority-human-review-decision-guidance-audit.v1",
+  "required": [
+    "policyCoverage",
+    "packetCoverage",
+    "guidanceCoverage",
+    "bindingCoverage",
+    "artifactCoverage",
+    "semanticPreservationCoverage",
+    "accountStateFindings",
+    "guidanceMaterializationComplete",
+    "humanReviewComplete",
+    "requirementsVariantsXpTimingAndMechanicsComplete",
+    "completeActivityUniverse",
+    "absoluteBestGate",
+    "blockers",
+    "publishable"
+  ],
+  "rules": {
+    "explicitPacketSnapshotAndEveryPacketRecordMustRevalidate": true,
+    "guidanceAndPacketSetsMustMatchExactly": true,
+    "allImporterEvidenceRevisionVocabularyAndProjectionBindingsMustMatch": true,
+    "allBatchArtifactsMustReconstructExactly": true,
+    "guidanceCannotCreateAReviewDecisionOrSemanticPromotion": true,
+    "accountStateMustFailPublication": true
+  }
+}

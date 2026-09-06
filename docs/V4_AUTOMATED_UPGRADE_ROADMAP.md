@@ -43,6 +43,32 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+The 29 priority activity-candidate packets now have deterministic, evidence-
+keyed human-review decision guidance. A generic policy, guidance-record and
+audit contracts, library, explicit-input CLI, and tests revalidate the selected
+packet manifest, raw records, intrinsic hashes, embedded pipeline bindings,
+source identity and revision, guarded decision-import vocabulary, canonical
+identity projections, and blank decision templates before producing any review
+artifact. The guidance presents five unselected coherence paths per candidate
+for confirmed atomic activities, confirmed composites, confirmed reference
+collections, rejected non-repeatable subjects, or additional evidence; none of
+those paths selects or records a decision.
+
+Two real materializations from packet snapshot
+`2026-09-06T04-06-25-989Z` produced the same guidance content hash
+(`25f547f2b297bd18d368eda41f42ed9d403dec6c37452ab95e6447e03910412f`)
+and the same 21 payload files with zero differences. Six batches contain 29
+review records, 203 exact evidence-key obligations, 168 bound revision
+obligations, 222 evidence-domain reviews, 145 unselected coherence paths, 18
+batch artifacts, and 29 importer-compatible blank decision templates. Human
+decisions, semantic applications, member keys, mechanics completion, optimizer
+eligibility, automatic verification, and account-state findings all remain
+zero. Two source-conflict packets and all 29 decisions remain pending. All 166
+test scripts and 406 regression checks pass. The next checkpoint should collect
+additional revision-pinned official evidence for the two source-conflict
+packets without selecting a decision, applying semantics, or promoting either
+candidate to the optimizer.
+
 The priority activity-candidate human-review path now has a separate semantic
 application boundary. A generic policy, application-record and audit contracts,
 library, explicit-input CLI, and tests require explicit packet and decision

@@ -1,0 +1,31 @@
+{
+  "policy": "sensum.activity-candidate-priority-human-review-decision-guidance-policy.v1",
+  "packetContract": "sensum.activity-candidate-priority-human-review-packet.v1",
+  "guidanceContract": "sensum.activity-candidate-priority-human-review-decision-guidance.v1",
+  "auditContract": "sensum.activity-candidate-priority-human-review-decision-guidance-audit.v1",
+  "inputPacketPolicy": "sensum.activity-candidate-priority-human-review-packet-consolidation-policy.v1",
+  "inputPacketPolicyContentHash": "f0b104c3d80d00fd7b19518389971b419c86c74c4488e68591f7e802dc28df67",
+  "inputDecisionImportPolicy": "sensum.activity-candidate-priority-human-review-decision-import-policy.v1",
+  "inputDecisionImportPolicyContentHash": "40277771a37dae82ca8fea06e8faa1c589032cd6a58da50d82b3665237e82972",
+  "inputDomain": "activity-candidate-priority-human-review-packet",
+  "outputDomain": "activity-candidate-priority-human-review-decision-guidance",
+  "batchSize": 5,
+  "guidanceState": "review_guidance_materialized_decision_still_blank",
+  "rules": {
+    "packetSnapshotMustBeExplicitlySelected": true,
+    "packetManifestRawOuterIntrinsicAndEmbeddedPipelineBindingsMustRevalidate": true,
+    "packetPolicyAndDecisionImporterPolicyMustBindExactly": true,
+    "oneGuidanceRecordPerPacketInPacketOrder": true,
+    "everyGuidanceRecordMustExposeExactRequiredEvidenceKeysAndAllBoundSourceRevisions": true,
+    "everyGuidanceRecordMustExposeOnlyImporterAllowedDecisionVocabulary": true,
+    "canonicalIdentityGuidanceMustEqualTheRevisionPinnedPacketProjection": true,
+    "coherencePathsAreGenericInstructionsAndCannotSelectAPath": true,
+    "blankDecisionTemplateMustRemainByteEquivalentToThePacketTemplate": true,
+    "batchArtifactsMustBeContiguousCompleteNonOverlappingAndDeterministic": true,
+    "guidanceCannotRecordInferRecommendOrApplyAnyHumanDecision": true,
+    "guidanceCannotEstablishIdentityRepeatabilityAtomicityMembershipRequirementsVariantsXpTimingMechanicsOrOptimizerState": true,
+    "namesTitlesPageIdsRevisionsSkillsRoutesLabelsAliasesAndOverridesCannotAlterPolicyBehavior": true,
+    "currentAccountStateIsForbidden": true,
+    "automaticVerificationAllowed": false
+  }
+}
