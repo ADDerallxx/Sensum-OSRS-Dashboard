@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "sensum.agility-colossal-wyrm-termite-reward-rate-source-change-monitoring-registry-audit.v1",
+  "title": "Colossal Wyrm termite and reward-rate source change monitoring registry audit",
+  "type": "object",
+  "required": [
+    "contract", "policyValidation", "inputLineage", "registryCoverage",
+    "fingerprintCoverage", "routingSafety", "authorityBoundary",
+    "recordsMatchExpected", "recordHashesValid", "registryComplete",
+    "mechanicalCompletenessProven", "completeWikiUniverse", "absoluteBestGate",
+    "publishable", "blockers"
+  ],
+  "additionalProperties": true
+}

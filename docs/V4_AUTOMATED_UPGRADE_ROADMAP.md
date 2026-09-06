@@ -3493,3 +3493,24 @@ promotions, verified-best authorizations, automatic verifications, or account
 state. All 573 regression tests pass. The next checkpoint should register a
 revision-change monitor for every discovered source so this disposition reruns
 only when relevant evidence changes.
+
+The Colossal Wyrm reward evidence now has an exact, fail-closed source-change
+monitoring registry. One monitor record remains attached to each of the six
+open mechanics domains. Across those records, the registry covers all 47 bound
+query definitions and result sets, all 353 domain/source occurrences spanning
+71 distinct revision-pinned sources, all 30 classified signals, and all six
+sufficiency dispositions. Query definitions, result sets, source
+revision/content, classified signals, and sufficiency outcomes have separate
+fingerprints, while report paths and generation timestamps remain provenance
+only. Consequently, artifact-only churn cannot create evidence work; a real
+change routes only the affected blocker domains back through the exact discovery
+and sufficiency policies, while blocker-population drift fails closed for
+structural reconciliation. Two real materializations reproduced the same
+six-record snapshot hash
+`65e6aa388a2d3e68593dcee855ac424f5f745f347569dc4c6b88c914c3c73e62`
+with zero baseline events. The checkpoint created zero facts, mechanical
+resolutions, optimizer promotions, verified-best authorizations, automatic
+verifications, or account state. All 574 regression tests pass. The next
+checkpoint should compare a complete baseline registry with a complete refresh
+and emit exact, domain-scoped evidence-work events without treating a changed
+source as a changed game fact.
