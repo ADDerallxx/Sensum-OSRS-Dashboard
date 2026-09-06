@@ -43,6 +43,30 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+The missing-supported-infobox subject-boundary workflow now has a separate,
+fail-closed application boundary for future completed human decisions. Its
+generic policy, record and audit contracts, library, explicit two-snapshot CLI,
+and adversarial tests revalidate the queue manifest, generated blank-template
+artifact, decision manifest, raw and content-addressed records, exact candidate
+revision, evidence fingerprint, reviewer metadata, policy hashes, and every
+cross-record binding. Every selected decision must replay exactly through the
+existing guarded importer before any application record can be emitted.
+
+The application carries forward only the reviewed subject disposition,
+composite-or-container verdict, member-expansion-required flag,
+additional-evidence flag, and rejection reason. It cannot create canonical
+identities, repeatability classifications, member identities, requirements,
+variants, XP, timing, mechanics, complete-universe status, optimizer
+eligibility, automatic verification, or account state. Two synthetic CLI runs
+reproduced identical two-record outputs across resolved and rejection paths.
+The real two-entry queue at content hash
+`7f49c13735c3c31352290ccd3b5e0d32572ea8c3b1d5c46f96218e6861a699f8`
+has no human decision snapshot; the real application attempt therefore exited
+with code 2, reported `outputWritten: false`, and created no output directory.
+All 176 test scripts and 480 regression checks pass. Both real human decisions
+and every downstream identity, mechanics, universe, and optimizer gate remain
+pending.
+
 The two missing-supported-infobox subject-boundary cases now have deterministic,
 importer-compatible human-review guidance. A generic policy, guidance and audit
 contracts, materializer, explicit-input CLI, readable packet, machine index,

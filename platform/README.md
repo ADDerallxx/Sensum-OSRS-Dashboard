@@ -104,6 +104,17 @@ fields, clearly labeling that set as a field-validity example rather than an
 evidence-sufficiency judgment. Guidance never selects evidence, records a human
 decision, or opens any semantic or optimizer gate.
 
+The separate subject-boundary application step requires explicit queue and
+recorded-decision snapshots and replays the complete selected decision set
+through that guarded importer. It can apply only the five reviewer-controlled
+subject-boundary fields: disposition, composite/container verdict, member-
+expansion requirement, additional-evidence requirement, and rejection reason.
+Any manifest, record, revision, evidence, reviewer, fingerprint, policy, or
+cross-snapshot drift rejects the entire application without output. Applying a
+review never creates an identity, repeatability class, member, mechanic,
+complete-universe claim, optimizer eligibility, automatic verification, or
+account-specific fact.
+
 The rendered-guide observation audit calls the official MediaWiki parser with
 each retained guide `oldid` and separately preserves its `links`, `categories`,
 `images`, and `templates` channels. Each returned target receives a current

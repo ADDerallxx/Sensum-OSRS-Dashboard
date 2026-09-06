@@ -1,0 +1,30 @@
+{
+  "contract": "sensum.activity-candidate-missing-supported-infobox-subject-boundary-review-decision-application-audit.v1",
+  "required": [
+    "contract",
+    "policyCoverage",
+    "queueCoverage",
+    "decisionCoverage",
+    "replayCoverage",
+    "applicationCoverage",
+    "semanticPreservationCoverage",
+    "accountStateFindings",
+    "applicationBatchComplete",
+    "subjectBoundaryReviewComplete",
+    "requirementsVariantsXpTimingAndMechanicsComplete",
+    "completeActivityUniverse",
+    "absoluteBestGate",
+    "blockers",
+    "publishable"
+  ],
+  "rules": {
+    "bothExplicitSnapshotsAndTheirManifestsMustRevalidate": true,
+    "queueBlankTemplateAndDecisionRecordsMustRetainExactSourceBindings": true,
+    "guardedDecisionImporterMustReproduceEverySelectedDecisionExactly": true,
+    "applicationSetMustExactlyMatchTheSelectedDecisionSet": true,
+    "onlyFiveReviewedSubjectBoundaryFieldsMayBeApplied": true,
+    "additionalEvidenceAndCandidateScopedRejectionRemainVisible": true,
+    "identityMembershipMechanicsUniverseAndOptimizerGatesRemainClosed": true,
+    "accountStateMustFailPublication": true
+  }
+}

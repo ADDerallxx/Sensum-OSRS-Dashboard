@@ -1,0 +1,35 @@
+{
+  "policy": "sensum.activity-candidate-missing-supported-infobox-subject-boundary-review-decision-application-policy.v1",
+  "inputQueuePolicy": "sensum.activity-candidate-missing-supported-infobox-subject-boundary-review-queue-export-policy.v1",
+  "inputQueuePolicyContentHash": "0e1afebb1f7952def376b918372bcb8b4db396d58bfdf968835f766aa2eea924",
+  "inputDecisionImportPolicy": "sensum.activity-candidate-missing-supported-infobox-subject-boundary-review-decision-import-policy.v1",
+  "inputDecisionImportPolicyContentHash": "6164ced23ed4b34fc2cfbc5387c46a4d2d79f37f88c6b6ac2e1bf3c226ba0334",
+  "inputQueueDomain": "activity-candidate-missing-supported-infobox-subject-boundary-review-queue",
+  "inputDecisionDomain": "activity-candidate-missing-supported-infobox-subject-boundary-review-decisions",
+  "outputDomain": "activity-candidate-missing-supported-infobox-subject-boundary-review-decision-applications",
+  "queueContract": "sensum.activity-candidate-missing-supported-infobox-subject-boundary-review-queue-entry.v1",
+  "decisionContract": "sensum.activity-candidate-missing-supported-infobox-subject-boundary-review-decision.v1",
+  "outputContract": "sensum.activity-candidate-missing-supported-infobox-subject-boundary-review-decision-application-record.v1",
+  "auditContract": "sensum.activity-candidate-missing-supported-infobox-subject-boundary-review-decision-application-audit.v1",
+  "requiredDecisionState": "recorded_source_bound_subject_boundary_human_review_decision_pending_separate_semantic_application",
+  "applicationStates": {
+    "resolved": "reviewed_subject_boundary_scope_applied_pending_identity_membership_and_mechanics",
+    "excluded": "reviewed_subject_boundary_rejection_applied_pending_universe_reconciliation",
+    "unresolved": "reviewed_subject_boundary_additional_evidence_required"
+  },
+  "rules": {
+    "queueAndDecisionSnapshotsMustBeExplicitlySelected": true,
+    "queueManifestPolicyArtifactRawOuterIntrinsicAndEvidenceHashesMustRevalidate": true,
+    "decisionManifestPolicyRawOuterIntrinsicAndQueueBindingsMustRevalidate": true,
+    "everyDecisionMustReplayThroughTheGuardedDecisionImporter": true,
+    "oneApplicationRecordPerDecisionInDecisionOrder": true,
+    "applicationMayCarryOnlyTheReviewedSubjectDispositionCompositeMemberExpansionAdditionalEvidenceAndRejectionFields": true,
+    "rejectionRemainsBoundToTheExactReviewedCandidateAndDoesNotCompleteTheUniverse": true,
+    "additionalEvidenceRemainsAnExplicitBlocker": true,
+    "memberExpansionRequirementDoesNotCreateOrApplyMemberIdentities": true,
+    "applicationCannotEstablishCanonicalIdentityRepeatabilityMembershipRequirementsVariantsXpTimingMechanicsCompleteUniverseOrOptimizerEligibility": true,
+    "namesTitlesPageIdsRevisionsSkillsRoutesLabelsAliasesOverridesAndExceptionsCannotAlterPolicyBehavior": true,
+    "currentAccountStateIsForbidden": true,
+    "automaticVerificationAllowed": false
+  }
+}
