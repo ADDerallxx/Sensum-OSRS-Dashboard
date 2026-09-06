@@ -43,6 +43,32 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+The two missing-supported-infobox subject-boundary cases now have deterministic,
+importer-compatible human-review guidance. A generic policy, guidance and audit
+contracts, materializer, explicit-input CLI, readable packet, machine index,
+submission checklist, and adversarial tests revalidate the exact queue,
+generated blank-template artifact, queue policy, and guarded importer policy.
+Each record exposes the exact candidate revision and evidence fingerprint, all
+five permitted disposition/coherence paths, four evidence obligations, the
+earliest valid review time, and every downstream nonclaim without selecting an
+outcome.
+
+An exact dynamic-programming set-cover proves that two evidence keys per row are
+the minimum needed merely to satisfy the importer's four evidence-obligation
+fields. Those four total example keys remain explicitly unselected and are not
+treated as evidence sufficiency or a semantic conclusion. Two real runs produced
+the same guidance content hash
+`58aba89371132548f0380b90b27bb0f748db6b674764eb35cdde9353fa59553b`
+and the same six payload files exactly. The copied decision-template artifact
+retains its original byte hash
+`f66be070d1be7492175c5dbca0adcbc737cf2235339d9543d797ffeec6872088`.
+No decision, evidence selection, semantic application, identity, repeatability,
+membership, mechanics completion, universe-completeness claim, optimizer
+promotion, automatic verification, or account state was created. All 175 test
+scripts and 472 regression checks pass. The next checkpoint should add a
+separate fail-closed application boundary that can apply only future guarded
+human subject-boundary decisions while keeping every downstream gate closed.
+
 The missing-supported-infobox subject-boundary queue now has a separate,
 fail-closed human-decision import boundary. A generic policy, recorded-decision
 and audit contracts, library, explicit-input CLI, and adversarial tests require

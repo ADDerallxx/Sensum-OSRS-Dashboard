@@ -97,6 +97,13 @@ whole import without output. A valid decision record still applies no semantic
 identity, repeatability, membership, mechanics, universe-completeness, or
 optimizer state; those remain separate downstream evidence gates.
 
+The companion guidance materializer reproduces those blank templates byte for
+byte and presents every allowed disposition as an unselected coherence path. It
+also computes an exact minimum evidence-key set cover for the required review
+fields, clearly labeling that set as a field-validity example rather than an
+evidence-sufficiency judgment. Guidance never selects evidence, records a human
+decision, or opens any semantic or optimizer gate.
+
 The rendered-guide observation audit calls the official MediaWiki parser with
 each retained guide `oldid` and separately preserves its `links`, `categories`,
 `images`, and `templates` channels. Each returned target receives a current

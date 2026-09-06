@@ -1,0 +1,20 @@
+{
+  "contract": "sensum.activity-candidate-missing-supported-infobox-subject-boundary-human-review-guidance-audit.v1",
+  "required": [
+    "contract",
+    "policyCoverage",
+    "inputCoverage",
+    "queueCoverage",
+    "guidanceCoverage",
+    "artifactCoverage",
+    "semanticPreservationCoverage",
+    "accountStateFindings",
+    "guidanceMaterializationComplete",
+    "humanReviewComplete",
+    "semanticApplicationComplete",
+    "completeActivityUniverse",
+    "absoluteBestGate",
+    "blockers",
+    "publishable"
+  ]
+}

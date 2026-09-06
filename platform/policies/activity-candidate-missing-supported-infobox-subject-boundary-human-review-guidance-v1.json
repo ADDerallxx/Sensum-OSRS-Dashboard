@@ -1,0 +1,32 @@
+{
+  "policy": "sensum.activity-candidate-missing-supported-infobox-subject-boundary-human-review-guidance-policy.v1",
+  "inputQueuePolicy": "sensum.activity-candidate-missing-supported-infobox-subject-boundary-review-queue-export-policy.v1",
+  "inputQueuePolicyContentHash": "0e1afebb1f7952def376b918372bcb8b4db396d58bfdf968835f766aa2eea924",
+  "inputDecisionImportPolicy": "sensum.activity-candidate-missing-supported-infobox-subject-boundary-review-decision-import-policy.v1",
+  "inputDecisionImportPolicyContentHash": "6164ced23ed4b34fc2cfbc5387c46a4d2d79f37f88c6b6ac2e1bf3c226ba0334",
+  "inputDomain": "activity-candidate-missing-supported-infobox-subject-boundary-review-queue",
+  "queueContract": "sensum.activity-candidate-missing-supported-infobox-subject-boundary-review-queue-entry.v1",
+  "decisionTemplateContract": "sensum.activity-candidate-missing-supported-infobox-subject-boundary-review-decision-template.v1",
+  "guidanceContract": "sensum.activity-candidate-missing-supported-infobox-subject-boundary-human-review-guidance.v1",
+  "auditContract": "sensum.activity-candidate-missing-supported-infobox-subject-boundary-human-review-guidance-audit.v1",
+  "outputDomain": "activity-candidate-missing-supported-infobox-subject-boundary-human-review-guidance",
+  "guidanceState": "source_bound_subject_boundary_human_review_guidance_materialized_decision_still_blank",
+  "rules": {
+    "queueSnapshotAndBlankTemplateArtifactMustBeExplicitlySelected": true,
+    "queueManifestPolicyArtifactRawOuterIntrinsicAndEvidenceHashesMustRevalidate": true,
+    "queueAndDecisionImporterPoliciesMustBindExactly": true,
+    "oneGuidanceRecordPerQueueEntryInQueueOrder": true,
+    "everyGuidanceRecordMustExposeTheExactCandidateRevisionAndEvidenceFingerprint": true,
+    "everyGuidanceRecordMustExposeOnlyImporterAllowedDispositionsAndExactCoherencePaths": true,
+    "minimumEvidenceSelectionMustBeAProvenExactSetCoverOfAllRequiredReviewObligations": true,
+    "minimumEvidenceSelectionIsAnUnselectedCoverageExampleNotAReviewConclusion": true,
+    "reviewerAndTimestampRequirementsMustMirrorTheImporter": true,
+    "blankDecisionTemplatesMustRemainByteEquivalentToTheQueueArtifact": true,
+    "artifactsMustBeCompleteContentAddressedAndDeterministic": true,
+    "guidanceCannotSelectRecommendRecordInferOrApplyAReviewDecision": true,
+    "guidanceCannotEstablishCanonicalIdentityRepeatabilityMembershipRequirementsVariantsXpTimingMechanicsCompleteUniverseOrOptimizerEligibility": true,
+    "namesTitlesPageIdsRevisionsSkillsRoutesLabelsAliasesOverridesAndExceptionsCannotAlterPolicyBehavior": true,
+    "currentAccountStateIsForbidden": true,
+    "automaticVerificationAllowed": false
+  }
+}
