@@ -43,6 +43,25 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+The complete level-unlock-corpus absence review path now has a separate
+fail-closed application boundary. A generic policy, application-record and
+audit contracts, transform, CLI, and tests require explicit queue and decision
+snapshots; revalidate both manifests, every outer and intrinsic record, the
+source queue and crosswalk, all four upstream snapshots, the complete pinned
+24-skill level-up-table corpus relation set, every exact stable-page-ID
+zero-match finding, reviewer metadata, timestamps, and citations; and replay
+every decision through the guarded importer. Confirmation resolves only the
+exact corpus-absence finding and never becomes a no-requirement claim.
+Rejections remain blocked pending corpus re-audit, while additional-evidence
+decisions remain blocked pending source reconciliation. No decision can
+establish requirements, unlocks, semantic identity, repeatability, variants,
+XP, timing, mechanics, account state, or optimizer eligibility. The real 4,725-
+entry queue selected without a decision snapshot rejected with exit code 2 and
+wrote zero application snapshots. All 4,725 decisions remain pending. All 388
+regression tests pass. The next checkpoint should consolidate the 29 explicit
+activity-page candidates into bounded cross-channel review packets so human
+review can begin without weakening any application gate.
+
 The complete source-scoped semantic-relevance review path now has a separate
 fail-closed application boundary. A generic policy, application-record and audit
 contracts, transform, CLI, and tests require explicit queue and decision

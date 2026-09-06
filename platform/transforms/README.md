@@ -905,3 +905,26 @@ Run only with both explicitly selected snapshots:
 ```text
 node platform/transforms/apply-cross-skill-rendered-page-without-unlock-evidence-source-scoped-semantic-relevance-decisions.mjs --queue-snapshot=<queue-snapshot-directory> --decision-snapshot=<decision-snapshot-directory>
 ```
+
+`apply-cross-skill-rendered-page-without-unlock-evidence-unlock-corpus-absence-reconciliation-decisions.mjs`
+is the separate level-unlock-corpus absence application boundary. It requires
+explicit queue and guarded-decision snapshots and revalidates both manifests,
+all outer and intrinsic records, the source queue and crosswalk bindings, the
+complete pinned 24-skill level-up-table corpus binding, every zero-match
+finding, and every reconstructed human submission through the original guarded
+decision importer.
+
+A confirmation resolves only the exact finding that the target's stable Wiki
+page ID is absent from that pinned corpus. It never claims that the target has
+no level or unlock requirement. Rejections remain blocked pending corpus
+re-audit, and additional-evidence decisions remain blocked pending source
+reconciliation. Safe partial decision sets can be applied without completing
+the review. Requirements, unlocks, semantic identity, repeatability, variants,
+XP, timing, mechanics, account state, automatic verification, and optimizer
+eligibility remain closed.
+
+Run only with both explicitly selected snapshots:
+
+```text
+node platform/transforms/apply-cross-skill-rendered-page-without-unlock-evidence-unlock-corpus-absence-reconciliation-decisions.mjs --queue-snapshot=<queue-snapshot-directory> --decision-snapshot=<decision-snapshot-directory>
+```
