@@ -1,0 +1,24 @@
+{
+  "contract": "sensum.accepted-evidence-batch-materialization-audit.v1",
+  "purpose": "Prevalidate and materialize every registered accepted-evidence domain with isolated transactions and exact catalog reconciliation.",
+  "requiredGates": [
+    "allInputsPrevalidated",
+    "allRegisteredDomainsAttempted",
+    "allRegisteredDomainsSucceeded",
+    "allRegisteredDomainsReconciled",
+    "directStatementLineageComplete",
+    "semanticStatePreserved"
+  ],
+  "failurePolicy": {
+    "preflightFailureAllowsDatabaseMutation": false,
+    "executionTransactionsArePerDomain": true,
+    "oneDomainFailureMayMarkAnotherDomainSuccessful": true,
+    "anyDomainFailureAllowsPublishableBatch": false,
+    "reconciliationFailureAllowsPublishableBatch": false
+  },
+  "forbiddenEffects": [
+    "optimizer promotion",
+    "verified-best authorization",
+    "production mutation"
+  ]
+}

@@ -3791,3 +3791,32 @@ All 210 V4 test scripts pass. The Agility phase remains in progress because this
 provenance checkpoint changes no game facts or candidate-universe completeness.
 The next checkpoint should add registry-wide batch orchestration with per-domain
 failure isolation and an auditable all-domain reconciliation result.
+
+Accepted-evidence materialization now has a registry-wide, fail-closed batch
+orchestrator. Before its first database attempt it loads and revalidates the
+accepted audit, snapshot, manifest, raw content, hashes, semantic gates, and
+materialization model for every registered domain. A failed preflight therefore
+allows zero database attempts. After a complete preflight, the domains execute
+in deterministic order using their existing independent transactions; a failed
+domain cannot corrupt another, all domains are still reported, and any failure
+makes the batch non-publishable. Final publication also requires the read-only
+catalog to reconcile the exact run, snapshot, materialization hash, source
+count, record count, statement count, and direct lineage count for every
+registry entry while preserving verified and optimizer-eligible state.
+
+Two real local batches revalidated and reconciled all three registered domains
+with the same input-set hash
+`28a41b613c2f098ebcd15e0a2a62709e623db11b9349ec7090cc13d3e272110f`.
+Both retained 84 sources, 26 raw records, 4,770 candidate statements, 4,770
+direct lineage rows, zero unlinked statements, zero verified facts, and zero
+optimizer-eligible statements. The evidence and lineage aggregate hashes stayed
+`17ddd9aa08b980e21b23e0ebae64696f` and
+`32e4c91a7dd3cd28655ed399cbb24f48`. Adversarial tests prove zero mutation on
+preflight rejection, per-domain transaction isolation, continued reporting
+after an execution failure, and fail-closed behavior for catalog identity or
+lineage drift. The checkpoint adds no game fact, coverage claim, optimizer
+promotion, verified-best authorization, production mutation, or V3 change.
+All 211 V4 test scripts pass. The Agility phase remains in progress. The next
+checkpoint should audit registry coverage against all accepted local evidence
+artifacts and admit the next reusable evidence domain only when its generic
+contract and semantic gates are satisfied.
