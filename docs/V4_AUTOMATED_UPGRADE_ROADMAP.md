@@ -43,6 +43,29 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+The detected `Agility training` revision advance now has an exact-content,
+fail-closed reconciliation. Its generic policy, record and audit contracts,
+deterministic line-delta engine, explicit monitor-snapshot CLI, and adversarial
+tests refetch both revisions by ID, revalidate the monitor record and manifest,
+and keep revision identity, content equality, semantic re-audit, and existing
+game-fact blockers separate. Changed source text produces retained line hunks and
+requires semantic re-audit; byte-identical revision churn can resolve only the
+drift alert.
+
+Two official-Wiki runs reproduced the same one-record output content hash
+`a63bf005a96ef0e54d4508767208327a14015f38fdf15db5ab0210f34d47ed84`.
+Revisions `15324367` and `15331211` both resolve to page ID `14213`, title
+`Agility training`, 23,569 bytes, 276 lines, and content hash
+`9fce1d79aaf2053abcf044fb03f121d2e3cbea41a3e20fc485390ff7989e72d0`.
+The newer revision is a revert and has zero added lines, zero removed lines, and
+zero changed hunks. The drift alert is therefore reconciled without semantic
+review, but all condition and mechanics blockers for its five affected candidates
+remain open. Zero facts, approvals, eligibility, or account state were created.
+All 178 test scripts and 497 regression checks pass. The next checkpoint should
+return to the remaining condition/mechanics evidence gaps, prioritizing a source-
+bound evidence search for the nine target-level condition models while retaining
+all unpublished quantities as blockers.
+
 The 12 open level-34 Agility candidates now have a fail-closed source-revision
 monitor bound to the exact coverage audit at content hash
 `b243d0ba775da6f8060de799e5101f3fc8990acdb4b72b3689354e72a69740d6`.

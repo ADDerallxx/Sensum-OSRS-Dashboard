@@ -1,0 +1,27 @@
+{
+  "contract": "sensum.agility-open-blocker-source-revision-reconciliation-audit.v1",
+  "required": [
+    "inputMonitor",
+    "sourceCoverage",
+    "contentStates",
+    "blockerPreservation",
+    "revisionReconciliationComplete",
+    "allRevisionDriftAlertsResolved",
+    "semanticReauditRequired",
+    "conditionOrMechanicsCoverageComplete",
+    "completeActivityUniverse",
+    "absoluteBestGate",
+    "publishable",
+    "blockers"
+  ],
+  "rules": {
+    "inputMonitorRecordsAndSnapshotBindingMustValidate": true,
+    "everyReauditSourceMustProduceExactlyOneResult": true,
+    "bothExactRevisionContentsMustBeComplete": true,
+    "pageIdentityMustRemainStable": true,
+    "byteIdenticalAndChangedContentStatesAreDistinct": true,
+    "semanticReviewCannotBeSkippedForChangedContent": true,
+    "existingCandidateBlockersMustRemainOpen": true,
+    "noSemanticFactsOptimizerPromotionAutomaticApprovalOrAccountState": true
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "policy": "sensum.agility-open-blocker-source-revision-reconciliation-policy.v1",
+  "inputRecordContract": "sensum.agility-open-blocker-source-revision-monitor.v1",
+  "inputDomain": "agility-open-blocker-source-revision-monitor",
+  "recordContract": "sensum.agility-open-blocker-source-revision-reconciliation.v1",
+  "auditContract": "sensum.agility-open-blocker-source-revision-reconciliation-audit.v1",
+  "rules": {
+    "inputSnapshotMustBeExplicitAndManifestValid": true,
+    "onlyReauditRequiredMonitorRecordsAreReconciled": true,
+    "pinnedAndCurrentRevisionContentMustBeRefetchedExactly": true,
+    "pinnedContentMustMatchTheMonitorHashAndByteCount": true,
+    "bothRevisionsMustResolveToTheSameStablePageIdentity": true,
+    "byteIdenticalContentMayResolveOnlyTheRevisionDriftAlert": true,
+    "changedContentMustExposeDeterministicLineHunksAndRequireSemanticReaudit": true,
+    "existingCandidateBlockersRemainOpenInEveryOutcome": true,
+    "factsEligibilityAndAutomaticApprovalCannotBeCreated": true,
+    "accountSpecificInputsAreForbidden": true,
+    "automaticVerificationAllowed": false
+  }
+}

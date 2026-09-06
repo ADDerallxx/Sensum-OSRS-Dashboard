@@ -1,0 +1,33 @@
+{
+  "contract": "sensum.agility-open-blocker-source-revision-reconciliation.v1",
+  "required": [
+    "reconciliationKey",
+    "inputMonitorContentHash",
+    "requestedTitle",
+    "pinnedRevision",
+    "currentRevision",
+    "revisionIdentity",
+    "contentComparison",
+    "affectedCandidates",
+    "revisionDriftAlertResolved",
+    "semanticReauditRequired",
+    "blockersClosed",
+    "semanticFactsCreated",
+    "optimizerEligible",
+    "automaticVerificationApplied",
+    "accountIndependent",
+    "blockers",
+    "recordContentHash",
+    "contentHash"
+  ],
+  "rules": {
+    "oneRecordPerReauditRequiredSource": true,
+    "revisionIdentityAndContentMustBeExact": true,
+    "byteEqualityMayResolveRevisionDriftButNotGameFactBlockers": true,
+    "contentChangesRequireSemanticReaudit": true,
+    "changedLinesMustBePreservedWithoutSemanticInterpretation": true,
+    "blockersClosedAndSemanticFactsCreatedMustAlwaysBeZero": true,
+    "optimizerEligibilityAndAutomaticVerificationAreForbidden": true,
+    "currentAccountStateIsForbidden": true
+  }
+}
