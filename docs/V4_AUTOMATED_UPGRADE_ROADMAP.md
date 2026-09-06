@@ -43,6 +43,45 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+The Colossal Wyrm course's broad obsolete warning is now reconciled as four
+independent, revision-pinned field histories instead of one opaque blocker.
+Current course revision 15331454, official update revision 15303824, and all 24
+intervening course revisions through pre-update revision 15293116 were fetched
+with content, parent IDs, timestamps, and editor comments. Comments remain
+provenance only. The artifact preserves six obsolete-notice states, six duration
+states, five experience states, four termite-range states, and two bone-shard
+states.
+
+The current source-observed values remain non-authoritative. The course lists
+67.8-second Basic and 82.8-second Advanced ideal durations, 633 and 1,053.6
+prose lap XP, 11-14 termites for Basic portions, 17-20 for Advanced-only
+portions, and an 80% chance of 22-38 bone shards when termites are collected.
+The source explicitly says the termite spawn rate is unknown. Its 3.9-termite
+and 6.9-shard Advanced per-completion averages are experimental, and the
+official update publishes only approximate 25%/40% duration changes plus a
+relative reward adjustment—not exact replacement mechanics.
+
+The reward narrative also retains two material arithmetic mismatches. Dividing
+the stated 234 termites or 414 shards per hour by the experimental per-lap
+averages implies 60 laps per hour, while the same current paragraph says roughly
+90 seconds per lap, or 40 laps per hour. Dividing the stated less-intense 195
+termites or 345 shards by those averages implies 50 laps, while the paragraph
+says 35. Sensum records those as source conflicts; it does not choose a value or
+rewrite the Wiki's claim.
+
+Two official-Wiki ingestions reproduced the same four-record snapshot hash
+`51c600b36adcbd15338126b3570269c0cc1b72d05c776d6e23765a3d71dfe6f0`.
+The downstream route and complete levels 1-99 audits now replace the generic
+obsolete warning with precise route-specific duration, experience, termite, and
+bone-shard blockers. All 99 levels remain blocked, all 29 structural
+breakpoints remain represented, and no mechanical authority, optimizer
+eligibility, verified-best authorization, automatic verification, or account
+state was introduced. All 197 test scripts pass, including 35 focused parser,
+timeline, arithmetic, lineage, promotion, and integration checks. The next
+checkpoint will search revision-pinned authoritative channels for a current
+termite spawn-rate or reward-rate reconciliation without treating experimental
+averages or editor comments as mechanics.
+
 The Colossal Wyrm Basic lap-XP conflict now has an exact, parent-contiguous
 revision timeline instead of one generic current-page mismatch. Course revision
 15331454 and all 24 intervening revisions through pre-update revision 15293116

@@ -1,6 +1,7 @@
 import { hash, json } from '../ingestion/lib.mjs';
 
 const unique = values => [...new Set(values)];
+const same = (left, right) => json(left) === json(right);
 const without = (value, keys) => Object.fromEntries(Object.entries(value || {}).filter(([key]) => !keys.includes(key)));
 const EXPECTED_OBSTACLE_VARIANT_KEYS = [
   'colossal-wyrm:ladder:1', 'colossal-wyrm:ladder:2', 'colossal-wyrm:ladder:3',
@@ -11,6 +12,8 @@ const EXPECTED_OBSTACLE_VARIANT_KEYS = [
 ];
 const BASIC_LAP_XP_SUPERSEDED_BLOCKER = 'basic_post_update_lap_xp_633_conflicts_with_current_obstacle_table_601_6';
 const BASIC_LAP_XP_REFINED_BLOCKER = 'basic_lap_xp_633_prose_conflicts_with_601_6_eight_row_sum_at_current_revision_15331454';
+const OBSOLETE_NOTICE_GENERIC_BLOCKER = 'current_course_page_obsolete_for_duration_experience_termites_and_bone_shards';
+const OBSOLETE_NOTICE_FIELDS = ['duration', 'experience', 'termites', 'bone_shards'];
 const recordsHash = records => hash(`${records.map(record => json(record)).join('\n')}\n`);
 
 function reconciliationRecordHashesValid(record) {
@@ -93,7 +96,34 @@ function basicLapXpConflictSetBlockers(records, reconciliation, obstacleVariants
   return unique(blockers);
 }
 
-export function auditAgilityColossalWyrmGuideMemberCoverage({ members = [], guideCandidates = [], reconciliation = [], obstacleVariants = [], basicLapXpConflict = [] }) {
+function obsoleteNoticeFieldSetBlockers(records, reconciliation, obstacleVariants, basicLapXpConflict) {
+  const blockers = [];
+  const fields = records.map(record => record.field);
+  if (records.length !== OBSOLETE_NOTICE_FIELDS.length || !same(fields, OBSOLETE_NOTICE_FIELDS)) blockers.push('obsolete_notice_field_expected_ordered_set_incomplete');
+  if (records.some(record => record.contract !== 'sensum.agility-colossal-wyrm-obsolete-notice-field-reconciliation.v1')) blockers.push('obsolete_notice_field_contract_mismatch');
+  if (records.some(record => !reconciliationRecordHashesValid(record))) blockers.push('obsolete_notice_field_record_hash_invalid');
+  if (records.some(record => record.fieldTimelineReconciliationComplete !== true || record.fieldMechanicallyResolved !== false
+    || record.mechanicalAuthorityComplete !== false || record.optimizerEligible !== false
+    || record.verifiedBestAuthorized !== false || record.automaticVerificationApplied !== false
+    || record.accountIndependent !== true)) blockers.push('obsolete_notice_field_invalid_authority_or_account_state');
+  if (records.some(record => record.supersededBlocker !== OBSOLETE_NOTICE_GENERIC_BLOCKER
+    || !record.remainingBlockersByRoute
+    || ['basic_route', 'advanced_route'].some(route => !Array.isArray(record.remainingBlockersByRoute[route]) || !record.remainingBlockersByRoute[route].length))) blockers.push('obsolete_notice_field_precise_route_blocker_shape_invalid');
+  const snapshots = records[0]?.inputSnapshots;
+  if (records.some(record => !same(record.inputSnapshots, snapshots))) blockers.push('obsolete_notice_field_input_snapshot_binding_not_uniform');
+  if (snapshots?.temporalReconciliation?.records !== reconciliation.length
+    || snapshots?.temporalReconciliation?.contentHash !== recordsHash(reconciliation)) blockers.push('obsolete_notice_field_temporal_snapshot_binding_invalid');
+  if (snapshots?.obstacleVariantReconciliation?.records !== obstacleVariants.length
+    || snapshots?.obstacleVariantReconciliation?.contentHash !== recordsHash(obstacleVariants)) blockers.push('obsolete_notice_field_obstacle_snapshot_binding_invalid');
+  if (snapshots?.basicLapXpConflictReconciliation?.records !== basicLapXpConflict.length
+    || snapshots?.basicLapXpConflictReconciliation?.contentHash !== recordsHash(basicLapXpConflict)) blockers.push('obsolete_notice_field_basic_lap_snapshot_binding_invalid');
+  const courseRevisions = unique(records.map(record => record.sourceRevisions?.currentCourse?.revision).filter(Boolean));
+  const temporalCourseRevisions = unique(reconciliation.map(record => record.sourceRevisions?.currentCourse?.revision).filter(Boolean));
+  if (courseRevisions.length !== 1 || temporalCourseRevisions.length !== 1 || courseRevisions[0] !== temporalCourseRevisions[0]) blockers.push('obsolete_notice_field_current_course_revision_mismatch');
+  return unique(blockers);
+}
+
+export function auditAgilityColossalWyrmGuideMemberCoverage({ members = [], guideCandidates = [], reconciliation = [], obstacleVariants = [], basicLapXpConflict = [], obsoleteNoticeFields = [] }) {
   const reconciliationProvided = reconciliation.length > 0;
   const obstacleVariantsProvided = obstacleVariants.length > 0;
   const obstacleVariantSetValidationBlockers = obstacleVariantsProvided ? obstacleVariantSetBlockers(obstacleVariants, reconciliation) : [];
@@ -103,6 +133,11 @@ export function auditAgilityColossalWyrmGuideMemberCoverage({ members = [], guid
     ? basicLapXpConflictSetBlockers(basicLapXpConflict, reconciliation, obstacleVariants)
     : [];
   const basicLapXpConflictSetValid = basicLapXpConflictProvided && basicLapXpConflictSetValidationBlockers.length === 0;
+  const obsoleteNoticeFieldsProvided = obsoleteNoticeFields.length > 0;
+  const obsoleteNoticeFieldSetValidationBlockers = obsoleteNoticeFieldsProvided
+    ? obsoleteNoticeFieldSetBlockers(obsoleteNoticeFields, reconciliation, obstacleVariants, basicLapXpConflict)
+    : [];
+  const obsoleteNoticeFieldSetValid = obsoleteNoticeFieldsProvided && obsoleteNoticeFieldSetValidationBlockers.length === 0;
   const guideRevisions = unique(members.map(member => member.guideSourceRevision).filter(Boolean));
   const sectionKeys = unique(members.map(member => member.sectionKey).filter(Boolean));
   const sectionKey = sectionKeys[0] || null;
@@ -120,6 +155,7 @@ export function auditAgilityColossalWyrmGuideMemberCoverage({ members = [], guid
     let postUpdateReconciliation = null;
     let obstacleVariantReconciliation = null;
     let basicLapXpConflictReconciliation = null;
+    let obsoleteNoticeFieldReconciliation = null;
     let mechanicalBlockers = member.mechanicalBlockers || [];
     if (reconciliationProvided) {
       if (reconciliations.length !== 1) {
@@ -200,6 +236,31 @@ export function auditAgilityColossalWyrmGuideMemberCoverage({ members = [], guid
       }
     }
 
+    if (obsoleteNoticeFieldsProvided) {
+      if (!obsoleteNoticeFieldSetValid) {
+        identityBlockers.push(...obsoleteNoticeFieldSetValidationBlockers);
+        mechanicalBlockers = unique([...mechanicalBlockers, 'obsolete_notice_field_reconciliation_unavailable']);
+      } else if (!obstacleVariantSetValid || !basicLapXpConflictSetValid || reconciliations.length !== 1 || reconciliationBlockers(reconciliations[0]).length) {
+        identityBlockers.push('obsolete_notice_field_reconciliation_requires_all_prior_colossal_wyrm_reconciliations');
+        mechanicalBlockers = unique([...mechanicalBlockers, 'obsolete_notice_field_reconciliation_unavailable']);
+      } else {
+        const preciseBlockers = unique(obsoleteNoticeFields.flatMap(record => record.remainingBlockersByRoute[member.routePolicy]));
+        mechanicalBlockers = unique([
+          ...mechanicalBlockers.filter(blocker => blocker !== OBSOLETE_NOTICE_GENERIC_BLOCKER),
+          ...preciseBlockers
+        ]);
+        obsoleteNoticeFieldReconciliation = {
+          contract: 'sensum.agility-colossal-wyrm-obsolete-notice-field-reconciliation.v1',
+          fieldCount: obsoleteNoticeFields.length,
+          fields: obsoleteNoticeFields.map(record => record.field),
+          genericBlockerReplaced: !mechanicalBlockers.includes(OBSOLETE_NOTICE_GENERIC_BLOCKER),
+          preciseRemainingBlockers: preciseBlockers,
+          mechanicalAuthorityComplete: false,
+          contentHashes: obsoleteNoticeFields.map(record => record.contentHash)
+        };
+      }
+    }
+
     return {
       memberKey: member.memberKey,
       candidateKey: member.candidateKey,
@@ -218,6 +279,7 @@ export function auditAgilityColossalWyrmGuideMemberCoverage({ members = [], guid
       postUpdateReconciliation,
       obstacleVariantReconciliation,
       basicLapXpConflictReconciliation,
+      obsoleteNoticeFieldReconciliation,
       sourceLocators: member.sourceLocators,
       status: identityBlockers.length ? 'route_identity_blocked' : 'route_identity_covered',
       identityBlockers
@@ -246,6 +308,8 @@ export function auditAgilityColossalWyrmGuideMemberCoverage({ members = [], guid
   const basicLapXpConflictReconciliationApplied = basicLapXpConflictSetValid
     && memberDetails.filter(member => member.routePolicy === 'basic_route')
       .every(member => member.basicLapXpConflictReconciliation?.supersededBlockerReplaced === true);
+  const obsoleteNoticeFieldReconciliationApplied = obsoleteNoticeFieldSetValid
+    && memberDetails.every(member => member.obsoleteNoticeFieldReconciliation?.genericBlockerReplaced === true);
   const mechanicalCompletenessProven = internalMemberAuditSatisfied && mechanicalBlockers.length === 0;
 
   return {
@@ -264,6 +328,9 @@ export function auditAgilityColossalWyrmGuideMemberCoverage({ members = [], guid
     basicLapXpConflictReconciliationApplied,
     basicLapXpConflictRecordCount: basicLapXpConflict.length,
     basicLapXpConflictSetValidationBlockers,
+    obsoleteNoticeFieldReconciliationApplied,
+    obsoleteNoticeFieldRecordCount: obsoleteNoticeFields.length,
+    obsoleteNoticeFieldSetValidationBlockers,
     internalMemberAuditSatisfied,
     mechanicalCompletenessProven,
     memberDetails,

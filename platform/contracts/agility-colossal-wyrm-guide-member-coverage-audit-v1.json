@@ -1,11 +1,13 @@
 {
   "contract": "sensum.agility-colossal-wyrm-guide-member-coverage-audit.v1",
-  "required": ["sectionKey", "guideSourceRevision", "memberCount", "coveredMemberCount", "uncoveredMemberCount", "internalMemberAuditSatisfied", "mechanicalCompletenessProven", "memberDetails", "mechanicalBlockers", "inputSnapshots", "contentHash"],
+  "required": ["sectionKey", "guideSourceRevision", "memberCount", "coveredMemberCount", "uncoveredMemberCount", "obsoleteNoticeFieldReconciliationApplied", "obsoleteNoticeFieldRecordCount", "obsoleteNoticeFieldSetValidationBlockers", "internalMemberAuditSatisfied", "mechanicalCompletenessProven", "memberDetails", "mechanicalBlockers", "inputSnapshots", "contentHash"],
   "rules": {
     "exactlyTwoRouteMembersRequired": true,
     "everyRouteRequiresExactlyOneSameGuideRevisionCandidate": true,
     "unexpectedSectionCandidatesBlock": true,
     "routeIdentityCoverageDoesNotResolveMechanicalConflicts": true,
+    "obsoleteNoticeFieldRecordsMustRevalidateAllPriorColossalWyrmSnapshots": true,
+    "broadObsoleteBlockerMayOnlyBeReplacedByRouteSpecificFieldBlockers": true,
     "obsoleteOrContradictoryEvidenceBlocksVerifiedPerformance": true,
     "automaticVerificationAllowed": false
   }

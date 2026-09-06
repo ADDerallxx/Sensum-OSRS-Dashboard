@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "sensum.agility-colossal-wyrm-obsolete-notice-field-reconciliation.v1",
+  "title": "Colossal Wyrm obsolete-notice field reconciliation",
+  "type": "object",
+  "required": [
+    "contract", "field", "inputSnapshots", "sourceRevisions", "revisionChain",
+    "obsoleteNoticeTimeline", "stateSegmentsChronological", "preUpdateState",
+    "currentState", "officialUpdateScope", "claimDisposition", "remainingBlockersByRoute",
+    "fieldTimelineReconciliationComplete", "fieldMechanicallyResolved", "mechanicalAuthorityComplete",
+    "optimizerEligible", "verifiedBestAuthorized", "automaticVerificationApplied",
+    "accountIndependent", "recordContentHash", "contentHash"
+  ],
+  "additionalProperties": true
+}

@@ -1,0 +1,79 @@
+{
+  "policy": "sensum.agility-colossal-wyrm-obsolete-notice-field-reconciliation-policy.v1",
+  "courseTitle": "Colossal Wyrm Agility Course",
+  "updateTitle": "Update:Summer Sweep Up - Agility & Chambers of Xeric Changes",
+  "inputTemporalReconciliationContract": "sensum.agility-colossal-wyrm-post-update-mechanics-reconciliation.v1",
+  "inputTemporalReconciliationDomain": "agility-colossal-wyrm-post-update-mechanics-reconciliation",
+  "inputObstacleVariantContract": "sensum.agility-colossal-wyrm-obstacle-page-variant-reconciliation.v1",
+  "inputObstacleVariantDomain": "agility-colossal-wyrm-obstacle-page-variant-reconciliation",
+  "inputBasicLapXpContract": "sensum.agility-colossal-wyrm-basic-lap-xp-conflict-reconciliation.v1",
+  "inputBasicLapXpDomain": "agility-colossal-wyrm-basic-lap-xp-conflict-reconciliation",
+  "revisionAnchors": {
+    "currentCourseRevision": "15331454",
+    "lastConfirmedPreUpdateRevision": "15293116",
+    "officialUpdateRevision": "15303824"
+  },
+  "expectedRevisionChain": [
+    "15331454", "15331130", "15313984", "15312490", "15310489",
+    "15304185", "15303604", "15301582", "15298955", "15295850",
+    "15295847", "15295144", "15294629", "15294612", "15294404",
+    "15294160", "15294135", "15294093", "15293630", "15293625",
+    "15293606", "15293600", "15293429", "15293428", "15293116"
+  ],
+  "expectedFields": ["duration", "experience", "termites", "bone_shards"],
+  "expectedObsoleteNoticeSegmentsChronological": [
+    { "firstRevision": "15293116", "lastRevision": "15293428", "revisionCount": 2, "present": false },
+    { "firstRevision": "15293429", "lastRevision": "15294160", "revisionCount": 8, "present": true },
+    { "firstRevision": "15294404", "lastRevision": "15294404", "revisionCount": 1, "present": false },
+    { "firstRevision": "15294612", "lastRevision": "15294612", "revisionCount": 1, "present": true },
+    { "firstRevision": "15294629", "lastRevision": "15301582", "revisionCount": 6, "present": false },
+    { "firstRevision": "15303604", "lastRevision": "15331454", "revisionCount": 7, "present": true }
+  ],
+  "expectedFieldSegmentsChronological": {
+    "duration": [
+      { "firstRevision": "15293116", "lastRevision": "15293630", "revisionCount": 7, "basicSeconds": 54, "advancedSeconds": 58.8 },
+      { "firstRevision": "15294093", "lastRevision": "15294093", "revisionCount": 1, "basicSeconds": 68.4, "advancedSeconds": 83.4 },
+      { "firstRevision": "15294135", "lastRevision": "15294135", "revisionCount": 1, "basicSeconds": 68.4, "advancedSeconds": 82.8 },
+      { "firstRevision": "15294160", "lastRevision": "15294160", "revisionCount": 1, "basicSeconds": 67.8, "advancedSeconds": 82.8 },
+      { "firstRevision": "15294404", "lastRevision": "15294404", "revisionCount": 1, "basicSeconds": 54, "advancedSeconds": 58.8 },
+      { "firstRevision": "15294612", "lastRevision": "15331454", "revisionCount": 14, "basicSeconds": 67.8, "advancedSeconds": 82.8 }
+    ],
+    "experience": [
+      { "firstRevision": "15293116", "lastRevision": "15293606", "revisionCount": 5, "basicLapXp": 504.1, "advancedLapXp": 749.6 },
+      { "firstRevision": "15293625", "lastRevision": "15294135", "revisionCount": 4, "basicLapXp": 504.1, "advancedLapXp": 1053.6 },
+      { "firstRevision": "15294160", "lastRevision": "15294160", "revisionCount": 1, "basicLapXp": 633, "advancedLapXp": 1053.6 },
+      { "firstRevision": "15294404", "lastRevision": "15294404", "revisionCount": 1, "basicLapXp": 504.1, "advancedLapXp": 749.6 },
+      { "firstRevision": "15294612", "lastRevision": "15331454", "revisionCount": 14, "basicLapXp": 633, "advancedLapXp": 1053.6 }
+    ],
+    "termites": [
+      { "firstRevision": "15293116", "lastRevision": "15303604", "revisionCount": 19, "basicScoopMin": 8, "basicScoopMax": 10, "advancedScoopMin": 12, "advancedScoopMax": 15 },
+      { "firstRevision": "15304185", "lastRevision": "15313984", "revisionCount": 4, "basicScoopMin": 8, "basicScoopMax": 10, "advancedScoopMin": 12, "advancedScoopMax": 21 },
+      { "firstRevision": "15331130", "lastRevision": "15331130", "revisionCount": 1, "basicScoopMin": 11, "basicScoopMax": 14, "advancedScoopMin": 12, "advancedScoopMax": 21 },
+      { "firstRevision": "15331454", "lastRevision": "15331454", "revisionCount": 1, "basicScoopMin": 11, "basicScoopMax": 14, "advancedScoopMin": 17, "advancedScoopMax": 20 }
+    ],
+    "bone_shards": [
+      { "firstRevision": "15293116", "lastRevision": "15303604", "revisionCount": 19, "conditionalChancePercent": 80, "scoopMin": 22, "scoopMax": 28 },
+      { "firstRevision": "15304185", "lastRevision": "15331454", "revisionCount": 6, "conditionalChancePercent": 80, "scoopMin": 22, "scoopMax": 38 }
+    ]
+  },
+  "genericObsoleteBlocker": "current_course_page_obsolete_for_duration_experience_termites_and_bone_shards",
+  "recordContract": "sensum.agility-colossal-wyrm-obsolete-notice-field-reconciliation.v1",
+  "auditContract": "sensum.agility-colossal-wyrm-obsolete-notice-field-reconciliation-audit.v1",
+  "outputDomain": "agility-colossal-wyrm-obsolete-notice-field-reconciliation",
+  "rules": {
+    "inputSnapshotsMustBeExplicitlySelectedAndRevalidated": true,
+    "courseRevisionChainMustBeExactContiguousAndContentBearing": true,
+    "obsoleteNoticeMustBeParsedIndependentlyAtEveryRevision": true,
+    "eachNamedFieldMustHaveAnIndependentRecordAndDisposition": true,
+    "sourceObservedValuesRemainDistinctFromMechanicalAuthority": true,
+    "editorCommentsAreProvenanceNotMechanicalAuthority": true,
+    "officialUpdateApproximateChangesCannotDeriveExactMechanics": true,
+    "experimentalAveragesRemainExperimental": true,
+    "unknownSpawnRateMustRemainExplicit": true,
+    "arithmeticContradictionsMustRemainExplicitBlockers": true,
+    "onlyTheGenericObsoleteBlockerMayBeReplaced": true,
+    "optimizerEligibilityAndVerifiedBestAreForbidden": true,
+    "accountSpecificInputsAreForbidden": true,
+    "automaticVerificationAllowed": false
+  }
+}
