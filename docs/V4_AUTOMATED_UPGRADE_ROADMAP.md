@@ -74,6 +74,27 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+Accepted evidence now enters isolated PostgreSQL through a domain registry
+instead of a single hard-wired level-up-table loader. The registry exposes two
+explicit adapters and rejects every unregistered domain. Its second proof uses
+the accepted `activity-canonical-subject-scope-evidence` snapshot at hash
+`1ef300b5e4b1a9d9360abd349c8834ec9afdda71437d4503223e78dd0bfb9904`,
+bound to audit hash
+`ab0c4b2aad8e0cd5467c6d190079cefb908bd1ab09f753a61e6740ae38658fc9`.
+That 9 MB record is retained losslessly with Wise Old Man tasks revision
+14997080 and content hash
+`2cbe7c1268d450722f5ecc05a8a01d2b65932a2e43c8f96f45aab3472e6da46b`.
+
+The live local catalog now reconciles 25 revision-pinned sources, 25 raw
+records, and 4,769 candidate statements across two registered domains. The new
+record remains in review, its compact evidence row remains candidate-only, and
+its semantic-review blockers remain visible. Zero statements are verified or
+optimizer eligible and zero snapshots claim complete world knowledge. A second
+application was a no-op, an intentional failure rolled back with zero residual
+rows, and all 208 V4 test scripts pass. V3 and production remain untouched. The
+next checkpoint should prove multi-source provenance and safe exact-revision
+source reuse across a third accepted domain before widening materialization.
+
 The isolated PostgreSQL evidence is now inspectable through a bounded read-only
 catalog instead of requiring arbitrary SQL or database credentials. Its
 `summary`, `skills`, `sources`, and `blockers` views run inside explicit

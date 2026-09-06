@@ -21,6 +21,21 @@ deterministic result. It may not invent stats, requirements, or formulas.
 
 Run `node platform/tests/foundation.test.mjs` from the repository root.
 
+## Local accepted-evidence materialization
+
+The isolated PostgreSQL database accepts evidence only through registered,
+domain-specific adapters. Each adapter revalidates the snapshot hash, its
+independent publishable audit, exact source revisions, lossless record hashes,
+and fail-closed semantic gates before it can build transactional SQL. Use:
+
+`node platform/db/materialize-accepted-evidence.mjs --domain=<registered-domain> --root=.platform-data`
+
+The registry currently proves `skill-level-unlock-inventory` and
+`activity-canonical-subject-scope-evidence`. Both remain candidate-only; this
+command cannot verify facts, authorize optimizer use, mark a world snapshot
+complete, or touch production. Every application performs exact reconciliation,
+a second idempotency application, and an intentional rollback probe.
+
 ## Automated upgrade work
 
 The guarded unattended roadmap is documented in
