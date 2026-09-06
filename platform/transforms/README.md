@@ -110,6 +110,25 @@ Run only against an explicitly selected reviewed decision file:
 node platform/transforms/import-cross-skill-rendered-page-without-unlock-evidence-historical-attribution-review-decisions.mjs --decisions=<reviewed-decision-template.ndjson>
 ```
 
+`materialize-cross-skill-rendered-page-without-unlock-evidence-historical-attribution-human-review-packets.mjs`
+turns the complete historical-attribution queue into deterministic, bounded
+human-review batches. Every packet retains every rendered observation and guide-
+revision binding, exact revision links and content hashes, parser context,
+required historical dependency evidence, explicit nonclaims, and the evidence
+requirements enforced by the guarded decision importer.
+
+Each batch contains readable Markdown and the importer's exact blank NDJSON
+decision rows. The materializer revalidates all blank rows through the guarded
+import path and emits an index, artifact manifest, and audit. It records no
+decision and cannot apply attribution, requirements, semantic identity,
+repeatability, mechanics, account state, or optimizer eligibility.
+
+Run against an explicitly selected queue snapshot when reproducibility matters:
+
+```text
+node platform/transforms/materialize-cross-skill-rendered-page-without-unlock-evidence-historical-attribution-human-review-packets.mjs --queue-snapshot=<queue-snapshot-directory>
+```
+
 ## Collection-activity identity evidence
 
 `build-activity-reference-collection-member-collection-activity-identity-evidence.mjs`

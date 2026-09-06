@@ -43,6 +43,27 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+The complete 2,637-entry historical rendered-expansion attribution queue now
+has deterministic, human-readable review packets. A dedicated generic policy,
+packet and audit contracts, transform, CLI, and tests revalidate the queue
+policy, guarded decision importer, manifest, snapshot, every outer and intrinsic
+record, source and candidate bindings, all 14,945 rendered observations, and all
+14,563 guide-revision bindings. Every packet preserves the exact observation,
+guide revision link and content hash, parser channel, requested title, required
+historical dependency evidence, explicit nonclaims, complete importer-aligned
+evidence requirements, and an untouched blank decision row. The packets are
+partitioned into 53 contiguous batches of at most 50, with 106 readable
+Markdown/NDJSON batch artifacts, an index, and a content-addressed manifest.
+Two real materializations produced the same packet snapshot
+(`aa56f120029fc726baec8387136dafc132f75c1f1253bebd62c3f7c776388d05`)
+and the same 109 deterministic payload files. No review decision, attribution,
+requirement, semantic identity, repeatability result, mechanics verdict,
+account state, or optimizer promotion was created. All 2,637 human attribution
+decisions and attribution application remain pending. All 364 regression tests
+pass. The next checkpoint should define the fail-closed, decision-bound
+historical-attribution application boundary without applying blank or absent
+human decisions.
+
 The 2,637-entry historical rendered-expansion attribution queue now has a
 fail-closed human decision importer. Its dedicated generic policy, decision and
 audit contracts, transform, CLI, and tests revalidate the exact queue policy,

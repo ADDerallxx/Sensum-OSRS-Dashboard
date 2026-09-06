@@ -1,0 +1,35 @@
+{
+  "policy": "sensum.cross-skill-rendered-page-without-unlock-evidence-historical-attribution-human-review-packet-materialization-policy.v1",
+  "queueContract": "sensum.cross-skill-rendered-page-without-unlock-evidence-historical-attribution-work-queue-entry.v1",
+  "packetContract": "sensum.cross-skill-rendered-page-without-unlock-evidence-historical-attribution-human-review-packet.v1",
+  "auditContract": "sensum.cross-skill-rendered-page-without-unlock-evidence-historical-attribution-human-review-packet-materialization-audit.v1",
+  "submissionContract": "sensum.cross-skill-rendered-page-without-unlock-evidence-historical-attribution-decision-template.v1",
+  "inputQueuePolicy": "sensum.cross-skill-rendered-page-without-unlock-evidence-historical-attribution-work-queue-export-policy.v1",
+  "inputQueuePolicyContentHash": "a389e600423e3fc33d30cb52fbf3947a9811198ddfc19f7cba0f6ab44bcf2cdd",
+  "inputDecisionImportPolicy": "sensum.cross-skill-rendered-page-without-unlock-evidence-historical-attribution-review-decision-import-policy.v1",
+  "inputDecisionImportPolicyContentHash": "bd19f52a0b7dd3b2b070e15ec3a4033e9409f486c94f7e547e2603e1b63a616f",
+  "queueState": "blocked_pending_historical_rendered_expansion_dependency_attribution",
+  "packetState": "materialized_historical_attribution_human_review_packet_pending_explicit_decision",
+  "batchSize": 50,
+  "allowedDecisions": [
+    "confirm_complete_historical_dependency_attribution",
+    "reject_proposed_historical_dependency_attribution",
+    "historical_dependency_evidence_unavailable"
+  ],
+  "rules": {
+    "queueManifestPolicySnapshotAndEveryRecordMustRevalidate": true,
+    "onePacketPerQueueEntryInAuthoritativeReviewOrder": true,
+    "packetsMustBindQueueSnapshotOuterIntrinsicSourceCandidatePartitionObservationAndGuideHashes": true,
+    "allHistoricalRenderedObservationsAndGuideRevisionBindingsMustBePreservedExactly": true,
+    "exactRevisionLinksMustDeriveOnlyFromPinnedIdentities": true,
+    "allDecisionEvidenceRequirementsMustMatchTheGuardedImporter": true,
+    "decisionTemplatesMustExactlyMatchTheGuardedImporterAndRemainBlank": true,
+    "batchesMustBeContiguousCompleteNonOverlappingAndAtMostTheConfiguredSize": true,
+    "markdownAndDecisionArtifactsMustReproduceExactlyFromPackets": true,
+    "packetGenerationDoesNotRecordOrApplyAReviewDecision": true,
+    "packetGenerationCannotEstablishAttributionRequirementUnlockSemanticIdentityRepeatabilityMechanicsOrOptimizerState": true,
+    "namesTitlesPageIdsRevisionsDependencyKindsParserChannelsAliasesAndOverridesCannotAlterPolicyBehavior": true,
+    "currentAccountStateIsForbidden": true,
+    "automaticVerificationAllowed": false
+  }
+}

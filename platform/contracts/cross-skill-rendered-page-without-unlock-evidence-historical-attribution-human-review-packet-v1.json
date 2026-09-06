@@ -1,0 +1,26 @@
+{
+  "contract": "sensum.cross-skill-rendered-page-without-unlock-evidence-historical-attribution-human-review-packet.v1",
+  "required": [
+    "reviewPacketKey", "packetOrdinal", "batchOrdinal", "batchItemOrdinal",
+    "historicalAttributionWorkEntryKey", "sourceQueueSnapshotContentHash",
+    "sourceQueueRecordContentHash", "sourceQueueRecordIntrinsicContentHash",
+    "packetPolicyContentHash", "inputDecisionImportPolicyContentHash",
+    "sourceWorkQueueBinding", "sourceCandidateBinding", "sourcePartitionSnapshotContentHash",
+    "renderedTargetKey", "stableWikiPageIdentity", "sourceExactRevisionUrl", "provenancePartition",
+    "historicalRenderedObservationCount", "historicalRenderedObservationSetContentHash",
+    "historicalRenderedObservations", "historicalGuideRevisionBindingCount",
+    "historicalGuideRevisionBindingsContentHash", "historicalGuideRevisionBindings",
+    "requiredAttributionEvidence", "nonClaims", "evidenceRequirements", "decisionTemplate",
+    "decisionRecorded", "historicalAttributionApplied",
+    "historicalRenderedExpansionDependencyAttribution", "requirementOrUnlockApplied",
+    "semanticDisposition", "canonicalGameEntityIdentity", "canonicalActivityIdentity",
+    "repeatabilityClassification", "mechanicsReviewComplete", "optimizerEligible",
+    "automaticVerificationApplied", "accountIndependent", "blockers", "state", "recordContentHash"
+  ],
+  "rules": {
+    "onePacketMapsToOneExactlyBoundQueueRecord": true,
+    "allObservationAndGuideEvidenceIsRevisionPinnedOrContentHashed": true,
+    "humanDecisionFieldsRemainBlank": true,
+    "attributionRequirementSemanticAndOptimizerGatesRemainClosed": true
+  }
+}
