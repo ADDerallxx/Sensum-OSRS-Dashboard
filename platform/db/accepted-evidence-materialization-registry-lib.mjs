@@ -59,6 +59,15 @@ import {
   validateActivityReferenceMemberCollectionIdentityMaterializationInput,
   verifyActivityReferenceMemberCollectionIdentityReconciliation
 } from './activity-reference-member-collection-activity-identity-evidence-materialization-lib.mjs';
+import {
+  ACTIVITY_REFERENCE_MEMBER_REPEATABILITY_FACT_KIND,
+  ACTIVITY_REFERENCE_MEMBER_REPEATABILITY_INPUT_DOMAIN,
+  buildActivityReferenceMemberRepeatabilityExistingSourceCountQuery,
+  buildActivityReferenceMemberRepeatabilityMaterializationSql,
+  buildActivityReferenceMemberRepeatabilityReconciliationQuery,
+  validateActivityReferenceMemberRepeatabilityMaterializationInput,
+  verifyActivityReferenceMemberRepeatabilityReconciliation
+} from './activity-reference-member-repeatability-evidence-materialization-lib.mjs';
 
 export const ACCEPTED_EVIDENCE_REGISTRY_CONTRACT = 'sensum.accepted-evidence-materialization-registry.v1';
 
@@ -152,6 +161,19 @@ const adapters = [
     buildExistingSourceCountQuery: buildActivityReferenceMemberCollectionIdentityExistingSourceCountQuery,
     buildReconciliationQuery: buildActivityReferenceMemberCollectionIdentityReconciliationQuery,
     verifyReconciliation: verifyActivityReferenceMemberCollectionIdentityReconciliation
+  },
+  {
+    domain: ACTIVITY_REFERENCE_MEMBER_REPEATABILITY_INPUT_DOMAIN,
+    dataFile: 'activity-reference-collection-member-repeatability-evidence.ndjson',
+    auditDirectory: 'activity-reference-collection-member-repeatability-evidence-audits',
+    auditContract: 'sensum.activity-reference-collection-member-repeatability-evidence-audit.v1',
+    factKind: ACTIVITY_REFERENCE_MEMBER_REPEATABILITY_FACT_KIND,
+    snapshotDirectory: audit => audit?.outputSnapshot?.directory,
+    validate: validateActivityReferenceMemberRepeatabilityMaterializationInput,
+    buildSql: buildActivityReferenceMemberRepeatabilityMaterializationSql,
+    buildExistingSourceCountQuery: buildActivityReferenceMemberRepeatabilityExistingSourceCountQuery,
+    buildReconciliationQuery: buildActivityReferenceMemberRepeatabilityReconciliationQuery,
+    verifyReconciliation: verifyActivityReferenceMemberRepeatabilityReconciliation
   }
 ];
 
