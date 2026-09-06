@@ -1,0 +1,19 @@
+{
+  "contract": "sensum.cross-skill-rendered-page-without-unlock-evidence-source-scoped-semantic-relevance-review-decision-import-audit.v1",
+  "required": [
+    "queueCoverage", "submissionCoverage", "policyCoverage", "bindingCoverage",
+    "recordCoverage", "semanticPreservationCoverage", "accountStateFindings",
+    "reviewDecisionRecordingComplete", "semanticRelevanceReviewComplete", "reconciliationComplete",
+    "completeActivityUniverse", "absoluteBestGate", "blockers", "publishable"
+  ],
+  "rules": {
+    "queueSnapshotPolicyAndEveryQueueRecordMustRevalidate": true,
+    "everyCompletedSubmissionMustMatchExactlyOneQueueEntry": true,
+    "blankRowsMayBeIgnoredButPartialRowsMustFail": true,
+    "anyInvalidSubmissionMakesTheBatchAtomicAndUnpublishable": true,
+    "recordedDecisionSetMustExactlyMatchCompletedSubmissionSet": true,
+    "notRelevantToAnyRequiresEvidenceCoverageOfEveryRetainedGuideObservation": true,
+    "recordingCannotApplySemanticDispositionOrCreateSemanticOrOptimizerPromotion": true,
+    "accountStateMustFailPublication": true
+  }
+}

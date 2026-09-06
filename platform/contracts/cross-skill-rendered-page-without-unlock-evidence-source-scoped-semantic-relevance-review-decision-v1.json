@@ -1,0 +1,22 @@
+{
+  "contract": "sensum.cross-skill-rendered-page-without-unlock-evidence-source-scoped-semantic-relevance-review-decision.v1",
+  "required": [
+    "decisionKey", "workQueueEntryKey", "sourceQueueSnapshotContentHash", "sourceQueueRecordContentHash",
+    "sourceSignatureKey", "sourceSignatureRecordContentHash", "sourceSignatureSnapshotContentHash",
+    "sourceWorkQueueRecordContentHash", "sourceWorkQueueSnapshotContentHash",
+    "sourceCandidateRecordContentHash", "sourceCandidateSnapshotContentHash",
+    "queueEntryEvidenceFingerprint", "sourceQueueOrdinal", "provenancePartition", "sourcePageIdentity",
+    "reviewRoute", "decision", "reviewer", "reviewedAt", "reviewNotes", "evidenceKeys",
+    "reviewDecisionRecorded", "semanticDispositionApplied", "sourceScopedSemanticRelevanceReview",
+    "canonicalGameEntityIdentity", "canonicalActivityIdentity", "repeatabilityClassification",
+    "mechanicsReviewComplete", "optimizerEligible", "automaticVerificationApplied",
+    "accountIndependent", "blockers", "state", "recordContentHash"
+  ],
+  "rules": {
+    "recordBindsTheExactQueueSnapshotRecordAndAllThreeUpstreamEvidenceRecords": true,
+    "decisionMetadataIsExplicitHumanInput": true,
+    "decisionRecordingIsSeparateFromSemanticApplication": true,
+    "canonicalIdentityRepeatabilityMechanicsAndOptimizerStateRemainClosed": true,
+    "currentAccountStateIsForbidden": true
+  }
+}

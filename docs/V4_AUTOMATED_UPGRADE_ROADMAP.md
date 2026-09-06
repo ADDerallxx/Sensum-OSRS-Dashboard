@@ -43,6 +43,23 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+The 4,725-entry source-scoped semantic-relevance queue now has a fail-closed
+human decision importer. Its policy, decision record, audit contract, transform,
+CLI, and tests require exact queue-policy, snapshot, record, source, template,
+and evidence bindings; reject partial, stale, unknown, duplicate, uncited, or
+automatic-looking submissions atomically; and permit safe partial human batches.
+Every decision must cite the complete evidence fingerprint and pinned source.
+Relevant or ambiguous decisions also require an exact retained guide-observation
+citation, while a global not-relevant decision must cite every retained guide
+observation. Decision recording remains separate from semantic application and
+cannot create canonical identity, repeatability, mechanics, or optimizer state.
+The real untouched 4,725-row template was rejected with exit code 2: all 4,725
+queue records revalidated, all submissions were recognized as blank, zero were
+invalid, zero decisions were recorded, and no output snapshot existed before or
+after. All 299 regression tests pass. The next checkpoint should materialize
+human-readable, evidence-keyed review packets and bounded review batches; all
+4,725 semantic decisions and downstream gates remain pending.
+
 The complete 4,725-record source-signature population now has a deterministic,
 source-bound semantic-relevance review queue. A dedicated generic policy,
 contracts, transform, CLI, readable TSV index, and blank decision template join

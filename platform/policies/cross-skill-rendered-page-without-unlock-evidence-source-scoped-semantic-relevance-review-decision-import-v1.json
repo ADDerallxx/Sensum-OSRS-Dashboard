@@ -1,0 +1,37 @@
+{
+  "policy": "sensum.cross-skill-rendered-page-without-unlock-evidence-source-scoped-semantic-relevance-review-decision-import-policy.v1",
+  "queueContract": "sensum.cross-skill-rendered-page-without-unlock-evidence-source-scoped-semantic-relevance-work-queue-entry.v1",
+  "submissionContract": "sensum.cross-skill-rendered-page-without-unlock-evidence-source-scoped-semantic-relevance-decision-template.v1",
+  "recordContract": "sensum.cross-skill-rendered-page-without-unlock-evidence-source-scoped-semantic-relevance-review-decision.v1",
+  "auditContract": "sensum.cross-skill-rendered-page-without-unlock-evidence-source-scoped-semantic-relevance-review-decision-import-audit.v1",
+  "inputQueuePolicy": "sensum.cross-skill-rendered-page-without-unlock-evidence-source-scoped-semantic-relevance-work-queue-export-policy.v1",
+  "inputQueuePolicyContentHash": "d514eb3b1ca79ed31b382b82bb702f8a6227e2e9689f271d00778d25b5cc6fb3",
+  "queueState": "pending_explicit_source_scoped_semantic_relevance_review",
+  "recordState": "recorded_source_scoped_semantic_relevance_review_decision_pending_semantic_application",
+  "allowedDecisions": [
+    "relevant_to_one_or_more_retained_training_guide_contexts",
+    "not_relevant_to_any_retained_training_guide_context",
+    "ambiguous_or_context_specific_additional_evidence_required"
+  ],
+  "rules": {
+    "oneRecordedDecisionPerCompletedSubmission": true,
+    "partialReviewBatchesAreAllowed": true,
+    "blankTemplateRowsAreIgnored": true,
+    "partiallyCompletedRowsAreRejected": true,
+    "anyInvalidRowRejectsTheEntireBatch": true,
+    "queueManifestPolicyIntrinsicRecordTemplateSnapshotAndEvidenceHashesMustRevalidate": true,
+    "submissionMustMatchEveryImmutableQueueBinding": true,
+    "submissionFieldSetMustExactlyMatchTheBlankTemplate": true,
+    "decisionMustBeExplicitlyAllowed": true,
+    "reviewerReviewedAtMeaningfulNotesAndBoundEvidenceKeysAreRequired": true,
+    "reviewedAtMustNotPrecedeTheLatestBoundSourceOrGuideObservation": true,
+    "allDecisionsMustCiteTheCompleteEvidenceFingerprintAndPinnedSource": true,
+    "relevantAndAmbiguousDecisionsMustCiteAtLeastOneExactGuideObservation": true,
+    "notRelevantToAnyDecisionMustCiteEveryRetainedGuideObservation": true,
+    "obviousAutomaticOrModelReviewerNamesAreRejected": true,
+    "recordingADecisionDoesNotApplySemanticDispositionCanonicalIdentityRepeatabilityRequirementsVariantsXpTimingMechanicsOrOptimizerState": true,
+    "namesTitlesPageIdsRevisionsTemplatesCategoriesAliasesAndOverridesCannotAlterPolicyBehavior": true,
+    "currentAccountStateIsForbidden": true,
+    "automaticVerificationAllowed": false
+  }
+}

@@ -698,3 +698,20 @@ Run:
 ```text
 node platform/transforms/export-cross-skill-rendered-page-without-unlock-evidence-source-scoped-semantic-relevance-work-queue.mjs
 ```
+
+`import-cross-skill-rendered-page-without-unlock-evidence-source-scoped-semantic-relevance-review-decisions.mjs`
+records explicit human decisions from a reviewed copy of that queue's blank
+decision template. It supports partial review batches but rejects the whole batch
+when any row is stale, partially filled, automatic-looking, uncited, unbound, or
+otherwise invalid. Every completed decision must cite the complete evidence
+fingerprint and pinned source. Relevant or ambiguous decisions must also cite an
+exact retained guide observation; a decision that a source is irrelevant to all
+contexts must cite every retained guide observation. Recording remains separate
+from semantic application and cannot create identity, repeatability, mechanics,
+or optimizer state.
+
+Run with an explicitly selected reviewed template:
+
+```text
+node platform/transforms/import-cross-skill-rendered-page-without-unlock-evidence-source-scoped-semantic-relevance-review-decisions.mjs --decisions=<reviewed-decision-template.ndjson>
+```
