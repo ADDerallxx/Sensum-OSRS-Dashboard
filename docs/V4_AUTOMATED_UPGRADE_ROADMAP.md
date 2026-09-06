@@ -3820,3 +3820,41 @@ All 211 V4 test scripts pass. The Agility phase remains in progress. The next
 checkpoint should audit registry coverage against all accepted local evidence
 artifacts and admit the next reusable evidence domain only when its generic
 contract and semantic gates are satisfied.
+
+The accepted-evidence registry now has a measured coverage boundary and a
+fourth, breadth-selected materialization adapter. The auditor inventories only
+the latest publishable snapshots under accepted local evidence-audit
+directories, excludes its own reports, revalidates audit, manifest, raw NDJSON,
+record, and direct source-identity hashes, rejects account state or automatic
+promotion, and ranks safe unregistered domains by skill breadth before record
+volume. Its post-admission report at hash
+`ca9538bc0a50cc8e9f2f2a88de32bcb7a85987e483df2d5270c570cb61a5af8f`
+measures 28 evidence datasets: four registered, 12 adapter-ready, and 12
+blocked. Registry coverage increased from 3/28 to 4/28. The next measured
+candidate is the 69-record
+`activity-reference-collection-member-source-evidence` domain; its zero direct
+skill-key coverage remains visible rather than inferred.
+
+The admitted `activity-candidate-source-evidence` snapshot is pinned to hash
+`d5fb1f5abeb0b39050978a689ffe33466d2b03d543c4c542f78fa8e6c9611b28`
+and audit hash
+`2c5e38d9877ead15e3d11664c48020803b3c15bb0940a174a6fe0c953e4ce67d`.
+It preserves 29 lossless review packets and 29 exact Wiki revisions spanning
+18 skills. A validated pre-change backup was created at
+`.platform-local/backups/sensum-v4-20260906-133116.dump` (4,729,329 bytes,
+SHA-256 `37f6fd679e3e3f4034c404b1a38ecbffee6c82da1216bdad93ae0d378b0d738c`,
+306 readable archive lines). The first four-domain batch inserted 29 new source
+identities, records, candidate statements, and direct lineage links; the second
+reused all 29 identities with no acquisition-timestamp mutation. Both batches
+used input-set hash
+`f2993ab28228de0de575fd95e4972be69cd4cec2791bd4d5b2b8e1dbc8b2dd56`
+and were publishable. The catalog now reconciles 113 revision-pinned sources,
+55 lossless records, 4,799 candidate statements, and 4,799 direct lineage rows
+with zero unlinked, verified, or optimizer-eligible statements. Evidence and
+lineage aggregate hashes are `2ad6f82825865c181c0cb6517e6b5034`
+and `2408a25503ef526655e6e04bb4f6fb79`. All 213 V4 test scripts pass. The
+checkpoint creates no semantic identity, repeatability decision, complete-
+universe claim, verified-best authorization, production mutation, or V3
+change. The next checkpoint should admit the measured reference-collection
+member source-evidence domain only if its full adapter-specific semantic gates
+and exact 69-source lineage reconcile.

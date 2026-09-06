@@ -23,6 +23,15 @@ import {
   validateWeightedParentTaskMembershipMaterializationInput,
   verifyWeightedParentTaskMembershipReconciliation
 } from './weighted-parent-task-membership-materialization-lib.mjs';
+import {
+  ACTIVITY_CANDIDATE_SOURCE_FACT_KIND,
+  ACTIVITY_CANDIDATE_SOURCE_INPUT_DOMAIN,
+  buildActivityCandidateSourceExistingSourceCountQuery,
+  buildActivityCandidateSourceMaterializationSql,
+  buildActivityCandidateSourceReconciliationQuery,
+  validateActivityCandidateSourceMaterializationInput,
+  verifyActivityCandidateSourceReconciliation
+} from './activity-candidate-source-evidence-materialization-lib.mjs';
 
 export const ACCEPTED_EVIDENCE_REGISTRY_CONTRACT = 'sensum.accepted-evidence-materialization-registry.v1';
 
@@ -64,6 +73,19 @@ const adapters = [
     buildExistingSourceCountQuery: buildWeightedParentTaskMembershipExistingSourceCountQuery,
     buildReconciliationQuery: buildWeightedParentTaskMembershipReconciliationQuery,
     verifyReconciliation: verifyWeightedParentTaskMembershipReconciliation
+  },
+  {
+    domain: ACTIVITY_CANDIDATE_SOURCE_INPUT_DOMAIN,
+    dataFile: 'activity-candidate-source-evidence.ndjson',
+    auditDirectory: 'activity-candidate-source-evidence-audits',
+    auditContract: 'sensum.activity-candidate-source-evidence-audit.v1',
+    factKind: ACTIVITY_CANDIDATE_SOURCE_FACT_KIND,
+    snapshotDirectory: audit => audit?.outputSnapshot?.directory,
+    validate: validateActivityCandidateSourceMaterializationInput,
+    buildSql: buildActivityCandidateSourceMaterializationSql,
+    buildExistingSourceCountQuery: buildActivityCandidateSourceExistingSourceCountQuery,
+    buildReconciliationQuery: buildActivityCandidateSourceReconciliationQuery,
+    verifyReconciliation: verifyActivityCandidateSourceReconciliation
   }
 ];
 

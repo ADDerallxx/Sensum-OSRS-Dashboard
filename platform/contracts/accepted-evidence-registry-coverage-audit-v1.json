@@ -1,0 +1,26 @@
+{
+  "contract": "sensum.accepted-evidence-registry-coverage-audit.v1",
+  "purpose": "Measure registry coverage over current accepted local evidence datasets and select the next safe reusable adapter candidate by breadth and provenance.",
+  "datasetDefinition": {
+    "auditDirectorySuffix": "-evidence-audits",
+    "coverageAuditorOutputDirectoryExcluded": true,
+    "latestAuditMustBePublishable": true,
+    "auditAndEveryRecordMustBeAccountIndependent": true,
+    "auditSnapshotManifestAndRawHashesMustReconcile": true,
+    "automaticPromotionAllowed": false
+  },
+  "adapterAdmissionRequires": [
+    "lossless validated raw records",
+    "direct revision-pinned source identity for every record",
+    "candidate-only semantic state",
+    "generic domain contract",
+    "transactional idempotent reconciliation",
+    "direct ingestion-run lineage"
+  ],
+  "selectionOrder": [
+    "skillCoverage_desc",
+    "records_desc",
+    "directRevisionPinnedSources_desc",
+    "domain_asc"
+  ]
+}
