@@ -3475,3 +3475,21 @@ account state. All 572 regression tests pass. The next checkpoint should apply
 a generic source-sufficiency disposition that routes each signal and unresolved
 domain to additional authoritative evidence or revision monitoring without
 changing the mechanics model.
+
+The Colossal Wyrm reward discovery now has a generic, fail-closed evidence-
+sufficiency disposition. It classified all 30 retained signals exactly once by
+their claim shape and source authority, never by search rank, title, page name,
+or query wording. Sixteen current-article signals, two experimental Talk
+signals, and 12 historical Update signals produced zero resolution candidates.
+The basic-course spawn-rate domains were explicitly confirmed as unpublished
+by current source context; the four advanced-course reconciliation domains
+lacked the required current, explicit reconciliation shape. All six blockers
+therefore remain open and are routed to revision-pinned evidence collection,
+source-revision monitoring, and deterministic query reruns. Two real
+materializations reproduced the same six-record snapshot hash
+`e713a30b8ffa2a1e4186dfcba8de6b2eaeadcbd5ca3786fc60a1f01abee9551c`.
+The checkpoint created zero game facts, mechanical resolutions, optimizer
+promotions, verified-best authorizations, automatic verifications, or account
+state. All 573 regression tests pass. The next checkpoint should register a
+revision-change monitor for every discovered source so this disposition reruns
+only when relevant evidence changes.

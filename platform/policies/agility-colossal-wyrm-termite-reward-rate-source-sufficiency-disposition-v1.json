@@ -1,0 +1,64 @@
+{
+  "policy": "sensum.agility-colossal-wyrm-termite-reward-rate-source-sufficiency-disposition-policy.v1",
+  "inputAuditContract": "sensum.agility-colossal-wyrm-termite-reward-rate-source-discovery-audit.v1",
+  "inputSnapshotDomain": "agility-colossal-wyrm-termite-reward-rate-source-discovery",
+  "inputRecordContract": "sensum.agility-colossal-wyrm-termite-reward-rate-source-discovery.v1",
+  "inputPolicy": "sensum.agility-colossal-wyrm-termite-reward-rate-source-discovery-policy.v1",
+  "inputPolicyContentHash": "ebf01daa4a3af026f01d5064363d3c95cf516eec143776058a4345652471e825",
+  "recordContract": "sensum.agility-colossal-wyrm-termite-reward-rate-source-sufficiency-disposition.v1",
+  "auditContract": "sensum.agility-colossal-wyrm-termite-reward-rate-source-sufficiency-disposition-audit.v1",
+  "outputDomain": "agility-colossal-wyrm-termite-reward-rate-source-sufficiency-disposition",
+  "blockerRules": [
+    {
+      "pattern": "^basic_(?:termite|bone_shard)_per_lap_and_hour_rates_unavailable_because_(?:termite_)?spawn_rate_is_unknown$",
+      "evidenceObjective": "exact_spawn_mechanic",
+      "requiredSignalKinds": ["potential_exact_spawn_rate"],
+      "acceptedCurrentAuthorityClasses": ["current_article"],
+      "requiredEvidenceShape": "A revision-pinned, current, numeric termite spawn probability, frequency, or deterministic spawn rule under the exact course route conditions. An explicit unknown statement, experimental average, or inferred rate is insufficient."
+    },
+    {
+      "pattern": "^advanced_(?:termite_3_9|bone_shard_6_9)_experimental_per_completion_average_not_reconciled_.+$",
+      "evidenceObjective": "current_per_completion_reward_reconciliation",
+      "requiredSignalKinds": ["potential_reward_reconciliation"],
+      "acceptedCurrentAuthorityClasses": ["current_article"],
+      "requiredEvidenceShape": "A revision-pinned current source that explicitly reconciles the experimental per-completion average with the current scoop ranges and spawn conditions. Repeating either value is insufficient."
+    },
+    {
+      "pattern": "^advanced_(?:termite_hourly_234_and_195|bone_shard_hourly_414_and_345)_claims_conflict_.+$",
+      "evidenceObjective": "current_hourly_reward_reconciliation",
+      "requiredSignalKinds": ["potential_reward_reconciliation"],
+      "acceptedCurrentAuthorityClasses": ["current_article"],
+      "requiredEvidenceShape": "A revision-pinned current source that explicitly reconciles or supersedes the conflicting hourly totals under the same duration, lap-rate, intensity, spawn, and reward conditions. Arithmetic inference is insufficient."
+    }
+  ],
+  "signalSemantics": {
+    "potential_exact_spawn_rate": "potential_exact_mechanic",
+    "potential_reward_reconciliation": "potential_current_reconciliation",
+    "explicit_unknown_spawn_rate": "explicit_blocker_confirmation",
+    "experimental_per_completion_average": "experimental_context",
+    "current_scoop_range": "current_context_not_resolution",
+    "hourly_reward_claim": "current_conflicting_claim_context",
+    "course_duration_or_lap_context": "current_condition_context",
+    "official_relative_reward_adjustment": "historical_relative_change_context"
+  },
+  "rules": {
+    "inputAuditSnapshotAndPolicyMustBeExplicitAndRevalidated": true,
+    "everyInputBlockerMustMapToExactlyOneEvidenceObjective": true,
+    "everyInputSignalMustReceiveExactlyOneSemanticAndAuthorityDisposition": true,
+    "resolutionCandidatesRequireBothDeclaredSignalKindAndCurrentAuthorityClass": true,
+    "sourceTitlesPageIdsSearchRanksAndQueryCountsCannotDetermineSufficiency": true,
+    "explicitUnknownStatementsConfirmRatherThanResolveBlockers": true,
+    "experimentalDiscussionCannotResolveMechanics": true,
+    "historicalUpdateEvidenceCannotEstablishCurrentStateAlone": true,
+    "sourceCodeEvidenceRequiresIndependentCurrentSemanticValidation": true,
+    "currentContextAndRepeatedClaimsAreInsufficientWithoutTheRequiredShape": true,
+    "potentialResolutionEvidenceStillRequiresManualSemanticReview": true,
+    "searchAbsenceIsOnlyBoundedDiscoveryAbsence": true,
+    "allUnresolvedDomainsMustRouteToAdditionalEvidenceAndRevisionMonitoring": true,
+    "blockersFactsMechanicsAndOptimizerStateCannotChange": true,
+    "accountSpecificInputsAreForbidden": true,
+    "completeWikiOrActivityUniverseClaimsAreForbidden": true,
+    "automaticVerificationAllowed": false
+  }
+}
+

@@ -1,0 +1,14 @@
+{
+  "contract": "sensum.agility-colossal-wyrm-termite-reward-rate-source-sufficiency-disposition.v1",
+  "required": ["field", "route", "blocker", "evidenceObjective", "requiredEvidenceShape", "inputDiscoveryContentHash", "inputSnapshot", "signalAssessments", "resolutionCandidateSignals", "corroboratingOrBlockingSignals", "sufficiencyDisposition", "manualSemanticReviewRequired", "nextEvidenceWork", "existingBlockerPreserved", "mechanicallyResolved", "blockersClosed", "semanticFactsCreated", "optimizerEligible", "verifiedBestAuthorized", "automaticVerificationApplied", "accountIndependent", "completeWikiUniverseClaimed", "recordContentHash", "contentHash"],
+  "rules": {
+    "oneRecordPerExactInputBlocker": true,
+    "everySignalRetainsRevisionAndAuthorityProvenance": true,
+    "sufficiencyUsesSignalSemanticsAndAuthorityNotSourceIdentity": true,
+    "nonResolutionSignalsRemainContextOrBlockerConfirmation": true,
+    "potentialResolutionSignalsRequireManualReview": true,
+    "unresolvedDomainsRouteToEvidenceAndMonitoring": true,
+    "noBlockerFactMechanicOptimizerApprovalAccountOrUniversePromotion": true
+  }
+}
+
