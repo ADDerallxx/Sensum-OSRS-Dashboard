@@ -129,6 +129,28 @@ Run against an explicitly selected queue snapshot when reproducibility matters:
 node platform/transforms/materialize-cross-skill-rendered-page-without-unlock-evidence-historical-attribution-human-review-packets.mjs --queue-snapshot=<queue-snapshot-directory>
 ```
 
+`apply-cross-skill-rendered-page-without-unlock-evidence-historical-attribution-decisions.mjs`
+is the separate, fail-closed application boundary. It requires an explicitly
+selected queue snapshot and an explicitly selected guarded decision snapshot;
+it never discovers either input implicitly. Every outer and intrinsic record,
+manifest, snapshot, queue binding, observation, guide-revision binding, and
+human submission is revalidated through the original decision importer before
+an application record can be written.
+
+Only a complete `confirm_complete_historical_dependency_attribution` decision
+applies the exact submitted observation attributions. Rejected proposals and
+evidence-unavailable decisions remain unapplied blockers. Safe partial decision
+snapshots may produce partial application snapshots, but cannot complete
+historical attribution. This step
+cannot establish requirements, unlocks, semantic identity, repeatability,
+mechanics, account state, automatic verification, or optimizer eligibility.
+
+Run only with both explicitly selected snapshots:
+
+```text
+node platform/transforms/apply-cross-skill-rendered-page-without-unlock-evidence-historical-attribution-decisions.mjs --queue-snapshot=<queue-snapshot-directory> --decision-snapshot=<decision-snapshot-directory>
+```
+
 ## Collection-activity identity evidence
 
 `build-activity-reference-collection-member-collection-activity-identity-evidence.mjs`

@@ -43,6 +43,25 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+Historical rendered-expansion attributions now have a separate fail-closed
+application boundary. A generic policy, application-record and audit contracts,
+transform, CLI, and tests require explicit queue and decision snapshot
+selection; revalidate both manifests plus every outer, intrinsic, observation,
+guide-revision, queue, reviewer, timestamp, and evidence binding; and reproduce
+every selected decision through the guarded importer. Only confirmed complete
+decisions can apply their exact observation attributions. Rejected and evidence-
+unavailable outcomes remain unapplied blockers, while safe partial decision sets
+can be represented without ever completing attribution. Tests prove rejection
+of implicit selection, drift, mismatched queues, account state, changed
+attributions, and downstream promotion. The real 2,637-entry queue was selected
+without a decision snapshot and correctly rejected with exit code 2; there were
+zero application snapshots before and after. No decision, attribution,
+requirement, unlock, semantic identity, repeatability result, mechanics verdict,
+account state, or optimizer promotion was created. All 2,637 human attribution
+decisions remain pending, and all 372 regression tests pass. The next checkpoint
+should define the equivalent decision-bound application contract for the 4,725-
+entry source-scoped semantic-relevance review queue.
+
 The complete 2,637-entry historical rendered-expansion attribution queue now
 has deterministic, human-readable review packets. A dedicated generic policy,
 packet and audit contracts, transform, CLI, and tests revalidate the queue

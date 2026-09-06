@@ -1,0 +1,26 @@
+{
+  "contract": "sensum.cross-skill-rendered-page-without-unlock-evidence-historical-attribution-application-record.v1",
+  "required": [
+    "applicationKey", "decisionKey", "historicalAttributionWorkEntryKey",
+    "sourceQueueSnapshotContentHash", "sourceDecisionSnapshotContentHash",
+    "sourceQueueRecordContentHash", "sourceQueueIntrinsicRecordContentHash",
+    "sourceDecisionRecordContentHash", "sourceDecisionIntrinsicRecordContentHash",
+    "applicationPolicyContentHash", "renderedTargetKey", "stableWikiPageIdentity",
+    "historicalRenderedObservationSetContentHash", "historicalRenderedObservationCount",
+    "historicalGuideRevisionBindingsContentHash", "historicalGuideRevisionBindingCount",
+    "disposition", "reviewer", "reviewedAt", "reviewNotes", "decisionEvidenceKeys",
+    "submittedObservationAttributions", "appliedObservationAttributions",
+    "applicationOutcome", "historicalAttributionApplied",
+    "historicalRenderedExpansionDependencyAttribution", "attributionEvidenceKeys",
+    "requirementOrUnlockApplied", "semanticDisposition", "canonicalGameEntityIdentity",
+    "canonicalActivityIdentity", "repeatabilityClassification", "mechanicsReviewComplete",
+    "optimizerEligible", "automaticVerificationApplied", "accountIndependent",
+    "blockers", "state", "recordContentHash"
+  ],
+  "rules": {
+    "recordBindsOneExactQueueEntryAndOneExactRecordedDecision": true,
+    "onlyConfirmedCompleteAttributionMayPopulateAppliedAttribution": true,
+    "rejectedAndUnavailableOutcomesRemainUnapplied": true,
+    "allDownstreamSemanticAndOptimizerGatesRemainClosed": true
+  }
+}
