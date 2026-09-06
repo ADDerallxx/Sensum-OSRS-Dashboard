@@ -1,0 +1,11 @@
+{
+  "contract": "sensum.agility-target-condition-gap-discovery-review-decision.v1",
+  "required": ["decisionKey", "reviewPacketKey", "sourcePacketSnapshot", "sourcePacketContentHash", "sourcePacketOuterContentHash", "sourceBlankTemplateContentHash", "candidateKey", "targetBaseAgility", "namedBlocker", "sourceEvidence", "availableEvidenceKeys", "decision", "selectedEvidenceKeys", "reviewer", "reviewedAt", "reviewNotes", "reviewDecisionRecorded", "semanticApplicationApplied", "blockersClosed", "semanticFactsCreated", "optimizerEligible", "automaticVerificationApplied", "accountIndependent", "completeWikiUniverseClaimed", "explicitNonClaims", "blockers", "state", "recordContentHash", "contentHash"],
+  "rules": {
+    "decisionIsBoundToOneExactPacketAndBlankTemplate": true,
+    "allAvailableEvidenceIsExplicitlySelected": true,
+    "reviewerIsHumanAndDecisionIsTimestamped": true,
+    "semanticApplicationRemainsSeparate": true,
+    "noBlockerFactOptimizerVerificationAccountOrUniversePromotion": true
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "policy": "sensum.agility-target-condition-gap-discovery-review-decision-import-policy.v1",
+  "inputManifestContract": "sensum.ingestion-manifest.v1",
+  "inputPacketDomain": "agility-target-condition-gap-discovery-review-packet",
+  "inputPacketContract": "sensum.agility-target-condition-gap-discovery-review-packet.v1",
+  "inputPacketAuditContract": "sensum.agility-target-condition-gap-discovery-review-packet-materialization-audit.v1",
+  "inputPacketPolicy": "sensum.agility-target-condition-gap-discovery-review-packet-policy.v1",
+  "inputPacketPolicyFile": "platform/policies/agility-target-condition-gap-discovery-review-packet-v1.json",
+  "inputPacketPolicyContentHash": "6862a24e09593103d0cefd3617fb5a08e38010985882e759815c996f7d3aa8a5",
+  "artifactManifestContract": "sensum.agility-target-condition-gap-discovery-review-artifacts.v1",
+  "submissionContract": "sensum.agility-target-condition-gap-discovery-review-decision-template.v1",
+  "recordContract": "sensum.agility-target-condition-gap-discovery-review-decision.v1",
+  "auditContract": "sensum.agility-target-condition-gap-discovery-review-decision-import-audit.v1",
+  "outputDomain": "agility-target-condition-gap-discovery-review-decisions",
+  "recordState": "recorded_source_bound_target_condition_human_review_decision_pending_separate_semantic_application",
+  "allowedDecisions": [
+    "confirm_source_resolves_named_blocker_only",
+    "reject_source_as_insufficient_or_condition_mismatched",
+    "needs_additional_revision_pinned_evidence"
+  ],
+  "rules": {
+    "packetSnapshotTemplateAndDecisionFileMustBeExplicitlySelected": true,
+    "packetManifestRawRecordAndArtifactHashesMustRevalidate": true,
+    "packetAuditMustBePublishableCompleteAndFailClosed": true,
+    "blankTemplateMustExactlyMatchPacketGeneratedArtifact": true,
+    "submissionFieldSetImmutableBindingsAndHashesMustMatchTemplate": true,
+    "everyPacketMustHaveExactlyOneCompletedDecision": true,
+    "blankPartialDuplicateUnknownOrExtraRowsRejectEntireBatch": true,
+    "decisionMustUseAnAllowedValue": true,
+    "selectedEvidenceMustExactlyMatchAvailablePacketEvidence": true,
+    "humanReviewerTimestampAndMeaningfulNotesAreRequired": true,
+    "reviewedAtMustNotPrecedePacketOrEvidence": true,
+    "obviousAutomaticOrModelReviewerNamesAreRejected": true,
+    "recordingDoesNotApplySemanticsCloseBlockersCreateFactsOrPromoteOptimizerState": true,
+    "namesTitlesPageIdsRevisionsCandidatesBlockersLinesAliasesOverridesAndExceptionsCannotAlterPolicyBehavior": true,
+    "currentAccountStateAndPromotionFieldsAreForbiddenInSubmissions": true,
+    "automaticVerificationAllowed": false
+  }
+}

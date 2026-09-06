@@ -1,0 +1,10 @@
+{
+  "contract": "sensum.agility-target-condition-gap-discovery-review-decision-import-audit.v1",
+  "required": ["policyCoverage", "inputCoverage", "packetCoverage", "templateCoverage", "submissionCoverage", "bindingCoverage", "semanticPreservationCoverage", "accountStateFindings", "reviewDecisionRecordingComplete", "humanReviewComplete", "semanticApplicationComplete", "conditionOrMechanicsCoverageComplete", "completeWikiUniverse", "absoluteBestGate", "blockers", "publishable"],
+  "rules": {
+    "publishableRequiresEveryInputAndDecisionCheck": true,
+    "invalidBatchProducesZeroDecisionRecords": true,
+    "recordedReviewIsNotSemanticApplication": true,
+    "coverageAndAbsoluteBestGatesRemainClosed": true
+  }
+}

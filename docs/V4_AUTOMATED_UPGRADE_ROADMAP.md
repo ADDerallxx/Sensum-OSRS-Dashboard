@@ -43,6 +43,29 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+The exact-revision Agility target-condition discovery packet now has a separate,
+atomic human-decision importer. It requires the packet snapshot, its generated
+blank template, and the completed decision file as explicit inputs. Before a
+decision can be recorded, it revalidates the packet manifest and raw hash, both
+packet record hashes, the packet policy and fail-closed audit, the artifact
+manifest, readable Markdown and blank-template bytes, exact packet/template
+bindings, source revision and line, selected evidence, reviewer, notes, and a
+timestamp no earlier than the packet or evidence. The completed submission must
+cover the packet set exactly; blank, partial, duplicate, unknown, stale,
+uncited, tampered, automated, account-scoped, and promotion-bearing inputs reject
+the entire batch without output.
+
+All three allowed decisions pass deterministic synthetic fixtures. The untouched
+real decision template for Shayzien revision 15168110 rejected with exit code 2
+and no output path was created. Therefore zero real decisions or evidence
+selections were recorded, all 17 target-condition blockers remain open, and no
+semantic application, blocker closure, game fact, optimizer promotion,
+automatic verification, account state, or complete-Wiki claim occurred. All 185
+test scripts pass, including 46 new decision-import assertions and 737 tracked
+regression checks under the existing checkpoint-counting convention. The next
+checkpoint will add the separate fail-closed semantic-application boundary and
+prove that the absent real decision still cannot change state.
+
 The single candidate-bound signal from target-condition Wiki discovery now has
 a deterministic, exact-revision human-review packet. The materializer requires
 the explicit discovery snapshot, revalidates its manifest, raw NDJSON, all five

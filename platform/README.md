@@ -307,6 +307,17 @@ occurrences remain distinct, and a no-failure claim for one obstacle type cannot
 be applied to another. Coverage evaluates missing probabilities and expected
 rates at query time, allowing the same evidence to serve the full level range.
 
+The Agility target-condition discovery review packet has its own guarded
+decision importer. The packet snapshot, generated blank template, and completed
+decision file must all be selected explicitly. The importer revalidates the
+packet manifest, raw records, both record hashes, packet audit, artifact
+manifest, Markdown artifact, template bytes, exact revision-and-line evidence,
+reviewer, timestamp, notes, and selected evidence. One blank, partial,
+duplicated, stale, unknown, uncited, automated, account-scoped, or
+promotion-bearing row rejects the entire import without output. A valid import
+records only the human conclusion; it cannot close the named blocker, create a
+game fact, apply semantics, or make the candidate optimizer eligible.
+
 ## Whole-skill progression coverage
 
 Skill knowledge is account-independent. The official Skills page supplies a
