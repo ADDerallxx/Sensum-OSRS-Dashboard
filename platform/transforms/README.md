@@ -45,6 +45,27 @@ Run only with an explicitly selected reviewed decision file:
 node platform/transforms/import-cross-skill-rendered-page-without-unlock-evidence-unlock-corpus-absence-reconciliation-review-decisions.mjs --decisions=<reviewed-decisions.ndjson>
 ```
 
+## Level-unlock-corpus absence human review packets
+
+`materialize-cross-skill-rendered-page-without-unlock-evidence-unlock-corpus-absence-reconciliation-human-review-packets.mjs`
+turns the complete absence-reconciliation queue into deterministic, bounded
+human-review batches. Every packet retains the exact revision URL, source work
+record, rendered/unlock crosswalk record, corpus fingerprint, zero-match
+finding, nonclaims, and the evidence requirements enforced by the guarded
+decision importer.
+
+Each batch contains readable Markdown plus the importer's exact blank NDJSON
+decision rows. The materializer revalidates every blank row through the guarded
+import path and emits an index, artifact manifest, and audit. It cannot record a
+decision, infer that no requirement exists, add unlock evidence, or promote
+semantic identity, repeatability, mechanics, or optimizer eligibility.
+
+Run against an explicitly selected queue snapshot when reproducibility matters:
+
+```text
+node platform/transforms/materialize-cross-skill-rendered-page-without-unlock-evidence-unlock-corpus-absence-reconciliation-human-review-packets.mjs --queue-snapshot=<queue-snapshot-directory>
+```
+
 ## Collection-activity identity evidence
 
 `build-activity-reference-collection-member-collection-activity-identity-evidence.mjs`

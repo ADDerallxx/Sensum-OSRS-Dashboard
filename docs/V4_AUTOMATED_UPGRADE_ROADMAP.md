@@ -44,6 +44,25 @@ rehearsed, and the user explicitly approves production deployment.
 ## Recent bounded checkpoints
 
 The complete 4,725-entry level-unlock-corpus absence reconciliation queue now
+has deterministic, human-readable review packets. A dedicated generic policy,
+packet and audit contracts, transform, CLI, and tests bind every packet to the
+exact queue policy, guarded decision importer, queue manifest, outer and
+intrinsic record, target revision, source work record, crosswalk record,
+zero-match finding, and complete corpus fingerprint. All 4,725 packets contain
+exact-revision Wiki links, explicit nonclaims, complete evidence requirements,
+and importer-compatible blank decision rows. They are partitioned into 95
+contiguous batches of at most 50 with readable Markdown, blank NDJSON, an index,
+and a content-addressed artifact manifest. Two real materializations produced
+the same packet snapshot, index, manifest, and aggregate artifact hashes across
+193 deterministic payload files. No decision, corpus-absence rule,
+no-requirement claim, unlock evidence, semantic identity, repeatability,
+mechanics, account state, or optimizer promotion was applied. All 4,725 human
+absence dispositions remain pending, and absence from this corpus still does
+not prove that no requirement exists. All 334 regression tests pass. The next
+checkpoint should export the 2,637 historical-attribution obligations into a
+separate source-bound work queue.
+
+The complete 4,725-entry level-unlock-corpus absence reconciliation queue now
 has a fail-closed human decision importer. Its generic policy, decision record,
 audit contract, transform, CLI, and tests revalidate the queue policy, manifest,
 snapshot, outer and intrinsic records, stable target, source work record,

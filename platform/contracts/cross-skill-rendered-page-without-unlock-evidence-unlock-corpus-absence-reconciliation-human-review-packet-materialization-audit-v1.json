@@ -1,0 +1,16 @@
+{
+  "contract": "sensum.cross-skill-rendered-page-without-unlock-evidence-unlock-corpus-absence-reconciliation-human-review-packet-materialization-audit.v1",
+  "required": [
+    "policyCoverage", "inputCoverage", "packetCoverage", "evidenceCoverage", "batchCoverage",
+    "artifactCoverage", "semanticPreservationCoverage", "accountStateFindings",
+    "packetMaterializationComplete", "absenceReconciliationComplete", "completeActivityUniverse",
+    "absoluteBestGate", "blockers", "publishable"
+  ],
+  "rules": {
+    "inputQueueAndTemplatesMustPassTheGuardedImporterValidationPath": true,
+    "packetAndArtifactSetsMustExactlyMatchDeterministicReconstruction": true,
+    "batchPartitionMustCoverEveryQueueOrdinalExactlyOnce": true,
+    "allHumanReviewRequirementSemanticAndPromotionFieldsMustRemainClosed": true,
+    "accountStateMustFailPublication": true
+  }
+}
