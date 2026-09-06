@@ -1,0 +1,37 @@
+{
+  "contract": "sensum.activity-candidate-priority-source-conflict-supplemental-evidence-decision-template-materialization.v1",
+  "required": [
+    "contract",
+    "templateMaterializationKey",
+    "templateOrdinal",
+    "candidateKey",
+    "reviewPacketKey",
+    "augmentedGuidanceKey",
+    "sourceBindings",
+    "humanCompletionInstructions",
+    "requiredOriginalEvidenceKeys",
+    "requiredSupplementalEvidenceKeys",
+    "requiredOriginalSourceRevisions",
+    "requiredSupplementalSourceRevisions",
+    "blankDecisionTemplate",
+    "blankDecisionTemplateContentHash",
+    "humanDecisionSelected",
+    "decisionRecorded",
+    "semanticApplicationApplied",
+    "requirementsVariantsXpTimingAndMechanicsComplete",
+    "optimizerEligible",
+    "automaticVerificationApplied",
+    "accountIndependent",
+    "state",
+    "recordContentHash"
+  ],
+  "invariants": {
+    "humanDecisionSelected": false,
+    "decisionRecorded": false,
+    "semanticApplicationApplied": false,
+    "requirementsVariantsXpTimingAndMechanicsComplete": false,
+    "optimizerEligible": false,
+    "automaticVerificationApplied": false,
+    "accountIndependent": true
+  }
+}

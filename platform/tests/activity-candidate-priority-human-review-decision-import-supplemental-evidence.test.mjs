@@ -21,6 +21,11 @@ import {
   compileActivityCandidatePriorityHumanReviewDecisionImportSupplementalEvidencePolicy,
   requiredSupplementalReviewRevisionsForActivityCandidatePriorityConflict
 } from '../transforms/activity-candidate-priority-human-review-decision-import-supplemental-evidence-lib.mjs';
+import {
+  auditActivityCandidatePrioritySupplementalEvidenceDecisionTemplateMaterialization,
+  buildActivityCandidatePrioritySupplementalEvidenceDecisionTemplateMaterialization,
+  compileActivityCandidatePrioritySupplementalEvidenceDecisionTemplateMaterializationPolicy
+} from '../transforms/activity-candidate-priority-source-conflict-supplemental-evidence-decision-template-materialization-lib.mjs';
 
 const read = file => JSON.parse(fs.readFileSync(file, 'utf8'));
 const policy = read('platform/policies/activity-candidate-priority-human-review-decision-import-supplemental-evidence-v1.json');
@@ -31,6 +36,9 @@ const augmentedPolicy = read('platform/policies/activity-candidate-priority-sour
 const decisionPolicy = read('platform/policies/activity-candidate-priority-human-review-decision-import-v1.json');
 const recordContract = read('platform/contracts/activity-candidate-priority-human-review-decision-supplemental-evidence-bound-v1.json');
 const auditContract = read('platform/contracts/activity-candidate-priority-human-review-decision-import-supplemental-evidence-audit-v1.json');
+const templatePolicy = read('platform/policies/activity-candidate-priority-source-conflict-supplemental-evidence-decision-template-materialization-v1.json');
+const templateRecordContract = read('platform/contracts/activity-candidate-priority-source-conflict-supplemental-evidence-decision-template-materialization-v1.json');
+const templateAuditContract = read('platform/contracts/activity-candidate-priority-source-conflict-supplemental-evidence-decision-template-materialization-audit-v1.json');
 const times = {
   packet: '2026-09-06T04:06:25.989Z', guidance: '2026-09-06T04:52:24.012Z',
   evidence: '2026-09-06T05:09:09.828Z', augmented: '2026-09-06T05:26:04.562Z', reviewed: '2026-09-06T06:00:00Z'
@@ -204,6 +212,11 @@ function build(ctx, submissions) {
   });
 }
 
+function templateContext() {
+  const ctx = context();
+  return { ...ctx, supplementalImporterPolicy: ctx.policy, policy: templatePolicy };
+}
+
 test('policy is generic, exactly bound to all five upstream policies, and fail closed', () => {
   const compiled = compileActivityCandidatePriorityHumanReviewDecisionImportSupplementalEvidencePolicy(policy, packetPolicy, guidancePolicy, evidencePolicy, augmentedPolicy, decisionPolicy, hash);
   assert.equal(compiled.valid, true);
@@ -301,6 +314,87 @@ test('CLI refuses implicit inputs before reading or writing any snapshot', () =>
   const root = fs.mkdtempSync(path.join(os.tmpdir(), 'sensum-supplemental-import-'));
   try {
     const command = spawnSync(process.execPath, ['platform/transforms/import-activity-candidate-priority-human-review-decisions-supplemental-evidence.mjs', `--root=${root}`], { cwd: process.cwd(), encoding: 'utf8' });
+    assert.equal(command.status, 2, command.stderr || command.stdout);
+    assert.equal(JSON.parse(command.stdout).outputWritten, false);
+    assert.deepEqual(fs.readdirSync(root), []);
+  } finally {
+    fs.rmSync(root, { recursive: true, force: true });
+  }
+});
+
+test('template materialization policy is generic and exactly binds the guarded importer chain', () => {
+  const compiled = compileActivityCandidatePrioritySupplementalEvidenceDecisionTemplateMaterializationPolicy(
+    templatePolicy, packetPolicy, guidancePolicy, evidencePolicy, augmentedPolicy, policy, decisionPolicy, hash
+  );
+  assert.equal(compiled.valid, true);
+  assert.deepEqual(compiled.invalidRules, []);
+  assert.deepEqual(compiled.invalidBindings, []);
+  const specific = structuredClone(templatePolicy);
+  specific.titleOverrides = { Example: 'approved' };
+  assert.equal(compileActivityCandidatePrioritySupplementalEvidenceDecisionTemplateMaterializationPolicy(
+    specific, packetPolicy, guidancePolicy, evidencePolicy, augmentedPolicy, policy, decisionPolicy, hash
+  ).valid, false);
+});
+
+test('materializes one exact blank supplemental-bound template per source conflict with readable instructions', () => {
+  const ctx = templateContext();
+  const result = buildActivityCandidatePrioritySupplementalEvidenceDecisionTemplateMaterialization(ctx);
+  assert.equal(result.audit.publishable, true);
+  assert.equal(result.audit.templateMaterializationComplete, true);
+  assert.equal(result.records.length, 2);
+  assert.equal(result.audit.templateCoverage.setOrderAndOrdinalsExact, true);
+  assert.equal(result.audit.templateCoverage.requiredSupplementalEvidenceKeyCount, 16);
+  assert.equal(result.audit.templateCoverage.instructionStepCount, 14);
+  assert.equal(result.audit.guardedImporterBlankRejectionCoverage.complete, true);
+  assert.equal(result.audit.guardedImporterBlankRejectionCoverage.decisionRecordsProduced, 0);
+  assert.equal(result.audit.guardedImporterBlankRejectionCoverage.blankTemplateCount, 2);
+  assert.equal(result.audit.guardedImporterBlankRejectionCoverage.invalidTemplateCount, 0);
+  assert.match(result.artifacts.markdown, /These templates are blank by design/);
+  assert.match(result.artifacts.markdown, /Submit the entire NDJSON file/);
+  const rows = result.artifacts.decisionTemplateNdjson.trim().split(/\r?\n/).map(JSON.parse);
+  assert.deepEqual(rows, result.records.map(record => record.blankDecisionTemplate));
+  for (const record of result.records) {
+    assert.equal(record.blankDecisionTemplate.baseDecision.reviewer, null);
+    assert.equal(record.blankDecisionTemplate.baseDecision.reviewedAt, null);
+    assert.deepEqual(record.blankDecisionTemplate.supplementalEvidenceReview.evidenceKeys, []);
+    assert.deepEqual(record.blankDecisionTemplate.supplementalEvidenceReview.reviewedSourceRevisions, []);
+    assert.equal(record.blankDecisionTemplate.supplementalEvidenceReview.notes, null);
+    for (const field of templateRecordContract.required) assert.ok(Object.hasOwn(record, field), `Missing template record field ${field}`);
+  }
+  for (const field of templateAuditContract.required) assert.ok(Object.hasOwn(result.audit, field), `Missing template audit field ${field}`);
+});
+
+test('template materialization is deterministic for identical bound snapshots', () => {
+  const first = buildActivityCandidatePrioritySupplementalEvidenceDecisionTemplateMaterialization(templateContext());
+  const second = buildActivityCandidatePrioritySupplementalEvidenceDecisionTemplateMaterialization(templateContext());
+  assert.equal(hash(first.records), hash(second.records));
+  assert.equal(hash(first.artifacts), hash(second.artifacts));
+  assert.equal(hash(first.audit), hash(second.audit));
+});
+
+test('independent template audit rejects changed bindings, preselected decisions, and account state', () => {
+  const ctx = templateContext();
+  const built = buildActivityCandidatePrioritySupplementalEvidenceDecisionTemplateMaterialization(ctx);
+  const changed = structuredClone(built.records);
+  changed[0].sourceBindings.additionalEvidenceSnapshotContentHash = '0'.repeat(64);
+  changed[0].blankDecisionTemplate.baseDecision.reviewer = 'human';
+  changed[0].humanDecisionSelected = true;
+  changed[0].username = 'forbidden';
+  const audit = auditActivityCandidatePrioritySupplementalEvidenceDecisionTemplateMaterialization(changed, ctx, built.artifacts);
+  assert.equal(audit.publishable, false);
+  assert.equal(audit.templateCoverage.recordMismatches.length, 1);
+  assert.equal(audit.templateCoverage.templateMismatches.length, 1);
+  assert.equal(audit.semanticPreservationCoverage.unsupportedPromotions.length, 1);
+  assert.deepEqual(audit.accountStateFindings, ['[0].username']);
+});
+
+test('template materialization CLI refuses implicit snapshots without writing output', () => {
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'sensum-template-materialization-'));
+  try {
+    const command = spawnSync(process.execPath, [
+      'platform/transforms/materialize-activity-candidate-priority-source-conflict-supplemental-evidence-decision-templates.mjs',
+      `--root=${root}`
+    ], { cwd: process.cwd(), encoding: 'utf8' });
     assert.equal(command.status, 2, command.stderr || command.stdout);
     assert.equal(JSON.parse(command.stdout).outputWritten, false);
     assert.deepEqual(fs.readdirSync(root), []);

@@ -43,6 +43,29 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+The two priority activity source conflicts now have deterministic blank decision
+templates in the supplemental-evidence-bound submission shape. A generic policy,
+record and audit contracts, materialization library, explicit four-snapshot CLI,
+readable instructions, machine binding index, and adversarial tests use the
+guarded importer's own template builder rather than maintaining a second shape.
+Every template binds the exact packet, original guidance, additional evidence,
+and augmented guidance snapshots plus their intrinsic and outer record hashes.
+Original and supplemental evidence obligations remain separate.
+
+Two real materializations reproduced output content hash
+`9dc4add0a394276536d013389d1171479c0c451ac3e42db4f10d52139a8ae50a`
+and all five payload files exactly. The two blank templates expose 14 original
+evidence keys, 16 supplemental evidence keys, 12 original revision occurrences,
+8 supplemental revision occurrences, and 14 readable completion steps without
+selecting any conclusion. The actual guarded importer recognized both rows as
+valid blank templates, rejected them with exit code 2 because no human decision
+was submitted, and wrote zero decision snapshots. No human decision, semantic
+application, mechanics-completion claim, optimizer promotion, automatic
+verification, or account state was created. All 169 test scripts and 433
+regression checks pass. The next checkpoint should isolate the two priority
+activity candidates whose exact revisions have no supported Activity infobox
+and route their missing or alternative structural evidence without inference.
+
 Priority activity source-conflict decisions now have a separate supplemental-
 evidence-bound import boundary. A generic policy, decision-record and audit
 contracts, library, explicit-input CLI, and adversarial tests require explicit

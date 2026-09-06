@@ -1,0 +1,24 @@
+{
+  "contract": "sensum.activity-candidate-priority-source-conflict-supplemental-evidence-decision-template-materialization-audit.v1",
+  "required": [
+    "contract",
+    "policyCoverage",
+    "inputCoverage",
+    "templateCoverage",
+    "artifactCoverage",
+    "guardedImporterBlankRejectionCoverage",
+    "semanticPreservationCoverage",
+    "accountStateFindings",
+    "templateMaterializationComplete",
+    "humanReviewComplete",
+    "completeActivityUniverse",
+    "absoluteBestGate",
+    "blockers",
+    "publishable"
+  ],
+  "invariants": {
+    "humanReviewComplete": false,
+    "completeActivityUniverse": false,
+    "absoluteBestGate": "blocked_incomplete_activity_universe"
+  }
+}
