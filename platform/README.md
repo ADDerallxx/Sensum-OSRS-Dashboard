@@ -327,6 +327,16 @@ rate, failure probability, failed-attempt XP, recovery mechanics, related-
 blocker resolution, complete-universe claim, optimizer eligibility, automatic
 verification, or verified-best result.
 
+Before a reviewer edits that guarded template, a separate deterministic guidance
+materializer can explain the three allowed decision paths. It is bound to the
+exact packet, source revision and line, blank-template bytes, importer policy,
+and application policy. Every option remains explicitly unselected and
+unrecommended. Guidance may describe that a later confirmed application would
+close one named blocker, but it cannot choose that result, record a review,
+close any blocker, create rates or mechanics, promote optimizer eligibility, or
+authorize a verified-best claim. The copied decision template remains byte-for-
+byte identical to the packet artifact.
+
 ## Whole-skill progression coverage
 
 Skill knowledge is account-independent. The official Skills page supplies a

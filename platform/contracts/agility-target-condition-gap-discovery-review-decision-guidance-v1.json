@@ -1,0 +1,10 @@
+{
+  "contract": "sensum.agility-target-condition-gap-discovery-review-decision-guidance.v1",
+  "required": ["guidanceKey", "guidanceOrdinal", "reviewPacketKey", "sourcePacketSnapshotContentHash", "sourcePacketSnapshotCreatedAt", "sourcePacketContentHash", "sourcePacketOuterContentHash", "sourceBlankTemplateContentHash", "candidateKey", "candidateName", "targetBaseAgility", "namedBlocker", "relatedOpenBlockers", "reviewQuestion", "sourceEvidence", "requiredEvidenceKeys", "earliestAllowedReviewedAt", "decisionVocabulary", "decisionOptions", "reviewerRequirements", "blankDecisionTemplate", "selectedDecision", "recommendedDecision", "humanDecisionSelected", "decisionRecorded", "semanticApplicationApplied", "blockersClosed", "gamePerformanceFactsCreated", "expectedRateCreated", "failureMechanicsCreated", "optimizerEligible", "automaticVerificationApplied", "accountIndependent", "completeWikiUniverseClaimed", "explicitNonClaims", "blockers", "state", "recordContentHash", "contentHash"],
+  "rules": {
+    "guidanceIsBoundToOneExactPacketAndBlankTemplate": true,
+    "decisionVocabularyAndEffectsMirrorGuardedPolicies": true,
+    "noDecisionIsSelectedRecommendedRecordedOrApplied": true,
+    "allFactMechanicsCoverageAndOptimizerGatesRemainClosed": true
+  }
+}

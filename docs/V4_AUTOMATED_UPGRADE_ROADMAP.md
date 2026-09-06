@@ -43,6 +43,35 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+The exact Shayzien target-condition review packet now has deterministic,
+evidence-bound decision guidance. It requires the explicit packet snapshot and
+revalidates its manifest, raw record hashes, packet audit, review artifact,
+blank-template bytes, and the exact packet, importer, and application policies.
+Its one guidance record binds Shayzien Agility Course revision 15168110, page ID
+317073, line 100, and explains the consequences of confirmation, rejection, and
+additional-evidence review without selecting or recommending any path.
+
+Two real materializations reproduced output hash
+`a8e9c76244eb5ced1c1fd0a21cca9459c7902e225e2feaebe30b1f16eadd839c`,
+Markdown hash
+`fd0dd0df547cd3ce0f14edb7aa004bfd8112f33e5143195d9e547afb734da94d`,
+JSON guidance hash
+`c664f4a8b1d3e0a6b22a4e2b2a15b7018d21ab7d487a20a6362449f436d2bf92`,
+and artifact-manifest hash
+`561b36d0ffe808298e8c5aa8cf44cebabe7783864e9c3cad06192e2549e6049b`.
+The packet's original blank decision template remained byte-for-byte identical
+with hash
+`e438b998e790d60788acdd1c4cdfa680d477e58b13ceba4179bcfc3aad29bfdb`.
+
+Zero decisions were selected, recommended, recorded, or applied. Zero blockers,
+rates, mechanics, facts, optimizer promotions, automatic verifications, account
+state, complete-universe claims, or verified-best authority were created. All 17
+real target-condition blockers remain open pending evidence and explicit human
+review. All 187 test scripts pass, including 63 new guidance assertions and 853
+tracked regression checks under the established checkpoint-counting convention.
+The next checkpoint will search revision-pinned Wiki templates, modules, and
+calculator source channels for the remaining condition-model evidence gaps.
+
 The recorded Agility target-condition review decisions now have a separate,
 fail-closed semantic-application boundary. Both the exact packet snapshot and
 the imported-decision snapshot must be selected explicitly. The application

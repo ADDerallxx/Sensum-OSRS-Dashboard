@@ -1,0 +1,10 @@
+{
+  "contract": "sensum.agility-target-condition-gap-discovery-review-decision-guidance-audit.v1",
+  "required": ["policyCoverage", "packetCoverage", "guidanceCoverage", "bindingCoverage", "artifactCoverage", "semanticPreservationCoverage", "accountStateFindings", "guidanceMaterializationComplete", "humanReviewComplete", "semanticApplicationComplete", "conditionOrMechanicsCoverageComplete", "completeWikiUniverse", "absoluteBestGate", "blockers", "publishable"],
+  "rules": {
+    "publishableRequiresExactPacketPolicyAndArtifactIntegrity": true,
+    "guidanceAndPacketSetsMustMatchExactly": true,
+    "allOptionsRemainUnselected": true,
+    "guidanceCannotChangeSemanticOrOptimizerState": true
+  }
+}
