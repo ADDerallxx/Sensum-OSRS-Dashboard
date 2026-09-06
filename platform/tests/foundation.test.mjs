@@ -171,6 +171,10 @@ check(['minimum_level','xp_per_lap','cycle_ticks','observed_peak_xp_per_hour','s
 check(fs.existsSync('platform/ingestion/ingest-wiki-agility-course-table.mjs'),'Missing structured Agility course ingestion.');
 check(fs.existsSync('platform/tests/agility-course-table.test.mjs'),'Missing structured Agility table regression test.');
 check(upgradePlan.liveDeploymentAllowed===false&&upgradePlan.automaticEvidenceApprovalAllowed===false,'V4 automation must not deploy live or approve evidence unattended.');
+check(upgradePlan.executionStrategy?.adaptiveReorderingAuthorized===true&&upgradePlan.executionStrategy?.accuracyGatesMayBeWeakened===false,'V4 execution may adapt its route but must never weaken accuracy gates.');
+check(Object.values(upgradePlan.executionStrategy?.defaultCapacityPercent||{}).reduce((sum,value)=>sum+value,0)===100,'V4 execution capacity allocation must total 100 percent.');
+check(['verified','bounded','blocked','discovered'].every(state=>upgradePlan.executionStrategy?.evidenceStates?.includes(state)),'V4 adaptive execution must preserve all four evidence states.');
+check(upgradePlan.executionStrategy?.forbiddenEfficiencyShortcuts?.includes('unsupported_inference')&&upgradePlan.executionStrategy?.forbiddenEfficiencyShortcuts?.includes('incomplete_universe_verified_best_claim')&&upgradePlan.executionStrategy?.forbiddenEfficiencyShortcuts?.includes('production_mutation'),'V4 efficiency must forbid unsupported inference, incomplete-universe verified-best claims, and production mutation.');
 check(upgradePlan.productDefinition==='docs/V4_PRODUCT_DEFINITION.md'&&fs.existsSync(upgradePlan.productDefinition),'V4 automation must retain the authoritative product outcome and stopping condition.');
 check(upgradePlan.phases.filter(x=>x.status==='in_progress').length<=1,'V4 automation may have only one active phase.');
 check(agilityVariant.rules.parentCompositeCannotBeRanked===true&&agilityVariant.rules.eachVariantHasIndependentEligibility===true&&agilityVariant.rules.sourceWarningBlocksApproval===true,'Composite activity variants must remain independently gated.');

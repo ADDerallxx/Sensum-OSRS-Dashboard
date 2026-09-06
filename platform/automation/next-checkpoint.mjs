@@ -9,6 +9,11 @@ for(const phase of plan.phases){
 }
 if(plan.liveDeploymentAllowed!==false)failures.push('Unattended live deployment must remain disabled.');
 if(plan.automaticEvidenceApprovalAllowed!==false)failures.push('Unattended evidence approval must remain disabled.');
+if(plan.executionStrategy?.adaptiveReorderingAuthorized!==true)failures.push('Adaptive accuracy-preserving checkpoint ordering must remain authorized.');
+if(plan.executionStrategy?.accuracyGatesMayBeWeakened!==false)failures.push('Adaptive execution must never weaken accuracy gates.');
+if(Object.values(plan.executionStrategy?.defaultCapacityPercent||{}).reduce((sum,value)=>sum+value,0)!==100)failures.push('Execution capacity allocation must total 100 percent.');
+for(const state of ['verified','bounded','blocked','discovered'])if(!plan.executionStrategy?.evidenceStates?.includes(state))failures.push(`Missing evidence state: ${state}`);
+for(const shortcut of ['unsupported_inference','silent_conflict_resolution','incomplete_universe_verified_best_claim','automatic_golden_approval','production_mutation'])if(!plan.executionStrategy?.forbiddenEfficiencyShortcuts?.includes(shortcut))failures.push(`Missing forbidden efficiency shortcut: ${shortcut}`);
 if(plan.phases.filter(x=>x.status==='in_progress').length>1)failures.push('Only one phase may be in progress.');
 if(failures.length){console.error(failures.join('\n'));process.exit(1)}
 const next=plan.phases.find(x=>x.status==='in_progress')||plan.phases.find(x=>x.status==='pending')||plan.phases.find(x=>x.status==='blocked_user_approval')||null;

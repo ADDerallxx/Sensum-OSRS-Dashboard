@@ -63,3 +63,36 @@ success. The stopping condition is a reliable, evidence-backed answer to:
 
 > Given this account, these preferences, and the current game state, what is the
 > best verified thing to do or use next—and why?
+
+## Accuracy-preserving execution mandate
+
+The user authorizes Sensum's implementation strategy to change whenever a
+measurably more efficient route is discovered, provided none of the definition-
+of-done gates or evidence standards are weakened. Efficiency may change work
+ordering, batching, reuse, storage, and architecture; it may never convert an
+unknown, estimate, conflict, or incomplete candidate universe into a verified
+fact or `verified best` claim.
+
+- Prefer breadth-first coverage across all official skills before repeatedly
+  deepening one unresolved activity, while retaining Agility as the first
+  end-to-end certificate track.
+- Prefer generic, family-level collectors, models, and validators over page- or
+  item-specific patches. A special case requires a source-proven unique mechanic.
+- Classify evidence as verified, bounded, blocked, or discovered. Bounded
+  evidence may affect a recommendation only when sensitivity analysis proves
+  that every allowed value produces the same decision; otherwise it remains a
+  blocker.
+- After one complete current-source pass, one relevant historical-source pass,
+  and one contradiction analysis, preserve an unresolved fact as a durable
+  blocker and move on. Reopen it when source revisions change, a requested
+  decision depends on it, or it prevents a required phase exit.
+- Reuse unchanged revision-pinned evidence and batch independent work. Do not
+  refetch or reprocess unchanged inputs merely to produce another checkpoint.
+- Materialize accepted evidence into the isolated canonical V4 data model as it
+  becomes ready, without mutating production or bypassing publication gates.
+- A checkpoint must add reusable coverage, resolve a material uncertainty,
+  implement a missing generic capability, or measurably advance an exit gate.
+  Restating or repackaging an existing blocker is not sufficient progress.
+- Reassess bottlenecks after every checkpoint. The machine plan may reorder
+  pending work when the reason, expected benefit, preserved accuracy gates, and
+  measured result are recorded.

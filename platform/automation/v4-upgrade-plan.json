@@ -4,6 +4,48 @@
   "mode": "one_bounded_checkpoint_per_run",
   "liveDeploymentAllowed": false,
   "automaticEvidenceApprovalAllowed": false,
+  "executionStrategy": {
+    "id": "adaptive_accuracy_preserving_breadth_first_v1",
+    "adaptiveReorderingAuthorized": true,
+    "accuracyGatesMayBeWeakened": false,
+    "defaultCapacityPercent": {
+      "crossSkillCoverage": 50,
+      "genericFormulasAndEligibility": 25,
+      "isolatedCanonicalDataMaterialization": 15,
+      "directPhaseExitBlockers": 10
+    },
+    "evidenceStates": [
+      "verified",
+      "bounded",
+      "blocked",
+      "discovered"
+    ],
+    "boundedEvidenceDecisionRule": "Only use bounded evidence when sensitivity analysis proves the decision invariant across the complete allowed range.",
+    "unresolvedInvestigationBudget": {
+      "currentSourcePasses": 1,
+      "historicalSourcePasses": 1,
+      "contradictionAnalyses": 1,
+      "reopenTriggers": [
+        "source_revision_changed",
+        "requested_decision_depends_on_blocker",
+        "required_phase_exit_depends_on_blocker"
+      ]
+    },
+    "specialCaseRule": "Prefer generic activity-family machinery; create a page- or item-specific rule only for a source-proven unique mechanic.",
+    "checkpointValueGate": [
+      "adds_reusable_coverage",
+      "resolves_material_uncertainty",
+      "implements_missing_generic_capability",
+      "measurably_advances_exit_gate"
+    ],
+    "forbiddenEfficiencyShortcuts": [
+      "unsupported_inference",
+      "silent_conflict_resolution",
+      "incomplete_universe_verified_best_claim",
+      "automatic_golden_approval",
+      "production_mutation"
+    ]
+  },
   "phases": [
     {
       "id": "foundation",

@@ -23,6 +23,37 @@ promise; completing infrastructure or ingesting records alone is not success.
 - Stop and report when credentials, billing, destructive migration, external
   service creation, or a product choice requires the user.
 
+## Accuracy-preserving efficiency strategy
+
+The execution order is adaptive. When evidence or measured throughput reveals a
+more advantageous route, future checkpoints may be reordered, batched, or
+redesigned without separate approval, provided the product definition's
+accuracy, provenance, completeness, reversibility, and production-safety gates
+remain unchanged.
+
+- Work breadth-first across all 24 official skill domains, then deepen coverage
+  by decision impact. Agility remains the first certificate, not the only skill
+  being discovered.
+- Build reusable activity-family machinery before special-case handlers. A
+  page-specific rule requires evidence that its mechanic is actually unique.
+- Use four explicit states: `verified`, `bounded`, `blocked`, and `discovered`.
+  A bounded interval can support a decision only when sensitivity analysis
+  proves the winner invariant across the entire allowed interval.
+- Cap an unresolved evidence investigation at one complete current-source pass,
+  one relevant historical-source pass, and one contradiction analysis. Preserve
+  the result as a durable blocker and reopen it only on source change, direct
+  decision demand, or phase-exit necessity.
+- Reuse content-addressed, unchanged evidence; batch independent collection and
+  validation; and materialize accepted evidence incrementally into the isolated
+  V4 canonical model.
+- Default capacity allocation is 50% cross-skill coverage, 25% generic formulas
+  and eligibility, 15% isolated canonical data materialization, and 10% direct
+  phase-exit blockers. Rebalance when measured bottlenecks justify it, and record
+  the reason and result.
+- Reject checkpoints that only restate, rename, or repackage an existing blocker.
+  Every checkpoint must add reusable coverage, resolve uncertainty, add a
+  missing generic capability, or measurably advance an exit gate.
+
 ## Roadmap order
 
 1. Expand composite Agility pages into exact variants.
