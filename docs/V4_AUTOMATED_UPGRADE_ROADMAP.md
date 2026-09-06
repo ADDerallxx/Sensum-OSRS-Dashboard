@@ -43,6 +43,30 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+The two activity candidates without supported infoboxes now have a deterministic,
+source-bound subject-boundary review queue. A generic policy, queue, blank-
+decision, and audit contracts, explicit three-snapshot exporter, readable review
+packet, machine evidence index, and adversarial tests revalidate the exact
+routing, one-hop, and recursive historical evidence before exporting anything.
+Each queue entry preserves the candidate revision and source fingerprint while
+keeping source structure, root-template roles, static dependency ancestry,
+cycles, wrapper observations, and dynamic/engine boundaries distinct.
+
+Two real exports reproduced output content hash
+`7f49c13735c3c31352290ccd3b5e0d32572ea8c3b1d5c46f96218e6861a699f8`
+and all five payload files exactly. The queue contains one entry each for
+`Hunters' Rumours` revision `15329095` and `Minigames` revision `15327496`,
+with two immutable evidence fingerprints and two blank decision templates. It
+exposes all 23 root invocations, 77 historical nodes, 175 static edges, two
+cycles, 41 wrapper observations, and 144 dynamic or engine boundaries from the
+selected evidence. No subject disposition, reviewer, evidence selection,
+canonical identity, repeatability, membership, mechanics completion, optimizer
+promotion, automatic verification, or account state was created. All 173 test
+scripts and 458 regression checks pass. The next checkpoint should add a
+fail-closed importer for explicit human subject-boundary decisions; untouched,
+partial, stale, unsupported, or internally incoherent submissions must write no
+decision snapshot.
+
 The two missing-supported-infobox evidence packets now have a complete static,
 revision-pinned historical transclusion graph. A generic policy, record and audit
 contracts, recursive collector, readable artifacts, and adversarial tests

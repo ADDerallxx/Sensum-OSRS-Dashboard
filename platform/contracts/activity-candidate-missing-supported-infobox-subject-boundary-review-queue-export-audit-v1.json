@@ -1,0 +1,27 @@
+{
+  "contract": "sensum.activity-candidate-missing-supported-infobox-subject-boundary-review-queue-export-audit.v1",
+  "required": [
+    "contract",
+    "policyCoverage",
+    "inputCoverage",
+    "bindingCoverage",
+    "queueCoverage",
+    "evidenceExposureCoverage",
+    "artifactCoverage",
+    "semanticPreservationCoverage",
+    "accountStateFindings",
+    "queueExportComplete",
+    "subjectBoundaryReviewComplete",
+    "completeRenderedOutputAttribution",
+    "completeActivityUniverse",
+    "absoluteBestGate",
+    "blockers",
+    "publishable"
+  ],
+  "invariants": {
+    "subjectBoundaryReviewComplete": false,
+    "completeRenderedOutputAttribution": false,
+    "completeActivityUniverse": false,
+    "absoluteBestGate": "blocked_incomplete_activity_universe"
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "policy": "sensum.activity-candidate-missing-supported-infobox-subject-boundary-review-queue-export-policy.v1",
+  "inputRoutingPolicy": "sensum.activity-candidate-missing-supported-infobox-evidence-work-routing-policy.v1",
+  "inputRoutingPolicyContentHash": "64c6527e2dc38624e97dbe85f545084fca629b7049af1b897ae0d9b1c1d8e346",
+  "inputRoutingDomain": "activity-candidate-missing-supported-infobox-evidence-work-routing",
+  "inputOneHopPolicy": "sensum.activity-candidate-missing-supported-infobox-template-alias-and-expansion-evidence-policy.v1",
+  "inputOneHopPolicyContentHash": "68c722f63481cf3441659724b0106ac8cb7bee85c5c92a0451b75b34d872ee67",
+  "inputOneHopDomain": "activity-candidate-missing-supported-infobox-template-alias-and-expansion-evidence",
+  "inputRecursivePolicy": "sensum.activity-candidate-missing-supported-infobox-recursive-historical-transclusion-closure-evidence-policy.v1",
+  "inputRecursivePolicyContentHash": "f1d77a26edb4944b283f5d6fd2e25eb4251ca9deb714e16aa0d257474de71a8c",
+  "inputRecursiveDomain": "activity-candidate-missing-supported-infobox-recursive-historical-transclusion-closure-evidence",
+  "outputDomain": "activity-candidate-missing-supported-infobox-subject-boundary-review-queue",
+  "queueContract": "sensum.activity-candidate-missing-supported-infobox-subject-boundary-review-queue-entry.v1",
+  "decisionTemplateContract": "sensum.activity-candidate-missing-supported-infobox-subject-boundary-review-decision-template.v1",
+  "auditContract": "sensum.activity-candidate-missing-supported-infobox-subject-boundary-review-queue-export-audit.v1",
+  "queueState": "pending_explicit_source_bound_subject_boundary_human_review",
+  "allowedSubjectDispositions": [
+    "confirm_single_activity_subject",
+    "confirm_composite_or_container_subject",
+    "confirm_reference_collection_subject",
+    "reject_as_activity_subject",
+    "needs_additional_evidence"
+  ],
+  "rules": {
+    "allThreeInputSnapshotsMustBeExplicitlySelectedAndRevalidated": true,
+    "everyRecursiveClosurePacketMustExportExactlyOnceInSourceOrder": true,
+    "routingOneHopAndRecursiveCandidateBindingsMustMatchExactly": true,
+    "queueMustPreserveExactCandidateRevisionAndSourceFingerprint": true,
+    "queueMustExposeEveryRootInvocationStaticNodeStaticEdgeCycleWrapperAndDynamicBoundary": true,
+    "staticAncestryAndDynamicBoundariesMustRemainDistinct": true,
+    "renderedOutputAttributionMustRemainFalse": true,
+    "decisionTemplatesMustStartBlank": true,
+    "exportCannotRecordReviewerTimestampNotesEvidenceSelectionOrDecision": true,
+    "subjectDispositionCannotEstablishRepeatabilityMembershipRequirementsVariantsXpTimingMechanicsOrEligibility": true,
+    "namesTitlesPageIdsRevisionsSkillsRoutesLabelsAliasesOverridesAndExceptionsCannotAlterPolicyBehavior": true,
+    "currentAccountStateIsForbidden": true,
+    "automaticVerificationAllowed": false
+  }
+}

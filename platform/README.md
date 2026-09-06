@@ -81,6 +81,14 @@ functions, magic words, dynamic names, non-page Lua imports, and runtime
 preprocessing remain blockers, and graph structure cannot create semantic or
 optimizer eligibility.
 
+The subject-boundary review queue binds that recursive evidence back to the
+exact structural route and one-hop packet for each missing-supported-infobox
+candidate. It exports readable source context plus every root, node, edge,
+cycle, wrapper observation, and unresolved dynamic boundary alongside a blank,
+queue-hash-bound decision template. Exporting the queue records no human
+conclusion and cannot establish a canonical identity, member set, mechanic, or
+optimizer eligibility.
+
 The rendered-guide observation audit calls the official MediaWiki parser with
 each retained guide `oldid` and separately preserves its `links`, `categories`,
 `images`, and `templates` channels. Each returned target receives a current

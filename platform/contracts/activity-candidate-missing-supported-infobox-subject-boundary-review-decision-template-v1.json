@@ -1,0 +1,34 @@
+{
+  "contract": "sensum.activity-candidate-missing-supported-infobox-subject-boundary-review-decision-template.v1",
+  "required": [
+    "contract",
+    "queueEntryKey",
+    "queueEntryRecordContentHash",
+    "queueSnapshotContentHash",
+    "candidateKey",
+    "sourcePageId",
+    "sourceRevision",
+    "evidenceFingerprint",
+    "allowedSubjectDispositions",
+    "subjectDisposition",
+    "compositeOrContainerVerdict",
+    "memberExpansionRequired",
+    "additionalEvidenceRequired",
+    "rejectionReason",
+    "selectedEvidenceKeys",
+    "reviewer",
+    "reviewedAt",
+    "notes"
+  ],
+  "blankInvariants": {
+    "subjectDisposition": null,
+    "compositeOrContainerVerdict": null,
+    "memberExpansionRequired": null,
+    "additionalEvidenceRequired": null,
+    "rejectionReason": null,
+    "selectedEvidenceKeys": [],
+    "reviewer": null,
+    "reviewedAt": null,
+    "notes": null
+  }
+}
