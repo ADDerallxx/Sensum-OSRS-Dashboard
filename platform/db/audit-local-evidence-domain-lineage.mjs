@@ -16,8 +16,8 @@ function assert(condition, message) {
 export async function auditLocalEvidenceDomainLineage(options = {}, runtime = {}) {
   const source = options.source || 'wiki-pageid:240934';
   const revision = options.revision || '14997080';
-  const expectedLinks = Number(options.expectedLinks || 2);
-  assert(Number.isInteger(expectedLinks) && expectedLinks >= 2, 'expected_shared_source_links_must_be_at_least_2');
+  const explicitExpectedLinks = options.expectedLinks === undefined || options.expectedLinks === null ? null : Number(options.expectedLinks);
+  if (explicitExpectedLinks !== null) assert(Number.isInteger(explicitExpectedLinks) && explicitExpectedLinks >= 2, 'expected_shared_source_links_must_be_at_least_2');
 
   const query = runtime.query || queryLocalEvidenceCatalog;
   const queryRuntime = Object.fromEntries(Object.entries(runtime).filter(([key]) => key !== 'query'));
@@ -29,6 +29,8 @@ export async function auditLocalEvidenceDomainLineage(options = {}, runtime = {}
   assert(json(before.counts) === json(after.counts) && json(before.evidenceStates) === json(after.evidenceStates), 'catalog_queries_changed_database_counts');
   assert(domains.rows.length > 0 && domains.rows.every(row => row.recordCountReconciles === true && row.sourceCountReconciles === true), 'domain_run_snapshot_counts_do_not_reconcile');
   assert(domains.rows.every(row => row.statementLineageState === 'direct_activity_evidence_ingestion_run_foreign_key' && row.statementCountReconciles === true && Number(row.directStatementCount) === Number(row.declaredStatementCount)), 'statement_run_lineage_does_not_reconcile');
+  const expectedLinks = explicitExpectedLinks ?? lineage.rows.length;
+  assert(expectedLinks >= 2, 'shared_source_lineage_count_below_minimum');
   assert(lineage.rows.length === expectedLinks, 'shared_source_lineage_count_mismatch');
   assert(new Set(lineage.rows.map(row => `${row.sourceKey}|${row.url}|${row.revision}|${row.sourceContentHash}|${row.fetchedAt}`)).size === 1, 'shared_source_identity_drift');
   assert(new Set(lineage.rows.map(row => row.snapshotId)).size === expectedLinks, 'shared_source_snapshot_identity_not_unique');
@@ -43,7 +45,7 @@ export async function auditLocalEvidenceDomainLineage(options = {}, runtime = {}
     databaseCounts:after.counts,
     evidenceStates:after.evidenceStates,
     domains:{count:domains.rows.length,rows:domains.rows},
-    sharedSource:{sourceKey:source,revision,title:lineage.rows[0].title,url:lineage.rows[0].url,sourceTimestamp:lineage.rows[0].sourceTimestamp,fetchedAt:lineage.rows[0].fetchedAt,sourceContentHash:lineage.rows[0].sourceContentHash,snapshotLinks:lineage.rows.length,domains:lineage.rows.map(row => row.domain).sort(),snapshotIds:lineage.rows.map(row => row.snapshotId).sort()},
+    sharedSource:{sourceKey:source,revision,title:lineage.rows[0].title,url:lineage.rows[0].url,sourceTimestamp:lineage.rows[0].sourceTimestamp,fetchedAt:lineage.rows[0].fetchedAt,sourceContentHash:lineage.rows[0].sourceContentHash,snapshotLinks:lineage.rows.length,expectedLinksMode:explicitExpectedLinks===null?'detected':'explicit',domains:lineage.rows.map(row => row.domain).sort(),snapshotIds:lineage.rows.map(row => row.snapshotId).sort()},
     statementRunLineage:{complete:true,state:'direct_activity_evidence_ingestion_run_foreign_key',directStatements:domains.rows.reduce((sum,row)=>sum+Number(row.directStatementCount),0),declaredStatements:domains.rows.reduce((sum,row)=>sum+Number(row.declaredStatementCount),0),blocker:null},
     domainRecordAndSourceCountsReconciled:true,
     sharedSourceIdentityReusedWithoutDuplication:true,

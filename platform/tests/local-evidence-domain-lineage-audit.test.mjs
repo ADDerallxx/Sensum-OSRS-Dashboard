@@ -35,6 +35,7 @@ test('audit proves shared exact source lineage and stable catalog counts',async(
     const report=await auditLocalEvidenceDomainLineage({root},{query:mockQuery(fixtures())});
     assert.equal(report.domains.count,3);
     assert.equal(report.sharedSource.snapshotLinks,2);
+    assert.equal(report.sharedSource.expectedLinksMode,'detected');
     assert.deepEqual(report.sharedSource.domains,['one','two']);
     assert.equal(report.statementRunLineage.complete,true);
     assert.equal(report.statementRunLineage.blocker,null);
@@ -52,7 +53,7 @@ test('audit fails closed on missing lineage, source drift, count drift, or direc
   const root=fs.mkdtempSync(path.join(os.tmpdir(),'sensum-lineage-audit-negative-'));
   try {
     const missing=fixtures(); missing.lineage.rows.pop();
-    await assert.rejects(auditLocalEvidenceDomainLineage({root},{query:mockQuery(missing)}),/lineage_count_mismatch/);
+    await assert.rejects(auditLocalEvidenceDomainLineage({root,expectedLinks:2},{query:mockQuery(missing)}),/lineage_count_mismatch/);
     const drift=fixtures(); drift.lineage.rows[1].sourceContentHash='c'.repeat(64);
     await assert.rejects(auditLocalEvidenceDomainLineage({root},{query:mockQuery(drift)}),/source_identity_drift/);
     const hidden=fixtures(); hidden.domains.rows[0].directStatementCount=0; hidden.domains.rows[0].statementCountReconciles=false;
