@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "sensum.agility-colossal-wyrm-termite-reward-rate-source-change-event.v1",
+  "title": "Colossal Wyrm termite and reward-rate source change event",
+  "type": "object",
+  "required": [
+    "contract", "changeKey", "monitorKey", "field", "route", "blocker",
+    "evidenceObjective", "changedDimensions", "changeRoute", "baselineBinding",
+    "currentBinding", "evidenceWorkRequeued", "requiresDiscoveryAndSufficiencyRerun",
+    "changeIsNotAGameFact", "existingBlockerStatus", "blockersClosed",
+    "semanticFactsCreated", "mechanicallyResolved", "optimizerEligible",
+    "verifiedBestAuthorized", "automaticVerificationApplied", "accountIndependent",
+    "completeWikiUniverseClaimed", "recordContentHash", "contentHash"
+  ],
+  "additionalProperties": true
+}

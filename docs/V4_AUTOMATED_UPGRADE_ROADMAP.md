@@ -3514,3 +3514,22 @@ verifications, or account state. All 574 regression tests pass. The next
 checkpoint should compare a complete baseline registry with a complete refresh
 and emit exact, domain-scoped evidence-work events without treating a changed
 source as a changed game fact.
+
+The Colossal Wyrm reward source-change evaluator now performs that comparison
+without turning source drift into game truth. It revalidates both complete
+six-domain registries, every nested fingerprint and source/revision binding,
+temporal order, policy identity, and monitor-population continuity before it can
+publish. Two real unchanged evaluations emitted the same deterministic empty
+event-set hash
+`01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b`
+with zero false alerts. Adversarial fixtures prove that a multi-dimensional
+evidence change produces exactly one event for its affected blocker domain,
+provenance-only churn produces none, and reversed time, population drift,
+nested tampering, account state, policy exceptions, or downstream promotion all
+fail closed. All six mechanics blockers remain open. The checkpoint created
+zero game facts, mechanical resolutions, optimizer promotions, verified-best
+authorizations, automatic verifications, or account state. All 575 regression
+tests pass. The next checkpoint should orchestrate source discovery,
+sufficiency disposition, monitoring-registry refresh, and change evaluation as
+one isolated dry run with complete lineage and no scheduler or production
+mutation.

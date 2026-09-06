@@ -307,7 +307,7 @@ function constructRecords(options = {}, contentHash = hash) {
   });
 }
 
-function recordInternalsValid(record = {}, contentHash = hash) {
+export function validateAgilityColossalWyrmTermiteRewardRateSourceChangeMonitoringRegistryRecord(record = {}, contentHash = hash) {
   const queriesValid = (record.queryMonitors || []).every(monitor => monitor.queryDefinitionFingerprint === contentHash(monitor.definition)
     && monitor.queryResultFingerprint === contentHash(monitor.result)
     && monitor.monitorKey === `${monitor.definition?.channelKey}|${monitor.definition?.queryKey}`);
@@ -358,7 +358,7 @@ export function detectAgilityColossalWyrmTermiteRewardRateSourceChanges(baseline
   const currentKeys = sorted(currentRecords.map(record => record.monitorKey));
   const policyShapeValid = policy.changeRoute && policy.structuralChangeRoute;
   const recordsValid = [...baselineRecords, ...currentRecords].every(record => record.contract === policy.recordContract
-    && recordHashesValid(record, contentHash) && recordInternalsValid(record, contentHash));
+    && recordHashesValid(record, contentHash) && validateAgilityColossalWyrmTermiteRewardRateSourceChangeMonitoringRegistryRecord(record, contentHash));
   if (!policyShapeValid || !same(baselineKeys, currentKeys) || unique(baselineKeys).length !== baselineKeys.length || !recordsValid) {
     return {
       events: [structuralEvent(policy, !policyShapeValid ? 'monitoring_policy_invalid' : !recordsValid ? 'registry_record_integrity_failed' : 'blocker_monitor_population_changed')],
@@ -417,7 +417,7 @@ export function auditAgilityColossalWyrmTermiteRewardRateSourceChangeMonitoringR
   const lineage = inputLineage(options, contentHash);
   const expected = constructRecords(options, contentHash);
   const recordsMatchExpected = same(records, expected);
-  const recordHashesAreValid = records.length > 0 && records.every(record => recordHashesValid(record, contentHash) && recordInternalsValid(record, contentHash));
+  const recordHashesAreValid = records.length > 0 && records.every(record => recordHashesValid(record, contentHash) && validateAgilityColossalWyrmTermiteRewardRateSourceChangeMonitoringRegistryRecord(record, contentHash));
   const queryBindingCount = records.reduce((sum, record) => sum + (record.queryMonitors || []).length, 0);
   const sourceBindingOccurrenceCount = records.reduce((sum, record) => sum + (record.sourceMonitors || []).length, 0);
   const distinctSourceRevisionCount = unique(records.flatMap(record => (record.sourceMonitors || []).map(monitor => monitor.monitorKey))).length;
@@ -445,7 +445,7 @@ export function auditAgilityColossalWyrmTermiteRewardRateSourceChangeMonitoringR
       && distinctSourceRevisionCount === options.policy?.expectedDistinctSourceRevisionCount
       && signalBindingCount === options.policy?.expectedSignalBindingCount
   };
-  const allFingerprintsValid = records.every(record => recordInternalsValid(record, contentHash));
+  const allFingerprintsValid = records.every(record => validateAgilityColossalWyrmTermiteRewardRateSourceChangeMonitoringRegistryRecord(record, contentHash));
   const evidenceDimensionsSeparated = records.every(record => unique([
     record.fingerprints?.queryDefinitionFingerprint,
     record.fingerprints?.queryResultFingerprint,
