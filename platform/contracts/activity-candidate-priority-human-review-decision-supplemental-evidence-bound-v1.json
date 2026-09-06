@@ -1,0 +1,39 @@
+{
+  "contract": "sensum.activity-candidate-priority-human-review-decision-supplemental-evidence-bound.v1",
+  "required": [
+    "contract",
+    "supplementalDecisionKey",
+    "candidateKey",
+    "reviewPacketKey",
+    "augmentedGuidanceKey",
+    "sourceBindings",
+    "baseDecisionRecord",
+    "supplementalEvidenceReview",
+    "reviewDecisionRecorded",
+    "semanticApplicationApplied",
+    "canonicalGameEntityIdentity",
+    "canonicalActivityIdentity",
+    "repeatabilityClassification",
+    "atomicityClassification",
+    "memberExpansionApplied",
+    "requirementsVariantsXpTimingAndMechanicsComplete",
+    "optimizerEligible",
+    "automaticVerificationApplied",
+    "accountIndependent",
+    "state",
+    "recordContentHash"
+  ],
+  "invariants": {
+    "reviewDecisionRecorded": true,
+    "semanticApplicationApplied": false,
+    "canonicalGameEntityIdentity": null,
+    "canonicalActivityIdentity": null,
+    "repeatabilityClassification": null,
+    "atomicityClassification": null,
+    "memberExpansionApplied": false,
+    "requirementsVariantsXpTimingAndMechanicsComplete": false,
+    "optimizerEligible": false,
+    "automaticVerificationApplied": false,
+    "accountIndependent": true
+  }
+}

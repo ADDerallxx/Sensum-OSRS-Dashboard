@@ -43,6 +43,31 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+Priority activity source-conflict decisions now have a separate supplemental-
+evidence-bound import boundary. A generic policy, decision-record and audit
+contracts, library, explicit-input CLI, and adversarial tests require explicit
+packet, original-guidance, additional-evidence, augmented-guidance, and human-
+decision inputs. The complete packet-to-augmented-guidance chain is rebuilt and
+all manifests, raw records, outer and intrinsic hashes, policies, revisions,
+and cross-snapshot bindings must match before a submission can be considered.
+
+The original decision projection is replayed through the existing guarded
+importer without adding fields or evidence keys. Supplemental evidence is kept
+in a separate exact-bound review object that requires the complete supplemental
+key and revision sets, human notes, and a review timestamp after every bound
+packet and evidence timestamp. Missing or mixed keys, stale timestamps, legacy
+templates, partial rows, automatic reviewers, snapshot or policy drift, account
+state, and any semantic or optimizer promotion reject the entire batch. A valid
+synthetic two-conflict fixture records both decisions while still applying zero
+semantics and claiming neither overall human-review nor activity-universe
+completion. The untouched real two-row legacy template, content hash
+`dc777254f257fa3fc654ef4b03d2bd6ef1c504fa4d440708d138519f8323b9c8`,
+revalidated all four source snapshots, then correctly rejected with exit code 2
+and wrote zero decision snapshots. No actual human decision was created. All
+169 test scripts and 428 regression checks pass. The next checkpoint should
+materialize deterministic blank templates in the new supplemental-bound shape
+for the two conflicts so human review can occur without hand-authoring bindings.
+
 The two priority activity source-declaration conflicts now have deterministic,
 augmented human-review guidance that binds the original packets, original
 decision guidance, and the additional revision-pinned evidence without choosing

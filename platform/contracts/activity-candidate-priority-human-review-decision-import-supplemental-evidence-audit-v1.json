@@ -1,0 +1,26 @@
+{
+  "contract": "sensum.activity-candidate-priority-human-review-decision-import-supplemental-evidence-audit.v1",
+  "required": [
+    "contract",
+    "policyCoverage",
+    "inputCoverage",
+    "submissionCoverage",
+    "baseImporterCoverage",
+    "supplementalBindingCoverage",
+    "recordCoverage",
+    "semanticPreservationCoverage",
+    "accountStateFindings",
+    "supplementalEvidenceBoundDecisionRecordingComplete",
+    "allSourceConflictDecisionsRecorded",
+    "humanReviewComplete",
+    "completeActivityUniverse",
+    "absoluteBestGate",
+    "blockers",
+    "publishable"
+  ],
+  "invariants": {
+    "humanReviewComplete": false,
+    "completeActivityUniverse": false,
+    "absoluteBestGate": "blocked_incomplete_activity_universe"
+  }
+}
