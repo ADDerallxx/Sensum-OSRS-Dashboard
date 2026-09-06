@@ -43,6 +43,28 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+The remaining three Agility mechanical-gap candidates now have bounded,
+candidate-specific discovery beyond their nine already-declared source pages.
+Fourteen namespace-0 full-text queries cover typical Werewolf Skullball timing,
+Barbarian Fishing AFK catch-and-drop timing, Edgeville motionless round-trip
+timing, and the 13,000-versus-13,200 XP/hour conflict. Every returned search
+page must fit the declared 50-result query bound and resolve to its current exact
+revision and title before the discovery snapshot can publish.
+
+Two official-Wiki runs each produced 114 result occurrences across 93 distinct
+revision-pinned pages and reproduced output hash
+`fc724d4391168e3c9f96f96e2cb88a24c16ddae48e39a2bd89df5a2a3df741d8`.
+Werewolf Skullball contributed 26 occurrences across 22 distinct pages,
+Barbarian Fishing contributed 44 across 35, and Edgeville monkeybars
+contributed 44 across 37. Candidate-scoped diagnostics found zero potential
+resolution signals. Search absence is explicitly limited to the declared
+queries and current revisions; it is not a complete-Wiki or game-fact absence
+claim. All four source gaps remain blockers, and zero facts, eligibility,
+approvals, account state, or optimizer promotions were produced. All 182 test
+scripts and 607 tracked regression checks pass. The next checkpoint will apply
+the same bounded, revision-pinned discovery discipline to the five remaining
+target-condition candidates and their 17 blockers.
+
 The three remaining level-34 mechanical-model gaps now have a dedicated,
 revision-bound source-sufficiency audit. It covers Werewolf Skullball's
 peak-only optimal route, Barbarian Fishing's AFK catch-and-drop cycle, and the

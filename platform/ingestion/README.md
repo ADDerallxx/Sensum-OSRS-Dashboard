@@ -342,3 +342,12 @@ record count, creation time, audit result, and SHA-256 content hash.
   timing from three-tick play, and complete monkeybar round-trip timing from an
   XP/hour upper bound. Diagnostics can request manual re-audit but can never
   close a blocker or promote a recommendation.
+- Mechanical-gap Wiki discovery widens those three candidates beyond their
+  declared source pages through 14 exact namespace-0 searches. Run
+  `node platform/ingestion/ingest-wiki-agility-mechanical-gap-wiki-discovery.mjs --coverage-audit=<exact report.json> --source-sufficiency-audit=<exact report.json>`.
+  Every query has a hard result bound, every returned page is fetched and pinned
+  to its current revision, and publication fails if pagination is incomplete or
+  any search identity cannot be reconstructed. Search matches are discovery
+  inputs only: candidate-specific mechanics patterns may request manual review,
+  but no match or absence can create a fact, close a blocker, prove complete
+  Wiki coverage, or grant optimizer eligibility.

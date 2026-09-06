@@ -1,0 +1,59 @@
+{
+  "policy": "sensum.agility-mechanical-gap-wiki-discovery-policy.v1",
+  "coverageAuditContract": "sensum.agility-level34-coverage-audit.v1",
+  "sourceSufficiencyAuditContract": "sensum.agility-mechanical-gap-source-sufficiency-audit.v1",
+  "recordContract": "sensum.agility-mechanical-gap-wiki-discovery.v1",
+  "auditContract": "sensum.agility-mechanical-gap-wiki-discovery-audit.v1",
+  "targetBaseAgility": 34,
+  "acceptedSourceOrigin": "https://oldschool.runescape.wiki/w/",
+  "searchApiOrigin": "https://oldschool.runescape.wiki/api.php",
+  "searchResultLimitPerQuery": 50,
+  "searchNamespaces": [0],
+  "candidates": [
+    {
+      "candidateKey": "vector:agility_course:agility-route:Werewolf Skullball:optimal_run:level-25",
+      "expectedBlockers": ["typical_cycle_time_missing"]
+    },
+    {
+      "candidateKey": "guide:barbarian-fishing",
+      "expectedBlockers": ["afk_catch_attempt_cycle_including_drop_time_not_published"]
+    },
+    {
+      "candidateKey": "guide:edgeville:monkeybars",
+      "expectedBlockers": ["motionless_round_trip_cycle_ticks_not_published", "source_upper_bounds_conflict_13000_vs_13200"]
+    }
+  ],
+  "queries": [
+    { "queryKey": "skullball-completion-time", "candidateKey": "vector:agility_course:agility-route:Werewolf Skullball:optimal_run:level-25", "blocker": "typical_cycle_time_missing", "diagnosticKind": "skullball_typical_cycle", "searchText": "\"Werewolf Skullball\" \"completion time\"" },
+    { "queryKey": "skullball-average", "candidateKey": "vector:agility_course:agility-route:Werewolf Skullball:optimal_run:level-25", "blocker": "typical_cycle_time_missing", "diagnosticKind": "skullball_typical_cycle", "searchText": "\"Werewolf Skullball\" average" },
+    { "queryKey": "skullball-typical", "candidateKey": "vector:agility_course:agility-route:Werewolf Skullball:optimal_run:level-25", "blocker": "typical_cycle_time_missing", "diagnosticKind": "skullball_typical_cycle", "searchText": "\"Werewolf Skullball\" typical" },
+    { "queryKey": "skullball-peak-anchor", "candidateKey": "vector:agility_course:agility-route:Werewolf Skullball:optimal_run:level-25", "blocker": "typical_cycle_time_missing", "diagnosticKind": "skullball_typical_cycle", "searchText": "\"Skullball\" \"1:45\"" },
+
+    { "queryKey": "barbarian-afk-ticks", "candidateKey": "guide:barbarian-fishing", "blocker": "afk_catch_attempt_cycle_including_drop_time_not_published", "diagnosticKind": "barbarian_afk_cycle_with_drop", "searchText": "\"Barbarian Fishing\" AFK ticks" },
+    { "queryKey": "barbarian-dropping-ticks", "candidateKey": "guide:barbarian-fishing", "blocker": "afk_catch_attempt_cycle_including_drop_time_not_published", "diagnosticKind": "barbarian_afk_cycle_with_drop", "searchText": "\"Barbarian Fishing\" dropping ticks" },
+    { "queryKey": "barbarian-catch-cycle", "candidateKey": "guide:barbarian-fishing", "blocker": "afk_catch_attempt_cycle_including_drop_time_not_published", "diagnosticKind": "barbarian_afk_cycle_with_drop", "searchText": "\"Barbarian Fishing\" \"catch cycle\"" },
+    { "queryKey": "barbarian-drop-speed", "candidateKey": "guide:barbarian-fishing", "blocker": "afk_catch_attempt_cycle_including_drop_time_not_published", "diagnosticKind": "barbarian_afk_cycle_with_drop", "searchText": "\"Barbarian Fishing\" \"drop speed\"" },
+
+    { "queryKey": "edgeville-monkeybars-ticks", "candidateKey": "guide:edgeville:monkeybars", "blocker": "motionless_round_trip_cycle_ticks_not_published", "diagnosticKind": "edgeville_motionless_round_trip_timing", "searchText": "\"Edgeville Dungeon\" monkeybars ticks" },
+    { "queryKey": "edgeville-monkeybars-seconds", "candidateKey": "guide:edgeville:monkeybars", "blocker": "motionless_round_trip_cycle_ticks_not_published", "diagnosticKind": "edgeville_motionless_round_trip_timing", "searchText": "\"Edgeville Dungeon\" monkeybars seconds" },
+    { "queryKey": "edgeville-motionless", "candidateKey": "guide:edgeville:monkeybars", "blocker": "motionless_round_trip_cycle_ticks_not_published", "diagnosticKind": "edgeville_motionless_round_trip_timing", "searchText": "\"motionless training\" monkeybars" },
+    { "queryKey": "edgeville-rate-conflict", "candidateKey": "guide:edgeville:monkeybars", "blocker": "source_upper_bounds_conflict_13000_vs_13200", "diagnosticKind": "edgeville_upper_bound_reconciliation", "searchText": "monkeybars \"13,000\" \"13,200\"" },
+    { "queryKey": "edgeville-rate-13000", "candidateKey": "guide:edgeville:monkeybars", "blocker": "source_upper_bounds_conflict_13000_vs_13200", "diagnosticKind": "edgeville_upper_bound_reconciliation", "searchText": "\"Edgeville Dungeon\" \"13,000\"" },
+    { "queryKey": "edgeville-rate-13200", "candidateKey": "guide:edgeville:monkeybars", "blocker": "source_upper_bounds_conflict_13000_vs_13200", "diagnosticKind": "edgeville_upper_bound_reconciliation", "searchText": "\"Edgeville Dungeon\" \"13,200\"" }
+  ],
+  "rules": {
+    "coverageAndSourceSufficiencyInputsMustValidate": true,
+    "candidateAndBlockerSetsMustMatchInputsExactly": true,
+    "everyQueryMustBeCandidateAndBlockerBound": true,
+    "everyDeclaredQueryMustRunExactlyOnce": true,
+    "allSearchResultsMustFitTheDeclaredBound": true,
+    "everySearchResultMustResolveToCurrentRevisionAndTitle": true,
+    "diagnosticSignalsRouteManualReauditAndNeverResolveFacts": true,
+    "searchAbsenceIsOnlyQueryBoundedNotWikiOrGameAbsence": true,
+    "blockersClosedAndSemanticFactsCreatedMustAlwaysBeZero": true,
+    "optimizerEligibilityAndAutomaticVerificationAreForbidden": true,
+    "accountSpecificInputsAreForbidden": true,
+    "completeWikiOrActivityUniverseClaimsAreForbidden": true,
+    "automaticVerificationAllowed": false
+  }
+}
