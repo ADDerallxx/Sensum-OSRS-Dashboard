@@ -50,6 +50,15 @@ import {
   validateActivityReferenceMemberCanonicalIdentityMaterializationInput,
   verifyActivityReferenceMemberCanonicalIdentityReconciliation
 } from './activity-reference-member-canonical-activity-identity-evidence-materialization-lib.mjs';
+import {
+  ACTIVITY_REFERENCE_MEMBER_COLLECTION_IDENTITY_FACT_KIND,
+  ACTIVITY_REFERENCE_MEMBER_COLLECTION_IDENTITY_INPUT_DOMAIN,
+  buildActivityReferenceMemberCollectionIdentityExistingSourceCountQuery,
+  buildActivityReferenceMemberCollectionIdentityMaterializationSql,
+  buildActivityReferenceMemberCollectionIdentityReconciliationQuery,
+  validateActivityReferenceMemberCollectionIdentityMaterializationInput,
+  verifyActivityReferenceMemberCollectionIdentityReconciliation
+} from './activity-reference-member-collection-activity-identity-evidence-materialization-lib.mjs';
 
 export const ACCEPTED_EVIDENCE_REGISTRY_CONTRACT = 'sensum.accepted-evidence-materialization-registry.v1';
 
@@ -130,6 +139,19 @@ const adapters = [
     buildExistingSourceCountQuery: buildActivityReferenceMemberCanonicalIdentityExistingSourceCountQuery,
     buildReconciliationQuery: buildActivityReferenceMemberCanonicalIdentityReconciliationQuery,
     verifyReconciliation: verifyActivityReferenceMemberCanonicalIdentityReconciliation
+  },
+  {
+    domain: ACTIVITY_REFERENCE_MEMBER_COLLECTION_IDENTITY_INPUT_DOMAIN,
+    dataFile: 'activity-reference-collection-member-collection-activity-identity-evidence.ndjson',
+    auditDirectory: 'activity-reference-collection-member-collection-activity-identity-evidence-audits',
+    auditContract: 'sensum.activity-reference-collection-member-collection-activity-identity-evidence-audit.v1',
+    factKind: ACTIVITY_REFERENCE_MEMBER_COLLECTION_IDENTITY_FACT_KIND,
+    snapshotDirectory: audit => audit?.outputSnapshot?.directory,
+    validate: validateActivityReferenceMemberCollectionIdentityMaterializationInput,
+    buildSql: buildActivityReferenceMemberCollectionIdentityMaterializationSql,
+    buildExistingSourceCountQuery: buildActivityReferenceMemberCollectionIdentityExistingSourceCountQuery,
+    buildReconciliationQuery: buildActivityReferenceMemberCollectionIdentityReconciliationQuery,
+    verifyReconciliation: verifyActivityReferenceMemberCollectionIdentityReconciliation
   }
 ];
 

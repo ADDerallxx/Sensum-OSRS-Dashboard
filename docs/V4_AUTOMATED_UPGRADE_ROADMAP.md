@@ -3932,3 +3932,44 @@ verified-best authorization, production mutation, or V3 change. The next
 breadth-selected adapter candidate is the three-record
 `activity-reference-collection-member-collection-activity-identity-evidence`
 domain, which must retain its unresolved semantic gates during admission.
+
+The collection-activity identity review-evidence domain is now the seventh
+registered PostgreSQL evidence adapter. It revalidates the exact audit,
+manifest, embedded audit, raw NDJSON, policy evidence channels, record-derived
+coverage counts, record hashes, source-page revision alignment, collection-row
+member-link alignment, cross-source stable identities, and every closed
+semantic gate before any database attempt. The three lossless records retain
+the exact Archery Competition, Aldarin Vineyard, and Wise Old Man tasks source
+revisions together with their common Minigames collection revision. They create
+no skill assignment, canonical game-entity or activity identity, collection
+relationship verdict, repeatability result, member expansion, requirement, XP,
+timing, mechanic, or optimizer eligibility. The snapshot and audit remain
+pinned to hashes
+`6d7ebc4b5aa4c606b1a775d264165dc1ae67ab6e81dfed124c204edf31347df2`
+and `10c455a688d68ca2b185d6ddc07c1c7e0ca05c740adaae4005586b0e555ce9d2`.
+
+A validated pre-change backup was created at
+`.platform-local/backups/sensum-v4-20260906-142734.dump` (5,220,907 bytes,
+306 readable archive lines, SHA-256
+`7c89e9d654a6859861c5dd4606dec94a40ff0fc2478b40afea67b8972c566bfd`).
+The adapter added three raw records, three candidate statements, and three
+direct lineage links while reusing all four exact source identities without
+changing their acquisition timestamps. Its deliberate failure probe rolled
+back cleanly, immediate reapplication was idempotent, and two complete
+seven-domain batches reproduced input-set hash
+`171869d2b349a55db19c915c80dccccf06c1afa00db94962731339549c34eea8`
+with stable catalog counts. The catalog now reconciles 161 revision-pinned
+sources, 130 raw records, 4,874 candidate statements, and 4,874 direct lineage
+rows with zero unlinked or optimizer-eligible statements. Evidence and lineage
+aggregate hashes are `056776999d9d1f77f808a17c50aa371f` and
+`97aced11daf4eed5f3cc58a719a15ba7`. The shared Wise Old Man revision remains
+one source identity and now links to five exact domain snapshots. Registry
+coverage is 7/28, with nine adapter-ready and 12 blocked unregistered datasets.
+
+All 216 V4 test scripts pass. This checkpoint creates no reviewed semantic
+verdict, verified fact, complete-universe claim, verified-best authorization,
+production mutation, or V3 change. The next breadth-selected adapter candidate
+is the three-record
+`activity-reference-collection-member-repeatability-evidence` domain, whose
+repeatability observations and unresolved semantic gates must remain explicit
+during PostgreSQL admission.
