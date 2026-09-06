@@ -74,6 +74,32 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+The accepted-evidence registry now proves genuinely multi-source materialization
+and exact source-identity reuse across domains. Its third adapter accepts the
+`weighted-parent-task-entry-membership-evidence` snapshot at hash
+`baeaaf5672f0979dd3a8e19b20befdc8233662a08ed9002d64668febf502af3a`,
+bound to audit hash
+`fe8756124c7800b2cc7956f73e73c17ac75197b39f0e14d16f5c6d83f9f0b57b`.
+The adapter revalidated one lossless record, 59 complete evidence packets, and
+60 exact OSRS Wiki revisions. It inserted 59 new source identities and reused
+the existing Wise Old Man tasks revision 14997080 without updating its original
+acquisition timestamp. That single source row is now linked to two independent
+snapshots, preserving both deduplication and domain-specific lineage.
+
+The live isolated catalog now contains 24 skills, 84 unique revision-pinned
+sources, 26 lossless raw records, and 4,770 candidate statements. It exposes
+4,960 explicit blocker occurrences, zero verified statements, and zero complete
+snapshots. The third record remains unreviewed, its membership verdict remains
+null, and it created no optimizer promotion or automatic verification. A full
+second application was identical, an intentional failure left zero rows, and
+all 208 V4 test scripts pass. The initial source-reuse proof report hash is
+`9ca5a917e5a5e8414f0d87cb8e65dee1304f2d388acbb9062302aadec5113651`;
+the final V2 no-op reconciliation report hash is
+`b3b386677df2e08c397de8d6bccf4f9caa0ad4ae541c936814b3ac315a3f7056`.
+V3 and production remain untouched. The next checkpoint should expose bounded
+read-only domain and source-lineage catalog views so every source reuse can be
+inspected without arbitrary SQL.
+
 Accepted evidence now enters isolated PostgreSQL through a domain registry
 instead of a single hard-wired level-up-table loader. The registry exposes two
 explicit adapters and rejects every unregistered domain. Its second proof uses

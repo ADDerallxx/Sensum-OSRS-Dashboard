@@ -6,11 +6,20 @@ import {
 } from './skill-unlock-materialization-lib.mjs';
 import {
   ACTIVITY_SCOPE_INPUT_DOMAIN,
+  buildActivitySubjectScopeExistingSourceCountQuery,
   buildActivitySubjectScopeMaterializationSql,
   buildActivitySubjectScopeReconciliationQuery,
   validateActivitySubjectScopeMaterializationInput,
   verifyActivitySubjectScopeReconciliation
 } from './activity-subject-scope-materialization-lib.mjs';
+import {
+  WEIGHTED_PARENT_TASK_INPUT_DOMAIN,
+  buildWeightedParentTaskMembershipExistingSourceCountQuery,
+  buildWeightedParentTaskMembershipMaterializationSql,
+  buildWeightedParentTaskMembershipReconciliationQuery,
+  validateWeightedParentTaskMembershipMaterializationInput,
+  verifyWeightedParentTaskMembershipReconciliation
+} from './weighted-parent-task-membership-materialization-lib.mjs';
 
 export const ACCEPTED_EVIDENCE_REGISTRY_CONTRACT = 'sensum.accepted-evidence-materialization-registry.v1';
 
@@ -34,8 +43,21 @@ const adapters = [
     snapshotDirectory: audit => audit?.outputSnapshot?.directory,
     validate: validateActivitySubjectScopeMaterializationInput,
     buildSql: buildActivitySubjectScopeMaterializationSql,
+    buildExistingSourceCountQuery: buildActivitySubjectScopeExistingSourceCountQuery,
     buildReconciliationQuery: buildActivitySubjectScopeReconciliationQuery,
     verifyReconciliation: verifyActivitySubjectScopeReconciliation
+  },
+  {
+    domain: WEIGHTED_PARENT_TASK_INPUT_DOMAIN,
+    dataFile: 'weighted-parent-task-entry-membership-evidence.ndjson',
+    auditDirectory: 'weighted-parent-task-entry-membership-evidence-audits',
+    auditContract: 'sensum.weighted-parent-task-entry-membership-evidence-audit.v1',
+    snapshotDirectory: audit => audit?.outputSnapshot?.directory,
+    validate: validateWeightedParentTaskMembershipMaterializationInput,
+    buildSql: buildWeightedParentTaskMembershipMaterializationSql,
+    buildExistingSourceCountQuery: buildWeightedParentTaskMembershipExistingSourceCountQuery,
+    buildReconciliationQuery: buildWeightedParentTaskMembershipReconciliationQuery,
+    verifyReconciliation: verifyWeightedParentTaskMembershipReconciliation
   }
 ];
 

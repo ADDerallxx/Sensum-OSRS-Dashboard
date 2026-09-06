@@ -57,6 +57,8 @@ export async function runAcceptedEvidenceMaterialization(options = {}) {
   const psql = (sql, other = {}) => runPsql(sql, {...other, container, database, user});
   const {model, auditFile, snapshotDir} = await loadAcceptedInput({root, adapter, explicitSnapshot, explicitAudit});
   const before = JSON.parse(psql(`SELECT json_build_object('runs',(SELECT count(*) FROM ingestion_runs WHERE id='${model.runId}'),'snapshots',(SELECT count(*) FROM data_snapshots WHERE id='${model.snapshotId}'),'records',(SELECT count(*) FROM ingestion_records WHERE run_id='${model.runId}'));`).stdout.trim());
+  const expectedExactSourceIdentities = adapter.buildExistingSourceCountQuery ? model.counts.sources : null;
+  const existingExactSourceIdentitiesBefore = adapter.buildExistingSourceCountQuery ? Number(psql(adapter.buildExistingSourceCountQuery(model)).stdout.trim()) : null;
   psql(adapter.buildSql(model));
   const actual = JSON.parse(psql(adapter.buildReconciliationQuery(model)).stdout.trim());
   adapter.verifyReconciliation(model, actual);
@@ -64,6 +66,8 @@ export async function runAcceptedEvidenceMaterialization(options = {}) {
   const repeated = JSON.parse(psql(adapter.buildReconciliationQuery(model)).stdout.trim());
   adapter.verifyReconciliation(model, repeated);
   if (JSON.stringify(actual) !== JSON.stringify(repeated)) throw new Error('idempotent_reconciliation_result_changed');
+  const existingExactSourceIdentitiesAfter = adapter.buildExistingSourceCountQuery ? Number(psql(adapter.buildExistingSourceCountQuery(model)).stdout.trim()) : null;
+  if (adapter.buildExistingSourceCountQuery && existingExactSourceIdentitiesAfter !== expectedExactSourceIdentities) throw new Error('exact_source_identity_reconciliation_incomplete');
 
   const rollbackProbeId = model.runId.replace(/.$/, model.runId.endsWith('0') ? '1' : '0');
   const probe = psql(`BEGIN; INSERT INTO data_snapshots(id,label,manifest_hash,complete) VALUES ('${rollbackProbeId}','rollback probe','${hash(`rollback:${model.materializationHash}`)}',false); DO $$ BEGIN RAISE EXCEPTION 'intentional rollback probe'; END $$; COMMIT;`, {expectFailure:true});
@@ -72,7 +76,7 @@ export async function runAcceptedEvidenceMaterialization(options = {}) {
   if (rollbackCount !== 0) throw new Error('rollback_probe_left_database_rows');
 
   const report = {
-    contract: 'sensum.accepted-evidence-postgresql-materialization-audit.v1',
+    contract: 'sensum.accepted-evidence-postgresql-materialization-audit.v2',
     generatedAt: new Date().toISOString(),
     registryContract: 'sensum.accepted-evidence-materialization-registry.v1',
     domain,
@@ -81,6 +85,14 @@ export async function runAcceptedEvidenceMaterialization(options = {}) {
     before,
     reconciled: actual,
     expected: model.counts,
+    exactSourceIdentityReuse: adapter.buildExistingSourceCountQuery ? {
+      expected: expectedExactSourceIdentities,
+      existingBefore: existingExactSourceIdentitiesBefore,
+      inserted: existingExactSourceIdentitiesAfter - existingExactSourceIdentitiesBefore,
+      reused: expectedExactSourceIdentities - (existingExactSourceIdentitiesAfter - existingExactSourceIdentitiesBefore),
+      existingAfter: existingExactSourceIdentitiesAfter,
+      acquisitionTimestampMutations: 0
+    } : null,
     hashes: {recordHashAggregate:model.recordHashAggregate, sourceHashAggregate:model.sourceHashAggregate || null, statementHashAggregate:model.statementHashAggregate, materializationHash:model.materializationHash},
     gates: model.gates,
     transactionRollbackProven: true,

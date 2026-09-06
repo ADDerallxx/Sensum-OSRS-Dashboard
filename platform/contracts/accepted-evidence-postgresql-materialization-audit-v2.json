@@ -1,0 +1,36 @@
+{
+  "contract": "sensum.accepted-evidence-postgresql-materialization-audit.v2",
+  "required": [
+    "registryContract",
+    "domain",
+    "input",
+    "database",
+    "before",
+    "reconciled",
+    "expected",
+    "exactSourceIdentityReuse",
+    "hashes",
+    "gates",
+    "transactionRollbackProven",
+    "idempotentReapplicationProven",
+    "productionMutations",
+    "optimizerPromotions",
+    "verifiedBestAuthorizations",
+    "publishable",
+    "contentHash"
+  ],
+  "rules": {
+    "onlyRegisteredDomainAdaptersMayMaterialize": true,
+    "onlyAuditAcceptedRevisionPinnedSnapshotsMayMaterialize": true,
+    "snapshotAndAuditHashesMustReconcileBeforeDatabaseAccess": true,
+    "losslessRawRecordsMustBeRetained": true,
+    "candidateEvidenceMustRemainCandidateAndOptimizerIneligible": true,
+    "semanticReviewRequirementsMustRemainVisible": true,
+    "anyValidationOrDatabaseMismatchRollsBackTheWholeTransaction": true,
+    "reapplicationMustBeIdempotent": true,
+    "exactRevisionSourceIdentityMayBeReusedAcrossEvidenceDomains": true,
+    "sourceAcquisitionTimestampMustNotBeOverwrittenDuringReuse": true,
+    "automaticVerificationAllowed": false,
+    "productionMutationAllowed": false
+  }
+}
