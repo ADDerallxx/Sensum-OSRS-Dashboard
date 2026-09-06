@@ -66,6 +66,28 @@ Run against an explicitly selected queue snapshot when reproducibility matters:
 node platform/transforms/materialize-cross-skill-rendered-page-without-unlock-evidence-unlock-corpus-absence-reconciliation-human-review-packets.mjs --queue-snapshot=<queue-snapshot-directory>
 ```
 
+## Historical rendered-expansion attribution work queue
+
+`export-cross-skill-rendered-page-without-unlock-evidence-historical-attribution-work-queue.mjs`
+isolates every mixed or rendered-only reconciliation entry whose parser
+observation lacks historical generating-dependency provenance. The exporter
+revalidates the original queue through its generic policy and exact partition,
+candidate, manifest, snapshot, outer-record, and intrinsic-record bindings.
+
+Every rendered-only observation is retained with its pinned guide revision,
+guide content hash, parser channel, requested title, stable target, and a blank
+attribution decision. Current template or module dependency graphs cannot stand
+in for the graph that generated an older pinned guide revision. Missing
+dependency identities, dependency revisions, and generative source locators
+remain explicit blockers; the queue cannot assign attribution or promote
+requirements, identity, repeatability, mechanics, or optimizer eligibility.
+
+Run against an explicitly selected source queue when reproducibility matters:
+
+```text
+node platform/transforms/export-cross-skill-rendered-page-without-unlock-evidence-historical-attribution-work-queue.mjs --work-queue-snapshot=<source-queue-snapshot-directory>
+```
+
 ## Collection-activity identity evidence
 
 `build-activity-reference-collection-member-collection-activity-identity-evidence.mjs`

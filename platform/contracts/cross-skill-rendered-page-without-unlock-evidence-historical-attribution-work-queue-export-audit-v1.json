@@ -1,0 +1,17 @@
+{
+  "contract": "sensum.cross-skill-rendered-page-without-unlock-evidence-historical-attribution-work-queue-export-audit.v1",
+  "required": [
+    "policyCoverage", "inputCoverage", "sourceQueueCoverage", "candidateCoverage",
+    "observationCoverage", "queueCoverage", "artifactCoverage", "reviewCoverage",
+    "semanticPreservationCoverage", "accountStateFindings", "queueExportComplete",
+    "historicalAttributionComplete", "completeActivityUniverse", "absoluteBestGate",
+    "blockers", "publishable"
+  ],
+  "rules": {
+    "sourceQueueMustRevalidateThroughItsOriginalGenericPolicy": true,
+    "historicalTargetAndObservationSetsMustExactlyMatchTheBoundCandidates": true,
+    "queueAndArtifactsMustExactlyMatchDeterministicReconstruction": true,
+    "attributionReviewRequirementSemanticAndPromotionFieldsMustRemainClosed": true,
+    "accountStateMustFailPublication": true
+  }
+}

@@ -43,6 +43,27 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+The 2,637 mixed-source or rendered-only targets that require historical rendered-
+expansion attribution now have a deterministic, source-bound work queue. A
+dedicated generic policy, work-entry, blank-decision and audit contracts,
+transform, CLI, readable TSV index, and tests revalidate the authoritative
+4,725-entry reconciliation queue against its exact provenance partition and
+6,639-record candidate snapshot. The queue preserves all 14,945 rendered-only
+observations and 14,563 guide-revision bindings with each pinned guide revision,
+content hash, parser channel, requested title, stable target, and exact source
+bindings. It excludes all 2,088 direct-source-only targets and retains the exact
+388 mixed plus 2,249 rendered-only partition in source order. Two independent
+real exports produced byte-identical 2,637-record snapshots
+(`a05e430215211edef78e1e79b1169b1cb6f4eda887c10e60872b4acdc408e404`),
+TSV indexes, and blank-decision templates. Independent parsing found no duplicate
+observation keys, direct-observation leaks, attribution decisions, semantic or
+optimizer promotions, or account-state leakage. The current dependency graph is
+explicitly barred from substituting for the graph that generated a historical
+guide revision. All 2,637 attribution decisions and downstream identity,
+repeatability, mechanics, and universe gates remain pending. All 347 regression
+tests pass. The next checkpoint should add a fail-closed importer for explicit,
+evidence-bound historical-attribution decisions.
+
 The complete 4,725-entry level-unlock-corpus absence reconciliation queue now
 has deterministic, human-readable review packets. A dedicated generic policy,
 packet and audit contracts, transform, CLI, and tests bind every packet to the

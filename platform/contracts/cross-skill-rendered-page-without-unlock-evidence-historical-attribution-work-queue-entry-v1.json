@@ -1,0 +1,25 @@
+{
+  "contract": "sensum.cross-skill-rendered-page-without-unlock-evidence-historical-attribution-work-queue-entry.v1",
+  "required": [
+    "historicalAttributionWorkEntryKey", "queueOrdinal", "sourceWorkQueueOrdinal",
+    "sourceWorkQueueEntryKey", "sourceWorkQueueRecordContentHash", "sourceWorkQueueIntrinsicRecordContentHash",
+    "sourceWorkQueueSnapshotContentHash", "sourcePartitionSnapshotContentHash",
+    "sourceCandidateContentHash", "sourceCandidateSnapshotContentHash",
+    "renderedTargetKey", "stableWikiPageIdentity", "provenancePartition",
+    "requiredEvidenceChannel", "guideObservationCount", "historicalRenderedObservationCount",
+    "historicalRenderedObservationSetContentHash", "historicalRenderedObservations",
+    "historicalGuideRevisionBindingCount", "historicalGuideRevisionBindingsContentHash",
+    "historicalGuideRevisionBindings", "requiredAttributionEvidence", "nonClaims",
+    "historicalRenderedExpansionDependencyAttribution", "attributionEvidenceKeys",
+    "reviewDecision", "requirementOrUnlockApplied", "semanticDisposition",
+    "canonicalGameEntityIdentity", "canonicalActivityIdentity", "repeatabilityClassification",
+    "mechanicsReviewComplete", "optimizerEligible", "automaticVerificationApplied",
+    "accountIndependent", "blockers", "state", "recordContentHash"
+  ],
+  "rules": {
+    "oneEntryMapsToOneExactlyBoundHistoricalAttributionSourceRecord": true,
+    "allRenderedOnlyObservationsArePreservedWithExactRevisionAndContentBindings": true,
+    "attributionAndReviewFieldsStartEmpty": true,
+    "requirementSemanticAndOptimizerGatesRemainClosed": true
+  }
+}
