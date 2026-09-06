@@ -49,5 +49,25 @@ the optimizer or authorize a verified-best claim. Its report is written beneath
 the ignored `.platform-data/cross-skill-evidence-postgresql-materialization-audits`
 directory.
 
+## Read-only evidence catalog
+
+Inspect the local database without opening a database console or accepting
+arbitrary SQL:
+
+```powershell
+node platform\db\query-local-evidence-catalog.mjs
+node platform\db\query-local-evidence-catalog.mjs --view=skills
+node platform\db\query-local-evidence-catalog.mjs --view=skills --skill=agility
+node platform\db\query-local-evidence-catalog.mjs --view=sources
+node platform\db\query-local-evidence-catalog.mjs --view=blockers
+```
+
+Add `--format=json` for machine-readable output. Every view runs inside a
+PostgreSQL read-only transaction, accepts only validated filters and limits,
+and exposes source revisions, evidence states, and unresolved blockers. The
+health summary deliberately reports database runtime health separately from
+knowledge readiness, so expected review blockers never look like a database
+failure.
+
 Do not place PostgreSQL's live data directory in Google Drive or another synced
 folder. Copy verified database dumps there only as backup artifacts.

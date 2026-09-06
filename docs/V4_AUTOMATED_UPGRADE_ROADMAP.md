@@ -74,6 +74,24 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+The isolated PostgreSQL evidence is now inspectable through a bounded read-only
+catalog instead of requiring arbitrary SQL or database credentials. Its
+`summary`, `skills`, `sources`, and `blockers` views run inside explicit
+read-only transactions, validate every filter and limit, and support human or
+JSON output. Runtime health, catalog integrity, and knowledge readiness are
+reported separately so unresolved evidence cannot masquerade as a database
+failure or a ready optimizer.
+
+The live local query reconciled 24 skills, 24 revision-pinned sources, 24 raw
+inventory records, and 4,768 candidate statements. It exposed 4,816 explicit
+blocker occurrences, zero verified or optimizer-eligible statements, and zero
+complete snapshots. Every skill is independently visible with its exact source
+revision and timestamp. No database rows, evidence states, production data, V3
+source, or deployments changed. The Agility phase remains in progress. The next
+checkpoint should generalize the accepted-evidence materialization boundary and
+prove a second cross-skill evidence domain without weakening publication gates.
+All 207 V4 test scripts pass.
+
 The first accepted cross-skill evidence snapshot is now materialized in the
 isolated local PostgreSQL database through a deterministic, fail-closed adapter.
 The selected raw level-up-table inventory is bound to snapshot hash

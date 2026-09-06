@@ -1,0 +1,14 @@
+{
+  "contract": "sensum.local-evidence-catalog-health-audit.v1",
+  "requiredViews": ["summary", "skills", "sources", "blockers"],
+  "rules": {
+    "databaseTransactionMustBeReadOnly": true,
+    "arbitrarySqlAccepted": false,
+    "sourceRevisionVisibilityRequired": true,
+    "evidenceStateVisibilityRequired": true,
+    "knowledgeBlockersRemainVisible": true,
+    "incompleteKnowledgeIsNotRuntimeFailure": true,
+    "optimizerPromotionAllowed": false,
+    "productionMutationAllowed": false
+  }
+}
