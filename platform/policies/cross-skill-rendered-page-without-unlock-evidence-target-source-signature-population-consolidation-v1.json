@@ -1,0 +1,25 @@
+{
+  "policy": "sensum.cross-skill-rendered-page-without-unlock-evidence-target-source-signature-population-consolidation-policy.v1",
+  "inputQueueContract": "sensum.cross-skill-rendered-page-without-unlock-evidence-reconciliation-work-queue-entry.v1",
+  "inputQueuePolicy": "sensum.cross-skill-rendered-page-without-unlock-evidence-reconciliation-work-queue-export-policy.v1",
+  "inputQueuePolicyContentHash": "f2a024136cf1a64b0e081c7c03dd94e7e9d85eb79142dd557538c0121c785c72",
+  "inputRecordContract": "sensum.cross-skill-rendered-page-without-unlock-evidence-target-source-signature.v1",
+  "inputShardAuditContract": "sensum.cross-skill-rendered-page-without-unlock-evidence-target-source-signature-shard-audit.v1",
+  "inputShardPolicy": "sensum.cross-skill-rendered-page-without-unlock-evidence-target-source-signature-policy.v1",
+  "inputShardPolicyContentHash": "085d8c9241909042fa293b9ee4184e97e8bf93ab72f003c2dd1747ff6b8ec754",
+  "outputRecordContract": "sensum.cross-skill-rendered-page-without-unlock-evidence-target-source-signature.v1",
+  "auditContract": "sensum.cross-skill-rendered-page-without-unlock-evidence-target-source-signature-population-audit.v1",
+  "rules": {
+    "queueSnapshotManifestAndRecordsMustRevalidate": true,
+    "shardSnapshotManifestsRecordsAndAuditsMustRevalidate": true,
+    "equivalentRerunsForTheSameOrdinalRangeMustHaveIdenticalContent": true,
+    "oneDeterministicShardRepresentativePerOrdinalRange": true,
+    "selectedShardRangesMustBeDisjointAndCoverTheQueueExactly": true,
+    "everyQueueEntryMustHaveExactlyOneBoundSignature": true,
+    "everySignatureMustRevalidateItsQueueSnapshotEntryAndExactSourceIdentity": true,
+    "sourceStructureRemainsEvidenceNotSemanticVerdict": true,
+    "canonicalIdentityRepeatabilityMechanicsAndOptimizerEligibilityRemainClosed": true,
+    "currentAccountStateIsForbidden": true,
+    "automaticVerificationAllowed": false
+  }
+}

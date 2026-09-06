@@ -1,0 +1,18 @@
+{
+  "contract": "sensum.cross-skill-rendered-page-without-unlock-evidence-target-source-signature-population-audit.v1",
+  "required": [
+    "policyCoverage", "inputQueueCoverage", "shardDiscoveryCoverage",
+    "populationCoverage", "sourceAlignment", "structuralEvidenceCoverage",
+    "semanticPreservationCoverage", "accountStateFindings",
+    "sourceSignaturePopulationComplete", "reconciliationComplete",
+    "completeActivityUniverse", "absoluteBestGate", "blockers", "publishable"
+  ],
+  "rules": {
+    "queueAndEveryShardMustRevalidateBeforeUse": true,
+    "conflictingEquivalentShardRerunsMustFail": true,
+    "queueOrdinalsAndSignatureKeysMustMatchExactlyOnce": true,
+    "allQueueSnapshotEntryAndSourceIdentityBindingsMustRevalidate": true,
+    "unsupportedSemanticPromotionOrAccountStateMustFailPublication": true,
+    "populationCompletionDoesNotCompleteSemanticReconciliationOrActivityCoverage": true
+  }
+}

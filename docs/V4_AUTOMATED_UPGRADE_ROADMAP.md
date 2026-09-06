@@ -43,6 +43,24 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+The complete 4,725-record target-source-signature population is now durably
+consolidated and revalidated. A dedicated fail-closed policy, audit contract,
+transform, and CLI validate the authoritative queue plus every shard manifest,
+record hash, range, queue binding, and retained source identity. The real run
+validated all 39 shard snapshots, grouped them into 19 exact ordinal ranges,
+confirmed 20 reruns were content-identical, and deterministically selected one
+representative per range. All ordinals and signature keys from 1 through 4,725
+occur exactly once, all 4,725 queue and source-identity bindings revalidate, and
+two independent consolidations produced the same population hash. The new tests
+prove fail-closed behavior for gaps, conflicting reruns, tampered manifests or
+records, binding drift, semantic promotion, and account-state leakage. Source-
+signature population completion is now true, while semantic reconciliation,
+unlock-corpus absence, historical attribution, canonical identity,
+repeatability, mechanics, and complete-activity-universe gates remain false.
+All 281 regression tests pass. The next checkpoint should export a source-bound
+semantic-relevance work queue from the consolidated population without applying
+any automated disposition.
+
 Official Wiki target-source signatures are now captured for the final queue
 ordinals 4,501–4,725. Two independent exact-revision fetches produced the same
 225-record hash, and all page IDs, revisions, timestamps, titles, namespaces,

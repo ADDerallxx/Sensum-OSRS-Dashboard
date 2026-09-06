@@ -666,3 +666,19 @@ Run:
 ```text
 node platform/ingestion/ingest-wiki-cross-skill-rendered-page-without-unlock-evidence-target-source-signature-shard.mjs --start=1 --limit=250
 ```
+
+`consolidate-cross-skill-rendered-page-without-unlock-evidence-target-source-signature-population.mjs`
+independently revalidates the authoritative queue plus every discovered shard
+manifest and record. Equivalent reruns for an ordinal range must have identical
+content. It deterministically selects one representative per range, requires an
+exact disjoint 1:1 queue/signature population, and rechecks every queue snapshot,
+entry, and source-identity binding. Gaps, overlaps, conflicting reruns, hash
+drift, semantic promotion, or account-state leakage reject the entire output.
+Population completion does not imply semantic reconciliation, repeatability,
+mechanical completeness, or a complete activity universe.
+
+Run:
+
+```text
+node platform/transforms/consolidate-cross-skill-rendered-page-without-unlock-evidence-target-source-signature-population.mjs
+```
