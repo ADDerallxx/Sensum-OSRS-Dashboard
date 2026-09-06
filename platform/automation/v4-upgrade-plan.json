@@ -232,11 +232,12 @@
         "activity_candidate_missing_supported_infobox_subject_boundary_human_review_guidance",
         "activity_candidate_missing_supported_infobox_subject_boundary_review_decision_application_contract",
         "agility_open_blocker_source_revision_monitor",
-        "agility_open_blocker_source_revision_reconciliation"
+        "agility_open_blocker_source_revision_reconciliation",
+        "agility_brimhaven_passive_expected_rate_models"
       ],
       "remainingWork": [
         "Use the 1,909-entry revision-aligned semantic-review queue to establish canonical game-entity and activity identities from retained source signatures and contexts, then prove repeatability, membership, requirements, variants, XP, timing, mechanics, and authoritative exclusions. The 29 explicit activity-page candidates now have deterministic, revision-bound consolidated human-review packets in six bounded batches. Those packets join their exact candidate discovery, source evidence, source-subject disposition, and evidence-work routing records; preserve 145 rendered-guide observations, 31 unlock references, 31 source-signature contexts, 351 infobox parameters, 84 lead paragraphs, 423 headings, 1,286 lexical review candidates, 45 disposition signals, and 222 evidence-domain obligations; and correctly prove that all 29 belong to the direct cross-source unlock-evidence population rather than the separate 4,725-page no-unlock-evidence queue. Their separate fail-closed decision importer now requires explicit packet and decision inputs; revalidates packet, embedded pipeline, source, revision, reviewer, timestamp, evidence-domain, citation, and cross-decision coherence bindings; rejects any partial, stale, unknown, uncited, incoherent, tampered, automated, account-scoped, or promotion-bearing row atomically; and forbids member keys or semantic application. Their separate application boundary now requires explicit packet and decision snapshots, replays the entire selected decision set through that importer, applies only the narrow reviewed subject/identity/repeatability/atomicity/evidence-domain/member-expansion-requirement conclusions, preserves rejection and additional-evidence outcomes, and forbids member identities, requirements, variants, XP, timing, mechanics, complete-universe claims, automatic verification, account state, and optimizer eligibility. Deterministic decision guidance now covers all 29 packets in six batches with 203 exact evidence-key bindings, 168 revision obligations, 222 evidence-domain reviews, 145 unselected coherence paths, 18 review artifacts, and importer-compatible blank templates. Two real materializations reproduced the same 21 payload files exactly while selecting zero decisions and applying zero semantics. All six untouched real decision batches rejected with exit code 2 and wrote zero decision snapshots; the real packet snapshot selected without a decision snapshot also rejected with exit code 2 and wrote zero application snapshots. Two source conflicts are prioritized and all 29 human decisions and actual applications remain pending. Additional revision-pinned evidence now covers both conflict candidates, the optional activity-type field semantics, module link/category behavior, Minigames repeatability text, and each exact taxonomy row and heading path; both candidate revisions remain unchanged, but the evidence intentionally resolves neither conflict. Merge those packets into augmented reviewer guidance while leaving both decision templates blank. Do not treat activity/minigame page type as repeatability proof; distinguish reference collections and composites from actual trainable method variants. Reconcile 68 queued untyped pages; the exact 4,725-entry source-bound no-unlock-evidence work queue partitioned into 2,088 direct-source-only, 388 mixed direct/rendered, and 2,249 rendered-only obligations; 1,565 unlock pages without rendered-guide evidence; three unresolved-title review templates and two category-title review templates now guarded by separate fail-closed human decision importers; the wider unlock set's 137 untyped pages and 31 activity pages; and 51 ambiguous statement forms. Exact target-source signatures for all 4,725 queue entries are durably consolidated and revalidated, and a deterministic source-bound semantic-relevance queue now preserves their 21,051 guide observations plus source structure in 4,725 review entries and 4,725 blank decision templates. A fail-closed importer validates explicit evidence-bound human decisions and safely rejects the untouched 4,725-row blank template without output. Human-readable evidence-keyed packets now cover all 4,725 entries in 95 bounded batches, but all 4,725 actual semantic decisions remain pending. The independently validated level-unlock-corpus absence queue now proves zero exact stable page-ID matches for all 4,725 entries against all 24 pinned official skill level-up tables and their complete 3,474-page equivalence corpus, while explicitly refusing to infer that no requirement exists. Its fail-closed human decision importer revalidates every queue, target, crosswalk, corpus, timestamp, reviewer, and evidence binding and safely rejects the untouched 4,725-row blank template without output. Deterministic human-readable evidence-keyed packets now cover all 4,725 absence cases in 95 bounded batches with exact-revision links, explicit nonclaims, complete importer-bound evidence requirements, and untouched blank decisions; all 4,725 human absence-reconciliation dispositions remain pending. A deterministic source-bound historical-attribution queue now isolates all 2,637 mixed or rendered-only obligations, preserving 14,945 rendered-only observations and 14,563 guide-revision bindings in 2,637 blank review records. Its fail-closed human decision importer revalidates every queue, source, observation, guide binding, timestamp, dependency, reviewer, and evidence binding and safely rejects the untouched 2,637-row blank template without output. Its separate application boundary now requires explicit queue and decision snapshots, replays every decision through that importer, applies only complete confirmed attributions, and leaves rejected, unavailable, missing, stale, mismatched, or unreviewed cases blocked; the real no-decision run rejected without writing output. All 2,637 actual attribution decisions remain pending. All five unresolved-title decisions remain pending explicit human review and no resolution has been applied. Historical template-expansion provenance remains open because dependency revision IDs and the generative origins of the wider rendered-only observation population are unavailable. Continue independent discovery until every repeatable training activity in every skill is enumerated. The central guide index's composite Combat row and four Defence link disagreements remain explicit. Rockslide pairing still requires complete activity and travel graphs.",
-        "Add or repair 9 target-level condition models. Al Kharid now has independently revision-pinned Tightrope 1 and zip-line facts, but both level-34 success probabilities, failed-attempt XP, and recovery routing/time remain unpublished; its guide rate remains scoped to levels 20–30. Penguin access is resolved to completed Cold War or the explicit in-progress course milestone, but its level-34 failure probability and applicable observed-rate scope remain unpublished. Shayzien Basic now retains its seven-obstacle route and proves that its three Tightrope occurrences cannot fail, but the failure-capable identity among Ladder, Monkeybars, Bar, and Gap, aggregate level-34 probability, failed-attempt XP, recovery route/time, and current expected rate remain unpublished; the overview's 8,750 rate is still the superseded value. Detached Brimhaven still lacks a published equipment state for its 36,000 XP/hour observation. Both detached and repeated floor-spike paths still lack obstacle-specific low/high interpolation parameters at level 34. The four passive Brimhaven policies have exact level-40/80 benchmarks but no expected level-34 rate; repeated floor spikes also lacks an expected level-34 rate, and 30,000 XP/hour is only an upper bound.",
+        "Add or repair 5 target-level condition models. Al Kharid now has independently revision-pinned Tightrope 1 and zip-line facts, but both level-34 success probabilities, failed-attempt XP, and recovery routing/time remain unpublished; its guide rate remains scoped to levels 20–30. Penguin access is resolved to completed Cold War or the explicit in-progress course milestone, but its level-34 failure probability and applicable observed-rate scope remain unpublished. Shayzien Basic now retains its seven-obstacle route and proves that its three Tightrope occurrences cannot fail, but the failure-capable identity among Ladder, Monkeybars, Bar, and Gap, aggregate level-34 probability, failed-attempt XP, recovery route/time, and current expected rate remain unpublished; the overview's 8,750 rate is still the superseded value. Detached Brimhaven still lacks a published equipment state for its 36,000 XP/hour observation. Both detached and repeated floor-spike paths still lack obstacle-specific low/high interpolation parameters at level 34; repeated floor spikes also lacks an expected level-34 rate, and 30,000 XP/hour is only an upper bound. The four passive Brimhaven policies now have source-bound level-parameterized expected rates under the explicit tag-and-ticket-only, 60-tags-per-hour, no-missed-pillar scope; obstacle XP remains excluded.",
         "Resolve the peak-only Werewolf Skullball optimal-route blocker only when official evidence publishes a typical completion-time range. The three approximate route ranges are ready for manual review and use strict non-overlapping bound comparisons: run strictly dominates scramble, but run/walk and walk/scramble remain incomparable; all interval candidates remain excluded from scalar ranking.",
         "Resolve the Barbarian Fishing AFK attempt-cycle only if official evidence publishes timing that includes the table's fish-dropping behavior. Six AFK observations now retain exact Fishing-level, equipment, handling-time, and drop-speed scope with an explicit unpublished-cycle blocker; three-tick variants remain separate and reviewable.",
         "Resolve Edgeville monkeybars only when official evidence publishes the full motionless round-trip timing and reconciles the 13,000 and 13,200 XP/hour upper bounds; both facts remain explicit blockers and neither value may be used as expected performance.",
@@ -249,11 +250,21 @@
         "independentGameUniverseDiscoveryPending": true
       },
       "latestCheckpoint": {
-        "id": "agility_open_blocker_source_revision_reconciliation",
-        "result": "generic_policy_record_and_audit_contracts_deterministic_line_delta_engine_explicit_monitor_snapshot_cli_and_adversarial_tests_refetch_both_exact_revisions_and_revalidate_monitor_manifest_records_identity_hash_and_bytes; two_real_runs_reproduced_content_hash_a63bf005a96ef0e54d4508767208327a14015f38fdf15db5ab0210f34d47ed84; agility_training_revisions_15324367_and_15331211_share_page_14213_title_23569_bytes_276_lines_and_content_hash_9fce1d79aaf2053abcf044fb03f121d2e3cbea41a3e20fc485390ff7989e72d0_with_zero_line_changes; revision_drift_alert_resolved_as_byte_identical_churn_while_all_candidate_fact_blockers_remain",
-        "next": "agility_target_condition_model_source_evidence_expansion"
+        "id": "agility_brimhaven_passive_expected_rate_models",
+        "result": "generic_expected_rate_registry_and_brimhaven_passive_v1_formula_parse_revision_15293118_ticket_award_tag_xp_ticket_xp_glove_and_elite_inputs_and_60_tags_per_hour_scope; four_account_independent_base_level_1_to_99_formula_policies_preserve_eight_approximate_level_40_and_80_benchmarks; level_34_rates_26100_28170_28170_30447; two_official_wiki_runs_reproduced_condition_hash_27dca314d41d02351f006eaacf138c4dc606fe5419f5b86985b964b781470980_vector_hash_bd1f314495265cf587b689d6a4e3ff1b1a67a731dbc5f5ca5b5440687f42765d_and_semantic_coverage_hash_1ae71917819b12dd103365065b7d99a337deabfc251c0c6e9951ea089c64b535; condition_models_7_to_11_target_gaps_9_to_5_ready_8_to_12_blocking_12_to_8; floor_spike_blockers_unchanged",
+        "next": "agility_remaining_target_condition_model_source_evidence_expansion"
       },
       "latestCoverageDelta": {
+        "brimhavenPassiveExpectedRatePoliciesAdded": 4,
+        "brimhavenPassiveApproximateBenchmarkRowsPreserved": 8,
+        "level34ConditionModelsPresentDelta": 4,
+        "level34TargetConditionGapsDelta": -4,
+        "level34ReadyForGoldenReviewDelta": 4,
+        "level34BlockingCandidatesDelta": -4,
+        "level34PassiveExpectedRates": [26100, 28170, 28170, 30447],
+        "brimhavenPassiveFormulaDeterministicAcrossTwoOfficialWikiRuns": true,
+        "brimhavenPassiveObstacleXpIncluded": false,
+        "brimhavenPassiveAutomaticApprovals": 0,
         "openAgilityAdvancedSourcesReconciled": 1,
         "openAgilityByteIdenticalRevisionChurn": 1,
         "openAgilityContentChangedSources": 0,
@@ -6551,8 +6562,47 @@
         "regressionChecksPassed": 497,
         "absoluteBestGate": "blocked_incomplete_level_34_coverage"
       },
+      "latestBrimhavenPassiveExpectedRateAudit": {
+        "generatedAt": "2026-09-06T08:41:08.035Z",
+        "sourceRevision": "15293118",
+        "formulaVersion": "brimhaven-passive-v1",
+        "firstConditionSnapshotDirectory": "2026-09-06T08-41-06-955Z",
+        "secondConditionSnapshotDirectory": "2026-09-06T08-41-07-642Z",
+        "conditionSnapshotContentHash": "27dca314d41d02351f006eaacf138c4dc606fe5419f5b86985b964b781470980",
+        "firstVectorSnapshotDirectory": "2026-09-06T08-41-07-092Z",
+        "secondVectorSnapshotDirectory": "2026-09-06T08-41-07-772Z",
+        "vectorSnapshotContentHash": "bd1f314495265cf587b689d6a4e3ff1b1a67a731dbc5f5ca5b5440687f42765d",
+        "firstCoverageAuditDirectory": "2026-09-06T08-41-07-281Z",
+        "secondCoverageAuditDirectory": "2026-09-06T08-41-08-035Z",
+        "semanticCoverageContentHash": "1ae71917819b12dd103365065b7d99a337deabfc251c0c6e9951ea089c64b535",
+        "formulaPolicyCount": 4,
+        "approximateBenchmarkRowsPreserved": 8,
+        "conditionModelsPresentBefore": 7,
+        "conditionModelsPresentAfter": 11,
+        "targetConditionGapsBefore": 9,
+        "targetConditionGapsAfter": 5,
+        "readyForGoldenReviewBefore": 8,
+        "readyForGoldenReviewAfter": 12,
+        "blockingCandidatesBefore": 12,
+        "blockingCandidatesAfter": 8,
+        "level34ExpectedRates": {
+          "noGlovesNoElite": 26100,
+          "glovesNoElite": 28170,
+          "noGlovesElite": 28170,
+          "glovesElite": 30447
+        },
+        "tagAndTicketXpOnly": true,
+        "obstacleXpIncluded": false,
+        "assumesNoMissedPillars": true,
+        "pillarsPerHour": 60,
+        "automaticApprovalCount": 0,
+        "testScriptsPassed": 179,
+        "regressionChecksPassed": 515,
+        "phaseExitSatisfied": false,
+        "absoluteBestGate": "blocked_incomplete_level_34_coverage"
+      },
       "latestAudit": {
-        "generatedAt": "2026-09-03T22:09:45.087Z",
+        "generatedAt": "2026-09-06T08:41:08.035Z",
         "trainingGuideRevision": "15324367",
         "supportingEvidenceRevisions": {
           "Barbarian Training": "15292392",
@@ -6588,35 +6638,34 @@
           "contentHash": "fe8af2098b3d739fc32889dfa1f4e0088dbd5ac7d63f8e4c8f0c48e3bf6f04e5"
         },
         "vectorSnapshot": {
-          "dir": "2026-09-03T20-16-36-161Z",
-          "contentHash": "1c7b88d1561c132df95423e0c6b0fa26a2b8080a43a425d588b8d3a29481dfae"
+          "dir": "2026-09-06T08-41-07-772Z",
+          "contentHash": "bd1f314495265cf587b689d6a4e3ff1b1a67a731dbc5f5ca5b5440687f42765d"
         },
         "candidateUniverse": 20,
-        "conditionModelsPresent": 7,
+        "conditionModelsPresent": 11,
         "mechanicalModelGaps": 3,
-        "targetConditionGaps": 9,
+        "targetConditionGaps": 5,
         "missingModels": 0,
         "eligibilityUnknown": 0,
         "authoritativeExclusions": 1,
-        "readyForGoldenReview": 8,
-        "blockingCandidates": 12,
+        "readyForGoldenReview": 12,
+        "blockingCandidates": 8,
         "phaseExitSatisfied": false,
         "absoluteBestGate": "blocked_incomplete_level_34_coverage",
-        "contentHash": "b243d0ba775da6f8060de799e5101f3fc8990acdb4b72b3689354e72a69740d6",
+        "contentHash": "77f851c8c686612f9750004cf68278b4b8ada58458809e02ffe7bd381d493c50",
         "coverageDelta": {
           "candidateUniverseAtLevel34": 0,
-          "conditionModelsPresentAtLevel34": 0,
+          "conditionModelsPresentAtLevel34": 4,
           "mechanicalModelGapsAtLevel34": 0,
-          "targetConditionGapsAtLevel34": 0,
-          "readyForGoldenReviewAtLevel34": 0,
-          "blockingCandidatesAtLevel34": 0,
-          "colossalWyrmRouteMembersAudited": 2,
-          "colossalWyrmSameRevisionCandidateMatches": 2,
-          "colossalWyrmMechanicalCompleteness": false,
-          "internalMemberAuditsPendingDelta": -1,
-          "remainingInternalMemberAuditsPending": 1,
+          "targetConditionGapsAtLevel34": -4,
+          "readyForGoldenReviewAtLevel34": 4,
+          "blockingCandidatesAtLevel34": -4,
+          "brimhavenPassiveFormulaPoliciesAdded": 4,
+          "brimhavenPassiveApproximateBenchmarksPreserved": 8,
+          "brimhavenPassiveFormulaScope": "tag_and_ticket_xp_only_no_missed_pillars_60_tags_per_hour",
+          "brimhavenPassiveObstacleXpIncluded": false,
           "inventedCandidates": 0,
-          "reason": "Both Colossal Wyrm route identities match exactly one same-guide-revision candidate, clearing only the composite member gate. Four official sources disagree on post-update lap XP, advanced timing, and advanced XP/hour, while the detail page is marked obsolete; those mechanics remain blocked. Both routes start above level 34, so the pilot audit is unchanged."
+          "reason": "Four passive Brimhaven equipment-and-diary policies now use a revision-pinned, level-parameterized expected-value formula derived from the source-stated one ticket per tag, 30 tag XP per 10 Agility levels, 345 or 379.5 ticket XP, 10% Elite double-ticket chance, and 60 no-missed tags per hour. The source explicitly limits these passive estimates to tag and ticket XP alone, so obstacle XP is excluded. Approximate level-40 and level-80 observations remain separate validation evidence. Active and detached floor-spike blockers remain unchanged."
         }
       },
       "latestRooftopMemberCoverageAudit": {

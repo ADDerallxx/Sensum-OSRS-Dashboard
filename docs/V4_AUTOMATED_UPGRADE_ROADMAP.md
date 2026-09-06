@@ -43,6 +43,32 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+The four passive Brimhaven equipment-and-diary policies now have a reusable,
+revision-pinned expected-rate path across base Agility levels 1–99. A generic
+fail-closed expected-rate registry keeps the activity-vector generator free of
+method-name exceptions. The `brimhaven-passive-v1` model consumes the exact
+source statements for one ticket per tagged dispenser, 30 tag XP per 10
+Agility levels, 345 or 379.5 XP per redeemed ticket, the Elite Diary's 10%
+double-ticket chance, and 60 tagged pillars per hour with none missed.
+
+At base level 34, the four expected rates are 26,100 XP/hour without gloves or
+Elite, 28,170 with gloves only, 28,170 with Elite only, and 30,447 with both.
+These are tag-and-ticket-only expected values because the source explicitly
+excludes obstacle XP from this passive estimate. The eight approximate level-40
+and level-80 observations remain separate evidence and are not interpolated.
+
+Two official-Wiki materializations reproduced condition hash
+`27dca314d41d02351f006eaacf138c4dc606fe5419f5b86985b964b781470980`,
+vector hash `bd1f314495265cf587b689d6a4e3ff1b1a67a731dbc5f5ca5b5440687f42765d`,
+and semantic coverage hash
+`1ae71917819b12dd103365065b7d99a337deabfc251c0c6e9951ea089c64b535`.
+Level-34 condition models rose from 7 to 11, target gaps fell from 9 to 5,
+review-ready candidates rose from 8 to 12, and blocking candidates fell from 12
+to 8. Active and detached floor-spike rates remain blocked. No evidence was
+approved automatically. All 179 test scripts and 515 regression checks pass.
+The next checkpoint should address the five remaining target-condition gaps
+without inferring unpublished failure probabilities, recovery time, or rates.
+
 The detected `Agility training` revision advance now has an exact-content,
 fail-closed reconciliation. Its generic policy, record and audit contracts,
 deterministic line-delta engine, explicit monitor-snapshot CLI, and adversarial

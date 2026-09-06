@@ -11,6 +11,8 @@
     "equipmentAndDiaryEffectsMustRemainIndependent": true,
     "pillarObstacleAndTicketExperienceMustRemainSeparate": true,
     "derivedRateComponentsMustRetainFormula": true,
+    "parameterizedExpectedRatesMustRetainRevisionPinnedInputsAndScope": true,
+    "tagAndTicketOnlyRatesMustExcludeObstacleExperience": true,
     "approximateRatesRemainLabeled": true,
     "automaticVerificationAllowed": false
   }
