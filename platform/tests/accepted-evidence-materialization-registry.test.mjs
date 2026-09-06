@@ -45,7 +45,7 @@ function fixture() {
 }
 
 test('registry exposes all accepted evidence adapters and rejects unknown domains',()=>{
-  assert.deepEqual(acceptedEvidenceDomains(),['activity-candidate-source-evidence','activity-canonical-subject-scope-evidence','activity-reference-collection-member-canonical-activity-identity-evidence','activity-reference-collection-member-collection-activity-identity-evidence','activity-reference-collection-member-repeatability-evidence','activity-reference-collection-member-source-evidence','skill-level-unlock-inventory','weighted-parent-task-entry-membership-evidence']);
+  assert.deepEqual(acceptedEvidenceDomains(),['activity-candidate-source-evidence','activity-canonical-subject-scope-evidence','activity-reference-collection-member-canonical-activity-identity-evidence','activity-reference-collection-member-collection-activity-identity-evidence','activity-reference-collection-member-repeatability-evidence','activity-reference-collection-member-source-evidence','activity-reference-collection-member-unresolved-subject-relationship-evidence','skill-level-unlock-inventory','weighted-parent-task-entry-membership-evidence']);
   assert.equal(getAcceptedEvidenceAdapter('activity-candidate-source-evidence').dataFile,'activity-candidate-source-evidence.ndjson');
   assert.equal(getAcceptedEvidenceAdapter('activity-candidate-source-evidence').factKind,'raw_activity_candidate_source_evidence');
   assert.equal(getAcceptedEvidenceAdapter('activity-reference-collection-member-source-evidence').dataFile,'activity-reference-collection-member-source-evidence.ndjson');
@@ -56,6 +56,8 @@ test('registry exposes all accepted evidence adapters and rejects unknown domain
   assert.equal(getAcceptedEvidenceAdapter('activity-reference-collection-member-collection-activity-identity-evidence').factKind,'raw_activity_reference_member_collection_activity_identity_evidence');
   assert.equal(getAcceptedEvidenceAdapter('activity-reference-collection-member-repeatability-evidence').dataFile,'activity-reference-collection-member-repeatability-evidence.ndjson');
   assert.equal(getAcceptedEvidenceAdapter('activity-reference-collection-member-repeatability-evidence').factKind,'raw_activity_reference_member_repeatability_evidence');
+  assert.equal(getAcceptedEvidenceAdapter('activity-reference-collection-member-unresolved-subject-relationship-evidence').dataFile,'activity-reference-collection-member-unresolved-subject-relationship-evidence.ndjson');
+  assert.equal(getAcceptedEvidenceAdapter('activity-reference-collection-member-unresolved-subject-relationship-evidence').factKind,'raw_activity_reference_member_unresolved_subject_relationship_evidence');
   assert.equal(getAcceptedEvidenceAdapter('activity-canonical-subject-scope-evidence').dataFile,'activity-canonical-subject-scope-evidence.ndjson');
   assert.equal(getAcceptedEvidenceAdapter('activity-canonical-subject-scope-evidence').factKind,'raw_activity_canonical_subject_scope_evidence');
   assert.equal(getAcceptedEvidenceAdapter('weighted-parent-task-entry-membership-evidence').dataFile,'weighted-parent-task-entry-membership-evidence.ndjson');

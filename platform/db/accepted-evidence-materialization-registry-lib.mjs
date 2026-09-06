@@ -68,6 +68,15 @@ import {
   validateActivityReferenceMemberRepeatabilityMaterializationInput,
   verifyActivityReferenceMemberRepeatabilityReconciliation
 } from './activity-reference-member-repeatability-evidence-materialization-lib.mjs';
+import {
+  ACTIVITY_REFERENCE_MEMBER_UNRESOLVED_RELATIONSHIP_FACT_KIND,
+  ACTIVITY_REFERENCE_MEMBER_UNRESOLVED_RELATIONSHIP_INPUT_DOMAIN,
+  buildActivityReferenceMemberUnresolvedRelationshipExistingSourceCountQuery,
+  buildActivityReferenceMemberUnresolvedRelationshipMaterializationSql,
+  buildActivityReferenceMemberUnresolvedRelationshipReconciliationQuery,
+  validateActivityReferenceMemberUnresolvedRelationshipMaterializationInput,
+  verifyActivityReferenceMemberUnresolvedRelationshipReconciliation
+} from './activity-reference-member-unresolved-subject-relationship-evidence-materialization-lib.mjs';
 
 export const ACCEPTED_EVIDENCE_REGISTRY_CONTRACT = 'sensum.accepted-evidence-materialization-registry.v1';
 
@@ -174,6 +183,19 @@ const adapters = [
     buildExistingSourceCountQuery: buildActivityReferenceMemberRepeatabilityExistingSourceCountQuery,
     buildReconciliationQuery: buildActivityReferenceMemberRepeatabilityReconciliationQuery,
     verifyReconciliation: verifyActivityReferenceMemberRepeatabilityReconciliation
+  },
+  {
+    domain: ACTIVITY_REFERENCE_MEMBER_UNRESOLVED_RELATIONSHIP_INPUT_DOMAIN,
+    dataFile: 'activity-reference-collection-member-unresolved-subject-relationship-evidence.ndjson',
+    auditDirectory: 'activity-reference-collection-member-unresolved-subject-relationship-evidence-audits',
+    auditContract: 'sensum.activity-reference-collection-member-unresolved-subject-relationship-evidence-audit.v1',
+    factKind: ACTIVITY_REFERENCE_MEMBER_UNRESOLVED_RELATIONSHIP_FACT_KIND,
+    snapshotDirectory: audit => audit?.outputSnapshot?.directory,
+    validate: validateActivityReferenceMemberUnresolvedRelationshipMaterializationInput,
+    buildSql: buildActivityReferenceMemberUnresolvedRelationshipMaterializationSql,
+    buildExistingSourceCountQuery: buildActivityReferenceMemberUnresolvedRelationshipExistingSourceCountQuery,
+    buildReconciliationQuery: buildActivityReferenceMemberUnresolvedRelationshipReconciliationQuery,
+    verifyReconciliation: verifyActivityReferenceMemberUnresolvedRelationshipReconciliation
   }
 ];
 
