@@ -43,6 +43,32 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+The five remaining Agility target-condition candidates now have a dedicated
+historical Update-archive discovery boundary. It inherits the same five
+candidates, 17 blockers, 27 queries, and diagnostic definitions as the bounded
+article search, but executes only against the live-verified Update namespace
+(112). Every possible match is explicitly historical, lacks current-state
+authority, and requires reconciliation against a current canonical revision
+before it could support any later fact.
+
+Two official-Wiki runs reproduced output hash
+`6ac8b7e73b5a080391a10dde26c3772563961652cb2c0e59151d97bc70f41056`.
+They completed all 27 searches with nine result occurrences across four exact-
+revision Update pages. Direct inspection confirmed that the apparent matches
+are generic historical course-rate rows or unrelated same-page wording, not
+level-34 probabilities, failed-attempt XP, recovery timing, equipment scope, or
+condition-correct current rates. No returned source met the strict diagnostic
+requirements.
+
+All 17 evidence domains therefore remain unresolved; zero blockers, facts,
+rates, mechanics, optimizer promotions, automatic verifications, account state,
+current-fact applications, or complete-universe claims were created. All 189
+test scripts pass, including 64 new Update-archive assertions and 978 tracked
+regression checks under the established checkpoint-counting convention. The
+next checkpoint will synthesize the article, source-code, and historical-
+archive coverage into one source-channel exhaustion report without treating
+bounded search silence as proof that the Wiki or game lacks the facts.
+
 The five remaining Agility target-condition candidates now have a second,
 non-article Wiki discovery boundary. All 27 candidate- and blocker-bound queries
 are inherited exactly from the existing article search, but execute only against

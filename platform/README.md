@@ -317,6 +317,14 @@ signals. A source-code match can only request manual semantic re-audit; silence
 cannot prove Wiki or game-fact absence, and this stage cannot close blockers or
 change optimizer state.
 
+The same unresolved targets also have a separate historical Update-archive
+boundary. It searches only the live-verified Update namespace and retains each
+returned page at its exact current revision. Any diagnostic match is historical
+context only: it requires reconciliation against a current canonical source and
+cannot establish current state, close a blocker, create a fact, or change
+optimizer eligibility. Query-bounded archive silence likewise proves neither
+Wiki-wide absence nor a game fact.
+
 The Agility target-condition discovery review packet has its own guarded
 decision importer. The packet snapshot, generated blank template, and completed
 decision file must all be selected explicitly. The importer revalidates the

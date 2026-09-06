@@ -1,0 +1,30 @@
+{
+  "policy": "sensum.agility-target-condition-gap-update-archive-source-discovery-policy.v1",
+  "basePolicy": "sensum.agility-target-condition-gap-wiki-discovery-policy.v1",
+  "basePolicyFile": "platform/policies/agility-target-condition-gap-wiki-discovery-v1.json",
+  "basePolicyContentHash": "086e0a76a201c1ba0c9084a3f9a07e6e0842781a8fd097ef5803430e6f152fa6",
+  "recordContract": "sensum.agility-target-condition-gap-update-archive-source-discovery.v1",
+  "auditContract": "sensum.agility-target-condition-gap-update-archive-source-discovery-audit.v1",
+  "outputDomain": "agility-target-condition-gap-update-archive-source-discovery",
+  "searchApiOrigin": "https://oldschool.runescape.wiki/api.php",
+  "searchResultLimitPerQuery": 50,
+  "searchNamespaces": [112],
+  "sourceChannels": [{ "namespaceId": 112, "canonicalName": "Update" }],
+  "sourceTemporalClass": "historical_update_archive",
+  "signalTemporalDisposition": "historical_signal_requires_current_head_reconciliation",
+  "rules": {
+    "basePolicyCandidatesQueriesBlockersAndDiagnosticsMustBeInheritedExactly": true,
+    "basePolicyHashMustMatchExactly": true,
+    "currentWikiNamespaceRegistryMustResolveUpdateExactly": true,
+    "onlyUpdateNamespaceMayBeSearched": true,
+    "everyReturnedPageMustResolveToItsCurrentRevisionAndExactTitle": true,
+    "everySignalMustBeMarkedHistoricalAndRequireCurrentHeadReconciliation": true,
+    "explicitOldToNewLanguageStillCannotEstablishCurrentStateAlone": true,
+    "historicalSignalsOnlyRouteManualSemanticReaudit": true,
+    "archiveSilenceIsNotWikiOrGameFactAbsence": true,
+    "blockersFactsRatesMechanicsAndOptimizerStateCannotChange": true,
+    "currentAccountStateIsForbidden": true,
+    "completeWikiOrActivityUniverseClaimsAreForbidden": true,
+    "automaticVerificationAllowed": false
+  }
+}

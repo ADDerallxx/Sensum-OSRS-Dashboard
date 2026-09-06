@@ -1,0 +1,14 @@
+{
+  "contract": "sensum.agility-target-condition-gap-update-archive-source-discovery.v1",
+  "required": ["candidateKey", "candidateName", "targetBaseAgility", "coverageAuditContentHash", "sourceSufficiencyAuditContentHash", "existingBlockers", "searchQueries", "discoveredPages", "evidenceDomains", "disposition", "manualReauditRequired", "sourceTemporalClass", "currentStateAuthority", "historicalSignalsRequireCurrentHeadReconciliation", "historicalSignalCount", "currentHeadReconciliationRequiredCount", "currentFactApplications", "blockersClosed", "semanticFactsCreated", "optimizerEligible", "automaticVerificationApplied", "accountIndependent", "completeWikiUniverseClaimed", "recordContentHash", "contentHash"],
+  "rules": {
+    "oneRecordPerDeclaredTargetConditionGap": true,
+    "queriesUseOnlyTheLiveVerifiedUpdateNamespace": true,
+    "everyDiscoveredPageIsCurrentRevisionPinned": true,
+    "everySignalIsHistoricalUntilReconciledToCurrentHead": true,
+    "explicitChangeLanguageAloneDoesNotEstablishCurrentState": true,
+    "noResultIsOnlyBoundedArchiveAbsence": true,
+    "blockersRemainOpen": true,
+    "factsOptimizerEligibilityAutomaticVerificationAccountStateAndUniverseClaimsAreForbidden": true
+  }
+}

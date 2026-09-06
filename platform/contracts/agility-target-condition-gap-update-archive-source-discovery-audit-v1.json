@@ -1,0 +1,15 @@
+{
+  "contract": "sensum.agility-target-condition-gap-update-archive-source-discovery-audit.v1",
+  "required": ["policyCoverage", "updateArchiveCoverage", "temporalAuthorityCoverage", "inputCoverageAudit", "inputSourceSufficiencyAudit", "candidateCoverage", "queryCoverage", "revisionCoverage", "evidenceDomainCoverage", "blockerPreservation", "queryBoundedDiscoveryComplete", "sourceDiscoveryDispositionStable", "conditionOrMechanicsCoverageComplete", "completeWikiUniverse", "absoluteBestGate", "publishable", "blockers"],
+  "rules": {
+    "baseAndUpdatePoliciesMustValidate": true,
+    "currentNamespaceRegistryMustMatchUpdateNamespace": true,
+    "candidateBlockerAndQuerySetsMustMatchBasePolicy": true,
+    "everyQueryMustBeCompleteWithinItsBound": true,
+    "everyReturnedPageMustHaveUpdateNamespaceAndCurrentRevision": true,
+    "everySignalMustCarryHistoricalNonAuthority": true,
+    "currentHeadReconciliationMustRemainPendingForEverySignal": true,
+    "existingBlockersAndRecommendationStateMustRemainUnchanged": true,
+    "publicationNeverMeansCurrentFactOrCompleteWikiCoverage": true
+  }
+}
