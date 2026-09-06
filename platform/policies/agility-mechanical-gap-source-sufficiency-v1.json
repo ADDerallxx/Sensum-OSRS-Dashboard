@@ -1,0 +1,86 @@
+{
+  "policy": "sensum.agility-mechanical-gap-source-sufficiency-policy.v1",
+  "inputAuditContract": "sensum.agility-level34-coverage-audit.v1",
+  "recordContract": "sensum.agility-mechanical-gap-source-sufficiency.v1",
+  "auditContract": "sensum.agility-mechanical-gap-source-sufficiency-audit.v1",
+  "targetBaseAgility": 34,
+  "acceptedSourceOrigin": "https://oldschool.runescape.wiki/w/",
+  "sources": [
+    { "sourceKey": "agility-training", "title": "Agility training", "revision": "15324367", "url": "https://oldschool.runescape.wiki/w/Agility_training", "channel": "training_guide" },
+    { "sourceKey": "werewolf-skullball", "title": "Werewolf Skullball", "revision": "15315300", "url": "https://oldschool.runescape.wiki/w/Werewolf_Skullball", "channel": "activity_page" },
+    { "sourceKey": "barbarian-training", "title": "Barbarian Training", "revision": "15292392", "url": "https://oldschool.runescape.wiki/w/Barbarian_Training", "channel": "activity_page" },
+    { "sourceKey": "p2p-fishing-training", "title": "Pay-to-play Fishing training", "revision": "15329351", "url": "https://oldschool.runescape.wiki/w/Pay-to-play_Fishing_training", "channel": "training_guide" },
+    { "sourceKey": "leaping-trout", "title": "Leaping trout", "revision": "15184301", "url": "https://oldschool.runescape.wiki/w/Leaping_trout", "channel": "item_page" },
+    { "sourceKey": "leaping-salmon", "title": "Leaping salmon", "revision": "15185122", "url": "https://oldschool.runescape.wiki/w/Leaping_salmon", "channel": "item_page" },
+    { "sourceKey": "leaping-sturgeon", "title": "Leaping sturgeon", "revision": "15184384", "url": "https://oldschool.runescape.wiki/w/Leaping_sturgeon", "channel": "item_page" },
+    { "sourceKey": "success-module", "title": "Module:Skilling success chart", "revision": "15325744", "url": "https://oldschool.runescape.wiki/w/Module%3ASkilling_success_chart", "channel": "formula_module" },
+    { "sourceKey": "edgeville-monkeybars", "title": "Monkeybars (Edgeville Dungeon)", "revision": "15161382", "url": "https://oldschool.runescape.wiki/w/Monkeybars_(Edgeville_Dungeon)", "channel": "obstacle_page" }
+  ],
+  "blockerRules": [
+    {
+      "pattern": "^typical_cycle_time_missing$",
+      "domain": "typical_optimal_route_cycle_time",
+      "diagnosticKinds": ["skullball_typical_cycle"],
+      "requiredEvidenceShape": "A revision-bound typical, average, or expected optimal-route completion-time value or range; a fastest observed time is insufficient."
+    },
+    {
+      "pattern": "^afk_catch_attempt_cycle_including_drop_time_not_published$",
+      "domain": "afk_catch_and_drop_cycle",
+      "diagnosticKinds": ["barbarian_afk_cycle_with_drop"],
+      "requiredEvidenceShape": "A numeric AFK catch-attempt cycle plus the fish-dropping cadence or handling time needed to reproduce the condition-matched AFK rate."
+    },
+    {
+      "pattern": "^motionless_round_trip_cycle_ticks_not_published$",
+      "domain": "motionless_round_trip_cycle",
+      "diagnosticKinds": ["edgeville_motionless_round_trip_timing"],
+      "requiredEvidenceShape": "A numeric full there-and-back motionless monkeybar cycle in ticks or seconds under the published one-cursor setup."
+    },
+    {
+      "pattern": "^source_upper_bounds_conflict_13000_vs_13200$",
+      "domain": "upper_bound_reconciliation",
+      "diagnosticKinds": ["edgeville_upper_bound_reconciliation"],
+      "requiredEvidenceShape": "Revision-bound evidence explicitly reconciling or superseding the 13,000 and 13,200 XP/hour upper bounds under the same method conditions."
+    }
+  ],
+  "candidates": [
+    {
+      "candidateKey": "vector:agility_course:agility-route:Werewolf Skullball:optimal_run:level-25",
+      "sourceKeys": ["werewolf-skullball", "agility-training"],
+      "diagnosticSourceKeysByKind": {
+        "skullball_typical_cycle": ["werewolf-skullball"]
+      },
+      "expectedBlockers": ["typical_cycle_time_missing"]
+    },
+    {
+      "candidateKey": "guide:barbarian-fishing",
+      "sourceKeys": ["barbarian-training", "p2p-fishing-training", "leaping-trout", "leaping-salmon", "leaping-sturgeon", "success-module", "agility-training"],
+      "diagnosticSourceKeysByKind": {
+        "barbarian_afk_cycle_with_drop": ["barbarian-training", "p2p-fishing-training"]
+      },
+      "expectedBlockers": ["afk_catch_attempt_cycle_including_drop_time_not_published"]
+    },
+    {
+      "candidateKey": "guide:edgeville:monkeybars",
+      "sourceKeys": ["edgeville-monkeybars", "agility-training"],
+      "diagnosticSourceKeysByKind": {
+        "edgeville_motionless_round_trip_timing": ["edgeville-monkeybars", "agility-training"],
+        "edgeville_upper_bound_reconciliation": ["edgeville-monkeybars", "agility-training"]
+      },
+      "expectedBlockers": ["motionless_round_trip_cycle_ticks_not_published", "source_upper_bounds_conflict_13000_vs_13200"]
+    }
+  ],
+  "rules": {
+    "inputAuditContractAndContentHashMustValidate": true,
+    "policyCandidateSetMustEqualEveryMechanicalModelGap": true,
+    "policyBlockerSetsMustMatchInputExactly": true,
+    "everyBlockerMustMapToExactlyOneEvidenceDomain": true,
+    "everyDeclaredSourceMustResolveByExactRevisionAndTitle": true,
+    "diagnosticSignalsRouteManualReauditAndNeverResolveFacts": true,
+    "absenceMeansOnlyNotFoundInTheDeclaredRevisionBoundChannels": true,
+    "blockersClosedAndSemanticFactsCreatedMustAlwaysBeZero": true,
+    "optimizerEligibilityAndAutomaticVerificationAreForbidden": true,
+    "accountSpecificInputsAreForbidden": true,
+    "completeWikiOrActivityUniverseClaimsAreForbidden": true,
+    "automaticVerificationAllowed": false
+  }
+}

@@ -332,3 +332,13 @@ record count, creation time, audit result, and SHA-256 content hash.
   game has no such fact.” The output cannot close blockers, create semantic
   facts, grant optimizer eligibility, include account state, or claim complete
   Wiki coverage.
+- Mechanical-gap source-sufficiency ingestion applies the same fail-closed
+  boundary to Werewolf Skullball, Barbarian Fishing AFK, and Edgeville Dungeon
+  monkeybars. Run
+  `node platform/ingestion/ingest-wiki-agility-mechanical-gap-source-sufficiency.mjs --coverage-audit=<exact report.json>`.
+  It binds nine declared exact revisions, maps all four current mechanics
+  blockers to distinct evidence shapes, and uses candidate-specific diagnostics
+  that distinguish typical Skullball timing from a peak, AFK catch-and-drop
+  timing from three-tick play, and complete monkeybar round-trip timing from an
+  XP/hour upper bound. Diagnostics can request manual re-audit but can never
+  close a blocker or promote a recommendation.

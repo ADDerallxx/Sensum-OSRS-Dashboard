@@ -43,6 +43,32 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+The three remaining level-34 mechanical-model gaps now have a dedicated,
+revision-bound source-sufficiency audit. It covers Werewolf Skullball's
+peak-only optimal route, Barbarian Fishing's AFK catch-and-drop cycle, and the
+Edgeville Dungeon monkeybars motionless round trip and conflicting upper
+bounds. The audit binds nine exact official-Wiki revisions across the Agility
+and Fishing training guides, activity and obstacle pages, all three leaping-fish
+pages, and the skilling-success formula module. Every one of the four existing
+blockers maps to exactly one required evidence shape and a candidate-scoped
+diagnostic source set.
+
+Two official-Wiki materializations reproduced output hash
+`5d3c5db9e63ab2ebbe4ff41813c6f5f1268a3bb49d06ea38bdf3dfe0b58689f5`.
+All nine exact revisions resolved by both revision and title, all three
+candidate and blocker sets matched the content-hash-validated coverage input,
+and the candidate-scoped diagnostics found zero mechanics-matched resolution
+signals. The sources retain the 1:45 Skullball peak, condition-scoped Barbarian
+Fishing AFK tables, and separate 13,000 and 13,200 monkeybar upper bounds, but
+do not publish the missing typical cycle, complete AFK catch-and-drop cycle,
+motionless round-trip timing, or reconciliation. All four domains therefore
+remain unresolved. Zero blockers were closed, zero semantic facts were created,
+and no optimizer eligibility, automatic approval, account state, or
+complete-Wiki claim was produced. All 181 test scripts and 572 tracked
+regression checks pass. The next checkpoint will widen discovery for these
+remaining gaps across candidate-scoped official-Wiki channels while preserving
+revision identity and the same fail-closed promotion boundary.
+
 The five remaining level-34 target-condition gaps now have a dedicated,
 revision-bound source-sufficiency audit. It covers Al Kharid Rooftop, both
 Brimhaven floor-spike variants, Penguin course access, and Shayzien Basic. The

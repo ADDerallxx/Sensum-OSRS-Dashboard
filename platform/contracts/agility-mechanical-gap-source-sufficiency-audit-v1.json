@@ -1,0 +1,14 @@
+{
+  "contract": "sensum.agility-mechanical-gap-source-sufficiency-audit.v1",
+  "required": ["inputAudit", "candidateCoverage", "sourceCoverage", "evidenceDomainCoverage", "blockerPreservation", "sourceChannelAuditComplete", "sourceSufficiencyDispositionStable", "conditionOrMechanicsCoverageComplete", "completeWikiUniverse", "absoluteBestGate", "publishable", "blockers"],
+  "rules": {
+    "inputContractAndHashMustValidate": true,
+    "candidateAndBlockerSetsMustMatchExactly": true,
+    "everyDeclaredExactRevisionMustResolve": true,
+    "allBlockersMustMapWithoutAmbiguity": true,
+    "diagnosticSignalsOnlyTriggerManualReaudit": true,
+    "existingBlockersMustRemainOpen": true,
+    "noSemanticFactsPromotionApprovalAccountStateOrUniverseClaim": true,
+    "publicationRequiresStructuralAndSourceIntegrity": true
+  }
+}
