@@ -43,6 +43,32 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+The 17 unresolved Agility target-condition domains now have a deterministic,
+source-channel change-monitoring registry. It requires the explicit synthesis
+report and snapshot plus all three upstream reports and raw snapshots, then
+rebuilds the complete synthesis before accepting any baseline. Each blocker has
+independent current-article, current Template/Calculator/Module, and historical
+Update monitors with separate query-definition, query-result, exact-revision
+and content, and condition-signal fingerprints.
+
+Two real materializations reproduced output hash
+`be0e09818fc33c1c7e70d6d9fe2dfa56c1598391e6cdc9147e0108e015ee5d35`.
+The registry contains 17 blocker monitors, 51 domain-channel monitors, 81 query
+bindings, 139 source-binding occurrences, and 84 distinct revision/content
+bindings. Synthetic drift checks prove that a changed result set, source
+revision/content, or signal reopens only its exact blocker/channel route;
+artifact-only republishing creates no evidence-work event. Historical changes
+must reconcile against a current canonical head before review, and structural
+drift fails closed.
+
+All 17 blockers remain open. Zero facts, rates, mechanics, optimizer promotions,
+verified-best authorizations, automatic verifications, account state, or
+complete-universe claims were created. All 191 test scripts pass, including 81
+new registry assertions and 1,139 tracked regression checks under the
+established checkpoint-counting convention. The next checkpoint will add the
+explicit baseline-versus-refresh change-evaluation boundary so a later scheduled
+refresh can emit durable, reviewable change events without applying semantics.
+
 All three completed target-condition discovery channels now converge through a
 single deterministic, blocker-level synthesis. It requires explicit article,
 Template/Calculator/Module, and Update-archive reports and raw snapshots;

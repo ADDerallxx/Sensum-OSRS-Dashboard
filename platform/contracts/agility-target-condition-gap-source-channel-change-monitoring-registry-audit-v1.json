@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "sensum.agility-target-condition-gap-source-channel-change-monitoring-registry-audit.v1",
+  "title": "Agility target-condition gap source-channel change monitoring registry audit",
+  "type": "object",
+  "required": [
+    "contract", "inputIntegrity", "registryCoverage", "fingerprintCoverage",
+    "routingSafety", "blockerPreservation", "invalidPolicyRules",
+    "recordsMatchExpected", "recordHashesValid", "registryComplete",
+    "conditionOrMechanicsCoverageComplete", "completeWikiUniverse",
+    "absoluteBestGate", "publishable", "blockers"
+  ],
+  "additionalProperties": true
+}

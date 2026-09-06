@@ -335,6 +335,17 @@ route through current-head reconciliation first, and no-signal domains route to
 revision monitoring plus additional authoritative evidence work. The synthesis
 never converts agreement or bounded silence into a fact or complete-Wiki claim.
 
+Those unresolved domains now have a deterministic source-channel change
+monitoring registry. Each of the 17 open candidate/blocker pairs has independent
+article, Template/Calculator/Module, and historical Update monitors. The
+registry fingerprints query definitions, query result sets, exact source
+revisions and content, and condition-matched signals separately while retaining
+report and snapshot hashes as provenance only. A later comparison can therefore
+reopen evidence work for only the changed blocker/channel pair; a republished
+artifact with identical domain evidence does not create noise. Historical
+changes route through current-head reconciliation, and every change remains a
+routing signal rather than a fact, blocker closure, or optimizer promotion.
+
 The Agility target-condition discovery review packet has its own guarded
 decision importer. The packet snapshot, generated blank template, and completed
 decision file must all be selected explicitly. The importer revalidates the
