@@ -1,0 +1,21 @@
+{
+  "contract": "sensum.activity-candidate-missing-supported-infobox-subject-boundary-review-decision-import-audit.v1",
+  "required": [
+    "contract",
+    "policyCoverage",
+    "inputCoverage",
+    "queueCoverage",
+    "templateCoverage",
+    "submissionCoverage",
+    "bindingCoverage",
+    "semanticPreservationCoverage",
+    "accountStateFindings",
+    "reviewDecisionRecordingComplete",
+    "subjectBoundaryReviewComplete",
+    "semanticApplicationComplete",
+    "completeActivityUniverse",
+    "absoluteBestGate",
+    "blockers",
+    "publishable"
+  ]
+}

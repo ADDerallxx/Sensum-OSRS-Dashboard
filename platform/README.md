@@ -89,6 +89,14 @@ queue-hash-bound decision template. Exporting the queue records no human
 conclusion and cannot establish a canonical identity, member set, mechanic, or
 optimizer eligibility.
 
+Its guarded decision importer requires the queue snapshot, the exact generated
+blank-template artifact, and the completed decisions as three explicit inputs.
+Every row must cover the full queue exactly; one blank, partial, duplicated,
+stale, unknown, unbound, automated, or disposition-incoherent row rejects the
+whole import without output. A valid decision record still applies no semantic
+identity, repeatability, membership, mechanics, universe-completeness, or
+optimizer state; those remain separate downstream evidence gates.
+
 The rendered-guide observation audit calls the official MediaWiki parser with
 each retained guide `oldid` and separately preserves its `links`, `categories`,
 `images`, and `templates` channels. Each returned target receives a current

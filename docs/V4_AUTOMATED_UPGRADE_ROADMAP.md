@@ -43,6 +43,30 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+The missing-supported-infobox subject-boundary queue now has a separate,
+fail-closed human-decision import boundary. A generic policy, recorded-decision
+and audit contracts, library, explicit-input CLI, and adversarial tests require
+the exact queue snapshot, its exact generated blank-template artifact, and a
+separate completed-decision file. The importer revalidates the queue manifest,
+policy, artifact hash, raw and intrinsic record hashes, candidate and revision,
+evidence fingerprint, immutable template fields, allowed disposition, every
+selected evidence key, coverage of all four review obligations, human reviewer,
+review time, notes, and disposition-dependent fields before recording anything.
+
+Synthetic complete two-row batches materialized identically twice. Blank,
+partial, duplicate, unknown, stale, unbound, automated, account-scoped, and
+promotion-bearing submissions all reject atomically. The real queue at content
+hash `7f49c13735c3c31352290ccd3b5e0d32572ea8c3b1d5c46f96218e6861a699f8`
+revalidated both exact candidate revisions and both blank templates, then
+correctly rejected with exit code 2 and wrote no decision snapshot. No real
+human decision, subject disposition, canonical identity, repeatability or
+membership classification, mechanics completion, complete-universe claim,
+optimizer promotion, automatic verification, or account state was created. All
+174 test scripts and 465 regression checks pass. The next checkpoint should
+materialize concise importer-compatible human-review guidance for the two rows,
+including the exact coherence matrix and minimum evidence-selection obligations,
+while leaving both real decisions blank.
+
 The two activity candidates without supported infoboxes now have a deterministic,
 source-bound subject-boundary review queue. A generic policy, queue, blank-
 decision, and audit contracts, explicit three-snapshot exporter, readable review
