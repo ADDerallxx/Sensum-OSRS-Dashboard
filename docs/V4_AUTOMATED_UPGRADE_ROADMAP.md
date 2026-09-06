@@ -43,6 +43,33 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+The 29 priority activity-candidate packets now have a separate, fail-closed
+human-decision import boundary. A generic policy, decision and audit contracts,
+library, explicit-input CLI, and tests require the exact packet snapshot and
+reviewed decision file; revalidate the packet manifest, raw file, outer and
+intrinsic packet hashes, all four embedded pipeline records and their hash
+chain, source identity and revision, blank templates, and every closed semantic
+gate; and then accept only complete, coherent, human-authored decisions. Each
+accepted row must cite the exact packet, candidate, source-evidence,
+subject-disposition, work-routing, source-content, and source-revision bindings;
+review every revision retained anywhere in that packet; assess every required
+evidence domain with bound evidence and notes; and use only the generic allowed
+decision states. Proposed game-entity and activity identities must equal the
+revision-pinned packet projection. Member keys remain forbidden until a
+separate member-expansion application step.
+
+Blank rows may coexist with a completed partial batch, but any partial, stale,
+unknown, uncited, incoherent, tampered, automated/model-authored, account-scoped,
+or promotion-bearing row rejects the entire submission. Recording a valid
+decision still cannot apply identity, repeatability, atomicity, membership,
+requirements, variants, XP, timing, mechanics, or optimizer state. All six real
+untouched batches covering all 29 rows rejected with exit code 2 and wrote zero
+decision snapshots. No actual human decisions were created. The focused
+positive and adversarial fixtures pass, and all 164 test scripts pass. The next
+checkpoint should define the separate semantic-application boundary for these
+decisions, including a real no-decision rejection, before any reviewed proposal
+can affect canonical knowledge.
+
 The first 29 explicit activity-page candidates now have deterministic,
 revision-bound consolidated human-review packets. A generic policy, packet and
 audit contracts, transform, CLI, and tests require explicit selection of the

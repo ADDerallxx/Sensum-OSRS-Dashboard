@@ -1,0 +1,29 @@
+{
+  "contract": "sensum.activity-candidate-priority-human-review-decision-import-audit.v1",
+  "required": [
+    "packetCoverage",
+    "submissionCoverage",
+    "policyCoverage",
+    "bindingCoverage",
+    "recordCoverage",
+    "semanticPreservationCoverage",
+    "accountStateFindings",
+    "reviewDecisionRecordingComplete",
+    "humanReviewComplete",
+    "requirementsVariantsXpTimingAndMechanicsComplete",
+    "optimizerEligibleCount",
+    "completeActivityUniverse",
+    "absoluteBestGate",
+    "blockers",
+    "publishable"
+  ],
+  "rules": {
+    "packetSnapshotAndEveryPacketRecordMustRevalidate": true,
+    "everyCompletedSubmissionMustMatchExactlyOnePacket": true,
+    "blankRowsMayBeIgnoredButPartialRowsMustFail": true,
+    "anyInvalidSubmissionMakesTheBatchAtomicAndUnpublishable": true,
+    "recordedDecisionSetMustExactlyMatchTheCompletedSubmissionSet": true,
+    "recordingCannotCreateSemanticOrOptimizerPromotion": true,
+    "accountStateMustFailPublication": true
+  }
+}

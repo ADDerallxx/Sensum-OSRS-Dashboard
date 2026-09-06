@@ -1,0 +1,76 @@
+{
+  "policy": "sensum.activity-candidate-priority-human-review-decision-import-policy.v1",
+  "packetContract": "sensum.activity-candidate-priority-human-review-packet.v1",
+  "submissionContract": "sensum.activity-candidate-priority-human-review-decision-template.v1",
+  "recordContract": "sensum.activity-candidate-priority-human-review-decision.v1",
+  "auditContract": "sensum.activity-candidate-priority-human-review-decision-import-audit.v1",
+  "packetBatchSize": 5,
+  "packetStates": [
+    "priority_activity_review_packet_materialized_source_conflict_pending",
+    "priority_activity_review_packet_materialized_human_decision_pending"
+  ],
+  "recordState": "recorded_priority_activity_human_review_decision_pending_separate_semantic_application",
+  "allowedSubjectDispositionDecisions": [
+    "confirm_one_bound_source_disposition",
+    "reject_all_bound_source_dispositions",
+    "additional_evidence_required"
+  ],
+  "allowedCanonicalGameEntityIdentityDecisions": [
+    "confirm_bound_source_page_subject_identity",
+    "reject_bound_source_page_subject_identity",
+    "additional_evidence_required"
+  ],
+  "allowedCanonicalActivityIdentityDecisions": [
+    "confirm_bound_source_subject_as_activity_container",
+    "reject_bound_source_subject_as_activity_container",
+    "additional_evidence_required"
+  ],
+  "allowedRepeatabilityDecisions": [
+    "repeatable_activity",
+    "non_repeatable_subject",
+    "composite_or_collection_requires_expansion",
+    "additional_evidence_required"
+  ],
+  "allowedAtomicityDecisions": [
+    "atomic_activity_subject",
+    "composite_activity_subject",
+    "reference_collection_subject",
+    "not_applicable_non_repeatable_subject",
+    "additional_evidence_required"
+  ],
+  "allowedMemberExpansionDecisions": [
+    "not_required_atomic_subject",
+    "required_for_composite_subject",
+    "required_for_reference_collection_subject",
+    "not_applicable_non_repeatable_subject",
+    "additional_evidence_required"
+  ],
+  "allowedEvidenceDomainStatuses": [
+    "supported_by_bound_evidence",
+    "not_supported_by_bound_evidence",
+    "additional_evidence_required"
+  ],
+  "rules": {
+    "packetSnapshotAndDecisionFileMustBeExplicitlySelected": true,
+    "packetManifestRawFileOuterAndIntrinsicHashesMustRevalidate": true,
+    "embeddedCandidateEvidenceDispositionAndRoutingHashesMustRevalidate": true,
+    "oneRecordedDecisionPerCompletedSubmission": true,
+    "partialReviewBatchesAreAllowed": true,
+    "blankTemplateRowsAreIgnored": true,
+    "partiallyCompletedRowsAreRejected": true,
+    "anyInvalidRowRejectsTheEntireBatch": true,
+    "submissionKeysAndEvidenceDomainsMustMatchThePacketTemplateExactly": true,
+    "submissionMustCitePacketPipelineSourceAndRevisionBindingsExactly": true,
+    "everyEvidenceDomainRequiresAnAllowedStatusBoundEvidenceAndNotes": true,
+    "subjectIdentityRepeatabilityAtomicityAndExpansionDecisionsMustBeExplicitAllowedAndCoherent": true,
+    "proposedCanonicalIdentitiesMustEqualTheRevisionPinnedPacketProjection": true,
+    "memberKeysCannotBeRecordedBeforeSeparateMemberExpansionApplication": true,
+    "reviewerReviewedAtBoundSourceRevisionsAndNotesAreRequired": true,
+    "reviewedAtMustNotPrecedeThePacketOrItsBoundEvidence": true,
+    "obviousAutomaticOrModelReviewerNamesAreRejected": true,
+    "recordingDoesNotApplyIdentityRepeatabilityAtomicityMembershipRequirementsVariantsXpTimingMechanicsOrOptimizerState": true,
+    "namesTitlesPageIdsRevisionsSkillsRoutesLabelsAliasesAndOverridesCannotAlterPolicyBehavior": true,
+    "currentAccountStateIsForbidden": true,
+    "automaticVerificationAllowed": false
+  }
+}
