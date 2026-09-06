@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "sensum.agility-target-condition-gap-source-channel-change-evaluation-audit.v1",
+  "title": "Agility target-condition source-channel change evaluation audit",
+  "type": "object",
+  "required": [
+    "contract", "inputIntegrity", "temporalOrdering", "populationContinuity",
+    "changeCoverage", "routingCoverage", "blockerPreservation",
+    "policyValidation", "recordsMatchExpected", "recordHashesValid",
+    "changeEvaluationComplete", "conditionOrMechanicsCoverageComplete",
+    "completeWikiUniverse", "absoluteBestGate", "publishable", "blockers"
+  ],
+  "additionalProperties": true
+}

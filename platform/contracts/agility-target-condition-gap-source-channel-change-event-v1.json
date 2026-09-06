@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "sensum.agility-target-condition-gap-source-channel-change-event.v1",
+  "title": "Agility target-condition source-channel change event",
+  "type": "object",
+  "required": [
+    "contract", "changeKey", "monitorKey", "candidateKey", "blocker",
+    "channelKey", "temporalClass", "changedDimensions", "route",
+    "baselineBinding", "currentBinding", "evidenceWorkRequeued",
+    "currentHeadReconciliationRequiredBeforeReview", "changeIsNotAGameFact",
+    "existingBlockerStatus", "blockersClosed", "semanticFactsCreated",
+    "optimizerEligible", "verifiedBestAuthorized", "automaticVerificationApplied",
+    "accountIndependent", "completeWikiUniverseClaimed", "recordContentHash",
+    "contentHash"
+  ],
+  "additionalProperties": true
+}

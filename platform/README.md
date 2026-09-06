@@ -346,6 +346,17 @@ artifact with identical domain evidence does not create noise. Historical
 changes route through current-head reconciliation, and every change remains a
 routing signal rather than a fact, blocker closure, or optimizer promotion.
 
+A separate baseline-versus-refresh evaluator consumes two explicitly selected
+registry reports and snapshots. It independently revalidates each report,
+manifest, raw payload, record, policy binding, audit, monitor population,
+channel set, query binding, and internal fingerprint before comparison. Only a
+changed query definition, result set, exact source revision/content, or signal
+emits an event, and each event is bound to both registry records. Unchanged
+inputs publish a durable empty event snapshot; artifact-only churn remains
+non-actionable. Events only requeue evidence work, with historical events still
+requiring current-head reconciliation. They never apply semantics or authorize
+an optimizer result.
+
 The Agility target-condition discovery review packet has its own guarded
 decision importer. The packet snapshot, generated blank template, and completed
 decision file must all be selected explicitly. The importer revalidates the

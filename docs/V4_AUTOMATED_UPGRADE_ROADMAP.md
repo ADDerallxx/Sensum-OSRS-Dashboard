@@ -43,6 +43,33 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+The source-channel registry now has a separate, fail-closed
+baseline-versus-refresh evaluator. Both registry reports and snapshots must be
+selected explicitly. Each report, manifest, raw payload, record hash, policy
+binding, embedded audit, monitor population, channel set, query binding, and
+internal fingerprint is independently revalidated before any comparison.
+Current snapshots cannot predate their baseline, and population drift rejects
+the evaluation instead of manufacturing change events.
+
+The two chronological real registry snapshots from checkpoint 205 both have
+content hash
+`be0e09818fc33c1c7e70d6d9fe2dfa56c1598391e6cdc9147e0108e015ee5d35`.
+Two evaluations reproduced the empty-event snapshot hash
+`01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b`,
+correctly reporting no domain evidence change. Synthetic command-line and
+library evaluations separately prove exact result-set, query-definition,
+source-revision/content, signal, historical-reconciliation, multi-domain, and
+artifact-only behavior.
+
+No event, blocker closure, fact, rate, mechanic, optimizer promotion,
+verified-best authorization, automatic verification, account state, or
+complete-universe claim was produced by the real evaluation. All 192 test
+scripts pass, including 82 new evaluator assertions and 1,221 tracked
+regression checks under the established checkpoint-counting convention. The
+next checkpoint will build a dry-run source refresh orchestrator that produces
+new article, source-code, Update, synthesis, registry, and evaluation snapshots
+as one fail-closed lineage without scheduling or changing production.
+
 The 17 unresolved Agility target-condition domains now have a deterministic,
 source-channel change-monitoring registry. It requires the explicit synthesis
 report and snapshot plus all three upstream reports and raw snapshots, then
