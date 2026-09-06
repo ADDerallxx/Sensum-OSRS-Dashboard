@@ -45,11 +45,13 @@ function fixture() {
 }
 
 test('registry exposes all accepted evidence adapters and rejects unknown domains',()=>{
-  assert.deepEqual(acceptedEvidenceDomains(),['activity-candidate-source-evidence','activity-canonical-subject-scope-evidence','activity-reference-collection-member-source-evidence','skill-level-unlock-inventory','weighted-parent-task-entry-membership-evidence']);
+  assert.deepEqual(acceptedEvidenceDomains(),['activity-candidate-source-evidence','activity-canonical-subject-scope-evidence','activity-reference-collection-member-canonical-activity-identity-evidence','activity-reference-collection-member-source-evidence','skill-level-unlock-inventory','weighted-parent-task-entry-membership-evidence']);
   assert.equal(getAcceptedEvidenceAdapter('activity-candidate-source-evidence').dataFile,'activity-candidate-source-evidence.ndjson');
   assert.equal(getAcceptedEvidenceAdapter('activity-candidate-source-evidence').factKind,'raw_activity_candidate_source_evidence');
   assert.equal(getAcceptedEvidenceAdapter('activity-reference-collection-member-source-evidence').dataFile,'activity-reference-collection-member-source-evidence.ndjson');
   assert.equal(getAcceptedEvidenceAdapter('activity-reference-collection-member-source-evidence').factKind,'raw_activity_reference_collection_member_source_evidence');
+  assert.equal(getAcceptedEvidenceAdapter('activity-reference-collection-member-canonical-activity-identity-evidence').dataFile,'activity-reference-collection-member-canonical-activity-identity-evidence.ndjson');
+  assert.equal(getAcceptedEvidenceAdapter('activity-reference-collection-member-canonical-activity-identity-evidence').factKind,'raw_activity_reference_member_canonical_activity_identity_evidence');
   assert.equal(getAcceptedEvidenceAdapter('activity-canonical-subject-scope-evidence').dataFile,'activity-canonical-subject-scope-evidence.ndjson');
   assert.equal(getAcceptedEvidenceAdapter('activity-canonical-subject-scope-evidence').factKind,'raw_activity_canonical_subject_scope_evidence');
   assert.equal(getAcceptedEvidenceAdapter('weighted-parent-task-entry-membership-evidence').dataFile,'weighted-parent-task-entry-membership-evidence.ndjson');

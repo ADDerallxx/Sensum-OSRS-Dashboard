@@ -3896,3 +3896,39 @@ breadth-selected adapter candidate is the three-record
 `activity-reference-collection-member-canonical-activity-identity-evidence`
 domain, which must retain its own semantic and completeness blockers during
 PostgreSQL admission.
+
+The canonical-activity identity review-evidence domain is now the sixth
+registered PostgreSQL evidence adapter. It revalidates the exact audit,
+manifest, embedded audit, raw NDJSON, record hashes, source-page revision
+alignment, and cross-source identity bindings before any database attempt. The
+three admitted records preserve four exact Wiki source identities: the three
+linked subject revisions plus their common Minigames collection revision. No
+skill key, canonical activity identity, repeatability result, member expansion,
+mechanic, or optimizer eligibility is inferred from the review observations.
+The snapshot and audit remain pinned to hashes
+`b4c57839e60c9488171d167a386ec879d70dade571536ce1c4856758fc4b1ea6`
+and `9b928d347ea09a1cd1ec7e2c7adf4cb211733fecc7adf565d9e4f81fdef6cba4`.
+
+A validated pre-change backup was created at
+`.platform-local/backups/sensum-v4-20260906-140910.dump` (5,193,331 bytes,
+SHA-256 `bddda567931f43be97caa552dc62f0ba02cf839d5d003c7ef7c62e992d890054`).
+The adapter added three lossless records, three candidate statements, and three
+direct lineage links while reusing all four exact source identities without
+changing their acquisition timestamps. Two complete six-domain batches
+reproduced input-set hash
+`481d57821f8ada72f565873b58fa21ef35516f1bcbde6dae99195986b7a4b228`
+and stable catalog counts. The catalog now reconciles 161 revision-pinned
+sources, 127 raw records, 4,871 candidate statements, and 4,871 direct lineage
+rows with zero unlinked or optimizer-eligible statements. Evidence and lineage
+aggregate hashes are `926aab96e54a81cf727e9f074b776f83` and
+`d79cfb8d681df681150373985a5eb7d8`. The shared Wise Old Man revision remains
+one source identity and now links to four exact domain snapshots. Registry
+coverage is 6/28, with ten adapter-ready and 12 blocked unregistered datasets.
+
+All 215 V4 test scripts pass. This checkpoint creates no canonical identity
+verdict, repeatability or member-expansion decision, requirement, XP, timing,
+mechanic, complete-universe claim, verified fact, optimizer promotion,
+verified-best authorization, production mutation, or V3 change. The next
+breadth-selected adapter candidate is the three-record
+`activity-reference-collection-member-collection-activity-identity-evidence`
+domain, which must retain its unresolved semantic gates during admission.
