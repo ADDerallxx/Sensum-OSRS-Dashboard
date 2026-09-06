@@ -86,6 +86,15 @@ import {
   validateActivityReferenceMemberSubjectExactLineMaterializationInput,
   verifyActivityReferenceMemberSubjectExactLineReconciliation
 } from './activity-reference-member-canonical-activity-subject-declaration-exact-line-evidence-materialization-lib.mjs';
+import {
+  ACTIVITY_REFERENCE_MEMBER_SUBJECT_STRUCTURAL_CONTEXT_FACT_KIND,
+  ACTIVITY_REFERENCE_MEMBER_SUBJECT_STRUCTURAL_CONTEXT_INPUT_DOMAIN,
+  buildActivityReferenceMemberSubjectStructuralContextExistingSourceCountQuery,
+  buildActivityReferenceMemberSubjectStructuralContextMaterializationSql,
+  buildActivityReferenceMemberSubjectStructuralContextReconciliationQuery,
+  validateActivityReferenceMemberSubjectStructuralContextMaterializationInput,
+  verifyActivityReferenceMemberSubjectStructuralContextReconciliation
+} from './activity-reference-member-canonical-activity-subject-declaration-structural-context-evidence-materialization-lib.mjs';
 
 export const ACCEPTED_EVIDENCE_REGISTRY_CONTRACT = 'sensum.accepted-evidence-materialization-registry.v1';
 
@@ -218,6 +227,19 @@ const adapters = [
     buildExistingSourceCountQuery: buildActivityReferenceMemberSubjectExactLineExistingSourceCountQuery,
     buildReconciliationQuery: buildActivityReferenceMemberSubjectExactLineReconciliationQuery,
     verifyReconciliation: verifyActivityReferenceMemberSubjectExactLineReconciliation
+  },
+  {
+    domain: ACTIVITY_REFERENCE_MEMBER_SUBJECT_STRUCTURAL_CONTEXT_INPUT_DOMAIN,
+    dataFile: 'activity-reference-collection-member-canonical-activity-subject-declaration-structural-context-evidence.ndjson',
+    auditDirectory: 'activity-reference-collection-member-canonical-activity-subject-declaration-structural-context-evidence-audits',
+    auditContract: 'sensum.activity-reference-collection-member-canonical-activity-subject-declaration-structural-context-evidence-audit.v1',
+    factKind: ACTIVITY_REFERENCE_MEMBER_SUBJECT_STRUCTURAL_CONTEXT_FACT_KIND,
+    snapshotDirectory: audit => audit?.outputSnapshot?.directory,
+    validate: validateActivityReferenceMemberSubjectStructuralContextMaterializationInput,
+    buildSql: buildActivityReferenceMemberSubjectStructuralContextMaterializationSql,
+    buildExistingSourceCountQuery: buildActivityReferenceMemberSubjectStructuralContextExistingSourceCountQuery,
+    buildReconciliationQuery: buildActivityReferenceMemberSubjectStructuralContextReconciliationQuery,
+    verifyReconciliation: verifyActivityReferenceMemberSubjectStructuralContextReconciliation
   }
 ];
 

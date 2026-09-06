@@ -4105,3 +4105,46 @@ V3 change. The next breadth-selected adapter candidate is the two-record
 `activity-reference-collection-member-canonical-activity-subject-declaration-structural-context-evidence`
 domain, whose heading, table, template, and link context must remain review
 evidence rather than an inferred subject or activity verdict.
+
+The canonical-activity subject-declaration structural-context evidence domain
+is now the eleventh registered PostgreSQL evidence adapter. Before any database
+attempt, it revalidates the exact audit, manifest, embedded audit, raw NDJSON,
+upstream input snapshot, policy binding, all 13 exact source revisions, all 19
+manifest occurrence contexts, every structural packet key and source identity,
+source-line hashes, exact-occurrence revalidation flags, structural delimiter
+checks, record-derived counters, and every closed semantic gate. The two
+lossless records preserve 19 active occurrences: 12 before the first heading,
+seven heading-scoped, seven template-contained, 13 link-contained, four
+table-contained, two list-marked, and zero redirects. These observations create
+no subject-binding, activity-scope, repeatability, member-expansion, mechanics,
+skill-assignment, verified-fact, or optimizer conclusion. The snapshot and
+audit remain pinned to hashes
+`a98d3cddf17b7e5dae66341304b3d0dded8c84b4825715abce1a60542ab072f6`
+and `3de6134a3bd87950abd833a486b9fb94f04eeb25abd7b1d4ea6072cef4da2118`.
+
+A validated pre-change backup was created at
+`.platform-local/backups/sensum-v4-20260906-164900.dump` (6,791,638 bytes,
+306 readable archive lines, SHA-256
+`b24f9b62a75304cc866fa1e3c563a6d41ce2710b0f1584367fafa04255be68f8`).
+The adapter reused all 13 exact source identities without changing acquisition
+timestamps, and added two raw records, two candidate statements, and two direct
+lineage links. Its deliberate failure probe rolled back cleanly, immediate
+reapplication was idempotent, and two complete eleven-domain batches reproduced
+input-set hash
+`56163ac5e44dde3e2fea8a5ea940da996b6c84701e82b54677468b149964f7d3`
+with stable catalog counts. The catalog now reconciles 170 revision-pinned
+sources, 140 raw records, 4,884 candidate statements, and 4,884 direct lineage
+rows with zero unlinked, verified, or optimizer-eligible statements. Evidence
+and lineage aggregate hashes are `8008fca284413a1f29fcd20b79a0e5e9`
+and `51462e7930e9f599c8ab3bec947efbbc`. The shared Wise Old Man
+revision remains one source identity linked to nine exact domain snapshots.
+Registry coverage is now 11/28, with five adapter-ready and 12 blocked
+unregistered datasets.
+
+All 221 V4 test scripts and all 660 subtests pass. This checkpoint creates no
+semantic promotion, complete-universe claim, verified-best authorization,
+production mutation, or V3 change. The next breadth-selected adapter candidate
+is the two-record
+`activity-reference-collection-member-independent-repeatability-signal-scope-evidence`
+domain, whose observed signal scope must remain review evidence rather than an
+inferred repeatability verdict.
