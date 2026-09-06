@@ -1,0 +1,31 @@
+{
+  "contract": "sensum.local-evidence-domain-lineage-audit.v1",
+  "required": [
+    "catalogContract",
+    "views",
+    "databaseCounts",
+    "evidenceStates",
+    "domains",
+    "sharedSource",
+    "statementRunLineage",
+    "domainRecordAndSourceCountsReconciled",
+    "sharedSourceIdentityReusedWithoutDuplication",
+    "catalogCountsStableAcrossAudit",
+    "databaseTransactionsReadOnly",
+    "databaseMutations",
+    "optimizerPromotions",
+    "productionMutations",
+    "publishable",
+    "contentHash"
+  ],
+  "rules": {
+    "allCatalogQueriesMustUseReadOnlyTransactions": true,
+    "domainRunSnapshotRecordAndSourceCountsMustReconcile": true,
+    "sharedSourceIdentityMustRetainOneExactRevisionAndContentHash": true,
+    "sharedSourceMustExposeEveryDependentSnapshotAndDomain": true,
+    "missingDirectStatementRunLineageMustRemainAnExplicitBlocker": true,
+    "catalogCountsMustRemainStableAcrossAudit": true,
+    "optimizerPromotionAllowed": false,
+    "productionMutationAllowed": false
+  }
+}

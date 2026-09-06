@@ -1,6 +1,6 @@
-export const LOCAL_EVIDENCE_CATALOG_CONTRACT = 'sensum.local-evidence-catalog.v1';
+export const LOCAL_EVIDENCE_CATALOG_CONTRACT = 'sensum.local-evidence-catalog.v2';
 
-const VIEWS = new Set(['summary', 'skills', 'sources', 'blockers']);
+const VIEWS = new Set(['summary', 'skills', 'sources', 'blockers', 'domains', 'lineage']);
 
 function assert(condition, message) {
   if (!condition) throw new Error(message);
@@ -10,7 +10,7 @@ function textLiteral(value) {
   return `'${String(value).replaceAll("'", "''")}'`;
 }
 
-export function normalizeCatalogOptions({view = 'summary', skill = null, limit = 50} = {}) {
+export function normalizeCatalogOptions({view = 'summary', skill = null, domain = null, source = null, revision = null, limit = 50} = {}) {
   assert(VIEWS.has(view), `unsupported_catalog_view:${view}`);
   const normalizedLimit = Number(limit);
   assert(Number.isInteger(normalizedLimit) && normalizedLimit >= 1 && normalizedLimit <= 500, 'catalog_limit_must_be_between_1_and_500');
@@ -18,7 +18,19 @@ export function normalizeCatalogOptions({view = 'summary', skill = null, limit =
     assert(/^[a-z0-9-]+$/.test(String(skill)), 'catalog_skill_filter_invalid');
     assert(view === 'skills' || view === 'sources', 'catalog_skill_filter_not_supported_for_view');
   }
-  return {view, skill: skill ? String(skill) : null, limit: normalizedLimit};
+  if (domain !== null && domain !== undefined && domain !== '') {
+    assert(/^[a-z0-9-]+$/.test(String(domain)), 'catalog_domain_filter_invalid');
+    assert(view === 'domains' || view === 'lineage', 'catalog_domain_filter_not_supported_for_view');
+  }
+  if (source !== null && source !== undefined && source !== '') {
+    assert(/^[A-Za-z0-9:_-]+$/.test(String(source)), 'catalog_source_filter_invalid');
+    assert(view === 'sources' || view === 'lineage', 'catalog_source_filter_not_supported_for_view');
+  }
+  if (revision !== null && revision !== undefined && revision !== '') {
+    assert(/^[A-Za-z0-9._:-]+$/.test(String(revision)), 'catalog_revision_filter_invalid');
+    assert(view === 'sources' || view === 'lineage', 'catalog_revision_filter_not_supported_for_view');
+  }
+  return {view, skill:skill ? String(skill) : null, domain:domain ? String(domain) : null, source:source ? String(source) : null, revision:revision ? String(revision) : null, limit:normalizedLimit};
 }
 
 function summaryQuery() {
@@ -92,21 +104,86 @@ function skillsQuery({skill, limit}) {
 ) q;`;
 }
 
-function sourcesQuery({skill, limit}) {
-  const filter = skill ? `WHERE d.provider_key=${textLiteral(skill)}` : '';
+function sourcesQuery({skill, source, revision, limit}) {
+  const filters = [
+    skill ? `d.provider_key=${textLiteral(skill)}` : null,
+    source ? `d.provider_key=${textLiteral(source)}` : null,
+    revision ? `d.revision_key=${textLiteral(revision)}` : null
+  ].filter(Boolean);
+  const filter = filters.length ? `WHERE ${filters.join(' AND ')}` : '';
   return `SELECT json_build_object(
   'contract',${textLiteral(LOCAL_EVIDENCE_CATALOG_CONTRACT)},
   'view','sources',
   'rows',COALESCE(json_agg(row_to_json(q)),'[]'::json)
 ) FROM (
-  SELECT d.provider_key AS "skillKey",d.title,d.canonical_url AS url,d.revision_key AS revision,
+  SELECT d.provider_key AS "sourceKey",d.title,d.canonical_url AS url,d.revision_key AS revision,
     d.published_at AS "sourceTimestamp",d.fetched_at AS "fetchedAt",d.state::text AS state,
-    count(a.id)::integer AS "statementCount"
+    count(a.id)::integer AS "statementCount",
+    (SELECT count(*)::integer FROM snapshot_sources linked WHERE linked.source_id=d.id) AS "snapshotLinkCount"
   FROM data_sources d
   LEFT JOIN activity_evidence a ON a.source_id=d.id
   ${filter}
   GROUP BY d.id
   ORDER BY d.provider_key,d.published_at DESC NULLS LAST
+  LIMIT ${limit}
+) q;`;
+}
+
+function domainsQuery({domain, limit}) {
+  const filter = domain ? `WHERE r.domain=${textLiteral(domain)}` : '';
+  return `SELECT json_build_object(
+  'contract',${textLiteral(LOCAL_EVIDENCE_CATALOG_CONTRACT)},
+  'view','domains',
+  'rows',COALESCE(json_agg(row_to_json(q)),'[]'::json)
+) FROM (
+  SELECT r.domain,r.id AS "runId",r.status::text AS status,r.finished_at AS "finishedAt",
+    r.content_hash AS "snapshotContentHash",r.source_revision AS "sourceRevisions",
+    s.id AS "snapshotId",s.complete AS "snapshotComplete",
+    (SELECT count(*)::integer FROM snapshot_sources ss WHERE ss.snapshot_id=s.id) AS "sourceCount",
+    (SELECT count(*)::integer FROM ingestion_records records WHERE records.run_id=r.id) AS "recordCount",
+    COALESCE((r.metrics->>'statements')::integer,0) AS "declaredStatementCount",
+    'run_metric_only_no_direct_evidence_run_foreign_key'::text AS "statementLineageState",
+    COALESCE((r.metrics->>'optimizerEligibleRecords')::integer,0) AS "optimizerEligibleCount",
+    COALESCE((r.metrics->>'automaticVerification')::boolean,false) AS "automaticVerification",
+    COALESCE((r.metrics->>'completeActivityUniverse')::boolean,false) AS "completeActivityUniverse",
+    COALESCE((r.metrics->>'semanticReviewRequired')::boolean,false) AS "semanticReviewRequired",
+    r.metrics->>'materializationHash' AS "materializationHash",
+    (r.record_count=(SELECT count(*) FROM ingestion_records records WHERE records.run_id=r.id)) AS "recordCountReconciles",
+    (COALESCE((r.metrics->>'sources')::integer,(SELECT count(*) FROM snapshot_sources ss WHERE ss.snapshot_id=s.id))=(SELECT count(*) FROM snapshot_sources ss WHERE ss.snapshot_id=s.id)) AS "sourceCountReconciles"
+  FROM ingestion_runs r
+  LEFT JOIN data_snapshots s ON s.manifest_hash=r.content_hash
+  ${filter}
+  ORDER BY r.finished_at DESC NULLS LAST,r.domain
+  LIMIT ${limit}
+) q;`;
+}
+
+function lineageQuery({domain, source, revision, limit}) {
+  const filters = [
+    domain ? `lineage.domain=${textLiteral(domain)}` : null,
+    source ? `lineage."sourceKey"=${textLiteral(source)}` : null,
+    revision ? `lineage.revision=${textLiteral(revision)}` : null
+  ].filter(Boolean);
+  const filter = filters.length ? `WHERE ${filters.join(' AND ')}` : '';
+  return `WITH lineage AS (
+  SELECT d.provider_key AS "sourceKey",d.title,d.canonical_url AS url,d.revision_key AS revision,
+    d.published_at AS "sourceTimestamp",d.fetched_at AS "fetchedAt",d.content_hash AS "sourceContentHash",
+    d.state::text AS "sourceState",s.id AS "snapshotId",s.label AS "snapshotLabel",
+    s.manifest_hash AS "snapshotContentHash",s.complete AS "snapshotComplete",
+    r.domain,r.id AS "runId",r.status::text AS "runStatus",r.finished_at AS "runFinishedAt",
+    (SELECT count(*)::integer FROM snapshot_sources all_links WHERE all_links.source_id=d.id) AS "snapshotLinkCount"
+  FROM data_sources d
+  JOIN snapshot_sources ss ON ss.source_id=d.id
+  JOIN data_snapshots s ON s.id=ss.snapshot_id
+  LEFT JOIN ingestion_runs r ON r.content_hash=s.manifest_hash
+)
+SELECT json_build_object(
+  'contract',${textLiteral(LOCAL_EVIDENCE_CATALOG_CONTRACT)},
+  'view','lineage',
+  'rows',COALESCE(json_agg(row_to_json(q)),'[]'::json)
+) FROM (
+  SELECT * FROM lineage ${filter}
+  ORDER BY "snapshotLinkCount" DESC,"sourceKey",revision,"runFinishedAt" DESC NULLS LAST
   LIMIT ${limit}
 ) q;`;
 }
@@ -136,7 +213,9 @@ export function buildCatalogSql(options = {}) {
   const query = normalized.view === 'summary' ? summaryQuery()
     : normalized.view === 'skills' ? skillsQuery(normalized)
       : normalized.view === 'sources' ? sourcesQuery(normalized)
-        : blockersQuery(normalized);
+        : normalized.view === 'blockers' ? blockersQuery(normalized)
+          : normalized.view === 'domains' ? domainsQuery(normalized)
+            : lineageQuery(normalized);
   return `BEGIN TRANSACTION READ ONLY;\nSET LOCAL statement_timeout='15s';\n${query}\nCOMMIT;\n`;
 }
 
@@ -167,6 +246,31 @@ export function assessCatalogSummary(payload) {
   };
 }
 
+export function assertCatalogPayload(payload, expectedView) {
+  assert(payload?.contract === LOCAL_EVIDENCE_CATALOG_CONTRACT, 'catalog_payload_contract_invalid');
+  assert(payload?.view === expectedView, 'catalog_payload_view_mismatch');
+  if (expectedView === 'summary') return assessCatalogSummary(payload);
+  assert(Array.isArray(payload?.rows), 'catalog_payload_rows_missing');
+  if (expectedView === 'domains') {
+    for (const row of payload.rows) {
+      assert(typeof row?.domain === 'string' && row.domain.length > 0, 'catalog_domain_identity_missing');
+      assert(row?.recordCountReconciles === true && row?.sourceCountReconciles === true, 'catalog_domain_counts_do_not_reconcile');
+      assert(typeof row?.snapshotComplete === 'boolean' && Number.isInteger(Number(row?.recordCount)) && Number.isInteger(Number(row?.sourceCount)), 'catalog_domain_state_invalid');
+      assert(Number.isInteger(Number(row?.declaredStatementCount)) && row?.statementLineageState === 'run_metric_only_no_direct_evidence_run_foreign_key', 'catalog_domain_statement_lineage_gap_not_explicit');
+    }
+  }
+  if (expectedView === 'lineage') {
+    for (const row of payload.rows) {
+      assert(typeof row?.sourceKey === 'string' && row.sourceKey.length > 0, 'catalog_lineage_source_identity_missing');
+      assert(typeof row?.url === 'string' && row.url.length > 0, 'catalog_lineage_source_url_invalid');
+      assert((row?.revision === null || typeof row?.revision === 'string') && typeof row?.sourceContentHash === 'string' && /^[a-f0-9]{64}$/.test(row.sourceContentHash), 'catalog_lineage_revision_identity_invalid');
+      assert(typeof row?.domain === 'string' && row.domain.length > 0 && row?.snapshotId && row?.runId, 'catalog_lineage_domain_binding_missing');
+      assert(Number(row?.snapshotLinkCount) >= 1, 'catalog_lineage_link_count_invalid');
+    }
+  }
+  return true;
+}
+
 export function formatCatalogText(payload) {
   if (payload.view === 'summary') {
     const health = assessCatalogSummary(payload), c = payload.counts, states = payload.evidenceStates || {};
@@ -181,5 +285,7 @@ export function formatCatalogText(payload) {
   }
   const rows = payload.rows || [];
   if (!rows.length) return `Sensum V4 ${payload.view}: no rows`;
+  if (payload.view === 'domains') return [`Sensum V4 evidence domains (${rows.length})`, ...rows.map(row => `${row.domain} | ${row.recordCount} records | ${row.sourceCount} sources | ${row.declaredStatementCount} declared statements (${row.statementLineageState}) | complete=${row.snapshotComplete} | optimizer=${row.optimizerEligibleCount}`)].join('\n');
+  if (payload.view === 'lineage') return [`Sensum V4 source lineage (${rows.length})`, ...rows.map(row => `${row.sourceKey} @ ${row.revision} | ${row.domain} | snapshot ${row.snapshotId} | ${row.snapshotLinkCount} linked snapshot${Number(row.snapshotLinkCount) === 1 ? '' : 's'}`)].join('\n');
   return [`Sensum V4 ${payload.view} (${rows.length})`, ...rows.map(row => JSON.stringify(row))].join('\n');
 }

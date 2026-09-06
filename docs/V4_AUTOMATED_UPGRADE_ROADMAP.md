@@ -74,6 +74,31 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+The read-only local evidence catalog now exposes six bounded V2 views:
+`summary`, `skills`, `sources`, `blockers`, `domains`, and `lineage`. The new
+views accept only validated domain, source-key, revision, skill, and limit
+filters, execute inside read-only transactions with a 15-second timeout, and
+reject arbitrary SQL. The domain view reconciles every published run's raw
+record and snapshot-source counts. The lineage view exposes the exact source,
+revision, content hash, acquisition time, snapshot, and ingestion domain for
+each relationship.
+
+The live audit at hash
+`0b35983a93d7f235d7124aa5661e165ca33d80e552a585159b93be87500c94d4`
+reconciles three domains against 84 unique revision-pinned sources, 26 lossless
+raw records, and 4,770 candidate statements. Wise Old Man tasks revision
+14997080 remains one exact source identity with two independently visible
+snapshot/domain links. Counts before and after the audit are identical, all 209
+V4 test scripts pass, and no evidence, optimizer, production, or V3 state
+changed.
+
+The audit also makes one schema limitation explicit: statement totals are still
+declared in immutable ingestion-run metrics because `activity_evidence` does
+not yet retain a direct ingestion-run foreign key. They are not mislabeled as
+independently reconciled. The next checkpoint should add reversible
+statement-to-ingestion-run lineage and losslessly backfill the three existing
+runs before widening the materialization registry again.
+
 The accepted-evidence registry now proves genuinely multi-source materialization
 and exact source-identity reuse across domains. Its third adapter accepts the
 `weighted-parent-task-entry-membership-evidence` snapshot at hash

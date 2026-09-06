@@ -336,7 +336,8 @@
         "cross_skill_verified_evidence_postgresql_materialization_adapter",
         "read_only_local_evidence_catalog_and_health_query",
         "generic_accepted_evidence_materialization_registry_and_second_domain_proof",
-        "generic_multi_source_provenance_materialization_and_cross_domain_source_identity_reuse"
+        "generic_multi_source_provenance_materialization_and_cross_domain_source_identity_reuse",
+        "read_only_evidence_domain_and_source_lineage_catalog_views"
       ],
       "remainingWork": [
         "Use the 1,909-entry revision-aligned semantic-review queue to establish canonical game-entity and activity identities from retained source signatures and contexts, then prove repeatability, membership, requirements, variants, XP, timing, mechanics, and authoritative exclusions. The 29 explicit activity-page candidates now have deterministic, revision-bound consolidated human-review packets in six bounded batches. Those packets join their exact candidate discovery, source evidence, source-subject disposition, and evidence-work routing records; preserve 145 rendered-guide observations, 31 unlock references, 31 source-signature contexts, 351 infobox parameters, 84 lead paragraphs, 423 headings, 1,286 lexical review candidates, 45 disposition signals, and 222 evidence-domain obligations; and correctly prove that all 29 belong to the direct cross-source unlock-evidence population rather than the separate 4,725-page no-unlock-evidence queue. Their separate fail-closed decision importer now requires explicit packet and decision inputs; revalidates packet, embedded pipeline, source, revision, reviewer, timestamp, evidence-domain, citation, and cross-decision coherence bindings; rejects any partial, stale, unknown, uncited, incoherent, tampered, automated, account-scoped, or promotion-bearing row atomically; and forbids member keys or semantic application. Their separate application boundary now requires explicit packet and decision snapshots, replays the entire selected decision set through that importer, applies only the narrow reviewed subject/identity/repeatability/atomicity/evidence-domain/member-expansion-requirement conclusions, preserves rejection and additional-evidence outcomes, and forbids member identities, requirements, variants, XP, timing, mechanics, complete-universe claims, automatic verification, account state, and optimizer eligibility. Deterministic decision guidance now covers all 29 packets in six batches with 203 exact evidence-key bindings, 168 revision obligations, 222 evidence-domain reviews, 145 unselected coherence paths, 18 review artifacts, and importer-compatible blank templates. Two real materializations reproduced the same 21 payload files exactly while selecting zero decisions and applying zero semantics. All six untouched real decision batches rejected with exit code 2 and wrote zero decision snapshots; the real packet snapshot selected without a decision snapshot also rejected with exit code 2 and wrote zero application snapshots. Two source conflicts are prioritized and all 29 human decisions and actual applications remain pending. Additional revision-pinned evidence now covers both conflict candidates, the optional activity-type field semantics, module link/category behavior, Minigames repeatability text, and each exact taxonomy row and heading path; both candidate revisions remain unchanged, but the evidence intentionally resolves neither conflict. Merge those packets into augmented reviewer guidance while leaving both decision templates blank. Do not treat activity/minigame page type as repeatability proof; distinguish reference collections and composites from actual trainable method variants. Reconcile 68 queued untyped pages; the exact 4,725-entry source-bound no-unlock-evidence work queue partitioned into 2,088 direct-source-only, 388 mixed direct/rendered, and 2,249 rendered-only obligations; 1,565 unlock pages without rendered-guide evidence; three unresolved-title review templates and two category-title review templates now guarded by separate fail-closed human decision importers; the wider unlock set's 137 untyped pages and 31 activity pages; and 51 ambiguous statement forms. Exact target-source signatures for all 4,725 queue entries are durably consolidated and revalidated, and a deterministic source-bound semantic-relevance queue now preserves their 21,051 guide observations plus source structure in 4,725 review entries and 4,725 blank decision templates. A fail-closed importer validates explicit evidence-bound human decisions and safely rejects the untouched 4,725-row blank template without output. Human-readable evidence-keyed packets now cover all 4,725 entries in 95 bounded batches, but all 4,725 actual semantic decisions remain pending. The independently validated level-unlock-corpus absence queue now proves zero exact stable page-ID matches for all 4,725 entries against all 24 pinned official skill level-up tables and their complete 3,474-page equivalence corpus, while explicitly refusing to infer that no requirement exists. Its fail-closed human decision importer revalidates every queue, target, crosswalk, corpus, timestamp, reviewer, and evidence binding and safely rejects the untouched 4,725-row blank template without output. Deterministic human-readable evidence-keyed packets now cover all 4,725 absence cases in 95 bounded batches with exact-revision links, explicit nonclaims, complete importer-bound evidence requirements, and untouched blank decisions; all 4,725 human absence-reconciliation dispositions remain pending. A deterministic source-bound historical-attribution queue now isolates all 2,637 mixed or rendered-only obligations, preserving 14,945 rendered-only observations and 14,563 guide-revision bindings in 2,637 blank review records. Its fail-closed human decision importer revalidates every queue, source, observation, guide binding, timestamp, dependency, reviewer, and evidence binding and safely rejects the untouched 2,637-row blank template without output. Its separate application boundary now requires explicit queue and decision snapshots, replays every decision through that importer, applies only complete confirmed attributions, and leaves rejected, unavailable, missing, stale, mismatched, or unreviewed cases blocked; the real no-decision run rejected without writing output. All 2,637 actual attribution decisions remain pending. All five unresolved-title decisions remain pending explicit human review and no resolution has been applied. Historical template-expansion provenance remains open because dependency revision IDs and the generative origins of the wider rendered-only observation population are unavailable. Continue independent discovery until every repeatable training activity in every skill is enumerated. The central guide index's composite Combat row and four Defence link disagreements remain explicit. Rockslide pairing still requires complete activity and travel graphs.",
@@ -353,9 +354,9 @@
         "independentGameUniverseDiscoveryPending": true
       },
       "latestCheckpoint": {
-        "id": "generic_multi_source_provenance_materialization_and_cross_domain_source_identity_reuse",
-        "result": "generic_registry exposes_3_explicit_domain_adapters; accepted_weighted_parent_task_membership_snapshot_baeaaf56 bound_to_audit_fe875612 with_60_exact_revision_sources 59_complete_packets and_1_lossless_review_pending_record; 59_sources_inserted 1_Wise_Old_Man_tasks_revision_14997080_source_identity_reused across_2_snapshots with_0_acquisition_timestamp_mutations; live_catalog exposes_24_skills 84_unique_revision_pinned_sources 26_raw_records 4770_candidate_statements and_4960_explicit_blocker_occurrences; second_application_no_op rollback_probe_zero_residual_rows all_208_V4_test_scripts_pass; 0_verified 0_optimizer_eligible 0_complete_snapshots 0_production_mutations",
-        "next": "read_only_evidence_domain_and_source_lineage_catalog_views"
+        "id": "read_only_evidence_domain_and_source_lineage_catalog_views",
+        "result": "local_catalog_v2 exposes_6_bounded_read_only_views including_domains_and_lineage; 3_published_domains reconcile_raw_record_and_snapshot_source_counts; Wise_Old_Man_tasks_revision_14997080 remains_1_exact_source_identity with_2_visible_snapshot_domain_links; before_after_catalog_counts_identical audit_hash_0b35983a; statement_totals_explicitly_labeled_run_metric_only because_direct_activity_evidence_ingestion_run_lineage_is_not_materialized; all_209_V4_test_scripts_pass; 0_database_mutations 0_optimizer_promotions 0_production_mutations",
+        "next": "evidence_statement_ingestion_run_lineage_schema_and_reversible_backfill"
       },
       "latestCoverageDelta": {
         "localPostgresqlRuntimeAdded": 1,
@@ -392,7 +393,15 @@
         "acceptedEvidenceSecondDomainLosslessRecords": 1,
         "acceptedEvidenceSecondDomainCandidateStatements": 1,
         "acceptedEvidenceSecondDomainOptimizerPromotions": 0,
-        "localEvidenceCatalogViews": 4,
+        "localEvidenceCatalogViews": 6,
+        "localEvidenceCatalogDomainsVisible": 3,
+        "localEvidenceCatalogDomainRecordCountsReconciled": 3,
+        "localEvidenceCatalogDomainSourceCountsReconciled": 3,
+        "localEvidenceCatalogSharedSourceIdentitiesAudited": 1,
+        "localEvidenceCatalogSharedSourceSnapshotLinksVisible": 2,
+        "localEvidenceCatalogStatementRunLineageComplete": false,
+        "localEvidenceCatalogStatementRunLineageBlockers": 1,
+        "localEvidenceDomainLineageAuditContentHash": "0b35983a93d7f235d7124aa5661e165ca33d80e552a585159b93be87500c94d4",
         "localEvidenceCatalogSkillsVisible": 24,
         "localEvidenceCatalogRevisionPinnedSourcesVisible": 84,
         "localEvidenceCatalogCandidateStatementsVisible": 4770,
@@ -8571,6 +8580,47 @@
         "testScriptsPassed": 208,
         "phaseExitSatisfied": false,
         "next": "read_only_evidence_domain_and_source_lineage_catalog_views"
+      },
+      "latestLocalEvidenceDomainLineageAudit": {
+        "generatedAt": "2026-09-06T18:47:51.837Z",
+        "contract": "sensum.local-evidence-domain-lineage-audit.v1",
+        "catalogContract": "sensum.local-evidence-catalog.v2",
+        "reportContentHash": "0b35983a93d7f235d7124aa5661e165ca33d80e552a585159b93be87500c94d4",
+        "catalogViews": [
+          "summary",
+          "skills",
+          "sources",
+          "blockers",
+          "domains",
+          "lineage"
+        ],
+        "auditedViews": [
+          "summary",
+          "domains",
+          "lineage"
+        ],
+        "domains": 3,
+        "domainRecordCountsReconciled": 3,
+        "domainSourceCountsReconciled": 3,
+        "sharedSourceKey": "wiki-pageid:240934",
+        "sharedSourceRevision": "14997080",
+        "sharedSourceContentHash": "2cbe7c1268d450722f5ecc05a8a01d2b65932a2e43c8f96f45aab3472e6da46b",
+        "sharedSourceRows": 1,
+        "sharedSourceSnapshotDomainLinks": 2,
+        "statementRunLineageComplete": false,
+        "statementRunLineageBlocker": "activity_evidence_ingestion_run_lineage_not_materialized",
+        "catalogRevisionPinnedSources": 84,
+        "catalogRawRecords": 26,
+        "catalogCandidateStatements": 4770,
+        "catalogExplicitBlockerOccurrences": 4960,
+        "catalogCountsStableAcrossAudit": true,
+        "databaseTransactionsReadOnly": true,
+        "databaseMutations": 0,
+        "optimizerPromotions": 0,
+        "productionMutations": 0,
+        "testScriptsPassed": 209,
+        "phaseExitSatisfied": false,
+        "next": "evidence_statement_ingestion_run_lineage_schema_and_reversible_backfill"
       },
       "latestGuideSectionCoverageAudit": {
         "generatedAt": "2026-09-06T14:22:20.673Z",
