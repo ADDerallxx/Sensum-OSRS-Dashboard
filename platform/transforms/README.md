@@ -1,5 +1,17 @@
 # Canonicalization
 
+## Colossal Wyrm obstacle-page variant integration
+
+`audit-agility-colossal-wyrm-guide-member-coverage.mjs` optionally consumes the
+latest obstacle-page variant reconciliation after independently validating all
+thirteen identities, sixteen current and sixteen pre-update route occurrences,
+record hashes, authority flags, current-course revision, and temporal-snapshot
+lineage. Only a complete valid set replaces the Basic and Advanced generic
+obstacle-page blockers. The replacement is one exact Basic zipline conflict and
+five exact Advanced obstacle conflicts; unrelated obsolete-page, lap-XP, and
+rate blockers remain. Invalid or incomplete optional input fails closed rather
+than being ignored.
+
 ## Level-unlock-corpus absence reconciliation work queue
 
 `export-cross-skill-rendered-page-without-unlock-evidence-unlock-corpus-absence-reconciliation-work-queue.mjs`

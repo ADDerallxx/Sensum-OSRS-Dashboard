@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "sensum.agility-colossal-wyrm-obstacle-page-variant-reconciliation.v1",
+  "title": "Colossal Wyrm obstacle-page variant reconciliation",
+  "type": "object",
+  "required": [
+    "contract", "variantKey", "pageTitle", "pageVersion", "minimumAgility",
+    "currentPageXp", "preUpdatePageXp", "courseOccurrences",
+    "preUpdateCourseOccurrences", "currentPageFieldsMatchPinnedPreUpdateRevision",
+    "identityReconciliationComplete", "xpDisposition", "remainingBlockersByRoute",
+    "mechanicalAuthorityComplete", "optimizerEligible", "verifiedBestAuthorized",
+    "automaticVerificationApplied", "accountIndependent", "sourceRevisions",
+    "recordContentHash", "contentHash"
+  ],
+  "additionalProperties": true
+}

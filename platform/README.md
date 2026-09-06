@@ -437,6 +437,16 @@ conflicts with the 601.6 table sum. Current obstacle pages, the obsolete notice,
 and non-exact rate semantics remain explicit blockers, so neither route is
 mechanically authoritative or optimizer-eligible.
 
+The five Colossal Wyrm obstacle pages now have an exact variant-to-course-row
+reconciliation. Thirteen page variants map to all sixteen route occurrences:
+ten occurrences agree with the current course table and six disagree. All
+thirteen current page fields still match their pinned pre-update page revisions.
+The Basic zipline page retains 243.7 XP against the current 341.2 row; Advanced
+Ladder 2, Tightrope 3, Edge 3, Rope 2, and Zipline retain values that conflict
+with their current course rows. Downstream coverage replaces the two generic
+obstacle-page blockers with those six exact conflicts while preserving the
+obsolete-page, Basic lap-total, and non-exact-rate blockers.
+
 Rockslide's open-ended hybrid examples now use a separate pairing-universe
 coverage contract. It cannot be closed by the named Ardougne, Hallowed
 Sepulchre, and Runecraft examples, by the current account, or by the existing
@@ -546,6 +556,8 @@ node platform/ingestion/ingest-wiki-agility-rooftop-guide-members.mjs
 node platform/ingestion/ingest-wiki-agility-brimhaven-guide-members.mjs
 node platform/ingestion/ingest-wiki-agility-rockslide-guide-members.mjs
 node platform/ingestion/ingest-wiki-agility-colossal-wyrm-guide-members.mjs
+node platform/ingestion/ingest-wiki-agility-colossal-wyrm-post-update-mechanics-reconciliation.mjs
+node platform/ingestion/ingest-wiki-agility-colossal-wyrm-obstacle-page-variant-reconciliation.mjs --reconciliation-snapshot=<exact snapshot directory>
 node platform/transforms/audit-rockslide-pairing-universe-coverage.mjs
 node platform/transforms/audit-agility-rooftop-guide-member-coverage.mjs
 node platform/transforms/audit-agility-brimhaven-guide-member-coverage.mjs

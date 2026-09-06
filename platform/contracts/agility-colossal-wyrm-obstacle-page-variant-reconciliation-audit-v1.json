@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "sensum.agility-colossal-wyrm-obstacle-page-variant-reconciliation-audit.v1",
+  "title": "Colossal Wyrm obstacle-page variant reconciliation audit",
+  "type": "object",
+  "required": [
+    "contract", "policyValidation", "inputReconciliation", "sourceIntegrity",
+    "variantCoverage", "routeOccurrenceCoverage", "xpReconciliation",
+    "blockerPreservation", "recordsMatchExpected", "recordHashesValid",
+    "reconciliationComplete", "mechanicalCompletenessProven", "absoluteBestGate",
+    "publishable", "blockers"
+  ],
+  "additionalProperties": true
+}

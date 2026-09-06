@@ -43,6 +43,32 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+The Colossal Wyrm course now has an exact obstacle-page variant reconciliation
+instead of two generic “pages not reconciled” blockers. Current course revision
+15331454 and current Ladder 15329585, Tightrope 15329590, Edge 15329584, Rope
+15329591, and Zipline 15329589 revisions map thirteen unique page variants to
+all sixteen Basic and Advanced route occurrences. Historical course revisions
+15293116 and 15295144 and obstacle-page revisions 15202729–15202733 preserve
+the pre-update comparison without treating it as current authority.
+
+Ten current course occurrences match their obstacle pages and six conflict.
+Seven unique page variants match the current course and six conflict; all
+thirteen current page fields still match their pinned pre-update page revisions.
+The Basic zipline's 243.7 XP matches only the pre-update 243.7 course row and
+conflicts with the current 341.2 row. Advanced Ladder 2, Tightrope 3, Edge 3,
+and Rope 2 retain 62 XP against current 70-XP rows; Advanced Zipline retains
+325 XP against both the pre-update 358 and current 662 rows. None of those
+facts is normalized, selected as correct, or promoted to mechanical authority.
+
+Two official-Wiki ingestions reproduced the same thirteen-record snapshot hash
+`dc06758bebff23fa4c166466c49d2393012ed215f6fccb178dc2850099c02c57`.
+Downstream member coverage removed only the two generic obstacle-page blockers
+and retained six exact conflicts plus the obsolete-page, Basic 633-versus-601.6
+lap-total, and approximate-rate blockers. All 195 test scripts pass, including
+24 focused reconciliation, negative, parser-drift, and integration assertions. The next
+checkpoint will investigate the Basic 633-versus-601.6 lap-XP conflict through
+revision-pinned source history without inferring or averaging a value.
+
 Colossal Wyrm's August 2026 course changes now have a revision-pinned temporal
 reconciliation rather than one undifferentiated cross-page conflict. The audit
 requires the exact nine current Wiki pages, three exact historical course

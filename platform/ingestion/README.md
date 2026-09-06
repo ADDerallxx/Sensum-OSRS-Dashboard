@@ -30,6 +30,8 @@ node platform/ingestion/ingest-wiki-agility-rooftop-guide-members.mjs
 node platform/ingestion/ingest-wiki-agility-brimhaven-guide-members.mjs
 node platform/ingestion/ingest-wiki-agility-rockslide-guide-members.mjs
 node platform/ingestion/ingest-wiki-agility-colossal-wyrm-guide-members.mjs
+node platform/ingestion/ingest-wiki-agility-colossal-wyrm-post-update-mechanics-reconciliation.mjs
+node platform/ingestion/ingest-wiki-agility-colossal-wyrm-obstacle-page-variant-reconciliation.mjs --reconciliation-snapshot=<exact snapshot directory>
 node platform/ingestion/ingest-wiki-agility-rooftop-observed-variants.mjs
 node platform/ingestion/ingest-wiki-agility-floor-spike-training-variants.mjs
 node platform/ingestion/ingest-wiki-agility-barbarian-fishing-variants.mjs
@@ -325,6 +327,17 @@ record count, creation time, audit result, and SHA-256 content hash.
   percentages only as corroboration, sums current course tables without filling
   missing XP, and publishes temporal assignments only while preserving every
   obsolete, internal-table, obstacle-page, and expected-rate blocker.
+- Colossal Wyrm obstacle-page variant reconciliation requires an explicitly
+  selected, revalidated temporal-reconciliation snapshot, the current course
+  and five current obstacle pages, two exact historical course revisions, and
+  five exact pre-update obstacle-page revisions. Run
+  `node platform/ingestion/ingest-wiki-agility-colossal-wyrm-obstacle-page-variant-reconciliation.mjs --reconciliation-snapshot=<exact snapshot directory>`.
+  It maps thirteen unique page variants to all sixteen Basic and Advanced
+  course-row occurrences. Image links and other row links are ignored unless
+  they resolve to one of the five declared obstacle pages. Matching pre-update
+  page fields do not establish current correctness; every disagreement remains
+  a precise route-specific blocker and no mechanical or optimizer authority is
+  granted.
 - Al Kharid multi-obstacle evidence V2 stores the two failing obstacle identities,
   successful XP, damage, requirements, timing, source revisions, and stable
   unknown-model states without storing an account level. Level-numbered missing
