@@ -43,6 +43,29 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+The 12 open level-34 Agility candidates now have a fail-closed source-revision
+monitor bound to the exact coverage audit at content hash
+`b243d0ba775da6f8060de799e5101f3fc8990acdb4b72b3689354e72a69740d6`.
+Its generic policy, record and audit contracts, deterministic source extractor,
+official-Wiki collector, and adversarial tests preserve every existing candidate
+blocker while refetching each retained revision exactly and resolving its current
+head. A source change is only a re-audit signal: it cannot create a semantic fact,
+close a blocker, approve evidence, introduce account state, or make a candidate
+optimizer eligible.
+
+Two real runs reproduced the same 25-record output content hash
+`028b190750286a1a7639d445062cf702c795b1cff798a1bc929399f4a06d3f3c`.
+All 25 exact revisions remained retrievable and all 25 current heads resolved.
+Twenty-four sources were unchanged. `Agility training` advanced from revision
+`15324367` to `15331211` at `2026-09-05T03:05:04Z`, so five affected candidates
+were queued for re-audit: Barbarian Fishing, active and detached Brimhaven floor
+spikes, Edgeville monkeybars, and Al Kharid Rooftop. Zero blockers were closed,
+zero semantic facts were created, and no optimizer or automatic-verification
+promotion occurred. All 177 test scripts and 488 regression checks pass. The
+next checkpoint should collect and compare exact revision `15331211`, then
+regenerate only the affected source-bound evidence and coverage audits without
+carrying any prior conclusion forward automatically.
+
 The missing-supported-infobox subject-boundary workflow now has a separate,
 fail-closed application boundary for future completed human decisions. Its
 generic policy, record and audit contracts, library, explicit two-snapshot CLI,

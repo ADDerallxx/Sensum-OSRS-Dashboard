@@ -1,0 +1,26 @@
+{
+  "contract": "sensum.agility-open-blocker-source-revision-monitor-audit.v1",
+  "required": [
+    "inputAudit",
+    "candidateCoverage",
+    "sourceCoverage",
+    "revisionStates",
+    "blockerPreservation",
+    "sourceRevisionMonitoringComplete",
+    "sourceSetCurrent",
+    "conditionOrMechanicsCoverageComplete",
+    "completeActivityUniverse",
+    "absoluteBestGate",
+    "publishable",
+    "blockers"
+  ],
+  "rules": {
+    "inputAuditContractAndContentHashMustValidate": true,
+    "blockedCandidateAndSourceSetsMustMatchExactly": true,
+    "everyPinnedRevisionAndCurrentHeadMustResolve": true,
+    "sourceDriftIsARoutingSignalNotAResolvedFact": true,
+    "allExistingCandidateBlockersRemainOpen": true,
+    "noSemanticFactsOptimizerPromotionOrAccountState": true,
+    "monitorPublicationRequiresCompleteIntegrity": true
+  }
+}

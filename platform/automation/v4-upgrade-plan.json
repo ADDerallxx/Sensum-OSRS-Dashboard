@@ -230,9 +230,11 @@
         "activity_candidate_missing_supported_infobox_subject_boundary_review_queue_export",
         "activity_candidate_missing_supported_infobox_subject_boundary_review_decision_import_contract",
         "activity_candidate_missing_supported_infobox_subject_boundary_human_review_guidance",
-        "activity_candidate_missing_supported_infobox_subject_boundary_review_decision_application_contract"
+        "activity_candidate_missing_supported_infobox_subject_boundary_review_decision_application_contract",
+        "agility_open_blocker_source_revision_monitor"
       ],
       "remainingWork": [
+        "Collect and compare exact Agility training revision 15331211 against pinned revision 15324367, then regenerate only the affected source-bound evidence and coverage audits for Barbarian Fishing, active and detached Brimhaven floor spikes, Edgeville monkeybars, and Al Kharid Rooftop. Treat the revision advance only as a re-audit trigger: do not carry old conclusions forward, close blockers, or promote optimizer eligibility without condition-matched evidence in the new revision.",
         "Use the 1,909-entry revision-aligned semantic-review queue to establish canonical game-entity and activity identities from retained source signatures and contexts, then prove repeatability, membership, requirements, variants, XP, timing, mechanics, and authoritative exclusions. The 29 explicit activity-page candidates now have deterministic, revision-bound consolidated human-review packets in six bounded batches. Those packets join their exact candidate discovery, source evidence, source-subject disposition, and evidence-work routing records; preserve 145 rendered-guide observations, 31 unlock references, 31 source-signature contexts, 351 infobox parameters, 84 lead paragraphs, 423 headings, 1,286 lexical review candidates, 45 disposition signals, and 222 evidence-domain obligations; and correctly prove that all 29 belong to the direct cross-source unlock-evidence population rather than the separate 4,725-page no-unlock-evidence queue. Their separate fail-closed decision importer now requires explicit packet and decision inputs; revalidates packet, embedded pipeline, source, revision, reviewer, timestamp, evidence-domain, citation, and cross-decision coherence bindings; rejects any partial, stale, unknown, uncited, incoherent, tampered, automated, account-scoped, or promotion-bearing row atomically; and forbids member keys or semantic application. Their separate application boundary now requires explicit packet and decision snapshots, replays the entire selected decision set through that importer, applies only the narrow reviewed subject/identity/repeatability/atomicity/evidence-domain/member-expansion-requirement conclusions, preserves rejection and additional-evidence outcomes, and forbids member identities, requirements, variants, XP, timing, mechanics, complete-universe claims, automatic verification, account state, and optimizer eligibility. Deterministic decision guidance now covers all 29 packets in six batches with 203 exact evidence-key bindings, 168 revision obligations, 222 evidence-domain reviews, 145 unselected coherence paths, 18 review artifacts, and importer-compatible blank templates. Two real materializations reproduced the same 21 payload files exactly while selecting zero decisions and applying zero semantics. All six untouched real decision batches rejected with exit code 2 and wrote zero decision snapshots; the real packet snapshot selected without a decision snapshot also rejected with exit code 2 and wrote zero application snapshots. Two source conflicts are prioritized and all 29 human decisions and actual applications remain pending. Additional revision-pinned evidence now covers both conflict candidates, the optional activity-type field semantics, module link/category behavior, Minigames repeatability text, and each exact taxonomy row and heading path; both candidate revisions remain unchanged, but the evidence intentionally resolves neither conflict. Merge those packets into augmented reviewer guidance while leaving both decision templates blank. Do not treat activity/minigame page type as repeatability proof; distinguish reference collections and composites from actual trainable method variants. Reconcile 68 queued untyped pages; the exact 4,725-entry source-bound no-unlock-evidence work queue partitioned into 2,088 direct-source-only, 388 mixed direct/rendered, and 2,249 rendered-only obligations; 1,565 unlock pages without rendered-guide evidence; three unresolved-title review templates and two category-title review templates now guarded by separate fail-closed human decision importers; the wider unlock set's 137 untyped pages and 31 activity pages; and 51 ambiguous statement forms. Exact target-source signatures for all 4,725 queue entries are durably consolidated and revalidated, and a deterministic source-bound semantic-relevance queue now preserves their 21,051 guide observations plus source structure in 4,725 review entries and 4,725 blank decision templates. A fail-closed importer validates explicit evidence-bound human decisions and safely rejects the untouched 4,725-row blank template without output. Human-readable evidence-keyed packets now cover all 4,725 entries in 95 bounded batches, but all 4,725 actual semantic decisions remain pending. The independently validated level-unlock-corpus absence queue now proves zero exact stable page-ID matches for all 4,725 entries against all 24 pinned official skill level-up tables and their complete 3,474-page equivalence corpus, while explicitly refusing to infer that no requirement exists. Its fail-closed human decision importer revalidates every queue, target, crosswalk, corpus, timestamp, reviewer, and evidence binding and safely rejects the untouched 4,725-row blank template without output. Deterministic human-readable evidence-keyed packets now cover all 4,725 absence cases in 95 bounded batches with exact-revision links, explicit nonclaims, complete importer-bound evidence requirements, and untouched blank decisions; all 4,725 human absence-reconciliation dispositions remain pending. A deterministic source-bound historical-attribution queue now isolates all 2,637 mixed or rendered-only obligations, preserving 14,945 rendered-only observations and 14,563 guide-revision bindings in 2,637 blank review records. Its fail-closed human decision importer revalidates every queue, source, observation, guide binding, timestamp, dependency, reviewer, and evidence binding and safely rejects the untouched 2,637-row blank template without output. Its separate application boundary now requires explicit queue and decision snapshots, replays every decision through that importer, applies only complete confirmed attributions, and leaves rejected, unavailable, missing, stale, mismatched, or unreviewed cases blocked; the real no-decision run rejected without writing output. All 2,637 actual attribution decisions remain pending. All five unresolved-title decisions remain pending explicit human review and no resolution has been applied. Historical template-expansion provenance remains open because dependency revision IDs and the generative origins of the wider rendered-only observation population are unavailable. Continue independent discovery until every repeatable training activity in every skill is enumerated. The central guide index's composite Combat row and four Defence link disagreements remain explicit. Rockslide pairing still requires complete activity and travel graphs.",
         "Add or repair 9 target-level condition models. Al Kharid now has independently revision-pinned Tightrope 1 and zip-line facts, but both level-34 success probabilities, failed-attempt XP, and recovery routing/time remain unpublished; its guide rate remains scoped to levels 20–30. Penguin access is resolved to completed Cold War or the explicit in-progress course milestone, but its level-34 failure probability and applicable observed-rate scope remain unpublished. Shayzien Basic now retains its seven-obstacle route and proves that its three Tightrope occurrences cannot fail, but the failure-capable identity among Ladder, Monkeybars, Bar, and Gap, aggregate level-34 probability, failed-attempt XP, recovery route/time, and current expected rate remain unpublished; the overview's 8,750 rate is still the superseded value. Detached Brimhaven still lacks a published equipment state for its 36,000 XP/hour observation. Both detached and repeated floor-spike paths still lack obstacle-specific low/high interpolation parameters at level 34. The four passive Brimhaven policies have exact level-40/80 benchmarks but no expected level-34 rate; repeated floor spikes also lacks an expected level-34 rate, and 30,000 XP/hour is only an upper bound.",
         "Resolve the peak-only Werewolf Skullball optimal-route blocker only when official evidence publishes a typical completion-time range. The three approximate route ranges are ready for manual review and use strict non-overlapping bound comparisons: run strictly dominates scramble, but run/walk and walk/scramble remain incomparable; all interval candidates remain excluded from scalar ranking.",
@@ -247,11 +249,22 @@
         "independentGameUniverseDiscoveryPending": true
       },
       "latestCheckpoint": {
-        "id": "activity_candidate_missing_supported_infobox_subject_boundary_review_decision_application_contract",
-        "result": "generic_policy_record_and_audit_contracts_explicit_queue_and_decision_snapshot_cli_and_adversarial_tests_revalidate_both_manifests_the_queue_blank_template_artifact_raw_outer_intrinsic_evidence_revision_fingerprint_policy_and_cross_record_bindings_then_replay_every_selected_decision_through_the_guarded_importer; only_subject_disposition_composite_or_container_verdict_member_expansion_required_additional_evidence_required_and_rejection_reason_can_apply; two_synthetic_cli_runs_reproduced_identical_two_record_outputs_with_all_identity_repeatability_membership_mechanics_universe_optimizer_automatic_verification_and_account_gates_closed; the_real_2_entry_queue_has_zero_decision_snapshots_and_rejected_with_exit_code_2_output_written_false_and_no_output_directory; no_real_human_decision_or_semantic_application_was_created",
-        "next": "activity_candidate_revision_aligned_semantic_review_evidence_expansion"
+        "id": "agility_open_blocker_source_revision_monitor",
+        "result": "generic_policy_record_and_audit_contracts_deterministic_source_extraction_and_exact_revision_plus_current_head_collector_bind_the_level_34_coverage_audit_and_monitor_all_25_distinct_sources_for_12_blocked_candidates; two_real_runs_reproduced_content_hash_028b190750286a1a7639d445062cf702c795b1cff798a1bc929399f4a06d3f3c; all_25_exact_revisions_and_heads_resolved; 24_unchanged_and_agility_training_advanced_15324367_to_15331211_affecting_5_candidates; zero_blockers_closed_zero_semantic_facts_zero_optimizer_or_automatic_verification_promotions",
+        "next": "agility_training_revision_15331211_affected_candidate_reaudit"
       },
       "latestCoverageDelta": {
+        "openAgilityBlockedCandidatesMonitored": 12,
+        "openAgilityDistinctSourcesMonitored": 25,
+        "openAgilityExactRevisionsRetrieved": 25,
+        "openAgilityCurrentHeadsResolved": 25,
+        "openAgilityUnchangedSources": 24,
+        "openAgilityAdvancedSources": 1,
+        "openAgilityAffectedCandidatesQueuedForReaudit": 5,
+        "openAgilityBlockersClosedByMonitoring": 0,
+        "openAgilitySemanticFactsCreatedByMonitoring": 0,
+        "openAgilitySourceSetCurrent": false,
+        "openAgilityRevisionMonitorDeterministicAcrossTwoRuns": true,
         "officialSkillDomainsMeasured": 24,
         "missingSupportedInfoboxTemplateEvidencePackets": 2,
         "missingSupportedInfoboxExactCandidateRevisionMatches": 2,
@@ -6450,6 +6463,43 @@
           "requirements_variants_xp_timing_and_mechanics_not_structured",
           "independent_complete_activity_universe_not_established"
         ]
+      },
+      "latestAgilityOpenBlockerSourceRevisionMonitorAudit": {
+        "generatedAt": "2026-09-06T08:02:43.752Z",
+        "policy": "sensum.agility-open-blocker-source-revision-monitor-policy.v1",
+        "policyContentHash": "480fd66273d494adf33defa6f33f77453f0540014261fee44f92915ea5982bfd",
+        "recordContractContentHash": "64b82bfd65f51b524c96228d743eb6b13a7795c623b877d12fc4e2e0f7d12345",
+        "auditContractContentHash": "527788ce60b913767be9bbdd0d750fcca192713dc9d5916ff615e5eac56ad046",
+        "inputAuditContentHash": "b243d0ba775da6f8060de799e5101f3fc8990acdb4b72b3689354e72a69740d6",
+        "firstOutputSnapshotDirectory": "2026-09-06T08-02-33-249Z",
+        "secondOutputSnapshotDirectory": "2026-09-06T08-02-43-752Z",
+        "outputSnapshotContentHash": "028b190750286a1a7639d445062cf702c795b1cff798a1bc929399f4a06d3f3c",
+        "reportContentHash": "06b51df5998f4bc89720a4cb7f5bb35b8d9f280d483c75aba07d7e28750c6001",
+        "blockedCandidateCount": 12,
+        "distinctSourceCount": 25,
+        "exactRevisionRetrievedCount": 25,
+        "currentHeadResolvedCount": 25,
+        "unchangedSourceCount": 24,
+        "advancedSourceCount": 1,
+        "advancedSource": {
+          "title": "Agility training",
+          "pinnedRevision": "15324367",
+          "currentRevision": "15331211",
+          "currentTimestamp": "2026-09-05T03:05:04Z",
+          "affectedCandidateCount": 5
+        },
+        "payloadDifferencesAcrossTwoRealRuns": 0,
+        "blockersClosed": 0,
+        "semanticFactsCreated": 0,
+        "optimizerEligibleCount": 0,
+        "automaticVerificationCount": 0,
+        "accountStateFindingCount": 0,
+        "sourceRevisionMonitoringComplete": true,
+        "sourceSetCurrent": false,
+        "conditionOrMechanicsCoverageComplete": false,
+        "testScriptsPassed": 177,
+        "regressionChecksPassed": 488,
+        "absoluteBestGate": "blocked_incomplete_level_34_coverage"
       },
       "latestAudit": {
         "generatedAt": "2026-09-03T22:09:45.087Z",

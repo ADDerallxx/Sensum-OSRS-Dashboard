@@ -1,0 +1,23 @@
+{
+  "policy": "sensum.agility-open-blocker-source-revision-monitor-policy.v1",
+  "inputAuditContract": "sensum.agility-level34-coverage-audit.v1",
+  "recordContract": "sensum.agility-open-blocker-source-revision-monitor.v1",
+  "auditContract": "sensum.agility-open-blocker-source-revision-monitor-audit.v1",
+  "targetBaseAgility": 34,
+  "acceptedSourceOrigin": "https://oldschool.runescape.wiki/w/",
+  "rules": {
+    "inputAuditMustBeContentHashValid": true,
+    "onlyCandidatesWithExplicitBlockersAreMonitored": true,
+    "everyRevisionUrlPairInBlockedCandidateDetailsIsMonitored": true,
+    "sourcesAreDeduplicatedByRevisionAndCanonicalUrl": true,
+    "pinnedRevisionMustBeRefetchedExactly": true,
+    "currentHeadMustBeResolvedFromThePinnedUrlTitle": true,
+    "pageIdentityRevisionTimestampAndContentAreRecorded": true,
+    "unchangedRevisionNeverClosesAnExistingBlocker": true,
+    "advancedRedirectedOrIdentityChangedSourcesRequireReaudit": true,
+    "missingOrInvalidSourcesBlockMonitorPublication": true,
+    "semanticFactsAndOptimizerEligibilityCannotBeCreated": true,
+    "accountSpecificInputsAreForbidden": true,
+    "automaticVerificationAllowed": false
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "contract": "sensum.agility-open-blocker-source-revision-monitor.v1",
+  "required": [
+    "sourceKey",
+    "inputAuditContentHash",
+    "requestedTitle",
+    "pinnedSource",
+    "currentHead",
+    "revisionState",
+    "affectedCandidates",
+    "existingBlockerCount",
+    "blockersClosed",
+    "reauditRequired",
+    "semanticFactsCreated",
+    "optimizerEligible",
+    "automaticVerificationApplied",
+    "accountIndependent",
+    "blockers",
+    "recordContentHash",
+    "contentHash"
+  ],
+  "rules": {
+    "oneRecordPerDistinctPinnedRevisionAndUrl": true,
+    "exactRevisionContentMustBePresent": true,
+    "affectedCandidatesAndExistingBlockersMustBePreserved": true,
+    "unchangedMeansOnlyThatThePinnedSourceIsStillCurrent": true,
+    "driftRequiresReauditAndCannotApplyNewSemantics": true,
+    "blockersClosedMustAlwaysBeZero": true,
+    "semanticFactsCreatedMustAlwaysBeZero": true,
+    "optimizerEligibilityAndAutomaticVerificationAreForbidden": true,
+    "currentAccountStateIsForbidden": true
+  }
+}
