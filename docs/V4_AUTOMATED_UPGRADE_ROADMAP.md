@@ -74,6 +74,27 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+The first accepted cross-skill evidence snapshot is now materialized in the
+isolated local PostgreSQL database through a deterministic, fail-closed adapter.
+The selected raw level-up-table inventory is bound to snapshot hash
+`a0eac5b743815e3e5e0d810d9f2ee006fee5570a200b40d3d7c73f831a188f40`
+and its independent publishable audit is bound to hash
+`d0c37fd65619e008320bd8707b59a80881811ed32af3ef0e8b80345a2a8e2611`.
+The database now contains 24 official skills, 24 exact-revision Wiki sources,
+24 lossless raw inventory records, and 4,768 normalized raw statements. Exact
+payload, locator, source, revision, timestamp, state, count, and aggregate-hash
+reconciliation passed inside the transaction.
+
+All statements remain `candidate`, all raw inventory records remain `review`,
+the database snapshot explicitly remains incomplete for world/activity-universe
+coverage, and zero records became optimizer eligible or verified. A complete
+second application was a no-op with an identical result, and an intentional
+failure probe rolled back with zero residual rows. The materialization report
+hash is `43e0629f4fc399b7b18497a28ce7c3c7e7ee2d79a3e316bc6633620f4a5792d9`.
+The next checkpoint should add a read-only local evidence catalog and health
+query so the imported facts, revisions, gates, and blockers are inspectable
+before widening PostgreSQL materialization to additional evidence domains.
+
 The approved local-only architecture now has an operational, isolated
 PostgreSQL development boundary. Windows WSL 2.7.13, Docker Desktop 4.89.0,
 Docker Engine 29.7.2, and Docker Compose 5.5.0 are installed. PostgreSQL 18.1 is

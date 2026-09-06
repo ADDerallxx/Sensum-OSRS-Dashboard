@@ -32,5 +32,22 @@ From the repository root:
 and reports the migration and table totals. `stop` preserves the named database
 volume. Backups are written under the ignored `.platform-local/backups` folder.
 
+## Accepted evidence materialization
+
+The first cross-skill adapter imports the newest independently audited raw skill
+level-up inventory:
+
+```powershell
+node platform\db\materialize-skill-unlock-inventory.mjs
+```
+
+The command validates the pinned snapshot and audit before opening a database
+transaction, reconciles every persisted source and evidence row before commit,
+reapplies the transaction to prove idempotency, and performs an intentional
+rollback probe. Imported statements remain candidate evidence and cannot enter
+the optimizer or authorize a verified-best claim. Its report is written beneath
+the ignored `.platform-data/cross-skill-evidence-postgresql-materialization-audits`
+directory.
+
 Do not place PostgreSQL's live data directory in Google Drive or another synced
 folder. Copy verified database dumps there only as backup artifacts.

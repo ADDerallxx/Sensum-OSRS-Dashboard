@@ -17,6 +17,7 @@ const review=JSON.parse(fs.readFileSync('platform/contracts/golden-review-packet
 const decision=JSON.parse(fs.readFileSync('platform/contracts/golden-review-decision-v1.json','utf8'));
 const certificateSql=fs.readFileSync('platform/db/migrations/0008_recommendation_certificates.sql','utf8');
 const certificate=JSON.parse(fs.readFileSync('platform/contracts/recommendation-certificate-v1.json','utf8'));
+const crossSkillPostgresqlMaterialization=JSON.parse(fs.readFileSync('platform/contracts/cross-skill-evidence-postgresql-materialization-audit-v1.json','utf8'));
 const agilityTable=JSON.parse(fs.readFileSync('platform/contracts/agility-course-table-v1.json','utf8'));
 const upgradePlan=JSON.parse(fs.readFileSync('platform/automation/v4-upgrade-plan.json','utf8'));
 const agilityVariant=JSON.parse(fs.readFileSync('platform/contracts/agility-variant-v1.json','utf8'));
@@ -124,6 +125,8 @@ const activityReferenceCollectionMemberUnresolvedRelationshipDisposition=JSON.pa
 const activityReferenceCollectionMemberUnresolvedRelationshipDispositionAudit=JSON.parse(fs.readFileSync('platform/contracts/activity-reference-collection-member-unresolved-subject-relationship-disposition-audit-v1.json','utf8'));
 const variantDiscovery=fs.readFileSync('platform/transforms/variant-snapshot-lib.mjs','utf8');
 const failures=[];const check=(ok,msg)=>{if(!ok)failures.push(msg)};
+check(crossSkillPostgresqlMaterialization.rules.onlyAnAuditAcceptedRevisionPinnedSnapshotMayMaterialize===true&&crossSkillPostgresqlMaterialization.rules.sourceRowsAndRawEvidenceMustReconcileExactly===true&&crossSkillPostgresqlMaterialization.rules.candidateStatementsRemainCandidateAndOptimizerIneligible===true&&crossSkillPostgresqlMaterialization.rules.rawInventoryCompletenessCannotClaimCompleteActivityUniverse===true&&crossSkillPostgresqlMaterialization.rules.anyValidationOrDatabaseMismatchRollsBackTheWholeTransaction===true&&crossSkillPostgresqlMaterialization.rules.reapplicationMustBeIdempotent===true&&crossSkillPostgresqlMaterialization.rules.automaticVerificationAllowed===false&&crossSkillPostgresqlMaterialization.rules.productionMutationAllowed===false,'Cross-skill PostgreSQL materialization must remain revision-pinned, reconciled, transactional, idempotent, candidate-only, and production-isolated.');
+for(const file of ['platform/db/skill-unlock-materialization-lib.mjs','platform/db/materialize-skill-unlock-inventory.mjs','platform/tests/skill-unlock-postgresql-materialization.test.mjs'])check(fs.existsSync(file),`Missing cross-skill PostgreSQL materialization component: ${file}`);
 for(const table of ['data_sources','data_snapshots','items','equipment','effects','npcs','npc_combat_stats','locations','recipes','price_observations','profiles','account_snapshots','training_methods','optimization_runs','optimization_evidence','validation_findings'])check(new RegExp(`CREATE TABLE ${table} \\(`).test(sql),`Missing canonical table: ${table}`);
 check(/content_hash text NOT NULL/.test(sql),'Sources must be content-addressed.');
 check(/formula_version text NOT NULL/.test(sql),'Calculations must retain formula versions.');

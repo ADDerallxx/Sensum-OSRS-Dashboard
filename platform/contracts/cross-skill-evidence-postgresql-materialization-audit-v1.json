@@ -1,0 +1,29 @@
+{
+  "contract": "sensum.cross-skill-evidence-postgresql-materialization-audit.v1",
+  "required": [
+    "input",
+    "database",
+    "before",
+    "reconciled",
+    "expected",
+    "hashes",
+    "gates",
+    "transactionRollbackProven",
+    "idempotentReapplicationProven",
+    "productionMutations",
+    "optimizerPromotions",
+    "verifiedBestAuthorizations",
+    "publishable",
+    "contentHash"
+  ],
+  "rules": {
+    "onlyAnAuditAcceptedRevisionPinnedSnapshotMayMaterialize": true,
+    "sourceRowsAndRawEvidenceMustReconcileExactly": true,
+    "candidateStatementsRemainCandidateAndOptimizerIneligible": true,
+    "rawInventoryCompletenessCannotClaimCompleteActivityUniverse": true,
+    "anyValidationOrDatabaseMismatchRollsBackTheWholeTransaction": true,
+    "reapplicationMustBeIdempotent": true,
+    "automaticVerificationAllowed": false,
+    "productionMutationAllowed": false
+  }
+}
