@@ -46,6 +46,37 @@
       "production_mutation"
     ]
   },
+  "authorizationPolicy": {
+    "recordedAt": "2026-09-06",
+    "source": "explicit_user_approval",
+    "policyDocument": "docs/V4_AUTHORIZATION_BOUNDARIES.md",
+    "persistentGoalResumeAuthorized": true,
+    "developmentGitRemoteBackupAllowed": true,
+    "readOnlyExternalDataAccessAllowed": true,
+    "isolatedLocalPostgresAllowed": true,
+    "scopedPinnedDependencyInstallationAllowed": true,
+    "sanitizedAccountDataLocalTestingAllowed": true,
+    "deterministicLowRiskStructuredFactPromotionAllowed": true,
+    "pipelineRefactorAndConsolidationAllowed": true,
+    "verifiedEvidenceArchiveManagementAllowed": true,
+    "isolatedLocalRefreshSchedulingAllowed": true,
+    "boundedNonOverlappingParallelWorkAllowed": true,
+    "materialHumanReviewStillRequired": true,
+    "independentAdversarialValidationAllowed": true,
+    "cloudStaging": {
+      "approvedInPrinciple": true,
+      "monthlySpendCapRequired": true,
+      "monthlySpendCap": null,
+      "resourceCreationAllowed": false
+    },
+    "production": {
+      "mergeAllowed": false,
+      "deploymentAllowed": false,
+      "dataMutationAllowed": false,
+      "migrationAllowed": false,
+      "cutoverAllowed": false
+    }
+  },
   "phases": [
     {
       "id": "foundation",
