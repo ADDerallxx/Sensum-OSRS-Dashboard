@@ -321,3 +321,14 @@ record count, creation time, audit result, and SHA-256 content hash.
   successful XP, damage, requirements, timing, source revisions, and stable
   unknown-model states without storing an account level. Level-numbered missing
   probability blockers are derived only by the downstream coverage query.
+- Target-condition source-sufficiency ingestion audits the five remaining
+  level-34 condition gaps against 21 explicitly declared, exact-revision Wiki
+  sources. Run
+  `node platform/ingestion/ingest-wiki-agility-target-condition-source-sufficiency.mjs --coverage-audit=<exact report.json>`.
+  Candidate-specific source sets prevent text about another course from becoming
+  a resolution signal. Each blocker maps to one required evidence shape; a
+  matching diagnostic only requests manual semantic re-audit. Missing signals
+  mean “not found in these declared revisions and channels,” never “the Wiki or
+  game has no such fact.” The output cannot close blockers, create semantic
+  facts, grant optimizer eligibility, include account state, or claim complete
+  Wiki coverage.

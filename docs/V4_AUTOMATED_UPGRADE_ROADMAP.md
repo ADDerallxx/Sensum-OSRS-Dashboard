@@ -43,6 +43,31 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+The five remaining level-34 target-condition gaps now have a dedicated,
+revision-bound source-sufficiency audit. It covers Al Kharid Rooftop, both
+Brimhaven floor-spike variants, Penguin course access, and Shayzien Basic. The
+audit binds 21 exact official-Wiki revisions across the training guide, activity
+and obstacle pages, activity collections, skill overview, quest and location
+pages, the Agility-info and success-chart templates, the success formula module,
+and the Agility calculator registry. Every one of the 17 existing blockers maps
+to exactly one required evidence shape and a candidate-scoped diagnostic source
+set.
+
+Two official-Wiki materializations reproduced output hash
+`ba09c1c3011907b7b96854bcdd8debb6a5ef79e326d6edc9be1759bebf3dcb8e`.
+All 21 exact revisions resolved by both revision and title, all five candidate
+and blocker sets matched the content-hash-validated coverage input, and the
+candidate-scoped diagnostics found zero condition-matched resolution signals.
+Therefore all 17 evidence domains remain explicitly unresolved. Zero blockers
+were closed, zero semantic facts were created, and no optimizer eligibility,
+automatic approval, account state, or complete-Wiki claim was produced. A
+future matching signal routes manual semantic re-audit and still cannot promote
+a fact automatically. All 180 test scripts and 544 regression checks pass. The
+next checkpoint will audit the three remaining mechanically incomplete Agility
+candidates—Werewolf Skullball, Barbarian Fishing AFK, and Edgeville
+monkeybars—against their exact source channels without weakening the fail-closed
+gate.
+
 The four passive Brimhaven equipment-and-diary policies now have a reusable,
 revision-pinned expected-rate path across base Agility levels 1–99. A generic
 fail-closed expected-rate registry keeps the activity-vector generator free of

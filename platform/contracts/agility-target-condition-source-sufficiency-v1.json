@@ -1,0 +1,14 @@
+{
+  "contract": "sensum.agility-target-condition-source-sufficiency.v1",
+  "required": ["candidateKey", "candidateName", "targetBaseAgility", "inputAuditContentHash", "sourceBindings", "evidenceDomains", "existingBlockers", "disposition", "manualReauditRequired", "blockersClosed", "semanticFactsCreated", "optimizerEligible", "automaticVerificationApplied", "accountIndependent", "completeWikiUniverseClaimed", "recordContentHash", "contentHash"],
+  "rules": {
+    "oneRecordPerDeclaredTargetConditionGap": true,
+    "exactRevisionAndTitleBindingsAreRequired": true,
+    "everyInputBlockerMapsToOneEvidenceDomain": true,
+    "diagnosticsAreNotSemanticEvidence": true,
+    "notFoundIsScopedToDeclaredChannelsAndRevisions": true,
+    "blockersClosedAndSemanticFactsCreatedAreZero": true,
+    "optimizerEligibilityAutomaticVerificationAndAccountStateAreForbidden": true,
+    "completeWikiUniverseClaimsAreForbidden": true
+  }
+}

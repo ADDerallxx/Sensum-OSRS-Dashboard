@@ -1,0 +1,114 @@
+{
+  "policy": "sensum.agility-target-condition-source-sufficiency-policy.v1",
+  "inputAuditContract": "sensum.agility-level34-coverage-audit.v1",
+  "recordContract": "sensum.agility-target-condition-source-sufficiency.v1",
+  "auditContract": "sensum.agility-target-condition-source-sufficiency-audit.v1",
+  "targetBaseAgility": 34,
+  "acceptedSourceOrigin": "https://oldschool.runescape.wiki/w/",
+  "sources": [
+    { "sourceKey": "agility-training", "title": "Agility training", "revision": "15324367", "url": "https://oldschool.runescape.wiki/w/Agility_training", "channel": "training_guide" },
+    { "sourceKey": "al-kharid-course", "title": "Al Kharid Rooftop Course", "revision": "15319534", "url": "https://oldschool.runescape.wiki/w/Al_Kharid_Rooftop_Course", "channel": "activity_page" },
+    { "sourceKey": "al-kharid-tightrope", "title": "Tightrope (Al Kharid Rooftop Course)", "revision": "14658399", "url": "https://oldschool.runescape.wiki/w/Tightrope_(Al_Kharid_Rooftop_Course)", "channel": "obstacle_page" },
+    { "sourceKey": "al-kharid-zip-line", "title": "Zip line (Al Kharid Rooftop Course)", "revision": "14687253", "url": "https://oldschool.runescape.wiki/w/Zip_line_(Al_Kharid_Rooftop_Course)", "channel": "obstacle_page" },
+    { "sourceKey": "rooftop-courses", "title": "Rooftop Agility Courses", "revision": "15310424", "url": "https://oldschool.runescape.wiki/w/Rooftop_Agility_Courses", "channel": "activity_collection" },
+    { "sourceKey": "brimhaven-arena", "title": "Brimhaven Agility Arena", "revision": "15293118", "url": "https://oldschool.runescape.wiki/w/Brimhaven_Agility_Arena", "channel": "activity_page" },
+    { "sourceKey": "brimhaven-floor-spikes", "title": "Floor spikes (Brimhaven Agility Arena)", "revision": "15329694", "url": "https://oldschool.runescape.wiki/w/Floor_spikes_(Brimhaven_Agility_Arena)", "channel": "obstacle_page" },
+    { "sourceKey": "penguin-course", "title": "Penguin Agility Course", "revision": "15239936", "url": "https://oldschool.runescape.wiki/w/Penguin_Agility_Course", "channel": "activity_page" },
+    { "sourceKey": "iceberg", "title": "Iceberg", "revision": "15317986", "url": "https://oldschool.runescape.wiki/w/Iceberg", "channel": "location_page" },
+    { "sourceKey": "cold-war", "title": "Cold War", "revision": "15315223", "url": "https://oldschool.runescape.wiki/w/Cold_War", "channel": "quest_page" },
+    { "sourceKey": "agility-overview", "title": "Agility", "revision": "15326985", "url": "https://oldschool.runescape.wiki/w/Agility", "channel": "skill_overview" },
+    { "sourceKey": "shayzien-course", "title": "Shayzien Agility Course", "revision": "15168110", "url": "https://oldschool.runescape.wiki/w/Shayzien_Agility_Course", "channel": "activity_page" },
+    { "sourceKey": "shayzien-ladder", "title": "Ladder (Shayzien Agility Course)", "revision": "14715880", "url": "https://oldschool.runescape.wiki/w/Ladder_(Shayzien_Agility_Course)", "channel": "obstacle_page" },
+    { "sourceKey": "shayzien-monkeybars", "title": "Monkeybars (Shayzien Agility Course)", "revision": "14730388", "url": "https://oldschool.runescape.wiki/w/Monkeybars_(Shayzien_Agility_Course)", "channel": "obstacle_page" },
+    { "sourceKey": "shayzien-tightrope", "title": "Tightrope (Shayzien Agility Course)", "revision": "14738994", "url": "https://oldschool.runescape.wiki/w/Tightrope_(Shayzien_Agility_Course)", "channel": "obstacle_page" },
+    { "sourceKey": "shayzien-bar", "title": "Bar (Shayzien Agility Course)", "revision": "14658395", "url": "https://oldschool.runescape.wiki/w/Bar_(Shayzien_Agility_Course)", "channel": "obstacle_page" },
+    { "sourceKey": "shayzien-gap", "title": "Gap (Shayzien Agility Course)", "revision": "14658396", "url": "https://oldschool.runescape.wiki/w/Gap_(Shayzien_Agility_Course)", "channel": "obstacle_page" },
+    { "sourceKey": "success-module", "title": "Module:Skilling success chart", "revision": "15325744", "url": "https://oldschool.runescape.wiki/w/Module%3ASkilling_success_chart", "channel": "formula_module" },
+    { "sourceKey": "success-template", "title": "Template:Skilling success chart", "revision": "15325745", "url": "https://oldschool.runescape.wiki/w/Template%3ASkilling_success_chart", "channel": "formula_template" },
+    { "sourceKey": "agility-info-template", "title": "Template:Agility info", "revision": "14042516", "url": "https://oldschool.runescape.wiki/w/Template%3AAgility_info", "channel": "obstacle_template" },
+    { "sourceKey": "agility-skill-calculator", "title": "Module:Skill calc/Agility", "revision": "15317648", "url": "https://oldschool.runescape.wiki/w/Module%3ASkill_calc/Agility", "channel": "skill_calculator_registry" }
+  ],
+  "blockerRules": [
+    { "pattern": "^(?:tightrope_1|zip_line)_success_probability_at_base_level_34_not_published$", "domain": "target_success_probability", "diagnosticKinds": ["target_numeric_probability", "success_chart_parameters"], "requiredEvidenceShape": "A source-bound numeric success probability at base level 34, or obstacle-specific low/high parameters usable with the pinned Wiki interpolation formula." },
+    { "pattern": "^(?:aggregate_)?failure_probability_at_base_level_34_not_published$", "domain": "target_success_probability", "diagnosticKinds": ["target_numeric_probability", "success_chart_parameters"], "requiredEvidenceShape": "A source-bound numeric failure probability at base level 34, or complete obstacle-specific parameters from which it can be calculated." },
+    { "pattern": "^success_interpolation_low_high_parameters_not_published$", "domain": "success_interpolation_parameters", "diagnosticKinds": ["success_chart_parameters"], "requiredEvidenceShape": "Obstacle-specific low and high integer parameters explicitly bound to the pinned Wiki skilling-success interpolation formula." },
+    { "pattern": "^failed_obstacle_xp_outcome_not_published$", "domain": "failed_attempt_xp", "diagnosticKinds": ["failed_attempt_xp"], "requiredEvidenceShape": "A source statement identifying XP awarded on each failed attempt for the exact obstacle or route variant." },
+    { "pattern": "^failure_recovery_route_and_time_penalty_not_published$", "domain": "failure_recovery", "diagnosticKinds": ["failure_recovery"], "requiredEvidenceShape": "A source statement identifying post-failure position or recovery route and its tick/second penalty." },
+    { "pattern": "^observed_rate_scope_20_to_30_does_not_cover_base_level_34$", "domain": "target_expected_rate", "diagnosticKinds": ["exact_target_rate"], "requiredEvidenceShape": "An expected or observed rate explicitly scoped to base level 34 and the same route conditions." },
+    { "pattern": "^observed_rate_level_scope_does_not_identify_base_level_34$", "domain": "target_expected_rate", "diagnosticKinds": ["exact_target_rate"], "requiredEvidenceShape": "An observed rate whose published level scope explicitly includes base level 34 and whose other conditions match." },
+    { "pattern": "^expected_xp_per_hour_at_base_level_34_not_published$", "domain": "target_expected_rate", "diagnosticKinds": ["exact_target_rate"], "requiredEvidenceShape": "A condition-matched expected XP/hour value at base level 34, or complete mechanics sufficient to calculate it." },
+    { "pattern": "^observed_xp_per_hour_at_base_level_34_equipment_state_not_published$", "domain": "equipment_scoped_rate", "diagnosticKinds": ["detached_rate_equipment_scope"], "requiredEvidenceShape": "The exact equipment and diary state attached to the detached floor-spike observed rate." },
+    { "pattern": "^failure_capable_obstacle_identity_not_published$", "domain": "failure_capable_identity", "diagnosticKinds": ["shayzien_failure_capable_identity"], "requiredEvidenceShape": "An explicit source statement identifying which non-tightrope Shayzien Basic obstacle types can fail." },
+    { "pattern": "^supporting_rate_matches_superseded_pre_update_value$", "domain": "rate_revision_alignment", "diagnosticKinds": ["shayzien_rate_alignment"], "requiredEvidenceShape": "Revision-aligned source text that reconciles the overview's average rate with the post-update course rate without treating an upper bound as expected performance." }
+  ],
+  "candidates": [
+    {
+      "candidateKey": "guide:rooftop:al-kharid",
+      "sourceKeys": ["agility-training", "al-kharid-course", "al-kharid-tightrope", "al-kharid-zip-line", "rooftop-courses", "success-module", "success-template", "agility-info-template", "agility-skill-calculator"],
+      "diagnosticSourceKeysByKind": {
+        "target_numeric_probability": ["al-kharid-course", "al-kharid-tightrope", "al-kharid-zip-line"],
+        "success_chart_parameters": ["al-kharid-course", "al-kharid-tightrope", "al-kharid-zip-line"],
+        "failed_attempt_xp": ["al-kharid-course", "al-kharid-tightrope", "al-kharid-zip-line"],
+        "failure_recovery": ["al-kharid-course", "al-kharid-tightrope", "al-kharid-zip-line"],
+        "exact_target_rate": ["agility-training", "al-kharid-course", "rooftop-courses"]
+      },
+      "expectedBlockers": ["tightrope_1_success_probability_at_base_level_34_not_published", "zip_line_success_probability_at_base_level_34_not_published", "failed_obstacle_xp_outcome_not_published", "failure_recovery_route_and_time_penalty_not_published", "observed_rate_scope_20_to_30_does_not_cover_base_level_34"]
+    },
+    {
+      "candidateKey": "guide:brimhaven:floor-spikes-detached",
+      "sourceKeys": ["agility-training", "brimhaven-arena", "brimhaven-floor-spikes", "success-module", "success-template", "agility-info-template", "agility-skill-calculator"],
+      "diagnosticSourceKeysByKind": {
+        "success_chart_parameters": ["brimhaven-floor-spikes"],
+        "detached_rate_equipment_scope": ["agility-training", "brimhaven-arena", "brimhaven-floor-spikes"]
+      },
+      "expectedBlockers": ["success_interpolation_low_high_parameters_not_published", "observed_xp_per_hour_at_base_level_34_equipment_state_not_published"]
+    },
+    {
+      "candidateKey": "guide:brimhaven:floor-spikes-active",
+      "sourceKeys": ["agility-training", "brimhaven-arena", "brimhaven-floor-spikes", "success-module", "success-template", "agility-info-template", "agility-skill-calculator"],
+      "diagnosticSourceKeysByKind": {
+        "success_chart_parameters": ["brimhaven-floor-spikes"],
+        "exact_target_rate": ["agility-training", "brimhaven-arena", "brimhaven-floor-spikes"]
+      },
+      "expectedBlockers": ["expected_xp_per_hour_at_base_level_34_not_published", "success_interpolation_low_high_parameters_not_published"]
+    },
+    {
+      "candidateKey": "vector:agility_course:agility-access:Penguin Agility Course:clockwork_suit:level-30",
+      "sourceKeys": ["agility-training", "penguin-course", "iceberg", "cold-war", "agility-overview", "agility-info-template", "agility-skill-calculator"],
+      "diagnosticSourceKeysByKind": {
+        "target_numeric_probability": ["penguin-course"],
+        "success_chart_parameters": ["penguin-course"],
+        "exact_target_rate": ["agility-training", "penguin-course", "agility-overview"]
+      },
+      "expectedBlockers": ["failure_probability_at_base_level_34_not_published", "observed_rate_level_scope_does_not_identify_base_level_34"]
+    },
+    {
+      "candidateKey": "vector:agility_course:agility-variant:Shayzien Agility Course:basic:level-1",
+      "sourceKeys": ["agility-training", "shayzien-course", "shayzien-ladder", "shayzien-monkeybars", "shayzien-tightrope", "shayzien-bar", "shayzien-gap", "agility-overview", "success-module", "success-template", "agility-info-template", "agility-skill-calculator"],
+      "diagnosticSourceKeysByKind": {
+        "shayzien_failure_capable_identity": ["shayzien-course", "shayzien-ladder", "shayzien-monkeybars", "shayzien-tightrope", "shayzien-bar", "shayzien-gap"],
+        "target_numeric_probability": ["shayzien-course", "shayzien-ladder", "shayzien-monkeybars", "shayzien-tightrope", "shayzien-bar", "shayzien-gap"],
+        "success_chart_parameters": ["shayzien-course", "shayzien-ladder", "shayzien-monkeybars", "shayzien-tightrope", "shayzien-bar", "shayzien-gap"],
+        "failed_attempt_xp": ["shayzien-course", "shayzien-ladder", "shayzien-monkeybars", "shayzien-tightrope", "shayzien-bar", "shayzien-gap"],
+        "failure_recovery": ["shayzien-course", "shayzien-ladder", "shayzien-monkeybars", "shayzien-tightrope", "shayzien-bar", "shayzien-gap"],
+        "exact_target_rate": ["agility-training", "shayzien-course", "agility-overview"],
+        "shayzien_rate_alignment": ["shayzien-course", "agility-overview"]
+      },
+      "expectedBlockers": ["failure_capable_obstacle_identity_not_published", "aggregate_failure_probability_at_base_level_34_not_published", "failed_obstacle_xp_outcome_not_published", "failure_recovery_route_and_time_penalty_not_published", "expected_xp_per_hour_at_base_level_34_not_published", "supporting_rate_matches_superseded_pre_update_value"]
+    }
+  ],
+  "rules": {
+    "inputAuditContractAndContentHashMustValidate": true,
+    "policyCandidateSetMustEqualEveryTargetConditionGap": true,
+    "policyBlockerSetsMustMatchInputExactly": true,
+    "everyBlockerMustMapToExactlyOneEvidenceDomain": true,
+    "everyDeclaredSourceMustResolveByExactRevisionAndTitle": true,
+    "diagnosticSignalsRouteManualReauditAndNeverResolveFacts": true,
+    "absenceMeansOnlyNotFoundInTheDeclaredRevisionBoundChannels": true,
+    "blockersClosedAndSemanticFactsCreatedMustAlwaysBeZero": true,
+    "optimizerEligibilityAndAutomaticVerificationAreForbidden": true,
+    "accountSpecificInputsAreForbidden": true,
+    "completeWikiOrActivityUniverseClaimsAreForbidden": true,
+    "automaticVerificationAllowed": false
+  }
+}
