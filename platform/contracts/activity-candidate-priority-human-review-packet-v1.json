@@ -1,0 +1,41 @@
+{
+  "contract": "sensum.activity-candidate-priority-human-review-packet.v1",
+  "required": [
+    "reviewPacketKey",
+    "packetOrdinal",
+    "batchOrdinal",
+    "batchItemOrdinal",
+    "candidateKey",
+    "sourcePageIdentity",
+    "sourceExactRevisionUrl",
+    "pipelineBindings",
+    "discoveryEvidence",
+    "sourceEvidence",
+    "subjectAssessment",
+    "workRoute",
+    "reviewPriority",
+    "reviewObligations",
+    "decisionTemplate",
+    "explicitNonClaims",
+    "decisionRecorded",
+    "canonicalGameEntityIdentity",
+    "canonicalActivityIdentity",
+    "repeatabilityClassification",
+    "atomicityClassification",
+    "memberExpansionReviewed",
+    "requirementsVariantsXpTimingAndMechanicsComplete",
+    "optimizerEligible",
+    "automaticVerificationApplied",
+    "accountIndependent",
+    "blockers",
+    "state",
+    "recordContentHash"
+  ],
+  "rules": {
+    "onePacketMapsToOneExactlyBoundActivityDiscoveryCandidate": true,
+    "allEvidenceIsRevisionPinnedOrContentHashed": true,
+    "allHumanDecisionFieldsRemainBlank": true,
+    "sourceConflictsAndEvidenceObligationsRemainVisible": true,
+    "semanticAndOptimizerGatesRemainClosed": true
+  }
+}

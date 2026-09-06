@@ -928,3 +928,25 @@ Run only with both explicitly selected snapshots:
 ```text
 node platform/transforms/apply-cross-skill-rendered-page-without-unlock-evidence-unlock-corpus-absence-reconciliation-decisions.mjs --queue-snapshot=<queue-snapshot-directory> --decision-snapshot=<decision-snapshot-directory>
 ```
+
+`materialize-activity-candidate-priority-human-review-packets.mjs` consolidates
+the first 29 explicit activity-page candidates into bounded human-review
+packets. It requires explicit selection of the original candidate inventory,
+exact-revision source evidence, source-subject disposition, and evidence-work
+routing snapshots. The four manifests, raw files, record hashes, pipeline
+bindings, candidate sets, source identities, and revisions must all match.
+
+These activity candidates have direct cross-source unlock evidence and are not
+members of the separate 4,725-page no-unlock-evidence queue. Source conflicts
+are placed first, while every rendered-guide observation, unlock reference,
+source signature, infobox, lead paragraph, heading, lexical review candidate,
+disposition signal, route, and evidence obligation remains attached. The six
+batches contain readable Markdown and untouched blank decision templates.
+Packet generation cannot establish identity, repeatability, atomicity,
+membership, requirements, variants, XP, timing, mechanics, or optimizer state.
+
+Run only with all four explicitly selected snapshots:
+
+```text
+node platform/transforms/materialize-activity-candidate-priority-human-review-packets.mjs --candidate-snapshot=<candidate-snapshot-directory> --source-evidence-snapshot=<source-evidence-snapshot-directory> --subject-disposition-snapshot=<subject-disposition-snapshot-directory> --work-routing-snapshot=<work-routing-snapshot-directory>
+```

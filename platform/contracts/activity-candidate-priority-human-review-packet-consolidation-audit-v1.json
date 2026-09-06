@@ -1,0 +1,28 @@
+{
+  "contract": "sensum.activity-candidate-priority-human-review-packet-consolidation-audit.v1",
+  "required": [
+    "policyCoverage",
+    "inputCoverage",
+    "pipelineBindingCoverage",
+    "packetCoverage",
+    "evidenceCoverage",
+    "batchCoverage",
+    "artifactCoverage",
+    "semanticPreservationCoverage",
+    "accountStateFindings",
+    "packetConsolidationComplete",
+    "humanReviewComplete",
+    "requirementsVariantsXpTimingAndMechanicsComplete",
+    "completeActivityUniverse",
+    "absoluteBestGate",
+    "blockers",
+    "publishable"
+  ],
+  "rules": {
+    "allFourInputSetsAndPipelineBindingsMustMatchExactly": true,
+    "packetAndArtifactSetsMustExactlyMatchDeterministicReconstruction": true,
+    "sourceConflictsMustRemainBlockedAndFirstInReviewOrder": true,
+    "allHumanReviewAndSemanticPromotionFieldsMustRemainClosed": true,
+    "accountStateMustFailPublication": true
+  }
+}

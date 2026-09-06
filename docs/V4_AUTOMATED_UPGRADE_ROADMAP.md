@@ -43,6 +43,32 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+The first 29 explicit activity-page candidates now have deterministic,
+revision-bound consolidated human-review packets. A generic policy, packet and
+audit contracts, transform, CLI, and tests require explicit selection of the
+original cross-source candidate inventory, exact-revision source evidence,
+source-subject dispositions, and evidence-work routes. All four manifests, raw
+files, record hashes, pipeline links, candidate sets, identities, and revisions
+must revalidate. This also corrects the planned boundary: all 29 candidates have
+direct cross-source unlock evidence, and their intersection with the separate
+4,725-page no-unlock-evidence population is zero.
+
+The packets preserve 145 rendered-guide observations, 31 unlock references, 31
+source-signature contexts, 351 infobox parameters, 84 lead paragraphs, 423
+headings, 1,286 lexical review candidates, 45 disposition signals, and 222
+route-specific evidence-domain obligations. Hallowed Sepulchre and Stealing
+valuables retain their activity/minigame source conflicts and appear first;
+all 29 candidates retain their eight generic work-route classifications.
+Six contiguous batches contain readable Markdown and blank decision templates,
+along with 348 explicit nonclaims. Two real materializations produced the same
+packet snapshot (`b2e3daf7a5d6a8f65f9d44c137c50cb6a3ea87274b48ef7f441abb9f0b085893`)
+and the same 15 payload files. No human decision, canonical identity,
+repeatability or atomicity classification, member expansion, requirement,
+variant, XP, timing, mechanics verdict, account state, automatic verification,
+or optimizer promotion was created. All 29 decisions remain pending. All 163
+test scripts pass. The next checkpoint should create a fail-closed, evidence-
+bound human decision importer for these exact priority packets.
+
 The complete level-unlock-corpus absence review path now has a separate
 fail-closed application boundary. A generic policy, application-record and
 audit contracts, transform, CLI, and tests require explicit queue and decision

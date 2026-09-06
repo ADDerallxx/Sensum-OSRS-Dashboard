@@ -1,0 +1,60 @@
+{
+  "policy": "sensum.activity-candidate-priority-human-review-packet-consolidation-policy.v1",
+  "candidateContract": "sensum.cross-source-entity-activity-candidate.v1",
+  "sourceEvidenceContract": "sensum.activity-candidate-source-evidence.v1",
+  "subjectDispositionContract": "sensum.activity-candidate-subject-disposition.v1",
+  "workRoutingContract": "sensum.activity-candidate-evidence-work-routing.v1",
+  "packetContract": "sensum.activity-candidate-priority-human-review-packet.v1",
+  "decisionTemplateContract": "sensum.activity-candidate-priority-human-review-decision-template.v1",
+  "auditContract": "sensum.activity-candidate-priority-human-review-packet-consolidation-audit.v1",
+  "candidateDomain": "cross-source-entity-activity-candidate",
+  "sourceEvidenceDomain": "activity-candidate-source-evidence",
+  "subjectDispositionDomain": "activity-candidate-subject-disposition",
+  "workRoutingDomain": "activity-candidate-evidence-work-routing",
+  "outputDomain": "activity-candidate-priority-human-review-packet",
+  "batchSize": 5,
+  "allowedSubjectDispositionDecisions": [
+    "confirm_one_bound_source_disposition",
+    "reject_all_bound_source_dispositions",
+    "additional_evidence_required"
+  ],
+  "allowedRepeatabilityDecisions": [
+    "repeatable_activity",
+    "non_repeatable_subject",
+    "composite_or_collection_requires_expansion",
+    "additional_evidence_required"
+  ],
+  "allowedAtomicityDecisions": [
+    "atomic_activity_subject",
+    "composite_activity_subject",
+    "reference_collection_subject",
+    "additional_evidence_required"
+  ],
+  "allowedEvidenceDomainStatuses": [
+    "supported_by_bound_evidence",
+    "not_supported_by_bound_evidence",
+    "additional_evidence_required"
+  ],
+  "rules": {
+    "candidateSourceDispositionAndRoutingSnapshotsMustBeExplicitlySelected": true,
+    "allFourManifestsRawFilesAndRecordHashesMustRevalidate": true,
+    "sourceEvidenceDispositionAndRoutingManifestChainMustBindExactly": true,
+    "onlyActivityDiscoveryCandidatesMayEnterPackets": true,
+    "activityCandidatesMustRetainDirectCrossSourceUnlockEvidence": true,
+    "renderedPageWithoutUnlockEvidenceCandidatesAreASeparatePopulation": true,
+    "allFourCandidateSetsMustMatchExactly": true,
+    "onePacketPerActivityDiscoveryCandidate": true,
+    "candidateIdentityRevisionSourceAndPipelineHashesMustJoinExactly": true,
+    "allRenderedGuideUnlockSourceInfoboxLeadHeadingLexicalDispositionAndRouteEvidenceMustBePreserved": true,
+    "conflictingSourceDeclarationsMustRemainExplicitAndPrioritized": true,
+    "requiredEvidenceDomainsAreReviewObligationsNotVerifiedFacts": true,
+    "decisionTemplatesMustRemainCompletelyBlank": true,
+    "packetGenerationDoesNotRecordOrApplyAReviewDecision": true,
+    "packetGenerationCannotEstablishCanonicalIdentityRepeatabilityAtomicityMembershipRequirementsVariantsXpTimingMechanicsOrOptimizerState": true,
+    "namesTitlesPageIdsRevisionsSkillsRoutesAndAliasesCannotAlterPolicyBehavior": true,
+    "batchesMustBeContiguousCompleteNonOverlappingAndAtMostTheConfiguredSize": true,
+    "markdownAndDecisionArtifactsMustReproduceExactlyFromPackets": true,
+    "currentAccountStateIsForbidden": true,
+    "automaticVerificationAllowed": false
+  }
+}
