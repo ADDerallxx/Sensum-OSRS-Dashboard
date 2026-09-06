@@ -1,0 +1,15 @@
+{
+  "contract": "sensum.cross-skill-rendered-page-without-unlock-evidence-unlock-corpus-absence-reconciliation-decision-template.v1",
+  "required": [
+    "absenceWorkEntryKey", "sourceWorkQueueEntryKey", "renderedTargetKey",
+    "targetSourcePageId", "sourceWorkQueueRecordContentHash", "sourceCrosswalkRecordContentHash",
+    "corpusEvidenceContentHash", "disposition", "reviewer", "reviewedAt",
+    "evidenceKeys", "notes"
+  ],
+  "rules": {
+    "templateBindsTheExactQueueEntryTargetAndCorpus": true,
+    "dispositionReviewerReviewedAtEvidenceKeysAndNotesStartBlank": true,
+    "blankTemplatesAreNotDecisions": true,
+    "decisionImportRequiresASeparateFailClosedCheckpoint": true
+  }
+}

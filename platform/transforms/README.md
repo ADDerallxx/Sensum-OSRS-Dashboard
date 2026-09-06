@@ -1,5 +1,29 @@
 # Canonicalization
 
+## Level-unlock-corpus absence reconciliation work queue
+
+`export-cross-skill-rendered-page-without-unlock-evidence-unlock-corpus-absence-reconciliation-work-queue.mjs`
+revalidates the complete rendered-page/no-unlock source queue against the
+stable page-ID crosswalk, every pinned official skill level-up table, and the
+complete unlock-linked-page equivalence corpus. It proves only the narrow
+machine observation that each queued stable page ID occurs zero times in that
+exact corpus.
+
+The exporter also proves that every raw level-up-table statement/target
+relationship is preserved exactly once in the equivalence corpus. It emits a
+machine queue, readable TSV, complete corpus-evidence summary, and blank review
+decisions. Absence from this corpus never means that no requirement exists:
+semantic relevance, requirements outside level-up tables, canonical identity,
+repeatability, mechanics, and optimizer eligibility all remain blocked. A
+separate fail-closed importer is required before any human reconciliation can
+be recorded.
+
+Run:
+
+```text
+node platform/transforms/export-cross-skill-rendered-page-without-unlock-evidence-unlock-corpus-absence-reconciliation-work-queue.mjs
+```
+
 ## Collection-activity identity evidence
 
 `build-activity-reference-collection-member-collection-activity-identity-evidence.mjs`

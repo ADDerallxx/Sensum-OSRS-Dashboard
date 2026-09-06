@@ -1,0 +1,19 @@
+{
+  "contract": "sensum.cross-skill-rendered-page-without-unlock-evidence-unlock-corpus-absence-reconciliation-work-queue-export-audit.v1",
+  "required": [
+    "inputCoverage", "policyCoverage", "snapshotCoverage", "sourceQueueCoverage",
+    "crosswalkCoverage", "inventoryCoverage", "equivalenceCoverage", "corpusBindingCoverage",
+    "absenceCoverage", "artifactCoverage", "reviewCoverage", "semanticPreservationCoverage",
+    "accountStateFindings", "queueExportComplete", "absenceReconciliationComplete",
+    "completeActivityUniverse", "absoluteBestGate", "blockers", "publishable"
+  ],
+  "rules": {
+    "allInputSnapshotsRecordsAndIntrinsicHashesMustRevalidate": true,
+    "inventoryAndEquivalenceStatementTargetRelationsMustMatchExactly": true,
+    "sourceQueueAndStableNoMatchCrosswalkTargetSetsMustMatchExactly": true,
+    "everyOutputMustContainOneMachineObservedZeroPageIdMatch": true,
+    "readableQueueCorpusEvidenceAndBlankDecisionArtifactsMustMatchTheMachineQueue": true,
+    "queuePublicationDoesNotCompleteAbsenceReconciliation": true,
+    "unsupportedRequirementSemanticMechanicalOptimizerOrAccountStateMutationFailsPublication": true
+  }
+}

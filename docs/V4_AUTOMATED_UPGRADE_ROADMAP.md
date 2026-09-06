@@ -43,6 +43,25 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+The complete 4,725-entry level-unlock-corpus absence reconciliation queue is
+now exported without turning corpus absence into a game rule. A dedicated
+generic policy, work-entry, blank-decision and audit contracts, transform, CLI,
+and tests revalidate the authoritative source queue against the 6,639-record
+rendered/unlock crosswalk, all 24 revision-pinned official skill level-up
+tables, and the 3,474 stable-page unlock equivalence corpus. All 4,768 exact
+level-up-table statements and all 6,375 statement/target relationships match
+the 3,567 preserved target references exactly, with no missing, unexpected, or
+duplicate relations. Every queued rendered target has zero exact stable page-ID
+matches in that corpus. Two independent real exports produced the same
+4,725-record snapshot (`42d7175a3aaa22eb050a72059c87087cfe2798226fd78067206aacc6def3cd70`),
+TSV, blank-decision, and corpus-evidence hashes. The queue explicitly does not
+claim that no level or unlock requirement exists outside this corpus; all 4,725
+human reconciliation decisions, semantic identity, repeatability, mechanics,
+and optimizer gates remain pending. No account state or production data was
+used. All 319 regression tests pass. The next checkpoint should add a
+fail-closed importer for explicit, evidence-bound human absence-reconciliation
+decisions.
+
 The complete 4,725-entry source-scoped semantic-relevance queue now has
 deterministic, human-readable review packets. A dedicated generic policy,
 packet and audit contracts, transform, CLI, and tests revalidate the queue

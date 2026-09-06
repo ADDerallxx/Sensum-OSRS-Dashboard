@@ -1,0 +1,44 @@
+{
+  "policy": "sensum.cross-skill-rendered-page-without-unlock-evidence-unlock-corpus-absence-reconciliation-work-queue-export-policy.v1",
+  "inputWorkQueueContract": "sensum.cross-skill-rendered-page-without-unlock-evidence-reconciliation-work-queue-entry.v1",
+  "inputCrosswalkContract": "sensum.skill-training-guide-unlock-page-crosswalk.v1",
+  "inputInventoryContract": "sensum.skill-level-unlock-inventory.v1",
+  "inputEquivalenceContract": "sensum.unlock-linked-page-wiki-equivalence.v1",
+  "outputContract": "sensum.cross-skill-rendered-page-without-unlock-evidence-unlock-corpus-absence-reconciliation-work-queue-entry.v1",
+  "decisionTemplateContract": "sensum.cross-skill-rendered-page-without-unlock-evidence-unlock-corpus-absence-reconciliation-decision-template.v1",
+  "auditContract": "sensum.cross-skill-rendered-page-without-unlock-evidence-unlock-corpus-absence-reconciliation-work-queue-export-audit.v1",
+  "requiredEvidenceChannel": "level_unlock_corpus_absence_reconciliation",
+  "matchBasis": "exact_stable_official_wiki_page_id",
+  "corpusDefinition": "resolved stable Wiki page IDs referenced by the complete revision-pinned level-up tables for every official skill",
+  "machineFinding": "zero_exact_stable_page_id_matches_in_revision_pinned_level_up_table_link_corpus",
+  "allowedReviewDispositions": [
+    "confirm_corpus_absence_finding",
+    "reject_corpus_absence_finding",
+    "additional_level_requirement_source_reconciliation_required"
+  ],
+  "nonClaims": [
+    "no_level_requirement_exists",
+    "no_unlock_requirement_exists_outside_the_level_up_table_link_corpus",
+    "rendered_target_is_semantically_relevant_to_a_skill",
+    "rendered_target_is_a_canonical_game_entity_or_activity",
+    "rendered_target_is_repeatable",
+    "requirements_variants_xp_timing_or_mechanics_are_complete",
+    "rendered_target_is_optimizer_eligible"
+  ],
+  "rules": {
+    "everySourceQueueRecordRequiringTheChannelMustEnterExactlyOnce": true,
+    "sourceQueueCrosswalkInventoryAndEquivalenceSnapshotsMustRevalidate": true,
+    "sourceQueueAndCrosswalkMustBindTheSameStableRenderedTarget": true,
+    "inventoryMustCoverEveryOfficialSkillAndEverySourceBulletExactlyOnce": true,
+    "everyInventoryStatementTargetRelationMustAppearExactlyOnceInTheEquivalenceCorpus": true,
+    "everyEquivalenceStatementAndSkillReferenceMustBindTheInventory": true,
+    "absenceMatchingUsesOnlyExactStableOfficialWikiPageId": true,
+    "titleAliasFragmentNamespaceAndSemanticMatchingAreForbidden": true,
+    "everyQueuedTargetMustHaveZeroMatchesInTheCompleteEquivalencePageIdSet": true,
+    "machineObservedAbsenceDoesNotCompleteHumanReconciliation": true,
+    "blankDecisionTemplatesCannotApplyAReviewDecision": true,
+    "queueExportCannotEstablishNoRequirementSemanticIdentityRepeatabilityMechanicsOrOptimizerState": true,
+    "currentAccountStateIsForbidden": true,
+    "automaticVerificationAllowed": false
+  }
+}

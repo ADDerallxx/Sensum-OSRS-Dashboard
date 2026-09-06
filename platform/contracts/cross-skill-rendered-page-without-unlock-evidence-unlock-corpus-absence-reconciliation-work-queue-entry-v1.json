@@ -1,0 +1,24 @@
+{
+  "contract": "sensum.cross-skill-rendered-page-without-unlock-evidence-unlock-corpus-absence-reconciliation-work-queue-entry.v1",
+  "required": [
+    "absenceWorkEntryKey", "queueOrdinal", "sourceWorkQueueEntryKey",
+    "sourceWorkQueueRecordContentHash", "sourceWorkQueueIntrinsicRecordContentHash",
+    "sourceWorkQueueSnapshotContentHash", "sourceCrosswalkRecordContentHash",
+    "sourceCrosswalkSnapshotContentHash", "renderedTargetKey", "stableWikiPageIdentity",
+    "corpusEvidenceContentHash", "corpusEvidence", "matchEvidence", "findingScope",
+    "reviewDecision", "reviewer", "reviewedAt", "reviewEvidenceKeys", "reviewNotes",
+    "unlockEvidencePresent", "semanticDisposition", "canonicalGameEntityIdentity",
+    "canonicalActivityIdentity", "repeatabilityClassification", "mechanicsReviewComplete",
+    "optimizerEligible", "automaticVerificationApplied", "accountIndependent",
+    "blockers", "state", "recordContentHash"
+  ],
+  "rules": {
+    "oneEntryPerRequiredSourceWorkQueueRecord": true,
+    "entryBindsExactSourceQueueCrosswalkAndCorpusSnapshots": true,
+    "targetMatchingUsesOnlyExactStableWikiPageId": true,
+    "zeroMatchFindingIsMachineObservedButNotHumanReviewed": true,
+    "findingScopeNamesEveryForbiddenInference": true,
+    "reviewFieldsStartBlank": true,
+    "semanticMechanicalAndOptimizerGatesRemainClosed": true
+  }
+}
