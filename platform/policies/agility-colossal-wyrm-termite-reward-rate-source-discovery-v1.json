@@ -1,0 +1,93 @@
+{
+  "policy": "sensum.agility-colossal-wyrm-termite-reward-rate-source-discovery-policy.v1",
+  "inputAuditContract": "sensum.agility-colossal-wyrm-obsolete-notice-field-reconciliation-audit.v1",
+  "inputSnapshotDomain": "agility-colossal-wyrm-obsolete-notice-field-reconciliation",
+  "inputRecordContract": "sensum.agility-colossal-wyrm-obsolete-notice-field-reconciliation.v1",
+  "recordContract": "sensum.agility-colossal-wyrm-termite-reward-rate-source-discovery.v1",
+  "auditContract": "sensum.agility-colossal-wyrm-termite-reward-rate-source-discovery-audit.v1",
+  "outputDomain": "agility-colossal-wyrm-termite-reward-rate-source-discovery",
+  "searchApiOrigin": "https://oldschool.runescape.wiki/api.php",
+  "searchResultLimitPerQuery": 50,
+  "evidenceExclusionTitlePatterns": ["^Module:User:", "^Module:Module:Sandbox"],
+  "channels": [
+    { "channelKey": "article", "namespaces": [0], "namespaceNames": ["Main"], "authorityClass": "current_article" },
+    { "channelKey": "update", "namespaces": [112], "namespaceNames": ["Update"], "authorityClass": "historical_update_archive" },
+    { "channelKey": "talk", "namespaces": [1], "namespaceNames": ["Talk"], "authorityClass": "experimental_discussion" },
+    { "channelKey": "source_code", "namespaces": [10, 116, 828], "namespaceNames": ["Template", "Calculator", "Module"], "authorityClass": "implementation_or_template_source" }
+  ],
+  "domains": [
+    {
+      "field": "termites",
+      "route": "basic_route",
+      "blocker": "basic_termite_per_lap_and_hour_rates_unavailable_because_spawn_rate_is_unknown",
+      "signalKinds": ["potential_exact_spawn_rate", "explicit_unknown_spawn_rate", "official_relative_reward_adjustment"]
+    },
+    {
+      "field": "termites",
+      "route": "advanced_route",
+      "blocker": "advanced_termite_3_9_experimental_per_completion_average_not_reconciled_with_current_11_14_and_17_20_scoop_ranges",
+      "signalKinds": ["experimental_per_completion_average", "current_scoop_range", "potential_reward_reconciliation", "official_relative_reward_adjustment"]
+    },
+    {
+      "field": "termites",
+      "route": "advanced_route",
+      "blocker": "advanced_termite_hourly_234_and_195_claims_conflict_with_current_90_second_and_35_lap_text",
+      "signalKinds": ["hourly_reward_claim", "course_duration_or_lap_context", "potential_reward_reconciliation", "official_relative_reward_adjustment"]
+    },
+    {
+      "field": "bone_shards",
+      "route": "basic_route",
+      "blocker": "basic_bone_shard_per_lap_and_hour_rates_unavailable_because_termite_spawn_rate_is_unknown",
+      "signalKinds": ["potential_exact_spawn_rate", "explicit_unknown_spawn_rate", "official_relative_reward_adjustment"]
+    },
+    {
+      "field": "bone_shards",
+      "route": "advanced_route",
+      "blocker": "advanced_bone_shard_6_9_experimental_per_completion_average_not_reconciled_with_current_80_percent_22_38_scoop_claim",
+      "signalKinds": ["experimental_per_completion_average", "current_scoop_range", "potential_reward_reconciliation", "official_relative_reward_adjustment"]
+    },
+    {
+      "field": "bone_shards",
+      "route": "advanced_route",
+      "blocker": "advanced_bone_shard_hourly_414_and_345_claims_conflict_with_current_90_second_and_35_lap_text",
+      "signalKinds": ["hourly_reward_claim", "course_duration_or_lap_context", "potential_reward_reconciliation", "official_relative_reward_adjustment"]
+    }
+  ],
+  "queries": [
+    { "queryKey": "article-course-termites", "channelKey": "article", "searchText": "\"Colossal Wyrm Agility Course\" termites", "boundBlockers": ["basic_termite_per_lap_and_hour_rates_unavailable_because_spawn_rate_is_unknown", "advanced_termite_3_9_experimental_per_completion_average_not_reconciled_with_current_11_14_and_17_20_scoop_ranges", "advanced_termite_hourly_234_and_195_claims_conflict_with_current_90_second_and_35_lap_text", "basic_bone_shard_per_lap_and_hour_rates_unavailable_because_termite_spawn_rate_is_unknown", "advanced_bone_shard_6_9_experimental_per_completion_average_not_reconciled_with_current_80_percent_22_38_scoop_claim", "advanced_bone_shard_hourly_414_and_345_claims_conflict_with_current_90_second_and_35_lap_text"] },
+    { "queryKey": "article-experimental-termite-average", "channelKey": "article", "searchText": "\"3.9\" termites \"advanced course\"", "boundBlockers": ["advanced_termite_3_9_experimental_per_completion_average_not_reconciled_with_current_11_14_and_17_20_scoop_ranges"] },
+    { "queryKey": "article-hourly-claims", "channelKey": "article", "searchText": "\"234\" \"414\" termites", "boundBlockers": ["advanced_termite_hourly_234_and_195_claims_conflict_with_current_90_second_and_35_lap_text", "advanced_bone_shard_hourly_414_and_345_claims_conflict_with_current_90_second_and_35_lap_text"] },
+    { "queryKey": "article-basic-scoop-range", "channelKey": "article", "searchText": "\"Colossal Wyrm Agility Course\" \"11-14\"", "boundBlockers": ["basic_termite_per_lap_and_hour_rates_unavailable_because_spawn_rate_is_unknown", "advanced_termite_3_9_experimental_per_completion_average_not_reconciled_with_current_11_14_and_17_20_scoop_ranges"] },
+    { "queryKey": "article-advanced-scoop-range", "channelKey": "article", "searchText": "\"Colossal Wyrm Agility Course\" \"17-20\"", "boundBlockers": ["advanced_termite_3_9_experimental_per_completion_average_not_reconciled_with_current_11_14_and_17_20_scoop_ranges"] },
+    { "queryKey": "article-exact-spawn-rate", "channelKey": "article", "searchText": "\"exact spawn rate\" termites", "boundBlockers": ["basic_termite_per_lap_and_hour_rates_unavailable_because_spawn_rate_is_unknown", "basic_bone_shard_per_lap_and_hour_rates_unavailable_because_termite_spawn_rate_is_unknown"] },
+    { "queryKey": "article-wyrm-bone-shards", "channelKey": "article", "searchText": "intitle:\"Colossal Wyrm\" \"bone shards\"", "boundBlockers": ["basic_bone_shard_per_lap_and_hour_rates_unavailable_because_termite_spawn_rate_is_unknown", "advanced_bone_shard_6_9_experimental_per_completion_average_not_reconciled_with_current_80_percent_22_38_scoop_claim", "advanced_bone_shard_hourly_414_and_345_claims_conflict_with_current_90_second_and_35_lap_text"] },
+    { "queryKey": "update-wyrm-termites", "channelKey": "update", "searchText": "Colossal Wyrm termites", "boundBlockers": ["basic_termite_per_lap_and_hour_rates_unavailable_because_spawn_rate_is_unknown", "advanced_termite_3_9_experimental_per_completion_average_not_reconciled_with_current_11_14_and_17_20_scoop_ranges", "advanced_termite_hourly_234_and_195_claims_conflict_with_current_90_second_and_35_lap_text"] },
+    { "queryKey": "update-wyrm-bone-shards", "channelKey": "update", "searchText": "Colossal Wyrm \"bone shards\"", "boundBlockers": ["basic_bone_shard_per_lap_and_hour_rates_unavailable_because_termite_spawn_rate_is_unknown", "advanced_bone_shard_6_9_experimental_per_completion_average_not_reconciled_with_current_80_percent_22_38_scoop_claim", "advanced_bone_shard_hourly_414_and_345_claims_conflict_with_current_90_second_and_35_lap_text"] },
+    { "queryKey": "update-increased-xp-termites", "channelKey": "update", "searchText": "\"Increased XP\" Termites", "boundBlockers": ["basic_termite_per_lap_and_hour_rates_unavailable_because_spawn_rate_is_unknown", "advanced_termite_3_9_experimental_per_completion_average_not_reconciled_with_current_11_14_and_17_20_scoop_ranges", "advanced_termite_hourly_234_and_195_claims_conflict_with_current_90_second_and_35_lap_text", "basic_bone_shard_per_lap_and_hour_rates_unavailable_because_termite_spawn_rate_is_unknown", "advanced_bone_shard_6_9_experimental_per_completion_average_not_reconciled_with_current_80_percent_22_38_scoop_claim", "advanced_bone_shard_hourly_414_and_345_claims_conflict_with_current_90_second_and_35_lap_text"] },
+    { "queryKey": "talk-course", "channelKey": "talk", "searchText": "\"Colossal Wyrm Agility Course\"", "boundBlockers": ["advanced_termite_3_9_experimental_per_completion_average_not_reconciled_with_current_11_14_and_17_20_scoop_ranges", "advanced_termite_hourly_234_and_195_claims_conflict_with_current_90_second_and_35_lap_text", "advanced_bone_shard_6_9_experimental_per_completion_average_not_reconciled_with_current_80_percent_22_38_scoop_claim", "advanced_bone_shard_hourly_414_and_345_claims_conflict_with_current_90_second_and_35_lap_text"] },
+    { "queryKey": "talk-advanced-reward-rates", "channelKey": "talk", "searchText": "\"Advanced course reward rates\"", "boundBlockers": ["advanced_termite_3_9_experimental_per_completion_average_not_reconciled_with_current_11_14_and_17_20_scoop_ranges", "advanced_termite_hourly_234_and_195_claims_conflict_with_current_90_second_and_35_lap_text", "advanced_bone_shard_6_9_experimental_per_completion_average_not_reconciled_with_current_80_percent_22_38_scoop_claim", "advanced_bone_shard_hourly_414_and_345_claims_conflict_with_current_90_second_and_35_lap_text"] },
+    { "queryKey": "source-course-termites", "channelKey": "source_code", "searchText": "Colossal Wyrm Agility Course termites", "boundBlockers": ["basic_termite_per_lap_and_hour_rates_unavailable_because_spawn_rate_is_unknown", "advanced_termite_3_9_experimental_per_completion_average_not_reconciled_with_current_11_14_and_17_20_scoop_ranges", "advanced_termite_hourly_234_and_195_claims_conflict_with_current_90_second_and_35_lap_text"] },
+    { "queryKey": "source-experimental-averages", "channelKey": "source_code", "searchText": "3.9 6.9 termites", "boundBlockers": ["advanced_termite_3_9_experimental_per_completion_average_not_reconciled_with_current_11_14_and_17_20_scoop_ranges", "advanced_bone_shard_6_9_experimental_per_completion_average_not_reconciled_with_current_80_percent_22_38_scoop_claim"] },
+    { "queryKey": "source-spawn-rate", "channelKey": "source_code", "searchText": "termite spawn rate Colossal Wyrm", "boundBlockers": ["basic_termite_per_lap_and_hour_rates_unavailable_because_spawn_rate_is_unknown", "basic_bone_shard_per_lap_and_hour_rates_unavailable_because_termite_spawn_rate_is_unknown"] },
+    { "queryKey": "source-wyrm-bone-shards", "channelKey": "source_code", "searchText": "Colossal Wyrm bone shards", "boundBlockers": ["basic_bone_shard_per_lap_and_hour_rates_unavailable_because_termite_spawn_rate_is_unknown", "advanced_bone_shard_6_9_experimental_per_completion_average_not_reconciled_with_current_80_percent_22_38_scoop_claim", "advanced_bone_shard_hourly_414_and_345_claims_conflict_with_current_90_second_and_35_lap_text"] }
+  ],
+  "rules": {
+    "inputAuditAndSnapshotMustBeExplicitAndRevalidated": true,
+    "onlyTheSixExactRewardBlockersMayBeDiscovered": true,
+    "everyDomainMustHaveBoundQueries": true,
+    "everyDeclaredQueryMustRunExactlyOnce": true,
+    "currentWikiNamespaceRegistryMustMatchDeclaredChannels": true,
+    "queryNamespaceMustMatchItsDeclaredChannel": true,
+    "everyQueryMustCompleteWithinTheDeclaredBound": true,
+    "everyReturnedPageMustResolveToItsCurrentRevisionAndExactTitle": true,
+    "searchSnippetsRanksAndAbsenceAreNotGameFacts": true,
+    "talkAndEditorMaterialAreNeverMechanicalAuthority": true,
+    "updateArchiveEvidenceCannotEstablishCurrentStateAlone": true,
+    "sourceCodeEvidenceRequiresIndependentSemanticReview": true,
+    "signalsOnlyRouteManualReviewOrAdditionalEvidenceWork": true,
+    "blockersFactsMechanicsAndOptimizerStateCannotChange": true,
+    "accountSpecificInputsAreForbidden": true,
+    "completeWikiOrActivityUniverseClaimsAreForbidden": true,
+    "automaticVerificationAllowed": false
+  }
+}

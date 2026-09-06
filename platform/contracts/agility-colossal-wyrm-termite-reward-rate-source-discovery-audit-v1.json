@@ -1,0 +1,13 @@
+{
+  "contract": "sensum.agility-colossal-wyrm-termite-reward-rate-source-discovery-audit.v1",
+  "required": ["policyValidation", "inputLineage", "namespaceRegistry", "blockerCoverage", "queryCoverage", "revisionCoverage", "signalCoverage", "authorityBoundary", "recordsMatchExpected", "recordHashesValid", "queryBoundedDiscoveryComplete", "sourceDiscoveryDispositionStable", "mechanicalCompletenessProven", "completeWikiUniverse", "absoluteBestGate", "publishable", "blockers"],
+  "rules": {
+    "inputAuditSnapshotPolicyAndNamespacesMustRevalidate": true,
+    "sixBlockersAndSixteenQueriesMustMatchExactly": true,
+    "everyQueryMustCompleteWithinItsBound": true,
+    "everyResultMustResolveToCurrentRevisionAndExactTitle": true,
+    "signalsOnlyRouteReviewOrEvidenceWork": true,
+    "publicationNeverMeansMechanicalOrWikiUniverseCompleteness": true
+  }
+}
+

@@ -3455,3 +3455,23 @@ locations, and the blocker
 `afk_catch_attempt_cycle_including_drop_time_not_published`. No three-tick
 timing was borrowed and no attempt cycle was reverse-engineered from rounded
 XP/hour. The exact three-tick variants remain separately reviewable.
+
+Colossal Wyrm termite and bone-shard gaps now have a dedicated fail-closed
+source-discovery boundary. Six exact blockers are bound to 16 fixed searches
+across current articles, the official Update archive, Talk discussions, and the
+Template, Calculator, and Module namespaces. Two official-Wiki runs each
+returned 101 result occurrences resolving to the same 71 current revisions and
+the same six-record snapshot hash
+`a825cdaa1bdfae600a15bf41f5226aa6aa3614c2af1e81807ef5e0076a65fa36`.
+The collector retained 30 context signals: 16 from current articles, 12 from
+historical Update pages, two from the experimental Talk page, and none from
+eligible source-code pages. It found no numeric exact-spawn-rate signal and no
+source-authored reconciliation of the 3.9/6.9 averages, 11–14/17–20 and 80%
+22–38 scoop claims, or the 234/195 and 414/345 hourly arithmetic. All six
+mechanics blockers therefore remain open. Search rank, snippets, silence, Talk
+experiments, update prose, templates, and editor material created zero facts,
+mechanical resolutions, optimizer candidates, verified-best authorizations, or
+account state. All 572 regression tests pass. The next checkpoint should apply
+a generic source-sufficiency disposition that routes each signal and unresolved
+domain to additional authoritative evidence or revision monitoring without
+changing the mechanics model.
