@@ -1,0 +1,45 @@
+{
+  "policy": "sensum.activity-candidate-missing-supported-infobox-evidence-work-routing-policy.v1",
+  "inputSourceEvidencePolicy": "sensum.activity-candidate-semantic-evidence-policy.v1",
+  "inputSourceEvidencePolicyContentHash": "89bbc90d9f3877b15b38b714c986d30d6c5e42df25693f1637cfb94099e25494",
+  "inputPacketPolicy": "sensum.activity-candidate-priority-human-review-packet-consolidation-policy.v1",
+  "inputPacketPolicyContentHash": "f0b104c3d80d00fd7b19518389971b419c86c74c4488e68591f7e802dc28df67",
+  "inputSourceEvidenceDomain": "activity-candidate-source-evidence",
+  "inputPacketDomain": "activity-candidate-priority-human-review-packet",
+  "outputDomain": "activity-candidate-missing-supported-infobox-evidence-work-routing",
+  "recordContract": "sensum.activity-candidate-missing-supported-infobox-evidence-work-routing.v1",
+  "auditContract": "sensum.activity-candidate-missing-supported-infobox-evidence-work-routing-audit.v1",
+  "recordState": "blocked_missing_supported_infobox_structural_cause_and_subject_boundary_review_pending",
+  "structuralConditionStates": [
+    "present_supported_direct_invocation",
+    "absent_from_revision_pinned_source_evidence",
+    "unsupported_infobox_like_invocation_observed",
+    "no_unsupported_infobox_like_invocation_observed",
+    "unresolved_alias_equivalence_graph_not_bound",
+    "unresolved_revision_pinned_expansion_provenance_not_bound",
+    "unresolved_composite_or_container_subject_boundary_review_required"
+  ],
+  "requiredEvidenceChannels": [
+    "exact_revision_root_template_invocation_inventory",
+    "revision_pinned_template_alias_and_equivalence_graph",
+    "revision_pinned_template_expansion_and_transclusion_provenance",
+    "source_page_subject_boundary_human_review",
+    "composite_container_and_member_enumeration_evidence_when_applicable"
+  ],
+  "rules": {
+    "sourceEvidenceAndPriorityPacketSnapshotsMustBeExplicitlySelected": true,
+    "bothManifestsRawRecordsPoliciesAndHashesMustRevalidate": true,
+    "packetEmbeddedSourceEvidenceMustMatchTheSelectedSourceEvidenceExactly": true,
+    "onlyRecordsWithNoSupportedInfoboxEvidenceMayEnterTheWorkQueue": true,
+    "directAbsenceUnsupportedInfoboxLikeAliasTransclusionAndCompositeConditionsMustRemainDistinct": true,
+    "retainedSignaturesRootTemplatesCategoriesLeadHeadingsAndPacketObligationsMustRemainExact": true,
+    "absenceOfASupportedInfoboxCannotEstablishAbsenceOfAnActivityOrRequirement": true,
+    "unknownAliasOrTransclusionProvenanceMustRemainUnresolved": true,
+    "compositeOrContainerStatusRequiresExplicitHumanReview": true,
+    "oneWorkRoutePerEligibleCandidateMustPreservePacketOrder": true,
+    "namesTitlesPageIdsRevisionsSkillsRoutesLabelsAliasesOverridesAndExceptionsCannotAlterPolicyBehavior": true,
+    "identityRepeatabilityMembershipRequirementsVariantsXpTimingMechanicsAndOptimizerPromotionAreForbidden": true,
+    "currentAccountStateIsForbidden": true,
+    "automaticVerificationAllowed": false
+  }
+}

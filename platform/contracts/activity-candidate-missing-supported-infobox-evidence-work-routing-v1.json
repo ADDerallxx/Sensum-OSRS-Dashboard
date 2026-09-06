@@ -1,0 +1,41 @@
+{
+  "contract": "sensum.activity-candidate-missing-supported-infobox-evidence-work-routing.v1",
+  "required": [
+    "contract",
+    "workRouteKey",
+    "workRouteOrdinal",
+    "candidateKey",
+    "reviewPacketKey",
+    "sourceBindings",
+    "sourcePageIdentity",
+    "sourceSignatureContexts",
+    "retainedStructuralEvidence",
+    "packetReviewObligations",
+    "structuralConditionAssessment",
+    "requiredEvidenceChannels",
+    "workRoute",
+    "explicitNonClaims",
+    "humanDecisionRecorded",
+    "canonicalGameEntityIdentity",
+    "canonicalActivityIdentity",
+    "repeatabilityClassification",
+    "membershipOrVariantApplication",
+    "requirementsVariantsXpTimingAndMechanicsComplete",
+    "optimizerEligible",
+    "automaticVerificationApplied",
+    "accountIndependent",
+    "state",
+    "recordContentHash"
+  ],
+  "invariants": {
+    "humanDecisionRecorded": false,
+    "canonicalGameEntityIdentity": null,
+    "canonicalActivityIdentity": null,
+    "repeatabilityClassification": null,
+    "membershipOrVariantApplication": false,
+    "requirementsVariantsXpTimingAndMechanicsComplete": false,
+    "optimizerEligible": false,
+    "automaticVerificationApplied": false,
+    "accountIndependent": true
+  }
+}

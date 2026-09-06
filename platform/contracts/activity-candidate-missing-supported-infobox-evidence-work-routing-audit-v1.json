@@ -1,0 +1,24 @@
+{
+  "contract": "sensum.activity-candidate-missing-supported-infobox-evidence-work-routing-audit.v1",
+  "required": [
+    "contract",
+    "policyCoverage",
+    "inputCoverage",
+    "selectionCoverage",
+    "structuralConditionCoverage",
+    "artifactCoverage",
+    "semanticPreservationCoverage",
+    "accountStateFindings",
+    "evidenceWorkRoutingComplete",
+    "humanReviewComplete",
+    "completeActivityUniverse",
+    "absoluteBestGate",
+    "blockers",
+    "publishable"
+  ],
+  "invariants": {
+    "humanReviewComplete": false,
+    "completeActivityUniverse": false,
+    "absoluteBestGate": "blocked_incomplete_activity_universe"
+  }
+}

@@ -43,6 +43,32 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+The two priority activity candidates with no supported direct Activity/Minigame
+infobox now have a separate revision-pinned structural evidence-work route. A
+generic policy, record and audit contracts, routing library, explicit two-
+snapshot CLI, readable queue, and adversarial tests revalidate the complete
+29-candidate source-evidence-to-priority-packet relation before selecting only
+records whose supported infobox evidence is null. The route distinguishes
+direct supported-infobox absence, unsupported infobox-like invocations, alias
+or equivalence, expansion or transclusion, and composite or container status;
+only direct absence is currently established.
+
+Two real runs reproduced output content hash
+`72ce0a6c312e9676361e0cf86ca767ec9c627d5367b72ef0ef75180ba9843bbf`
+and all four payload files exactly. `Hunters' Rumours` revision `15329095` and
+`Minigames` revision `15327496` preserve 3 source-signature contexts, 23 root-
+template observations, 4 direct categories, 5 lead paragraphs, 18 headings,
+53 lexical review candidates, and 18 packet evidence-domain obligations. No
+unsupported infobox-like invocation was observed in either exact revision.
+Alias/equivalence, expansion/transclusion, and composite/container status all
+remain separate unresolved evidence routes. No human decision, canonical
+identity, repeatability or membership classification, mechanics-completion
+claim, optimizer promotion, automatic verification, or account state was
+created. All 170 test scripts and 438 regression checks pass. The next
+checkpoint should collect exact-revision template alias/equivalence and
+expansion/transclusion provenance for the retained root-template invocations
+without treating template structure as semantic activity proof.
+
 The two priority activity source conflicts now have deterministic blank decision
 templates in the supplemental-evidence-bound submission shape. A generic policy,
 record and audit contracts, materialization library, explicit four-snapshot CLI,
