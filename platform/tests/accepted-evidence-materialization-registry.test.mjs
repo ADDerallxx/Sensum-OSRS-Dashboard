@@ -47,7 +47,9 @@ function fixture() {
 test('registry exposes all accepted evidence adapters and rejects unknown domains',()=>{
   assert.deepEqual(acceptedEvidenceDomains(),['activity-canonical-subject-scope-evidence','skill-level-unlock-inventory','weighted-parent-task-entry-membership-evidence']);
   assert.equal(getAcceptedEvidenceAdapter('activity-canonical-subject-scope-evidence').dataFile,'activity-canonical-subject-scope-evidence.ndjson');
+  assert.equal(getAcceptedEvidenceAdapter('activity-canonical-subject-scope-evidence').factKind,'raw_activity_canonical_subject_scope_evidence');
   assert.equal(getAcceptedEvidenceAdapter('weighted-parent-task-entry-membership-evidence').dataFile,'weighted-parent-task-entry-membership-evidence.ndjson');
+  assert.equal(getAcceptedEvidenceAdapter('skill-level-unlock-inventory').factKind,'raw_skill_level_unlock_statement');
   assert.throws(()=>getAcceptedEvidenceAdapter('made-up-domain'),/unsupported_accepted_evidence_domain/);
 });
 
@@ -78,6 +80,7 @@ test('second-domain SQL is transactional, insert-only, candidate-preserving, and
   assert.match(sql,/'review'/);
   assert.match(sql,/ON CONFLICT .* DO NOTHING/);
   assert.match(sql,/COMMIT;\n$/);
+  assert.match(sql,/INSERT INTO activity_evidence_ingestion_lineage/);
   assert.doesNotMatch(sql,/\bDELETE\b|\bTRUNCATE\b|\bUPDATE\b/i);
   assert.doesNotMatch(sql,/d\.fetched_at=e\.fetched_at/);
   assert.match(sql,/d\.fetched_at IS NOT NULL/);
@@ -85,9 +88,10 @@ test('second-domain SQL is transactional, insert-only, candidate-preserving, and
 });
 
 test('second-domain reconciliation rejects count, hash, state, and completeness drift',()=>{
-  const model=validateActivitySubjectScopeMaterializationInput(fixture()),actual={runId:model.runId,status:'published',records:1,sources:1,statements:1,snapshotComplete:false,metrics:{recordHashAggregate:model.recordHashAggregate,sourceHashAggregate:model.sourceHashAggregate,statementHashAggregate:model.statementHashAggregate,materializationHash:model.materializationHash,completeActivityUniverse:false,optimizerEligibleRecords:0,automaticVerification:false,semanticReviewRequired:true}};
+  const model=validateActivitySubjectScopeMaterializationInput(fixture()),actual={runId:model.runId,status:'published',records:1,sources:1,statements:1,lineage:1,snapshotComplete:false,metrics:{recordHashAggregate:model.recordHashAggregate,sourceHashAggregate:model.sourceHashAggregate,statementHashAggregate:model.statementHashAggregate,materializationHash:model.materializationHash,completeActivityUniverse:false,optimizerEligibleRecords:0,automaticVerification:false,semanticReviewRequired:true}};
   assert.equal(verifyActivitySubjectScopeReconciliation(model,actual),true);
   assert.throws(()=>verifyActivitySubjectScopeReconciliation(model,{...actual,statements:0}),/statements_count_mismatch/);
+  assert.throws(()=>verifyActivitySubjectScopeReconciliation(model,{...actual,lineage:0}),/lineage_count_mismatch/);
   assert.throws(()=>verifyActivitySubjectScopeReconciliation(model,{...actual,snapshotComplete:true}),/must_not_claim_complete/);
   assert.throws(()=>verifyActivitySubjectScopeReconciliation(model,{...actual,metrics:{...actual.metrics,optimizerEligibleRecords:1}}),/semantic_gate_weakened/);
 });
@@ -141,6 +145,7 @@ test('third-domain SQL reuses exact identities without overwriting acquisition t
   assert.match(sql,/raw_weighted_parent_task_entry_membership_evidence/);
   assert.match(sql,/'candidate'/);
   assert.match(sql,/ON CONFLICT .* DO NOTHING/);
+  assert.match(sql,/INSERT INTO activity_evidence_ingestion_lineage/);
   assert.doesNotMatch(sql,/\bDELETE\b|\bTRUNCATE\b|\bUPDATE\b/i);
   assert.doesNotMatch(sql,/d\.fetched_at=e\.fetched_at/);
   assert.match(sql,/d\.fetched_at IS NOT NULL/);
@@ -149,9 +154,10 @@ test('third-domain SQL reuses exact identities without overwriting acquisition t
 });
 
 test('third-domain reconciliation rejects count, hash, state, and completeness drift',()=>{
-  const model=validateWeightedParentTaskMembershipMaterializationInput(weightedFixture()),actual={runId:model.runId,status:'published',records:1,sources:60,statements:1,snapshotComplete:false,metrics:{recordHashAggregate:model.recordHashAggregate,sourceHashAggregate:model.sourceHashAggregate,statementHashAggregate:model.statementHashAggregate,materializationHash:model.materializationHash,exactSourceIdentityReuseSupported:true,completeActivityUniverse:false,optimizerEligibleRecords:0,automaticVerification:false,semanticReviewRequired:true}};
+  const model=validateWeightedParentTaskMembershipMaterializationInput(weightedFixture()),actual={runId:model.runId,status:'published',records:1,sources:60,statements:1,lineage:1,snapshotComplete:false,metrics:{recordHashAggregate:model.recordHashAggregate,sourceHashAggregate:model.sourceHashAggregate,statementHashAggregate:model.statementHashAggregate,materializationHash:model.materializationHash,exactSourceIdentityReuseSupported:true,completeActivityUniverse:false,optimizerEligibleRecords:0,automaticVerification:false,semanticReviewRequired:true}};
   assert.equal(verifyWeightedParentTaskMembershipReconciliation(model,actual),true);
   assert.throws(()=>verifyWeightedParentTaskMembershipReconciliation(model,{...actual,sources:59}),/sources_count_mismatch/);
+  assert.throws(()=>verifyWeightedParentTaskMembershipReconciliation(model,{...actual,lineage:0}),/lineage_count_mismatch/);
   assert.throws(()=>verifyWeightedParentTaskMembershipReconciliation(model,{...actual,snapshotComplete:true}),/must_not_claim_complete/);
   assert.throws(()=>verifyWeightedParentTaskMembershipReconciliation(model,{...actual,metrics:{...actual.metrics,optimizerEligibleRecords:1}}),/semantic_gate_weakened/);
 });

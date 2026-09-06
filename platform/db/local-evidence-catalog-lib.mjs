@@ -1,4 +1,4 @@
-export const LOCAL_EVIDENCE_CATALOG_CONTRACT = 'sensum.local-evidence-catalog.v2';
+export const LOCAL_EVIDENCE_CATALOG_CONTRACT = 'sensum.local-evidence-catalog.v3';
 
 const VIEWS = new Set(['summary', 'skills', 'sources', 'blockers', 'domains', 'lineage']);
 
@@ -64,6 +64,8 @@ SELECT json_build_object(
     'ingestionRuns',(SELECT count(*) FROM ingestion_runs),
     'ingestionRecords',(SELECT count(*) FROM ingestion_records),
     'evidenceStatements',(SELECT count(*) FROM activity_evidence),
+    'evidenceStatementLineageRows',(SELECT count(*) FROM activity_evidence_ingestion_lineage),
+    'unlinkedEvidenceStatements',(SELECT count(*) FROM activity_evidence a LEFT JOIN activity_evidence_ingestion_lineage l ON l.activity_evidence_id=a.id WHERE l.activity_evidence_id IS NULL),
     'optimizerEligibleStatements',(SELECT count(*) FROM activity_evidence WHERE parsed_value->>'optimizerEligible'='true'),
     'openValidationFindings',(SELECT count(*) FROM validation_findings WHERE resolved_at IS NULL),
     'explicitBlockerOccurrences',(SELECT count(*) FROM blocker_rows)
@@ -142,14 +144,16 @@ function domainsQuery({domain, limit}) {
     (SELECT count(*)::integer FROM snapshot_sources ss WHERE ss.snapshot_id=s.id) AS "sourceCount",
     (SELECT count(*)::integer FROM ingestion_records records WHERE records.run_id=r.id) AS "recordCount",
     COALESCE((r.metrics->>'statements')::integer,0) AS "declaredStatementCount",
-    'run_metric_only_no_direct_evidence_run_foreign_key'::text AS "statementLineageState",
+    (SELECT count(*)::integer FROM activity_evidence_ingestion_lineage statement_links WHERE statement_links.ingestion_run_id=r.id) AS "directStatementCount",
+    'direct_activity_evidence_ingestion_run_foreign_key'::text AS "statementLineageState",
     COALESCE((r.metrics->>'optimizerEligibleRecords')::integer,0) AS "optimizerEligibleCount",
     COALESCE((r.metrics->>'automaticVerification')::boolean,false) AS "automaticVerification",
     COALESCE((r.metrics->>'completeActivityUniverse')::boolean,false) AS "completeActivityUniverse",
     COALESCE((r.metrics->>'semanticReviewRequired')::boolean,false) AS "semanticReviewRequired",
     r.metrics->>'materializationHash' AS "materializationHash",
     (r.record_count=(SELECT count(*) FROM ingestion_records records WHERE records.run_id=r.id)) AS "recordCountReconciles",
-    (COALESCE((r.metrics->>'sources')::integer,(SELECT count(*) FROM snapshot_sources ss WHERE ss.snapshot_id=s.id))=(SELECT count(*) FROM snapshot_sources ss WHERE ss.snapshot_id=s.id)) AS "sourceCountReconciles"
+    (COALESCE((r.metrics->>'sources')::integer,(SELECT count(*) FROM snapshot_sources ss WHERE ss.snapshot_id=s.id))=(SELECT count(*) FROM snapshot_sources ss WHERE ss.snapshot_id=s.id)) AS "sourceCountReconciles",
+    (COALESCE((r.metrics->>'statements')::integer,0)=(SELECT count(*) FROM activity_evidence_ingestion_lineage statement_links WHERE statement_links.ingestion_run_id=r.id)) AS "statementCountReconciles"
   FROM ingestion_runs r
   LEFT JOIN data_snapshots s ON s.manifest_hash=r.content_hash
   ${filter}
@@ -171,7 +175,8 @@ function lineageQuery({domain, source, revision, limit}) {
     d.state::text AS "sourceState",s.id AS "snapshotId",s.label AS "snapshotLabel",
     s.manifest_hash AS "snapshotContentHash",s.complete AS "snapshotComplete",
     r.domain,r.id AS "runId",r.status::text AS "runStatus",r.finished_at AS "runFinishedAt",
-    (SELECT count(*)::integer FROM snapshot_sources all_links WHERE all_links.source_id=d.id) AS "snapshotLinkCount"
+    (SELECT count(*)::integer FROM snapshot_sources all_links WHERE all_links.source_id=d.id) AS "snapshotLinkCount",
+    (SELECT count(*)::integer FROM activity_evidence_ingestion_lineage statement_links JOIN activity_evidence a ON a.id=statement_links.activity_evidence_id WHERE statement_links.ingestion_run_id=r.id AND a.source_id=d.id) AS "directStatementCount"
   FROM data_sources d
   JOIN snapshot_sources ss ON ss.source_id=d.id
   JOIN data_snapshots s ON s.id=ss.snapshot_id
@@ -234,6 +239,7 @@ export function assessCatalogSummary(payload) {
   if (Number(counts.wikiSourcesMissingRevision) > 0 || Number(counts.wikiSources) !== Number(counts.revisionPinnedWikiSources)) integrityBlockers.push('wiki_source_revision_missing');
   if (Number(counts.completeSnapshots) > 0 && metrics.completeActivityUniverse === false) integrityBlockers.push('incomplete_inventory_marked_complete');
   if (Number(counts.optimizerEligibleStatements) > 0 && Number(payload.evidenceStates?.verified || 0) === 0) integrityBlockers.push('unverified_statement_optimizer_eligible');
+  if (Number(counts.evidenceStatementLineageRows) !== Number(counts.evidenceStatements) || Number(counts.unlinkedEvidenceStatements) !== 0) integrityBlockers.push('evidence_statement_lineage_incomplete');
   const knowledgeBlockers = (payload.topBlockers || []).map(row => ({blocker:row.blocker,occurrences:Number(row.occurrences)}));
   if (metrics.completeActivityUniverse === false) knowledgeBlockers.unshift({blocker:'complete_activity_universe_not_proven',occurrences:1});
   return {
@@ -254,9 +260,9 @@ export function assertCatalogPayload(payload, expectedView) {
   if (expectedView === 'domains') {
     for (const row of payload.rows) {
       assert(typeof row?.domain === 'string' && row.domain.length > 0, 'catalog_domain_identity_missing');
-      assert(row?.recordCountReconciles === true && row?.sourceCountReconciles === true, 'catalog_domain_counts_do_not_reconcile');
+      assert(row?.recordCountReconciles === true && row?.sourceCountReconciles === true && row?.statementCountReconciles === true, 'catalog_domain_counts_do_not_reconcile');
       assert(typeof row?.snapshotComplete === 'boolean' && Number.isInteger(Number(row?.recordCount)) && Number.isInteger(Number(row?.sourceCount)), 'catalog_domain_state_invalid');
-      assert(Number.isInteger(Number(row?.declaredStatementCount)) && row?.statementLineageState === 'run_metric_only_no_direct_evidence_run_foreign_key', 'catalog_domain_statement_lineage_gap_not_explicit');
+      assert(Number.isInteger(Number(row?.declaredStatementCount)) && Number(row?.directStatementCount) === Number(row?.declaredStatementCount) && row?.statementLineageState === 'direct_activity_evidence_ingestion_run_foreign_key', 'catalog_domain_statement_lineage_invalid');
     }
   }
   if (expectedView === 'lineage') {
@@ -266,6 +272,7 @@ export function assertCatalogPayload(payload, expectedView) {
       assert((row?.revision === null || typeof row?.revision === 'string') && typeof row?.sourceContentHash === 'string' && /^[a-f0-9]{64}$/.test(row.sourceContentHash), 'catalog_lineage_revision_identity_invalid');
       assert(typeof row?.domain === 'string' && row.domain.length > 0 && row?.snapshotId && row?.runId, 'catalog_lineage_domain_binding_missing');
       assert(Number(row?.snapshotLinkCount) >= 1, 'catalog_lineage_link_count_invalid');
+      assert(Number(row?.directStatementCount) >= 0, 'catalog_lineage_statement_count_invalid');
     }
   }
   return true;
@@ -285,7 +292,7 @@ export function formatCatalogText(payload) {
   }
   const rows = payload.rows || [];
   if (!rows.length) return `Sensum V4 ${payload.view}: no rows`;
-  if (payload.view === 'domains') return [`Sensum V4 evidence domains (${rows.length})`, ...rows.map(row => `${row.domain} | ${row.recordCount} records | ${row.sourceCount} sources | ${row.declaredStatementCount} declared statements (${row.statementLineageState}) | complete=${row.snapshotComplete} | optimizer=${row.optimizerEligibleCount}`)].join('\n');
+  if (payload.view === 'domains') return [`Sensum V4 evidence domains (${rows.length})`, ...rows.map(row => `${row.domain} | ${row.recordCount} records | ${row.sourceCount} sources | ${row.directStatementCount}/${row.declaredStatementCount} directly linked statements | complete=${row.snapshotComplete} | optimizer=${row.optimizerEligibleCount}`)].join('\n');
   if (payload.view === 'lineage') return [`Sensum V4 source lineage (${rows.length})`, ...rows.map(row => `${row.sourceKey} @ ${row.revision} | ${row.domain} | snapshot ${row.snapshotId} | ${row.snapshotLinkCount} linked snapshot${Number(row.snapshotLinkCount) === 1 ? '' : 's'}`)].join('\n');
   return [`Sensum V4 ${payload.view} (${rows.length})`, ...rows.map(row => JSON.stringify(row))].join('\n');
 }

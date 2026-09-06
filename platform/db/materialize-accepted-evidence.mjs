@@ -22,7 +22,7 @@ function runPsql(sql, {expectFailure = false, container, database, user} = {}) {
   return result;
 }
 
-async function loadAcceptedInput({root, adapter, explicitSnapshot, explicitAudit}) {
+export async function loadAcceptedInput({root, adapter, explicitSnapshot, explicitAudit}) {
   const auditFiles = explicitAudit ? [path.resolve(explicitAudit)] : (await fs.readdir(path.join(root, adapter.auditDirectory), {withFileTypes:true}))
     .filter(entry => entry.isDirectory()).map(entry => path.join(root, adapter.auditDirectory, entry.name, 'report.json')).sort().reverse();
   const rejections = [];

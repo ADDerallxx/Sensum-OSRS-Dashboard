@@ -12,13 +12,13 @@ import {
   normalizeCatalogOptions
 } from '../db/local-evidence-catalog-lib.mjs';
 
-const contract = JSON.parse(fs.readFileSync('platform/contracts/local-evidence-catalog-health-audit-v2.json','utf8'));
+const contract = JSON.parse(fs.readFileSync('platform/contracts/local-evidence-catalog-health-audit-v3.json','utf8'));
 
 function summary(overrides = {}) {
   return {
     contract:LOCAL_EVIDENCE_CATALOG_CONTRACT,
     view:'summary',
-    counts:{skills:24,sources:24,wikiSources:24,revisionPinnedWikiSources:24,wikiSourcesMissingRevision:0,snapshots:1,completeSnapshots:0,ingestionRuns:1,ingestionRecords:24,evidenceStatements:4768,optimizerEligibleStatements:0,openValidationFindings:0,explicitBlockerOccurrences:4792},
+    counts:{skills:24,sources:24,wikiSources:24,revisionPinnedWikiSources:24,wikiSourcesMissingRevision:0,snapshots:1,completeSnapshots:0,ingestionRuns:1,ingestionRecords:24,evidenceStatements:4768,evidenceStatementLineageRows:4768,unlinkedEvidenceStatements:0,optimizerEligibleStatements:0,openValidationFindings:0,explicitBlockerOccurrences:4792},
     evidenceStates:{candidate:4768},
     latestIngestion:{metrics:{completeActivityUniverse:false}},
     topBlockers:[{blocker:'semantic_identity_and_repeatability_not_classified',occurrences:4768}],
@@ -48,6 +48,7 @@ test('domain and lineage queries expose reconciled relationships without mutatio
   const domains=buildCatalogSql({view:'domains',domain:'skill-level-unlock-inventory'}),lineage=buildCatalogSql({view:'lineage',source:'wiki-pageid:240934',revision:'14997080'});
   assert.match(domains,/recordCountReconciles/);
   assert.match(domains,/sourceCountReconciles/);
+  assert.match(domains,/statementCountReconciles/);
   assert.match(lineage,/snapshotLinkCount/);
   assert.match(lineage,/snapshot_sources/);
   assert.match(lineage,/ingestion_runs/);
@@ -56,12 +57,13 @@ test('domain and lineage queries expose reconciled relationships without mutatio
 });
 
 test('domain and lineage payloads fail closed on broken identity or reconciliation',()=>{
-  const domainPayload={contract:LOCAL_EVIDENCE_CATALOG_CONTRACT,view:'domains',rows:[{domain:'skill-level-unlock-inventory',snapshotComplete:false,recordCount:24,sourceCount:24,declaredStatementCount:4768,statementLineageState:'run_metric_only_no_direct_evidence_run_foreign_key',recordCountReconciles:true,sourceCountReconciles:true}]};
-  const lineagePayload={contract:LOCAL_EVIDENCE_CATALOG_CONTRACT,view:'lineage',rows:[{sourceKey:'wiki-pageid:240934',url:'https://oldschool.runescape.wiki/w/Wise_Old_Man_tasks',revision:'14997080',sourceContentHash:'a'.repeat(64),domain:'activity-canonical-subject-scope-evidence',snapshotId:'snapshot',runId:'run',snapshotLinkCount:2}]};
+  const domainPayload={contract:LOCAL_EVIDENCE_CATALOG_CONTRACT,view:'domains',rows:[{domain:'skill-level-unlock-inventory',snapshotComplete:false,recordCount:24,sourceCount:24,declaredStatementCount:4768,directStatementCount:4768,statementLineageState:'direct_activity_evidence_ingestion_run_foreign_key',recordCountReconciles:true,sourceCountReconciles:true,statementCountReconciles:true}]};
+  const lineagePayload={contract:LOCAL_EVIDENCE_CATALOG_CONTRACT,view:'lineage',rows:[{sourceKey:'wiki-pageid:240934',url:'https://oldschool.runescape.wiki/w/Wise_Old_Man_tasks',revision:'14997080',sourceContentHash:'a'.repeat(64),domain:'activity-canonical-subject-scope-evidence',snapshotId:'snapshot',runId:'run',snapshotLinkCount:2,directStatementCount:1}]};
   assert.equal(assertCatalogPayload(domainPayload,'domains'),true);
   assert.equal(assertCatalogPayload(lineagePayload,'lineage'),true);
   assert.throws(()=>assertCatalogPayload({...domainPayload,rows:[{...domainPayload.rows[0],sourceCountReconciles:false}]},'domains'),/counts_do_not_reconcile/);
-  assert.throws(()=>assertCatalogPayload({...domainPayload,rows:[{...domainPayload.rows[0],statementLineageState:'proven'}]},'domains'),/statement_lineage_gap_not_explicit/);
+  assert.throws(()=>assertCatalogPayload({...domainPayload,rows:[{...domainPayload.rows[0],directStatementCount:4767,statementCountReconciles:false}]},'domains'),/counts_do_not_reconcile/);
+  assert.throws(()=>assertCatalogPayload({...domainPayload,rows:[{...domainPayload.rows[0],statementLineageState:'proven'}]},'domains'),/statement_lineage_invalid/);
   assert.throws(()=>assertCatalogPayload({...lineagePayload,rows:[{...lineagePayload.rows[0],sourceContentHash:'bad'}]},'lineage'),/revision_identity_invalid/);
   assert.throws(()=>assertCatalogPayload(lineagePayload,'domains'),/view_mismatch/);
 });
@@ -86,6 +88,11 @@ test('integrity drift becomes an error and cannot look optimizer-ready',()=>{
   assert.equal(health.optimizerReady,false);
 });
 
+test('missing statement lineage becomes a catalog integrity error',()=>{
+  const input=summary(); input.counts.evidenceStatementLineageRows=4767; input.counts.unlinkedEvidenceStatements=1;
+  assert.ok(assessCatalogSummary(input).integrityBlockers.includes('evidence_statement_lineage_incomplete'));
+});
+
 test('human summary separates runtime, integrity, and knowledge readiness',()=>{
   const output=formatCatalogText(summary());
   assert.match(output,/Runtime: healthy/);
@@ -96,9 +103,9 @@ test('human summary separates runtime, integrity, and knowledge readiness',()=>{
 });
 
 test('human domain and lineage output is concise and relationship-oriented',()=>{
-  const domains=formatCatalogText({view:'domains',rows:[{domain:'example',recordCount:1,sourceCount:2,declaredStatementCount:3,statementLineageState:'run_metric_only_no_direct_evidence_run_foreign_key',snapshotComplete:false,optimizerEligibleCount:0}]});
+  const domains=formatCatalogText({view:'domains',rows:[{domain:'example',recordCount:1,sourceCount:2,declaredStatementCount:3,directStatementCount:3,statementLineageState:'direct_activity_evidence_ingestion_run_foreign_key',snapshotComplete:false,optimizerEligibleCount:0}]});
   const lineage=formatCatalogText({view:'lineage',rows:[{sourceKey:'wiki-pageid:240934',revision:'14997080',domain:'example',snapshotId:'snapshot',snapshotLinkCount:2}]});
-  assert.match(domains,/example \| 1 records \| 2 sources \| 3 declared statements/);
+  assert.match(domains,/example \| 1 records \| 2 sources \| 3\/3 directly linked statements/);
   assert.match(lineage,/2 linked snapshots/);
 });
 

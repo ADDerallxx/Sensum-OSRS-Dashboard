@@ -1,10 +1,12 @@
 import {
+  RAW_STATEMENT_FACT_KIND,
   buildReconciliationQuery,
   buildSkillUnlockMaterializationSql,
   validateSkillUnlockMaterializationInput,
   verifyReconciliation
 } from './skill-unlock-materialization-lib.mjs';
 import {
+  ACTIVITY_SCOPE_FACT_KIND,
   ACTIVITY_SCOPE_INPUT_DOMAIN,
   buildActivitySubjectScopeExistingSourceCountQuery,
   buildActivitySubjectScopeMaterializationSql,
@@ -13,6 +15,7 @@ import {
   verifyActivitySubjectScopeReconciliation
 } from './activity-subject-scope-materialization-lib.mjs';
 import {
+  WEIGHTED_PARENT_TASK_FACT_KIND,
   WEIGHTED_PARENT_TASK_INPUT_DOMAIN,
   buildWeightedParentTaskMembershipExistingSourceCountQuery,
   buildWeightedParentTaskMembershipMaterializationSql,
@@ -29,6 +32,7 @@ const adapters = [
     dataFile: 'skill-level-unlock-inventory.ndjson',
     auditDirectory: 'skill-level-unlock-inventory-audits',
     auditContract: 'sensum.skill-level-unlock-inventory-audit.v1',
+    factKind: RAW_STATEMENT_FACT_KIND,
     snapshotDirectory: audit => audit?.inputSnapshot?.directory,
     validate: validateSkillUnlockMaterializationInput,
     buildSql: buildSkillUnlockMaterializationSql,
@@ -40,6 +44,7 @@ const adapters = [
     dataFile: 'activity-canonical-subject-scope-evidence.ndjson',
     auditDirectory: 'activity-canonical-subject-scope-evidence-audits',
     auditContract: 'sensum.activity-canonical-subject-scope-evidence-audit.v1',
+    factKind: ACTIVITY_SCOPE_FACT_KIND,
     snapshotDirectory: audit => audit?.outputSnapshot?.directory,
     validate: validateActivitySubjectScopeMaterializationInput,
     buildSql: buildActivitySubjectScopeMaterializationSql,
@@ -52,6 +57,7 @@ const adapters = [
     dataFile: 'weighted-parent-task-entry-membership-evidence.ndjson',
     auditDirectory: 'weighted-parent-task-entry-membership-evidence-audits',
     auditContract: 'sensum.weighted-parent-task-entry-membership-evidence-audit.v1',
+    factKind: WEIGHTED_PARENT_TASK_FACT_KIND,
     snapshotDirectory: audit => audit?.outputSnapshot?.directory,
     validate: validateWeightedParentTaskMembershipMaterializationInput,
     buildSql: buildWeightedParentTaskMembershipMaterializationSql,
@@ -64,7 +70,7 @@ const adapters = [
 const registry = new Map(adapters.map(adapter => [adapter.domain, Object.freeze(adapter)]));
 if (registry.size !== adapters.length) throw new Error('accepted_evidence_registry_duplicate_domain');
 for (const adapter of adapters) {
-  for (const field of ['domain','dataFile','auditDirectory','auditContract','snapshotDirectory','validate','buildSql','buildReconciliationQuery','verifyReconciliation']) {
+  for (const field of ['domain','dataFile','auditDirectory','auditContract','factKind','snapshotDirectory','validate','buildSql','buildReconciliationQuery','verifyReconciliation']) {
     if (!adapter[field]) throw new Error(`accepted_evidence_registry_adapter_incomplete:${adapter.domain}:${field}`);
   }
 }

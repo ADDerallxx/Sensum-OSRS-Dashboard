@@ -3770,3 +3770,24 @@ mechanical fact, optimizer eligibility, verified-best authorization, automatic
 verification, or account state was introduced. All 578 regression tests pass.
 The next checkpoint should collect exact transition provenance and cited source
 context without treating editor comments or edit order as mechanical authority.
+
+The accepted PostgreSQL evidence catalog now has direct, foreign-keyed statement
+provenance. Migration `0009_activity_evidence_ingestion_lineage.sql` adds a
+one-to-one lineage table without rewriting `activity_evidence`. A backup was
+created first (4,614,700 bytes; SHA-256
+`6c129e145c6b5c356fba33ef586b17dc073355709c5f6b41eee3f2ff281b9be2`).
+The generic backfill revalidated every registered accepted snapshot and linked
+all 4,770 evidence statements to their exact ingestion runs: 4,768 skill-unlock
+statements, one canonical activity-scope statement, and one weighted parent-task
+membership statement. The evidence row count and aggregate content checksum
+`17ddd9aa08b980e21b23e0ebae64696f` were identical before and after. Reapplication
+was idempotent, a foreign-key failure probe rolled back cleanly, and all three
+future materializers now write and reconcile the lineage link in their existing
+transaction. Catalog V3 reports direct versus declared statement totals and
+fails integrity checks on any missing link. Its read-only lineage audit reports
+4,770/4,770 direct links, zero unlinked or mismatched statements, stable shared
+source identity, and zero optimizer, verified-best, production, or V3 mutations.
+All 210 V4 test scripts pass. The Agility phase remains in progress because this
+provenance checkpoint changes no game facts or candidate-universe completeness.
+The next checkpoint should add registry-wide batch orchestration with per-domain
+failure isolation and an auditable all-domain reconciliation result.

@@ -5,7 +5,7 @@ import {fileURLToPath} from 'node:url';
 import {hash, json} from '../ingestion/lib.mjs';
 import {queryLocalEvidenceCatalog} from './query-local-evidence-catalog.mjs';
 
-export const LOCAL_EVIDENCE_DOMAIN_LINEAGE_AUDIT_CONTRACT = 'sensum.local-evidence-domain-lineage-audit.v1';
+export const LOCAL_EVIDENCE_DOMAIN_LINEAGE_AUDIT_CONTRACT = 'sensum.local-evidence-domain-lineage-audit.v2';
 
 const argument = name => process.argv.find(value => value.startsWith(`--${name}=`))?.slice(name.length + 3);
 
@@ -28,7 +28,7 @@ export async function auditLocalEvidenceDomainLineage(options = {}, runtime = {}
 
   assert(json(before.counts) === json(after.counts) && json(before.evidenceStates) === json(after.evidenceStates), 'catalog_queries_changed_database_counts');
   assert(domains.rows.length > 0 && domains.rows.every(row => row.recordCountReconciles === true && row.sourceCountReconciles === true), 'domain_run_snapshot_counts_do_not_reconcile');
-  assert(domains.rows.every(row => row.statementLineageState === 'run_metric_only_no_direct_evidence_run_foreign_key'), 'statement_run_lineage_gap_not_explicit');
+  assert(domains.rows.every(row => row.statementLineageState === 'direct_activity_evidence_ingestion_run_foreign_key' && row.statementCountReconciles === true && Number(row.directStatementCount) === Number(row.declaredStatementCount)), 'statement_run_lineage_does_not_reconcile');
   assert(lineage.rows.length === expectedLinks, 'shared_source_lineage_count_mismatch');
   assert(new Set(lineage.rows.map(row => `${row.sourceKey}|${row.url}|${row.revision}|${row.sourceContentHash}|${row.fetchedAt}`)).size === 1, 'shared_source_identity_drift');
   assert(new Set(lineage.rows.map(row => row.snapshotId)).size === expectedLinks, 'shared_source_snapshot_identity_not_unique');
@@ -44,7 +44,7 @@ export async function auditLocalEvidenceDomainLineage(options = {}, runtime = {}
     evidenceStates:after.evidenceStates,
     domains:{count:domains.rows.length,rows:domains.rows},
     sharedSource:{sourceKey:source,revision,title:lineage.rows[0].title,url:lineage.rows[0].url,sourceTimestamp:lineage.rows[0].sourceTimestamp,fetchedAt:lineage.rows[0].fetchedAt,sourceContentHash:lineage.rows[0].sourceContentHash,snapshotLinks:lineage.rows.length,domains:lineage.rows.map(row => row.domain).sort(),snapshotIds:lineage.rows.map(row => row.snapshotId).sort()},
-    statementRunLineage:{complete:false,state:'run_metric_only_no_direct_evidence_run_foreign_key',blocker:'activity_evidence_ingestion_run_lineage_not_materialized'},
+    statementRunLineage:{complete:true,state:'direct_activity_evidence_ingestion_run_foreign_key',directStatements:domains.rows.reduce((sum,row)=>sum+Number(row.directStatementCount),0),declaredStatements:domains.rows.reduce((sum,row)=>sum+Number(row.declaredStatementCount),0),blocker:null},
     domainRecordAndSourceCountsReconciled:true,
     sharedSourceIdentityReusedWithoutDuplication:true,
     catalogCountsStableAcrossAudit:true,

@@ -1,0 +1,19 @@
+{
+  "contract": "sensum.local-evidence-catalog-health-audit.v3",
+  "requiredViews": ["summary", "skills", "sources", "blockers", "domains", "lineage"],
+  "rules": {
+    "databaseTransactionMustBeReadOnly": true,
+    "arbitrarySqlAccepted": false,
+    "sourceRevisionVisibilityRequired": true,
+    "evidenceStateVisibilityRequired": true,
+    "knowledgeBlockersRemainVisible": true,
+    "incompleteKnowledgeIsNotRuntimeFailure": true,
+    "domainRunSnapshotCountsMustReconcile": true,
+    "directStatementRunLineageMustReconcile": true,
+    "sourceSnapshotDomainLineageVisibilityRequired": true,
+    "sharedSourceIdentityMustRemainOneRowWithMultipleSnapshotLinks": true,
+    "boundedValidatedFiltersRequired": true,
+    "optimizerPromotionAllowed": false,
+    "productionMutationAllowed": false
+  }
+}

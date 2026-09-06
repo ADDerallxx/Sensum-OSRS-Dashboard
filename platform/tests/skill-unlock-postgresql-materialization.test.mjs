@@ -57,9 +57,10 @@ test('SQL is transactional, insert-only, candidate-preserving, and idempotent by
 });
 
 test('reconciliation rejects count, hash, state, and completeness drift',()=>{
-  const model=validateSkillUnlockMaterializationInput(fixture()),actual={runId:model.runId,status:'published',records:1,sources:1,statements:1,skills:1,snapshotComplete:false,metrics:{recordHashAggregate:model.recordHashAggregate,statementHashAggregate:model.statementHashAggregate,materializationHash:model.materializationHash,completeActivityUniverse:false,optimizerEligibleRecords:0,automaticVerification:false}};
+  const model=validateSkillUnlockMaterializationInput(fixture()),actual={runId:model.runId,status:'published',records:1,sources:1,statements:1,lineage:1,skills:1,snapshotComplete:false,metrics:{recordHashAggregate:model.recordHashAggregate,statementHashAggregate:model.statementHashAggregate,materializationHash:model.materializationHash,completeActivityUniverse:false,optimizerEligibleRecords:0,automaticVerification:false}};
   assert.equal(verifyReconciliation(model,actual),true);
   assert.throws(()=>verifyReconciliation(model,{...actual,statements:0}),/statements_count_mismatch/);
+  assert.throws(()=>verifyReconciliation(model,{...actual,lineage:0}),/lineage_count_mismatch/);
   assert.throws(()=>verifyReconciliation(model,{...actual,snapshotComplete:true}),/must_not_claim_complete/);
   assert.throws(()=>verifyReconciliation(model,{...actual,metrics:{...actual.metrics,optimizerEligibleRecords:1}}),/semantic_gate_weakened/);
 });

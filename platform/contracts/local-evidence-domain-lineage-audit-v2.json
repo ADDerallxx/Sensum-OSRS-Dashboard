@@ -1,0 +1,11 @@
+{
+  "contract": "sensum.local-evidence-domain-lineage-audit.v2",
+  "rules": {
+    "allCatalogQueriesMustUseReadOnlyTransactions": true,
+    "directStatementRunLineageMustReconcile": true,
+    "sharedSourceIdentityMustRemainStableAcrossDomains": true,
+    "catalogCountsMustRemainStableAcrossAudit": true,
+    "optimizerPromotionAllowed": false,
+    "productionMutationAllowed": false
+  }
+}

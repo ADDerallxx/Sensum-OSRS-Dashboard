@@ -1,0 +1,16 @@
+{
+  "contract": "sensum.activity-evidence-ingestion-lineage-backfill-audit.v1",
+  "purpose": "Prove every accepted evidence statement is linked one-to-one to its exact ingestion run without rewriting evidence or promoting semantic state.",
+  "requiredGates": [
+    "allStatementsLinked",
+    "exactRunBindings",
+    "activityEvidenceUnchanged",
+    "idempotentReapplication",
+    "foreignKeysEnforced"
+  ],
+  "forbiddenEffects": [
+    "production mutation",
+    "optimizer promotion",
+    "verified-best authorization"
+  ]
+}
