@@ -620,6 +620,12 @@ same level requirement. This can clear the composite identity gate while the
 separate mechanical gate remains blocked by the obsolete course-page notice and
 conflicting lap XP, timing, and Advanced XP/hour claims. Those mechanical
 blockers are also imported into the account-independent Agility 1–99 audit.
+When a validated post-update reconciliation snapshot is available, the audit
+also replaces the old generic conflict set with its source-bound current
+blockers and independently revalidates every reconciliation record hash. An
+absent snapshot preserves the prior identity-only behavior for compatibility;
+an invalid present snapshot fails instead of being silently ignored. Temporal
+reconciliation never clears mechanical completeness or the absolute-best gate.
 
 Run:
 

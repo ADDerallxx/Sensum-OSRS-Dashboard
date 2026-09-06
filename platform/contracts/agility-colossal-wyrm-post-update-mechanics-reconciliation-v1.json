@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "sensum.agility-colossal-wyrm-post-update-mechanics-reconciliation.v1",
+  "title": "Colossal Wyrm post-update mechanics reconciliation",
+  "type": "object",
+  "required": [
+    "contract", "memberKey", "routePolicy", "minimumAgility", "sourceRevisions",
+    "preUpdateClaims", "postUpdateClaims", "officialRelativeChange",
+    "observedRelativeChange", "courseObstacleTable", "claimDispositions",
+    "temporalAssignmentComplete", "mechanicalAuthorityComplete", "remainingBlockers",
+    "optimizerEligible", "verifiedBestAuthorized", "automaticVerificationApplied",
+    "accountIndependent", "recordContentHash", "contentHash"
+  ],
+  "additionalProperties": true
+}

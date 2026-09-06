@@ -429,6 +429,14 @@ complete section coverage does not by itself prove
 the entire in-game method universe. Performance breakpoints are also not audited,
 and every level still has at least one incomplete candidate.
 
+Colossal Wyrm post-update mechanics now use a separate temporal reconciliation
+over nine current pages, three historical anchors, and the ordered course
+revision chain. It confirms only when the post-update claims entered the current
+lineage: Advanced 1,053.6 XP matches the current course table, while Basic 633 XP
+conflicts with the 601.6 table sum. Current obstacle pages, the obsolete notice,
+and non-exact rate semantics remain explicit blockers, so neither route is
+mechanically authoritative or optimizer-eligible.
+
 Rockslide's open-ended hybrid examples now use a separate pairing-universe
 coverage contract. It cannot be closed by the named Ardougne, Hallowed
 Sepulchre, and Runecraft examples, by the current account, or by the existing

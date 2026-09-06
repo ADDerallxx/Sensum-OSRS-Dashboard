@@ -317,6 +317,14 @@ record count, creation time, audit result, and SHA-256 content hash.
   publishes contradictory values as separate evidence claims: the obsolete
   marker, three Advanced hourly rates, two lap-XP totals per route, and two
   Advanced timings remain visible rather than being reconciled by guesswork.
+- Colossal Wyrm post-update reconciliation requires the exact current course,
+  guide, overview, update, and five obstacle pages plus three exact historical
+  course revisions and their ordered revision chain. Run
+  `node platform/ingestion/ingest-wiki-agility-colossal-wyrm-post-update-mechanics-reconciliation.mjs`.
+  It separates pre- and post-update claims, uses the update's approximate
+  percentages only as corroboration, sums current course tables without filling
+  missing XP, and publishes temporal assignments only while preserving every
+  obsolete, internal-table, obstacle-page, and expected-rate blocker.
 - Al Kharid multi-obstacle evidence V2 stores the two failing obstacle identities,
   successful XP, damage, requirements, timing, source revisions, and stable
   unknown-model states without storing an account level. Level-numbered missing

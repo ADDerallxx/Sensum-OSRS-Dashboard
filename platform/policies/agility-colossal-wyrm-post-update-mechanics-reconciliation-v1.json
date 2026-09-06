@@ -1,0 +1,41 @@
+{
+  "policy": "sensum.agility-colossal-wyrm-post-update-mechanics-reconciliation-policy.v1",
+  "courseTitle": "Colossal Wyrm Agility Course",
+  "guideTitle": "Agility training",
+  "overviewTitle": "Agility",
+  "updateTitle": "Update:Summer Sweep Up - Agility & Chambers of Xeric Changes",
+  "updateDate": "2026-08-12",
+  "officialRelativeChanges": {
+    "basicPercent": 25,
+    "advancedPercent": 40
+  },
+  "historicalAnchors": {
+    "lastConfirmedPreUpdateRevision": "15293116",
+    "firstCompletePostUpdateCorrectionRevision": "15294160",
+    "explicitPreUpdateTimingClarificationRevision": "15295144"
+  },
+  "obstacleTitles": [
+    "Ladder (Colossal Wyrm Agility Course)",
+    "Tightrope (Colossal Wyrm Agility Course)",
+    "Edge (Colossal Wyrm Agility Course)",
+    "Rope (Colossal Wyrm Agility Course)",
+    "Zipline (Colossal Wyrm Agility Course)"
+  ],
+  "recordContract": "sensum.agility-colossal-wyrm-post-update-mechanics-reconciliation.v1",
+  "auditContract": "sensum.agility-colossal-wyrm-post-update-mechanics-reconciliation-audit.v1",
+  "outputDomain": "agility-colossal-wyrm-post-update-mechanics-reconciliation",
+  "rules": {
+    "currentAndHistoricalOfficialWikiRevisionsMustBePinned": true,
+    "historicalAnchorsMustBelongToTheCurrentCourseRevisionChain": true,
+    "preAndPostUpdateClaimsMustRemainSeparate": true,
+    "relativeUpdatePercentagesMayCorroborateButNeverDeriveExactValues": true,
+    "currentCourseObsoleteNoticeMustRemainVisible": true,
+    "currentObstacleTableMustBeSummedWithoutFillingMissingXp": true,
+    "internalAndCrossPageContradictionsRemainExplicitBlockers": true,
+    "approximateAndUpperBoundRatesCannotBecomeExactExpectedRates": true,
+    "temporalReconciliationDoesNotByItselfProveMechanicalAuthority": true,
+    "optimizerEligibilityAndVerifiedBestAreForbidden": true,
+    "accountSpecificInputsAreForbidden": true,
+    "automaticVerificationAllowed": false
+  }
+}

@@ -43,6 +43,33 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+Colossal Wyrm's August 2026 course changes now have a revision-pinned temporal
+reconciliation rather than one undifferentiated cross-page conflict. The audit
+requires the exact nine current Wiki pages, three exact historical course
+anchors, and the ordered 25-revision course chain from current revision
+15331454 through pre-update revision 15293116. Revision 15294160 is the first
+complete post-update claim set, and revision 15295144 explicitly identifies the
+old 54.0- and 58.8-second timings. The official update's approximately 25% and
+40% changes corroborate that transition but are never used to derive exact
+values.
+
+Basic and Advanced remain independent route records. Advanced's current
+1,053.6 XP claim exactly matches the current course-table sum. Basic's 633 XP
+claim conflicts with its current obstacle-table sum of 601.6. Both routes also
+retain the course-page obsolete notice, unreconciled individual obstacle-page
+values, and non-exact XP/hour observations or upper bounds. The older generic
+six-conflict set is therefore replaced in downstream coverage by six precise
+current blockers; temporal assignment is complete for 2/2 routes, while
+mechanical authority remains 0/2 and optimizer eligibility remains forbidden.
+
+Two official-Wiki ingestions reproduced snapshot hash
+`0efd4c0038375505a1ba83aede601519b545ac251a17f5d19e83951c51be346b`.
+The account-independent levels 1–99 audit still blocks all 99 levels and grants
+no verified-best claim. All 194 test scripts pass, including 35 focused
+reconciliation and integration assertions. The next checkpoint will reconcile
+the current obstacle-page variants and the Basic 633-versus-601.6 discrepancy
+without guessing or silently normalizing any value.
+
 The three target-condition discovery channels, their synthesis, monitoring
 registry, and baseline comparison now run through one fail-closed local dry-run
 orchestrator. The exact coverage report, source-sufficiency report, baseline
