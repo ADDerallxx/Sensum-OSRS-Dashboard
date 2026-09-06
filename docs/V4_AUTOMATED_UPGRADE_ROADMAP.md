@@ -43,6 +43,27 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+The recorded Agility target-condition review decisions now have a separate,
+fail-closed semantic-application boundary. Both the exact packet snapshot and
+the imported-decision snapshot must be selected explicitly. The application
+revalidates their manifests, raw records, intrinsic and outer hashes, policies,
+audits, artifact and template bindings, source evidence, reviewer metadata, and
+cross-snapshot identities, then reconstructs every submission and replays the
+complete set through the guarded importer before accepting any application.
+
+All three synthetic outcomes are deliberately narrow. Confirmation closes one
+and only one named blocker; rejection and additional-evidence decisions close
+none. Every outcome retains related blockers and creates zero expected rates,
+failure mechanics, performance facts, optimizer eligibility, automatic
+verification, account state, complete-universe claims, or verified-best
+authority. The actual project has no imported decision snapshot, so its real
+application attempt rejected with exit code 2 and created no output path. The
+Shayzien packet therefore remains entirely unapplied and all 17 real target-
+condition blockers remain open. All 186 test scripts pass, including 53 new
+application assertions and 790 tracked regression checks under the established
+checkpoint-counting convention. The next checkpoint will materialize
+deterministic, evidence-bound decision guidance without selecting a conclusion.
+
 The exact-revision Agility target-condition discovery packet now has a separate,
 atomic human-decision importer. It requires the packet snapshot, its generated
 blank template, and the completed decision file as explicit inputs. Before a

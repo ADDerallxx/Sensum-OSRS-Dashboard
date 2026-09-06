@@ -318,6 +318,15 @@ promotion-bearing row rejects the entire import without output. A valid import
 records only the human conclusion; it cannot close the named blocker, create a
 game fact, apply semantics, or make the candidate optimizer eligible.
 
+Applying one of those recorded decisions is another explicit step. The
+application boundary revalidates both snapshots and replays every decision
+through the guarded importer before producing an application record. A human
+confirmation may close only the packet's exact named blocker. Rejection or a
+request for more evidence closes nothing. No outcome can manufacture an XP
+rate, failure probability, failed-attempt XP, recovery mechanics, related-
+blocker resolution, complete-universe claim, optimizer eligibility, automatic
+verification, or verified-best result.
+
 ## Whole-skill progression coverage
 
 Skill knowledge is account-independent. The official Skills page supplies a

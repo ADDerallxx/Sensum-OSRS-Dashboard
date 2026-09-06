@@ -1,0 +1,10 @@
+{
+  "contract": "sensum.agility-target-condition-gap-discovery-review-decision-application.v1",
+  "required": ["applicationKey", "decisionKey", "reviewPacketKey", "sourcePacketSnapshotContentHash", "sourcePacketSnapshotCreatedAt", "sourceDecisionSnapshotContentHash", "sourceDecisionSnapshotCreatedAt", "sourcePacketContentHash", "sourcePacketOuterContentHash", "sourceDecisionRecordContentHash", "sourceDecisionOuterContentHash", "sourceBlankTemplateContentHash", "applicationPolicyContentHash", "candidateKey", "targetBaseAgility", "namedBlocker", "sourceEvidence", "selectedEvidenceKeys", "reviewer", "reviewedAt", "reviewNotes", "appliedDecision", "sourceSignalDisposition", "namedBlockerResolutionApplied", "namedBlockerClosed", "additionalEvidenceRequired", "semanticApplicationApplied", "blockersClosed", "gamePerformanceFactsCreated", "expectedRateCreated", "failureMechanicsCreated", "optimizerEligible", "automaticVerificationApplied", "accountIndependent", "completeWikiUniverseClaimed", "applicationOutcome", "remainingBlockers", "explicitNonClaims", "state", "recordContentHash", "contentHash"],
+  "rules": {
+    "applicationReplaysOneExactImportedDecision": true,
+    "confirmationClosesOnlyTheNamedBlocker": true,
+    "rejectionAndAdditionalEvidenceCloseNoBlocker": true,
+    "noRateMechanicsOptimizerVerificationAccountOrUniversePromotion": true
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "policy": "sensum.agility-target-condition-gap-discovery-review-decision-application-policy.v1",
+  "inputManifestContract": "sensum.ingestion-manifest.v1",
+  "inputPacketDomain": "agility-target-condition-gap-discovery-review-packet",
+  "inputPacketContract": "sensum.agility-target-condition-gap-discovery-review-packet.v1",
+  "inputPacketPolicy": "sensum.agility-target-condition-gap-discovery-review-packet-policy.v1",
+  "inputPacketPolicyFile": "platform/policies/agility-target-condition-gap-discovery-review-packet-v1.json",
+  "inputPacketPolicyContentHash": "6862a24e09593103d0cefd3617fb5a08e38010985882e759815c996f7d3aa8a5",
+  "inputDecisionDomain": "agility-target-condition-gap-discovery-review-decisions",
+  "inputDecisionContract": "sensum.agility-target-condition-gap-discovery-review-decision.v1",
+  "inputDecisionPolicy": "sensum.agility-target-condition-gap-discovery-review-decision-import-policy.v1",
+  "inputDecisionPolicyFile": "platform/policies/agility-target-condition-gap-discovery-review-decision-import-v1.json",
+  "inputDecisionPolicyContentHash": "944371d0fe682be5391af2ad39bb905da2b5a9964c4e2c992db00e8ca5f681b9",
+  "outputDomain": "agility-target-condition-gap-discovery-review-decision-applications",
+  "outputContract": "sensum.agility-target-condition-gap-discovery-review-decision-application.v1",
+  "auditContract": "sensum.agility-target-condition-gap-discovery-review-decision-application-audit.v1",
+  "requiredDecisionState": "recorded_source_bound_target_condition_human_review_decision_pending_separate_semantic_application",
+  "applicationStates": {
+    "confirmed": "named_blocker_resolution_applied_other_gates_closed",
+    "rejected": "source_signal_rejected_named_blocker_remains_open",
+    "additionalEvidence": "additional_revision_pinned_evidence_required_named_blocker_remains_open"
+  },
+  "rules": {
+    "packetAndDecisionSnapshotsMustBeExplicitlySelected": true,
+    "packetManifestRawRecordAuditAndArtifactHashesMustRevalidate": true,
+    "decisionManifestRawRecordsPolicyAndPacketBindingsMustRevalidate": true,
+    "everyDecisionMustReplayThroughGuardedImporter": true,
+    "oneApplicationRecordPerDecisionInDecisionOrder": true,
+    "confirmationMayCloseOnlyTheExactNamedBlocker": true,
+    "rejectionAndAdditionalEvidenceKeepTheNamedBlockerOpen": true,
+    "applicationCannotCreateExpectedRateFailureMechanicsOrOtherGameFacts": true,
+    "otherCandidateBlockersAndCompleteUniverseRemainOpen": true,
+    "applicationCannotPromoteOptimizerEligibilityOrVerifiedBest": true,
+    "namesTitlesPageIdsRevisionsCandidatesBlockersLinesAliasesOverridesAndExceptionsCannotAlterPolicyBehavior": true,
+    "currentAccountStateIsForbidden": true,
+    "automaticVerificationAllowed": false
+  }
+}
