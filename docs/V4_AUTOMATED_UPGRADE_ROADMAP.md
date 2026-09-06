@@ -43,6 +43,33 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+The Colossal Wyrm Basic lap-XP conflict now has an exact, parent-contiguous
+revision timeline instead of one generic current-page mismatch. Course revision
+15331454 and all 24 intervening revisions through pre-update revision 15293116
+were fetched with source content, timestamps, comments, and parent IDs. Every
+revision independently parses the prose lap claim and all eight Basic obstacle
+rows; comments remain provenance only and never become mechanical authority.
+
+The timeline contains five source-observed states. Revisions 15293116–15293625
+agree at 504.1 prose and a 504.1 table sum. Revision 15293630 first changes the
+table to 601.6 while prose remains 504.1. Revision 15294160 first introduces the
+633-versus-601.6 state, revision 15294404 briefly reverts both values to 504.1,
+and revision 15294612 restores the conflict retained through current revision
+15331454. Official update revision 15303824 publishes only approximate 25% and
+40% duration changes plus a relative reward adjustment; it supplies no exact
+Basic lap XP capable of resolving the conflict.
+
+Two official-Wiki ingestions reproduced the same one-record snapshot hash
+`0ea505cc7b0dba4059568b1d2b50be7810ee14937b24e054377be2fb1836a739`.
+Downstream Colossal Wyrm and complete Agility levels 1–99 audits replace only
+the prior generic Basic lap blocker with the current-revision-specific
+633-versus-601.6 blocker. The conflict remains unresolved, mechanical authority
+and optimizer eligibility remain closed, and no account state or automatic
+verification was introduced. All 196 test scripts pass, including 27 focused
+timeline, lineage, parser-drift, promotion, and integration checks. The next
+checkpoint will reconcile the current course's obsolete notice against each
+named changed field without deriving exact values from approximate update text.
+
 The Colossal Wyrm course now has an exact obstacle-page variant reconciliation
 instead of two generic “pages not reconciled” blockers. Current course revision
 15331454 and current Ladder 15329585, Tightrope 15329590, Edge 15329584, Rope

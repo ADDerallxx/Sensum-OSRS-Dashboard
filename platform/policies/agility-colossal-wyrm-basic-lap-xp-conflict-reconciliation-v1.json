@@ -1,0 +1,53 @@
+{
+  "policy": "sensum.agility-colossal-wyrm-basic-lap-xp-conflict-reconciliation-policy.v1",
+  "courseTitle": "Colossal Wyrm Agility Course",
+  "updateTitle": "Update:Summer Sweep Up - Agility & Chambers of Xeric Changes",
+  "inputTemporalReconciliationContract": "sensum.agility-colossal-wyrm-post-update-mechanics-reconciliation.v1",
+  "inputTemporalReconciliationDomain": "agility-colossal-wyrm-post-update-mechanics-reconciliation",
+  "inputObstacleVariantContract": "sensum.agility-colossal-wyrm-obstacle-page-variant-reconciliation.v1",
+  "inputObstacleVariantDomain": "agility-colossal-wyrm-obstacle-page-variant-reconciliation",
+  "revisionAnchors": {
+    "currentCourseRevision": "15331454",
+    "lastConfirmedPreUpdateRevision": "15293116",
+    "firstTableDivergenceRevision": "15293630",
+    "firstCurrentConflictRevision": "15294160",
+    "currentConflictRestoredRevision": "15294612",
+    "officialUpdateRevision": "15303824"
+  },
+  "expectedRevisionChain": [
+    "15331454", "15331130", "15313984", "15312490", "15310489",
+    "15304185", "15303604", "15301582", "15298955", "15295850",
+    "15295847", "15295144", "15294629", "15294612", "15294404",
+    "15294160", "15294135", "15294093", "15293630", "15293625",
+    "15293606", "15293600", "15293429", "15293428", "15293116"
+  ],
+  "expectedStates": {
+    "preUpdate": { "proseLapXp": 504.1, "tableSumXp": 504.1, "tableRowCount": 8 },
+    "firstDivergence": { "proseLapXp": 504.1, "tableSumXp": 601.6, "tableRowCount": 8 },
+    "currentConflict": { "proseLapXp": 633, "tableSumXp": 601.6, "tableRowCount": 8 }
+  },
+  "expectedStateSegmentsChronological": [
+    { "firstRevision": "15293116", "lastRevision": "15293625", "revisionCount": 6, "proseLapXp": 504.1, "tableSumXp": 504.1 },
+    { "firstRevision": "15293630", "lastRevision": "15294135", "revisionCount": 3, "proseLapXp": 504.1, "tableSumXp": 601.6 },
+    { "firstRevision": "15294160", "lastRevision": "15294160", "revisionCount": 1, "proseLapXp": 633, "tableSumXp": 601.6 },
+    { "firstRevision": "15294404", "lastRevision": "15294404", "revisionCount": 1, "proseLapXp": 504.1, "tableSumXp": 504.1 },
+    { "firstRevision": "15294612", "lastRevision": "15331454", "revisionCount": 14, "proseLapXp": 633, "tableSumXp": 601.6 }
+  ],
+  "unresolvedBlocker": "basic_lap_xp_633_prose_conflicts_with_601_6_eight_row_sum_at_current_revision_15331454",
+  "supersededBlocker": "basic_post_update_lap_xp_633_conflicts_with_current_obstacle_table_601_6",
+  "recordContract": "sensum.agility-colossal-wyrm-basic-lap-xp-conflict-reconciliation.v1",
+  "auditContract": "sensum.agility-colossal-wyrm-basic-lap-xp-conflict-reconciliation-audit.v1",
+  "outputDomain": "agility-colossal-wyrm-basic-lap-xp-conflict-reconciliation",
+  "rules": {
+    "inputSnapshotsMustBeExplicitlySelectedAndRevalidated": true,
+    "courseRevisionChainMustBeExactContiguousAndContentBearing": true,
+    "proseAndEightRowTableValuesMustRemainIndependent": true,
+    "editorCommentsAreProvenanceNotMechanicalAuthority": true,
+    "officialUpdateApproximateChangesCannotDeriveExactLapXp": true,
+    "unresolvedConflictMustRemainAnExplicitBlocker": true,
+    "onlyTheSupersededGenericConflictBlockerMayBeReplaced": true,
+    "optimizerEligibilityAndVerifiedBestAreForbidden": true,
+    "accountSpecificInputsAreForbidden": true,
+    "automaticVerificationAllowed": false
+  }
+}

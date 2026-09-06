@@ -1,4 +1,4 @@
-import { hash } from '../ingestion/lib.mjs';
+import { hash, json } from '../ingestion/lib.mjs';
 
 const unique = values => [...new Set(values)];
 const without = (value, keys) => Object.fromEntries(Object.entries(value || {}).filter(([key]) => !keys.includes(key)));
@@ -9,6 +9,9 @@ const EXPECTED_OBSTACLE_VARIANT_KEYS = [
   'colossal-wyrm:rope:1', 'colossal-wyrm:rope:2',
   'colossal-wyrm:zipline:basic', 'colossal-wyrm:zipline:advanced'
 ];
+const BASIC_LAP_XP_SUPERSEDED_BLOCKER = 'basic_post_update_lap_xp_633_conflicts_with_current_obstacle_table_601_6';
+const BASIC_LAP_XP_REFINED_BLOCKER = 'basic_lap_xp_633_prose_conflicts_with_601_6_eight_row_sum_at_current_revision_15331454';
+const recordsHash = records => hash(`${records.map(record => json(record)).join('\n')}\n`);
 
 function reconciliationRecordHashesValid(record) {
   return record.recordContentHash === hash(without(record, ['recordContentHash', 'contentHash']))
@@ -67,11 +70,39 @@ function obstacleVariantSetBlockers(records, reconciliation) {
   return unique(blockers);
 }
 
-export function auditAgilityColossalWyrmGuideMemberCoverage({ members = [], guideCandidates = [], reconciliation = [], obstacleVariants = [] }) {
+function basicLapXpConflictSetBlockers(records, reconciliation, obstacleVariants) {
+  const blockers = [];
+  const record = records[0];
+  if (records.length !== 1) blockers.push('basic_lap_xp_expected_single_record');
+  if (!record || record.contract !== 'sensum.agility-colossal-wyrm-basic-lap-xp-conflict-reconciliation.v1') blockers.push('basic_lap_xp_conflict_contract_mismatch');
+  if (record && !reconciliationRecordHashesValid(record)) blockers.push('basic_lap_xp_conflict_record_hash_invalid');
+  if (record?.memberKey !== 'colossal-wyrm:basic-route' || record?.routePolicy !== 'basic_route') blockers.push('basic_lap_xp_conflict_route_identity_mismatch');
+  if (record?.timelineReconciliationComplete !== true || record?.conflictResolved !== false
+    || record?.mechanicalAuthorityComplete !== false || record?.optimizerEligible !== false
+    || record?.verifiedBestAuthorized !== false || record?.automaticVerificationApplied !== false
+    || record?.accountIndependent !== true) blockers.push('basic_lap_xp_conflict_invalid_authority_or_account_state');
+  if (record?.supersededBlocker !== BASIC_LAP_XP_SUPERSEDED_BLOCKER
+    || record?.remainingBlockers?.length !== 1
+    || record?.remainingBlockers?.[0] !== BASIC_LAP_XP_REFINED_BLOCKER) blockers.push('basic_lap_xp_conflict_blocker_replacement_invalid');
+  if (record?.inputSnapshots?.temporalReconciliation?.records !== reconciliation.length
+    || record?.inputSnapshots?.temporalReconciliation?.contentHash !== recordsHash(reconciliation)) blockers.push('basic_lap_xp_temporal_snapshot_binding_invalid');
+  if (record?.inputSnapshots?.obstacleVariantReconciliation?.records !== obstacleVariants.length
+    || record?.inputSnapshots?.obstacleVariantReconciliation?.contentHash !== recordsHash(obstacleVariants)) blockers.push('basic_lap_xp_obstacle_snapshot_binding_invalid');
+  const temporalCourseRevisions = unique(reconciliation.map(row => row.sourceRevisions?.currentCourse?.revision).filter(Boolean));
+  if (temporalCourseRevisions.length !== 1 || record?.sourceRevisions?.currentCourse?.revision !== temporalCourseRevisions[0]) blockers.push('basic_lap_xp_current_course_revision_mismatch');
+  return unique(blockers);
+}
+
+export function auditAgilityColossalWyrmGuideMemberCoverage({ members = [], guideCandidates = [], reconciliation = [], obstacleVariants = [], basicLapXpConflict = [] }) {
   const reconciliationProvided = reconciliation.length > 0;
   const obstacleVariantsProvided = obstacleVariants.length > 0;
   const obstacleVariantSetValidationBlockers = obstacleVariantsProvided ? obstacleVariantSetBlockers(obstacleVariants, reconciliation) : [];
   const obstacleVariantSetValid = obstacleVariantsProvided && obstacleVariantSetValidationBlockers.length === 0;
+  const basicLapXpConflictProvided = basicLapXpConflict.length > 0;
+  const basicLapXpConflictSetValidationBlockers = basicLapXpConflictProvided
+    ? basicLapXpConflictSetBlockers(basicLapXpConflict, reconciliation, obstacleVariants)
+    : [];
+  const basicLapXpConflictSetValid = basicLapXpConflictProvided && basicLapXpConflictSetValidationBlockers.length === 0;
   const guideRevisions = unique(members.map(member => member.guideSourceRevision).filter(Boolean));
   const sectionKeys = unique(members.map(member => member.sectionKey).filter(Boolean));
   const sectionKey = sectionKeys[0] || null;
@@ -88,6 +119,7 @@ export function auditAgilityColossalWyrmGuideMemberCoverage({ members = [], guid
 
     let postUpdateReconciliation = null;
     let obstacleVariantReconciliation = null;
+    let basicLapXpConflictReconciliation = null;
     let mechanicalBlockers = member.mechanicalBlockers || [];
     if (reconciliationProvided) {
       if (reconciliations.length !== 1) {
@@ -140,6 +172,34 @@ export function auditAgilityColossalWyrmGuideMemberCoverage({ members = [], guid
       }
     }
 
+    if (basicLapXpConflictProvided && member.routePolicy === 'basic_route') {
+      if (!basicLapXpConflictSetValid) {
+        identityBlockers.push(...basicLapXpConflictSetValidationBlockers);
+        mechanicalBlockers = unique([...mechanicalBlockers, 'basic_lap_xp_conflict_reconciliation_unavailable']);
+      } else if (!obstacleVariantSetValid || reconciliations.length !== 1 || reconciliationBlockers(reconciliations[0]).length) {
+        identityBlockers.push('basic_lap_xp_conflict_requires_valid_temporal_and_obstacle_reconciliations');
+        mechanicalBlockers = unique([...mechanicalBlockers, 'basic_lap_xp_conflict_reconciliation_unavailable']);
+      } else {
+        const record = basicLapXpConflict[0];
+        mechanicalBlockers = unique([
+          ...mechanicalBlockers.filter(blocker => blocker !== record.supersededBlocker),
+          ...record.remainingBlockers
+        ]);
+        basicLapXpConflictReconciliation = {
+          contract: record.contract,
+          revisionCount: record.revisionChain.revisionCount,
+          firstDivergenceRevision: record.firstDivergenceState.revision,
+          firstCurrentConflictRevision: record.firstCurrentConflictState.revision,
+          currentProseLapXp: record.currentState.proseLapXp,
+          currentTableSumXp: record.currentState.tableSumXp,
+          conflictResolved: false,
+          supersededBlockerReplaced: !mechanicalBlockers.includes(record.supersededBlocker),
+          preciseRemainingBlockers: record.remainingBlockers,
+          contentHash: record.contentHash
+        };
+      }
+    }
+
     return {
       memberKey: member.memberKey,
       candidateKey: member.candidateKey,
@@ -157,6 +217,7 @@ export function auditAgilityColossalWyrmGuideMemberCoverage({ members = [], guid
       mechanicalBlockers,
       postUpdateReconciliation,
       obstacleVariantReconciliation,
+      basicLapXpConflictReconciliation,
       sourceLocators: member.sourceLocators,
       status: identityBlockers.length ? 'route_identity_blocked' : 'route_identity_covered',
       identityBlockers
@@ -182,6 +243,9 @@ export function auditAgilityColossalWyrmGuideMemberCoverage({ members = [], guid
     && memberDetails.every(member => member.postUpdateReconciliation?.temporalAssignmentComplete === true);
   const obstacleVariantReconciliationApplied = obstacleVariantSetValid
     && memberDetails.every(member => member.obstacleVariantReconciliation?.genericBlockerReplaced === true);
+  const basicLapXpConflictReconciliationApplied = basicLapXpConflictSetValid
+    && memberDetails.filter(member => member.routePolicy === 'basic_route')
+      .every(member => member.basicLapXpConflictReconciliation?.supersededBlockerReplaced === true);
   const mechanicalCompletenessProven = internalMemberAuditSatisfied && mechanicalBlockers.length === 0;
 
   return {
@@ -197,6 +261,9 @@ export function auditAgilityColossalWyrmGuideMemberCoverage({ members = [], guid
     obstacleVariantReconciliationApplied,
     obstacleVariantRecordCount: obstacleVariants.length,
     obstacleVariantSetValidationBlockers,
+    basicLapXpConflictReconciliationApplied,
+    basicLapXpConflictRecordCount: basicLapXpConflict.length,
+    basicLapXpConflictSetValidationBlockers,
     internalMemberAuditSatisfied,
     mechanicalCompletenessProven,
     memberDetails,

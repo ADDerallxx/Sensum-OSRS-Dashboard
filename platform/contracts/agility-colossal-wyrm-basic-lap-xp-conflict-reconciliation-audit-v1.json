@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "sensum.agility-colossal-wyrm-basic-lap-xp-conflict-reconciliation-audit.v1",
+  "title": "Colossal Wyrm Basic lap-XP conflict reconciliation audit",
+  "type": "object",
+  "required": [
+    "contract", "policyValidation", "inputLineage", "sourceIntegrity",
+    "timeline", "authorityBoundary", "recordsMatchExpected", "recordHashesValid",
+    "timelineReconciliationComplete", "conflictResolved", "mechanicalCompletenessProven",
+    "absoluteBestGate", "publishable", "blockers"
+  ],
+  "additionalProperties": true
+}
