@@ -3533,3 +3533,28 @@ tests pass. The next checkpoint should orchestrate source discovery,
 sufficiency disposition, monitoring-registry refresh, and change evaluation as
 one isolated dry run with complete lineage and no scheduler or production
 mutation.
+
+The Colossal Wyrm reward evidence path now has an isolated, fail-closed
+four-stage refresh rehearsal. It explicitly selects and validates the field
+reconciliation and baseline registry report/snapshot pairs, then runs reward
+source discovery, sufficiency disposition, monitoring-registry reconstruction,
+and baseline change evaluation sequentially inside one local run directory.
+Every downstream stage must bind the exact prior report and snapshot hashes;
+the first failed stage stops the run and prevents a successful lineage record.
+Two official-Wiki rehearsals completed all four stages. Each ran the 16 declared
+queries over 101 result occurrences, pinned the same 71 current source
+revisions, retained the same 30 signals and six blockers, reproduced discovery
+snapshot
+`a825cdaa1bdfae600a15bf41f5226aa6aa3614c2af1e81807ef5e0076a65fa36`,
+and reproduced empty change-event snapshot
+`01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b`.
+Fresh sufficiency and registry artifact hashes differ because their exact input
+report paths and generation times are lineage provenance; their separated
+evidence fingerprints remained unchanged, and the evaluator correctly emitted
+zero change events. The rehearsal created zero facts, mechanical resolutions,
+optimizer promotions, verified-best authorizations, automatic verifications,
+account state, scheduler state, or production mutations. All 576 regression
+tests pass. The next checkpoint should build a revision-pinned timeline for the
+specific termite and bone-shard reward claims so their first appearance,
+subsequent edits, and current status can be reconciled without arithmetic or
+authority inference.

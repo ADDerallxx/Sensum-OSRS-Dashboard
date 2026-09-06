@@ -255,7 +255,8 @@
         "agility_colossal_wyrm_termite_spawn_and_reward_rate_source_discovery",
         "agility_colossal_wyrm_termite_reward_rate_source_sufficiency_disposition",
         "agility_colossal_wyrm_termite_reward_rate_source_change_monitoring_registry",
-        "agility_colossal_wyrm_termite_reward_rate_source_change_evaluation"
+        "agility_colossal_wyrm_termite_reward_rate_source_change_evaluation",
+        "agility_colossal_wyrm_termite_reward_rate_dry_run_refresh_orchestration"
       ],
       "remainingWork": [
         "Use the 1,909-entry revision-aligned semantic-review queue to establish canonical game-entity and activity identities from retained source signatures and contexts, then prove repeatability, membership, requirements, variants, XP, timing, mechanics, and authoritative exclusions. The 29 explicit activity-page candidates now have deterministic, revision-bound consolidated human-review packets in six bounded batches. Those packets join their exact candidate discovery, source evidence, source-subject disposition, and evidence-work routing records; preserve 145 rendered-guide observations, 31 unlock references, 31 source-signature contexts, 351 infobox parameters, 84 lead paragraphs, 423 headings, 1,286 lexical review candidates, 45 disposition signals, and 222 evidence-domain obligations; and correctly prove that all 29 belong to the direct cross-source unlock-evidence population rather than the separate 4,725-page no-unlock-evidence queue. Their separate fail-closed decision importer now requires explicit packet and decision inputs; revalidates packet, embedded pipeline, source, revision, reviewer, timestamp, evidence-domain, citation, and cross-decision coherence bindings; rejects any partial, stale, unknown, uncited, incoherent, tampered, automated, account-scoped, or promotion-bearing row atomically; and forbids member keys or semantic application. Their separate application boundary now requires explicit packet and decision snapshots, replays the entire selected decision set through that importer, applies only the narrow reviewed subject/identity/repeatability/atomicity/evidence-domain/member-expansion-requirement conclusions, preserves rejection and additional-evidence outcomes, and forbids member identities, requirements, variants, XP, timing, mechanics, complete-universe claims, automatic verification, account state, and optimizer eligibility. Deterministic decision guidance now covers all 29 packets in six batches with 203 exact evidence-key bindings, 168 revision obligations, 222 evidence-domain reviews, 145 unselected coherence paths, 18 review artifacts, and importer-compatible blank templates. Two real materializations reproduced the same 21 payload files exactly while selecting zero decisions and applying zero semantics. All six untouched real decision batches rejected with exit code 2 and wrote zero decision snapshots; the real packet snapshot selected without a decision snapshot also rejected with exit code 2 and wrote zero application snapshots. Two source conflicts are prioritized and all 29 human decisions and actual applications remain pending. Additional revision-pinned evidence now covers both conflict candidates, the optional activity-type field semantics, module link/category behavior, Minigames repeatability text, and each exact taxonomy row and heading path; both candidate revisions remain unchanged, but the evidence intentionally resolves neither conflict. Merge those packets into augmented reviewer guidance while leaving both decision templates blank. Do not treat activity/minigame page type as repeatability proof; distinguish reference collections and composites from actual trainable method variants. Reconcile 68 queued untyped pages; the exact 4,725-entry source-bound no-unlock-evidence work queue partitioned into 2,088 direct-source-only, 388 mixed direct/rendered, and 2,249 rendered-only obligations; 1,565 unlock pages without rendered-guide evidence; three unresolved-title review templates and two category-title review templates now guarded by separate fail-closed human decision importers; the wider unlock set's 137 untyped pages and 31 activity pages; and 51 ambiguous statement forms. Exact target-source signatures for all 4,725 queue entries are durably consolidated and revalidated, and a deterministic source-bound semantic-relevance queue now preserves their 21,051 guide observations plus source structure in 4,725 review entries and 4,725 blank decision templates. A fail-closed importer validates explicit evidence-bound human decisions and safely rejects the untouched 4,725-row blank template without output. Human-readable evidence-keyed packets now cover all 4,725 entries in 95 bounded batches, but all 4,725 actual semantic decisions remain pending. The independently validated level-unlock-corpus absence queue now proves zero exact stable page-ID matches for all 4,725 entries against all 24 pinned official skill level-up tables and their complete 3,474-page equivalence corpus, while explicitly refusing to infer that no requirement exists. Its fail-closed human decision importer revalidates every queue, target, crosswalk, corpus, timestamp, reviewer, and evidence binding and safely rejects the untouched 4,725-row blank template without output. Deterministic human-readable evidence-keyed packets now cover all 4,725 absence cases in 95 bounded batches with exact-revision links, explicit nonclaims, complete importer-bound evidence requirements, and untouched blank decisions; all 4,725 human absence-reconciliation dispositions remain pending. A deterministic source-bound historical-attribution queue now isolates all 2,637 mixed or rendered-only obligations, preserving 14,945 rendered-only observations and 14,563 guide-revision bindings in 2,637 blank review records. Its fail-closed human decision importer revalidates every queue, source, observation, guide binding, timestamp, dependency, reviewer, and evidence binding and safely rejects the untouched 2,637-row blank template without output. Its separate application boundary now requires explicit queue and decision snapshots, replays every decision through that importer, applies only complete confirmed attributions, and leaves rejected, unavailable, missing, stale, mismatched, or unreviewed cases blocked; the real no-decision run rejected without writing output. All 2,637 actual attribution decisions remain pending. All five unresolved-title decisions remain pending explicit human review and no resolution has been applied. Historical template-expansion provenance remains open because dependency revision IDs and the generative origins of the wider rendered-only observation population are unavailable. Continue independent discovery until every repeatable training activity in every skill is enumerated. The central guide index's composite Combat row and four Defence link disagreements remain explicit. Rockslide pairing still requires complete activity and travel graphs.",
@@ -272,11 +273,31 @@
         "independentGameUniverseDiscoveryPending": true
       },
       "latestCheckpoint": {
-        "id": "agility_colossal_wyrm_termite_reward_rate_source_change_evaluation",
-        "result": "generic_fail_closed_baseline_vs_refresh_evaluator revalidated two complete six-domain registries with 47_query_bindings 353_source_occurrences 71_distinct_revision_content_sources and 30_signals; two_real_unchanged_evaluations emitted the same empty_event_snapshot_hash_01ba4719 with zero_false_alerts; adversarial_tests prove one_exact_event_per_affected_domain across_multi_dimension_change provenance_only_churn_ignored reversed_time_population_drift_nested_tamper_policy_exceptions_account_state_and_forbidden_promotions_rejected; all_6_blockers_remain_open; zero_facts_mechanical_resolutions_optimizer_promotions_verified_best_authorizations_automatic_verifications_or_account_state",
-        "next": "agility_colossal_wyrm_termite_reward_rate_dry_run_refresh_orchestration"
+        "id": "agility_colossal_wyrm_termite_reward_rate_dry_run_refresh_orchestration",
+        "result": "isolated_local_four_stage_refresh runs exact_reward_source_discovery source_sufficiency_disposition change_registry_rebuild and baseline_change_evaluation sequentially with explicit_field_and_baseline_inputs exact_report_snapshot_dependency_hashes and first_failure_stop; two_official_wiki_rehearsals completed_all_4_stages; discovery_snapshot_a825cdaa and empty_change_event_snapshot_01ba4719 reproduced_exactly; fresh_sufficiency_and_registry_artifacts changed_only_with_provenance while evaluator_detected_0_evidence_changes; 16_queries 101_results 71_revision_pinned_sources 30_signals and all_6_blockers preserved; zero_facts_mechanical_resolutions_optimizer_promotions_verified_best_authorizations_automatic_verifications_account_state_scheduler_or_production_mutation",
+        "next": "agility_colossal_wyrm_termite_reward_claim_revision_timeline_reconciliation"
       },
       "latestCoverageDelta": {
+        "colossalWyrmRewardRateDryRunRefreshPolicyAdded": 1,
+        "colossalWyrmRewardRateDryRunRefreshStages": 4,
+        "colossalWyrmRewardRateDryRunRefreshRealRehearsals": 2,
+        "colossalWyrmRewardRateDryRunRefreshSuccessfulStagesPerRun": 4,
+        "colossalWyrmRewardRateDryRunRefreshQueriesPerRun": 16,
+        "colossalWyrmRewardRateDryRunRefreshResultOccurrencesPerRun": 101,
+        "colossalWyrmRewardRateDryRunRefreshDistinctRevisionPinnedSourcesPerRun": 71,
+        "colossalWyrmRewardRateDryRunRefreshSignalsPerRun": 30,
+        "colossalWyrmRewardRateDryRunRefreshBlockerDomainsPreserved": 6,
+        "colossalWyrmRewardRateDryRunRefreshDiscoverySnapshotContentHash": "a825cdaa1bdfae600a15bf41f5226aa6aa3614c2af1e81807ef5e0076a65fa36",
+        "colossalWyrmRewardRateDryRunRefreshChangeEventSnapshotContentHash": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+        "colossalWyrmRewardRateDryRunRefreshDiscoveryAndChangeOutputsDeterministicAcrossTwoRealRuns": true,
+        "colossalWyrmRewardRateDryRunRefreshRealChangeEvents": 0,
+        "colossalWyrmRewardRateDryRunRefreshMechanicallyResolvedBlockers": 0,
+        "colossalWyrmRewardRateDryRunRefreshMechanicalFactsPromoted": 0,
+        "colossalWyrmRewardRateDryRunRefreshOptimizerPromotions": 0,
+        "colossalWyrmRewardRateDryRunRefreshVerifiedBestAuthorizations": 0,
+        "colossalWyrmRewardRateDryRunRefreshAutomaticVerifications": 0,
+        "colossalWyrmRewardRateDryRunRefreshAccountStateFindings": 0,
+        "colossalWyrmRewardRateDryRunRefreshProductionMutations": 0,
         "colossalWyrmRewardRateSourceChangeEvaluationPolicyAdded": 1,
         "colossalWyrmRewardRateSourceChangeEvaluationInputRegistries": 2,
         "colossalWyrmRewardRateSourceChangeEvaluationRecordsPerRegistry": 6,
@@ -8083,6 +8104,54 @@
         "verifiedBestAuthorizations": 0,
         "automaticVerifications": 0,
         "accountStateFindings": 0,
+        "mechanicalCompletenessProven": false,
+        "absoluteBestGate": "blocked_colossal_wyrm_reward_mechanics_not_authoritative"
+      },
+      "latestColossalWyrmTermiteRewardRateDryRunRefreshAudit": {
+        "generatedAt": "2026-09-06T15:40:43.915Z",
+        "reportContentHash": "6f669075e5e022d6d79846ced3dd36f0230c4214662178ad6ad343975c3ad703",
+        "policyContentHash": "37dbe546bde6229ac875ec305d1534710d45e91b8969d0b9d5910e12584c1e9a",
+        "snapshot": {
+          "dir": "2026-09-06T15-40-43-915Z",
+          "contentHash": "f4c495ad1d35a88e13006d7f9fc6dd4b068851b503a97bc00e5bbfd7edf4b4b1",
+          "records": 1
+        },
+        "realRehearsals": [
+          {
+            "reportDir": "2026-09-06T15-40-23-892Z",
+            "runDir": "2026-09-06T15-40-15-333Z",
+            "publishable": true,
+            "changeEvents": 0
+          },
+          {
+            "reportDir": "2026-09-06T15-40-43-915Z",
+            "runDir": "2026-09-06T15-40-35-682Z",
+            "publishable": true,
+            "changeEvents": 0
+          }
+        ],
+        "externalInputsExplicitAndValid": true,
+        "expectedStageCount": 4,
+        "successfulStageCount": 4,
+        "stageOrderExact": true,
+        "dependenciesExact": true,
+        "stopsAtFirstFailure": true,
+        "discoverySnapshotContentHash": "a825cdaa1bdfae600a15bf41f5226aa6aa3614c2af1e81807ef5e0076a65fa36",
+        "changeEventSnapshotContentHash": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+        "discoveryAndChangeOutputsDeterministicAcrossTwoRealRuns": true,
+        "queryExecutions": 16,
+        "resultOccurrences": 101,
+        "distinctRevisionPinnedSources": 71,
+        "signals": 30,
+        "openBlockers": 6,
+        "changeEvents": 0,
+        "blockersClosed": 0,
+        "mechanicalFactsCreated": 0,
+        "optimizerPromotions": 0,
+        "verifiedBestAuthorizations": 0,
+        "automaticVerifications": 0,
+        "accountStateFindings": 0,
+        "schedulerOrProductionMutations": 0,
         "mechanicalCompletenessProven": false,
         "absoluteBestGate": "blocked_colossal_wyrm_reward_mechanics_not_authoritative"
       },

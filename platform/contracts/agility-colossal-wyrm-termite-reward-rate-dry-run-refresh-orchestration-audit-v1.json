@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "sensum.agility-colossal-wyrm-termite-reward-rate-dry-run-refresh-orchestration-audit.v1",
+  "title": "Agility Colossal Wyrm termite reward-rate dry-run refresh orchestration audit",
+  "type": "object",
+  "required": [
+    "contract", "policyValidation", "externalInputIntegrity", "stageCoverage",
+    "lineageIntegrity", "failureSafety", "changeEvaluation", "blockerPreservation",
+    "recordsMatchExpected", "recordHashesValid", "orchestrationComplete",
+    "mechanicalCompletenessProven", "completeWikiUniverse",
+    "absoluteBestGate", "publishable", "blockers"
+  ],
+  "additionalProperties": true
+}
