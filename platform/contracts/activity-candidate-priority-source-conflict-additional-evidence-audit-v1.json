@@ -1,0 +1,23 @@
+{
+  "contract": "sensum.activity-candidate-priority-source-conflict-additional-evidence-audit.v1",
+  "required": [
+    "contract",
+    "policyCoverage",
+    "inputCoverage",
+    "sourceCoverage",
+    "evidenceCoverage",
+    "semanticPreservationCoverage",
+    "accountStateFindings",
+    "additionalEvidenceMaterializationComplete",
+    "humanReviewComplete",
+    "completeActivityUniverse",
+    "absoluteBestGate",
+    "blockers",
+    "publishable"
+  ],
+  "invariants": {
+    "humanReviewComplete": false,
+    "completeActivityUniverse": false,
+    "absoluteBestGate": "blocked_incomplete_activity_universe"
+  }
+}

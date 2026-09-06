@@ -1,0 +1,46 @@
+{
+  "policy": "sensum.activity-candidate-priority-source-conflict-additional-evidence-policy.v1",
+  "inputPacketPolicy": "sensum.activity-candidate-priority-human-review-packet-consolidation-policy.v1",
+  "inputPacketPolicyContentHash": "f0b104c3d80d00fd7b19518389971b419c86c74c4488e68591f7e802dc28df67",
+  "inputGuidancePolicy": "sensum.activity-candidate-priority-human-review-decision-guidance-policy.v1",
+  "inputGuidancePolicyContentHash": "24491fd59056e09e79da936455a4ad92d2a30e6edc745a213b629e08e2a40b35",
+  "inputDecisionImportPolicy": "sensum.activity-candidate-priority-human-review-decision-import-policy.v1",
+  "inputDecisionImportPolicyContentHash": "40277771a37dae82ca8fea06e8faa1c589032cd6a58da50d82b3665237e82972",
+  "inputPacketDomain": "activity-candidate-priority-human-review-packet",
+  "inputGuidanceDomain": "activity-candidate-priority-human-review-decision-guidance",
+  "outputDomain": "activity-candidate-priority-source-conflict-additional-evidence",
+  "recordContract": "sensum.activity-candidate-priority-source-conflict-additional-evidence.v1",
+  "auditContract": "sensum.activity-candidate-priority-source-conflict-additional-evidence-audit.v1",
+  "sourceConflictState": "blocked_conflicting_source_declarations",
+  "requiredConflictingDispositions": ["activity_subject", "minigame_subject"],
+  "requiredSupportingSources": [
+    { "sourceKey": "activity_infobox_documentation", "requestedTitle": "Template:Infobox Activity/doc", "namespace": 10 },
+    { "sourceKey": "activity_infobox_module", "requestedTitle": "Module:Infobox Activity", "namespace": 828 },
+    { "sourceKey": "minigame_taxonomy", "requestedTitle": "Minigames", "namespace": 0 }
+  ],
+  "requiredObservations": [
+    { "observationKey": "documentation_declares_type_parameter", "sourceKey": "activity_infobox_documentation", "matchMode": "exact_trimmed_line", "literal": "===type===" },
+    { "observationKey": "documentation_defines_type_as_optional_activity_group", "sourceKey": "activity_infobox_documentation", "matchMode": "exact_trimmed_line", "literal": "The type of activity: Minigame, Distraction and Diversion, or Raid. Omit if activity does not fall into one of those groups." },
+    { "observationKey": "module_defines_type_parameter_handler", "sourceKey": "activity_infobox_module", "matchMode": "literal_substring", "literal": "{ name = 'type', func = typearg }," },
+    { "observationKey": "module_links_type_argument", "sourceKey": "activity_infobox_module", "matchMode": "literal_substring", "literal": "return '[['..arg..']]" },
+    { "observationKey": "module_maps_minigame_type_to_minigames_category", "sourceKey": "activity_infobox_module", "matchMode": "literal_substring", "literal": "minigame = 'Minigames'," },
+    { "observationKey": "taxonomy_declares_repeatability", "sourceKey": "minigame_taxonomy", "matchMode": "literal_substring", "literal": "Minigames can be repeated, unlike" }
+  ],
+  "rules": {
+    "packetAndGuidanceSnapshotsMustBeExplicitlySelected": true,
+    "packetAndGuidanceManifestsRawRecordsPoliciesAndHashChainsMustRevalidate": true,
+    "onlyGenericSourceDeclarationConflictsMayEnter": true,
+    "candidateCurrentRevisionMustMatchTheBoundPacketRevisionOrRemainBlocked": true,
+    "everyRequiredSupportingSourceMustBeFetchedAtOneCurrentExactRevision": true,
+    "everyRequiredObservationMustRetainExactSourceLocationAndRevision": true,
+    "taxonomyMembershipMustUseAnExactMainNamespaceLinkAndRetainHeadingAndRowContext": true,
+    "schemaFieldMeaningAndTaxonomyMembershipAreEvidenceNotAReviewDecision": true,
+    "missingChangedDuplicateAmbiguousOrContradictoryEvidenceRemainsBlocked": true,
+    "oneAdditionalEvidencePacketPerSourceConflictInPacketOrder": true,
+    "namesTitlesPageIdsRevisionsSkillsRoutesLabelsAliasesAndOverridesCannotAlterPolicyBehavior": true,
+    "humanDecisionSemanticApplicationAndOptimizerPromotionAreForbidden": true,
+    "requirementsVariantsXpTimingAndMechanicsCompletionIsForbidden": true,
+    "currentAccountStateIsForbidden": true,
+    "automaticVerificationAllowed": false
+  }
+}

@@ -43,6 +43,31 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+The two priority activity source-declaration conflicts now have additional
+revision-pinned official evidence packets. A generic policy, evidence-record
+and audit contracts, ingestion library, explicit-input Wiki collector, and
+tests require explicit packet and guidance snapshots; rebuild and revalidate
+their manifests, raw records, hashes, policies, and complete packet-to-guidance
+chain; select candidates only by the generic conflicting-source state; and
+fetch the exact current revisions of each candidate plus the activity-infobox
+documentation, implementation module, and Minigames taxonomy source.
+
+At revisions `15206128`, `15325766`, and `15327496`, the supporting evidence
+source-locates the optional `type` field definition, its link/category behavior,
+the Wiki's repeatability description, and each candidate's exact taxonomy row
+and heading path. Hallowed Sepulchre remains listed under `Skilling minigames`,
+while Stealing valuables remains listed under `Minigame-like activities`.
+Candidate revisions `15322138` and `15323349` still exactly match their bound
+review packets. Two real materializations reproduced content hash
+`3185c8a97399e11a7a7f292f02187106cb04e9193f39ea55d61cfd1df2a05947`
+with zero payload differences. Both evidence packets, all three supporting
+sources, both candidate revisions, both taxonomy memberships, and 16 review
+evidence keys are complete. The collector records no decision, does not resolve
+either conflict, and cannot apply identity, repeatability, mechanics, account
+state, or optimizer eligibility. All 167 test scripts and 413 regression checks
+pass. The next checkpoint should merge these packets into augmented reviewer
+guidance for the two conflicts while leaving their decision templates blank.
+
 The 29 priority activity-candidate packets now have deterministic, evidence-
 keyed human-review decision guidance. A generic policy, guidance-record and
 audit contracts, library, explicit-input CLI, and tests revalidate the selected

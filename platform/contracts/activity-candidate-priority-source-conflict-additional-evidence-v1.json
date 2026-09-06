@@ -1,0 +1,37 @@
+{
+  "contract": "sensum.activity-candidate-priority-source-conflict-additional-evidence.v1",
+  "required": [
+    "contract",
+    "evidencePacketKey",
+    "evidencePacketOrdinal",
+    "candidateKey",
+    "reviewPacketKey",
+    "guidanceKey",
+    "sourceBindings",
+    "sourceConflict",
+    "candidateRevisionRevalidation",
+    "fieldSemanticsEvidence",
+    "taxonomyMembershipEvidence",
+    "humanReviewBoundary",
+    "explicitNonClaims",
+    "blockers",
+    "state",
+    "accountIndependent",
+    "humanDecisionSelected",
+    "decisionRecorded",
+    "semanticApplicationApplied",
+    "requirementsVariantsXpTimingAndMechanicsComplete",
+    "optimizerEligible",
+    "automaticVerificationApplied",
+    "recordContentHash"
+  ],
+  "invariants": {
+    "accountIndependent": true,
+    "humanDecisionSelected": false,
+    "decisionRecorded": false,
+    "semanticApplicationApplied": false,
+    "requirementsVariantsXpTimingAndMechanicsComplete": false,
+    "optimizerEligible": false,
+    "automaticVerificationApplied": false
+  }
+}
