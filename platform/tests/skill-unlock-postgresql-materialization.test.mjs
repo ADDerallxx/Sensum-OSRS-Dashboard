@@ -52,6 +52,9 @@ test('SQL is transactional, insert-only, candidate-preserving, and idempotent by
   assert.match(sql,/'candidate'/);
   assert.match(sql,/'review'/);
   assert.match(sql,/ON CONFLICT .* DO NOTHING/);
+  assert.doesNotMatch(sql,/d\.provider_key=e\.skill_key/);
+  assert.doesNotMatch(sql,/d\.fetched_at=e\.fetched_at/);
+  assert.match(sql,/d\.fetched_at IS NOT NULL/);
   assert.match(sql,/COMMIT;\n$/);
   assert.doesNotMatch(sql,/\bDELETE\b|\bTRUNCATE\b|\bUPDATE\b/i);
 });

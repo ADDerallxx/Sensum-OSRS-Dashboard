@@ -93,12 +93,15 @@ function skillsQuery({skill, limit}) {
     count(a.id) FILTER (WHERE a.parsed_value->>'optimizerEligible'='true')::integer AS "optimizerEligibleCount"
   FROM skills s
   LEFT JOIN LATERAL (
-    SELECT * FROM data_sources source
-    WHERE source.provider_key=s.slug AND source.kind='osrs_wiki'
+    SELECT source.* FROM data_sources source
+    JOIN activity_evidence source_evidence ON source_evidence.source_id=source.id
+    WHERE source.kind='osrs_wiki'
+      AND source_evidence.fact_kind='raw_skill_level_unlock_statement'
+      AND source_evidence.raw_locator->>'skillKey'=s.slug
     ORDER BY source.published_at DESC NULLS LAST,source.fetched_at DESC
     LIMIT 1
   ) d ON true
-  LEFT JOIN activity_evidence a ON a.source_id=d.id AND a.fact_kind='raw_skill_level_unlock_statement'
+  LEFT JOIN activity_evidence a ON a.source_id=d.id AND a.fact_kind='raw_skill_level_unlock_statement' AND a.raw_locator->>'skillKey'=s.slug
   ${filter}
   GROUP BY s.slug,s.name,s.maximum_level,d.revision_key,d.published_at,d.state
   ORDER BY s.name,d.published_at DESC NULLS LAST
@@ -108,7 +111,7 @@ function skillsQuery({skill, limit}) {
 
 function sourcesQuery({skill, source, revision, limit}) {
   const filters = [
-    skill ? `d.provider_key=${textLiteral(skill)}` : null,
+    skill ? `EXISTS (SELECT 1 FROM activity_evidence skill_evidence WHERE skill_evidence.source_id=d.id AND skill_evidence.fact_kind='raw_skill_level_unlock_statement' AND skill_evidence.raw_locator->>'skillKey'=${textLiteral(skill)})` : null,
     source ? `d.provider_key=${textLiteral(source)}` : null,
     revision ? `d.revision_key=${textLiteral(revision)}` : null
   ].filter(Boolean);

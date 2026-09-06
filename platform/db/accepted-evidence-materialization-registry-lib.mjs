@@ -77,6 +77,15 @@ import {
   validateActivityReferenceMemberUnresolvedRelationshipMaterializationInput,
   verifyActivityReferenceMemberUnresolvedRelationshipReconciliation
 } from './activity-reference-member-unresolved-subject-relationship-evidence-materialization-lib.mjs';
+import {
+  ACTIVITY_REFERENCE_MEMBER_SUBJECT_EXACT_LINE_FACT_KIND,
+  ACTIVITY_REFERENCE_MEMBER_SUBJECT_EXACT_LINE_INPUT_DOMAIN,
+  buildActivityReferenceMemberSubjectExactLineExistingSourceCountQuery,
+  buildActivityReferenceMemberSubjectExactLineMaterializationSql,
+  buildActivityReferenceMemberSubjectExactLineReconciliationQuery,
+  validateActivityReferenceMemberSubjectExactLineMaterializationInput,
+  verifyActivityReferenceMemberSubjectExactLineReconciliation
+} from './activity-reference-member-canonical-activity-subject-declaration-exact-line-evidence-materialization-lib.mjs';
 
 export const ACCEPTED_EVIDENCE_REGISTRY_CONTRACT = 'sensum.accepted-evidence-materialization-registry.v1';
 
@@ -196,6 +205,19 @@ const adapters = [
     buildExistingSourceCountQuery: buildActivityReferenceMemberUnresolvedRelationshipExistingSourceCountQuery,
     buildReconciliationQuery: buildActivityReferenceMemberUnresolvedRelationshipReconciliationQuery,
     verifyReconciliation: verifyActivityReferenceMemberUnresolvedRelationshipReconciliation
+  },
+  {
+    domain: ACTIVITY_REFERENCE_MEMBER_SUBJECT_EXACT_LINE_INPUT_DOMAIN,
+    dataFile: 'activity-reference-collection-member-canonical-activity-subject-declaration-exact-line-evidence.ndjson',
+    auditDirectory: 'activity-reference-collection-member-canonical-activity-subject-declaration-exact-line-evidence-audits',
+    auditContract: 'sensum.activity-reference-collection-member-canonical-activity-subject-declaration-exact-line-evidence-audit.v1',
+    factKind: ACTIVITY_REFERENCE_MEMBER_SUBJECT_EXACT_LINE_FACT_KIND,
+    snapshotDirectory: audit => audit?.outputSnapshot?.directory,
+    validate: validateActivityReferenceMemberSubjectExactLineMaterializationInput,
+    buildSql: buildActivityReferenceMemberSubjectExactLineMaterializationSql,
+    buildExistingSourceCountQuery: buildActivityReferenceMemberSubjectExactLineExistingSourceCountQuery,
+    buildReconciliationQuery: buildActivityReferenceMemberSubjectExactLineReconciliationQuery,
+    verifyReconciliation: verifyActivityReferenceMemberSubjectExactLineReconciliation
   }
 ];
 

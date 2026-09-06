@@ -4059,3 +4059,49 @@ is the two-record
 `activity-reference-collection-member-canonical-activity-subject-declaration-exact-line-evidence`
 domain, whose exact phrase occurrences must remain observations rather than
 semantic identity conclusions during PostgreSQL admission.
+
+The canonical-activity subject-declaration exact-line evidence domain is now
+the tenth registered PostgreSQL evidence adapter. Before any database attempt,
+it revalidates the exact audit, manifest, embedded audit, raw NDJSON, upstream
+input snapshots, policy binding, record hashes, all 14 candidate evidence
+packets, all 19 exact-phrase occurrences, exact source locators and hashes, and
+every closed semantic gate. The two lossless records preserve 13 exact Wiki
+revisions and 16 exact-case occurrences. They create no subject-binding, scope,
+repeatability, member-expansion, mechanics, skill-assignment, verified-fact, or
+optimizer decision. The snapshot and audit remain pinned to hashes
+`9679a15bd0423abbd0e7b53c45b2064992537ef8076354da1416a83a1933594b`
+and `8e4798cf433d3d19e90fcfdacfd0e4d7b741331b519fdc83470c00e322f5b31b`.
+
+The first real materialization exposed and safely rolled back on a generic
+source-identity defect: an exact Wiki revision already stored by the skill
+domain used a skill-specific provider alias, while this domain used its stable
+Wiki page ID. Exact source identity is now consistently the canonical URL and
+revision, with title, published timestamp, content hash, non-null acquisition
+time, and review state reconciled as immutable attributes. Skill catalog views
+now derive skill association from each evidence row's `skillKey` rather than
+overloading the shared source's provider alias. This permits safe cross-domain
+reuse without weakening revision identity or mutating acquisition timestamps.
+
+A validated pre-change backup was created at
+`.platform-local/backups/sensum-v4-20260906-153006.dump` (5,285,972 bytes,
+306 readable archive lines, SHA-256
+`9b82451b97a2b3442b82c3c7c3858244a394c76292f2256ca817639c58acbe7b`).
+The adapter inserted nine new source identities, reused four existing exact
+revisions, and added two raw records, two candidate statements, and two direct
+lineage links. Its failure probe rolled back cleanly, immediate reapplication
+was idempotent, and two complete ten-domain batches reproduced input-set hash
+`bdbb3bd3075c4e102cbea73a31741b053088fff80206db8ceb7724d8c5ed6b2c`
+with stable catalog counts. The catalog now reconciles 170 revision-pinned
+sources, 138 raw records, 4,882 candidate statements, and 4,882 direct lineage
+rows with zero unlinked, verified, or optimizer-eligible statements. Evidence
+and lineage aggregate hashes are `97c1a5ed0300c47e4cedb4791b0ab48e`
+and `676ebb5d61eafcffd3382b5b75b16de7`. The shared Wise Old Man revision remains
+one source identity linked to eight exact domain snapshots. Registry coverage
+is now 10/28, with six adapter-ready and 12 blocked unregistered datasets.
+
+All 220 V4 test scripts pass. This checkpoint creates no semantic promotion,
+complete-universe claim, verified-best authorization, production mutation, or
+V3 change. The next breadth-selected adapter candidate is the two-record
+`activity-reference-collection-member-canonical-activity-subject-declaration-structural-context-evidence`
+domain, whose heading, table, template, and link context must remain review
+evidence rather than an inferred subject or activity verdict.

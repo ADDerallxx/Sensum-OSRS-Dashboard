@@ -56,6 +56,15 @@ test('domain and lineage queries expose reconciled relationships without mutatio
   assert.equal(assertReadOnlyCatalogSql(lineage),true);
 });
 
+test('skill views use evidence context instead of overloading source provider identity',()=>{
+  const skills=buildCatalogSql({view:'skills',skill:'prayer'}),sources=buildCatalogSql({view:'sources',skill:'prayer'});
+  assert.match(skills,/raw_skill_level_unlock_statement/);
+  assert.match(skills,/raw_locator->>'skillKey'=s\.slug/);
+  assert.doesNotMatch(skills,/provider_key=s\.slug/);
+  assert.match(sources,/EXISTS \(SELECT 1 FROM activity_evidence skill_evidence/);
+  assert.match(sources,/raw_locator->>'skillKey'/);
+});
+
 test('domain and lineage payloads fail closed on broken identity or reconciliation',()=>{
   const domainPayload={contract:LOCAL_EVIDENCE_CATALOG_CONTRACT,view:'domains',rows:[{domain:'skill-level-unlock-inventory',snapshotComplete:false,recordCount:24,sourceCount:24,declaredStatementCount:4768,directStatementCount:4768,statementLineageState:'direct_activity_evidence_ingestion_run_foreign_key',recordCountReconciles:true,sourceCountReconciles:true,statementCountReconciles:true}]};
   const lineagePayload={contract:LOCAL_EVIDENCE_CATALOG_CONTRACT,view:'lineage',rows:[{sourceKey:'wiki-pageid:240934',url:'https://oldschool.runescape.wiki/w/Wise_Old_Man_tasks',revision:'14997080',sourceContentHash:'a'.repeat(64),domain:'activity-canonical-subject-scope-evidence',snapshotId:'snapshot',runId:'run',snapshotLinkCount:2,directStatementCount:1}]};
