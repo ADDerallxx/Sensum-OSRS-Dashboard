@@ -1,0 +1,61 @@
+{
+  "policy": "sensum.agility-colossal-wyrm-termite-reward-claim-temporal-conflict-synthesis-policy.v1",
+  "inputAuditContract": "sensum.agility-colossal-wyrm-termite-reward-claim-revision-timeline-reconciliation-audit.v1",
+  "inputSnapshotDomain": "agility-colossal-wyrm-termite-reward-claim-revision-timeline-reconciliation",
+  "inputRecordContract": "sensum.agility-colossal-wyrm-termite-reward-claim-revision-timeline-reconciliation.v1",
+  "inputPolicy": "sensum.agility-colossal-wyrm-termite-reward-claim-revision-timeline-reconciliation-policy.v1",
+  "inputPolicyContentHash": "cc0cdff5f219bab3969bc2ee34fc97b2e45a4fcaf3e76d4b5c11fdf2c0a55a5a",
+  "boundaryClaimKey": "official_relative_reward_adjustment",
+  "blockerClaimSets": [
+    {
+      "blocker": "advanced_bone_shard_6_9_experimental_per_completion_average_not_reconciled_with_current_80_percent_22_38_scoop_claim",
+      "claimKeys": ["advanced_bone_shard_per_completion_average", "bone_shard_scoop_chance_percent", "bone_shard_scoop_range", "official_relative_reward_adjustment"],
+      "requiredEvidence": "current_source_authored_equation_or_sampling_scope_linking_spawn_events_scoop_yields_and_bone_shards_per_completion"
+    },
+    {
+      "blocker": "advanced_bone_shard_hourly_414_and_345_claims_conflict_with_current_90_second_and_35_lap_text",
+      "claimKeys": ["advanced_bone_shard_per_completion_average", "advanced_maximum_focus_bone_shard_hourly", "advanced_less_intense_bone_shard_hourly", "advanced_less_intense_laps_hourly", "advanced_nominal_lap_seconds", "advanced_ideal_lap_seconds", "advanced_ideal_completions_hourly", "official_relative_reward_adjustment"],
+      "requiredEvidence": "current_source_authored_condition_set_reconciling_bone_shards_per_completion_lap_timing_laps_per_hour_and_hourly_yields"
+    },
+    {
+      "blocker": "advanced_termite_3_9_experimental_per_completion_average_not_reconciled_with_current_11_14_and_17_20_scoop_ranges",
+      "claimKeys": ["exact_spawn_rate_unknown", "advanced_termite_per_completion_average", "basic_section_termite_scoop_range", "advanced_section_termite_scoop_range", "talk_experimental_termite_average", "official_relative_reward_adjustment"],
+      "requiredEvidence": "current_source_authored_equation_or_sampling_scope_linking_spawn_events_section_scoop_yields_and_termites_per_completion"
+    },
+    {
+      "blocker": "advanced_termite_hourly_234_and_195_claims_conflict_with_current_90_second_and_35_lap_text",
+      "claimKeys": ["advanced_termite_per_completion_average", "advanced_maximum_focus_termite_hourly", "advanced_less_intense_termite_hourly", "advanced_less_intense_laps_hourly", "advanced_nominal_lap_seconds", "advanced_ideal_lap_seconds", "advanced_ideal_completions_hourly", "official_relative_reward_adjustment"],
+      "requiredEvidence": "current_source_authored_condition_set_reconciling_termites_per_completion_lap_timing_laps_per_hour_and_hourly_yields"
+    },
+    {
+      "blocker": "basic_bone_shard_per_lap_and_hour_rates_unavailable_because_termite_spawn_rate_is_unknown",
+      "claimKeys": ["exact_spawn_rate_unknown", "bone_shard_scoop_chance_percent", "bone_shard_scoop_range", "official_relative_reward_adjustment"],
+      "requiredEvidence": "official_exact_termite_spawn_mechanic_and_basic_course_event_opportunities_needed_for_bone_shard_expectation"
+    },
+    {
+      "blocker": "basic_termite_per_lap_and_hour_rates_unavailable_because_spawn_rate_is_unknown",
+      "claimKeys": ["exact_spawn_rate_unknown", "basic_section_termite_scoop_range", "official_relative_reward_adjustment"],
+      "requiredEvidence": "official_exact_termite_spawn_mechanic_and_basic_course_event_opportunities_needed_for_termite_expectation"
+    }
+  ],
+  "recordContract": "sensum.agility-colossal-wyrm-termite-reward-claim-temporal-conflict-synthesis.v1",
+  "auditContract": "sensum.agility-colossal-wyrm-termite-reward-claim-temporal-conflict-synthesis-audit.v1",
+  "outputDomain": "agility-colossal-wyrm-termite-reward-claim-temporal-conflict-synthesis",
+  "rules": {
+    "inputTimelineAuditSnapshotAndPolicyMustBeExplicitAndRevalidated": true,
+    "allSixBlockerClaimSetsMustBeExactAndDisjointByRecord": true,
+    "allSeventeenTimelineClaimsMustBeCoveredByAtLeastOneBlocker": true,
+    "officialUpdateBoundaryMustComeFromItsOwnTimelineClaim": true,
+    "preBoundaryAndPostBoundaryStatesMustComeFromExactRevisionTimestamps": true,
+    "claimAbsenceAndNumericZeroMustRemainDistinct": true,
+    "temporalOrderCannotEstablishCausalityOrMechanicalAuthority": true,
+    "talkEvidenceCannotEstablishMechanics": true,
+    "officialRelativeChangesCannotDeriveExactCurrentValues": true,
+    "allSixExistingBlockersMustRemainOpen": true,
+    "noArithmeticReconciliationOrMechanicalFactCreationIsAllowed": true,
+    "optimizerEligibilityAndVerifiedBestAreForbidden": true,
+    "accountSpecificInputsAreForbidden": true,
+    "completeWikiOrActivityUniverseClaimsAreForbidden": true,
+    "automaticVerificationAllowed": false
+  }
+}

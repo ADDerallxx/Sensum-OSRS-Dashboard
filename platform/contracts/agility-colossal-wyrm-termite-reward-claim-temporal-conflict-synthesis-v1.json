@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "sensum.agility-colossal-wyrm-termite-reward-claim-temporal-conflict-synthesis.v1",
+  "title": "Agility Colossal Wyrm termite reward claim temporal conflict synthesis",
+  "type": "object",
+  "required": [
+    "contract", "blocker", "inputTimeline", "officialUpdateBoundary",
+    "claimTemporalStates", "relationshipCounts", "requiredEvidence",
+    "temporalSynthesisComplete", "mechanicallyResolved", "mechanicalFactsCreated",
+    "optimizerEligible", "verifiedBestAuthorized", "automaticVerificationApplied",
+    "accountIndependent", "recordContentHash", "contentHash"
+  ],
+  "additionalProperties": true
+}

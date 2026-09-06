@@ -3580,3 +3580,28 @@ account state. All 577 regression tests pass. The next checkpoint should
 synthesize the exact temporal relationships among the conflicting claims and
 the official relative-change notice without treating sequence as proof of a
 mechanic.
+
+The 17 Colossal Wyrm reward histories now converge into six exact, blocker-
+centered temporal-conflict records. The official relative-change notice first
+appears at revision 15293418 on 12 August 2026 and is used only as a time
+boundary. Across the 17 unique claims, one defines that boundary, two first
+appear after it, six were present before it and later changed, and eight were
+present before it and remained unchanged. The synthesis preserves all 15
+unique post-boundary transitions with their revision, timestamp, presence, and
+value; it also keeps 33 claim-to-blocker relationships distinct from the 17
+unique claims so repeated evidence cannot inflate coverage.
+
+The two post-boundary introductions are the 90-second nominal Advanced lap
+claim and the 3.9-termite Advanced per-completion average. Later edits changed
+the ideal lap duration, ideal completions per hour, less-intense laps per hour,
+both termite scoop ranges, and the bone-shard scoop range. The 6.9-shard
+average, 234/195 termite and 414/345 shard hourly claims, 80% scoop chance,
+unknown exact spawn rate, and Talk-page 3.9 experiment all predate the boundary
+and remain textually unchanged afterward. That sequence establishes neither
+causality nor correctness. Two final local materializations reproduced snapshot
+hash `492dadb9d6797d9750b9e9b2e7253bf849281272e46944ab713d783380626a32`.
+All six mechanics blockers remain open and zero arithmetic reconciliation,
+mechanical fact, optimizer eligibility, verified-best authorization, automatic
+verification, or account state was introduced. All 578 regression tests pass.
+The next checkpoint should collect exact transition provenance and cited source
+context without treating editor comments or edit order as mechanical authority.
