@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "sensum.agility-target-condition-gap-source-channel-dry-run-refresh-orchestration-audit.v1",
+  "title": "Agility target-condition source-channel dry-run refresh orchestration audit",
+  "type": "object",
+  "required": [
+    "contract", "policyValidation", "externalInputIntegrity", "stageCoverage",
+    "lineageIntegrity", "failureSafety", "changeEvaluation", "blockerPreservation",
+    "recordsMatchExpected", "recordHashesValid", "orchestrationComplete",
+    "conditionOrMechanicsCoverageComplete", "completeWikiUniverse",
+    "absoluteBestGate", "publishable", "blockers"
+  ],
+  "additionalProperties": true
+}

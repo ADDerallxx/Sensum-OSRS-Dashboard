@@ -43,6 +43,34 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+The three target-condition discovery channels, their synthesis, monitoring
+registry, and baseline comparison now run through one fail-closed local dry-run
+orchestrator. The exact coverage report, source-sufficiency report, baseline
+registry report, and baseline raw snapshot must be selected and revalidated
+before execution. Each stage then runs sequentially inside one isolated run
+directory; its report, manifest, raw payload, audit, policy, content hash, and
+exact predecessor bindings must pass before the next stage can start. A failure
+stops the sequence immediately and cannot write a successful lineage snapshot.
+
+Two official-Wiki rehearsals each completed all six stages. Their current
+article, source-code, and historical Update snapshots reproduced hashes
+`83ab4a2d44dc4bd894b79d0b776f8825d9fed7e02baeaa7d784aa00e83c031ba`,
+`3c4e1e7eb7ac9620a2c372bdf4bc54616b480eae650ac58df95cc39552441e0f`,
+and `6ac8b7e73b5a080391a10dde26c3772563961652cb2c0e59151d97bc70f41056`.
+The derived synthesis and registry snapshots intentionally retained their fresh
+artifact lineage, but the evaluator correctly ignored that provenance-only
+churn: both rehearsals reproduced the unchanged empty-event hash
+`01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b`.
+
+No blocker, fact, rate, mechanic, optimizer eligibility, verified-best
+authorization, automatic verification, account state, or complete-universe
+claim changed. The level-34 coverage gate remains blocked. All 193 test scripts
+pass, including 24 new orchestration assertions and 1,245 tracked regression
+checks under the established checkpoint-counting convention. The next
+checkpoint returns to semantic coverage by reconciling the post-update Colossal
+Wyrm Agility mechanics and its conflicting official Wiki revisions without
+selecting or averaging unsupported values.
+
 The source-channel registry now has a separate, fail-closed
 baseline-versus-refresh evaluator. Both registry reports and snapshots must be
 selected explicitly. Each report, manifest, raw payload, record hash, policy

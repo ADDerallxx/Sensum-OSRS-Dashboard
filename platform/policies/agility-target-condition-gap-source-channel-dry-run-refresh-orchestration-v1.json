@@ -1,0 +1,76 @@
+{
+  "policy": "sensum.agility-target-condition-gap-source-channel-dry-run-refresh-orchestration-policy.v1",
+  "mode": "isolated_local_dry_run",
+  "runDirectoryName": "agility-target-condition-gap-source-channel-refresh-runs",
+  "inputContracts": {
+    "coverageAudit": "sensum.agility-level34-coverage-audit.v1",
+    "sourceSufficiencyAudit": "sensum.agility-target-condition-source-sufficiency-audit.v1",
+    "baselineRegistryAudit": "sensum.agility-target-condition-gap-source-channel-change-monitoring-registry-audit.v1",
+    "baselineRegistryManifest": "sensum.ingestion-manifest.v1"
+  },
+  "stages": [
+    {
+      "stageKey": "current_article_search",
+      "script": "platform/ingestion/ingest-wiki-agility-target-condition-gap-wiki-discovery.mjs",
+      "reportContract": "sensum.agility-target-condition-gap-wiki-discovery-audit.v1",
+      "outputDomain": "agility-target-condition-gap-wiki-discovery",
+      "dependencies": ["coverage_audit", "source_sufficiency_audit"]
+    },
+    {
+      "stageKey": "current_source_code_search",
+      "script": "platform/ingestion/ingest-wiki-agility-target-condition-gap-template-module-source-discovery.mjs",
+      "reportContract": "sensum.agility-target-condition-gap-template-module-source-discovery-audit.v1",
+      "outputDomain": "agility-target-condition-gap-template-module-source-discovery",
+      "dependencies": ["coverage_audit", "source_sufficiency_audit"]
+    },
+    {
+      "stageKey": "historical_update_archive_search",
+      "script": "platform/ingestion/ingest-wiki-agility-target-condition-gap-update-archive-source-discovery.mjs",
+      "reportContract": "sensum.agility-target-condition-gap-update-archive-source-discovery-audit.v1",
+      "outputDomain": "agility-target-condition-gap-update-archive-source-discovery",
+      "dependencies": ["coverage_audit", "source_sufficiency_audit"]
+    },
+    {
+      "stageKey": "source_channel_coverage_synthesis",
+      "script": "platform/transforms/synthesize-agility-target-condition-gap-source-channel-coverage.mjs",
+      "reportContract": "sensum.agility-target-condition-gap-source-channel-coverage-synthesis-audit.v1",
+      "outputDomain": "agility-target-condition-gap-source-channel-coverage-synthesis",
+      "dependencies": ["current_article_search", "current_source_code_search", "historical_update_archive_search"]
+    },
+    {
+      "stageKey": "source_channel_change_registry",
+      "script": "platform/transforms/materialize-agility-target-condition-gap-source-channel-change-monitoring-registry.mjs",
+      "reportContract": "sensum.agility-target-condition-gap-source-channel-change-monitoring-registry-audit.v1",
+      "outputDomain": "agility-target-condition-gap-source-channel-change-monitoring-registry",
+      "dependencies": ["source_channel_coverage_synthesis", "current_article_search", "current_source_code_search", "historical_update_archive_search"]
+    },
+    {
+      "stageKey": "source_channel_change_evaluation",
+      "script": "platform/transforms/evaluate-agility-target-condition-gap-source-channel-changes.mjs",
+      "reportContract": "sensum.agility-target-condition-gap-source-channel-change-evaluation-audit.v1",
+      "outputDomain": "agility-target-condition-gap-source-channel-change-evaluation",
+      "dependencies": ["baseline_registry", "source_channel_change_registry"]
+    }
+  ],
+  "recordContract": "sensum.agility-target-condition-gap-source-channel-dry-run-refresh-lineage.v1",
+  "auditContract": "sensum.agility-target-condition-gap-source-channel-dry-run-refresh-orchestration-audit.v1",
+  "outputDomain": "agility-target-condition-gap-source-channel-dry-run-refresh-orchestration",
+  "rules": {
+    "allFourExternalInputsMustBeExplicitlySelected": true,
+    "coverageSufficiencyAndBaselineRegistryInputsMustValidateBeforeExecution": true,
+    "allStagesRunSequentiallyInsideOneIsolatedLocalDirectory": true,
+    "eachStageMustExitZeroAndPublishAValidReportAndSnapshotBeforeTheNextStarts": true,
+    "everyStageReportManifestRawPayloadPolicyAuditAndContentHashMustValidate": true,
+    "everyDownstreamDependencyMustBindTheExactPriorReportAndSnapshotHashes": true,
+    "firstFailureStopsAllRemainingStagesAndProducesNoSuccessfulLineageSnapshot": true,
+    "successfulLineageMustContainExactlySixOrderedStages": true,
+    "refreshDoesNotApproveEvidenceApplySemanticsOrCloseBlockers": true,
+    "changeEvaluationEventsOnlyRequeueEvidenceWork": true,
+    "noSchedulerCloudResourceProductionDataMigrationDeploymentOrCutoverIsAllowed": true,
+    "deployClaspMigrationAndProductionCommandsAreForbidden": true,
+    "optimizerEligibilityAndVerifiedBestAreForbidden": true,
+    "accountSpecificInputsAreForbidden": true,
+    "completeWikiOrActivityUniverseClaimsAreForbidden": true,
+    "automaticVerificationAllowed": false
+  }
+}

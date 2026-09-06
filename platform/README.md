@@ -470,6 +470,18 @@ fingerprint. The export accepts described-category and active-redlink-category
 review routes, rejects insufficient-evidence routes, and records no review or
 resolution itself.
 
+Target-condition source refreshes can be rehearsed through the isolated local
+six-stage orchestrator. It requires exact coverage, source-sufficiency, baseline
+registry report, and baseline registry snapshot inputs. It runs the article,
+source-code, Update archive, synthesis, registry, and change-evaluation stages
+sequentially, verifies every predecessor binding, and stops at the first failed
+stage. It never schedules itself, applies evidence, changes account state,
+promotes optimizer eligibility, deploys, migrates, or touches production.
+
+```text
+node platform/orchestration/run-agility-target-condition-gap-source-channel-dry-run-refresh.mjs --coverage-audit=<report.json> --source-sufficiency-audit=<report.json> --baseline-registry-report=<report.json> --baseline-registry-snapshot=<snapshot-directory>
+```
+
 Run:
 
 ```text
