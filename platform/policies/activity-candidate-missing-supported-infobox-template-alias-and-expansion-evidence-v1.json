@@ -1,0 +1,26 @@
+{
+  "policy": "sensum.activity-candidate-missing-supported-infobox-template-alias-and-expansion-evidence-policy.v1",
+  "inputRoutingPolicy": "sensum.activity-candidate-missing-supported-infobox-evidence-work-routing-policy.v1",
+  "inputRoutingPolicyContentHash": "64c6527e2dc38624e97dbe85f545084fca629b7049af1b897ae0d9b1c1d8e346",
+  "inputRoutingDomain": "activity-candidate-missing-supported-infobox-evidence-work-routing",
+  "outputDomain": "activity-candidate-missing-supported-infobox-template-alias-and-expansion-evidence",
+  "recordContract": "sensum.activity-candidate-missing-supported-infobox-template-alias-and-expansion-evidence.v1",
+  "auditContract": "sensum.activity-candidate-missing-supported-infobox-template-alias-and-expansion-evidence-audit.v1",
+  "recordState": "revision_pinned_root_template_alias_and_one_hop_expansion_evidence_captured_subject_boundary_review_pending",
+  "rules": {
+    "routingSourceEvidenceAndPacketSnapshotsMustBeExplicitlySelected": true,
+    "routingSnapshotAndItsCompleteUpstreamRelationMustRevalidate": true,
+    "everyRetainedRootTemplateInvocationMustProduceExactlyOneEvidenceEntry": true,
+    "candidateSourceMustRefetchByExactBoundRevisionAndMatchIdentityTimestampAndHash": true,
+    "templateSourcesMustUseTheLatestRevisionAtOrBeforeTheCandidateTimestamp": true,
+    "redirectsMustBePreservedAndFollowedWithoutCurrentHeadResolution": true,
+    "redirectLoopsMissingTargetsAndDepthLimitsMustRemainExplicitBlockers": true,
+    "wrapperTagsAndSourceLevelTemplateModuleAndPageInvocationsMustBePreserved": true,
+    "everyPageBackedOneHopDependencyMustReceiveAnAsOfRevisionAssessment": true,
+    "oneHopDependencyEvidenceCannotClaimRecursiveHistoricalExpansionClosure": true,
+    "templateStructureCannotEstablishSubjectIdentityRepeatabilityMembershipRequirementsMechanicsOrEligibility": true,
+    "namesTitlesPageIdsRevisionsSkillsRoutesLabelsAliasesOverridesAndExceptionsCannotAlterPolicyBehavior": true,
+    "currentAccountStateIsForbidden": true,
+    "automaticVerificationAllowed": false
+  }
+}

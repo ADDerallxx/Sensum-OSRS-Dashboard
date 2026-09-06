@@ -1,0 +1,38 @@
+{
+  "contract": "sensum.activity-candidate-missing-supported-infobox-template-alias-and-expansion-evidence.v1",
+  "required": [
+    "contract",
+    "evidencePacketKey",
+    "evidencePacketOrdinal",
+    "candidateKey",
+    "workRouteKey",
+    "sourceBindings",
+    "candidateRevisionRevalidation",
+    "rootTemplateInvocationEvidence",
+    "coverage",
+    "explicitNonClaims",
+    "humanDecisionRecorded",
+    "canonicalGameEntityIdentity",
+    "canonicalActivityIdentity",
+    "repeatabilityClassification",
+    "membershipOrVariantApplication",
+    "requirementsVariantsXpTimingAndMechanicsComplete",
+    "optimizerEligible",
+    "automaticVerificationApplied",
+    "accountIndependent",
+    "blockers",
+    "state",
+    "recordContentHash"
+  ],
+  "invariants": {
+    "humanDecisionRecorded": false,
+    "canonicalGameEntityIdentity": null,
+    "canonicalActivityIdentity": null,
+    "repeatabilityClassification": null,
+    "membershipOrVariantApplication": false,
+    "requirementsVariantsXpTimingAndMechanicsComplete": false,
+    "optimizerEligible": false,
+    "automaticVerificationApplied": false,
+    "accountIndependent": true
+  }
+}

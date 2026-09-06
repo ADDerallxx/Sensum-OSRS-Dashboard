@@ -62,6 +62,16 @@ the inventory does not claim to enumerate links emitted by templates. Missing
 direct links receive current-head, exact-title, log, and search observations;
 search results remain review candidates and can never become automatic repairs.
 
+Missing-supported-infobox activity candidates use a narrower historical
+template evidence boundary. Starting only from the exact root-template
+invocations retained in their source packets, the collector refetches every
+root and page-backed one-hop dependency at the latest revision not after the
+candidate timestamp. Historical redirects, relative subpages such as `/doc`,
+wrapper tags, modules, parser functions, substitutions, magic words, and dynamic
+names remain distinct observations. This one-hop packet does not claim a full
+recursive historical expansion or infer a subject identity, activity,
+repeatability, member universe, mechanic, or optimizer eligibility.
+
 The rendered-guide observation audit calls the official MediaWiki parser with
 each retained guide `oldid` and separately preserves its `links`, `categories`,
 `images`, and `templates` channels. Each returned target receives a current
@@ -356,6 +366,7 @@ node platform/transforms/build-unlock-linked-page-wiki-equivalence.mjs
 node platform/transforms/build-skill-training-guide-unlock-page-crosswalk.mjs
 node platform/transforms/build-cross-source-entity-activity-candidates.mjs
 node platform/ingestion/ingest-wiki-activity-candidate-source-evidence.mjs
+node platform/ingestion/ingest-wiki-activity-candidate-missing-supported-infobox-template-alias-and-expansion-evidence.mjs --routing-snapshot=<directory> --source-evidence-snapshot=<directory> --packet-snapshot=<directory>
 node platform/transforms/build-activity-candidate-subject-dispositions.mjs
 node platform/transforms/build-activity-candidate-evidence-work-routes.mjs
 node platform/ingestion/ingest-wiki-activity-reference-collection-members.mjs

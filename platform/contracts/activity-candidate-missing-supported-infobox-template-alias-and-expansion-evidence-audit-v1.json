@@ -1,0 +1,27 @@
+{
+  "contract": "sensum.activity-candidate-missing-supported-infobox-template-alias-and-expansion-evidence-audit.v1",
+  "required": [
+    "contract",
+    "policyCoverage",
+    "inputCoverage",
+    "candidateCoverage",
+    "rootTemplateCoverage",
+    "aliasAndRedirectCoverage",
+    "wrapperAndDependencyCoverage",
+    "semanticPreservationCoverage",
+    "accountStateFindings",
+    "evidencePacketCoverageComplete",
+    "recursiveHistoricalExpansionClosureComplete",
+    "humanReviewComplete",
+    "completeActivityUniverse",
+    "absoluteBestGate",
+    "blockers",
+    "publishable"
+  ],
+  "invariants": {
+    "recursiveHistoricalExpansionClosureComplete": false,
+    "humanReviewComplete": false,
+    "completeActivityUniverse": false,
+    "absoluteBestGate": "blocked_incomplete_activity_universe"
+  }
+}

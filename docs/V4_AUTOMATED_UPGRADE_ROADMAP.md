@@ -43,6 +43,38 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+The two missing-supported-infobox routes now have revision-pinned root-template
+alias and one-hop expansion evidence packets. A generic policy, record and audit
+contracts, historical Wiki collector, readable artifacts, and adversarial tests
+revalidate the exact routing snapshot and its complete source-evidence/priority-
+packet relation before collecting anything. Both candidate pages are refetched
+by exact revision. Every one of their 23 retained root-template invocations is
+resolved at the latest official Wiki revision not after that candidate's source
+timestamp, with redirects followed from the exact historical source rather than
+through current-head API resolution. Wrapper behavior and every source-level
+template, module, page, parser-function, magic-word, dynamic-name, and
+substitution invocation remain separate observations.
+
+The first duplicate collection correctly exposed a generic relative-subpage
+defect: `{{/doc}}` was initially queried as global `Template:/doc`. The collector
+now resolves relative transclusions against each exact parent template, and both
+invalid provisional snapshots were removed. Two corrected real runs reproduced
+output content hash
+`0cfe19e01fefff79b41ca2164d221edf8284df7391db9214022725d01a453204`
+and all four payload files exactly. Both exact candidate revisions, all 23 root
+template assessments, and all 116 page-backed one-hop dependency occurrence
+assessments are complete across 61 unique historical source observations. The
+evidence records one historical redirect (`Template:Minigames` to
+`Template:Activities`), 22 wrapper-bearing roots, 172 source invocation
+occurrences, zero unbalanced wrappers, and zero historical source absences.
+Recursive historical expansion closure and generative attribution remain
+explicit blockers, as does the composite/container subject-boundary review.
+No human decision, identity, repeatability, membership, mechanics completion,
+optimizer promotion, automatic verification, or account state was created. All
+171 test scripts and 444 regression checks pass. The next checkpoint should
+extend the packets through the complete recursive historical transclusion graph
+without treating template structure as semantic evidence.
+
 The two priority activity candidates with no supported direct Activity/Minigame
 infobox now have a separate revision-pinned structural evidence-work route. A
 generic policy, record and audit contracts, routing library, explicit two-
