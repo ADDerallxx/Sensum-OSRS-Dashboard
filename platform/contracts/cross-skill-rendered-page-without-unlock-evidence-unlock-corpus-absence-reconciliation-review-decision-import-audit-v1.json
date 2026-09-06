@@ -1,0 +1,19 @@
+{
+  "contract": "sensum.cross-skill-rendered-page-without-unlock-evidence-unlock-corpus-absence-reconciliation-review-decision-import-audit.v1",
+  "required": [
+    "queueCoverage", "submissionCoverage", "policyCoverage", "bindingCoverage",
+    "recordCoverage", "semanticPreservationCoverage", "accountStateFindings",
+    "reviewDecisionRecordingComplete", "absenceReconciliationComplete",
+    "completeActivityUniverse", "absoluteBestGate", "blockers", "publishable"
+  ],
+  "rules": {
+    "queueSnapshotPolicyAndEveryQueueRecordMustRevalidate": true,
+    "everyCompletedSubmissionMustMatchExactlyOneQueueEntryAndBlankTemplate": true,
+    "blankRowsMayBeIgnoredButPartialRowsMustFail": true,
+    "anyInvalidSubmissionMakesTheBatchAtomicAndUnpublishable": true,
+    "recordedDecisionSetMustExactlyMatchTheCompletedSubmissionSet": true,
+    "decisionSpecificEvidenceRequirementsMustBeSatisfied": true,
+    "recordingCannotApplyCorpusAbsenceNoRequirementUnlockSemanticOrOptimizerPromotion": true,
+    "accountStateMustFailPublication": true
+  }
+}

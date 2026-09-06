@@ -14,14 +14,35 @@ relationship is preserved exactly once in the equivalence corpus. It emits a
 machine queue, readable TSV, complete corpus-evidence summary, and blank review
 decisions. Absence from this corpus never means that no requirement exists:
 semantic relevance, requirements outside level-up tables, canonical identity,
-repeatability, mechanics, and optimizer eligibility all remain blocked. A
-separate fail-closed importer is required before any human reconciliation can
-be recorded.
+repeatability, mechanics, and optimizer eligibility all remain blocked.
 
 Run:
 
 ```text
 node platform/transforms/export-cross-skill-rendered-page-without-unlock-evidence-unlock-corpus-absence-reconciliation-work-queue.mjs
+```
+
+## Level-unlock-corpus absence review decision import
+
+`import-cross-skill-rendered-page-without-unlock-evidence-unlock-corpus-absence-reconciliation-review-decisions.mjs`
+records only explicit human decisions from the queue's bound blank template.
+It revalidates the queue manifest, policy, snapshot, outer and intrinsic record
+hashes, stable target, source work record, crosswalk record, zero-match finding,
+and complete corpus fingerprint. Reject and additional-reconciliation decisions
+must also cite the stable page-ID and statement/target relation sets.
+
+Blank rows may accompany a partial human batch, but a blank row with altered
+bindings, a partially filled row, stale timestamp, automatic-looking reviewer,
+unknown or duplicate key, unbound evidence, account state, or attempted
+requirement/semantic/optimizer promotion rejects the whole batch. An accepted
+record is still pending separate application: it cannot establish corpus
+absence as a rule, claim that no requirement exists, add unlock evidence, or
+promote identity, repeatability, mechanics, or optimizer eligibility.
+
+Run only with an explicitly selected reviewed decision file:
+
+```text
+node platform/transforms/import-cross-skill-rendered-page-without-unlock-evidence-unlock-corpus-absence-reconciliation-review-decisions.mjs --decisions=<reviewed-decisions.ndjson>
 ```
 
 ## Collection-activity identity evidence

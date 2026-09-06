@@ -43,6 +43,25 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+The complete 4,725-entry level-unlock-corpus absence reconciliation queue now
+has a fail-closed human decision importer. Its generic policy, decision record,
+audit contract, transform, CLI, and tests revalidate the queue policy, manifest,
+snapshot, outer and intrinsic records, stable target, source work record,
+crosswalk record, zero-match finding, and complete corpus fingerprint. Every
+decision requires an explicit non-automatic reviewer, current timestamp,
+meaningful notes, and exact bound evidence; reject and additional-reconciliation
+decisions also require the stable page-ID and statement/target relation sets.
+Blank rows may accompany a partial human batch, but altered blank bindings,
+partial rows, stale or unbound evidence, duplicates, account state, or attempted
+requirement, semantic, mechanics, or optimizer promotion reject the whole batch.
+The real untouched 4,725-row template was rejected with exit code 2: all 4,725
+queue records revalidated, all rows remained blank, zero decisions were recorded,
+and no decision snapshot existed before or after. Decision recording is still
+separate from reconciliation application, so all 4,725 human dispositions and
+every downstream gate remain pending. All 327 regression tests pass. The next
+checkpoint should materialize deterministic, human-readable absence-review
+packets and bounded review batches.
+
 The complete 4,725-entry level-unlock-corpus absence reconciliation queue is
 now exported without turning corpus absence into a game rule. A dedicated
 generic policy, work-entry, blank-decision and audit contracts, transform, CLI,
