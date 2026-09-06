@@ -43,6 +43,33 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+The priority activity-candidate human-review path now has a separate semantic
+application boundary. A generic policy, application-record and audit contracts,
+library, explicit-input CLI, and tests require explicit packet and decision
+snapshots; revalidate both manifests, raw files, outer and intrinsic records,
+all embedded candidate/evidence/disposition/routing hashes, policy bindings,
+source identity and revision, reviewer metadata, and packet bindings; and replay
+every selected decision through the guarded importer before applying anything.
+Valid partial decision snapshots may produce partial application snapshots, but
+cannot complete the 29-candidate review.
+
+The boundary may apply only the human-reviewed source-subject disposition,
+revision-pinned game-entity and activity-identity projections, repeatability,
+atomicity, evidence-domain review statuses, and whether later member expansion
+is required. Explicit rejection becomes an exclusion limited to that exact
+packet candidate. Additional-evidence decisions remain blocked. Member keys,
+member expansion, member-universe completion, requirements, variants, XP,
+timing, mechanics, complete-universe claims, automatic verification, account
+state, and optimizer eligibility remain forbidden. Confirmed, rejected,
+additional-evidence, composite-expansion, partial-snapshot, deterministic,
+tamper, manifest-drift, account-state, promotion, and CLI fixtures all pass.
+The real packet snapshot selected without a decision snapshot rejected with
+exit code 2 and wrote zero application snapshots; all 29 decisions and all
+actual applications remain pending. All 165 test scripts pass. The next
+checkpoint should materialize deterministic, evidence-keyed decision guidance
+for the six human-review batches so a reviewer can populate the exact importer
+fields without weakening or bypassing either gate.
+
 The 29 priority activity-candidate packets now have a separate, fail-closed
 human-decision import boundary. A generic policy, decision and audit contracts,
 library, explicit-input CLI, and tests require the exact packet snapshot and

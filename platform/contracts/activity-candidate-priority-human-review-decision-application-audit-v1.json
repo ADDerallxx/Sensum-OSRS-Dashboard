@@ -1,0 +1,28 @@
+{
+  "contract": "sensum.activity-candidate-priority-human-review-decision-application-audit.v1",
+  "required": [
+    "policyCoverage",
+    "packetCoverage",
+    "decisionCoverage",
+    "replayCoverage",
+    "applicationCoverage",
+    "semanticPreservationCoverage",
+    "accountStateFindings",
+    "applicationBatchComplete",
+    "priorityActivityHumanReviewApplicationComplete",
+    "requirementsVariantsXpTimingAndMechanicsComplete",
+    "completeActivityUniverse",
+    "absoluteBestGate",
+    "blockers",
+    "publishable"
+  ],
+  "rules": {
+    "bothExplicitInputSnapshotsMustPassManifestAndRecordRevalidation": true,
+    "guardedDecisionImporterMustReproduceEveryDecisionExactly": true,
+    "applicationSetMustExactlyMatchTheSelectedDecisionSet": true,
+    "completeReviewRequiresOneResolvedDecisionForEveryPacket": true,
+    "additionalEvidenceMissingDecisionsAndIncompleteMemberExpansionRemainBlockers": true,
+    "applicationCannotPromoteRequirementsMechanicsUniverseOrOptimizerState": true,
+    "accountStateMustFailPublication": true
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "policy": "sensum.activity-candidate-priority-human-review-decision-application-policy.v1",
+  "packetContract": "sensum.activity-candidate-priority-human-review-packet.v1",
+  "decisionContract": "sensum.activity-candidate-priority-human-review-decision.v1",
+  "outputContract": "sensum.activity-candidate-priority-human-review-decision-application-record.v1",
+  "auditContract": "sensum.activity-candidate-priority-human-review-decision-application-audit.v1",
+  "inputPacketPolicy": "sensum.activity-candidate-priority-human-review-packet-consolidation-policy.v1",
+  "inputPacketPolicyContentHash": "f0b104c3d80d00fd7b19518389971b419c86c74c4488e68591f7e802dc28df67",
+  "inputDecisionImportPolicy": "sensum.activity-candidate-priority-human-review-decision-import-policy.v1",
+  "inputDecisionImportPolicyContentHash": "40277771a37dae82ca8fea06e8faa1c589032cd6a58da50d82b3665237e82972",
+  "requiredDecisionState": "recorded_priority_activity_human_review_decision_pending_separate_semantic_application",
+  "appliedCandidateState": "applied_priority_activity_scope_review_pending_member_and_mechanics_modeling",
+  "excludedCandidateState": "applied_priority_activity_exclusion_pending_universe_reconciliation",
+  "unresolvedCandidateState": "recorded_priority_activity_review_additional_evidence_required",
+  "rules": {
+    "packetAndDecisionSnapshotsMustBeExplicitlySelected": true,
+    "packetManifestPolicyRawOuterIntrinsicAndEmbeddedPipelineBindingsMustRevalidate": true,
+    "decisionManifestPolicyRawOuterIntrinsicAndPacketBindingsMustRevalidate": true,
+    "everyDecisionMustReplayThroughTheGuardedHumanDecisionImporter": true,
+    "oneApplicationRecordPerDecisionInDecisionOrder": true,
+    "partialDecisionSetsMayProducePartialApplicationSnapshotsButCannotCompleteReview": true,
+    "confirmedReviewConclusionsMayApplyOnlyTheirRevisionPinnedPacketProjection": true,
+    "rejectedReviewConclusionsCreateExplicitAuthoritativeExclusions": true,
+    "additionalEvidenceConclusionsRemainExplicitBlockers": true,
+    "memberExpansionRequirementMayApplyButMemberKeysAndMemberUniverseCompletionRemainForbidden": true,
+    "applicationCannotEstablishRequirementsVariantsXpTimingMechanicsCompleteUniverseOrOptimizerState": true,
+    "namesTitlesPageIdsRevisionsSkillsRoutesLabelsAliasesAndOverridesCannotAlterPolicyBehavior": true,
+    "currentAccountStateIsForbidden": true,
+    "automaticVerificationAllowed": false
+  }
+}
