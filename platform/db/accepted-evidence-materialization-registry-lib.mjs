@@ -104,6 +104,15 @@ import {
   validateActivityReferenceMemberSignalScopeMaterializationInput,
   verifyActivityReferenceMemberSignalScopeReconciliation
 } from './activity-reference-member-independent-repeatability-signal-scope-evidence-materialization-lib.mjs';
+import {
+  ACTIVITY_REFERENCE_MEMBER_SIGNAL_SUBJECT_PREDICATE_FACT_KIND,
+  ACTIVITY_REFERENCE_MEMBER_SIGNAL_SUBJECT_PREDICATE_INPUT_DOMAIN,
+  buildActivityReferenceMemberSignalSubjectPredicateExistingSourceCountQuery,
+  buildActivityReferenceMemberSignalSubjectPredicateMaterializationSql,
+  buildActivityReferenceMemberSignalSubjectPredicateReconciliationQuery,
+  validateActivityReferenceMemberSignalSubjectPredicateMaterializationInput,
+  verifyActivityReferenceMemberSignalSubjectPredicateReconciliation
+} from './activity-reference-member-independent-repeatability-signal-subject-predicate-evidence-materialization-lib.mjs';
 
 export const ACCEPTED_EVIDENCE_REGISTRY_CONTRACT = 'sensum.accepted-evidence-materialization-registry.v1';
 
@@ -262,6 +271,19 @@ const adapters = [
     buildExistingSourceCountQuery: buildActivityReferenceMemberSignalScopeExistingSourceCountQuery,
     buildReconciliationQuery: buildActivityReferenceMemberSignalScopeReconciliationQuery,
     verifyReconciliation: verifyActivityReferenceMemberSignalScopeReconciliation
+  },
+  {
+    domain: ACTIVITY_REFERENCE_MEMBER_SIGNAL_SUBJECT_PREDICATE_INPUT_DOMAIN,
+    dataFile: 'activity-reference-collection-member-independent-repeatability-signal-subject-predicate-evidence.ndjson',
+    auditDirectory: 'activity-reference-collection-member-independent-repeatability-signal-subject-predicate-evidence-audits',
+    auditContract: 'sensum.activity-reference-collection-member-independent-repeatability-signal-subject-predicate-evidence-audit.v1',
+    factKind: ACTIVITY_REFERENCE_MEMBER_SIGNAL_SUBJECT_PREDICATE_FACT_KIND,
+    snapshotDirectory: audit => audit?.outputSnapshot?.directory,
+    validate: validateActivityReferenceMemberSignalSubjectPredicateMaterializationInput,
+    buildSql: buildActivityReferenceMemberSignalSubjectPredicateMaterializationSql,
+    buildExistingSourceCountQuery: buildActivityReferenceMemberSignalSubjectPredicateExistingSourceCountQuery,
+    buildReconciliationQuery: buildActivityReferenceMemberSignalSubjectPredicateReconciliationQuery,
+    verifyReconciliation: verifyActivityReferenceMemberSignalSubjectPredicateReconciliation
   }
 ];
 

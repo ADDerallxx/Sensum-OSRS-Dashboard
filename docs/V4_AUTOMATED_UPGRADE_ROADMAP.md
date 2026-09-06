@@ -4198,3 +4198,44 @@ is the two-record
 domain, whose exact signal predicate spans and identity-anchor observations must
 remain review evidence rather than inferred subject bindings or repeatability
 verdicts.
+
+The independent repeatability signal subject-predicate evidence domain is now
+the thirteenth registered PostgreSQL evidence adapter. Before any database
+write, it revalidates the exact audit, manifest, embedded audit, raw NDJSON,
+input snapshot, policy binding, all 19 exact Wiki source identities, every one
+of 47 routed signal contexts, all exact source lines and predicate spans, all
+45 exact-line link occurrences, the complete manifest-to-record signal set,
+and every closed semantic gate. The two lossless records remain candidate-only
+and preserve zero stable activity anchors, zero semantic subject bindings,
+zero canonical-activity scope verdicts, and zero repeatability verdicts. The
+source snapshot and audit remain pinned to hashes
+`a1ec223fb163ac8dc3668487b5749c3bb40cd2e4f9c7e701a5fbb5be1a2db318`
+and `d59357398b5168cf78ffbba40a2b6eedadcb114ada89e584c5741a96335da868`.
+
+A validated pre-change backup was created at
+`.platform-local/backups/sensum-v4-20260906-173428.dump` (9,777,883 bytes,
+306 readable archive lines, SHA-256
+`7c8fd1a2c54f4a4dd5e870e0c6d2e2b735eeece85addcdf30ad4f6572bb79a06`).
+The adapter reused all 19 exact revisions without changing their acquisition
+timestamps and added two raw records, two candidate statements, and two direct
+lineage rows. Its deliberate failure probe rolled back cleanly, immediate
+reapplication was idempotent, and two complete thirteen-domain batches
+reproduced input-set hash
+`8c67e87b6e2874bfd8e6550db6d3c47a1f560d2189d1a4f9d8a861a9882dc801`
+with stable catalog counts.
+
+The catalog now reconciles 196 revision-pinned sources, 144 raw records, 4,888
+candidate statements, and 4,888 direct lineage rows with zero unlinked,
+verified, or optimizer-eligible statements. Evidence and lineage aggregate
+hashes are `2b4eb6816fcc281c014aecc0a38c93f5` and
+`317b35cd2506768459fd0abfc00954c1`. The shared Wise Old Man revision remains
+one source identity linked to 11 exact domain snapshots. Registry coverage is
+13/28, with three adapter-ready and 12 blocked unregistered datasets.
+
+All 223 V4 test scripts and all 668 subtests pass. This checkpoint creates no
+semantic promotion, complete-universe claim, verified-best authorization,
+production mutation, or V3 change. The measured next adapter candidate is the
+two-record
+`activity-reference-collection-member-independent-repeatability-source-evidence`
+domain; its source-search and backlink observations must remain review evidence
+rather than inferred activity scope or repeatability.
