@@ -43,6 +43,33 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+The single candidate-bound signal from target-condition Wiki discovery now has
+a deterministic, exact-revision human-review packet. The materializer requires
+the explicit discovery snapshot, revalidates its manifest, raw NDJSON, all five
+record hashes, embedded audit, and discovery-policy hash, then refetches the
+signal by exact revision. For Shayzien Agility Course revision 15168110, page ID
+317073, line 100, it independently revalidated the title, timestamp, source URL,
+6,099 source bytes, content hash, exact line, blocker, diagnostic, query, and
+result-set binding before emitting the packet.
+
+Two official-Wiki materializations reproduced output hash
+`b041b39046bcd7c33aa9adfa3fdce7702d7b4e9fc3176b19d0d41f89056e953f`,
+Markdown hash
+`20ab24afc72e11f563bbf60e02a32c6b4e59b6fab260075bb0e61c6e213c70a6`,
+and blank decision-template hash
+`e438b998e790d60788acdd1c4cdfa680d477e58b13ceba4179bcfc3aad29bfdb`.
+The packet asks whether the exact line resolves only the named superseded-rate
+blocker and explicitly states that it does not establish a current level-34
+expected rate, other failure mechanics, universe completeness, optimizer
+eligibility, or a verified-best claim.
+
+No decision or evidence selection was recorded. All 17 target-condition
+blockers remain open, and zero facts, optimizer promotions, automatic approvals,
+account state, or complete-Wiki claims were created. All 184 test scripts and
+691 tracked regression checks pass. The next checkpoint will add a separate,
+atomic, fail-closed importer for a future completed human decision while leaving
+the real decision template untouched.
+
 The five remaining Agility target-condition candidates now have bounded,
 candidate-, blocker-, and subject-specific discovery beyond their 21 declared
 source pages. Twenty-seven namespace-0 full-text queries cover Al Kharid's

@@ -1,0 +1,10 @@
+{
+  "contract": "sensum.agility-target-condition-gap-discovery-review-decision-template.v1",
+  "required": ["reviewPacketKey", "packetContentHash", "availableEvidenceKeys", "decision", "selectedEvidenceKeys", "reviewer", "reviewedAt", "reviewNotes", "contentHash"],
+  "rules": {
+    "packetBindingIsImmutable": true,
+    "availableEvidenceKeysAreInformationalNotSelected": true,
+    "decisionSelectedEvidenceReviewerTimestampAndNotesStartBlank": true,
+    "templateIsNotAReviewDecision": true
+  }
+}

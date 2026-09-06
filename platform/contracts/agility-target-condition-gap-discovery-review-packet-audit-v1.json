@@ -1,0 +1,12 @@
+{
+  "contract": "sensum.agility-target-condition-gap-discovery-review-packet-materialization-audit.v1",
+  "required": ["inputCoverage", "policyCoverage", "signalCoverage", "sourceIntegrityCoverage", "packetCoverage", "artifactCoverage", "semanticPreservationCoverage", "accountStateFindings", "reviewPacketMaterializationComplete", "humanReviewComplete", "conditionOrMechanicsCoverageComplete", "completeWikiUniverse", "absoluteBestGate", "blockers", "publishable"],
+  "rules": {
+    "explicitInputManifestRawRecordsAndHashesMustValidate": true,
+    "inputSignalAndOutputPacketSetsMustMatchExactly": true,
+    "exactRevisionSourceContentAndLineMustRevalidate": true,
+    "packetAndBlankDecisionArtifactsMustReproduceExactly": true,
+    "humanReviewAndEverySemanticPromotionRemainIncomplete": true,
+    "integrityFailurePreventsPublication": true
+  }
+}

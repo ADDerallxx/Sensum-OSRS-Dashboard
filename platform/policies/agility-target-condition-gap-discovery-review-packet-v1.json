@@ -1,0 +1,36 @@
+{
+  "policy": "sensum.agility-target-condition-gap-discovery-review-packet-policy.v1",
+  "inputManifestContract": "sensum.ingestion-manifest.v1",
+  "inputDomain": "agility-target-condition-gap-wiki-discovery",
+  "inputRecordContract": "sensum.agility-target-condition-gap-wiki-discovery.v1",
+  "inputAuditContract": "sensum.agility-target-condition-gap-wiki-discovery-audit.v1",
+  "inputPolicy": "sensum.agility-target-condition-gap-wiki-discovery-policy.v1",
+  "inputPolicyFile": "platform/policies/agility-target-condition-gap-wiki-discovery-v1.json",
+  "recordContract": "sensum.agility-target-condition-gap-discovery-review-packet.v1",
+  "decisionTemplateContract": "sensum.agility-target-condition-gap-discovery-review-decision-template.v1",
+  "auditContract": "sensum.agility-target-condition-gap-discovery-review-packet-materialization-audit.v1",
+  "outputDomain": "agility-target-condition-gap-discovery-review-packet",
+  "allowedDecisions": [
+    "confirm_source_resolves_named_blocker_only",
+    "reject_source_as_insufficient_or_condition_mismatched",
+    "needs_additional_revision_pinned_evidence"
+  ],
+  "rules": {
+    "inputSnapshotMustBeExplicitlySelected": true,
+    "manifestRawRecordsAndAllRecordHashesMustRevalidate": true,
+    "inputAuditMustBePublishableQueryBoundedAndFailClosed": true,
+    "onePacketPerCandidateBoundPotentialEvidenceSignal": true,
+    "candidateBlockerDomainQueryAndSignalMustJoinExactly": true,
+    "signalSourceMustBeRefetchedByExactRevision": true,
+    "sourcePageIdTitleRevisionTimestampHashBytesLineAndExcerptMustRevalidate": true,
+    "reviewPacketMustRetainAllCandidateBlockersAndDiscoveryBindings": true,
+    "decisionTemplateMustRemainCompletelyBlank": true,
+    "packetGenerationDoesNotRecordOrApplyAReviewDecision": true,
+    "packetGenerationCannotCloseBlockersCreateFactsOrPromoteOptimizerState": true,
+    "confirmationCouldResolveOnlyTheNamedBlockerAfterSeparateGuardedApplication": true,
+    "otherConditionMechanicsUniverseAndBestClaimsRemainBlocked": true,
+    "namesTitlesPageIdsRevisionsCandidatesBlockersLinesAndAliasesCannotAlterPolicyBehavior": true,
+    "currentAccountStateIsForbidden": true,
+    "automaticVerificationAllowed": false
+  }
+}

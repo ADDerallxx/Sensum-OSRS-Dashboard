@@ -360,3 +360,13 @@ record count, creation time, audit result, and SHA-256 content hash.
   matches may request manual semantic re-audit only; all blockers and optimizer
   gates remain closed until a separate evidence-backed review and application
   boundary exists.
+- Target-condition discovery review-packet materialization converts every
+  candidate-bound discovery signal into exact-revision human-review evidence.
+  Run
+  `node platform/transforms/materialize-agility-target-condition-gap-discovery-review-packets.mjs --discovery-snapshot=<exact snapshot directory>`.
+  The explicit input manifest, raw NDJSON, record hashes, discovery policy,
+  candidate/blocker/query joins, source page identity, exact revision content,
+  content hash, byte count, line number, and excerpt all revalidate before a
+  packet can publish. It also emits a readable Markdown packet and a completely
+  blank decision template. Packet generation records no decision, closes no
+  blocker, and cannot create facts or optimizer eligibility.
