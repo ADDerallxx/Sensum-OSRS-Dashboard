@@ -1,0 +1,13 @@
+{
+  "contract": "sensum.cross-skill-rendered-page-without-unlock-evidence-source-scoped-semantic-relevance-decision-template.v1",
+  "required": [
+    "workQueueEntryKey", "evidenceFingerprint", "sourcePageId", "sourceRevision",
+    "sourceContentHash", "reviewRoute", "allowedDispositions", "decision",
+    "reviewer", "reviewedAt", "reviewNotes", "evidenceKeys", "state", "templateContentHash"
+  ],
+  "rules": {
+    "templateBindsTheExactQueueEntryAndRevisionPinnedEvidence": true,
+    "decisionReviewerDateNotesAndEvidenceKeysStartBlank": true,
+    "templateCannotRecordOrImplyCanonicalIdentityRepeatabilityMechanicsOrOptimizerEligibility": true
+  }
+}

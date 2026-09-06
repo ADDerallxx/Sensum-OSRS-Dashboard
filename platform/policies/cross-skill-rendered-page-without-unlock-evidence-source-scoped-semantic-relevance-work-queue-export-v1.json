@@ -1,0 +1,41 @@
+{
+  "policy": "sensum.cross-skill-rendered-page-without-unlock-evidence-source-scoped-semantic-relevance-work-queue-export-policy.v1",
+  "signatureContract": "sensum.cross-skill-rendered-page-without-unlock-evidence-target-source-signature.v1",
+  "queueInputContract": "sensum.cross-skill-rendered-page-without-unlock-evidence-reconciliation-work-queue-entry.v1",
+  "candidateContract": "sensum.cross-source-entity-activity-candidate.v1",
+  "outputContract": "sensum.cross-skill-rendered-page-without-unlock-evidence-source-scoped-semantic-relevance-work-queue-entry.v1",
+  "decisionTemplateContract": "sensum.cross-skill-rendered-page-without-unlock-evidence-source-scoped-semantic-relevance-decision-template.v1",
+  "auditContract": "sensum.cross-skill-rendered-page-without-unlock-evidence-source-scoped-semantic-relevance-work-queue-export-audit.v1",
+  "inputPopulationPolicy": "sensum.cross-skill-rendered-page-without-unlock-evidence-target-source-signature-population-consolidation-policy.v1",
+  "inputPopulationPolicyContentHash": "26056ed1648a61a2ba1228843e5eb254420f0412ca9a3efe3cd858278f4dbb6b",
+  "inputQueuePolicy": "sensum.cross-skill-rendered-page-without-unlock-evidence-reconciliation-work-queue-export-policy.v1",
+  "inputQueuePolicyContentHash": "f2a024136cf1a64b0e081c7c03dd94e7e9d85eb79142dd557538c0121c785c72",
+  "reviewRoutes": {
+    "mainNamespace": "main_namespace_source_context_review",
+    "nonMainNamespace": "non_main_namespace_source_context_review"
+  },
+  "priorityByProvenancePartition": {
+    "direct_source_only": 1,
+    "mixed_direct_and_unattributed_rendered": 2,
+    "rendered_only_origin_unattributed": 3
+  },
+  "allowedDispositions": [
+    "relevant_to_one_or_more_retained_training_guide_contexts",
+    "not_relevant_to_any_retained_training_guide_context",
+    "ambiguous_or_context_specific_additional_evidence_required"
+  ],
+  "queueState": "pending_explicit_source_scoped_semantic_relevance_review",
+  "rules": {
+    "allThreeInputSnapshotsAndEveryIntrinsicRecordMustRevalidate": true,
+    "inputSignatureAndQueueSetsMustMatchExactlyAndEveryQueueCandidateMustResolveExactlyOnce": true,
+    "everySignatureExportsExactlyOnceByPriorityThenOriginalQueueOrdinal": true,
+    "queueEntriesBindAllThreeSnapshotsAndRecords": true,
+    "allGuideObservationsRequestedTitlesAndStructuralEvidenceMustBePreserved": true,
+    "reviewPriorityMayDependOnlyOnNamespaceAndProvenancePartition": true,
+    "decisionTemplatesMustStartBlank": true,
+    "exportDoesNotApplySemanticDispositionOrAnyDownstreamPromotion": true,
+    "namesTitlesPageIdsRevisionsTemplatesCategoriesOrAliasesCannotAlterPolicyBehavior": true,
+    "currentAccountStateIsForbidden": true,
+    "automaticVerificationAllowed": false
+  }
+}

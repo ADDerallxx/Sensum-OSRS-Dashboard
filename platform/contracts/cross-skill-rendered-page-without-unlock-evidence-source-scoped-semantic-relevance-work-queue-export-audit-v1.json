@@ -1,0 +1,18 @@
+{
+  "contract": "sensum.cross-skill-rendered-page-without-unlock-evidence-source-scoped-semantic-relevance-work-queue-export-audit.v1",
+  "required": [
+    "policyCoverage", "inputCoverage", "bindingCoverage", "contextPreservationCoverage",
+    "queueCoverage", "artifactCoverage", "semanticPreservationCoverage",
+    "accountStateFindings", "queueExportComplete", "semanticRelevanceReviewComplete",
+    "reconciliationComplete", "completeActivityUniverse", "absoluteBestGate", "blockers", "publishable"
+  ],
+  "rules": {
+    "allThreeInputSnapshotsAndRecordsMustRevalidate": true,
+    "signatureAndQueueSetsMustMatchExactlyAndEveryQueueCandidateMustResolveExactlyOnce": true,
+    "everyConsolidatedSignatureMustExportExactlyOnce": true,
+    "allContextAndStructuralEvidenceMustRemainExact": true,
+    "reviewArtifactsMustMatchMachineRecords": true,
+    "queueExportCannotCreateReviewSemanticIdentityMechanicsOrOptimizerState": true,
+    "accountStateMustFailPublication": true
+  }
+}

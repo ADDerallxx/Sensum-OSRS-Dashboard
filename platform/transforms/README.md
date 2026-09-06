@@ -682,3 +682,19 @@ Run:
 ```text
 node platform/transforms/consolidate-cross-skill-rendered-page-without-unlock-evidence-target-source-signature-population.mjs
 ```
+
+`export-cross-skill-rendered-page-without-unlock-evidence-source-scoped-semantic-relevance-work-queue.mjs`
+joins the complete signature population to its exact reconciliation queue and
+resolves every queued candidate exactly once inside the larger candidate-context
+inventory. Every entry retains all guide observations,
+requested titles, exact source identity, templates, categories, lead paragraphs,
+and headings. Review order uses only namespace and provenance partition; titles,
+IDs, templates, categories, and aliases cannot select meaning. The paired
+decision template starts blank and the export cannot establish relevance,
+canonical identity, repeatability, mechanics, or optimizer eligibility.
+
+Run:
+
+```text
+node platform/transforms/export-cross-skill-rendered-page-without-unlock-evidence-source-scoped-semantic-relevance-work-queue.mjs
+```

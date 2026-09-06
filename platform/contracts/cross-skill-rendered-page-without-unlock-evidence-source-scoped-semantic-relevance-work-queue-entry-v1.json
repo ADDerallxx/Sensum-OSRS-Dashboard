@@ -1,0 +1,24 @@
+{
+  "contract": "sensum.cross-skill-rendered-page-without-unlock-evidence-source-scoped-semantic-relevance-work-queue-entry.v1",
+  "required": [
+    "reviewQueueOrdinal", "sourceQueueOrdinal", "workQueueEntryKey",
+    "sourceSignatureKey", "sourceSignatureRecordContentHash", "sourceSignatureSnapshotContentHash",
+    "sourceWorkQueueRecordContentHash", "sourceWorkQueueSnapshotContentHash",
+    "sourceCandidateRecordContentHash", "sourceCandidateSnapshotContentHash",
+    "sourcePageIdentity", "provenancePartition", "requestedTitles",
+    "retainedGuideContexts", "structuralEvidence", "evidenceFingerprint",
+    "reviewPriority", "reviewRoute", "allowedDispositions", "reviewQuestion",
+    "semanticDisposition", "reviewer", "reviewedAt", "reviewNotes", "reviewEvidenceKeys",
+    "canonicalGameEntityIdentity", "canonicalActivityIdentity", "repeatabilityClassification",
+    "mechanicsReviewComplete", "optimizerEligible", "automaticVerificationApplied",
+    "accountIndependent", "blockers", "state", "recordContentHash"
+  ],
+  "rules": {
+    "oneEntryPerConsolidatedSourceSignature": true,
+    "allThreeUpstreamSnapshotsAndRecordsAreContentAddressed": true,
+    "allRetainedGuideContextsAndSourceStructuralEvidenceArePreserved": true,
+    "reviewFieldsStartBlank": true,
+    "semanticAndOptimizerStateRemainClosed": true,
+    "currentAccountStateIsForbidden": true
+  }
+}

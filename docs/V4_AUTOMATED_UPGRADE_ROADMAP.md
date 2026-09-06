@@ -43,6 +43,25 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+The complete 4,725-record source-signature population now has a deterministic,
+source-bound semantic-relevance review queue. A dedicated generic policy,
+contracts, transform, CLI, readable TSV index, and blank decision template join
+each consolidated signature to its exact reconciliation entry and exact source
+candidate without narrowing the larger 6,639-record candidate inventory. The
+export retains all 21,051 guide observations across 81 guide revisions, 5,290
+requested titles, 30,867 root templates, 2,130 direct categories, 7,693 lead
+paragraphs, and 18,475 headings. All 4,725 snapshot and record bindings
+revalidate, no entries are missing, duplicated, unexpected, or mismatched, and
+two independent real exports produced the same queue, review-index, and blank-
+template hashes. Tests prove failure on source-specific policy, hash or binding
+drift, lost context, unknown provenance, prefilled review state, semantic or
+optimizer promotion, and account-state leakage. No semantic disposition,
+canonical identity, repeatability classification, mechanics verdict, or
+optimizer eligibility was created. All 291 regression tests pass. The next
+checkpoint should implement a fail-closed importer for explicit, evidence-bound
+semantic-relevance review decisions; the 4,725 reviews and every downstream
+reconciliation and activity-universe gate remain pending.
+
 The complete 4,725-record target-source-signature population is now durably
 consolidated and revalidated. A dedicated fail-closed policy, audit contract,
 transform, and CLI validate the authoritative queue plus every shard manifest,
