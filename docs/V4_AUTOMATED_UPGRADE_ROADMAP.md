@@ -43,6 +43,27 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+The 2,637-entry historical rendered-expansion attribution queue now has a
+fail-closed human decision importer. Its dedicated generic policy, decision and
+audit contracts, transform, CLI, and tests revalidate the exact queue policy,
+manifest, snapshot, outer and intrinsic records, source bindings, observation
+population, and guide-revision bindings. A confirmed decision must attribute
+every rendered observation exactly once to an exact historical Wiki dependency
+page, namespace, type, revision, timestamp, content hash, exact-revision URL,
+and generative locator. A rejection identifies at least one exact rejected
+proposal; an evidence-unavailable decision contains no proposed attribution and
+cites the complete bound observation population. The importer accepts safe
+partial human batches but rejects altered bindings, partial rows, stale or
+automatic reviewers, malformed dependencies, unbound evidence, duplicates,
+account state, and attempted downstream promotion atomically. The real untouched
+2,637-row blank template was rejected with exit code 2: all 2,637 queue records
+revalidated, every row remained blank, zero decisions were recorded, and no
+decision snapshot existed before or after. Attribution application remains
+separate, so all 2,637 decisions and downstream semantic, identity,
+repeatability, mechanics, and optimizer gates remain pending. All 357 regression
+tests pass. The next checkpoint should materialize deterministic, evidence-keyed
+human review packets and bounded review batches.
+
 The 2,637 mixed-source or rendered-only targets that require historical rendered-
 expansion attribution now have a deterministic, source-bound work queue. A
 dedicated generic policy, work-entry, blank-decision and audit contracts,

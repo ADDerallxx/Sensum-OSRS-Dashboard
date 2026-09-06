@@ -88,6 +88,28 @@ Run against an explicitly selected source queue when reproducibility matters:
 node platform/transforms/export-cross-skill-rendered-page-without-unlock-evidence-historical-attribution-work-queue.mjs --work-queue-snapshot=<source-queue-snapshot-directory>
 ```
 
+`import-cross-skill-rendered-page-without-unlock-evidence-historical-attribution-review-decisions.mjs`
+records explicit human review outcomes from that queue. It accepts safe partial
+batches and ignores exactly bound blank rows, but any altered binding, partial
+row, stale or automatic reviewer, unbound evidence, malformed dependency,
+duplicate, account state, or attempted downstream promotion rejects the entire
+batch.
+
+A confirmed attribution must bind every rendered-only observation exactly once
+to an exact historical Wiki dependency page, namespace, type, revision,
+timestamp, content hash, exact-revision URL, and generative source locator. A
+rejection must identify at least one exact rejected proposal. An
+evidence-unavailable decision contains no proposed attribution and cites the
+entire bound observation population. Recording any of these outcomes remains
+separate from applying attribution, semantic identity, requirements,
+repeatability, mechanics, or optimizer state.
+
+Run only against an explicitly selected reviewed decision file:
+
+```text
+node platform/transforms/import-cross-skill-rendered-page-without-unlock-evidence-historical-attribution-review-decisions.mjs --decisions=<reviewed-decision-template.ndjson>
+```
+
 ## Collection-activity identity evidence
 
 `build-activity-reference-collection-member-collection-activity-identity-evidence.mjs`
