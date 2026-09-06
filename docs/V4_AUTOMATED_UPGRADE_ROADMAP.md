@@ -74,6 +74,29 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+The approved local-only architecture now has an operational, isolated
+PostgreSQL development boundary. Windows WSL 2.7.13, Docker Desktop 4.89.0,
+Docker Engine 29.7.2, and Docker Compose 5.5.0 are installed. PostgreSQL 18.1 is
+pinned to image digest
+`sha256:cc9f4143a8d2fa8cf3749d0cb4d26ecf2d53a77a2ac807e9ebd67ae22426221a`,
+binds only to `127.0.0.1:54329`, stores data in the named Docker volume
+`sensum_v4_postgres_data`, and is limited to 4 GiB RAM and four logical CPUs.
+The randomly generated database password is stored only as a user-scoped
+Windows environment variable and is neither printed nor committed.
+
+All eight existing V4 migrations applied successfully and created 51 public
+tables plus explicit migration tracking. A second migration run was idempotent.
+The local manager now provides start, stop-with-data-preservation, status,
+migrate, and backup actions. Its first custom-format backup is 126,906 bytes,
+contains 299 readable archive entries, and has SHA-256
+`d484036df9d30baf9d13d39275734d81359176c5ea17f6175fbb48941f6df148`.
+Five local-runtime regression checks pass. No evidence records, account data,
+production data, V3 source, paid resource, or deployment was changed. The next
+adaptive checkpoint should implement a fail-closed adapter that materializes one
+already accepted, revision-pinned cross-skill evidence snapshot into this local
+canonical database and proves exact source-to-row reconciliation before widening
+that adapter to other domains.
+
 The Colossal Wyrm course's broad obsolete warning is now reconciled as four
 independent, revision-pinned field histories instead of one opaque blocker.
 Current course revision 15331454, official update revision 15303824, and all 24

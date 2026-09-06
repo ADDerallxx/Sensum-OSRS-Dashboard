@@ -1,2 +1,4 @@
 .clasp.json
 .platform-data/
+.platform-local/
+platform/local/.env

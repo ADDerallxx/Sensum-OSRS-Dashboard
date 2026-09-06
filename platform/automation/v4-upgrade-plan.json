@@ -331,7 +331,8 @@
         "agility_colossal_wyrm_termite_reward_rate_source_change_evaluation",
         "agility_colossal_wyrm_termite_reward_rate_dry_run_refresh_orchestration",
         "agility_colossal_wyrm_termite_reward_claim_revision_timeline_reconciliation",
-        "agility_colossal_wyrm_termite_reward_claim_temporal_conflict_synthesis"
+        "agility_colossal_wyrm_termite_reward_claim_temporal_conflict_synthesis",
+        "isolated_local_postgresql_runtime_and_migration_rehearsal"
       ],
       "remainingWork": [
         "Use the 1,909-entry revision-aligned semantic-review queue to establish canonical game-entity and activity identities from retained source signatures and contexts, then prove repeatability, membership, requirements, variants, XP, timing, mechanics, and authoritative exclusions. The 29 explicit activity-page candidates now have deterministic, revision-bound consolidated human-review packets in six bounded batches. Those packets join their exact candidate discovery, source evidence, source-subject disposition, and evidence-work routing records; preserve 145 rendered-guide observations, 31 unlock references, 31 source-signature contexts, 351 infobox parameters, 84 lead paragraphs, 423 headings, 1,286 lexical review candidates, 45 disposition signals, and 222 evidence-domain obligations; and correctly prove that all 29 belong to the direct cross-source unlock-evidence population rather than the separate 4,725-page no-unlock-evidence queue. Their separate fail-closed decision importer now requires explicit packet and decision inputs; revalidates packet, embedded pipeline, source, revision, reviewer, timestamp, evidence-domain, citation, and cross-decision coherence bindings; rejects any partial, stale, unknown, uncited, incoherent, tampered, automated, account-scoped, or promotion-bearing row atomically; and forbids member keys or semantic application. Their separate application boundary now requires explicit packet and decision snapshots, replays the entire selected decision set through that importer, applies only the narrow reviewed subject/identity/repeatability/atomicity/evidence-domain/member-expansion-requirement conclusions, preserves rejection and additional-evidence outcomes, and forbids member identities, requirements, variants, XP, timing, mechanics, complete-universe claims, automatic verification, account state, and optimizer eligibility. Deterministic decision guidance now covers all 29 packets in six batches with 203 exact evidence-key bindings, 168 revision obligations, 222 evidence-domain reviews, 145 unselected coherence paths, 18 review artifacts, and importer-compatible blank templates. Two real materializations reproduced the same 21 payload files exactly while selecting zero decisions and applying zero semantics. All six untouched real decision batches rejected with exit code 2 and wrote zero decision snapshots; the real packet snapshot selected without a decision snapshot also rejected with exit code 2 and wrote zero application snapshots. Two source conflicts are prioritized and all 29 human decisions and actual applications remain pending. Additional revision-pinned evidence now covers both conflict candidates, the optional activity-type field semantics, module link/category behavior, Minigames repeatability text, and each exact taxonomy row and heading path; both candidate revisions remain unchanged, but the evidence intentionally resolves neither conflict. Merge those packets into augmented reviewer guidance while leaving both decision templates blank. Do not treat activity/minigame page type as repeatability proof; distinguish reference collections and composites from actual trainable method variants. Reconcile 68 queued untyped pages; the exact 4,725-entry source-bound no-unlock-evidence work queue partitioned into 2,088 direct-source-only, 388 mixed direct/rendered, and 2,249 rendered-only obligations; 1,565 unlock pages without rendered-guide evidence; three unresolved-title review templates and two category-title review templates now guarded by separate fail-closed human decision importers; the wider unlock set's 137 untyped pages and 31 activity pages; and 51 ambiguous statement forms. Exact target-source signatures for all 4,725 queue entries are durably consolidated and revalidated, and a deterministic source-bound semantic-relevance queue now preserves their 21,051 guide observations plus source structure in 4,725 review entries and 4,725 blank decision templates. A fail-closed importer validates explicit evidence-bound human decisions and safely rejects the untouched 4,725-row blank template without output. Human-readable evidence-keyed packets now cover all 4,725 entries in 95 bounded batches, but all 4,725 actual semantic decisions remain pending. The independently validated level-unlock-corpus absence queue now proves zero exact stable page-ID matches for all 4,725 entries against all 24 pinned official skill level-up tables and their complete 3,474-page equivalence corpus, while explicitly refusing to infer that no requirement exists. Its fail-closed human decision importer revalidates every queue, target, crosswalk, corpus, timestamp, reviewer, and evidence binding and safely rejects the untouched 4,725-row blank template without output. Deterministic human-readable evidence-keyed packets now cover all 4,725 absence cases in 95 bounded batches with exact-revision links, explicit nonclaims, complete importer-bound evidence requirements, and untouched blank decisions; all 4,725 human absence-reconciliation dispositions remain pending. A deterministic source-bound historical-attribution queue now isolates all 2,637 mixed or rendered-only obligations, preserving 14,945 rendered-only observations and 14,563 guide-revision bindings in 2,637 blank review records. Its fail-closed human decision importer revalidates every queue, source, observation, guide binding, timestamp, dependency, reviewer, and evidence binding and safely rejects the untouched 2,637-row blank template without output. Its separate application boundary now requires explicit queue and decision snapshots, replays every decision through that importer, applies only complete confirmed attributions, and leaves rejected, unavailable, missing, stale, mismatched, or unreviewed cases blocked; the real no-decision run rejected without writing output. All 2,637 actual attribution decisions remain pending. All five unresolved-title decisions remain pending explicit human review and no resolution has been applied. Historical template-expansion provenance remains open because dependency revision IDs and the generative origins of the wider rendered-only observation population are unavailable. Continue independent discovery until every repeatable training activity in every skill is enumerated. The central guide index's composite Combat row and four Defence link disagreements remain explicit. Rockslide pairing still requires complete activity and travel graphs.",
@@ -348,11 +349,20 @@
         "independentGameUniverseDiscoveryPending": true
       },
       "latestCheckpoint": {
-        "id": "agility_colossal_wyrm_termite_reward_claim_temporal_conflict_synthesis",
-        "result": "six_exact_reward_mechanics_blockers are now bound_to 33_claim_relationships covering_all_17_unique_claims around official_update_first_observed_revision_15293418_at_2026_08_12T10_12_31Z; among_unique_claims 1_defines_boundary 2_were_introduced_after 6_were_present_before_and_changed_after and 8_were_present_before_and_unchanged_after; all_15_unique_post_boundary_transitions are retained with exact_revision_timestamp_presence_and_value; two_local_materializations reproduced_snapshot_492dadb9 exactly; all_6_blockers remain_open with 0_causality_mechanical_facts_arithmetic_reconciliation_optimizer_promotions_verified_best_authorizations_automatic_verifications_account_state_or_complete_universe_claims",
-        "next": "agility_colossal_wyrm_termite_reward_transition_provenance_evidence"
+        "id": "isolated_local_postgresql_runtime_and_migration_rehearsal",
+        "result": "local_only WSL_2_7_13 Docker_Desktop_4_89_0 Docker_Engine_29_7_2 Compose_5_5_0 and digest_pinned PostgreSQL_18_1 are operational; database binds_loopback_only on_54329 uses_named_volume and 4_GiB_4_CPU_limits; all_8_migrations created_51_public_tables and reran_idempotently; first_126906_byte_backup contains_299_readable_entries with_sha256_d484036d; password_is_user_scoped_not_printed_or_committed; 0_evidence_account_production_V3_paid_resource_or_deployment_mutations",
+        "next": "cross_skill_verified_evidence_postgresql_materialization_adapter"
       },
       "latestCoverageDelta": {
+        "localPostgresqlRuntimeAdded": 1,
+        "localPostgresqlVersion": "18.1",
+        "localPostgresqlImageDigest": "sha256:cc9f4143a8d2fa8cf3749d0cb4d26ecf2d53a77a2ac807e9ebd67ae22426221a",
+        "localPostgresqlAppliedMigrations": 8,
+        "localPostgresqlPublicTables": 51,
+        "localPostgresqlLoopbackOnly": true,
+        "localPostgresqlBackupReadable": true,
+        "localPostgresqlEvidenceRowsImported": 0,
+        "localPostgresqlProductionMutations": 0,
         "colossalWyrmRewardClaimTemporalConflictSynthesisPolicyAdded": 1,
         "colossalWyrmRewardClaimTemporalConflictSynthesisBlockers": 6,
         "colossalWyrmRewardClaimTemporalConflictSynthesisUniqueClaims": 17,
@@ -8371,6 +8381,38 @@
         "accountStateFindings": 0,
         "mechanicalCompletenessProven": false,
         "absoluteBestGate": "blocked_colossal_wyrm_reward_mechanics_not_authoritative"
+      },
+      "latestLocalPostgresqlRuntimeAudit": {
+        "generatedAt": "2026-09-06T17:12:34.3025578Z",
+        "runtime": {
+          "wslVersion": "2.7.13.0",
+          "dockerDesktopVersion": "4.89.0",
+          "dockerEngineVersion": "29.7.2",
+          "dockerComposeVersion": "5.5.0",
+          "postgresqlVersion": "18.1",
+          "postgresqlImageDigest": "sha256:cc9f4143a8d2fa8cf3749d0cb4d26ecf2d53a77a2ac807e9ebd67ae22426221a"
+        },
+        "networkBinding": "127.0.0.1:54329",
+        "namedVolume": "sensum_v4_postgres_data",
+        "memoryLimitGiB": 4,
+        "logicalCpuLimit": 4,
+        "appliedMigrations": 8,
+        "publicTables": 51,
+        "migrationRerunIdempotent": true,
+        "backup": {
+          "bytes": 126906,
+          "archiveEntries": 299,
+          "contentHash": "d484036df9d30baf9d13d39275734d81359176c5ea17f6175fbb48941f6df148",
+          "readable": true
+        },
+        "passwordPrintedOrCommitted": false,
+        "evidenceRowsImported": 0,
+        "accountRowsImported": 0,
+        "productionMutations": 0,
+        "paidResourcesCreated": 0,
+        "deploymentsCreated": 0,
+        "phaseExitSatisfied": false,
+        "next": "cross_skill_verified_evidence_postgresql_materialization_adapter"
       },
       "latestGuideSectionCoverageAudit": {
         "generatedAt": "2026-09-06T14:22:20.673Z",

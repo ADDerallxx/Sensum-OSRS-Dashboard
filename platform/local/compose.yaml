@@ -1,0 +1,31 @@
+name: sensum-v4-local
+
+services:
+  postgres:
+    image: postgres:18.1-bookworm@sha256:cc9f4143a8d2fa8cf3749d0cb4d26ecf2d53a77a2ac807e9ebd67ae22426221a
+    container_name: sensum-v4-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: sensum_v4
+      POSTGRES_USER: sensum_v4
+      POSTGRES_PASSWORD: ${SENSUM_V4_DB_PASSWORD:?Set SENSUM_V4_DB_PASSWORD before starting the local database}
+      POSTGRES_INITDB_ARGS: --data-checksums --auth-host=scram-sha-256
+      PGDATA: /var/lib/postgresql/18/docker
+    ports:
+      - 127.0.0.1:54329:5432
+    volumes:
+      - sensum_v4_postgres_data:/var/lib/postgresql
+      - ../db/migrations:/migrations:ro
+    healthcheck:
+      test: [CMD-SHELL, pg_isready -U sensum_v4 -d sensum_v4]
+      interval: 3s
+      timeout: 3s
+      retries: 20
+      start_period: 10s
+    stop_grace_period: 30s
+    mem_limit: 4g
+    cpus: 4.0
+
+volumes:
+  sensum_v4_postgres_data:
+    name: sensum_v4_postgres_data
