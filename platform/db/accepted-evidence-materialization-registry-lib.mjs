@@ -32,6 +32,15 @@ import {
   validateActivityCandidateSourceMaterializationInput,
   verifyActivityCandidateSourceReconciliation
 } from './activity-candidate-source-evidence-materialization-lib.mjs';
+import {
+  ACTIVITY_REFERENCE_MEMBER_SOURCE_FACT_KIND,
+  ACTIVITY_REFERENCE_MEMBER_SOURCE_INPUT_DOMAIN,
+  buildActivityReferenceMemberSourceExistingSourceCountQuery,
+  buildActivityReferenceMemberSourceMaterializationSql,
+  buildActivityReferenceMemberSourceReconciliationQuery,
+  validateActivityReferenceMemberSourceMaterializationInput,
+  verifyActivityReferenceMemberSourceReconciliation
+} from './activity-reference-collection-member-source-evidence-materialization-lib.mjs';
 
 export const ACCEPTED_EVIDENCE_REGISTRY_CONTRACT = 'sensum.accepted-evidence-materialization-registry.v1';
 
@@ -86,6 +95,19 @@ const adapters = [
     buildExistingSourceCountQuery: buildActivityCandidateSourceExistingSourceCountQuery,
     buildReconciliationQuery: buildActivityCandidateSourceReconciliationQuery,
     verifyReconciliation: verifyActivityCandidateSourceReconciliation
+  },
+  {
+    domain: ACTIVITY_REFERENCE_MEMBER_SOURCE_INPUT_DOMAIN,
+    dataFile: 'activity-reference-collection-member-source-evidence.ndjson',
+    auditDirectory: 'activity-reference-collection-member-source-evidence-audits',
+    auditContract: 'sensum.activity-reference-collection-member-source-evidence-audit.v1',
+    factKind: ACTIVITY_REFERENCE_MEMBER_SOURCE_FACT_KIND,
+    snapshotDirectory: audit => audit?.outputSnapshot?.directory,
+    validate: validateActivityReferenceMemberSourceMaterializationInput,
+    buildSql: buildActivityReferenceMemberSourceMaterializationSql,
+    buildExistingSourceCountQuery: buildActivityReferenceMemberSourceExistingSourceCountQuery,
+    buildReconciliationQuery: buildActivityReferenceMemberSourceReconciliationQuery,
+    verifyReconciliation: verifyActivityReferenceMemberSourceReconciliation
   }
 ];
 
