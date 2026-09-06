@@ -1,0 +1,13 @@
+{
+  "contract": "sensum.agility-target-condition-gap-wiki-discovery.v1",
+  "required": ["candidateKey", "candidateName", "targetBaseAgility", "coverageAuditContentHash", "sourceSufficiencyAuditContentHash", "existingBlockers", "searchQueries", "discoveredPages", "evidenceDomains", "disposition", "manualReauditRequired", "blockersClosed", "semanticFactsCreated", "optimizerEligible", "automaticVerificationApplied", "accountIndependent", "completeWikiUniverseClaimed", "recordContentHash", "contentHash"],
+  "rules": {
+    "oneRecordPerDeclaredTargetConditionGap": true,
+    "queriesAndPagesRetainExactProvenance": true,
+    "everyDiscoveredPageIsRevisionPinned": true,
+    "diagnosticsAreNotSemanticEvidence": true,
+    "noResultIsOnlyBoundedQueryAbsence": true,
+    "blockersRemainOpen": true,
+    "optimizerEligibilityAutomaticVerificationAccountStateAndUniverseClaimsAreForbidden": true
+  }
+}

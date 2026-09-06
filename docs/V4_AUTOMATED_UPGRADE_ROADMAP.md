@@ -43,6 +43,35 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+The five remaining Agility target-condition candidates now have bounded,
+candidate-, blocker-, and subject-specific discovery beyond their 21 declared
+source pages. Twenty-seven namespace-0 full-text queries cover Al Kharid's
+level-34 probabilities, failed-attempt outcomes, recovery, and rate; both
+Brimhaven floor-spike variants' success parameters and rate scope; Penguin's
+level-34 probability and rate; and Shayzien Basic's failure-capable obstacles,
+failed outcomes, recovery, level-34 rate, and cross-page rate conflict. Every
+query has a 50-result limit, and every returned page must resolve to its current
+exact revision and title.
+
+Two official-Wiki runs each produced 122 result occurrences across 73 distinct
+revision-pinned pages and reproduced output hash
+`83ab4a2d44dc4bd894b79d0b776f8825d9fed7e02baeaa7d784aa00e83c031ba`.
+Candidate-specific subject scopes rejected seven initially observed matches
+about unrelated activities or generic templates. One candidate-bound signal
+remains: Shayzien Agility Course revision 15168110, line 100, states that the
+basic-course rate increased from 8,750 to 10,000 XP/hour. That line is routed
+only to manual semantic re-audit of the existing cross-page rate blocker. It
+does not establish a current expected level-34 rate or resolve the separate
+failure-mechanics gaps.
+
+All 17 input blockers remain preserved; 16 evidence domains have no potential
+signal in the bounded discovery. Zero blockers were closed, zero semantic facts
+were created, and no optimizer eligibility, automatic approval, account state,
+or complete-Wiki claim was produced. All 183 test scripts and 639 tracked
+regression checks pass. The next checkpoint will materialize a deterministic,
+source-bound manual-review packet for the single Shayzien signal without
+selecting or applying a conclusion.
+
 The remaining three Agility mechanical-gap candidates now have bounded,
 candidate-specific discovery beyond their nine already-declared source pages.
 Fourteen namespace-0 full-text queries cover typical Werewolf Skullball timing,

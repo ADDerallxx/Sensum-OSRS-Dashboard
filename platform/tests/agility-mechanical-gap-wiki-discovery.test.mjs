@@ -13,7 +13,7 @@ const stable = value => Array.isArray(value)
     : value;
 const hash = value => createHash('sha256').update(typeof value === 'string' ? value : JSON.stringify(stable(value))).digest('hex');
 const policy = JSON.parse(await fs.readFile(new URL('../policies/agility-mechanical-gap-wiki-discovery-v1.json', import.meta.url), 'utf8'));
-const collectorSource = await fs.readFile(new URL('../ingestion/ingest-wiki-agility-mechanical-gap-wiki-discovery.mjs', import.meta.url), 'utf8');
+const collectorSource = await fs.readFile(new URL('../ingestion/agility-gap-wiki-discovery-runner.mjs', import.meta.url), 'utf8');
 assert.match(collectorSource, /pageids:\s*batch\.join\('\|'\)/);
 assert.doesNotMatch(collectorSource, /rvlimit/);
 const candidates = policy.candidates.map((candidate, index) => ({

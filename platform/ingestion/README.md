@@ -351,3 +351,12 @@ record count, creation time, audit result, and SHA-256 content hash.
   inputs only: candidate-specific mechanics patterns may request manual review,
   but no match or absence can create a fact, close a blocker, prove complete
   Wiki coverage, or grant optimizer eligibility.
+- Target-condition-gap Wiki discovery applies the same shared collector to the
+  five remaining condition gaps through 27 exact namespace-0 searches. Run
+  `node platform/ingestion/ingest-wiki-agility-target-condition-gap-wiki-discovery.mjs --coverage-audit=<exact report.json> --source-sufficiency-audit=<exact report.json>`.
+  Every diagnostic is additionally limited to the candidate's exact activity
+  titles or an explicit subject phrase, preventing unrelated failure text and
+  generic success-chart templates from becoming review signals. Candidate-bound
+  matches may request manual semantic re-audit only; all blockers and optimizer
+  gates remain closed until a separate evidence-backed review and application
+  boundary exists.

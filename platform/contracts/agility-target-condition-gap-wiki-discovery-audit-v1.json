@@ -1,0 +1,14 @@
+{
+  "contract": "sensum.agility-target-condition-gap-wiki-discovery-audit.v1",
+  "required": ["inputCoverageAudit", "inputSourceSufficiencyAudit", "candidateCoverage", "queryCoverage", "revisionCoverage", "evidenceDomainCoverage", "blockerPreservation", "queryBoundedDiscoveryComplete", "sourceDiscoveryDispositionStable", "conditionOrMechanicsCoverageComplete", "completeWikiUniverse", "absoluteBestGate", "publishable", "blockers"],
+  "rules": {
+    "bothInputsMustValidate": true,
+    "candidateBlockerAndQuerySetsMustMatch": true,
+    "everyQueryMustBeCompleteWithinItsBound": true,
+    "everyReturnedPageMustResolveToARevision": true,
+    "diagnosticSignalsOnlyTriggerManualReaudit": true,
+    "existingBlockersMustRemainOpen": true,
+    "publicationRequiresStructuralQueryAndRevisionIntegrity": true,
+    "publicationNeverMeansCompleteWikiCoverage": true
+  }
+}

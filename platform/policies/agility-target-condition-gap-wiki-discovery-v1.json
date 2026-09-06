@@ -1,0 +1,110 @@
+{
+  "policy": "sensum.agility-target-condition-gap-wiki-discovery-policy.v1",
+  "coverageAuditContract": "sensum.agility-level34-coverage-audit.v1",
+  "sourceSufficiencyAuditContract": "sensum.agility-target-condition-source-sufficiency-audit.v1",
+  "recordContract": "sensum.agility-target-condition-gap-wiki-discovery.v1",
+  "auditContract": "sensum.agility-target-condition-gap-wiki-discovery-audit.v1",
+  "inputGapStatus": "target_condition_gap",
+  "inputGapKey": "target_condition_gap",
+  "targetBaseAgility": 34,
+  "acceptedSourceOrigin": "https://oldschool.runescape.wiki/w/",
+  "searchApiOrigin": "https://oldschool.runescape.wiki/api.php",
+  "searchResultLimitPerQuery": 50,
+  "searchNamespaces": [0],
+  "candidates": [
+    {
+      "candidateKey": "guide:rooftop:al-kharid",
+      "diagnosticSubjectScopes": {
+        "target_numeric_probability": { "titlePatterns": ["^(?:Al Kharid Rooftop Course|Tightrope \\(Al Kharid Rooftop Course\\)|Zip line \\(Al Kharid Rooftop Course\\))$"], "textPattern": "Al Kharid Rooftop Course|(?:Tightrope|Zip line) \\(Al Kharid Rooftop Course\\)" },
+        "failed_attempt_xp": { "titlePatterns": ["^(?:Al Kharid Rooftop Course|Tightrope \\(Al Kharid Rooftop Course\\)|Zip line \\(Al Kharid Rooftop Course\\))$"], "textPattern": "Al Kharid Rooftop Course|(?:Tightrope|Zip line) \\(Al Kharid Rooftop Course\\)" },
+        "failure_recovery": { "titlePatterns": ["^(?:Al Kharid Rooftop Course|Tightrope \\(Al Kharid Rooftop Course\\)|Zip line \\(Al Kharid Rooftop Course\\))$"], "textPattern": "Al Kharid Rooftop Course|(?:Tightrope|Zip line) \\(Al Kharid Rooftop Course\\)" },
+        "exact_target_rate": { "titlePatterns": ["^Al Kharid Rooftop Course$"], "textPattern": "Al Kharid Rooftop Course" }
+      },
+      "expectedBlockers": ["tightrope_1_success_probability_at_base_level_34_not_published", "zip_line_success_probability_at_base_level_34_not_published", "failed_obstacle_xp_outcome_not_published", "failure_recovery_route_and_time_penalty_not_published", "observed_rate_scope_20_to_30_does_not_cover_base_level_34"]
+    },
+    {
+      "candidateKey": "guide:brimhaven:floor-spikes-detached",
+      "diagnosticSubjectScopes": {
+        "success_chart_parameters": { "titlePatterns": ["^Floor spikes \\(Brimhaven Agility Arena\\)$"], "textPattern": "Floor spikes \\(Brimhaven Agility Arena\\)|Floor spikes success rate" },
+        "detached_rate_equipment_scope": { "titlePatterns": ["^(?:Floor spikes \\(Brimhaven Agility Arena\\)|Brimhaven Agility Arena)$"], "textPattern": "Brimhaven|floor spikes" }
+      },
+      "expectedBlockers": ["success_interpolation_low_high_parameters_not_published", "observed_xp_per_hour_at_base_level_34_equipment_state_not_published"]
+    },
+    {
+      "candidateKey": "guide:brimhaven:floor-spikes-active",
+      "diagnosticSubjectScopes": {
+        "exact_target_rate": { "titlePatterns": ["^(?:Floor spikes \\(Brimhaven Agility Arena\\)|Brimhaven Agility Arena)$"], "textPattern": "Brimhaven|floor spikes" },
+        "success_chart_parameters": { "titlePatterns": ["^Floor spikes \\(Brimhaven Agility Arena\\)$"], "textPattern": "Floor spikes \\(Brimhaven Agility Arena\\)|Floor spikes success rate" }
+      },
+      "expectedBlockers": ["expected_xp_per_hour_at_base_level_34_not_published", "success_interpolation_low_high_parameters_not_published"]
+    },
+    {
+      "candidateKey": "vector:agility_course:agility-access:Penguin Agility Course:clockwork_suit:level-30",
+      "diagnosticSubjectScopes": {
+        "target_numeric_probability": { "titlePatterns": ["^Penguin Agility Course$"], "textPattern": "Penguin Agility Course" },
+        "exact_target_rate": { "titlePatterns": ["^Penguin Agility Course$"], "textPattern": "Penguin Agility Course" }
+      },
+      "expectedBlockers": ["failure_probability_at_base_level_34_not_published", "observed_rate_level_scope_does_not_identify_base_level_34"]
+    },
+    {
+      "candidateKey": "vector:agility_course:agility-variant:Shayzien Agility Course:basic:level-1",
+      "diagnosticSubjectScopes": {
+        "shayzien_failure_capable_identity": { "titlePatterns": ["^(?:Shayzien Agility Course|Ladder \\(Shayzien Agility Course\\)|Monkeybars \\(Shayzien Agility Course\\)|Bar \\(Shayzien Agility Course\\)|Gap \\(Shayzien Agility Course\\))$"], "textPattern": "Shayzien Agility Course" },
+        "target_numeric_probability": { "titlePatterns": ["^Shayzien Agility Course$"], "textPattern": "Shayzien Agility Course" },
+        "failed_attempt_xp": { "titlePatterns": ["^(?:Shayzien Agility Course|Ladder \\(Shayzien Agility Course\\)|Monkeybars \\(Shayzien Agility Course\\)|Bar \\(Shayzien Agility Course\\)|Gap \\(Shayzien Agility Course\\))$"], "textPattern": "Shayzien Agility Course" },
+        "failure_recovery": { "titlePatterns": ["^(?:Shayzien Agility Course|Ladder \\(Shayzien Agility Course\\)|Monkeybars \\(Shayzien Agility Course\\)|Bar \\(Shayzien Agility Course\\)|Gap \\(Shayzien Agility Course\\))$"], "textPattern": "Shayzien Agility Course" },
+        "exact_target_rate": { "titlePatterns": ["^Shayzien Agility Course$"], "textPattern": "Shayzien Agility Course" },
+        "shayzien_rate_alignment": { "titlePatterns": ["^Shayzien Agility Course$"], "textPattern": "Shayzien Agility Course" }
+      },
+      "expectedBlockers": ["failure_capable_obstacle_identity_not_published", "aggregate_failure_probability_at_base_level_34_not_published", "failed_obstacle_xp_outcome_not_published", "failure_recovery_route_and_time_penalty_not_published", "expected_xp_per_hour_at_base_level_34_not_published", "supporting_rate_matches_superseded_pre_update_value"]
+    }
+  ],
+  "queries": [
+    { "queryKey": "al-tightrope-chance-exact", "candidateKey": "guide:rooftop:al-kharid", "blocker": "tightrope_1_success_probability_at_base_level_34_not_published", "diagnosticKind": "target_numeric_probability", "searchText": "\"Tightrope (Al Kharid Rooftop Course)\" chance" },
+    { "queryKey": "al-tightrope-fail-fallback", "candidateKey": "guide:rooftop:al-kharid", "blocker": "tightrope_1_success_probability_at_base_level_34_not_published", "diagnosticKind": "target_numeric_probability", "searchText": "\"Al Kharid Rooftop Course\" tightrope fail" },
+    { "queryKey": "al-zip-chance-exact", "candidateKey": "guide:rooftop:al-kharid", "blocker": "zip_line_success_probability_at_base_level_34_not_published", "diagnosticKind": "target_numeric_probability", "searchText": "\"Zip line (Al Kharid Rooftop Course)\" chance" },
+    { "queryKey": "al-zip-fail-fallback", "candidateKey": "guide:rooftop:al-kharid", "blocker": "zip_line_success_probability_at_base_level_34_not_published", "diagnosticKind": "target_numeric_probability", "searchText": "\"Al Kharid Rooftop Course\" \"zip line\" fail" },
+    { "queryKey": "al-failed-xp", "candidateKey": "guide:rooftop:al-kharid", "blocker": "failed_obstacle_xp_outcome_not_published", "diagnosticKind": "failed_attempt_xp", "searchText": "\"Al Kharid Rooftop Course\" failure experience" },
+    { "queryKey": "al-recovery-exact", "candidateKey": "guide:rooftop:al-kharid", "blocker": "failure_recovery_route_and_time_penalty_not_published", "diagnosticKind": "failure_recovery", "searchText": "\"Al Kharid Rooftop Course\" fail recovery" },
+    { "queryKey": "al-recovery-fall", "candidateKey": "guide:rooftop:al-kharid", "blocker": "failure_recovery_route_and_time_penalty_not_published", "diagnosticKind": "failure_recovery", "searchText": "\"Al Kharid Rooftop Course\" fall" },
+    { "queryKey": "al-rate-level34", "candidateKey": "guide:rooftop:al-kharid", "blocker": "observed_rate_scope_20_to_30_does_not_cover_base_level_34", "diagnosticKind": "exact_target_rate", "searchText": "\"Al Kharid Rooftop Course\" \"level 34\" \"experience per hour\"" },
+    { "queryKey": "al-rate-fallback", "candidateKey": "guide:rooftop:al-kharid", "blocker": "observed_rate_scope_20_to_30_does_not_cover_base_level_34", "diagnosticKind": "exact_target_rate", "searchText": "\"Al Kharid Rooftop Course\" \"experience per hour\"" },
+
+    { "queryKey": "brimhaven-detached-success-exact", "candidateKey": "guide:brimhaven:floor-spikes-detached", "blocker": "success_interpolation_low_high_parameters_not_published", "diagnosticKind": "success_chart_parameters", "searchText": "\"Floor spikes (Brimhaven Agility Arena)\" success chance" },
+    { "queryKey": "brimhaven-detached-success-fallback", "candidateKey": "guide:brimhaven:floor-spikes-detached", "blocker": "success_interpolation_low_high_parameters_not_published", "diagnosticKind": "success_chart_parameters", "searchText": "\"Floor spikes\" \"Brimhaven Agility Arena\"" },
+    { "queryKey": "brimhaven-detached-equipment", "candidateKey": "guide:brimhaven:floor-spikes-detached", "blocker": "observed_xp_per_hour_at_base_level_34_equipment_state_not_published", "diagnosticKind": "detached_rate_equipment_scope", "searchText": "Brimhaven \"36,000\" \"Karamja gloves\"" },
+
+    { "queryKey": "brimhaven-active-rate-level34", "candidateKey": "guide:brimhaven:floor-spikes-active", "blocker": "expected_xp_per_hour_at_base_level_34_not_published", "diagnosticKind": "exact_target_rate", "searchText": "\"Brimhaven Agility Arena\" \"level 34\" \"experience per hour\"" },
+    { "queryKey": "brimhaven-active-rate-fallback", "candidateKey": "guide:brimhaven:floor-spikes-active", "blocker": "expected_xp_per_hour_at_base_level_34_not_published", "diagnosticKind": "exact_target_rate", "searchText": "\"Brimhaven Agility Arena\" \"experience per hour\"" },
+    { "queryKey": "brimhaven-active-success-parameters", "candidateKey": "guide:brimhaven:floor-spikes-active", "blocker": "success_interpolation_low_high_parameters_not_published", "diagnosticKind": "success_chart_parameters", "searchText": "\"Floor spikes (Brimhaven Agility Arena)\" low high" },
+
+    { "queryKey": "penguin-probability", "candidateKey": "vector:agility_course:agility-access:Penguin Agility Course:clockwork_suit:level-30", "blocker": "failure_probability_at_base_level_34_not_published", "diagnosticKind": "target_numeric_probability", "searchText": "\"Penguin Agility Course\" \"level 34\" chance" },
+    { "queryKey": "penguin-rate-level34", "candidateKey": "vector:agility_course:agility-access:Penguin Agility Course:clockwork_suit:level-30", "blocker": "observed_rate_level_scope_does_not_identify_base_level_34", "diagnosticKind": "exact_target_rate", "searchText": "\"Penguin Agility Course\" \"level 34\" \"experience per hour\"" },
+    { "queryKey": "penguin-rate-fallback", "candidateKey": "vector:agility_course:agility-access:Penguin Agility Course:clockwork_suit:level-30", "blocker": "observed_rate_level_scope_does_not_identify_base_level_34", "diagnosticKind": "exact_target_rate", "searchText": "\"Penguin Agility Course\" \"experience per hour\"" },
+
+    { "queryKey": "shayzien-failure-identity", "candidateKey": "vector:agility_course:agility-variant:Shayzien Agility Course:basic:level-1", "blocker": "failure_capable_obstacle_identity_not_published", "diagnosticKind": "shayzien_failure_capable_identity", "searchText": "\"Shayzien Agility Course\" fail obstacle" },
+    { "queryKey": "shayzien-probability-level34", "candidateKey": "vector:agility_course:agility-variant:Shayzien Agility Course:basic:level-1", "blocker": "aggregate_failure_probability_at_base_level_34_not_published", "diagnosticKind": "target_numeric_probability", "searchText": "\"Shayzien Agility Course\" \"level 34\" chance" },
+    { "queryKey": "shayzien-probability-fallback", "candidateKey": "vector:agility_course:agility-variant:Shayzien Agility Course:basic:level-1", "blocker": "aggregate_failure_probability_at_base_level_34_not_published", "diagnosticKind": "target_numeric_probability", "searchText": "\"Shayzien Agility Course\" failure" },
+    { "queryKey": "shayzien-failed-xp", "candidateKey": "vector:agility_course:agility-variant:Shayzien Agility Course:basic:level-1", "blocker": "failed_obstacle_xp_outcome_not_published", "diagnosticKind": "failed_attempt_xp", "searchText": "\"Shayzien Agility Course\" failed experience" },
+    { "queryKey": "shayzien-recovery-exact", "candidateKey": "vector:agility_course:agility-variant:Shayzien Agility Course:basic:level-1", "blocker": "failure_recovery_route_and_time_penalty_not_published", "diagnosticKind": "failure_recovery", "searchText": "\"Shayzien Agility Course\" fail recovery" },
+    { "queryKey": "shayzien-recovery-fallback", "candidateKey": "vector:agility_course:agility-variant:Shayzien Agility Course:basic:level-1", "blocker": "failure_recovery_route_and_time_penalty_not_published", "diagnosticKind": "failure_recovery", "searchText": "\"Shayzien Agility Course\" failure" },
+    { "queryKey": "shayzien-rate-level34", "candidateKey": "vector:agility_course:agility-variant:Shayzien Agility Course:basic:level-1", "blocker": "expected_xp_per_hour_at_base_level_34_not_published", "diagnosticKind": "exact_target_rate", "searchText": "\"Shayzien Agility Course\" \"level 34\" \"experience per hour\"" },
+    { "queryKey": "shayzien-rate-fallback", "candidateKey": "vector:agility_course:agility-variant:Shayzien Agility Course:basic:level-1", "blocker": "expected_xp_per_hour_at_base_level_34_not_published", "diagnosticKind": "exact_target_rate", "searchText": "\"Shayzien Agility Course\" \"experience per hour\"" },
+    { "queryKey": "shayzien-rate-alignment", "candidateKey": "vector:agility_course:agility-variant:Shayzien Agility Course:basic:level-1", "blocker": "supporting_rate_matches_superseded_pre_update_value", "diagnosticKind": "shayzien_rate_alignment", "searchText": "\"Shayzien Agility Course\" \"8,750\" \"10,000\"" }
+  ],
+  "rules": {
+    "coverageAndSourceSufficiencyInputsMustValidate": true,
+    "candidateAndBlockerSetsMustMatchInputsExactly": true,
+    "everyQueryMustBeCandidateAndBlockerBound": true,
+    "everyDeclaredQueryMustRunExactlyOnce": true,
+    "allSearchResultsMustFitTheDeclaredBound": true,
+    "everySearchResultMustResolveToCurrentRevisionAndTitle": true,
+    "diagnosticSignalsRouteManualReauditAndNeverResolveFacts": true,
+    "searchAbsenceIsOnlyQueryBoundedNotWikiOrGameAbsence": true,
+    "blockersClosedAndSemanticFactsCreatedMustAlwaysBeZero": true,
+    "optimizerEligibilityAndAutomaticVerificationAreForbidden": true,
+    "accountSpecificInputsAreForbidden": true,
+    "completeWikiOrActivityUniverseClaimsAreForbidden": true,
+    "automaticVerificationAllowed": false
+  }
+}

@@ -38,33 +38,95 @@ function contentSignals(pageEntry, predicate, signalKind) {
   return results;
 }
 
-function diagnosticSignals(kind, pageEntries) {
+function subjectMatches(scope, pageEntry, text) {
+  if (!scope) return true;
+  const titleMatches = (scope.titlePatterns || []).some(pattern => new RegExp(pattern, 'i').test(pageEntry.title || ''));
+  const textMatches = scope.textPattern ? new RegExp(scope.textPattern, 'i').test(text || '') : false;
+  return titleMatches || textMatches;
+}
+
+function successChartParameterSignals(pageEntry, scope) {
+  const results = [];
+  const content = String(pageEntry.content || '');
+  for (const match of content.matchAll(/\{\{Skilling success chart[\s\S]{0,2500}?\}\}/gi)) {
+    if (!subjectMatches(scope, pageEntry, match[0]) || !/\|\s*low\d*\s*=\s*\d+/i.test(match[0]) || !/\|\s*high\d*\s*=\s*\d+/i.test(match[0])) continue;
+    results.push({
+      signalKind: 'success_chart_parameters',
+      pageId: pageEntry.pageId,
+      title: pageEntry.title,
+      sourceRevision: pageEntry.sourceRevision,
+      sourceUrl: pageEntry.sourceUrl,
+      line: content.slice(0, match.index).split(/\r?\n/).length,
+      excerpt: excerpt(match[0])
+    });
+  }
+  return results;
+}
+
+function diagnosticSignals(kind, pageEntries, targetBaseAgility, candidatePolicy) {
+  const scope = candidatePolicy?.diagnosticSubjectScopes?.[kind] || null;
   if (kind === 'skullball_typical_cycle') {
     return pageEntries.flatMap(entry => contentSignals(entry, (line, page) => {
       const subject = page.title === 'Werewolf Skullball' || /Werewolf Skullball/i.test(line);
       const typical = /(?:typical|average|expected|normally|usually)/i.test(line);
       const timing = /\b\d+:\d+(?:\.\d+)?(?:\s*(?:-|–|to)\s*\d+:\d+(?:\.\d+)?)?\b/.test(line);
-      return subject && typical && timing && /(?:completion|lap|route|game|time)/i.test(line);
+      return subjectMatches(scope, page, line) && subject && typical && timing && /(?:completion|lap|route|game|time)/i.test(line);
     }, kind));
   }
   if (kind === 'barbarian_afk_cycle_with_drop') {
-    return pageEntries.flatMap(entry => contentSignals(entry, line => /Barbarian Fishing/i.test(line)
+    return pageEntries.flatMap(entry => contentSignals(entry, (line, page) => subjectMatches(scope, page, line) && /Barbarian Fishing/i.test(line)
       && /\bAFK\b/i.test(line)
       && /drop(?:ping|ped)?/i.test(line)
       && /\b\d+(?:\.\d+)?\s*(?:game\s*)?(?:ticks?|seconds?)\b/i.test(line)
       && /(?:catch|attempt|cycle|fish)/i.test(line), kind));
   }
   if (kind === 'edgeville_motionless_round_trip_timing') {
-    return pageEntries.flatMap(entry => contentSignals(entry, line => /(?:Edgeville Dungeon|Monkeybars \(Edgeville Dungeon\))/i.test(line)
+    return pageEntries.flatMap(entry => contentSignals(entry, (line, page) => subjectMatches(scope, page, line) && /(?:Edgeville Dungeon|Monkeybars \(Edgeville Dungeon\))/i.test(line)
       && /(?:motionless|monkeybars?)/i.test(line)
       && /(?:round[ -]?trip|back\s+and\s+forth|both\s+(?:ways|directions)|there\s+and\s+back|full\s+cycle)/i.test(line)
       && /\b\d+(?:\.\d+)?\s*(?:game\s*)?(?:ticks?|seconds?)\b/i.test(line), kind));
   }
   if (kind === 'edgeville_upper_bound_reconciliation') {
-    return pageEntries.flatMap(entry => contentSignals(entry, line => /(?:Edgeville Dungeon|monkeybars?)/i.test(line)
+    return pageEntries.flatMap(entry => contentSignals(entry, (line, page) => subjectMatches(scope, page, line) && /(?:Edgeville Dungeon|monkeybars?)/i.test(line)
       && /13,?000/.test(line)
       && /13,?200/.test(line)
       && /(?:correct(?:ed|ion)?|revis(?:ed|ion)|replac(?:ed|es)|supersed(?:ed|es)|previous(?:ly)?|instead|reconcil)/i.test(line), kind));
+  }
+  if (kind === 'target_numeric_probability') {
+    const target = String(targetBaseAgility);
+    return pageEntries.flatMap(entry => contentSignals(entry, (line, page) => subjectMatches(scope, page, line) && new RegExp(`(?:\\blevel\\s*${target}\\b|\\b${target}\\s+(?:base\\s+)?Agility\\b)`, 'i').test(line)
+      && /(?:chance|probab|success|fail)/i.test(line), kind));
+  }
+  if (kind === 'success_chart_parameters') {
+    return pageEntries.flatMap(entry => successChartParameterSignals(entry, scope));
+  }
+  if (kind === 'failed_attempt_xp') {
+    return pageEntries.flatMap(entry => contentSignals(entry, (line, page) => subjectMatches(scope, page, line) && /(?:fail(?:ed|ing|ure)?[^\n]{0,140}(?:awards?|grants?|receiv(?:e|es|ed)|\bXP\b|experience(?!\s+per\s+hour))|(?:\bXP\b|experience)[^\n]{0,140}(?:on|upon|for|when|after)\s+(?:a\s+)?fail)/i.test(line), kind));
+  }
+  if (kind === 'failure_recovery') {
+    return pageEntries.flatMap(entry => contentSignals(entry, (line, page) => subjectMatches(scope, page, line) && /fail(?:ed|ing|ure)?[^\n]{0,180}(?:return(?:ed)?|restart|recover|resume|land(?:s|ed)?|fall(?:s|ing)?\s+(?:back|to|into)|walk\s+past|cross[^\n]{0,50}\s+again)/i.test(line)
+      && /(?:ticks?|seconds?|tile|position|platform|start)/i.test(line), kind));
+  }
+  if (kind === 'exact_target_rate') {
+    const target = String(targetBaseAgility);
+    return pageEntries.flatMap(entry => contentSignals(entry, (line, page) => subjectMatches(scope, page, line) && new RegExp(`(?:\\blevel\\s*${target}\\b|\\b${target}\\s+(?:base\\s+)?Agility\\b)`, 'i').test(line)
+      && /(?:experience\s+per\s+hour|XP\s*\/\s*(?:h|hr))/i.test(line), kind));
+  }
+  if (kind === 'detached_rate_equipment_scope') {
+    return pageEntries.flatMap(entry => contentSignals(entry, (line, page) => subjectMatches(scope, page, line) && /36,?000/.test(line)
+      && /(?:Karamja gloves|diary|equipment|wearing|without|with\s+(?:gloves|diary))/i.test(line), kind));
+  }
+  if (kind === 'shayzien_failure_capable_identity') {
+    return pageEntries.flatMap(entry => contentSignals(entry, (line, page) => subjectMatches(scope, page, line) && /(?:Ladder|Monkeybars|Bar|Gap)/i.test(line)
+      && /Shayzien/i.test(line)
+      && /fail/i.test(line)
+      && !/(?:cannot|never|no longer)\s+(?:be\s+)?fail/i.test(line), kind));
+  }
+  if (kind === 'shayzien_rate_alignment') {
+    return pageEntries.flatMap(entry => contentSignals(entry, (line, page) => subjectMatches(scope, page, line) && (page.title === 'Shayzien Agility Course' || /Shayzien/i.test(line))
+      && /8,?750/.test(line)
+      && /10,?000/.test(line)
+      && /(?:correct(?:ed|ion)?|revis(?:ed|ion)|replac(?:ed|es)|supersed(?:ed|es)|previous(?:ly)?|instead|increas(?:ed|es)|reconcil)/i.test(line), kind));
   }
   return [];
 }
@@ -94,6 +156,8 @@ function policyErrors(policy = {}) {
   if (!Array.isArray(policy.searchNamespaces) || !policy.searchNamespaces.length || policy.searchNamespaces.some(namespace => !Number.isInteger(Number(namespace)))) errors.push('searchNamespaces');
   if (!Array.isArray(policy.candidates) || !policy.candidates.length) errors.push('candidates');
   if (!Array.isArray(policy.queries) || !policy.queries.length) errors.push('queries');
+  if (!['mechanical_model_gap', 'target_condition_gap'].includes(policy.inputGapStatus || 'mechanical_model_gap')) errors.push('inputGapStatus');
+  if (policy.inputGapKey !== undefined && !/^[a-z][a-z0-9_]*$/.test(policy.inputGapKey)) errors.push('inputGapKey');
   if (policy.searchApiOrigin !== 'https://oldschool.runescape.wiki/api.php') errors.push('searchApiOrigin');
   for (const rule of requiredRules) if (policy.rules?.[rule] !== true) errors.push(rule);
   if (policy.rules?.automaticVerificationAllowed !== false) errors.push('automaticVerificationAllowed');
@@ -105,6 +169,14 @@ function policyErrors(policy = {}) {
   for (const query of policy.queries || []) {
     const candidate = candidates.get(query.candidateKey);
     if (!query.queryKey || !query.searchText || !query.diagnosticKind || !candidate || !candidate.expectedBlockers.includes(query.blocker)) errors.push(`invalidQueryBinding:${query.queryKey || 'unknown'}`);
+  }
+  for (const candidate of policy.candidates || []) {
+    for (const [kind, scope] of Object.entries(candidate.diagnosticSubjectScopes || {})) {
+      if (!(policy.queries || []).some(query => query.candidateKey === candidate.candidateKey && query.diagnosticKind === kind)) errors.push(`unusedDiagnosticSubjectScope:${candidate.candidateKey}:${kind}`);
+      for (const pattern of scope.titlePatterns || []) { try { new RegExp(pattern); } catch { errors.push(`invalidSubjectTitlePattern:${candidate.candidateKey}:${kind}`); } }
+      if (scope.textPattern) { try { new RegExp(scope.textPattern); } catch { errors.push(`invalidSubjectTextPattern:${candidate.candidateKey}:${kind}`); } }
+      if (!(scope.titlePatterns?.length || scope.textPattern)) errors.push(`emptyDiagnosticSubjectScope:${candidate.candidateKey}:${kind}`);
+    }
   }
   for (const candidate of policy.candidates || []) {
     for (const blocker of candidate.expectedBlockers || []) {
@@ -158,7 +230,8 @@ function pageEntry(pageId, matchedQueryKeys, searchTitles, revisions, contentHas
 }
 
 function constructRecords({ coverageReport = {}, sourceSufficiencyReport = {}, searchResponses = [], revisionPages = [], policy = {}, contentHash = value => value }) {
-  const candidates = new Map((coverageReport.details || []).filter(detail => detail.status === 'mechanical_model_gap').map(detail => [detail.candidateKey, detail]));
+  const gapStatus = policy.inputGapStatus || 'mechanical_model_gap';
+  const candidates = new Map((coverageReport.details || []).filter(detail => detail.status === gapStatus).map(detail => [detail.candidateKey, detail]));
   const responses = new Map((searchResponses || []).map(response => [response.queryKey, response]));
   const revisions = revisionMap(revisionPages);
   const searchTitles = new Map();
@@ -199,7 +272,7 @@ function constructRecords({ coverageReport = {}, sourceSufficiencyReport = {}, s
       const pageIds = unique(queryKeys.flatMap(queryKey => searchQueries.find(query => query.queryKey === queryKey)?.resultPageIds || []));
       const domainEntries = entries.filter(entry => pageIds.includes(entry.pageId));
       const kinds = unique(domainQueries.map(query => query.diagnosticKind));
-      const potentialEvidenceSignals = kinds.flatMap(kind => diagnosticSignals(kind, domainEntries));
+      const potentialEvidenceSignals = kinds.flatMap(kind => diagnosticSignals(kind, domainEntries, policy.targetBaseAgility, candidatePolicy));
       return {
         blocker,
         queryKeys,
@@ -241,12 +314,12 @@ function constructRecords({ coverageReport = {}, sourceSufficiencyReport = {}, s
   });
 }
 
-export function buildAgilityMechanicalGapWikiDiscovery(inputs) {
+export function buildAgilityGapWikiDiscovery(inputs) {
   const records = constructRecords(inputs);
-  return { records, audit: auditAgilityMechanicalGapWikiDiscovery(records, inputs) };
+  return { records, audit: auditAgilityGapWikiDiscovery(records, inputs) };
 }
 
-export function auditAgilityMechanicalGapWikiDiscovery(records = [], { coverageReport = {}, sourceSufficiencyReport = {}, searchResponses = [], revisionPages = [], policy = {}, contentHash = value => value } = {}) {
+export function auditAgilityGapWikiDiscovery(records = [], { coverageReport = {}, sourceSufficiencyReport = {}, searchResponses = [], revisionPages = [], policy = {}, contentHash = value => value } = {}) {
   const invalidPolicyRules = policyErrors(policy);
   const coverageContractValid = coverageReport.contract === policy.coverageAuditContract;
   const coverageContentHashValid = inputHashValid(coverageReport, contentHash);
@@ -257,7 +330,9 @@ export function auditAgilityMechanicalGapWikiDiscovery(records = [], { coverageR
     && Number(sourceSufficiencyReport.evidenceDomainCoverage?.resolutionSignalCount) === 0
     && Number(sourceSufficiencyReport.blockerPreservation?.blockersClosed) === 0
     && Number(sourceSufficiencyReport.blockerPreservation?.semanticFactsCreated) === 0;
-  const inputCandidates = (coverageReport.details || []).filter(detail => detail.status === 'mechanical_model_gap');
+  const gapStatus = policy.inputGapStatus || 'mechanical_model_gap';
+  const gapKey = policy.inputGapKey || 'mechanical_gap';
+  const inputCandidates = (coverageReport.details || []).filter(detail => detail.status === gapStatus);
   const inputKeys = sorted(inputCandidates.map(candidate => candidate.candidateKey));
   const policyKeys = sorted((policy.candidates || []).map(candidate => candidate.candidateKey));
   const outputKeys = records.map(record => record.candidateKey);
@@ -312,8 +387,8 @@ export function auditAgilityMechanicalGapWikiDiscovery(records = [], { coverageR
   if (!sourceContentHashValid) blockers.push('source_sufficiency_audit_content_hash_invalid');
   if (!sourceBoundToCoverage) blockers.push('source_sufficiency_audit_not_bound_to_coverage_input');
   if (!sourceDispositionValid) blockers.push('source_sufficiency_input_not_stably_unresolved');
-  if (!candidateSetMatches) blockers.push('mechanical_gap_candidate_set_mismatch');
-  if (!blockerSetsMatch) blockers.push('mechanical_gap_blocker_set_mismatch');
+  if (!candidateSetMatches) blockers.push(`${gapKey}_candidate_set_mismatch`);
+  if (!blockerSetsMatch) blockers.push(`${gapKey}_blocker_set_mismatch`);
   if (!querySetMatches) blockers.push('declared_query_set_mismatch');
   if (!queryDefinitionsMatch) blockers.push('one_or_more_query_definitions_mismatch');
   if (!queriesCompleteWithinBound) blockers.push('one_or_more_queries_incomplete_or_exceeded_bound');
@@ -329,7 +404,15 @@ export function auditAgilityMechanicalGapWikiDiscovery(records = [], { coverageR
     contract: policy.auditContract,
     inputCoverageAudit: { contract: coverageReport.contract || null, contentHash: coverageReport.contentHash || null, contractValid: coverageContractValid, contentHashValid: coverageContentHashValid },
     inputSourceSufficiencyAudit: { contract: sourceSufficiencyReport.contract || null, contentHash: sourceSufficiencyReport.contentHash || null, contractValid: sourceContractValid, contentHashValid: sourceContentHashValid, boundToCoverage: sourceBoundToCoverage, stablyUnresolved: sourceDispositionValid },
-    candidateCoverage: { inputMechanicalGapCount: inputCandidates.length, policyCandidateCount: policyKeys.length, outputRecordCount: records.length, candidateSetMatches, blockerSetsMatch },
+    candidateCoverage: {
+      inputGapStatus: gapStatus,
+      inputGapCount: inputCandidates.length,
+      ...(gapStatus === 'mechanical_model_gap' ? { inputMechanicalGapCount: inputCandidates.length } : { inputTargetConditionGapCount: inputCandidates.length }),
+      policyCandidateCount: policyKeys.length,
+      outputRecordCount: records.length,
+      candidateSetMatches,
+      blockerSetsMatch
+    },
     queryCoverage: { declaredQueryCount: policyQueryKeys.length, responseCount: searchResponses.length, querySetMatches, queryDefinitionsMatch, queriesCompleteWithinBound, totalSearchResultOccurrences: (searchResponses || []).reduce((sum, response) => sum + (response.pages || []).length, 0) },
     revisionCoverage: { distinctSearchResultPageCount: expectedPageIds.length, revisionPageCount: revisionPageIds.length, revisionSetMatches, allResultRevisionsResolved },
     evidenceDomainCoverage: { blockerCount: evidenceDomains.length, potentialEvidenceSignalCount, manualReauditCandidateCount: records.filter(record => record.manualReauditRequired).length, unresolvedDomainCount: evidenceDomains.filter(domain => domain.disposition === 'unresolved_not_found_by_declared_bounded_queries').length },
@@ -346,3 +429,6 @@ export function auditAgilityMechanicalGapWikiDiscovery(records = [], { coverageR
     blockers
   };
 }
+
+export const buildAgilityMechanicalGapWikiDiscovery = buildAgilityGapWikiDiscovery;
+export const auditAgilityMechanicalGapWikiDiscovery = auditAgilityGapWikiDiscovery;
