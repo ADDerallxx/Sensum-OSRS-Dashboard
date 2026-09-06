@@ -205,10 +205,11 @@
         "cross_skill_rendered_page_without_unlock_evidence_target_source_signature_ordinals_4501_4725",
         "cross_skill_rendered_page_without_unlock_evidence_target_source_signature_population_consolidation_and_revalidation",
         "cross_skill_rendered_page_without_unlock_evidence_source_scoped_semantic_relevance_work_queue_export",
-        "cross_skill_rendered_page_without_unlock_evidence_source_scoped_semantic_relevance_review_decision_import_contract"
+        "cross_skill_rendered_page_without_unlock_evidence_source_scoped_semantic_relevance_review_decision_import_contract",
+        "cross_skill_rendered_page_without_unlock_evidence_source_scoped_semantic_relevance_human_review_packet_materialization"
       ],
       "remainingWork": [
-        "Use the 1,909-entry revision-aligned semantic-review queue to establish canonical game-entity and activity identities from retained source signatures and contexts, then prove repeatability, membership, requirements, variants, XP, timing, mechanics, and authoritative exclusions. Begin with the 29 explicit activity-page candidates, but do not treat activity/minigame page type as repeatability proof; distinguish reference collections and composites from actual trainable method variants. Reconcile 68 queued untyped pages; the exact 4,725-entry source-bound no-unlock-evidence work queue partitioned into 2,088 direct-source-only, 388 mixed direct/rendered, and 2,249 rendered-only obligations; 1,565 unlock pages without rendered-guide evidence; three unresolved-title review templates and two category-title review templates now guarded by separate fail-closed human decision importers; the wider unlock set's 137 untyped pages and 31 activity pages; and 51 ambiguous statement forms. Exact target-source signatures for all 4,725 queue entries are durably consolidated and revalidated, and a deterministic source-bound semantic-relevance queue now preserves their 21,051 guide observations plus source structure in 4,725 review entries and 4,725 blank decision templates. A fail-closed importer now validates explicit evidence-bound human decisions and safely rejects the untouched 4,725-row blank template without output; human-readable evidence-keyed review packets and all 4,725 actual semantic decisions remain pending. All 4,725 unlock-corpus-absence dispositions and 2,637 historical-attribution obligations also remain pending. All five unresolved-title decisions remain pending explicit human review and no resolution has been applied. Historical template-expansion provenance remains open because dependency revision IDs and the generative origins of 16,284 rendered-only observations are unavailable. Continue independent discovery until every repeatable training activity in every skill is enumerated. The central guide index's composite Combat row and four Defence link disagreements remain explicit. Rockslide pairing still requires complete activity and travel graphs.",
+        "Use the 1,909-entry revision-aligned semantic-review queue to establish canonical game-entity and activity identities from retained source signatures and contexts, then prove repeatability, membership, requirements, variants, XP, timing, mechanics, and authoritative exclusions. Begin with the 29 explicit activity-page candidates, but do not treat activity/minigame page type as repeatability proof; distinguish reference collections and composites from actual trainable method variants. Reconcile 68 queued untyped pages; the exact 4,725-entry source-bound no-unlock-evidence work queue partitioned into 2,088 direct-source-only, 388 mixed direct/rendered, and 2,249 rendered-only obligations; 1,565 unlock pages without rendered-guide evidence; three unresolved-title review templates and two category-title review templates now guarded by separate fail-closed human decision importers; the wider unlock set's 137 untyped pages and 31 activity pages; and 51 ambiguous statement forms. Exact target-source signatures for all 4,725 queue entries are durably consolidated and revalidated, and a deterministic source-bound semantic-relevance queue now preserves their 21,051 guide observations plus source structure in 4,725 review entries and 4,725 blank decision templates. A fail-closed importer validates explicit evidence-bound human decisions and safely rejects the untouched 4,725-row blank template without output. Human-readable evidence-keyed packets now cover all 4,725 entries in 95 bounded batches, but all 4,725 actual semantic decisions remain pending. All 4,725 unlock-corpus-absence dispositions and 2,637 historical-attribution obligations also remain pending. All five unresolved-title decisions remain pending explicit human review and no resolution has been applied. Historical template-expansion provenance remains open because dependency revision IDs and the generative origins of 16,284 rendered-only observations are unavailable. Continue independent discovery until every repeatable training activity in every skill is enumerated. The central guide index's composite Combat row and four Defence link disagreements remain explicit. Rockslide pairing still requires complete activity and travel graphs.",
         "Add or repair 9 target-level condition models. Al Kharid now has independently revision-pinned Tightrope 1 and zip-line facts, but both level-34 success probabilities, failed-attempt XP, and recovery routing/time remain unpublished; its guide rate remains scoped to levels 20–30. Penguin access is resolved to completed Cold War or the explicit in-progress course milestone, but its level-34 failure probability and applicable observed-rate scope remain unpublished. Shayzien Basic now retains its seven-obstacle route and proves that its three Tightrope occurrences cannot fail, but the failure-capable identity among Ladder, Monkeybars, Bar, and Gap, aggregate level-34 probability, failed-attempt XP, recovery route/time, and current expected rate remain unpublished; the overview's 8,750 rate is still the superseded value. Detached Brimhaven still lacks a published equipment state for its 36,000 XP/hour observation. Both detached and repeated floor-spike paths still lack obstacle-specific low/high interpolation parameters at level 34. The four passive Brimhaven policies have exact level-40/80 benchmarks but no expected level-34 rate; repeated floor spikes also lacks an expected level-34 rate, and 30,000 XP/hour is only an upper bound.",
         "Resolve the peak-only Werewolf Skullball optimal-route blocker only when official evidence publishes a typical completion-time range. The three approximate route ranges are ready for manual review and use strict non-overlapping bound comparisons: run strictly dominates scramble, but run/walk and walk/scramble remain incomparable; all interval candidates remain excluded from scalar ranking.",
         "Resolve the Barbarian Fishing AFK attempt-cycle only if official evidence publishes timing that includes the table's fish-dropping behavior. Six AFK observations now retain exact Fishing-level, equipment, handling-time, and drop-speed scope with an explicit unpublished-cycle blocker; three-tick variants remain separate and reviewable.",
@@ -222,9 +223,9 @@
         "independentGameUniverseDiscoveryPending": true
       },
       "latestCheckpoint": {
-        "id": "cross_skill_rendered_page_without_unlock_evidence_source_scoped_semantic_relevance_review_decision_import_contract",
-        "result": "dedicated_generic_fail_closed_policy_decision_contract_audit_contract_library_and_cli_require_exact_queue_policy_snapshot_record_source_template_and_evidence_bindings; partial_human_batches_allowed_but_any_partial_stale_unknown_duplicate_uncited_or_automatic_looking_row_rejects_atomically; every_decision_requires_complete_evidence_fingerprint_and_pinned_source; relevant_or_ambiguous_requires_at_least_one_exact_guide_observation_while_not_relevant_to_any_requires_every_retained_observation; decision_recording_cannot_apply_semantic_disposition_or_identity_repeatability_mechanics_optimizer_state; real_4725_row_blank_template_rejected_exit_2_with_4725_complete_queue_records_0_completed_4725_blank_0_invalid_0_recorded_and_0_output_snapshots_before_or_after; 299_of_299_tests_passed",
-        "next": "cross_skill_rendered_page_without_unlock_evidence_source_scoped_semantic_relevance_human_review_packet_materialization"
+        "id": "cross_skill_rendered_page_without_unlock_evidence_source_scoped_semantic_relevance_human_review_packet_materialization",
+        "result": "dedicated_generic_policy_packet_and_audit_contracts_transform_cli_and_tests_revalidate_the_complete_queue_and_guarded_importer_bindings; 4725_packets_preserve_21051_guide_observations_30867_root_templates_2130_categories_7693_lead_paragraphs_and_18475_headings_with_exact_revision_links_stable_evidence_keys_and_importer_compatible_blank_decisions; 95_contiguous_nonoverlapping_batches_comprise_94_batches_of_50_and_one_of_25; two_post_hardening_real_runs_produced_identical_packet_snapshot_batch_index_artifact_manifest_and_all_190_batch_artifacts_with_193_deterministic_payload_files_and_0_mismatches; no_decision_semantic_identity_repeatability_mechanics_optimizer_or_account_state_created; 306_of_306_tests_passed",
+        "next": "cross_skill_rendered_page_without_unlock_evidence_unlock_corpus_absence_reconciliation_work_queue_export"
       },
       "latestCoverageDelta": {
         "officialSkillDomainsMeasured": 24,
@@ -900,7 +901,11 @@
         "reconciliationComplete": false,
         "completeActivityUniverse": false,
         "deterministicAcrossTwoRealRuns": true,
-        "regressionTestsPassed": 291,
+        "humanReviewPacketCount": 4725,
+        "humanReviewBatchCount": 95,
+        "humanReviewDeterministicPayloadFileCount": 193,
+        "humanReviewDeterministicMismatchCount": 0,
+        "regressionTestsPassed": 306,
         "absoluteBestGate": "blocked_incomplete_activity_universe",
         "publishable": true
       },
@@ -936,6 +941,47 @@
         "completeActivityUniverse": false,
         "regressionTestsPassed": 299,
         "absoluteBestGate": "blocked_incomplete_activity_universe"
+      },
+      "latestCrossSkillRenderedPageWithoutUnlockEvidenceSourceScopedSemanticRelevanceHumanReviewPacketMaterializationAudit": {
+        "generatedAt": "2026-09-06T01:09:50.880Z",
+        "policy": "sensum.cross-skill-rendered-page-without-unlock-evidence-source-scoped-semantic-relevance-human-review-packet-materialization-policy.v1",
+        "policyContentHash": "937f22f406c1b2e9e2f04ef1fc76f7006088cd41e381d0208cb2885031188d54",
+        "inputQueuePolicyContentHash": "d514eb3b1ca79ed31b382b82bb702f8a6227e2e9689f271d00778d25b5cc6fb3",
+        "inputDecisionImportPolicyContentHash": "ef4e270703d83643bf9fbcf31bc14fa7988fff13522a6b1af841324bd9eb7f82",
+        "inputQueueSnapshotDirectory": "2026-09-06T00-39-51-442Z",
+        "inputQueueSnapshotContentHash": "5416788c466937b25645d1ecce3b4778ba1c4dec2fa45bbcff98924dce0bb66a",
+        "firstOutputSnapshotDirectory": "2026-09-06T01-09-36-044Z",
+        "secondOutputSnapshotDirectory": "2026-09-06T01-09-50-444Z",
+        "outputSnapshotContentHash": "f038d3bd79544d308d2c5b6a2e06c23a1562925334d73caf25668e69e276187c",
+        "reportContentHash": "ac732bcebf0d2da8ffd844cf7408894f30b4b3ee177e414311060c697d6c1a2b",
+        "batchIndexContentHash": "a7d8ae811ea5517ec84b2c87d24cca951f8eb2b3a80a7f7853852b62623dd26e",
+        "artifactManifestContentHash": "666f67121b098f44330ffc6d22f8e449cac9c1c639a10dd22efd809dc928b697",
+        "aggregateBatchArtifactContentHash": "ee022c80dd0cd6ff8bb7a30dbea34f999b332376a355ea62ab514d33f2dafd26",
+        "packetCount": 4725,
+        "batchSize": 50,
+        "batchCount": 95,
+        "guideObservationCount": 21051,
+        "distinctSourceRevisionCount": 4725,
+        "distinctGuideRevisionCount": 81,
+        "rootTemplateCount": 30867,
+        "directCategoryCount": 2130,
+        "leadParagraphCount": 7693,
+        "headingCount": 18475,
+        "deterministicPayloadFileCount": 193,
+        "deterministicMismatchCount": 0,
+        "packetMaterializationComplete": true,
+        "semanticRelevanceReviewComplete": false,
+        "reconciliationComplete": false,
+        "completeActivityUniverse": false,
+        "semanticDispositionAppliedCount": 0,
+        "canonicalIdentityPromotionCount": 0,
+        "repeatabilityPromotionCount": 0,
+        "mechanicsPromotionCount": 0,
+        "optimizerPromotionCount": 0,
+        "accountStateFindingCount": 0,
+        "regressionTestsPassed": 306,
+        "absoluteBestGate": "blocked_incomplete_activity_universe",
+        "publishable": true
       },
       "latestCrossSkillRenderedPageWithoutUnlockEvidenceReconciliationWorkQueueExportAudit": {
         "generatedAt": "2026-09-05T22:47:00.643Z",

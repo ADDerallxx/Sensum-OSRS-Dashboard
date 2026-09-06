@@ -43,6 +43,25 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+The complete 4,725-entry source-scoped semantic-relevance queue now has
+deterministic, human-readable review packets. A dedicated generic policy,
+packet and audit contracts, transform, CLI, and tests revalidate the queue
+manifest plus every policy, snapshot, outer record, intrinsic record, source,
+template, and evidence binding through the guarded decision-import path. Each
+packet provides exact-revision source and guide links, stable keys for all
+21,051 guide observations and all retained structural evidence, explicit
+decision-specific citation requirements, and an importer-compatible blank
+decision row. The packets are divided into 95 contiguous, non-overlapping
+batches: 94 contain 50 records and the final batch contains 25. Each batch has
+a readable Markdown file and a matching blank NDJSON decision file. Two
+independent real materializations produced the same packet snapshot, batch
+index, artifact manifest, and all 190 per-batch artifact hashes; all 193
+deterministic payload files matched exactly. No decision, semantic disposition,
+identity, repeatability classification, mechanics verdict, optimizer state, or
+account data was created. All 306 regression tests pass. The next checkpoint
+should export the independently reviewable level-unlock-corpus absence
+reconciliation work queue; all 4,725 semantic decisions remain pending.
+
 The 4,725-entry source-scoped semantic-relevance queue now has a fail-closed
 human decision importer. Its policy, decision record, audit contract, transform,
 CLI, and tests require exact queue-policy, snapshot, record, source, template,

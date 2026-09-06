@@ -1,0 +1,16 @@
+{
+  "contract": "sensum.cross-skill-rendered-page-without-unlock-evidence-source-scoped-semantic-relevance-human-review-packet-materialization-audit.v1",
+  "required": [
+    "policyCoverage", "inputCoverage", "packetCoverage", "evidenceCoverage", "batchCoverage",
+    "artifactCoverage", "semanticPreservationCoverage", "accountStateFindings",
+    "packetMaterializationComplete", "semanticRelevanceReviewComplete", "reconciliationComplete",
+    "completeActivityUniverse", "absoluteBestGate", "blockers", "publishable"
+  ],
+  "rules": {
+    "inputQueueAndTemplatesMustPassTheGuardedImporterValidationPath": true,
+    "packetAndArtifactSetsMustExactlyMatchDeterministicReconstruction": true,
+    "batchPartitionMustCoverEveryQueueOrdinalExactlyOnce": true,
+    "allHumanReviewAndSemanticPromotionFieldsMustRemainClosed": true,
+    "accountStateMustFailPublication": true
+  }
+}

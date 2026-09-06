@@ -715,3 +715,21 @@ Run with an explicitly selected reviewed template:
 ```text
 node platform/transforms/import-cross-skill-rendered-page-without-unlock-evidence-source-scoped-semantic-relevance-review-decisions.mjs --decisions=<reviewed-decision-template.ndjson>
 ```
+
+`materialize-cross-skill-rendered-page-without-unlock-evidence-source-scoped-semantic-relevance-human-review-packets.mjs`
+turns the complete guarded semantic-relevance queue into deterministic,
+human-readable review packets. Each packet binds the queue snapshot, outer and
+intrinsic queue hashes, pinned source revision, complete evidence fingerprint,
+every retained guide observation, and every retained structural source item.
+Exact-revision links and stable evidence keys are included for every source and
+guide observation. The queue is partitioned into contiguous, non-overlapping
+batches of at most 50 packets, and each batch includes a readable Markdown file
+plus a blank decision file that exactly matches the guarded importer. Packet
+generation cannot record a decision or establish semantic relevance, identity,
+repeatability, mechanics, or optimizer eligibility.
+
+Run:
+
+```text
+node platform/transforms/materialize-cross-skill-rendered-page-without-unlock-evidence-source-scoped-semantic-relevance-human-review-packets.mjs
+```
