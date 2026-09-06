@@ -3558,3 +3558,25 @@ tests pass. The next checkpoint should build a revision-pinned timeline for the
 specific termite and bone-shard reward claims so their first appearance,
 subsequent edits, and current status can be reconciled without arithmetic or
 authority inference.
+
+The Colossal Wyrm reward claims now have that revision-pinned timeline. The
+collector fetched the complete parent-linked history from each pinned revision
+to page creation: 212 course-article revisions ending at 15331454, 43 Talk-page
+revisions ending at 15303841, and three official-update revisions ending at
+15303824. Seventeen claims are tracked independently across 3,226 claim-to-
+revision bindings, 52 chronological state segments, and 35 transitions. The
+history shows, for example, the Advanced ideal lap time changing from 59 to
+82.8 seconds across 11 transitions, the less-intense lap estimate changing
+from 50 to 35, and the current scoop ranges changing from their first observed
+8–10/12–15/22–28 forms to 11–14/17–20/22–38. Repeated official-Wiki runs reproduced
+the same 17-record snapshot hash
+`f9a48704c2a31fa07da288644cf538c131605fc2385f6580611dd7d6ccb88053`.
+A numeric-zero serialization regression discovered during the real run is now
+guarded so page-creation parent IDs cannot be mistaken for missing history.
+Every current claim is present, but chronology is not mechanical authority:
+all six reward-rate blockers remain open, and the checkpoint creates no facts,
+arithmetic reconciliation, optimizer eligibility, verified-best claim, or
+account state. All 577 regression tests pass. The next checkpoint should
+synthesize the exact temporal relationships among the conflicting claims and
+the official relative-change notice without treating sequence as proof of a
+mechanic.

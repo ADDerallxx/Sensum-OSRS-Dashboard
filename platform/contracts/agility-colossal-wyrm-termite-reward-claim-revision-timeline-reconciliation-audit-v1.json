@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "sensum.agility-colossal-wyrm-termite-reward-claim-revision-timeline-reconciliation-audit.v1",
+  "title": "Agility Colossal Wyrm termite reward claim revision timeline reconciliation audit",
+  "type": "object",
+  "required": [
+    "contract", "policyValidation", "inputLineage", "sourceHistoryIntegrity",
+    "claimCoverage", "timelineCoverage", "authorityBoundary",
+    "recordsMatchExpected", "recordHashesValid", "timelineReconciliationComplete",
+    "mechanicalCompletenessProven", "completeWikiUniverse", "absoluteBestGate",
+    "publishable", "blockers"
+  ],
+  "additionalProperties": true
+}
