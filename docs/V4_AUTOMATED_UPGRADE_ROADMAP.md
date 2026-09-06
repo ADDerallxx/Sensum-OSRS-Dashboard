@@ -4148,3 +4148,53 @@ is the two-record
 `activity-reference-collection-member-independent-repeatability-signal-scope-evidence`
 domain, whose observed signal scope must remain review evidence rather than an
 inferred repeatability verdict.
+
+The independent repeatability signal-scope evidence domain is now the twelfth
+registered PostgreSQL evidence adapter. It revalidates the exact manifest,
+audit, embedded audit, policy binding, input/output snapshot hashes, two raw
+records, 47 retained signal packets, and 45 exact-line main-namespace link
+occurrences before any database write. It also reconciles every request context
+to its signal and locator, every resolution to one of 22 attempted titles, all
+22 revision-pinned target pages, seven redirect resolutions, and each signal
+source against its retained upstream page and source-located signal. The full
+material source graph contains 41 exact Wiki revisions: the two record anchors,
+all signal-source revisions, and all resolved target revisions, deduplicated by
+canonical URL plus revision.
+
+All 47 signals remain observations. Twenty have exact-line main-namespace links
+and 27 explicitly have none; neither condition establishes canonical activity
+scope or repeatability. The two lossless records and two compact statements
+remain review-state candidates with null scope and repeatability verdicts, no
+inferred skill, no member/mechanics completion, no optimizer eligibility, and
+no complete-universe claim. The source snapshot and audit remain pinned to
+hashes
+`6ef42ca949328e73ba97c21487c13837b78e261debae08b2e176a5aac1a17f29`
+and `eabb2abf2a0d2c40f04f06d181a6d6429a5ee47cf3551253382e921ec6560379`.
+
+A validated pre-change backup was created at
+`.platform-local/backups/sensum-v4-20260906-171438.dump` (8,319,535 bytes,
+306 readable archive lines, SHA-256
+`6703bf8321cc8925e95f1e44c2134c6385dc6fbaf57685c1a5af4f232d0821bf`).
+The adapter inserted 26 new source identities and reused 15 existing revisions
+without changing acquisition timestamps. Its deliberate failure probe rolled
+back cleanly, immediate reapplication was idempotent, and two complete
+twelve-domain batches reproduced input-set hash
+`0ee7a24c1923161518d6586674de26a238d0e35054d095d64999d261b57935c5`
+with stable catalog counts.
+
+The catalog now reconciles 196 revision-pinned sources, 142 raw records, 4,886
+candidate statements, and 4,886 direct lineage rows with zero unlinked,
+verified, or optimizer-eligible statements. Evidence and lineage aggregate
+hashes are `49d2783dfcbdd52a07711eafb30f82ec` and
+`3f6c3f7ff70113959bee627b1b9cbf34`. The shared Wise Old Man revision remains
+one source identity linked to ten exact domain snapshots. Registry coverage is
+now 12/28, with four adapter-ready and 12 blocked unregistered datasets.
+
+All 222 V4 test scripts and all 664 subtests pass. This checkpoint creates no
+semantic promotion, complete-universe claim, verified-best authorization,
+production mutation, or V3 change. The next breadth-selected adapter candidate
+is the two-record
+`activity-reference-collection-member-independent-repeatability-signal-subject-predicate-evidence`
+domain, whose exact signal predicate spans and identity-anchor observations must
+remain review evidence rather than inferred subject bindings or repeatability
+verdicts.

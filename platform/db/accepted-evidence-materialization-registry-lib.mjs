@@ -95,6 +95,15 @@ import {
   validateActivityReferenceMemberSubjectStructuralContextMaterializationInput,
   verifyActivityReferenceMemberSubjectStructuralContextReconciliation
 } from './activity-reference-member-canonical-activity-subject-declaration-structural-context-evidence-materialization-lib.mjs';
+import {
+  ACTIVITY_REFERENCE_MEMBER_SIGNAL_SCOPE_FACT_KIND,
+  ACTIVITY_REFERENCE_MEMBER_SIGNAL_SCOPE_INPUT_DOMAIN,
+  buildActivityReferenceMemberSignalScopeExistingSourceCountQuery,
+  buildActivityReferenceMemberSignalScopeMaterializationSql,
+  buildActivityReferenceMemberSignalScopeReconciliationQuery,
+  validateActivityReferenceMemberSignalScopeMaterializationInput,
+  verifyActivityReferenceMemberSignalScopeReconciliation
+} from './activity-reference-member-independent-repeatability-signal-scope-evidence-materialization-lib.mjs';
 
 export const ACCEPTED_EVIDENCE_REGISTRY_CONTRACT = 'sensum.accepted-evidence-materialization-registry.v1';
 
@@ -240,6 +249,19 @@ const adapters = [
     buildExistingSourceCountQuery: buildActivityReferenceMemberSubjectStructuralContextExistingSourceCountQuery,
     buildReconciliationQuery: buildActivityReferenceMemberSubjectStructuralContextReconciliationQuery,
     verifyReconciliation: verifyActivityReferenceMemberSubjectStructuralContextReconciliation
+  },
+  {
+    domain: ACTIVITY_REFERENCE_MEMBER_SIGNAL_SCOPE_INPUT_DOMAIN,
+    dataFile: 'activity-reference-collection-member-independent-repeatability-signal-scope-evidence.ndjson',
+    auditDirectory: 'activity-reference-collection-member-independent-repeatability-signal-scope-evidence-audits',
+    auditContract: 'sensum.activity-reference-collection-member-independent-repeatability-signal-scope-evidence-audit.v1',
+    factKind: ACTIVITY_REFERENCE_MEMBER_SIGNAL_SCOPE_FACT_KIND,
+    snapshotDirectory: audit => audit?.outputSnapshot?.directory,
+    validate: validateActivityReferenceMemberSignalScopeMaterializationInput,
+    buildSql: buildActivityReferenceMemberSignalScopeMaterializationSql,
+    buildExistingSourceCountQuery: buildActivityReferenceMemberSignalScopeExistingSourceCountQuery,
+    buildReconciliationQuery: buildActivityReferenceMemberSignalScopeReconciliationQuery,
+    verifyReconciliation: verifyActivityReferenceMemberSignalScopeReconciliation
   }
 ];
 
