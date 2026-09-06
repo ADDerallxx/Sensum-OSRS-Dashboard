@@ -1,0 +1,68 @@
+{
+  "policy": "sensum.agility-target-condition-gap-source-channel-coverage-synthesis-policy.v1",
+  "recordContract": "sensum.agility-target-condition-gap-source-channel-coverage-synthesis.v1",
+  "auditContract": "sensum.agility-target-condition-gap-source-channel-coverage-synthesis-audit.v1",
+  "outputDomain": "agility-target-condition-gap-source-channel-coverage-synthesis",
+  "basePolicy": "sensum.agility-target-condition-gap-wiki-discovery-policy.v1",
+  "basePolicyFile": "platform/policies/agility-target-condition-gap-wiki-discovery-v1.json",
+  "basePolicyContentHash": "086e0a76a201c1ba0c9084a3f9a07e6e0842781a8fd097ef5803430e6f152fa6",
+  "targetBaseAgility": 34,
+  "expectedCandidateCount": 5,
+  "expectedBlockerCount": 17,
+  "expectedQueryCountPerChannel": 27,
+  "inputChannels": [
+    {
+      "channelKey": "current_article_search",
+      "temporalClass": "current_revision_candidate_bound_search",
+      "namespaces": [0],
+      "reportContract": "sensum.agility-target-condition-gap-wiki-discovery-audit.v1",
+      "recordContract": "sensum.agility-target-condition-gap-wiki-discovery.v1",
+      "manifestDomain": "agility-target-condition-gap-wiki-discovery",
+      "policyId": "sensum.agility-target-condition-gap-wiki-discovery-policy.v1",
+      "policyContentHash": "086e0a76a201c1ba0c9084a3f9a07e6e0842781a8fd097ef5803430e6f152fa6"
+    },
+    {
+      "channelKey": "current_source_code_search",
+      "temporalClass": "current_revision_template_calculator_module_search",
+      "namespaces": [10, 116, 828],
+      "reportContract": "sensum.agility-target-condition-gap-template-module-source-discovery-audit.v1",
+      "recordContract": "sensum.agility-target-condition-gap-template-module-source-discovery.v1",
+      "manifestDomain": "agility-target-condition-gap-template-module-source-discovery",
+      "policyId": "sensum.agility-target-condition-gap-template-module-source-discovery-policy.v1",
+      "policyContentHash": "a2063bffce63a70294c1c581375e560b5be84cbc73287532b6b1ddd0543c544b"
+    },
+    {
+      "channelKey": "historical_update_archive_search",
+      "temporalClass": "historical_update_archive",
+      "namespaces": [112],
+      "reportContract": "sensum.agility-target-condition-gap-update-archive-source-discovery-audit.v1",
+      "recordContract": "sensum.agility-target-condition-gap-update-archive-source-discovery.v1",
+      "manifestDomain": "agility-target-condition-gap-update-archive-source-discovery",
+      "policyId": "sensum.agility-target-condition-gap-update-archive-source-discovery-policy.v1",
+      "policyContentHash": "55a9e2ed87fb68b218fe15d09588e8203a88284ee7d913b8bd8faa83bc3a1d9c"
+    }
+  ],
+  "routes": {
+    "currentSignal": "complete_source_bound_manual_review_before_any_blocker_change",
+    "historicalSignalOnly": "reconcile_historical_signal_against_current_canonical_head_then_manual_review",
+    "noSignal": "continue_revision_monitoring_and_seek_additional_authoritative_evidence"
+  },
+  "rules": {
+    "allThreeReportsAndSnapshotsMustBeExplicitlySelected": true,
+    "baseDiscoveryPolicyHashAndScopeMustValidate": true,
+    "reportManifestRawPayloadAndRecordHashesMustValidate": true,
+    "inputPoliciesContractsAndNamespacesMustMatchExactly": true,
+    "candidateBlockerAndQueryDefinitionsMustMatchAcrossEveryChannel": true,
+    "everyBlockerMustHaveExactlyOneDomainPerChannel": true,
+    "currentAndHistoricalSignalsMustRemainDistinct": true,
+    "historicalSignalsRequireCurrentHeadReconciliation": true,
+    "allSignalsRequireManualSemanticReview": true,
+    "boundedSearchSilenceCannotProveWikiOrGameFactAbsence": true,
+    "noSignalRoutesToMonitoringAndAdditionalAuthoritativeEvidence": true,
+    "signalsCannotCloseBlockersOrCreateFacts": true,
+    "optimizerEligibilityAndVerifiedBestAreForbidden": true,
+    "accountSpecificInputsAreForbidden": true,
+    "completeWikiOrActivityUniverseClaimsAreForbidden": true,
+    "automaticVerificationAllowed": false
+  }
+}

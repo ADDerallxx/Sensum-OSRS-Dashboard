@@ -43,6 +43,31 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+All three completed target-condition discovery channels now converge through a
+single deterministic, blocker-level synthesis. It requires explicit article,
+Template/Calculator/Module, and Update-archive reports and raw snapshots;
+revalidates their report, manifest, record, namespace, and policy hashes; and
+independently binds all candidate, blocker, and query definitions to the exact
+base discovery policy. Three identically altered inputs therefore cannot pass by
+agreeing with one another.
+
+Two real materializations reproduced output hash
+`a3d6b8dbebabc118e7c6612305a79f1e19a1d0b1bbba0bbaaa6ee42b93b7628d`.
+The 17 output records each contain all three channels, covering five candidates
+and 81 bounded query executions. The current article signal at Shayzien Agility
+Course revision 15168110, line 100, routes only to its existing source-bound
+human review. The remaining 16 domains route to revision monitoring and
+additional authoritative evidence work. Historical signals remain separate and
+would require current-head reconciliation before review.
+
+All 17 blockers remain open; zero facts, rates, mechanics, optimizer promotions,
+verified-best authorizations, automatic verifications, account state, or
+complete-universe claims were created. All 190 test scripts pass, including 80
+new synthesis assertions and 1,058 tracked regression checks under the
+established checkpoint-counting convention. The next checkpoint will build a
+change-triggered source-channel monitoring registry so only affected evidence
+work is reopened when a bound revision or search result changes.
+
 The five remaining Agility target-condition candidates now have a dedicated
 historical Update-archive discovery boundary. It inherits the same five
 candidates, 17 blockers, 27 queries, and diagnostic definitions as the bounded

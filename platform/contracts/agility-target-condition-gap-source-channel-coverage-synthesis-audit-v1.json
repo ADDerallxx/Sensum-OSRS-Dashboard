@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "sensum.agility-target-condition-gap-source-channel-coverage-synthesis-audit.v1",
+  "title": "Agility target-condition gap source-channel coverage synthesis audit",
+  "type": "object",
+  "required": [
+    "contract", "inputChannelCoverage", "candidateCoverage", "queryCoverage",
+    "evidenceDomainCoverage", "routeCoverage", "blockerPreservation",
+    "invalidPolicyRules", "recordsMatchExpected", "recordHashesValid",
+    "sourceChannelSynthesisComplete", "boundedSearchAbsenceOnly",
+    "conditionOrMechanicsCoverageComplete", "completeWikiUniverse",
+    "absoluteBestGate", "publishable", "blockers"
+  ],
+  "additionalProperties": true
+}

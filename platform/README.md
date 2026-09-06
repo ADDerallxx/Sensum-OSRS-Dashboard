@@ -325,6 +325,16 @@ cannot establish current state, close a blocker, create a fact, or change
 optimizer eligibility. Query-bounded archive silence likewise proves neither
 Wiki-wide absence nor a game fact.
 
+A separate source-channel synthesis consumes explicitly selected reports and
+raw snapshots from the current article, current Template/Calculator/Module, and
+historical Update searches. It revalidates every report, manifest, raw payload,
+record hash, namespace, policy hash, candidate, blocker, and query definition
+against the exact base discovery policy. Each blocker receives one three-channel
+record. Current signals route to guarded human review, historical-only signals
+route through current-head reconciliation first, and no-signal domains route to
+revision monitoring plus additional authoritative evidence work. The synthesis
+never converts agreement or bounded silence into a fact or complete-Wiki claim.
+
 The Agility target-condition discovery review packet has its own guarded
 decision importer. The packet snapshot, generated blank template, and completed
 decision file must all be selected explicitly. The importer revalidates the
