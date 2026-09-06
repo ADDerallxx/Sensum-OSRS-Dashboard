@@ -43,6 +43,34 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+The two priority activity source-declaration conflicts now have deterministic,
+augmented human-review guidance that binds the original packets, original
+decision guidance, and the additional revision-pinned evidence without choosing
+a disposition. A generic policy, guidance-record and audit contracts, transform,
+explicit-input CLI, and tests revalidate all three manifests, raw record sets,
+outer and intrinsic hashes, policy bindings, exact cross-snapshot relationships,
+the original vocabulary and identity projections, and the original blank
+decision templates. The readable and machine guidance presents the field
+semantics, taxonomy definition, exact taxonomy heading path and table row, then
+keeps all five coherence paths per conflict unselected.
+
+Two real materializations from packet snapshot
+`2026-09-06T04-06-25-989Z`, guidance snapshot
+`2026-09-06T04-52-24-012Z`, and additional-evidence snapshot
+`2026-09-06T05-09-09-828Z` reproduced output content hash
+`0848b664b84776525ab4c66fff421b56be3db2d954aab93ef41a3bcbf6ce9bc3`
+and the same five payload files exactly. The two augmented records preserve 14
+original evidence obligations, expose 16 supplemental evidence keys, present 10
+unselected review paths, and reproduce two untouched blank decision templates.
+No decision, conflict resolution, semantic application, optimizer promotion,
+automatic verification, or account state was created. The audit also records a
+real compatibility blocker: the existing decision importer cannot bind the
+supplemental-evidence snapshot and therefore must not accept those evidence keys.
+All 168 test scripts and 420 regression checks pass. The next checkpoint should
+extend the guarded human-decision import contract to require and revalidate an
+explicit supplemental-evidence snapshot without weakening any original packet
+or evidence obligation.
+
 The two priority activity source-declaration conflicts now have additional
 revision-pinned official evidence packets. A generic policy, evidence-record
 and audit contracts, ingestion library, explicit-input Wiki collector, and

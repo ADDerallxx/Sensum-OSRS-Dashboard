@@ -1,0 +1,40 @@
+{
+  "contract": "sensum.activity-candidate-priority-source-conflict-augmented-human-review-guidance.v1",
+  "required": [
+    "contract",
+    "augmentedGuidanceKey",
+    "augmentedGuidanceOrdinal",
+    "candidateKey",
+    "reviewPacketKey",
+    "sourceBindings",
+    "sourceConflict",
+    "originalGuidance",
+    "supplementalEvidence",
+    "reviewSequence",
+    "decisionImporterCompatibility",
+    "reviewPaths",
+    "blankDecisionTemplate",
+    "explicitNonClaims",
+    "blockers",
+    "state",
+    "accountIndependent",
+    "humanDecisionSelected",
+    "decisionRecorded",
+    "conflictResolved",
+    "semanticApplicationApplied",
+    "requirementsVariantsXpTimingAndMechanicsComplete",
+    "optimizerEligible",
+    "automaticVerificationApplied",
+    "recordContentHash"
+  ],
+  "invariants": {
+    "accountIndependent": true,
+    "humanDecisionSelected": false,
+    "decisionRecorded": false,
+    "conflictResolved": false,
+    "semanticApplicationApplied": false,
+    "requirementsVariantsXpTimingAndMechanicsComplete": false,
+    "optimizerEligible": false,
+    "automaticVerificationApplied": false
+  }
+}

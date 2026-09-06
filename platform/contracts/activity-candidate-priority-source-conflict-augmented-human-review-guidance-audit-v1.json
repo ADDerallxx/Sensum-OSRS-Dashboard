@@ -1,0 +1,25 @@
+{
+  "contract": "sensum.activity-candidate-priority-source-conflict-augmented-human-review-guidance-audit.v1",
+  "required": [
+    "contract",
+    "policyCoverage",
+    "inputCoverage",
+    "guidanceCoverage",
+    "artifactCoverage",
+    "semanticPreservationCoverage",
+    "accountStateFindings",
+    "augmentedGuidanceMaterializationComplete",
+    "currentDecisionImporterSupportsSupplementalEvidence",
+    "humanReviewComplete",
+    "completeActivityUniverse",
+    "absoluteBestGate",
+    "blockers",
+    "publishable"
+  ],
+  "invariants": {
+    "currentDecisionImporterSupportsSupplementalEvidence": false,
+    "humanReviewComplete": false,
+    "completeActivityUniverse": false,
+    "absoluteBestGate": "blocked_incomplete_activity_universe"
+  }
+}

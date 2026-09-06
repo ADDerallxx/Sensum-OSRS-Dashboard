@@ -1,0 +1,40 @@
+{
+  "policy": "sensum.activity-candidate-priority-source-conflict-augmented-human-review-guidance-policy.v1",
+  "inputPacketPolicy": "sensum.activity-candidate-priority-human-review-packet-consolidation-policy.v1",
+  "inputPacketPolicyContentHash": "f0b104c3d80d00fd7b19518389971b419c86c74c4488e68591f7e802dc28df67",
+  "inputGuidancePolicy": "sensum.activity-candidate-priority-human-review-decision-guidance-policy.v1",
+  "inputGuidancePolicyContentHash": "24491fd59056e09e79da936455a4ad92d2a30e6edc745a213b629e08e2a40b35",
+  "inputAdditionalEvidencePolicy": "sensum.activity-candidate-priority-source-conflict-additional-evidence-policy.v1",
+  "inputAdditionalEvidencePolicyContentHash": "5670b1ee30375f6257059fcb0226ab6788e2704574394befb957c739799a5b39",
+  "inputDecisionImportPolicy": "sensum.activity-candidate-priority-human-review-decision-import-policy.v1",
+  "inputDecisionImportPolicyContentHash": "40277771a37dae82ca8fea06e8faa1c589032cd6a58da50d82b3665237e82972",
+  "inputPacketDomain": "activity-candidate-priority-human-review-packet",
+  "inputGuidanceDomain": "activity-candidate-priority-human-review-decision-guidance",
+  "inputAdditionalEvidenceDomain": "activity-candidate-priority-source-conflict-additional-evidence",
+  "outputDomain": "activity-candidate-priority-source-conflict-augmented-human-review-guidance",
+  "recordContract": "sensum.activity-candidate-priority-source-conflict-augmented-human-review-guidance.v1",
+  "auditContract": "sensum.activity-candidate-priority-source-conflict-augmented-human-review-guidance-audit.v1",
+  "requiredReviewSequence": [
+    "verify_packet_guidance_and_supplemental_evidence_bindings",
+    "compare_source_declarations_without_assuming_they_are_mutually_exclusive",
+    "separately_assess_field_semantics_taxonomy_membership_and_candidate_subject_boundary",
+    "record_a_human_decision_only_through_the_guarded_importer",
+    "leave_downstream_semantics_and_optimizer_state_closed_until_application_revalidates"
+  ],
+  "rules": {
+    "packetGuidanceAndAdditionalEvidenceSnapshotsMustBeExplicitlySelected": true,
+    "allThreeManifestsRawRecordsPoliciesHashesAndCrossSnapshotBindingsMustRevalidate": true,
+    "oneAugmentedGuidanceRecordPerCompleteSourceConflictEvidencePacketInPacketOrder": true,
+    "originalGuidanceVocabularyIdentityProjectionsCoherencePathsAndBlankTemplateMustRemainExact": true,
+    "supplementalEvidenceMustExposeExactRevisionLocationsHeadingPathsRowsAndEvidenceKeys": true,
+    "supplementalEvidenceKeysCannotBeInsertedIntoTheCurrentImporterDecisionShape": true,
+    "currentImporterCompatibilityGapMustRemainAnExplicitBlocker": true,
+    "reviewPathsMustRemainUnselectedAndCannotRecommendADisposition": true,
+    "markdownMachineGuidanceAndBlankDecisionArtifactsMustBeDeterministic": true,
+    "namesTitlesPageIdsRevisionsSkillsRoutesLabelsAliasesAndOverridesCannotAlterPolicyBehavior": true,
+    "humanDecisionConflictResolutionSemanticApplicationAndOptimizerPromotionAreForbidden": true,
+    "requirementsVariantsXpTimingAndMechanicsCompletionIsForbidden": true,
+    "currentAccountStateIsForbidden": true,
+    "automaticVerificationAllowed": false
+  }
+}
