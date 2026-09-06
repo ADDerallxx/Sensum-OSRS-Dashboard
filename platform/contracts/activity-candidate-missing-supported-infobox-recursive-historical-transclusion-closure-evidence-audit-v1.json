@@ -1,0 +1,28 @@
+{
+  "contract": "sensum.activity-candidate-missing-supported-infobox-recursive-historical-transclusion-closure-evidence-audit.v1",
+  "required": [
+    "contract",
+    "policyCoverage",
+    "inputCoverage",
+    "candidateCoverage",
+    "graphCoverage",
+    "wrapperCoverage",
+    "dependencyBoundaryCoverage",
+    "semanticPreservationCoverage",
+    "accountStateFindings",
+    "artifactCoverage",
+    "staticRecursiveHistoricalTransclusionClosureComplete",
+    "completeRenderedOutputAttribution",
+    "humanReviewComplete",
+    "completeActivityUniverse",
+    "absoluteBestGate",
+    "blockers",
+    "publishable"
+  ],
+  "invariants": {
+    "completeRenderedOutputAttribution": false,
+    "humanReviewComplete": false,
+    "completeActivityUniverse": false,
+    "absoluteBestGate": "blocked_incomplete_activity_universe"
+  }
+}

@@ -72,6 +72,15 @@ names remain distinct observations. This one-hop packet does not claim a full
 recursive historical expansion or infer a subject identity, activity,
 repeatability, member universe, mechanic, or optimizer eligibility.
 
+The recursive closure collector then follows only statically named dependencies
+from each transclusion-effective historical source. It preserves template and
+Lua-module nodes, redirects, wrappers, relative subpages, cycles, explicit
+historical absence, and dynamic or engine boundaries in a candidate-scoped
+graph. Static graph closure is not rendered-output attribution: parser
+functions, magic words, dynamic names, non-page Lua imports, and runtime
+preprocessing remain blockers, and graph structure cannot create semantic or
+optimizer eligibility.
+
 The rendered-guide observation audit calls the official MediaWiki parser with
 each retained guide `oldid` and separately preserves its `links`, `categories`,
 `images`, and `templates` channels. Each returned target receives a current

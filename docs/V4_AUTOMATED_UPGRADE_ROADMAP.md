@@ -43,6 +43,36 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+The two missing-supported-infobox evidence packets now have a complete static,
+revision-pinned historical transclusion graph. A generic policy, record and audit
+contracts, recursive collector, readable artifacts, and adversarial tests
+revalidate the selected one-hop snapshot before following only statically named,
+transclusion-effective template and Lua-module dependencies. `onlyinclude`,
+`includeonly`, `noinclude`, relative subpages, historical redirects, static Lua
+imports, dynamic names, parser functions, magic words, cycles, and graph-depth
+limits remain distinct evidence classes.
+
+Two corrected official-Wiki runs reproduced output content hash
+`e79640e78a852bffd748aff0590394a368b1fe9cf224231bd819de487d6559ab`.
+The two candidate-scoped graphs contain 77 historical nodes and 175 static
+page-backed edges, with all 175 assessed at the latest revision not after the
+candidate timestamp, one redirect hop, a maximum depth of seven, two cycles,
+41 wikitext nodes, and 36 Lua modules. A generic counter defect that treated
+words beginning with “require” or quoted text as Lua calls was found during
+measurement; five provisional snapshot/audit pairs were removed across the two
+generic lexer corrections before the evidence was accepted. The remaining 144
+dynamic or engine boundaries are preserved as 86 parser functions, 36 magic
+words, 13 static non-page Lua imports, seven dynamic template names, and two Lua
+preprocess calls.
+Complete rendered-output attribution, composite/container subject review, and
+all semantic/mechanics/optimizer gates remain blocked. No human decision,
+identity, repeatability, membership, mechanics completion, optimizer promotion,
+automatic verification, or account state was created. All 172 test scripts and
+452 regression checks pass. The next checkpoint should materialize a bounded,
+source-bound subject-boundary review queue for these two candidates using the
+one-hop and recursive graph evidence, without treating unresolved expansion
+boundaries or template structure as semantic proof.
+
 The two missing-supported-infobox routes now have revision-pinned root-template
 alias and one-hop expansion evidence packets. A generic policy, record and audit
 contracts, historical Wiki collector, readable artifacts, and adversarial tests

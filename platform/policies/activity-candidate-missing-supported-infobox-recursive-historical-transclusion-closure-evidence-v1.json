@@ -1,0 +1,32 @@
+{
+  "policy": "sensum.activity-candidate-missing-supported-infobox-recursive-historical-transclusion-closure-evidence-policy.v1",
+  "inputOneHopPolicy": "sensum.activity-candidate-missing-supported-infobox-template-alias-and-expansion-evidence-policy.v1",
+  "inputOneHopPolicyContentHash": "68c722f63481cf3441659724b0106ac8cb7bee85c5c92a0451b75b34d872ee67",
+  "inputOneHopDomain": "activity-candidate-missing-supported-infobox-template-alias-and-expansion-evidence",
+  "outputDomain": "activity-candidate-missing-supported-infobox-recursive-historical-transclusion-closure-evidence",
+  "recordContract": "sensum.activity-candidate-missing-supported-infobox-recursive-historical-transclusion-closure-evidence.v1",
+  "auditContract": "sensum.activity-candidate-missing-supported-infobox-recursive-historical-transclusion-closure-evidence-audit.v1",
+  "recordState": "revision_pinned_static_recursive_transclusion_closure_captured_dynamic_and_semantic_boundaries_blocked",
+  "maximumRedirectDepth": 8,
+  "maximumGraphDepth": 64,
+  "rules": {
+    "oneHopSnapshotMustBeExplicitlySelectedAndRevalidated": true,
+    "oneRecursiveClosurePacketMustPreserveEachOneHopPacketInOrder": true,
+    "allHistoricalSourcesMustUseTheLatestRevisionAtOrBeforeTheCandidateTimestamp": true,
+    "onlyTransclusionEffectiveWikitextMayCreateRecursiveTemplateEdges": true,
+    "NoincludeContentMustRemainObservableButCannotCreateTransclusionEdges": true,
+    "OnlyincludeOverridesTheOrdinaryOuterTransclusionView": true,
+    "RelativeSubpagesMustResolveAgainstTheExactHistoricalSourcePage": true,
+    "HistoricalRedirectsMustRemainExplicitEdgesAndCannotUseCurrentHeadResolution": true,
+    "StaticLuaRequireLoadDataAndExpandTemplateTargetsMustBePreservedSeparately": true,
+    "DynamicNamesParserFunctionsMagicWordsAndUnresolvedLuaCallsMustRemainExplicitBoundaries": true,
+    "EveryStaticPageBackedEdgeMustHaveAnAsOfAssessmentOrExplicitAbsence": true,
+    "CyclesMustBeRecordedAndCannotBeExpandedIndefinitely": true,
+    "DepthLimitsMissingObservationsAndTimestampMismatchesMustFailClosed": true,
+    "StaticDependencyClosureCannotClaimCompleteRenderedOutputAttribution": true,
+    "TemplateStructureCannotEstablishSubjectIdentityRepeatabilityMembershipRequirementsMechanicsOrEligibility": true,
+    "namesTitlesPageIdsRevisionsSkillsRoutesLabelsAliasesOverridesAndExceptionsCannotAlterPolicyBehavior": true,
+    "currentAccountStateIsForbidden": true,
+    "automaticVerificationAllowed": false
+  }
+}

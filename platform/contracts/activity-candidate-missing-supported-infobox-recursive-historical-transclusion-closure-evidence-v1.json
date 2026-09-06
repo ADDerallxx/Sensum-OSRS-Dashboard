@@ -1,0 +1,37 @@
+{
+  "contract": "sensum.activity-candidate-missing-supported-infobox-recursive-historical-transclusion-closure-evidence.v1",
+  "required": [
+    "contract",
+    "closurePacketKey",
+    "closurePacketOrdinal",
+    "candidateKey",
+    "sourceBindings",
+    "entryPoints",
+    "historicalDependencyGraph",
+    "coverage",
+    "explicitNonClaims",
+    "humanDecisionRecorded",
+    "canonicalGameEntityIdentity",
+    "canonicalActivityIdentity",
+    "repeatabilityClassification",
+    "membershipOrVariantApplication",
+    "requirementsVariantsXpTimingAndMechanicsComplete",
+    "optimizerEligible",
+    "automaticVerificationApplied",
+    "accountIndependent",
+    "blockers",
+    "state",
+    "recordContentHash"
+  ],
+  "invariants": {
+    "humanDecisionRecorded": false,
+    "canonicalGameEntityIdentity": null,
+    "canonicalActivityIdentity": null,
+    "repeatabilityClassification": null,
+    "membershipOrVariantApplication": false,
+    "requirementsVariantsXpTimingAndMechanicsComplete": false,
+    "optimizerEligible": false,
+    "automaticVerificationApplied": false,
+    "accountIndependent": true
+  }
+}
