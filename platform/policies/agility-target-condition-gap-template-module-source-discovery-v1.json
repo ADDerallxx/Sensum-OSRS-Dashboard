@@ -1,0 +1,33 @@
+{
+  "policy": "sensum.agility-target-condition-gap-template-module-source-discovery-policy.v1",
+  "basePolicy": "sensum.agility-target-condition-gap-wiki-discovery-policy.v1",
+  "basePolicyFile": "platform/policies/agility-target-condition-gap-wiki-discovery-v1.json",
+  "basePolicyContentHash": "086e0a76a201c1ba0c9084a3f9a07e6e0842781a8fd097ef5803430e6f152fa6",
+  "recordContract": "sensum.agility-target-condition-gap-template-module-source-discovery.v1",
+  "auditContract": "sensum.agility-target-condition-gap-template-module-source-discovery-audit.v1",
+  "outputDomain": "agility-target-condition-gap-template-module-source-discovery",
+  "searchApiOrigin": "https://oldschool.runescape.wiki/api.php",
+  "searchResultLimitPerQuery": 50,
+  "searchNamespaces": [10, 116, 828],
+  "evidenceExclusionTitlePatterns": ["(?:^|:)Sandbox(?:/|$)", "(?:^|/)User:[^/]+/"],
+  "sourceChannels": [
+    { "namespaceId": 10, "canonicalName": "Template" },
+    { "namespaceId": 116, "canonicalName": "Calculator" },
+    { "namespaceId": 828, "canonicalName": "Module" }
+  ],
+  "rules": {
+    "basePolicyCandidatesQueriesBlockersAndDiagnosticsMustBeInheritedExactly": true,
+    "basePolicyHashMustMatchExactly": true,
+    "currentWikiNamespaceRegistryMustResolveEveryDeclaredChannelExactly": true,
+    "articleNamespaceMustRemainExcluded": true,
+    "everyReturnedPageMustBelongToADeclaredNonArticleSourceChannel": true,
+    "everyReturnedPageMustResolveToItsCurrentRevisionAndExactTitle": true,
+    "sandboxAndUserWorkspacePagesCannotBecomeEvidenceSignals": true,
+    "sourceCodeSignalsOnlyRouteManualSemanticReaudit": true,
+    "sourceCodeSilenceIsNotWikiOrGameFactAbsence": true,
+    "blockersFactsRatesMechanicsAndOptimizerStateCannotChange": true,
+    "currentAccountStateIsForbidden": true,
+    "completeWikiOrActivityUniverseClaimsAreForbidden": true,
+    "automaticVerificationAllowed": false
+  }
+}

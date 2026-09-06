@@ -307,6 +307,16 @@ occurrences remain distinct, and a no-failure claim for one obstacle type cannot
 be applied to another. Coverage evaluates missing probabilities and expected
 rates at query time, allowing the same evidence to serve the full level range.
 
+Unresolved target-condition searches also cover the Wiki's current Template,
+Calculator, and Module namespaces. The collector verifies those namespace IDs
+against the live site registry, inherits the candidate, blocker, query, and
+diagnostic sets byte-for-byte from the bounded article-search policy, and pins
+every returned source page to its current revision. Sandbox and user-workspace
+pages remain visible in discovery provenance but can never become evidence
+signals. A source-code match can only request manual semantic re-audit; silence
+cannot prove Wiki or game-fact absence, and this stage cannot close blockers or
+change optimizer state.
+
 The Agility target-condition discovery review packet has its own guarded
 decision importer. The packet snapshot, generated blank template, and completed
 decision file must all be selected explicitly. The importer revalidates the

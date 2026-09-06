@@ -43,6 +43,32 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+The five remaining Agility target-condition candidates now have a second,
+non-article Wiki discovery boundary. All 27 candidate- and blocker-bound queries
+are inherited exactly from the existing article search, but execute only against
+the live-verified Template (namespace 10), Calculator (116), and Module (828)
+source channels. Every result must resolve to its current exact revision and
+title. Sandbox and user-workspace modules remain in the provenance record but
+are categorically excluded from evidence signals.
+
+Two official-Wiki runs reproduced output hash
+`3c4e1e7eb7ac9620a2c372bdf4bc54616b480eae650ac58df95cc39552441e0f`.
+They each completed all 27 searches with eight result occurrences across seven
+distinct revision-pinned pages: three templates and four modules, with no
+calculator result. Five pages were evidence-eligible and two sandbox modules
+were excluded. The production `Module:Skill calc/Agility` at revision 15317648
+contains course levels and lap XP but none of the missing failure probabilities,
+failed-attempt XP, recovery timing, equipment scope, or level-34 rates. No
+returned source met the strict condition-resolution diagnostics.
+
+All 17 evidence domains therefore remain unresolved; zero blockers, facts,
+rates, mechanics, optimizer promotions, automatic verifications, account state,
+or complete-universe claims were created. All 188 test scripts pass, including
+61 new source-channel assertions and 914 tracked regression checks under the
+established checkpoint-counting convention. The next checkpoint will search
+revision-pinned Update-archive sources while preventing historical values from
+being treated as current facts without an explicit change-state binding.
+
 The exact Shayzien target-condition review packet now has deterministic,
 evidence-bound decision guidance. It requires the explicit packet snapshot and
 revalidates its manifest, raw record hashes, packet audit, review artifact,

@@ -1,0 +1,15 @@
+{
+  "contract": "sensum.agility-target-condition-gap-template-module-source-discovery-audit.v1",
+  "required": ["policyCoverage", "sourceChannelCoverage", "inputCoverageAudit", "inputSourceSufficiencyAudit", "candidateCoverage", "queryCoverage", "revisionCoverage", "evidenceDomainCoverage", "blockerPreservation", "queryBoundedDiscoveryComplete", "sourceDiscoveryDispositionStable", "conditionOrMechanicsCoverageComplete", "completeWikiUniverse", "absoluteBestGate", "publishable", "blockers"],
+  "rules": {
+    "baseAndChannelPoliciesMustValidate": true,
+    "currentNamespaceRegistryMustMatchDeclaredChannels": true,
+    "candidateBlockerAndQuerySetsMustMatchBasePolicy": true,
+    "everyQueryMustBeCompleteWithinItsBound": true,
+    "everyReturnedPageMustHaveAnAllowedNamespaceAndCurrentRevision": true,
+    "sandboxAndUserWorkspacePagesMustBeExcludedFromSignals": true,
+    "diagnosticSignalsOnlyTriggerManualReaudit": true,
+    "existingBlockersMustRemainOpen": true,
+    "publicationNeverMeansCompleteWikiCoverage": true
+  }
+}

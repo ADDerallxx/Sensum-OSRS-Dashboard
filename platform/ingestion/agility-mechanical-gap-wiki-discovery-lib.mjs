@@ -63,7 +63,13 @@ function successChartParameterSignals(pageEntry, scope) {
   return results;
 }
 
-function diagnosticSignals(kind, pageEntries, targetBaseAgility, candidatePolicy) {
+function evidenceEligiblePageEntries(pageEntries, policy = {}) {
+  const patterns = (policy.evidenceExclusionTitlePatterns || []).map(pattern => new RegExp(pattern, 'i'));
+  return pageEntries.filter(entry => !patterns.some(pattern => pattern.test(entry.title || '')));
+}
+
+function diagnosticSignals(kind, pageEntries, targetBaseAgility, candidatePolicy, policy = {}) {
+  pageEntries = evidenceEligiblePageEntries(pageEntries, policy);
   const scope = candidatePolicy?.diagnosticSubjectScopes?.[kind] || null;
   if (kind === 'skullball_typical_cycle') {
     return pageEntries.flatMap(entry => contentSignals(entry, (line, page) => {
@@ -131,7 +137,8 @@ function diagnosticSignals(kind, pageEntries, targetBaseAgility, candidatePolicy
   return [];
 }
 
-function contextSignals(pageEntries) {
+function contextSignals(pageEntries, policy = {}) {
+  pageEntries = evidenceEligiblePageEntries(pageEntries, policy);
   const definitions = [
     ['skullball_peak_time', line => /Skullball|1:45/i.test(line) && /1:45/.test(line)],
     ['barbarian_afk_drop_scope', line => /AFK rates include the time spent dropping the fish/i.test(line)],
@@ -159,6 +166,7 @@ function policyErrors(policy = {}) {
   if (!['mechanical_model_gap', 'target_condition_gap'].includes(policy.inputGapStatus || 'mechanical_model_gap')) errors.push('inputGapStatus');
   if (policy.inputGapKey !== undefined && !/^[a-z][a-z0-9_]*$/.test(policy.inputGapKey)) errors.push('inputGapKey');
   if (policy.searchApiOrigin !== 'https://oldschool.runescape.wiki/api.php') errors.push('searchApiOrigin');
+  for (const pattern of policy.evidenceExclusionTitlePatterns || []) { try { new RegExp(pattern); } catch { errors.push('invalidEvidenceExclusionTitlePattern'); } }
   for (const rule of requiredRules) if (policy.rules?.[rule] !== true) errors.push(rule);
   if (policy.rules?.automaticVerificationAllowed !== false) errors.push('automaticVerificationAllowed');
   const candidates = new Map((policy.candidates || []).map(candidate => [candidate.candidateKey, candidate]));
@@ -272,7 +280,7 @@ function constructRecords({ coverageReport = {}, sourceSufficiencyReport = {}, s
       const pageIds = unique(queryKeys.flatMap(queryKey => searchQueries.find(query => query.queryKey === queryKey)?.resultPageIds || []));
       const domainEntries = entries.filter(entry => pageIds.includes(entry.pageId));
       const kinds = unique(domainQueries.map(query => query.diagnosticKind));
-      const potentialEvidenceSignals = kinds.flatMap(kind => diagnosticSignals(kind, domainEntries, policy.targetBaseAgility, candidatePolicy));
+      const potentialEvidenceSignals = kinds.flatMap(kind => diagnosticSignals(kind, domainEntries, policy.targetBaseAgility, candidatePolicy, policy));
       return {
         blocker,
         queryKeys,
@@ -295,7 +303,7 @@ function constructRecords({ coverageReport = {}, sourceSufficiencyReport = {}, s
       existingBlockers: sorted(candidate.blockers || []),
       searchQueries,
       discoveredPages,
-      contextSignals: contextSignals(entries),
+      contextSignals: contextSignals(entries, policy),
       evidenceDomains,
       disposition: manualReauditRequired
         ? 'blocked_pending_manual_semantic_reaudit'

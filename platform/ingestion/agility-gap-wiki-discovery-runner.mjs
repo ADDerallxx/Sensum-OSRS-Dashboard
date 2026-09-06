@@ -6,7 +6,7 @@ import { buildAgilityGapWikiDiscovery } from './agility-mechanical-gap-wiki-disc
 
 const argument = (argv, name) => argv.find(value => value.startsWith(`--${name}=`))?.slice(name.length + 3);
 
-async function search(query, policy) {
+export async function searchAgilityGapWikiQuery(query, policy) {
   const pages = [];
   let offset = null;
   let reportedTotalHits = null;
@@ -23,7 +23,7 @@ async function search(query, policy) {
     if (offset !== null) params.set('sroffset', String(offset));
     const data = await fetchJson(`${WIKI_API}?${params}`);
     if (reportedTotalHits === null) reportedTotalHits = Number(data.query?.searchinfo?.totalhits ?? 0);
-    pages.push(...(data.query?.search || []).map(result => ({ pageId: Number(result.pageid), title: result.title })));
+    pages.push(...(data.query?.search || []).map(result => ({ pageId: Number(result.pageid), title: result.title, namespaceId: Number(result.ns) })));
     if (data.continue?.sroffset !== undefined) {
       offset = Number(data.continue.sroffset);
       if (pages.length >= Number(policy.searchResultLimitPerQuery)) truncated = true;
@@ -32,7 +32,7 @@ async function search(query, policy) {
   return { queryKey: query.queryKey, searchText: query.searchText, namespaces: [...policy.searchNamespaces], maxResults: Number(policy.searchResultLimitPerQuery), reportedTotalHits, pages, paginationComplete, truncated };
 }
 
-async function fetchCurrentRevisionPages(pageIds) {
+export async function fetchCurrentRevisionPages(pageIds) {
   const pages = [];
   for (let index = 0; index < pageIds.length; index += 20) {
     const batch = pageIds.slice(index, index + 20);
@@ -61,7 +61,7 @@ export async function runAgilityGapWikiDiscovery({ argv = process.argv.slice(2),
   const policy = JSON.parse(await fs.readFile(policyFile, 'utf8'));
   const searchResponses = [];
   for (const query of policy.queries) {
-    searchResponses.push(await search(query, policy));
+    searchResponses.push(await searchAgilityGapWikiQuery(query, policy));
     await new Promise(resolve => setTimeout(resolve, 150));
   }
   const pageIds = [...new Set(searchResponses.flatMap(response => response.pages.map(page => page.pageId)))].sort((left, right) => left - right);
