@@ -116,6 +116,8 @@ function expectedBlankTemplate(queue, policy, contentHash = hash) {
   return { ...base, templateContentHash: contentHash(base) };
 }
 
+export const expectedRenderedPageWithoutUnlockSemanticRelevanceBlankDecision = expectedBlankTemplate;
+
 function allowedEvidenceKeys(queue, contentHash = hash) {
   return new Set([
     queue.evidenceFingerprint, queue.contentHash, queue.sourcePageIdentity?.sourceContentHash,

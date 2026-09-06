@@ -43,6 +43,22 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+The complete source-scoped semantic-relevance review path now has a separate
+fail-closed application boundary. A generic policy, application-record and audit
+contracts, transform, CLI, and tests require explicit queue and decision
+snapshots; revalidate both manifests, raw and content-addressed records, all
+three upstream bindings, the full retained guide-context count, source evidence
+fingerprints, reviewers, timestamps, and citations; and reproduce every decision
+through the guarded importer. Relevant and not-relevant decisions resolve only
+source-scoped relevance, while ambiguity remains an explicit additional-evidence
+blocker. Not-relevant cannot become an authoritative game-universe exclusion,
+and no decision can establish requirements, identity, repeatability, variants,
+XP, timing, mechanics, account state, or optimizer eligibility. The real 4,725-
+entry queue selected without a decision snapshot rejected with exit code 2 and
+wrote zero application snapshots. All 4,725 decisions remain pending. All 380
+regression tests pass. The next checkpoint should define the equivalent guarded
+application boundary for level-unlock-corpus absence reconciliation decisions.
+
 Historical rendered-expansion attributions now have a separate fail-closed
 application boundary. A generic policy, application-record and audit contracts,
 transform, CLI, and tests require explicit queue and decision snapshot

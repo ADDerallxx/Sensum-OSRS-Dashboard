@@ -1,0 +1,26 @@
+{
+  "contract": "sensum.cross-skill-rendered-page-without-unlock-evidence-source-scoped-semantic-relevance-application-record.v1",
+  "required": [
+    "applicationKey", "decisionKey", "workQueueEntryKey",
+    "sourceQueueSnapshotContentHash", "sourceDecisionSnapshotContentHash",
+    "sourceQueueRecordContentHash", "sourceQueueIntrinsicRecordContentHash",
+    "sourceDecisionRecordContentHash", "sourceDecisionIntrinsicRecordContentHash",
+    "applicationPolicyContentHash", "sourceSignatureKey", "queueEntryEvidenceFingerprint",
+    "sourceQueueOrdinal", "provenancePartition", "sourcePageIdentity", "reviewRoute",
+    "decision", "reviewer", "reviewedAt", "reviewNotes", "decisionEvidenceKeys",
+    "semanticDisposition", "semanticDispositionApplied", "semanticRelevanceResolved",
+    "sourceScopedSemanticRelevanceReview", "authoritativeGameUniverseExclusion",
+    "requirementOrUnlockApplied", "canonicalGameEntityIdentity", "canonicalActivityIdentity",
+    "repeatabilityClassification", "requirementsReviewComplete", "variantsReviewComplete",
+    "xpTimingReviewComplete", "mechanicsReviewComplete", "optimizerEligible",
+    "automaticVerificationApplied", "accountIndependent", "blockers", "state",
+    "recordContentHash"
+  ],
+  "rules": {
+    "recordBindsOneExactQueueEntryAndOneExactRecordedDecision": true,
+    "semanticDispositionMustExactlyMatchTheRecordedDecision": true,
+    "ambiguousDispositionRemainsUnresolved": true,
+    "notRelevantDispositionCannotBecomeAnAuthoritativeGameUniverseExclusion": true,
+    "allDownstreamIdentityMechanicsRequirementAndOptimizerGatesRemainClosed": true
+  }
+}

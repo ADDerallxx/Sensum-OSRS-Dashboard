@@ -884,3 +884,24 @@ Run:
 ```text
 node platform/transforms/materialize-cross-skill-rendered-page-without-unlock-evidence-source-scoped-semantic-relevance-human-review-packets.mjs
 ```
+
+`apply-cross-skill-rendered-page-without-unlock-evidence-source-scoped-semantic-relevance-decisions.mjs`
+is the separate semantic application boundary. It requires explicitly selected
+queue and guarded-decision snapshots and revalidates both manifests, every raw,
+outer, and intrinsic record, all upstream bindings, the complete retained guide-
+context population, every source evidence fingerprint, and every reconstructed
+human submission through the original decision importer.
+
+Relevant and not-relevant decisions resolve only source-scoped semantic
+relevance. A not-relevant outcome cannot create an authoritative game-universe
+exclusion. An ambiguous outcome is preserved as an applied human review but
+remains unresolved and requires additional evidence. Safe partial decision sets
+may be represented without completing review. This boundary cannot establish
+requirements, unlocks, canonical identity, repeatability, variants, XP, timing,
+mechanics, account state, automatic verification, or optimizer eligibility.
+
+Run only with both explicitly selected snapshots:
+
+```text
+node platform/transforms/apply-cross-skill-rendered-page-without-unlock-evidence-source-scoped-semantic-relevance-decisions.mjs --queue-snapshot=<queue-snapshot-directory> --decision-snapshot=<decision-snapshot-directory>
+```
