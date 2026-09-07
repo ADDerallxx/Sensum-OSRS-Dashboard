@@ -149,6 +149,15 @@ import {
   validateCrossSkillUntypedPageSourceMaterializationInput,
   verifyCrossSkillUntypedPageSourceReconciliation
 } from './cross-skill-untyped-page-source-evidence-materialization-lib.mjs';
+import {
+  EXACT_SCOPED_INDEPENDENT_REPEATABILITY_FACT_KIND,
+  EXACT_SCOPED_INDEPENDENT_REPEATABILITY_INPUT_DOMAIN,
+  buildExactScopedIndependentRepeatabilityExistingSourceCountQuery,
+  buildExactScopedIndependentRepeatabilityMaterializationSql,
+  buildExactScopedIndependentRepeatabilityReconciliationQuery,
+  validateExactScopedIndependentRepeatabilityMaterializationInput,
+  verifyExactScopedIndependentRepeatabilityReconciliation
+} from './exact-scoped-independent-repeatability-evidence-materialization-lib.mjs';
 
 export const ACCEPTED_EVIDENCE_REGISTRY_CONTRACT = 'sensum.accepted-evidence-materialization-registry.v1';
 
@@ -372,6 +381,19 @@ const adapters = [
     buildExistingSourceCountQuery: buildCrossSkillUntypedPageSourceExistingSourceCountQuery,
     buildReconciliationQuery: buildCrossSkillUntypedPageSourceReconciliationQuery,
     verifyReconciliation: verifyCrossSkillUntypedPageSourceReconciliation
+  },
+  {
+    domain: EXACT_SCOPED_INDEPENDENT_REPEATABILITY_INPUT_DOMAIN,
+    dataFile: 'exact-scoped-independent-repeatability-evidence.ndjson',
+    auditDirectory: 'exact-scoped-independent-repeatability-evidence-audits',
+    auditContract: 'sensum.exact-scoped-independent-repeatability-evidence-audit.v1',
+    factKind: EXACT_SCOPED_INDEPENDENT_REPEATABILITY_FACT_KIND,
+    snapshotDirectory: audit => audit?.outputSnapshot?.directory,
+    validate: validateExactScopedIndependentRepeatabilityMaterializationInput,
+    buildSql: buildExactScopedIndependentRepeatabilityMaterializationSql,
+    buildExistingSourceCountQuery: buildExactScopedIndependentRepeatabilityExistingSourceCountQuery,
+    buildReconciliationQuery: buildExactScopedIndependentRepeatabilityReconciliationQuery,
+    verifyReconciliation: verifyExactScopedIndependentRepeatabilityReconciliation
   }
 ];
 

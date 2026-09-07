@@ -74,6 +74,42 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+The accepted-evidence registry now admits the one-record revision-pinned
+`exact-scoped-independent-repeatability-evidence` corpus through an eighteenth
+fail-closed PostgreSQL adapter. Before any write, the adapter revalidates the
+exact snapshot, independent and embedded audits, policy binding, account
+independence, 126 bounded discovery candidates, six evidence-domain packets,
+the primary Wise Old Man tasks page, all 124 retained independent Wiki source
+bodies, and every retained source-line hash. All 125 exact revisions are
+first-class snapshot lineage rather than an opaque JSON attachment.
+
+The bounded search found zero exact same-line subject/predicate candidate
+signals and resolved zero evidence domains. This does not establish
+non-repeatability. Repeatability review, member expansion, mechanics, the
+complete independent-source universe, and the complete activity universe all
+remain false; the record and compact statement remain candidate-only with zero
+automatic verification, optimizer promotion, or `verified best` authorization.
+
+The initial one-source trial was removed by restoring the verified 13,470,124-
+byte pre-change backup with SHA-256
+`d5901ddce24c4117371814635651df9faf774e392d03ef98ccf862324a7ea8cb`.
+The corrected admission inserted five exact source identities and reused 120
+without changing acquisition timestamps. The catalog now reconciles 370
+revision-pinned Wiki sources, 218 raw records, 4,962 candidate statements, and
+4,962 direct lineage rows across 18 registered domains. Two complete 18-domain
+batches reproduced input-set hash
+`9f378f1e1b42b1f72d7baf4c28271b68d29037f312a9cb401e90d02cb0f25227`
+with stable counts, zero unlinked statements, and zero semantic or production
+side effects.
+
+Registry coverage is now 18 of 28 detected datasets (64.29%): five
+unregistered datasets are adapter-ready and five remain blocked by missing
+direct revision-pinned record identity. All 228 V4 test files and 691 subtests
+pass. V3 and production remain untouched. The next breadth-selected adapter is
+`independent-scoped-activity-repeatability-evidence`; its one record and direct
+source must remain candidate-only while repeatability, activity-universe, and
+optimizer gates remain closed.
+
 The accepted-evidence registry now admits the 68-record revision-pinned
 `cross-skill-untyped-page-source-evidence` corpus through a seventeenth
 fail-closed PostgreSQL adapter. Before any write, the adapter revalidates the
