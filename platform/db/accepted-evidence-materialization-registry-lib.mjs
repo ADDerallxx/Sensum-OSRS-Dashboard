@@ -140,6 +140,15 @@ import {
   validateActivityInfoboxSchemaMaterializationInput,
   verifyActivityInfoboxSchemaReconciliation
 } from './activity-infobox-schema-semantics-evidence-materialization-lib.mjs';
+import {
+  CROSS_SKILL_UNTYPED_PAGE_SOURCE_FACT_KIND,
+  CROSS_SKILL_UNTYPED_PAGE_SOURCE_INPUT_DOMAIN,
+  buildCrossSkillUntypedPageSourceExistingSourceCountQuery,
+  buildCrossSkillUntypedPageSourceMaterializationSql,
+  buildCrossSkillUntypedPageSourceReconciliationQuery,
+  validateCrossSkillUntypedPageSourceMaterializationInput,
+  verifyCrossSkillUntypedPageSourceReconciliation
+} from './cross-skill-untyped-page-source-evidence-materialization-lib.mjs';
 
 export const ACCEPTED_EVIDENCE_REGISTRY_CONTRACT = 'sensum.accepted-evidence-materialization-registry.v1';
 
@@ -350,6 +359,19 @@ const adapters = [
     buildExistingSourceCountQuery: buildActivityInfoboxSchemaExistingSourceCountQuery,
     buildReconciliationQuery: buildActivityInfoboxSchemaReconciliationQuery,
     verifyReconciliation: verifyActivityInfoboxSchemaReconciliation
+  },
+  {
+    domain: CROSS_SKILL_UNTYPED_PAGE_SOURCE_INPUT_DOMAIN,
+    dataFile: 'cross-skill-untyped-page-source-evidence.ndjson',
+    auditDirectory: 'cross-skill-untyped-page-source-evidence-audits',
+    auditContract: 'sensum.cross-skill-untyped-page-source-evidence-audit.v1',
+    factKind: CROSS_SKILL_UNTYPED_PAGE_SOURCE_FACT_KIND,
+    snapshotDirectory: audit => audit?.outputSnapshot?.directory,
+    validate: validateCrossSkillUntypedPageSourceMaterializationInput,
+    buildSql: buildCrossSkillUntypedPageSourceMaterializationSql,
+    buildExistingSourceCountQuery: buildCrossSkillUntypedPageSourceExistingSourceCountQuery,
+    buildReconciliationQuery: buildCrossSkillUntypedPageSourceReconciliationQuery,
+    verifyReconciliation: verifyCrossSkillUntypedPageSourceReconciliation
   }
 ];
 

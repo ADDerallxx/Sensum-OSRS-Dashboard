@@ -30,13 +30,20 @@ and fail-closed semantic gates before it can build transactional SQL. Use:
 
 `node platform/db/materialize-accepted-evidence.mjs --domain=<registered-domain> --root=.platform-data`
 
-The registry currently admits 16 explicitly registered evidence domains. Every
+The registry currently admits 17 explicitly registered evidence domains. Every
 domain remains candidate-only unless its own later publication gate proves
 otherwise; this command cannot verify facts, authorize optimizer use, mark a
 world snapshot complete, or touch production. Every application performs exact
 reconciliation, a second idempotency application, and an intentional rollback
 probe. Run the registry-coverage audit for the authoritative domain list and
 the next adapter-ready candidate.
+
+The seventeenth adapter retains the 68-page cross-skill untyped-source corpus
+across 17 skills. Its page source, structural signatures, lead paragraphs, and
+headings are preserved as candidate evidence with direct revision lineage. Page
+type, canonical entity or activity identity, repeatability, mechanics, complete
+universe coverage, verification, and optimizer eligibility remain explicit
+blockers; structural observations cannot silently open those gates.
 
 Legacy evidence audits that predate an explicit `accountIndependent` field are
 not trusted or rewritten. The registry coverage audit applies a separate

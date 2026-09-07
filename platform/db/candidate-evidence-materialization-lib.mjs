@@ -27,13 +27,13 @@ function metrics(model) {
   };
 }
 
-export function buildCandidateEvidenceMaterializationSql(model,{contract,factKind,label}) {
+export function buildCandidateEvidenceMaterializationSql(model,{contract,factKind,label,recordKey=record=>record.memberCandidateKey}) {
   assert(model?.contract===contract,'materialization_contract_mismatch');
   assert(model?.sources?.length&&model?.records?.length&&model?.statements?.length,'materialization_model_empty');
   assert(/^[a-z0-9_]+$/.test(String(factKind||'')),'materialization_fact_kind_invalid');
   assert(typeof label==='string'&&label.trim().length>0,'materialization_label_invalid');
   const expectedSources=model.sources.map(source=>`(${sqlText(source.providerKey)},${sqlText(source.sourceUrl)},${sqlText(source.title)},${sqlText(source.sourceRevision)},${sqlTimestamp(model.snapshotCreatedAt)},${sqlTimestamp(source.sourceTimestamp)},${sqlText(source.sourceContentHash)})`).join(',\n');
-  const expectedRecords=model.records.map(record=>`(${sqlText(record.memberCandidateKey)},${sqlJson(record)},${sqlText(record.sourceUrl)},${sqlText(String(record.sourceRevision))},${sqlText(record.contentHash)},${sqlJson(record.blockers)})`).join(',\n');
+  const expectedRecords=model.records.map(record=>`(${sqlText(recordKey(record))},${sqlJson(record)},${sqlText(record.sourceUrl)},${sqlText(String(record.sourceRevision))},${sqlText(record.contentHash)},${sqlJson(record.blockers)})`).join(',\n');
   const expectedStatements=model.statements.map(statement=>`(${sqlText(statement.recordKey)},${sqlText(statement.sourceUrl)},${sqlText(statement.sourceRevision)},${sqlTimestamp(statement.sourceTimestamp)},${sqlText(statement.contentHash)},${sqlJson(statement.sourceLocator)},${sqlJson(statement.payload)})`).join(',\n');
   const validationSummary={contract:model.contract,auditContentHash:model.auditContentHash,...model.gates};
   const materializationMetrics=metrics(model);

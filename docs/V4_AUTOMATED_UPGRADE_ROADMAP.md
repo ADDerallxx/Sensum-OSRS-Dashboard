@@ -74,6 +74,37 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+The accepted-evidence registry now admits the 68-record revision-pinned
+`cross-skill-untyped-page-source-evidence` corpus through a seventeenth
+fail-closed PostgreSQL adapter. Before any write, the adapter revalidates the
+exact snapshot, independent and embedded audits, policy binding, 68 unique
+source identities, 74 retained source-signature contexts, and every raw record.
+The corpus spans 17 skills and preserves 192 lead paragraphs, 406 headings,
+68 root-template observations, and 15 direct-category observations without
+turning page structure into entity type, activity identity, repeatability,
+mechanics, complete-universe coverage, verification, or optimizer eligibility.
+
+The isolated catalog added 66 exact source identities and reused two without
+changing acquisition timestamps. It now reconciles 365 revision-pinned Wiki
+sources, 217 raw records, 4,961 candidate statements, and 4,961 direct lineage
+rows across 17 registered domains. Zero statements are verified or optimizer
+eligible. The deliberate failure probe rolled back cleanly, reapplication was
+idempotent, and two complete 17-domain batches reproduced input-set hash
+`df0195b223b48a3ae8663318269e25cafedc7eec02fe9d8be32a296fba40c53f`
+with stable catalog counts. The readable 13,384,164-byte pre-change backup has
+SHA-256
+`8b48a12f8e34cf1489cd61f4b8dffdf64d2a04ca774a5650d97e020e26478cc3`.
+
+Registry coverage is now 17 of 28 detected datasets (60.71%): six
+unregistered datasets are adapter-ready and five remain blocked because one or
+more raw records lack a direct revision-pinned source identity. The read-only
+lineage audit reports 7,316 explicit blocker occurrences and preserves every
+statement-to-run relationship. All 227 V4 test files and 687 subtests pass. V3
+and production remain untouched. The next breadth-selected adapter is
+`exact-scoped-independent-repeatability-evidence`; its one revision-pinned
+record must remain candidate-only and cannot establish repeatability or
+optimizer eligibility.
+
 The registry coverage boundary now has a generic fail-closed account-
 independence classifier instead of requiring every historical evidence audit to
 be rewritten with a new declaration. The classifier accepts only an explicit
