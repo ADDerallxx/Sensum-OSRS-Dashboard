@@ -74,6 +74,41 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+The accepted-evidence registry now admits the revision-pinned activity-infobox
+schema-semantics corpus through a sixteenth fail-closed PostgreSQL adapter. The
+adapter revalidates the exact manifest, independent and embedded audits, policy
+binding, all seven schema observations, the three fixed schema sources, the
+primary source, its lossless raw record, and every closed semantic gate before
+any database write. The retained sources are `Template:Infobox Activity`
+revision 15325765, `Template:Infobox Activity/doc` revision 15206128,
+`Module:Infobox Activity` revision 15325766, and `Wise Old Man tasks` revision
+14997080. The record produces one candidate statement with direct lineage;
+subject binding, scope, repeatability, member expansion, mechanics,
+complete-universe coverage, automatic verification, and optimizer eligibility
+remain explicitly unresolved.
+
+The isolated catalog added three exact source identities and reused one without
+changing any acquisition timestamp. It now reconciles 299 revision-pinned Wiki
+sources, 149 raw records, 4,893 candidate statements, and 4,893 direct lineage
+rows across 16 registered domains. Zero statements are verified or optimizer
+eligible. The adapter's deliberate failure probe rolled back cleanly,
+reapplication was idempotent, and two complete 16-domain batches reproduced
+input-set hash
+`9728a852519b1eb8086db9fe578591bf9ddafde4c46975b5cab016eb523d5cec`
+with stable catalog counts. The readable 12,723,251-byte pre-change backup has
+SHA-256
+`2fde1f168ef47b5f9560bf15802f96334790a5d91195df3ba4ab186d854d497f`.
+
+Registry coverage is now 16 of 28 detected evidence datasets (57.14%). No
+unregistered dataset is adapter-ready; all 12 remaining datasets are blocked by
+the shared `audit_not_account_independent` classification. The read-only lineage
+audit reports 6,636 explicit blocker occurrences and keeps `Wise Old Man tasks`
+revision 14997080 as one source identity linked to 14 exact domain snapshots.
+All 226 V4 test files and 681 subtests pass. V3 and production remain untouched.
+The next checkpoint is a generic account-independence audit-classification
+capability that can evaluate all 12 blocked datasets without weakening their
+semantic, completeness, or optimizer gates.
+
 The accepted-evidence registry now admits the revision-pinned collection-member
 repeatability-gap corpus through a fifteenth fail-closed PostgreSQL adapter. It
 revalidates the exact manifest, audit, embedded audit, policy binding, eight

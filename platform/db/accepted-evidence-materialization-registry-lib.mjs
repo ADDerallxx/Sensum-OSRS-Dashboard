@@ -131,6 +131,15 @@ import {
   validateActivityReferenceMemberRepeatabilityGapMaterializationInput,
   verifyActivityReferenceMemberRepeatabilityGapReconciliation
 } from './activity-reference-member-repeatability-gap-evidence-materialization-lib.mjs';
+import {
+  ACTIVITY_INFOBOX_SCHEMA_FACT_KIND,
+  ACTIVITY_INFOBOX_SCHEMA_INPUT_DOMAIN,
+  buildActivityInfoboxSchemaExistingSourceCountQuery,
+  buildActivityInfoboxSchemaMaterializationSql,
+  buildActivityInfoboxSchemaReconciliationQuery,
+  validateActivityInfoboxSchemaMaterializationInput,
+  verifyActivityInfoboxSchemaReconciliation
+} from './activity-infobox-schema-semantics-evidence-materialization-lib.mjs';
 
 export const ACCEPTED_EVIDENCE_REGISTRY_CONTRACT = 'sensum.accepted-evidence-materialization-registry.v1';
 
@@ -328,6 +337,19 @@ const adapters = [
     buildExistingSourceCountQuery: buildActivityReferenceMemberRepeatabilityGapExistingSourceCountQuery,
     buildReconciliationQuery: buildActivityReferenceMemberRepeatabilityGapReconciliationQuery,
     verifyReconciliation: verifyActivityReferenceMemberRepeatabilityGapReconciliation
+  },
+  {
+    domain: ACTIVITY_INFOBOX_SCHEMA_INPUT_DOMAIN,
+    dataFile: 'activity-infobox-schema-semantics-evidence.ndjson',
+    auditDirectory: 'activity-infobox-schema-semantics-evidence-audits',
+    auditContract: 'sensum.activity-infobox-schema-semantics-evidence-audit.v1',
+    factKind: ACTIVITY_INFOBOX_SCHEMA_FACT_KIND,
+    snapshotDirectory: audit => audit?.outputSnapshot?.directory,
+    validate: validateActivityInfoboxSchemaMaterializationInput,
+    buildSql: buildActivityInfoboxSchemaMaterializationSql,
+    buildExistingSourceCountQuery: buildActivityInfoboxSchemaExistingSourceCountQuery,
+    buildReconciliationQuery: buildActivityInfoboxSchemaReconciliationQuery,
+    verifyReconciliation: verifyActivityInfoboxSchemaReconciliation
   }
 ];
 
