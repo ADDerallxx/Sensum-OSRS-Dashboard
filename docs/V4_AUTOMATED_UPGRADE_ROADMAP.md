@@ -74,6 +74,32 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+The accepted-evidence registry now admits the revision-pinned independent
+repeatability source-discovery corpus through a fourteenth fail-closed adapter.
+It revalidates both bound policies, both complete exact-source-search and
+backlink boundaries, 176 requested titles, 240 candidate requests, 252 retained
+discovery contexts, 224 candidate-page occurrences, 47 source-located signals,
+and 25,749 source-authored link occurrences. Those occurrences reconcile to 163
+unique exact Wiki page-and-revision identities. The two raw records remain
+lossless and produce only two compact candidate statements with direct lineage.
+
+The isolated catalog added 98 exact source identities and reused 65 without
+changing any acquisition timestamp. It now contains 294 revision-pinned Wiki
+sources, 146 raw records, and 4,890 candidate statements across 14 registered
+domains. Every statement has direct ingestion-run lineage; zero statements are
+verified or optimizer eligible, and every snapshot remains explicitly
+incomplete. Two full 14-domain applications reproduced the same catalog counts,
+the adapter proved intentional rollback, and the readable 11,260,041-byte
+backup has SHA-256
+`999ef2bcd10287021aef9315afdb912b75c4c6d82bc97bd1b11a1ba0ae176fc9`.
+All 224 V4 test files and 673 subtests pass. V3 and production remain untouched.
+
+Registry coverage is now 14 of 28 detected evidence datasets (50%). The next
+highest-value adapter-ready domain is
+`activity-reference-collection-member-repeatability-gap-evidence`. Its
+revision-pinned records must remain unresolved candidate evidence; admission
+cannot create a repeatability verdict or optimizer eligibility.
+
 The read-only local evidence catalog now exposes six bounded V2 views:
 `summary`, `skills`, `sources`, `blockers`, `domains`, and `lineage`. The new
 views accept only validated domain, source-key, revision, skill, and limit

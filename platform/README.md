@@ -30,11 +30,13 @@ and fail-closed semantic gates before it can build transactional SQL. Use:
 
 `node platform/db/materialize-accepted-evidence.mjs --domain=<registered-domain> --root=.platform-data`
 
-The registry currently proves `skill-level-unlock-inventory` and
-`activity-canonical-subject-scope-evidence`. Both remain candidate-only; this
-command cannot verify facts, authorize optimizer use, mark a world snapshot
-complete, or touch production. Every application performs exact reconciliation,
-a second idempotency application, and an intentional rollback probe.
+The registry currently admits 14 explicitly registered evidence domains. Every
+domain remains candidate-only unless its own later publication gate proves
+otherwise; this command cannot verify facts, authorize optimizer use, mark a
+world snapshot complete, or touch production. Every application performs exact
+reconciliation, a second idempotency application, and an intentional rollback
+probe. Run the registry-coverage audit for the authoritative domain list and
+the next adapter-ready candidate.
 
 ## Automated upgrade work
 

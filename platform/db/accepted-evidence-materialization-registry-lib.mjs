@@ -113,6 +113,15 @@ import {
   validateActivityReferenceMemberSignalSubjectPredicateMaterializationInput,
   verifyActivityReferenceMemberSignalSubjectPredicateReconciliation
 } from './activity-reference-member-independent-repeatability-signal-subject-predicate-evidence-materialization-lib.mjs';
+import {
+  ACTIVITY_REFERENCE_MEMBER_INDEPENDENT_SOURCE_FACT_KIND,
+  ACTIVITY_REFERENCE_MEMBER_INDEPENDENT_SOURCE_INPUT_DOMAIN,
+  buildActivityReferenceMemberIndependentSourceExistingSourceCountQuery,
+  buildActivityReferenceMemberIndependentSourceMaterializationSql,
+  buildActivityReferenceMemberIndependentSourceReconciliationQuery,
+  validateActivityReferenceMemberIndependentSourceMaterializationInput,
+  verifyActivityReferenceMemberIndependentSourceReconciliation
+} from './activity-reference-member-independent-repeatability-source-evidence-materialization-lib.mjs';
 
 export const ACCEPTED_EVIDENCE_REGISTRY_CONTRACT = 'sensum.accepted-evidence-materialization-registry.v1';
 
@@ -284,6 +293,19 @@ const adapters = [
     buildExistingSourceCountQuery: buildActivityReferenceMemberSignalSubjectPredicateExistingSourceCountQuery,
     buildReconciliationQuery: buildActivityReferenceMemberSignalSubjectPredicateReconciliationQuery,
     verifyReconciliation: verifyActivityReferenceMemberSignalSubjectPredicateReconciliation
+  },
+  {
+    domain: ACTIVITY_REFERENCE_MEMBER_INDEPENDENT_SOURCE_INPUT_DOMAIN,
+    dataFile: 'activity-reference-collection-member-independent-repeatability-source-evidence.ndjson',
+    auditDirectory: 'activity-reference-collection-member-independent-repeatability-source-evidence-audits',
+    auditContract: 'sensum.activity-reference-collection-member-independent-repeatability-source-evidence-audit.v1',
+    factKind: ACTIVITY_REFERENCE_MEMBER_INDEPENDENT_SOURCE_FACT_KIND,
+    snapshotDirectory: audit => audit?.outputSnapshot?.directory,
+    validate: validateActivityReferenceMemberIndependentSourceMaterializationInput,
+    buildSql: buildActivityReferenceMemberIndependentSourceMaterializationSql,
+    buildExistingSourceCountQuery: buildActivityReferenceMemberIndependentSourceExistingSourceCountQuery,
+    buildReconciliationQuery: buildActivityReferenceMemberIndependentSourceReconciliationQuery,
+    verifyReconciliation: verifyActivityReferenceMemberIndependentSourceReconciliation
   }
 ];
 
