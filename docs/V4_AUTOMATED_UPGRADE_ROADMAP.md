@@ -74,6 +74,27 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+The registry coverage boundary now has a generic fail-closed account-
+independence classifier instead of requiring every historical evidence audit to
+be rewritten with a new declaration. The classifier accepts only an explicit
+true audit declaration or an exact empty `accountStateFindings` result, and in
+both cases independently scans the complete audit, snapshot manifest, and every
+raw record for prohibited account-state paths. A false declaration, missing
+proof, malformed or non-empty findings, or any account-scoped audit, manifest,
+or record field blocks admission. The result cannot change evidence semantics,
+verify a fact, authorize optimizer eligibility, or support `verified best`.
+
+Two complete real registry audits produced the same semantic fingerprint
+`b63f59573f6b50897c3a7b6e3158b14252286656750c2a132c0d58356099a048`.
+All 12 previously classification-blocked datasets proved account-independent.
+Seven are now adapter-ready; five remain blocked because one or more raw records
+lack their own direct revision-pinned source identity. Registry coverage remains
+16 of 28 (57.14%) because classification does not itself materialize data. The
+breadth-first selector now chooses the 68-record
+`cross-skill-untyped-page-source-evidence` corpus, which has direct source
+identity across 17 skills. All 226 V4 test files and 683 subtests pass. No
+database, optimizer, V3, or production state changed.
+
 The accepted-evidence registry now admits the revision-pinned activity-infobox
 schema-semantics corpus through a sixteenth fail-closed PostgreSQL adapter. The
 adapter revalidates the exact manifest, independent and embedded audits, policy

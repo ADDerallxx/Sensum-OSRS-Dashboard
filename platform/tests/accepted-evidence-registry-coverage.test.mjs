@@ -6,6 +6,10 @@ import test from 'node:test';
 
 import {hash} from '../ingestion/lib.mjs';
 import {
+  ACCOUNT_INDEPENDENCE_CLASSIFICATION_CONTRACT,
+  classifyAcceptedEvidenceAccountIndependence
+} from '../db/account-independence-classification-lib.mjs';
+import {
   ACCEPTED_EVIDENCE_REGISTRY_COVERAGE_CONTRACT,
   auditAcceptedEvidenceRegistryCoverage,
   inspectOutputDataset
@@ -13,7 +17,7 @@ import {
 
 const without=(value,key)=>Object.fromEntries(Object.entries(value).filter(([name])=>name!==key));
 
-function writeDataset(root,domain,{accountBound=false,promoted=false,tamper=false}={}) {
+function writeDataset(root,domain,{accountBound=false,promoted=false,tamper=false,legacyAudit=false,omitFindings=false,accountFindings=[],manifestAccountBound=false,auditAccountBound=false}={}) {
   const snapshot='2026-09-06T20-00-00-000Z';
   const record={
     contract:`sensum.${domain}.v1`,accountIndependent:true,candidateKey:`${domain}:1`,skillKeys:['agility','mining'],
@@ -27,8 +31,12 @@ function writeDataset(root,domain,{accountBound=false,promoted=false,tamper=fals
   fs.mkdirSync(snapshotDir,{recursive:true});
   fs.writeFileSync(path.join(snapshotDir,`${domain}.ndjson`),raw);
   const manifest={contract:'sensum.ingestion-manifest.v1',domain,createdAt:'2026-09-06T20:00:00Z',records:1,contentHash:tamper?'f'.repeat(64):hash(raw),source:{kind:'revision_pinned_fixture'}};
+  if(manifestAccountBound) manifest.username='Example player';
   fs.writeFileSync(path.join(snapshotDir,'manifest.json'),JSON.stringify(manifest));
-  const audit={contract:`sensum.${domain}-audit.v1`,accountIndependent:true,outputSnapshot:{directory:snapshot,contentHash:manifest.contentHash},publishable:true};
+  const audit={contract:`sensum.${domain}-audit.v1`,outputSnapshot:{directory:snapshot,contentHash:manifest.contentHash},publishable:true};
+  if(!legacyAudit) audit.accountIndependent=true;
+  if(!omitFindings) audit.accountStateFindings=accountFindings;
+  if(auditAccountBound) audit.accountSnapshot={id:'fixture'};
   audit.contentHash=hash(audit);
   const auditDir=path.join(root,`${domain}-audits`,'2026-09-06T20-00-01-000Z');
   fs.mkdirSync(auditDir,{recursive:true});
@@ -46,6 +54,28 @@ test('dataset inspection proves hashes, direct source identity, and semantic saf
     assert.equal(result.skillCoverage,2);
     assert.deepEqual(result.skillKeys,['agility','mining']);
   } finally { fs.rmSync(root,{recursive:true,force:true}); }
+});
+
+test('legacy audits require empty findings and a full structural scan',async()=>{
+  const root=fs.mkdtempSync(path.join(os.tmpdir(),'sensum-registry-legacy-account-'));
+  try {
+    writeDataset(root,'legacy-evidence',{legacyAudit:true});
+    const result=await inspectOutputDataset(root,'legacy-evidence-audits');
+    assert.equal(result.status,'adapter_ready');
+    assert.equal(result.accountIndependence.contract,ACCOUNT_INDEPENDENCE_CLASSIFICATION_CONTRACT);
+    assert.equal(result.accountIndependence.proven,true);
+    assert.equal(result.accountIndependence.basis,'empty_audit_findings_plus_full_structural_scan');
+  } finally { fs.rmSync(root,{recursive:true,force:true}); }
+});
+
+test('missing proof, findings, and account-scoped audit or manifest fields fail closed',()=>{
+  const base={audit:{accountStateFindings:[]},manifest:{domain:'fixture'},records:[{candidateKey:'one'}]};
+  assert.equal(classifyAcceptedEvidenceAccountIndependence(base).proven,true);
+  assert.ok(classifyAcceptedEvidenceAccountIndependence({...base,audit:{}}).blockers.includes('audit_lacks_account_independence_evidence'));
+  assert.ok(classifyAcceptedEvidenceAccountIndependence({...base,audit:{accountIndependent:'yes',accountStateFindings:[]}}).blockers.includes('audit_account_independence_declaration_invalid'));
+  assert.ok(classifyAcceptedEvidenceAccountIndependence({...base,audit:{accountStateFindings:['current level captured']}}).blockers.includes('audit_account_state_findings_present'));
+  assert.ok(classifyAcceptedEvidenceAccountIndependence({...base,audit:{accountIndependent:true,accountStateFindings:[],accountSnapshot:{id:'one'}}}).blockers.includes('account_state_present_in_audit'));
+  assert.ok(classifyAcceptedEvidenceAccountIndependence({...base,manifest:{domain:'fixture',username:'Example player'}}).blockers.includes('account_state_present_in_manifest'));
 });
 
 test('tampered, account-bound, and promoted datasets fail closed',async()=>{
@@ -90,9 +120,13 @@ test('coverage excludes its own reports and selects the broadest safe unregister
 
 test('coverage contract retains strict admission and forbidden-promotion rules',()=>{
   const contract=JSON.parse(fs.readFileSync('platform/contracts/accepted-evidence-registry-coverage-audit-v1.json','utf8'));
+  const accountContract=JSON.parse(fs.readFileSync('platform/contracts/accepted-evidence-account-independence-classification-v1.json','utf8'));
   assert.equal(contract.datasetDefinition.auditAndEveryRecordMustBeAccountIndependent,true);
   assert.equal(contract.datasetDefinition.coverageAuditorOutputDirectoryExcluded,true);
   assert.equal(contract.datasetDefinition.automaticPromotionAllowed,false);
   assert.ok(contract.adapterAdmissionRequires.includes('direct ingestion-run lineage'));
   assert.deepEqual(contract.selectionOrder,['skillCoverage_desc','records_desc','directRevisionPinnedSources_desc','domain_asc']);
+  assert.equal(accountContract.contract,ACCOUNT_INDEPENDENCE_CLASSIFICATION_CONTRACT);
+  assert.equal(accountContract.requirements.auditManifestAndEveryRecordAreScanned,true);
+  assert.equal(accountContract.requirements.classificationCanAuthorizeOptimizerUse,false);
 });

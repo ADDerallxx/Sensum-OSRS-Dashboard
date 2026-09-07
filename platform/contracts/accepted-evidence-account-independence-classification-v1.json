@@ -1,0 +1,18 @@
+{
+  "contract": "sensum.accepted-evidence-account-independence-classification.v1",
+  "purpose": "Prove that a candidate evidence dataset is account-independent without trusting a missing or unsupported declaration.",
+  "acceptedProofPaths": [
+    "explicit accountIndependent true plus full audit, manifest, and record structural scan",
+    "empty audit accountStateFindings plus full audit, manifest, and record structural scan"
+  ],
+  "requirements": {
+    "auditAccountDependentDeclarationRejects": true,
+    "nonEmptyAuditAccountStateFindingsReject": true,
+    "missingDeclarationAndMissingFindingsReject": true,
+    "auditManifestAndEveryRecordAreScanned": true,
+    "prohibitedPathsRemainVisible": true,
+    "classificationCanPromoteSemanticState": false,
+    "classificationCanAuthorizeOptimizerUse": false,
+    "classificationCanAuthorizeVerifiedBest": false
+  }
+}

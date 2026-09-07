@@ -38,6 +38,14 @@ reconciliation, a second idempotency application, and an intentional rollback
 probe. Run the registry-coverage audit for the authoritative domain list and
 the next adapter-ready candidate.
 
+Legacy evidence audits that predate an explicit `accountIndependent` field are
+not trusted or rewritten. The registry coverage audit applies a separate
+fail-closed classifier: it requires either an explicit true declaration or an
+empty `accountStateFindings` result, then structurally scans the full audit,
+manifest, and every record for prohibited account fields. Missing proof,
+contradictions, non-empty findings, or any account-scoped path remain blockers.
+This classification cannot change semantic state or authorize optimizer use.
+
 ## Automated upgrade work
 
 The guarded unattended roadmap is documented in

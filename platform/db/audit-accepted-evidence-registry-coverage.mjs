@@ -4,20 +4,16 @@ import {fileURLToPath} from 'node:url';
 
 import {hash} from '../ingestion/lib.mjs';
 import {acceptedEvidenceDomains, getAcceptedEvidenceAdapter} from './accepted-evidence-materialization-registry-lib.mjs';
+import {
+  ACCOUNT_INDEPENDENCE_CLASSIFICATION_CONTRACT,
+  classifyAcceptedEvidenceAccountIndependence
+} from './account-independence-classification-lib.mjs';
 import {loadAcceptedInput} from './materialize-accepted-evidence.mjs';
 
 export const ACCEPTED_EVIDENCE_REGISTRY_COVERAGE_CONTRACT = 'sensum.accepted-evidence-registry-coverage-audit.v1';
 
 const argument=name=>process.argv.find(value=>value.startsWith(`--${name}=`))?.slice(name.length+3);
 const without=(value,key)=>Object.fromEntries(Object.entries(value).filter(([name])=>name!==key));
-const accountKey=name=>/^(?:currentBaseLevel|targetBaseLevel|accountLevel|accountState|accountSnapshot|ownedItems|ownedEquipment|playerName|username|preferences)$/i.test(name);
-
-function containsAccountState(value) {
-  if (Array.isArray(value)) return value.some(containsAccountState);
-  if (!value || typeof value!=='object') return false;
-  return Object.entries(value).some(([key,child])=>accountKey(key)||containsAccountState(child));
-}
-
 function containsUnsafePromotion(value) {
   if (Array.isArray(value)) return value.some(containsUnsafePromotion);
   if (!value || typeof value!=='object') return false;
@@ -41,7 +37,6 @@ export async function inspectOutputDataset(root,auditDirectoryName) {
     if (report.contract!==`sensum.${domain}-audit.v1` && !report.contract?.startsWith(`sensum.${domain}-audit.v`)) blockers.push('audit_contract_domain_mismatch');
     if (report.contentHash!==hash(without(report,'contentHash'))) blockers.push('audit_content_hash_mismatch');
     if (report.publishable!==true) blockers.push('audit_not_publishable');
-    if (report.accountIndependent!==true) blockers.push('audit_not_account_independent');
     if (!report.outputSnapshot?.directory || !report.outputSnapshot?.contentHash) blockers.push('audit_output_snapshot_missing');
     if (blockers.length) return {domain,auditDirectory:auditDirectoryName,auditFile:path.relative(process.cwd(),file),status:'blocked',blockers};
     const snapshotDir=path.join(root,report.outputSnapshot.directory);
@@ -55,7 +50,8 @@ export async function inspectOutputDataset(root,auditDirectoryName) {
     if (manifest.contentHash!==hash(raw)||report.outputSnapshot.contentHash!==manifest.contentHash) blockers.push('snapshot_content_hash_mismatch');
     if (manifest.records!==records.length) blockers.push('snapshot_record_count_mismatch');
     if (records.some(record=>record.contentHash!==hash(without(record,'contentHash')))) blockers.push('record_content_hash_mismatch');
-    if (containsAccountState(records)) blockers.push('account_state_present');
+    const accountIndependence=classifyAcceptedEvidenceAccountIndependence({audit:report,manifest,records});
+    blockers.push(...accountIndependence.blockers);
     if (containsUnsafePromotion(records)||containsUnsafePromotion(report)) blockers.push('unsafe_automatic_promotion_present');
     const directSources=records.filter(record=>Number.isInteger(Number(record.sourcePageId))&&record.sourceUrl&&record.sourceRevision&&Number.isFinite(Date.parse(record.sourceTimestamp))&&/^[a-f0-9]{64}$/.test(String(record.sourceContentHash||'')));
     if (directSources.length!==records.length) blockers.push('one_or_more_records_lack_direct_revision_pinned_source_identity');
@@ -65,9 +61,10 @@ export async function inspectOutputDataset(root,auditDirectoryName) {
       domain,auditDirectory:auditDirectoryName,auditFile:path.relative(process.cwd(),file),auditContract:report.contract,
       snapshotDirectory:report.outputSnapshot.directory,snapshotContentHash:manifest.contentHash,sourceKind:manifest.source?.kind||null,
       records:records.length,directRevisionPinnedSources:sourceIdentities.length,skillKeys,skillCoverage:skillKeys.length,
+      accountIndependence,
       integrityValid:!blockers.some(blocker=>blocker!=='one_or_more_records_lack_direct_revision_pinned_source_identity'),
       directSourceIdentityReady:directSources.length===records.length,
-      semanticGateSafe:!blockers.includes('account_state_present')&&!blockers.includes('unsafe_automatic_promotion_present'),
+      semanticGateSafe:accountIndependence.proven&&!blockers.includes('unsafe_automatic_promotion_present'),
       status:blockers.length?'blocked':'adapter_ready',blockers
     };
   } catch (error) {
@@ -108,7 +105,7 @@ export async function auditAcceptedEvidenceRegistryCoverage(options={},dependenc
   const report={
     contract:ACCEPTED_EVIDENCE_REGISTRY_COVERAGE_CONTRACT,generatedAt:new Date().toISOString(),registryDomains,registered,
     coverage:{detectedEvidenceDatasets:datasets.length,registeredEvidenceDatasets:registered.length,unregisteredEvidenceDatasets:unregistered.length,adapterReadyEvidenceDatasets:adapterReady.length,blockedEvidenceDatasets:blocked.length,registryCoverageRatio:datasets.length?registered.length/datasets.length:0},
-    datasets,selectionPolicy:{order:['skillCoverage_desc','records_desc','directRevisionPinnedSources_desc','domain_asc'],accountStateForbidden:true,automaticPromotionForbidden:true,directRevisionPinnedSourceIdentityRequired:true},
+    datasets,selectionPolicy:{order:['skillCoverage_desc','records_desc','directRevisionPinnedSources_desc','domain_asc'],accountStateForbidden:true,accountIndependenceClassificationContract:ACCOUNT_INDEPENDENCE_CLASSIFICATION_CONTRACT,automaticPromotionForbidden:true,directRevisionPinnedSourceIdentityRequired:true},
     selectedNextDomain:selected?{domain:selected.domain,records:selected.records,skillCoverage:selected.skillCoverage,skillKeys:selected.skillKeys,directRevisionPinnedSources:selected.directRevisionPinnedSources,snapshotContentHash:selected.snapshotContentHash,auditContract:selected.auditContract}:null,
     blockers:selected?[]:['no_unregistered_adapter_ready_evidence_dataset'],databaseMutations:0,optimizerPromotions:0,verifiedBestAuthorizations:0,productionMutations:0,publishable:true
   };
