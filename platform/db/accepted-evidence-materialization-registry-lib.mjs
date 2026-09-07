@@ -122,6 +122,15 @@ import {
   validateActivityReferenceMemberIndependentSourceMaterializationInput,
   verifyActivityReferenceMemberIndependentSourceReconciliation
 } from './activity-reference-member-independent-repeatability-source-evidence-materialization-lib.mjs';
+import {
+  ACTIVITY_REFERENCE_MEMBER_REPEATABILITY_GAP_FACT_KIND,
+  ACTIVITY_REFERENCE_MEMBER_REPEATABILITY_GAP_INPUT_DOMAIN,
+  buildActivityReferenceMemberRepeatabilityGapExistingSourceCountQuery,
+  buildActivityReferenceMemberRepeatabilityGapMaterializationSql,
+  buildActivityReferenceMemberRepeatabilityGapReconciliationQuery,
+  validateActivityReferenceMemberRepeatabilityGapMaterializationInput,
+  verifyActivityReferenceMemberRepeatabilityGapReconciliation
+} from './activity-reference-member-repeatability-gap-evidence-materialization-lib.mjs';
 
 export const ACCEPTED_EVIDENCE_REGISTRY_CONTRACT = 'sensum.accepted-evidence-materialization-registry.v1';
 
@@ -306,6 +315,19 @@ const adapters = [
     buildExistingSourceCountQuery: buildActivityReferenceMemberIndependentSourceExistingSourceCountQuery,
     buildReconciliationQuery: buildActivityReferenceMemberIndependentSourceReconciliationQuery,
     verifyReconciliation: verifyActivityReferenceMemberIndependentSourceReconciliation
+  },
+  {
+    domain: ACTIVITY_REFERENCE_MEMBER_REPEATABILITY_GAP_INPUT_DOMAIN,
+    dataFile: 'activity-reference-collection-member-repeatability-gap-evidence.ndjson',
+    auditDirectory: 'activity-reference-collection-member-repeatability-gap-evidence-audits',
+    auditContract: 'sensum.activity-reference-collection-member-repeatability-gap-evidence-audit.v1',
+    factKind: ACTIVITY_REFERENCE_MEMBER_REPEATABILITY_GAP_FACT_KIND,
+    snapshotDirectory: audit => audit?.outputSnapshot?.directory,
+    validate: validateActivityReferenceMemberRepeatabilityGapMaterializationInput,
+    buildSql: buildActivityReferenceMemberRepeatabilityGapMaterializationSql,
+    buildExistingSourceCountQuery: buildActivityReferenceMemberRepeatabilityGapExistingSourceCountQuery,
+    buildReconciliationQuery: buildActivityReferenceMemberRepeatabilityGapReconciliationQuery,
+    verifyReconciliation: verifyActivityReferenceMemberRepeatabilityGapReconciliation
   }
 ];
 

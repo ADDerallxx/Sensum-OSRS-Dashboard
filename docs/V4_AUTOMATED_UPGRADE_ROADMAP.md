@@ -74,6 +74,39 @@ rehearsed, and the user explicitly approves production deployment.
 
 ## Recent bounded checkpoints
 
+The accepted-evidence registry now admits the revision-pinned collection-member
+repeatability-gap corpus through a fifteenth fail-closed PostgreSQL adapter. It
+revalidates the exact manifest, audit, embedded audit, policy binding, eight
+candidate pages, 11 candidate requests, 13 retained discovery contexts, ten
+exact Wiki source identities, one source-located recurrence signal, both raw
+records, and every closed semantic gate before any database write. The records
+remain lossless and produce only two compact candidate statements with direct
+lineage. Repeatability, canonical member expansion, mechanics, complete-universe
+coverage, automatic verification, and optimizer eligibility all remain
+explicitly unresolved.
+
+The isolated catalog added two exact source identities and reused eight without
+changing any acquisition timestamp. It now reconciles 296 revision-pinned Wiki
+sources, 148 raw records, 4,892 candidate statements, and 4,892 direct lineage
+rows across 15 registered domains. Zero statements are verified or optimizer
+eligible. The adapter's deliberate failure probe rolled back cleanly, immediate
+reapplication was idempotent, and two complete 15-domain batches reproduced
+input-set hash
+`b5692f1f4d959bcb85f92e160721bd6c7afb37ed57b59f1a4c9744a45211cc09`
+with stable catalog counts. The readable 12,694,759-byte pre-change backup has
+SHA-256
+`15228f021a025440dc3804acdbe119db9b8689cb0e7e4b5431ea1d6debdb0937`.
+
+Registry coverage is now 15 of 28 detected evidence datasets (53.57%): one
+unregistered dataset is adapter-ready and 12 remain structurally blocked. The
+read-only lineage audit reports 6,598 explicit blocker occurrences and keeps
+Wise Old Man tasks revision 14997080 as one source identity linked to 13 exact
+domain snapshots. All 225 V4 test files and 677 subtests pass. V3 and production
+remain untouched. The next breadth-selected adapter is
+`activity-infobox-schema-semantics-evidence`; its single revision-pinned record
+must remain candidate-only and cannot establish activity semantics or optimizer
+eligibility.
+
 The accepted-evidence registry now admits the revision-pinned independent
 repeatability source-discovery corpus through a fourteenth fail-closed adapter.
 It revalidates both bound policies, both complete exact-source-search and

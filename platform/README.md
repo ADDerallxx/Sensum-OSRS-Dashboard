@@ -30,7 +30,7 @@ and fail-closed semantic gates before it can build transactional SQL. Use:
 
 `node platform/db/materialize-accepted-evidence.mjs --domain=<registered-domain> --root=.platform-data`
 
-The registry currently admits 14 explicitly registered evidence domains. Every
+The registry currently admits 15 explicitly registered evidence domains. Every
 domain remains candidate-only unless its own later publication gate proves
 otherwise; this command cannot verify facts, authorize optimizer use, mark a
 world snapshot complete, or touch production. Every application performs exact
